@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crope"
+version = "0.1.0"
+description = "Controlled FLUX resolution extrapolation experiments"
+requires-python = ">=3.11"
+dependencies = ["torch>=2.4", "diffusers==0.39.0", "transformers>=4.44", "accelerate", "numpy", "Pillow", "safetensors", "huggingface-hub", "sentencepiece", "protobuf"]
+
+[project.optional-dependencies]
+eval = ["pyiqa", "torchmetrics[image]", "torch-fidelity", "image-reward", "open-clip-torch", "wandb", "scipy"]
+test = ["pytest", "matplotlib"]
+
+[tool.setuptools.packages.find]
+include = ["crope*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+pythonpath = ["."]
+cache_dir = "/scratch/09032/saini_2/constancy_rope/cache/pytest"
+
+[tool.ruff]
+line-length = 110
+
