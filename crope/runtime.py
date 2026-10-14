@@ -174,6 +174,9 @@ class FluxExperiment:
         if cuda:
             torch.cuda.synchronize()
             torch.cuda.reset_peak_memory_stats()
+        # Official DyPE and SEGA pipelines pass max_seq_len = image_seq_len, i.e. mu = max_shift (1.15) at any
+        # resolution. The diffusers default extrapolates mu linearly (~11.5 at 4096^2), collapsing all sigmas to ~1.
+        self.pipe.scheduler.register_to_config(max_image_seq_len=max(4096, (h // 16) * (w // 16)))
         start = time.perf_counter()
         result = self.pipe(prompt=row["prompt"], height=h, width=w, num_inference_steps=steps,
                            guidance_scale=guidance, generator=generator, max_sequence_length=512,

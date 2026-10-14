@@ -25,6 +25,10 @@ NEXT: review the default-schedule diagnostic, finish the external crope env buil
 - Task stages require completed prerequisites because file prefixes alone cannot order a worker fleet.
 - Batch one, bf16, native scheduler shift, SDPA flash, and tiled large-image VAE decode preserve the protocol.
 
+- Main SEGA baseline = sega_official (released code, github rajabi2001/sega). Why: released code differs from paper (alloc 1 - 0.15*spread*tanh(1.5z), clipped >= 1, x_embedder features); paper-equation 'sega' kept as an ablation. The earlier review artifact's 9x-tilt claim applies to the paper equations only; tell the user.
+- All methods use mu = max_shift = 1.15 (patched in crope/runtime.py). Why: official DyPE and SEGA pipelines do this; the diffusers default gives mu~11.5 at 4096^2 and collapses sigmas.
+- Calibration prompts: prompts/calib_pickapic.jsonl (39 filtered Pick-a-Pic prompts), disjoint from the Aesthetic-4K eval set.
+
 ## Open questions
 - Default 4K shift leaves final evaluated sigma at 0.99974 and one distinct bf16 model timestep; design preserved.
 - T2 sign and image-quality benefit require real GPU sampling and remain untested.
