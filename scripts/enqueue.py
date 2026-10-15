@@ -29,7 +29,7 @@ PYTHON = Path("/work/09032/saini_2/vista/library/uv-envs/crope/bin/python")
 METHODS = ("base", "pi", "ntk", "ntk2", "yarn", "yarn_temp", "dype", "sega", "sega_static",
            "constancy", "temp_only", "constancy_nogate", "constancy_sref", "sega_official")
 DEFAULT_METHODS = tuple(method for method in METHODS if method not in ("sega_official", "yarn_temp"))
-PILOT_METHODS = ("ntk2", "yarn", "dype", "sega", "constancy")
+PILOT_METHODS = ("ntk2", "yarn", "dype", "sega_official", "sega", "temp_only", "constancy")
 STAGES = ("smoke", "calibration", "probe", "pilot", "pilot-static", "main", "eval")
 
 
