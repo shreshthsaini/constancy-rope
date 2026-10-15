@@ -3,9 +3,9 @@ Build and CPU-validate the resumable FLUX resolution-extrapolation codebase in d
 Research generations and paper claims follow separate GPU validation.
 
 ## Status and next action
-2026-10-15 02:05. CR1 ran 23:39-01:11 on 4 nodes but all 3 tasks failed at load (IncompleteSnapshotError: root repo files never downloaded); workers idled 90 min and exited. FIXED: runtime.load_pipeline now loads the local snapshot dir. CPU end-to-end check running (logs: /scratch/09032/saini_2/constancy_rope/cpucheck/run.log; calibrate native 1 prompt 2 steps + sample 512^2 2 steps for 6 methods).
-Jobs: CR3 1072630 enlarged to gh 4n 24h (pending). Account at 42 queued jobs (submit cap), so no new submissions possible.
-NEXT: if cpucheck passes, mv taskq/failed/* -> taskq/pending/ and commit. Then on node start: smoke timing, calib -> pilot -> probe go/no-go.
+2026-10-15 03:00. CPU end-to-end check PASSED with real FLUX weights (calibrate + 6 methods at 512^2, gains logged; cpucheck/). Spool: 00 smoke, 10 calib, 20 probe, 30 pilot x6 (ntk2, yarn, dype, sega_official, sega, temp_only; 8 prompts, 4096^2).
+Jobs: CR3 1072630 (gh 4n 24h), CR4 1073495 (gh 2n 12h), CR5 1073496 (gh 1n 6h), CR7 1073851 (gh 1n 2h), CR8 1073852 (gh 2n 4h), CR9 1073853 (gh-dev 1n 2h); all drain the same spool. Guest use of other sessions idle nodes was DENIED by permission classifier: do not retry without user approval.
+NEXT: after 10 calib done -> enqueue constancy pilot (scripts/enqueue.py --stage pilot; it needs calib/flux_dev_profile.npz). After pilot sega done -> pilot-static. After 20 probe -> read probe CSV: diagonal d log P_b / d log g_b > 0 is go.
 
 ## Map
 | note | read it when |
