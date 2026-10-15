@@ -19,7 +19,7 @@ def parser():
     p.add_argument("--count", type=int, default=16)
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--steps", type=int, default=28)
-    p.add_argument("--guidance", type=float, default=3.5)
+    p.add_argument("--guidance", type=float, default=4.5)
     p.add_argument("--out", type=Path, default=Path("/scratch/09032/saini_2/constancy_rope/calib/flux_dev_profile.npz"))
     p.add_argument("--runs", type=Path, nargs="+", help="Completed target-resolution SEGA run directories")
     p.add_argument("--method", choices=("sega", "sega_official"), default="sega",

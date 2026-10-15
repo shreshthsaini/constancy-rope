@@ -21,7 +21,7 @@ def parser():
     p.add_argument("--factor", type=float, default=1.5, help="Logit gain, applied as sqrt(factor) to q and k")
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--steps", type=int, default=28)
-    p.add_argument("--guidance", type=float, default=3.5)
+    p.add_argument("--guidance", type=float, default=4.5)
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--device", default="cuda")
     p.add_argument("--cpu-offload", action="store_true")

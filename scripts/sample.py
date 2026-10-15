@@ -19,7 +19,7 @@ def parser():
     p.add_argument("--end", type=int)
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--steps", type=int, default=28)
-    p.add_argument("--guidance", type=float, default=3.5)
+    p.add_argument("--guidance", type=float, default=4.5)
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--profile", type=Path)
     p.add_argument("--sega-static-profile", type=Path)

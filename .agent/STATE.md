@@ -3,10 +3,10 @@ Build and CPU-validate the resumable FLUX resolution-extrapolation codebase in d
 Research generations and paper claims follow separate GPU validation.
 
 ## Status and next action
-2026-10-15 03:00. CPU end-to-end check PASSED with real FLUX weights (calibrate + 6 methods at 512^2, gains logged; cpucheck/). Spool: 00 smoke, 10 calib, 20 probe, 30 pilot x6 (ntk2, yarn, dype, sega_official, sega, temp_only; 8 prompts, 4096^2).
-Jobs: CR3 1072630 (gh 4n 24h), CR4 1073495 (gh 2n 12h), CR5 1073496 (gh 1n 6h), CR7 1073851 (gh 1n 2h), CR8 1073852 (gh 2n 4h), CR9 1073853 (gh-dev 1n 2h); all drain the same spool. Guest use of other sessions idle nodes was DENIED by permission classifier: do not retry without user approval.
-The four requested fixes are complete: density normalization, empty-band interpolation, squared YaRN logit gain, and official SEGA defaults/static baseline. Full CPU suite: 125 passed in 22.96s with the crope uv environment, OMP_NUM_THREADS=8, and outputs/caches under /tmp. An existing runtime test double was updated to support the scheduler config API already used by production.
-NEXT: Review the uncommitted fixes. Old summed-power native profiles/traces require recalibration. This fix session did not access taskq or change Slurm/paper files; no campaign state above was rechecked.
+2026-10-15 11:55. CR3 1072630 RUNNING since 11:40 on c610-072,c619-102,c637-021,c637-022 (gh, 24h -> ends 10-16 11:40). Other CR jobs still pending (CR4,5,7,8,9).
+Done: 00 smoke (1024^2 9.2 s; 4096^2 291 s/img, peak 40.8 GB, sigmas OK mu=1.15), 10 calib (calib/flux_dev_profile.npz, 16 prompts).
+Running/pending: 20 probe, 30 pilots (ntk2, dype, constancy, yarn, sega_official, sega, temp_only), 8 prompts each at 4096^2 (~40 min/task).
+NEXT: 4K outputs show lattice artifacts (see notes/results.md). Waiting on 05_diag official DyPE+dev; Krea downloading. Probe extras held in taskq/hold.
 
 ## Map
 | note | read it when |

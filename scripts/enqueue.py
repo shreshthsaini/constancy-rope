@@ -52,6 +52,7 @@ class Task:
             f"cd {shlex.quote(str(REPO))}",
             f"export PATH={shlex.quote(str(python.parent))}:\"$PATH\"",
             "export HF_HOME=/scratch/09032/saini_2/tmp/hf",
+            "export CROPE_TRANSFORMER=/scratch/09032/saini_2/tmp/hf/hub/models--black-forest-labs--FLUX.1-Krea-dev/snapshots/8162a9c7b05a641be098422bf2fcf335615c2f28",
             "export TORCH_HOME=/scratch/09032/saini_2/tmp/cache",
             "export XDG_CACHE_HOME=/scratch/09032/saini_2/tmp/cache",
             "export WANDB_DIR=/scratch/09032/saini_2/constancy_rope/wandb",
@@ -261,7 +262,7 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--end", type=int, help="Exclusive prompt row; defaults to all available captions")
     result.add_argument("--seed", type=int, default=0)
     result.add_argument("--steps", type=int, default=28)
-    result.add_argument("--guidance", type=float, default=3.5)
+    result.add_argument("--guidance", type=float, default=4.5)
     result.add_argument("--native-count", type=int, default=16)
     result.add_argument("--pilot-count", type=int, default=8)
     result.add_argument("--seconds-per-image", type=float, default=300.0,

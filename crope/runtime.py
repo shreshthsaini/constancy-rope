@@ -30,7 +30,15 @@ def load_pipeline(device="cuda", cpu_offload=False, allow_download=False):
         # huggingface_hub treats as an incomplete snapshot. Load the snapshot directory directly instead.
         hub = Path(os.environ.get("HF_HOME", "/scratch/09032/saini_2/tmp/hf")) / "hub/models--black-forest-labs--FLUX.1-dev"
         source = str(hub / "snapshots" / (hub / "refs/main").read_text().strip())
-    pipe = FluxPipeline.from_pretrained(source, torch_dtype=torch.bfloat16, local_files_only=not allow_download)
+    kwargs = {}
+    krea = os.environ.get("CROPE_TRANSFORMER")
+    if krea:
+        # FLUX.1-dev breaks into a dot/halftone lattice at 4096^2 even under the official DyPE code; DyPE and SEGA
+        # both evaluate FLUX.1-Krea-dev. Krea ships its own transformer; text encoders and VAE match FLUX.1-dev.
+        from diffusers import FluxTransformer2DModel
+        kwargs["transformer"] = FluxTransformer2DModel.from_pretrained(krea, subfolder="transformer",
+                                                                       torch_dtype=torch.bfloat16)
+    pipe = FluxPipeline.from_pretrained(source, torch_dtype=torch.bfloat16, local_files_only=not allow_download, **kwargs)
     if cpu_offload:
         pipe.enable_model_cpu_offload(device=device)
     else:
