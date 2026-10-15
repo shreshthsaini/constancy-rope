@@ -118,7 +118,7 @@ def native_profile(args):
                     np.savez(handle, **trace)
                 os.replace(temporary, path)
                 print(f"native {row['id']} seconds={seconds:.3f}", flush=True)
-            late = trace["sigma"] < 0.3
+            late = trace["sigma"] < float(os.environ.get("CROPE_LATE_SIGMA", "0.3"))
             if not late.any():
                 raise ValueError("No native steps with sigma<0.3; increase --steps")
             frequencies = tuple(trace[f"frequency_{a}"] for a in ("h", "w"))
