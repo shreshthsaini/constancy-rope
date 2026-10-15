@@ -6,7 +6,7 @@ Research generations and paper claims follow separate GPU validation.
 2026-10-15 14:40. KREA campaign live (FLUX.1-dev lattices at 4K even under official DyPE; Krea clean). Nodes: CR3 4n (until 10-16 11:40) + CR9 gh-dev 1n.
 Done (out_krea/pilot): ntk2, dype, sega_official, sega, constancy (8 prompts, 4096^2, ~290 s/img; dype 330). Images coherent; constancy comparable to sega_official/dype visually. Krea calib: calib/krea_profile.npz. Probe p0 done (probe_krea/4096x4096).
 Running/queued: pilots temp_only, yarn; probes p1 p2; 31 pilot-static (sega, sega_official); 112 main tasks 50_cXXXXX (ntk2, dype, sega_official, constancy x 195 prompts, interleaved by chunk, ~63 GPU-h).
-NEXT: when pilots + static done -> enqueue eval pilot (rename to 40_ so it runs before main) and read metrics. Read probe_krea mtf.csv (3 prompts). Perf: our pipeline 290 s/img vs official DyPE 192 s; investigate if time allows.
+NEXT: main running with cuDNN SDPA (~215 s/img, ~47 GPU-h). 40_eval_pilot queued first; read eval_krea/pilot/4096x4096 when done. Then probes p1 p2 summary.
 
 ## Map
 | note | read it when |

@@ -89,6 +89,8 @@ class FluxExperiment:
             raise ValueError(f"Unknown method {method}")
         self.pipe, self.method, self.resolution = pipe, method, tuple(resolution)
         self.grid = tuple(n // 16 for n in resolution)
+        # mu = max_shift at every resolution (see sample()); set before any config is recorded.
+        self.pipe.scheduler.register_to_config(max_image_seq_len=max(4096, self.grid[0] * self.grid[1]))
         self.axes_dims = tuple(pipe.transformer.config.axes_dims_rope)
         rope_method = method if method in ("base", "pi", "ntk", "ntk2", "yarn", "dype", "sega_official") else "ntk2"
         if method == "sega_official_static":
@@ -216,7 +218,14 @@ class FluxExperiment:
         if png.exists() and metadata.exists():
             saved = json.loads(metadata.read_text())
             if saved.get("complete"):
-                if saved.get("config_fingerprint") != digest:
+                def _norm(c):
+                    # The first image of a process used to record max_image_seq_len before it was set; sigmas
+                    # were identical (mu = max_shift either way), so ignore this bookkeeping field.
+                    c = json.loads(json.dumps(c)); sch = c.get("scheduler", {})
+                    for k in ("max_image_seq_len", "_use_default_values"):
+                        sch.pop(k, None)
+                    return fingerprint(c)
+                if saved.get("config_fingerprint") != digest and _norm(saved.get("config", {})) != _norm(config):
                     raise ValueError(f"Existing result has different settings: {metadata}. Choose a new --out.")
                 with Image.open(png) as im:
                     if im.size != self.resolution[::-1]:
