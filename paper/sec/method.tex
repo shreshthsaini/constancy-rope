@@ -1,0 +1,179 @@
+\section{Constancy RoPE}
+\label{sec:method}
+
+Sampling at $s$ times the training resolution shows the network the same kind of scene at $s$ times more tokens per object, as if the viewer had stepped $s$ times closer. Human vision handles this change routinely, and psychophysics has characterized how. We take five findings, state what each implies for a DiT sampling at high resolution, and turn each into one term of a per-band attention gain (Table~\ref{tab:mapping}). The analogy guides the design; it is not a claim that FLUX.1 implements these mechanisms. The one assumption the derivation needs about the network, that raising a band's attention gain raises the power the model generates in that band, is tested directly by the probe of Section~\ref{sec:killtests}.
+
+\begin{table}[t]
+\centering
+\small
+\caption{From findings in human spatial vision to terms of the gain law.}
+\label{tab:mapping}
+\begin{tabular}{@{}p{0.34\linewidth}p{0.33\linewidth}p{0.25\linewidth}@{}}
+\toprule
+Finding & Meaning inside the DiT & Term \\
+\midrule
+Sensitivity is low-pass in dim light, band-pass in daylight~\citep{vannes1967spatial}; efficient coding explains this as whitening times Wiener filtering~\citep{atick1990towards,atick1992retina,vanhateren1992theory}. & Noise level $\sigma$ plays the role of illuminance. The noise floor $\sigma^2 n_b$ is known exactly. & Visibility gate $w_b=\rho_b/(1+\rho_b)$ \\
+\addlinespace
+Contrast constancy: perceived suprathreshold contrast is flat across frequency, compensating optical blur~\citep{georgeson1975contrast}. & Diluted attention acts as a blur whose attenuation is largest in detail bands. & Correction $\propto$ log amplitude deficit, above threshold only \\
+\addlinespace
+Blur adaptation renormalizes perceived focus toward natural spectra~\citep{webster2002neural}; slope discrimination peaks near natural values~\citep{knill1990human,parraga2000human}. & The model's native-resolution output defines its natural spectrum. & Target $\Pnat$, deficit $e_b=\tfrac12\log(S^*_b/\hat E_b)$ \\
+\addlinespace
+Spatial vision uses channels of constant octave bandwidth~\citep{campbell1968application,field1987relations}. & At 4K only a few RoPE pairs per axis resolve distinct bands. & One gain per half-octave band \\
+\addlinespace
+Divisive normalization by a pooled response~\citep{heeger1992normalization,carandini2012normalization,schwartz2001natural}. & The softmax denominator pools over $N$ tokens, which grows by $s^2$. & Temperature $\tau_N=\ln N/\ln N_{\mathrm{train}}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Band power and the noise floor}
+\label{sec:bandpower}
+For a latent $x\in\R^{C\times H\times W}$ on the token grid, let $\tilde x_c$ be channel $c$ with its spatial mean removed, and let
+\begin{equation}
+P(k_h,k_w) = \sum_{c=1}^{C} \big|\mathcal F\tilde x_c(k_h,k_w)\big|^2 .
+\label{eq:power}
+\end{equation}
+We sum over channels rather than average them, so that the measurement retains all latent power (compare Proposition~\ref{prop:proj}). For the height axis, the marginal is $E_h(k_h)=\sum_{k_w}P(k_h,k_w)$, and similarly for the width axis. Frequencies are $f=|k|/L_a\in[0,\tfrac12]$ in cycles per token, counting both signs of $k$.
+
+\paragraph{Half-octave bands.}
+Band $b$ on axis $a$ covers $\mathcal B_b=[2^{e_b},2^{e_b+1/2})$ with $e_b=-\lceil\log_2 L_a\rceil + b/2$, and the last band also includes $f=\tfrac12$. Only bands that contain at least one DFT frequency are kept. The band center is $f_b=2^{e_b+1/4}$. Because the edges are fixed powers of $\sqrt2$ in cycles per token, bands at the native and target grids coincide in frequency. The band power and its white-noise floor are
+\begin{equation}
+E_a[b] = \sum_{k:\,|k|/L_a\in\mathcal B_b} E_a(k), \qquad
+n_a[b] = \big|\{k:\,|k|/L_a\in\mathcal B_b\}\big| \cdot L_{\bar a}\cdot HW\cdot C ,
+\label{eq:bandpower}
+\end{equation}
+where $L_{\bar a}$ is the length of the other axis. By Eq.~\eqref{eq:snr}, $n_a[b]$ is the expected band power of unit-variance white noise, so the noise in $x_\sigma$ contributes $\sigma^2 n_a[b]$.
+% NOTE (implementation vs. intent): E_a[b] is a SUM over the DFT bins of the band (crope/spectral.py),
+% not a mean. The number of DFT bins per band is not proportional to the grid length at low frequency
+% (64-grid vs 256-grid counts per band: 2 vs 4 at f_b = 2^-5.75, then 2 vs 8, 2 vs 8, 4 vs 14, ...),
+% so a spectrum with identical density at both grids does not give e = 0 in every band: the anchor
+% band at 2^-5.75 is offset by about (1/2) ln 2 = 0.35 relative to the others, and the extrapolated
+% low-frequency target inherits the native count pattern. Dividing E by the bin count before the
+% deficit (the gate is unaffected) would remove this. Decide before the main campaign.
+
+\subsection{The gain law}
+\label{sec:gainlaw}
+Consider sampling step $n$ at noise level $\sigma_n$, with input $x_n$, and let $\xhat^{(n-1)}=x_{n-1}-\sigma_{n-1}v_\theta(x_{n-1})$ be the clean-latent prediction of the previous step. For each spatial axis $a$ and band $b$:
+
+\paragraph{Visibility gate (efficient coding).}
+Under noise, the information-optimal linear filter is approximately a whitening filter times the Wiener factor $S/(S+N)$~\citep{atick1990towards,atick1992retina,vanhateren1992theory}. The expected band power of $x_n$ is $(1-\sigma_n)^2S_a[b]+\sigma_n^2n_a[b]$, so
+\begin{equation}
+\rho_a[b] = \max\!\left(\frac{E_a^{x_n}[b]}{\sigma_n^2\, n_a[b]} - 1,\; 0\right),\qquad
+w_a[b] = \frac{\rho_a[b]}{1+\rho_a[b]}
+\label{eq:gate}
+\end{equation}
+estimate the band's signal-to-noise ratio and its Wiener factor. A band still buried in noise has $w\approx0$. Its power in $\xhat$ reflects the denoiser's prior rather than the sample, and it receives no correction. As sampling proceeds, bands become visible from coarse to fine. The coarse-to-fine schedule that DyPE specifies in closed form thus arises here from the measured SNR.
+
+\paragraph{Native target (blur adaptation).}
+Once per model, we sample $M$ prompts at the native $1024^2$ resolution with unmodified attention, record $\log E_a^{\xhat}[b]$ at every step, and average over prompts and over the steps with $\sigma<0.3$:
+\begin{equation}
+\Pnat_a(f_b) = \operatorname{mean}_{m,\;n:\,\sigma_n<0.3}\, \log E_a^{\hat x_{0,m}^{(n)}}[b] .
+\label{eq:native}
+\end{equation}
+We extend $\Pnat_a$ to any frequency by piecewise-linear interpolation in $(\ln f,\Pnat)$, extrapolating linearly from the two outermost native bands. At $4096^2$ this extrapolation covers the bands with wavelengths beyond 64 tokens, which do not exist on the native grid. The target is the model's own in-distribution spectrum, which plays the role of the natural spectrum toward which blur adaptation renormalizes perception~\citep{webster2002neural}.
+
+\paragraph{Amplitude anchor.}
+The target fixes spectral shape, not overall contrast. On each axis we anchor it on the layout bands, those with centers between $1/64$ and $1/16$ cycles per token (wavelengths of 16 to 64 tokens) that are already visible:
+\begin{equation}
+\mathcal A_a = \{\,b:\ \tfrac1{64}\le f_b\le\tfrac1{16},\ w_a[b]>\tfrac12\,\},\qquad
+c_a = \operatorname{mean}_{b\in\mathcal A_a}\Big(\log E_a^{\xhat^{(n-1)}}[b] - \Pnat_a(f_b)\Big).
+\label{eq:anchor}
+\end{equation}
+These wavelengths lie within the native grid, so the network generates them in distribution, and in a coarse-to-fine sampler they become visible before the detail bands. The offset $c_a$ also absorbs the grid-size dependence of the unnormalized DFT.
+
+\paragraph{Deficit (contrast constancy).}
+The log amplitude deficit of band $b$ relative to the anchored target is
+\begin{equation}
+e_a[b] = \tfrac12\Big(\Pnat_a(f_b) + c_a - \log E_a^{\xhat^{(n-1)}}[b]\Big),
+\label{eq:deficit}
+\end{equation}
+and $e_a\equiv0$ when $\mathcal A_a$ is empty. The factor $\tfrac12$ converts power to amplitude. A positive $e$ means the band has less detail than the native spectrum predicts; a negative $e$ means it has an excess. Contrast constancy compensates attenuation above threshold in proportion to its size~\citep{georgeson1975contrast}, which gives the band log gain
+\begin{equation}
+\lambda_a[b] = \ln\tau_N + \eta\; w_a[b]\;\clip\!\big(e_a[b],-1,1\big).
+\label{eq:lambda}
+\end{equation}
+If a unit change in $\log g_b$ changed the log amplitude of band $b$ by $\gamma_b$, full compensation would need a gain of $1/\gamma_b$ on $e$. This transfer is unknown, so a single scalar $\eta$ absorbs it, and the clip bounds the per-step correction to a factor of $e^{\pm\eta}$ in logit gain.
+
+\paragraph{Octave assignment.}
+Each RoPE pair $j$ on spatial axis $a$ has frequency $f_{a,j}=\theta'_{a,j}/2\pi$ cycles per token under the NTK2 base. It inherits the log gain of the band that contains it:
+\begin{equation}
+\log g_{a,j} =
+\begin{cases}
+\lambda_a[b] & \text{if } f_{a,j}\in\mathcal B_b \text{ for a kept band } b \text{ and } f_{a,j}\ge 1/L_a,\\
+\ln\tau_N & \text{otherwise.}
+\end{cases}
+\label{eq:assign}
+\end{equation}
+Pairs whose wavelength exceeds the grid, and pairs that fall in a band with no DFT frequency, receive the temperature only. All 16 index-axis dimensions receive $\ln\tau_N$.
+
+\paragraph{Normalization (temperature).}
+The softmax divides each response by a pool over all keys~\citep{heeger1992normalization,carandini2012normalization}, and that pool grows from $N_{\mathrm{train}}=4096$ to $N$ image tokens. We set the baseline logit gain to $\tau_N$ of Eq.~\eqref{eq:tau}~\citep{jin2023training}, which is $4/3$ at $4096^2$, $1.26$ at $3072^2$, and $1.25$ at $2048\times4096$. SEGA's $s^{0.16}$ plays this role in SEGA and equals $1.25$ at $4096^2$.
+
+\paragraph{Application.}
+Both q and k of pair $j$ are multiplied by $\exp(\tfrac12\log g_{a,j})$, after RoPE and the QK normalization, for all text and image tokens, in all 19 double-stream and 38 single-stream blocks. The gain vector is computed once per transformer call and shared by every block and head. At the first step there is no $\xhat^{(n-1)}$, so every pair receives $\ln\tau_N$.
+
+\begin{algorithm}[t]
+\caption{Constancy RoPE, one sampling step (per image).}
+\label{alg:crope}
+\begin{algorithmic}[1]
+\Require latent $x_n$, noise level $\sigma_n$, previous prediction $\xhat^{(n-1)}$ (or none), native profile $\Pnat_a$, gain $\eta$, NTK2 frequencies $\theta'_{a,j}$
+\State $\log g \gets \ln\tau_N\cdot\mathbf 1_{128}$ \Comment{$\tau_N=\ln N/\ln 4096$}
+\If{$\xhat^{(n-1)}$ exists}
+  \For{each spatial axis $a\in\{h,w\}$}
+    \State $E^{x}_a, n_a \gets$ band powers and noise floors of $x_n$ \Comment{Eqs.~\eqref{eq:power}, \eqref{eq:bandpower}}
+    \State $E^{0}_a \gets$ band powers of $\xhat^{(n-1)}$
+    \State $\rho \gets \max(E^x_a/(\sigma_n^2 n_a)-1,0)$;\quad $w\gets\rho/(1+\rho)$ \Comment{visibility gate}
+    \State $\mathcal A \gets \{b: 1/64\le f_b\le 1/16,\ w_b>1/2\}$
+    \If{$\mathcal A\neq\emptyset$}
+      \State $c\gets \operatorname{mean}_{b\in\mathcal A}(\log E^0_a[b]-\Pnat_a(f_b))$
+      \State $e\gets \tfrac12(\Pnat_a(f)+c-\log E^0_a)$ \Comment{amplitude deficit}
+    \Else
+      \State $e\gets 0$
+    \EndIf
+    \State $\lambda \gets \ln\tau_N + \eta\, w\,\clip(e,-1,1)$
+    \For{each RoPE pair $j$ on axis $a$ with $1/L_a\le f_{a,j}\in\mathcal B_b$ for a kept band $b$}
+      \State $\log g_{a,j}\gets\lambda_b$ \Comment{both dimensions of the pair}
+    \EndFor
+  \EndFor
+\EndIf
+\State scale $q$ and $k$ of every block by $\exp(\tfrac12\log g)$ after RoPE
+\State run the transformer; $\xhat^{(n)}\gets x_n-\sigma_n v_\theta(x_n)$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Properties}
+\label{sec:props}
+
+\begin{proposition}[Fixed point]
+\label{prop:fixed}
+If $\log E_a^{\xhat}[b] = \Pnat_a(f_b)+c$ for every kept band, for any constant $c$, and $\mathcal A_a$ is nonempty, then $e_a\equiv0$ and every pair on axis $a$ receives logit gain $\tau_N$. The same holds when $\xhat$ is multiplied by any nonzero constant.
+\end{proposition}
+\begin{proof}
+Eq.~\eqref{eq:anchor} gives $c_a=c$, so Eq.~\eqref{eq:deficit} vanishes. Scaling $\xhat$ adds a constant to every $\log E$ and is absorbed by $c_a$.
+\end{proof}
+A sample whose spectrum already has the native shape is left with the global temperature. SEGA has no such point: by Proposition~\ref{prop:slope} it applies its tilt to any spectrum, including the native one.
+
+\paragraph{Magnitude, not rank.}
+Within the clip, the correction is linear in the log amplitude deficit. Doubling every deficit doubles the correction, whereas by Proposition~\ref{prop:slope} SEGA's allocation is unchanged by any positive rescaling of the log spectrum.
+
+\paragraph{Per-band visibility.}
+Each band is gated by its own SNR against an exact noise floor, rather than by one scalar for all bands. A band at or below the noise floor ($E^{x_n}_a[b]\le\sigma_n^2n_a[b]$) receives the temperature only. At the first evaluations, where $\sigma_n\approx1$, all gates are near zero.
+
+\paragraph{Derived sign.}
+A deficit raises the band's gain and sharpens attention in that band; an excess lowers it. The sign follows from the derivation under one assumption about the network: that $\partial\log\hat E_b/\partial\log g_b>0$ on the diagonal. The probe T2 (Section~\ref{sec:killtests}) measures this transfer before any claim depends on it. The same sign makes a prediction about tiling. An image tiled at the training period has little energy at wavelengths longer than the tile, which appears as a deficit in the bands beyond 64 tokens, and the loop would respond by strengthening the long-wavelength positional pairs. Test T3 checks whether real repetition at 4K has this spectral signature.
+
+\paragraph{Boundedness and few choices.}
+$|\log g_{a,j}-\ln\tau_N|\le\eta$ for every pair and step. The method has one continuous parameter, $\eta$ (default 1). The native profile is measured once per model and not tuned. SEGA has $\kappa$, $\gamma$, and in its released code the constants 0.15, 1.5 and the clip at 1.
+
+\paragraph{Pairs that are corrected at 4K.}
+Under the NTK2 base at $4096^2$ the RoPE wavelengths per spatial axis are 6.3, 9.7, 14.9, 22.9, 35.3, 54.4, 83.7, 128.9 and 198.5 tokens for pairs 0 to 8, and longer than the 256-token grid for pairs 9 to 27. Pairs 0 to 6 and 8 each fall in a distinct half-octave band. Pair 7 falls in the band $[2^{-7.5},2^{-7})$, which contains no DFT frequency on a 256-token grid, so by Eq.~\eqref{eq:assign} it receives the temperature only. The pairs that can respond to a long-wavelength deficit are therefore pairs 6 and 8.
+% NOTE (implementation): the empty band [2^-7.5, 2^-7) leaves pair 7 (wavelength 128.9 tokens) uncorrected.
+% This follows design.md ("only bins with >=1 FFT bin") but may not be intended; assigning such pairs to
+% the nearest kept band would change it.
+
+\subsection{Cost}
+\label{sec:cost}
+Each step adds two 2D FFTs of a $64\times H\times W$ tensor ($x_n$ and $\xhat^{(n-1)}$), a few vector operations over at most 14 bands per axis, and an elementwise scale of $q$ and $k$ in each block. At $4096^2$ the FFTs act on $64\times256\times256$ values, while each of the 57 attention blocks attends over about 66{,}000 tokens. The method needs no extra network evaluations and no training. Calibration costs $M$ native-resolution samples per model, which we run once. \todo{Measured per-step overhead and end-to-end seconds per image against \texttt{ntk2} on GH200.}
+
+\subsection{Variants used as ablations}
+\label{sec:variants}
+\texttt{temp\_only} sets $\eta=0$ and keeps $\tau_N$ on top of NTK2. \texttt{constancy\_nogate} sets $w\equiv1$ in Eqs.~\eqref{eq:anchor} and~\eqref{eq:lambda}. \texttt{constancy\_sref} replaces $\tau_N$ by SEGA's reference gain, $s_a^{0.16}$ on axis $a$ and $\bar s^{0.16}$ on the index axis. The slope target replaces $\Pnat_a$ by its least-squares line in $(\ln f,\Pnat)$.

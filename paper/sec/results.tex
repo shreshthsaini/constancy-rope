@@ -1,0 +1,173 @@
+\section{Results}
+\label{sec:results}
+
+\todo{Write after the pilot and main runs. Lead with T2 and T1, since they decide whether the head-to-head is meaningful. Report negative outcomes as they are.}
+
+\subsection{Does the attention gain steer the spectrum? (T2)}
+\label{sec:res-t2}
+\todo{Figure: matrix of $\Delta\log\hat E_{b'}$ (final $\xhat$, per axis) for a $1.5\times$ logit gain on band $b$, NTK2 at $4096^2$. State the sign and size of the diagonal per band, and the off-diagonal leakage.}
+
+\begin{figure}[t]
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering \todo{T2 probe response matrix}}}
+\caption{\todo{Attention MTF probe.}}
+\label{fig:t2}
+\end{figure}
+
+\subsection{Is SEGA's adaptivity doing the work? (T1)}
+\label{sec:res-t1}
+\todo{SEGA versus SEGA-static at $4096^2$ on the main metrics; static/timestep/content variance decomposition of the logged FLUX.1-dev gains for \texttt{sega} and \texttt{sega\_official}.}
+
+\begin{table}[t]
+\centering
+\small
+\caption{T1: per-step SEGA allocation versus its time-averaged profile, FLUX.1-dev, $4096^2$. Mean and 95\% bootstrap CI over prompts. \todo{fill}}
+\label{tab:t1}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+Method & CLIP & PickScore & MUSIQ (crop) & pFID $\downarrow$ & Slope err.\ $\downarrow$ & Tiling$_{1024}$ $\downarrow$ \\
+\midrule
+SEGA (paper eqs.) & & & & & & \\
+SEGA-static & & & & & & \\
+$\Delta$ (static $-$ SEGA) & & & & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Failure spectra of NTK2 at 4K (T3)}
+\label{sec:res-t3}
+\todo{Figure: per-axis band log power of $\xhat$ over sampling for NTK2 at $4096^2$ against the anchored native profile; highlight high-band deficits and long-wavelength deficits on images with visible repetition.}
+
+\begin{figure}[t]
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering \todo{T3 failure spectra}}}
+\caption{\todo{Failure spectra.}}
+\label{fig:t3}
+\end{figure}
+
+\subsection{Main comparison at \texorpdfstring{$4096^2$}{4096x4096} (T4)}
+\label{sec:res-main}
+\todo{Tables~\ref{tab:main-semantic} and~\ref{tab:main-detail}; qualitative figure with full images and native-pixel crops; paired differences against \texttt{sega\_official}.}
+
+\begin{table}[t]
+\centering
+\small
+\caption{Prompt alignment and preference, FLUX.1-dev, $4096\times4096$. Mean with 95\% bootstrap CI over prompts. These scorers see about 224 pixels. \todo{fill}}
+\label{tab:main-semantic}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Method & CLIP $\uparrow$ & ImageReward $\uparrow$ & PickScore $\uparrow$ & HPSv3 $\uparrow$ \\
+\midrule
+Base & & & & \\
+PI & & & & \\
+NTK & & & & \\
+NTK2 & & & & \\
+YaRN & & & & \\
+DyPE & & & & \\
+SEGA (released) & & & & \\
+SEGA (paper eqs.) & & & & \\
+\midrule
+Temperature only & & & & \\
+Constancy RoPE & & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3.5pt}
+\caption{Quality at native pixels and spectral diagnostics, FLUX.1-dev, $4096\times4096$. Crop metrics use four fixed $1024^2$ crops per image. Mean with 95\% bootstrap CI. \todo{fill}}
+\label{tab:main-detail}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}lcccccccccccc@{}}
+\toprule
+ & \multicolumn{2}{c}{MUSIQ $\uparrow$} & \multicolumn{2}{c}{CLIP-IQA $\uparrow$} & \multicolumn{4}{c}{Distribution $\downarrow$} & \multicolumn{2}{c}{Spectrum $\downarrow$} & \multicolumn{2}{c}{Tiling $\downarrow$} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-9}\cmidrule(lr){10-11}\cmidrule(l){12-13}
+Method & full & crop & full & crop & FID & KID & pFID & pKID & RMSE & slope & 1024 & 2048 \\
+\midrule
+Base & & & & & & & & & & & & \\
+PI & & & & & & & & & & & & \\
+NTK & & & & & & & & & & & & \\
+NTK2 & & & & & & & & & & & & \\
+YaRN & & & & & & & & & & & & \\
+DyPE & & & & & & & & & & & & \\
+SEGA (released) & & & & & & & & & & & & \\
+SEGA (paper eqs.) & & & & & & & & & & & & \\
+\midrule
+Temperature only & & & & & & & & & & & & \\
+Constancy RoPE & & & & & & & & & & & & \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[t]
+\centering
+\small
+\caption{Paired differences, method minus \texttt{sega\_official}, $4096^2$, 95\% bootstrap CI over prompts. \todo{fill}}
+\label{tab:paired}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+Method & PickScore & MUSIQ (crop) & CLIP-IQA (crop) & pFID & Slope err. & Tiling$_{1024}$ \\
+\midrule
+DyPE & & & & & & \\
+Temperature only & & & & & & \\
+Constancy RoPE & & & & & & \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{Other resolutions and aspect ratios}
+\label{sec:res-other}
+\todo{Same metrics at $3072^2$ and $2048\times4096$ for the main methods.}
+
+\begin{table}[t]
+\centering
+\small
+\caption{Other resolutions. \todo{fill}}
+\label{tab:other-res}
+\begin{tabular}{@{}llccccc@{}}
+\toprule
+Resolution & Method & PickScore & MUSIQ (crop) & pFID $\downarrow$ & Slope err.\ $\downarrow$ & Tiling$_{1024}$ $\downarrow$ \\
+\midrule
+$3072^2$ & NTK2 & & & & & \\
+ & DyPE & & & & & \\
+ & SEGA (released) & & & & & \\
+ & Constancy RoPE & & & & & \\
+\midrule
+$2048\times4096$ & NTK2 & & & & & \\
+ & DyPE & & & & & \\
+ & SEGA (released) & & & & & \\
+ & Constancy RoPE & & & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Ablations}
+\label{sec:res-ablation}
+\todo{Each row changes one term of Eq.~\eqref{eq:lambda}: no gate, SEGA's reference temperature, slope target, $\eta$ values. Report the logged gate and deficit traces for a representative prompt.}
+
+\begin{table}[t]
+\centering
+\small
+\caption{Ablations of Constancy RoPE at $4096^2$. \todo{fill}}
+\label{tab:ablation}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+Variant & PickScore & MUSIQ (crop) & pFID $\downarrow$ & pKID $\downarrow$ & Slope err.\ $\downarrow$ & Tiling$_{1024}$ $\downarrow$ \\
+\midrule
+Constancy RoPE ($\eta=1$, profile target) & & & & & & \\
+\quad no gate ($w\equiv1$) & & & & & & \\
+\quad SEGA temperature ($s^{0.16}$) & & & & & & \\
+\quad slope target & & & & & & \\
+\quad $\eta=0$ (temperature only) & & & & & & \\
+\quad $\eta=$ \todo{value} & & & & & & \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{Cost}
+\label{sec:res-cost}
+\todo{Seconds per image and peak memory at $4096^2$ for NTK2, DyPE, \texttt{sega\_official} and Constancy RoPE on one GH200; per-step controller time.}

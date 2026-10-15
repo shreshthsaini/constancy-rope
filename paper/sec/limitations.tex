@@ -1,0 +1,25 @@
+\section{Limitations}
+\label{sec:limitations}
+
+\todo{Revise after results; add any limitation the experiments expose.}
+
+\paragraph{One model, one latent space.}
+All generation experiments use FLUX.1-dev. The native profile is specific to a model and its VAE and must be recalibrated for each. The mechanism tests of Section~\ref{sec:sega-tests} used FLUX.2 VAE latents and forward noising, not FLUX.1-dev sampling trajectories. \todo{State whether a second backbone was run.}
+
+\paragraph{An analogy, not a model of vision.}
+The five findings of Table~\ref{tab:mapping} motivate the form of each term. They do not establish that the DiT behaves like the visual system, and the sign of the correction rests on the measured transfer of test T2. If that transfer varies strongly across bands or steps, a single $\eta$ cannot compensate it.
+
+\paragraph{Spectra of the latent, not the image.}
+The controller measures the latent spectrum on the token grid. Pixel-level detail beyond the token Nyquist frequency is produced by the VAE decoder and is not observed or controlled.
+
+\paragraph{Coarse frequency coverage.}
+At $4096^2$ under NTK2, only 8 of the 28 RoPE pairs per spatial axis receive a correction; pairs with wavelengths beyond the grid, and one pair whose half-octave band contains no DFT frequency, receive the temperature only. Bands below $1/64$ cycles per token use a target extrapolated from the native profile, which has no direct measurement there. Band powers are sums over DFT bins, and the number of bins per band at low frequency does not scale exactly with the grid length.
+
+\paragraph{One-step delay and first step.}
+The deficit is measured on the previous step's $\xhat$ and the first step is uncorrected. With 28 steps and a feedback gain of $\eta=1$, the loop could overshoot; the clip bounds each step's correction but does not prevent oscillation. \todo{Report whether logged gains oscillate.}
+
+\paragraph{Evaluation.}
+Reward and alignment models see about 224 pixels. Our 4K-sensitive metrics (patch FID and KID, crop-level MUSIQ and CLIP-IQA, spectral error, tiling index) are proxies, and we have no human study. \todo{Number of prompts and seeds; whether a 2AFC study at fixed viewing distance was run.}
+
+\paragraph{Baselines.}
+We reimplemented SEGA and DyPE from their released code and verified numerical parity of the embeddings and gains, not of the full pipelines; both released pipelines default to FLUX.1-Krea-dev, and we run all methods on FLUX.1-dev. Our YaRN baseline follows its design specification for the ramp and temperature, which differs from the language-model YaRN convention. UltraImage is not included. \todo{Update if UltraImage is added.}

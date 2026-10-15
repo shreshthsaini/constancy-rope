@@ -1,0 +1,61 @@
+\section{Experimental setup}
+\label{sec:setup}
+
+\paragraph{Model and sampler.}
+All methods use FLUX.1-dev~\citep{flux2024} through diffusers 0.39 in bfloat16, with 28 Euler steps of the flow-matching scheduler, distilled guidance 3.5, batch size one, and PyTorch scaled-dot-product attention with the flash backend. Spectra and gains are computed in float32. Images of $2048\times4096$ pixels or more are decoded with the tiled VAE. The scheduler shift is fixed at $\mu=1.15$ (the configured maximum) for every method and resolution. This follows the released DyPE and SEGA pipelines, which pass the target token count as the maximum sequence length. The unchanged diffusers rule extrapolates $\mu$ linearly in the token count to $\mu\approx11.55$ at $4096^2$, which leaves the last evaluated noise level at $\sigma\approx0.9997$ and gives a single distinct bf16 model timestep; with $\mu=1.15$ the last evaluated level is $\sigma\approx0.105$. The same schedule holds at the native resolution, where three of the 28 evaluations have $\sigma<0.3$ and enter the native profile of Eq.~\eqref{eq:native}.
+% NOTE (design.md vs code): design.md specifies the default scheduler with its resolution-dependent shift.
+% crope/runtime.py sets max_image_seq_len = max(4096, tokens), i.e. mu = 1.15 for all methods (STATE.md decision).
+% The paper follows the code.
+
+\paragraph{Resolutions.}
+The training grid is $64\times64$ tokens ($1024^2$ pixels). We evaluate at $4096\times4096$ ($256^2$ tokens, $s=4$ per side, 16 times the tokens) as the main setting, and at $3072\times3072$ ($s=3$) and $2048\times4096$ (per-side scales 2 and 4). \todo{Confirm the final resolution list and whether $4096\times2048$ is included.}
+
+\paragraph{Prompts and references.}
+Evaluation prompts are the captions of the Aesthetic-4K evaluation split~\citep{zhang2025diffusion4k}, whose 4K images serve as references for distribution and spectral metrics; 195 prompts with references are available. \todo{Number of prompts and seeds in the main run.} Each image uses a seed derived from the prompt identifier and a global seed, so every method sees the same initial noise for a given prompt. The native profile uses $M=16$ prompts from a set of 39 filtered Pick-a-Pic prompts, disjoint from the evaluation prompts, sampled at $1024^2$ with unmodified attention.
+
+\paragraph{Methods.}
+All frequency remapping is per spatial axis with $s_a=L_a/64$; the index axis is never remapped.
+\begin{itemize}
+  \item \textbf{Base}: native RoPE frequencies, no gain.
+  \item \textbf{PI}~\citep{chen2023pi}: $\theta_j/s_a$.
+  \item \textbf{NTK}: base $b\,s_a^{D/(D-2)}$. \textbf{NTK2}: base $b\,s_a^{2D/(D-2)}$, as in SEGA.
+  \item \textbf{YaRN}~\citep{peng2024yarn}: NTK-by-parts ramp on the wavelength ratio $T_j/64$ with $\alpha=1$, $\beta=32$, and a logit gain $1+0.1\ln\bar s$ with $\bar s$ the geometric mean side scale.
+  % NOTE (mismatch with the YaRN paper): crope/gain.py mode yarn_temp sets log g = ln(1 + 0.1 ln s), i.e. a LOGIT
+  % gain of (1 + 0.1 ln s). YaRN defines sqrt(1/t) = 0.1 ln s + 1 and scales both q and k by it, so its logit
+  % gain is (1 + 0.1 ln s)^2. DyPE's port also squares it (cos/sin amplitude 1 + 0.1 ln s). The code follows
+  % design.md literally; our YaRN baseline therefore has a weaker temperature than YaRN. The ramp also uses
+  % r = T_d/64 rather than YaRN's rotation count 64/T_d (documented in crope/THIRD_PARTY.md).
+  \item \textbf{DyPE}~\citep{issachar2025dype}: port of the official FLUX implementation (YaRN mode with dynamic schedule, revision \texttt{436fe61}), including its cosine and sine amplitude $1+0.1\ln s_a$, which acts as a logit gain of $(1+0.1\ln s_a)^2$. No further temperature is added.
+  \item \textbf{SEGA (released)}, \texttt{sega\_official}: Eq.~\eqref{eq:sega-official} with the released NTK base (Section~\ref{sec:sega-code}). This is the main SEGA baseline and the reference for paired differences.
+  \item \textbf{SEGA (paper equations)}, \texttt{sega}: Eqs.~\eqref{eq:sega-z} and~\eqref{eq:sega-m} on NTK2.
+  \item \textbf{SEGA-static}: the paper-equation allocation replaced by its mean over the prompts and steps of the SEGA pilot at the same resolution, with no FFT at run time (test T1).
+  \item \textbf{Constancy RoPE} on NTK2 with $\eta=1$ and the native profile target, and its ablations \texttt{temp\_only}, \texttt{constancy\_nogate}, \texttt{constancy\_sref}, and the slope target (Section~\ref{sec:variants}). \todo{$\eta$ sweep values, if run.}
+\end{itemize}
+UltraImage~\citep{ultraimage2025} has a public FLUX implementation, but it is not part of this campaign. \todo{Add UltraImage or state the reason for its omission.}
+% NOTE (code): scripts/enqueue.py DEFAULT_METHODS for the main stage excludes sega_official, and
+% scripts/eval.py defaults --reference-method to sega (paper equations). Both must be changed for the
+% main run to match this section (sega_official as the main baseline and paired reference).
+
+\paragraph{Metrics.}
+We report three groups, all computed on the full generated image unless noted.
+\begin{itemize}
+  \item \emph{Prompt alignment and preference}: CLIP score with ViT-L/14, computed as $100\max(\cos,0)$; ImageReward, PickScore, and HPSv3 where available. These models resize inputs to about 224 pixels, so they measure layout and semantics rather than 4K detail.
+  \item \emph{Image quality at native pixels}: MUSIQ and CLIP-IQA (pyiqa) on the full image and averaged over four fixed $1024^2$ crops per image; FID and KID on images resized to $299^2$; and patch FID and patch KID on the same $1024^2$ crops, all against the Aesthetic-4K references. Crop coordinates depend only on the prompt, the seed and the image size, so all methods are compared on the same regions. KID uses the unbiased polynomial-kernel estimator of degree 3.
+  \item \emph{Spectral and repetition diagnostics}: the radially averaged log-luminance power of each image in octave bands (linear-light Rec.~709 luminance, bands from $2^{-12}$ to $2^{-1}$ cycles per pixel, power $|\mathcal F|^2/HW$ averaged over the DFT bins of each band), its RMS log error and its least-squares slope error relative to the reference set; and a tiling index, the normalized autocorrelation of luminance at lags of 1024 and 2048 pixels minus that at 1.5 times those lags, averaged over the two axes.
+\end{itemize}
+
+\paragraph{Statistics.}
+We treat each prompt, with all its seeds and crops, as one cluster. Confidence intervals are 95\% percentile bootstrap intervals over prompt clusters with 1000 draws. For scalar metrics we also report paired differences against \texttt{sega\_official}, resampling prompts jointly for both methods. For FID and KID we resample generated and reference prompt clusters independently and share the reference draw between the two methods of a paired difference.
+
+\subsection{Falsification tests}
+\label{sec:killtests}
+We designed four tests that can each reject a claim, and we report them whatever their outcome.
+\begin{description}
+  \item[T1, static tilt.] Replace SEGA's per-step allocation by its time-averaged profile at the same resolution. If SEGA-static matches SEGA, SEGA's content adaptivity does not contribute to its results. This test targets SEGA's claim, not ours. \todo{The current static profile averages the paper-equation allocation; add a static version of \texttt{sega\_official}.}
+  \item[T2, attention MTF probe.] Sample with NTK2 at $4096^2$, multiply the logit gain of the RoPE pairs in one frequency band by 1.5 throughout sampling, keep the seed fixed, and measure the change in the final $\xhat$ band power. The closed loop needs $\partial\log\hat E_b/\partial\log g_b>0$ on the diagonal. A negative or zero diagonal rejects the sign derivation of Section~\ref{sec:props}.
+  \item[T3, failure spectra.] Measure the $\xhat$ spectra of NTK2 at $4096^2$ against the native profile. The method assumes a high-band deficit, and a long-wavelength deficit when tiling appears. Absence of both rejects the premise.
+  \item[T4, head-to-head.] Constancy RoPE against \texttt{sega\_official}, DyPE and the other baselines on the metrics above. No improvement over \texttt{sega\_official} on the metrics that see 4K detail rejects the method as proposed.
+\end{description}
+
+\paragraph{Compute.}
+Sampling and evaluation run on NVIDIA GH200 nodes (one GPU per node) of the TACC Vista cluster, with telemetry logged for every job. \todo{GPU-hours per method, peak memory at $4096^2$, and seconds per image.}

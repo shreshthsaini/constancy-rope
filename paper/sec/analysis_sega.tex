@@ -1,0 +1,160 @@
+\section{What SEGA's gain law computes}
+\label{sec:sega}
+
+SEGA~\citep{sega2026} is the closest prior method and our main baseline. This section states its gain law in two forms, the equations of the paper and the released code, derives properties that hold exactly, and reports mechanism tests of the paper equations. We use the spread symbol $\varsigma$ for SEGA's flatness gate to avoid a clash with the noise level $\sigma$.
+
+% Reporting observations from the review (kept out of the main text; decide before submission):
+%  - SEGA Sec. 2.2 describes the opposite sign of its Eq. 7.
+%  - Table 3 SEGA PickScore 22.35 vs Table 1 23.18 for the same Flux 4096^2 setting.
+%  - Table 4 ("SDXL") SEGA row equals the Flux row of Table 1; SDXL has no RoPE.
+%  - Headline reward metrics resize to about 224 px; on patch FID UltraImage beats SEGA on Qwen at 3 of 4 resolutions.
+%  - 5K/6K tables use 20 prompts with FID; no seeds or CIs.
+% Source: research_reviews/sega_2605.22668_2026-10-14.md
+
+\subsection{The paper equations}
+\label{sec:sega-paper}
+At each step, SEGA averages the noisy latent over channels, $Z = \frac1C\sum_c x_{\sigma,c}$, subtracts its spatial mean, and computes $P=|\mathcal F Z|^2$. For spatial axis $a$ it forms the marginal $E_a(k)$ by summing $P$ over the other axis, for integer $|k|=0,\dots,L_a/2-1$, and it forms an isotropic profile $E_{\mathrm{iso}}(r)$ by averaging $P$ over rings of integer radius $r=1,\dots,\min(H,W)/2-1$. RoPE pair $j$ on axis $a$, with NTK2 frequency $\theta'_j$, reads the marginal at the fractional bin $\kappa_j=\clip(L_a\theta'_j/2\pi,\,1,\,L_a/2-1)$, with $\log E_a$ interpolated linearly in $k$; call this value $\ell_j$. Then
+\begin{align}
+z_j &= \frac{\ell_j - \operatorname{mean}_i \ell_i}{\operatorname{std}_i \ell_i}, &
+u_j &= \tanh z_j - \operatorname{mean}_i \tanh z_i, &
+\varsigma &= 1-\mathrm{SF}(E_{\mathrm{iso}})^{\gamma},
+\label{eq:sega-z}\\
+M_j &= 1-\varsigma\,u_j, &
+m_j &= s_a^{\kappa} M_j, &&
+\label{eq:sega-m}
+\end{align}
+where $\mathrm{SF}$ is the spectral flatness (geometric over arithmetic mean), $\kappa=0.08$ and $\gamma=1.5$. The q/k scale of pair $j$ is $m_j$, so its logit gain is $m_j^2$, and the index axis receives $\bar s^{\kappa}$ with $\bar s$ the geometric mean of the two side scales. Low-energy bands ($u_j<0$) receive larger gains. With a spectrum that falls with frequency, these are the short-wavelength pairs, so SEGA tilts attention toward local structure. Our port of these equations is the \texttt{sega} variant in our code.
+
+\subsection{The released code}
+\label{sec:sega-code}
+The implementation released with SEGA (revision \texttt{ddaab08}) differs from the paper equations in every stage of the computation (Table~\ref{tab:sega-diff}). Its allocation is
+\begin{equation}
+m_j = \max\!\Big(1,\; m_{\mathrm{ref}}\big[1 - 0.15\,\varsigma\,\big(\tanh(1.5 z_j) - \operatorname{mean}_i \tanh(1.5 z_i)\big)\big]\Big),
+\qquad m_{\mathrm{ref}} = \max(s_{\max},1)^{0.08},
+\label{eq:sega-official}
+\end{equation}
+computed once per transformer call from the channel mean of the projected token features $x_{\mathrm{emb}}(x_\sigma)$, with $s_{\max}$ the larger side scale. We reimplemented it independently as \texttt{sega\_official} and verified the axis profiles, radial profile, spread, allocation, and the final scaled RoPE arrays against the released code. Since the released code is what users run, \texttt{sega\_official} is our main SEGA baseline; the paper-equation version serves as an ablation.
+
+\begin{table}[t]
+\centering
+\small
+\caption{SEGA as written in the paper and as released. Both use NTK2-type frequencies and a flatness spread with exponent 1.5.}
+\label{tab:sega-diff}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}lll@{}}
+\toprule
+Stage & Paper equations (\texttt{sega}) & Released code (\texttt{sega\_official}) \\
+\midrule
+Spectrum input & channel mean of packed $x_\sigma$ (64 ch.) & channel mean of $x_{\mathrm{emb}}(x_\sigma)$ (3072 ch.) \\
+Axis profile & 2D FFT marginal, Nyquist excluded & 1D FFT averaged over other axis, rebinned, DC and Nyquist kept \\
+Radial profile & integer-radius rings $1,\dots,L/2-1$ & radius normalized to the corner, DC bin kept \\
+RoPE-to-bin map & physical bin $L\theta'_j/2\pi$, clipped & normalized log-period rank over the profile \\
+Standardization & population std $+10^{-8}$ & sample std, clamped at $10^{-8}$ \\
+Allocation & $m_{\mathrm{ref}}(1-\varsigma\,u_j)$ & $m_{\mathrm{ref}}(1-0.15\,\varsigma\,u_j^{(1.5)})$, clipped $\ge1$ \\
+NTK base & $b\,s_a^{2D/(D-2)}$ per axis & $b\,s_{\max}^{2D/(D-2)}/(1+0.1\ln s_{\max})$ \\
+Reference amplitude & $s_a^{0.08}$ per axis & $\max(s_{\max},1)^{0.08}$ \\
+Index axis & $\bar s^{0.08}$ & 1 \\
+\bottomrule
+\end{tabular}}
+
+\smallskip
+{\footnotesize $u_j^{(1.5)}$ denotes the centered $\tanh(1.5z_j)$ of Eq.~\eqref{eq:sega-official}.}
+\end{table}
+
+\subsection{Exact properties}
+\label{sec:sega-props}
+
+\begin{proposition}[Slope invariance]
+\label{prop:slope}
+In both versions, the per-pair allocation $u_j$ is unchanged when the axis profile $E_a$ is replaced by $A\,E_a^{\beta}$ for any $A>0$ and $\beta>0$. In particular, for a power-law profile $E_a(k)\propto k^{-\alpha}$, $u_j$ is the same for every $\alpha>0$.
+\end{proposition}
+\begin{proof}
+Both versions sample $\log E_a$ by linear interpolation between bins, so $\ell_j \mapsto \log A + \beta\,\ell_j$ under the replacement. The z-score in Eq.~\eqref{eq:sega-z} is invariant to positive affine maps, so $z_j$ and $u_j$ are unchanged. For $E_a\propto k^{-\alpha}$, $\ell_j = c-\alpha\,\varphi_j$, where $\varphi_j$ is the interpolated $\log k$ at pair $j$'s sample location and depends only on the grid and the RoPE frequencies; the z-score of $-\alpha\varphi_j$ is the same for all $\alpha>0$.
+\end{proof}
+The allocation therefore encodes the rank-like shape of the spectrum across RoPE pairs and discards how steep it is. A change of slope reaches the gain only through the scalar spread $\varsigma$, which multiplies all pairs together. Two power-law spectra of different slope receive the same tilt, and under known blur the tilt saturates (Table~\ref{tab:blur}).
+
+\begin{proposition}[One-dimensional observation]
+\label{prop:proj}
+Both versions observe the spectrum of a single fixed linear projection of the 64-channel latent. The paper equations use the weights $\frac1C\mathbf 1$. In the released code, the token embedding is affine, $x_{\mathrm{emb}}(x)=Wx+b$ with $W\in\R^{3072\times64}$, so its channel mean is $\bar w^\top x + \bar b$ with $\bar w = W^\top\mathbf 1/3072$, and the spatial mean subtraction removes $\bar b$.
+\end{proposition}
+Latent channels are close to decorrelated, so a single projection retains a small share of latent power. In our measurements on FLUX.2 VAE latents (Section~\ref{sec:sega-tests}), the channel mean kept 1.7\% of it.
+
+\begin{proposition}[Rank map in the released code]
+\label{prop:rank}
+With $\theta'_j = b'^{-2j/D}$, the released code samples the profile of $K=\max(\lfloor L/2\rfloor,8)$ bins at position $(1-j/(D/2-1))(K-1)$, independent of the base $b'$ and of the scale $s$ except through $K$.
+\end{proposition}
+\begin{proof}
+$\log(2\pi/\theta'_j) = \log 2\pi + (2j/D)\log b'$ is affine in $j$, so its min-max normalization over $j=0,\dots,D/2-1$ equals $j/(D/2-1)$.
+\end{proof}
+The map is linear in the pair index, while RoPE wavelengths are geometric in it. At $4096^2$ ($L=256$, $K=128$, and released base $b'\approx1.56\times10^5$), pair $j=13$ has a wavelength of about $1.6\times10^3$ tokens and reads bin position $65.9$, which corresponds to about $0.26$ cycles per token, a wavelength near 4 tokens. Pair $j=0$ (wavelength $6.3$ tokens) reads the bin at the Nyquist end, and pair $j=27$ reads the bin that contains zero frequency. The released code thus avoids the bin collapse of the paper equations described below, but it couples each RoPE pair to a spectral band unrelated to its wavelength.
+
+\begin{proposition}[Bounded released gain]
+\label{prop:bound}
+In Eq.~\eqref{eq:sega-official}, the centered term lies in $(-2,2)$ and $\varsigma\in[0,1]$, so $m_j\in[1,\,1.3\,m_{\mathrm{ref}}]$. At $4096^2$, $m_{\mathrm{ref}}=4^{0.08}\approx1.117$, so every spatial logit gain lies in $[1,\,2.11]$, and a pair is clipped to exactly 1 when its centered term exceeds $0.70/\varsigma$.
+\end{proposition}
+Clipped pairs lose SEGA's global temperature entirely, and no pair is ever softened below unit gain. The paper equations have neither bound: $M_j\in(1-2\varsigma,1+2\varsigma)$ can approach zero.
+
+\subsection{Mechanism tests on forward-noised real latents}
+\label{sec:sega-tests}
+
+We tested the paper equations on CPU without running a diffusion model. We encoded 20 DIV2K crops at $1024^2$ with the FLUX.2 VAE, which gives 128 channels after $2\times2$ packing on a $64\times64$ token grid, and forward-noised them with Eq.~\eqref{eq:flow} over 28 noise levels. We applied Eqs.~\eqref{eq:sega-z} and~\eqref{eq:sega-m} with FLUX.1 RoPE (28 frequencies per axis, base $10^4$). For the $4096^2$ panel we used a 256-token grid, the NTK2 base, and synthetic $1/f^{\alpha}$ fields with the slope measured on the latents ($\alpha=1.56\pm0.23$). These are real latents pushed through the forward process, not a sampling trajectory of FLUX.1-dev, and the latent space is FLUX.2's, not FLUX.1's. We treat the numbers as mechanism checks, not benchmark results. They apply to the paper equations; Propositions~\ref{prop:rank} and~\ref{prop:bound} show that several of them do not carry over to the released code.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Mechanism tests of SEGA's paper equations on forward-noised FLUX.2 VAE latents of 20 DIV2K crops (CPU). Not a FLUX.1-dev sampling trajectory.}
+\label{tab:sega-mech}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Quantity & Value \\
+\midrule
+Variance of $m_j$ around 1 explained by one static tilt (20 images $\times$ 28 steps $\times$ 28 pairs) & 71\% \\
+\quad by a static tilt plus a per-timestep profile & 91\% \\
+\quad left for image content (upper bound, includes noise-draw variance) & 9\% \\
+$R^2$ of the spread $\varsigma$ explained by the timestep alone & 0.83 \\
+$R^2$ of $\varsigma$ explained by a content-free $1/f^\alpha$ field & 0.78 \\
+Latent power kept by the channel mean & 1.7\% \\
+\midrule
+At $4096^2$: width pairs whose wavelength exceeds the 256-token grid & 19 of 28 \\
+At $4096^2$, late steps: logit gain of the shortest-wavelength pair & $\times4.3$ \\
+At $4096^2$, late steps: logit gain of each of the 19 collapsed pairs & $\times0.48$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Static tilt and clock-like gate.}
+Table~\ref{tab:sega-mech} decomposes the variance of $m_j$. A single profile shared by all images and steps explains 71\% of it, adding a per-timestep profile raises this to 91\%, and image content accounts for at most the remaining 9\%. The spread $\varsigma$, the only scalar that carries spectral magnitude (Proposition~\ref{prop:slope}), is predicted by the timestep with $R^2=0.83$ and by a content-free $1/f^\alpha$ field with $R^2=0.78$. It behaves mostly as a function of the noise schedule, which DyPE~\citep{issachar2025dype} already provides in closed form.
+
+\paragraph{Bin collapse at 4K.}
+Under the NTK2 base at $4096^2$, 19 of the 28 width pairs have wavelengths longer than the 256-token grid. The clip in $\kappa_j$ sends all of them to bin 1, so they receive one shared gain. Late in sampling the shortest-wavelength pair receives a logit gain of 4.3 and the collapsed pairs 0.48 each, a ratio of about 9. In effect the paper equations implement a two-level locality boost.
+
+\paragraph{Response to known blur.}
+We blurred the clean latents with Gaussian kernels of standard deviation 0 to 2 tokens, forward-noised them, and measured the difference in mean log logit gain between pairs with wavelengths below 16 tokens and the remaining pairs (Table~\ref{tab:blur}). We compared SEGA with a prototype of our gain law that differs from the final method in three ways: it used the clean latent as an oracle $\xhat$, a single power-law target fitted on the other 10 images instead of the native octave profile, and interpolation of the band gains in $\log k$ instead of bin membership. SEGA's contrast is large at zero blur and saturates by a blur of 1 token. The prototype's contrast grows with blur at $\sigma=0.15$ and is near zero at $\sigma=0.6$, where the local bands are still below the noise floor. At zero blur the prototype's contrast is 0.33 rather than 0: real latent spectra curve away from a single power law, so a single-slope target is not a fixed point. This result motivated the native octave profile target of Section~\ref{sec:method}.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Log logit-gain contrast (wavelength $<16$ tokens minus the rest) versus known Gaussian blur of the clean latent, mean over 10 held-out images. SEGA: paper equations. Prototype: oracle $\xhat$, single-slope target (not the final method).}
+\label{tab:blur}
+\begin{tabular}{@{}llccccc@{}}
+\toprule
+ & & \multicolumn{5}{c}{Blur std (tokens)} \\
+\cmidrule(l){3-7}
+Method & $\sigma$ & 0 & 0.5 & 1.0 & 1.5 & 2.0 \\
+\midrule
+SEGA (paper eqs.) & 0.15 & 1.69 & 1.84 & 1.89 & 1.89 & 1.90 \\
+                  & 0.35 & 1.63 & 1.75 & 1.82 & 1.85 & 1.87 \\
+                  & 0.60 & 1.29 & 1.38 & 1.41 & 1.44 & 1.42 \\
+\midrule
+Prototype         & 0.15 & 0.33 & 0.51 & 0.76 & 0.86 & 0.79 \\
+                  & 0.35 & 0.30 & 0.41 & 0.50 & 0.50 & 0.47 \\
+                  & 0.60 & 0.09 & 0.08 & 0.05 & 0.02 & 0.01 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{What remains to be measured on FLUX.1-dev.}
+Our sampling code logs the per-step gains of every method. \todo{Repeat the static/timestep/content decomposition of Table~\ref{tab:sega-mech} for \texttt{sega\_official} and \texttt{sega} on FLUX.1-dev trajectories at $4096^2$, and report the realized range of released logit gains against the bound of Proposition~\ref{prop:bound}.}
+% NOTE (implementation): scripts/calibrate.py --mode sega-static averages the logged modulators of the
+% paper-equation `sega` runs. T1 therefore tests the paper equations. A static variant of `sega_official`
+% would need its own averaged allocation; it is not implemented yet.

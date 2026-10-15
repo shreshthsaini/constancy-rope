@@ -1,0 +1,56 @@
+\documentclass[10pt]{article}
+
+% Working title. Alternatives:
+%   (A) Seeing Closer: Contrast-Constancy Attention Gains for Training-Free 4K Diffusion Transformers
+%   (B) Closed-Loop Spectral Attention Gains for Training-Free Resolution Extrapolation in Diffusion Transformers
+
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{times,amsmath,amssymb,booktabs,graphicx,xcolor}
+\usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[numbers,sort&compress]{natbib}
+% hyperref is loaded last so that it patches the float package used by algorithm.
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black}
+
+\emergencystretch=2em
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+% Notation
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\xhat}{\hat{x}_0}
+\newcommand{\clip}{\operatorname{clip}}
+\newcommand{\Pnat}{\bar{P}}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+
+\title{Constancy RoPE: Contrast-Constancy Attention Gains for\\
+Training-Free Resolution Extrapolation in Diffusion Transformers}
+\author{\todo{authors}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\input{sec/abstract}
+\end{abstract}
+
+\input{sec/intro}
+\input{sec/related}
+\input{sec/background}
+\input{sec/analysis_sega}
+\input{sec/method}
+\input{sec/experiments_setup}
+\input{sec/results}
+\input{sec/limitations}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}
