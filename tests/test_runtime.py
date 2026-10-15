@@ -100,3 +100,24 @@ def test_probe_gain_is_visible_in_record_and_fingerprint(tmp_path):
     saved = json.loads(next(tmp_path.glob("*.json")).read_text())
     assert saved["complete"] and saved["seconds"] >= 0
     experiment.close()
+
+
+def test_time_matched_gate_alias_records_effective_method_and_previous_x0(tmp_path):
+    from crope.spectral import NativeProfile
+
+    f = torch.tensor([1 / 64, 1 / 16, 1 / 4])
+    profile = tmp_path / "tm.npz"
+    NativeProfile((f, f), (f, f), torch.tensor([0.9, 0.1]),
+                  (torch.stack((f, f)), torch.stack((f, f)))).save(profile)
+    experiment = FluxExperiment(ToyPipeline(), "constancy_tm", (64, 64), profile=profile, gate="off")
+    try:
+        record = experiment.sample({"id": "tm", "prompt": "A test."}, tmp_path, steps=3)
+        assert record["config"]["method"] == "constancy_tm_nogate"
+        assert record["config"]["profile_sha256"]
+        first, *later = record["gains"]
+        assert first["first_step_no_correction"] and "bins" not in first
+        assert all(not step["first_step_no_correction"] for step in later)
+        assert all(set(axis["gate"]) == {1.0} for step in later for axis in step["bins"])
+        assert all(step["mode"] == "constancy_tm_nogate" for step in record["gains"])
+    finally:
+        experiment.close()

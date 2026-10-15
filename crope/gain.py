@@ -52,11 +52,18 @@ class GainController:
     """Compute once per transformer call, then share gains across every block."""
 
     MODES = ("none", "yarn_temp", "sega", "sega_static", "constancy", "temp_only",
-             "constancy_nogate", "constancy_sref", "sega_official", "sega_official_static")
+             "constancy_nogate", "constancy_sref", "sega_official", "sega_official_static",
+             "constancy_tm", "constancy_tm_nogate")
 
     def __init__(self, mode="none", grid=(64, 64), axes_dims=(16, 56, 56), rope=None,
                  profile=None, static_profile=None, eta=1.0, target="profile", temperature=None,
-                 probe_band=None, probe_factor=1.5):
+                 probe_band=None, probe_factor=1.5, gate=None):
+        if gate not in (None, "on", "off"):
+            raise ValueError("Gate must be on or off")
+        if gate is not None:
+            if mode not in ("constancy_tm", "constancy_tm_nogate"):
+                raise ValueError("--gate is supported for constancy_tm; existing ablations use their named modes")
+            mode = "constancy_tm_nogate" if gate == "off" else "constancy_tm"
         if mode not in self.MODES:
             raise ValueError(f"Unknown controller {mode}")
         self.mode, self.grid, self.axes_dims, self.rope = mode, tuple(grid), tuple(axes_dims), rope
@@ -95,6 +102,11 @@ class GainController:
                         raise ValueError("SEGA-static profile dimensions do not match")
         if mode.startswith("constancy") and self.profile is None:
             raise ValueError("Constancy requires --profile from native calibration")
+        self.time_matched = mode in ("constancy_tm", "constancy_tm_nogate")
+        if self.time_matched:
+            self.profile.require_time_resolved()
+            if target != "profile":
+                raise ValueError("constancy_tm requires --target profile")
         self.reset()
 
     def reset(self):
@@ -158,16 +170,22 @@ class GainController:
                 for a, (et, e0, off) in enumerate(zip(xt_axes, x0_axes, offsets)):
                     rho = (et.power / (t * t * et.noise + 1e-12) - 1).clamp_min(0)
                     measured_gate = rho / (1 + rho)
-                    gate = torch.ones_like(measured_gate) if self.mode == "constancy_nogate" else measured_gate
-                    native = self.profile.evaluate(a, e0.frequency, self.target)
+                    gate = (torch.ones_like(measured_gate)
+                            if self.mode in ("constancy_nogate", "constancy_tm_nogate") else measured_gate)
+                    native = (self.profile.evaluate_time(a, e0.frequency, t) if self.time_matched
+                              else self.profile.evaluate(a, e0.frequency, self.target))
                     loge = e0.power.clamp_min(1e-30).log()
-                    anchor = (e0.frequency >= 1 / 64) & (e0.frequency <= 1 / 16) & (gate > 0.5)
+                    anchor = (e0.frequency >= 1 / 64) & (e0.frequency <= 1 / 16)
+                    if not self.time_matched:
+                        anchor = anchor & (gate > 0.5)
                     deficit = torch.zeros_like(loge)
                     if anchor.any():
                         c = (loge[anchor] - native[anchor]).mean()
                         deficit = 0.5 * (native + c - loge)
                     else:
                         c = torch.zeros((), device=device)
+                        if self.time_matched:
+                            deficit = 0.5 * (native - loge)
                     correction = self.eta * gate * deficit.clamp(-1, 1)
                     frequencies = self.frequencies(a + 1, device) / (2 * math.pi)
                     # Interpolate across empty bands and hold the endpoint corrections fixed.

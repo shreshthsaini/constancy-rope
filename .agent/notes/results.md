@@ -26,3 +26,9 @@ Coupling positive and band-selective on width, weak on height. Supports the meth
 
 ## Krea pilot timing
 ~290 s/img for ntk2, sega_official, constancy; dype 330 s. Official DyPE script 192 s (pipeline overhead in ours to investigate).
+
+## Pilot eval, Krea, 8 prompts 4096^2 (eval_krea/pilot/4096x4096/summary.csv), 2026-10-15 17:30
+clip/pick/musiq/musiq_crop/slope_err: constancy 30.10/23.10/40.6/58.6/0.174; sega_official 30.32/23.41/42.5/58.2/0.099; temp_only 29.96/23.12/40.4/60.3/0.182; dype 28.59/22.23/44.4/58.3/0.150; ntk2 27.84/22.37/32.9/41.4/0.132; yarn 28.06/21.14/42.5/66.7/0.240; paper sega 28.14/22.18/30.8; sega_static (paper) broken (clip 13.1); sega_official_static ~= sega_official.
+Diagnosis: constancy ~= temp_only. Per-band correction is exactly 0 for steps 0-23 and acts only at sigma<=0.35 (log g change -0.1..-0.6 on high pairs). Constancy shows high-freq excess in decoded images vs A4K refs (spectrum_log_error b07-b09 +0.75..+1.35).
+Missing metrics: ImageReward (crope transformers too new -> scripts/imagereward_score.py in mend env), FID/KID (torch-fidelity installed now), HPSv3 skipped.
+Protocol decision: prompts 0-7 are the DEV set for eta/gate choice; final numbers on held-out prompts 8-194 only. Sweep queued: 12_sweep_{constancy_eta2,constancy_eta4,constancy_nogate}. Constancy main (eta=1) tasks held in taskq/hold (7 chunks already ran at eta=1, keep as ablation).

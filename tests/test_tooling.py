@@ -112,6 +112,32 @@ def test_missing_profile_blocks_entire_stage_before_spool_creation(tmp_path):
     assert not args.queue.exists()
 
 
+@pytest.mark.parametrize("method", ["constancy_tm", "constancy_tm_nogate"])
+def test_time_matched_tasks_require_valid_time_profile(tmp_path, monkeypatch, method):
+    import torch
+    from crope.spectral import NativeProfile
+
+    args = plan_args(tmp_path, "--stage", "main", "--methods", method)
+    monkeypatch.setattr(enqueue, "SCRATCH", tmp_path)
+    tasks = enqueue.build_plan(args, enqueue.read_prompts(args.prompts))
+    for task in tasks:
+        command = task.commands[0]
+        assert command[command.index("--method") + 1] == method
+        assert command[command.index("--profile") + 1] == str(args.profile)
+        assert args.profile in task.requirements
+    with pytest.raises(ValueError, match="nothing enqueued"):
+        enqueue.write_tasks(args, tasks)
+    f = torch.tensor([0.02, 0.04])
+    NativeProfile((f, f), (f, f)).save(args.profile)
+    with pytest.raises(ValueError, match="time-resolved arrays"):
+        enqueue.write_tasks(args, tasks)
+    assert not args.queue.exists()
+    NativeProfile((f, f), (f, f), torch.tensor([0.9, 0.1]),
+                  (torch.stack((f, f)), torch.stack((f, f)))).save(args.profile)
+    records = enqueue.write_tasks(args, enqueue.build_plan(args, enqueue.read_prompts(args.prompts)))
+    assert len(records) == len(tasks) and all(row["state"] == "new" for row in records)
+
+
 def test_all_real_stage_rejected(tmp_path):
     args = plan_args(tmp_path)
     with pytest.raises(ValueError, match="requires --dry-run"):

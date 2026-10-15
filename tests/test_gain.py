@@ -235,6 +235,86 @@ def test_nogate_and_sref_ablations(native_latents):
     torch.testing.assert_close(controller.qk_scale[:16], torch.full((16,), math.sqrt(8) ** 0.08))
 
 
+@pytest.fixture
+def time_profile(native_latents):
+    fields = [blur(native_latents, s) for s in (2.0, 1.0, 0.5, 0.0)]
+    profiles = [NativeProfile.from_latents(x) for x in fields]
+    return NativeProfile(profiles[-1].frequencies, profiles[-1].log_power,
+                         torch.tensor([0.9, 0.6, 0.3, 0.1], dtype=torch.float64),
+                         tuple(torch.stack([p.log_power[a] for p in profiles]) for a in (0, 1))), fields
+
+
+@pytest.mark.parametrize("mode", ["constancy_tm", "constancy_tm_nogate"])
+def test_time_matched_native_trajectory_has_zero_deficit_at_every_step(time_profile, mode):
+    profile, fields = time_profile
+    controller = GainController(mode, profile=profile)
+    for sigma, x0 in zip(profile.sigma_steps, fields):
+        controller.update(5 * fields[-1], sigma, x0)
+        for axis in controller.history[-1]["bins"]:
+            assert axis["anchor_count"] > 0
+            np.testing.assert_allclose(axis["deficit"], 0, atol=1e-12)
+            np.testing.assert_allclose(axis["correction"], 0, atol=1e-12)
+        torch.testing.assert_close(controller.qk_scale, torch.ones(128), rtol=0, atol=0)
+
+
+def test_time_matched_blur_corrects_high_bands_at_mid_sigma(time_profile):
+    profile, fields = time_profile
+    sigma, x0 = 0.6, blur(fields[1], 1.2)
+    controller = GainController("constancy_tm", profile=profile)
+    controller.update(5 * fields[-1], sigma, x0)
+    for axis in controller.history[-1]["bins"]:
+        f = np.asarray(axis["frequency"])
+        high = (f >= 1 / 8) & (f <= 1 / 4)
+        assert np.asarray(axis["deficit"])[high].min() > 0.3
+        assert np.asarray(axis["correction"])[high].min() > 0.3
+
+
+def test_time_matched_anchor_keeps_hidden_bands_and_gate_off_is_equivalent(time_profile):
+    profile, fields = time_profile
+    xt, x0 = torch.zeros_like(fields[1]), blur(fields[1])
+    gated = GainController("constancy_tm", profile=profile)
+    gated.update(xt, 0.6, x0)
+    for axis in gated.history[-1]["bins"]:
+        assert axis["anchor_count"] > 0 and max(axis["deficit"]) > 0.1
+        assert set(axis["measured_gate"]) == {0.0}
+        assert set(axis["correction"]) == {0.0}
+    ablation = GainController("constancy_tm_nogate", profile=profile)
+    alias = GainController("constancy_tm", profile=profile, gate="off")
+    ablation.update(xt, 0.6, x0)
+    alias.update(xt, 0.6, x0)
+    assert alias.mode == "constancy_tm_nogate"
+    assert alias.history == ablation.history
+    assert any(max(axis["correction"]) > 0.1 for axis in alias.history[-1]["bins"])
+    assert all(set(axis["gate"]) == {1.0} for axis in alias.history[-1]["bins"])
+
+
+def test_time_matched_no_anchor_uses_zero_offset(time_profile):
+    profile, _ = time_profile
+    x0 = torch.randn(8, 8, 8, generator=torch.Generator().manual_seed(93), dtype=torch.float64)
+    controller = GainController("constancy_tm_nogate", grid=(8, 8), profile=profile)
+    controller.update(x0, 0.6, x0)
+    for a, axis in enumerate(controller.history[-1]["bins"]):
+        assert axis["anchor_count"] == 0 and axis["anchor_offset"] == 0
+        power = axis_power(x0)[a]
+        expected = 0.5 * (profile.evaluate_time(a, power.frequency, 0.6) - power.power.log())
+        np.testing.assert_allclose(axis["deficit"], expected.numpy(), atol=1e-12)
+        assert expected.abs().max() > 0.1
+
+
+@pytest.mark.parametrize("mode", ["constancy_tm", "constancy_tm_nogate"])
+def test_time_matched_first_step_and_axis_zero_get_only_temperature(time_profile, mode):
+    profile, _ = time_profile
+    clean = torch.randn(8, 128, 256, generator=torch.Generator().manual_seed(19))
+    controller = GainController(mode, grid=(128, 256), profile=profile)
+    expected = math.log(math.log(128 * 256) / math.log(4096))
+    controller.update(clean, 0.9)
+    torch.testing.assert_close(controller.log_g, torch.full((128,), expected))
+    assert controller.history[-1]["first_step_no_correction"]
+    controller.update(clean, 0.6, blur(clean))
+    torch.testing.assert_close(controller.log_g[:16], torch.full((16,), expected))
+    torch.testing.assert_close(controller.qk_scale[::2], controller.qk_scale[1::2], rtol=0, atol=0)
+
+
 @pytest.mark.parametrize("grid", [(64, 64), (256, 256), (128, 256)])
 def test_yarn_temperature_scales_both_queries_and_keys(grid):
     controller = GainController("yarn_temp", grid=grid)
@@ -286,14 +366,18 @@ def test_power_law_density_and_constancy_transfer_from_64_to_256(alpha):
         np.testing.assert_allclose(axis["deficit"], 0, atol=0.05)
 
 
-def test_all_resolvable_ntk2_pairs_interpolate_corrections_at_4096_pixels():
+@pytest.mark.parametrize("mode", ["constancy", "constancy_tm", "constancy_tm_nogate"])
+def test_all_resolvable_ntk2_pairs_interpolate_corrections_at_4096_pixels(mode):
     grid = (256, 256)  # FLUX packs 4096x4096 pixels into 256x256 tokens.
     clean = torch.randn(8, *grid, generator=torch.Generator().manual_seed(19), dtype=torch.float64)
     native = axis_power(clean[:, :64, :64])
     profile = NativeProfile(tuple(a.frequency for a in native),
                             tuple(-2 * a.frequency.log() for a in native))
+    if mode.startswith("constancy_tm"):
+        profile = NativeProfile(profile.frequencies, profile.log_power, torch.tensor([0.9, 0.01]),
+                                tuple(torch.stack((p - 1, p)) for p in profile.log_power))
     rope = FluxRoPE(method="ntk2", grid=grid)
-    controller = GainController("constancy", grid=grid, profile=profile, rope=rope)
+    controller = GainController(mode, grid=grid, profile=profile, rope=rope)
     controller.update(clean, 0.01, clean)
     temperature = math.log(math.log(math.prod(grid)) / math.log(4096))
     for a, (power, offset) in enumerate(zip(axis_power(clean), (16, 72))):
@@ -327,7 +411,8 @@ def test_native_low_frequency_extrapolation_is_log_linear():
     torch.testing.assert_close(log_interpolate(query, frequencies, values), 3 - 1.7 * query.log())
 
 
-@pytest.mark.parametrize("method", ["base", "sega_official", "sega_official_static"])
+@pytest.mark.parametrize("method", ["base", "sega_official", "sega_official_static",
+                                    "constancy_tm", "constancy_tm_nogate"])
 def test_runtime_updates_once_and_uses_exact_scheduler_sigma(tiny_flux, monkeypatch, tmp_path, method):
     monkeypatch.setattr(runtime, "code_revision", lambda: "test")
     monkeypatch.setattr(runtime, "model_revision", lambda: "test")
@@ -339,7 +424,14 @@ def test_runtime_updates_once_and_uses_exact_scheduler_sigma(tiny_flux, monkeypa
         static = tmp_path / "official_static.npz"
         np.savez(static, mean_qk_scale=np.repeat([1, 1, 1.1, 1.2, 1.3, 1.2, 1.3, 1.4], 2),
                  grid=[2, 3], source_method="sega_official")
-    experiment = runtime.FluxExperiment(pipe, method, (32, 48), static_profile=static)
+    profile = None
+    if method.startswith("constancy_tm"):
+        profile = tmp_path / "native_tm.npz"
+        f = torch.tensor([1 / 64, 1 / 16, 1 / 4])
+        NativeProfile((f, f), (f * 0, f * 0), torch.tensor([0.9, 0.1]),
+                      (torch.zeros(2, 3), torch.zeros(2, 3))).save(profile)
+    resolution = (64, 64) if profile is not None else (32, 48)
+    experiment = runtime.FluxExperiment(pipe, method, resolution, profile=profile, static_profile=static)
     if method == "sega_official_static":
         assert experiment.rope.method == "sega_official" and experiment.official is None
     calls, observed = [], []
@@ -353,13 +445,17 @@ def test_runtime_updates_once_and_uses_exact_scheduler_sigma(tiny_flux, monkeypa
     monkeypatch.setattr(target, "update", update)
     experiment.reset(lambda step, sigma, xt, x0: observed.append((step, sigma, xt.clone(), x0.clone())))
     kwargs = model_inputs()
+    if profile is not None:
+        kwargs["hidden_states"] = torch.randn(1, 16, 64)
+        yy, xx = torch.meshgrid(torch.arange(4), torch.arange(4), indexing="ij")
+        kwargs["img_ids"] = torch.stack((torch.zeros(16), yy.flatten(), xx.flatten()), dim=-1)
     try:
         with torch.inference_mode():
             for index in range(2):
                 kwargs["timestep"] = sigmas[index:index + 1].to(torch.bfloat16)
                 output = tiny_flux(**kwargs)[0]
-                expected = token_grid(kwargs["hidden_states"], (2, 3)).float()
-                expected = expected - float(sigmas[index]) * token_grid(output.float(), (2, 3))
+                expected = token_grid(kwargs["hidden_states"], experiment.grid).float()
+                expected = expected - float(sigmas[index]) * token_grid(output.float(), experiment.grid)
                 torch.testing.assert_close(experiment.previous_x0, expected, atol=0, rtol=0)
                 assert experiment.previous_x0.dtype == torch.float32
                 assert calls[index][1] == float(sigmas[index])

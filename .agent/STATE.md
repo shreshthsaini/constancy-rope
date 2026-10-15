@@ -3,10 +3,11 @@ Build and CPU-validate the resumable FLUX resolution-extrapolation codebase in d
 Research generations and paper claims follow separate GPU validation.
 
 ## Status and next action
-2026-10-15 14:40. KREA campaign live (FLUX.1-dev lattices at 4K even under official DyPE; Krea clean). Nodes: CR3 4n (until 10-16 11:40) + CR9 gh-dev 1n.
-Done (out_krea/pilot): ntk2, dype, sega_official, sega, constancy (8 prompts, 4096^2, ~290 s/img; dype 330). Images coherent; constancy comparable to sega_official/dype visually. Krea calib: calib/krea_profile.npz. Probe p0 done (probe_krea/4096x4096).
-Running/queued: pilots temp_only, yarn; probes p1 p2; 31 pilot-static (sega, sega_official); 112 main tasks 50_cXXXXX (ntk2, dype, sega_official, constancy x 195 prompts, interleaved by chunk, ~63 GPU-h).
-NEXT: main running with cuDNN SDPA (~215 s/img, ~47 GPU-h). 40_eval_pilot queued first; read eval_krea/pilot/4096x4096 when done. Then probes p1 p2 summary.
+2026-10-15 18:15. Krea campaign. CR3 4n until 10-16 11:40. Main baselines (ntk2, dype, sega_official x 195) running; constancy eta=1 main held (taskq/hold).
+DEV (prompts 0-7) result: constancy(eta1,2,4) == temp_only (IR ~1.28) < sega_official (IR 1.42; pick 23.41 vs 23.10; clip 30.32 vs 30.10); nogate worse (IR 1.00). Correction inactive until sigma<=0.35 because the target is the LATE native profile.
+Codex3 complete: constancy_tm and constancy_tm_nogate; 156 tests passed in 13.22s. CPU native-rebuild created calib/krea_profile_tm.npz (16 prompts, 28 steps, 9 bands/axis). All 14 old profile fields equal exactly; 17 input hashes unchanged. Changes uncommitted; no queue, Slurm, or paper changes. Details: notes/constancy_tm.md.
+Sweep evals queued (41_eval_sweep_*, 41_eval_pilot_v3). Sweep outputs moved to out_krea/sweep/, eval roots out_krea/sweeproot_* (symlinks).
+NEXT: review+commit Codex3; run constancy_tm (eta 1, 2) on dev prompts 0-7; if it beats sega_official on dev -> requeue constancy main with that config, report on prompts 8-194. Else write honest analysis (SEGA measured) and tell user.
 
 ## Map
 | note | read it when |
@@ -14,6 +15,7 @@ NEXT: main running with cuDNN SDPA (~215 s/img, ~47 GPU-h). 40_eval_pilot queued
 | notes/implementation.md | reviewing validation, deviations, and operational limitations |
 | ../crope/THIRD_PARTY.md | inspecting upstream revisions, licensing, and SEGA differences |
 | notes/codex.md | reviewing the original implementation dispatch |
+| notes/constancy_tm.md | reviewing time-matched controller changes, tests, rebuilt profile, or width-axis values |
 
 ## Decisions
 - Model is FLUX.1-dev for every method, as requested.

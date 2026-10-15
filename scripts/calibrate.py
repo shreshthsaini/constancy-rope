@@ -13,7 +13,8 @@ from crope.utils import image_stem, read_prompts, resolution, runtime_environmen
 
 def parser():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--mode", choices=("native", "sega-static"), required=True)
+    p.add_argument("--mode", choices=("native", "native-rebuild", "sega-static"), required=True)
+    p.add_argument("--traces", type=Path, help="Existing native trace directory for CPU-only native-rebuild")
     p.add_argument("--prompts", type=Path)
     p.add_argument("--start", type=int, default=0)
     p.add_argument("--count", type=int, default=16)
@@ -85,11 +86,94 @@ def static_profile(runs, res, out, method="sega"):
     print(f"saved {out}: {len(modulators)} images, {sum(map(len, modulators))} steps", flush=True)
 
 
-def native_profile(args):
+def aggregate_native_traces(paths, out):
+    """Keep the late-step reduction unchanged and also average each native step."""
     import numpy as np
     import torch
+    from crope.spectral import POWER_NORMALIZATION, NativeProfile
+
+    paths = [Path(p) for p in paths]
+    if not paths:
+        raise ValueError("No native .npz traces found")
+    late_threshold = float(os.environ.get("CROPE_LATE_SIGMA", "0.3"))
+    if not 0 < late_threshold <= 1:
+        raise ValueError("CROPE_LATE_SIGMA must be in (0,1]")
+    logs, trajectories = [[], []], [[], []]
+    frequencies, sigmas, settings = None, None, None
+    prompt_ids, identities = [], set()
+    for path in paths:
+        with np.load(path, allow_pickle=False) as data:
+            trace = {key: data[key].copy() for key in data.files}
+        required = {"config_json", "sigma", "frequency_h", "frequency_w", "log_power_h", "log_power_w"}
+        if missing := required - trace.keys():
+            raise ValueError(f"Incomplete native trace {path}: missing {sorted(missing)}")
+        config = json.loads(str(trace["config_json"]))
+        if config.get("power_normalization") != POWER_NORMALIZATION:
+            raise ValueError(f"Native trace uses incompatible power normalization; recalibrate it: {path}")
+        current_settings = {key: config.get(key) for key in
+                            ("model", "model_revision", "steps", "guidance", "seed", "grid", "scheduler")}
+        if settings is not None and current_settings != settings:
+            raise ValueError(f"Native traces mix models or sampling settings: {path}")
+        settings = current_settings
+        identity = (str(config["prompt_id"]), config["seed"])
+        if identity in identities:
+            raise ValueError(f"Duplicate prompt and seed in native traces: {identity}")
+        identities.add(identity)
+        prompt_ids.append(identity[0])
+        sigma = trace["sigma"]
+        if sigma.ndim != 1 or len(sigma) != config["steps"]:
+            raise ValueError(f"Incomplete native sigma trajectory: {path}")
+        if sigmas is not None and not np.array_equal(sigma, sigmas):
+            raise ValueError(f"Native trace sigma steps do not match: {path}")
+        sigmas = sigma
+        current_frequencies = tuple(trace[f"frequency_{a}"] for a in ("h", "w"))
+        if frequencies is not None and any(not np.array_equal(f, g) for f, g in zip(frequencies, current_frequencies)):
+            raise ValueError(f"Native trace frequencies do not match: {path}")
+        frequencies = current_frequencies
+        # Validate every trajectory before averaging, including finite values and ordering.
+        powers = tuple(torch.from_numpy(trace[f"log_power_{a}"]) for a in ("h", "w"))
+        NativeProfile(tuple(torch.from_numpy(f) for f in frequencies),
+                      tuple(p.mean(0) for p in powers), torch.from_numpy(sigmas), powers)
+        late = sigmas < late_threshold
+        if not late.any():
+            raise ValueError(f"No native steps with sigma<{late_threshold}; increase --steps")
+        for i, a in enumerate(("h", "w")):
+            logs[i].append(trace[f"log_power_{a}"][late])
+            trajectories[i].append(trace[f"log_power_{a}"])
+    profile = NativeProfile(tuple(torch.from_numpy(f) for f in frequencies),
+                            tuple(torch.from_numpy(np.concatenate(values).mean(0)) for values in logs),
+                            torch.from_numpy(sigmas),
+                            tuple(torch.from_numpy(np.stack(values).mean(0)) for values in trajectories))
+    profile.save(out, prompt_ids=np.asarray(prompt_ids), source_traces=np.asarray([str(p.resolve()) for p in paths]),
+                 n_prompts=len(paths), n_late_steps=sum(len(v) for v in logs[0]), native_grid=np.asarray([64, 64]),
+                 channels=64, late_sigma_threshold=late_threshold,
+                 config_json=json.dumps({"model": config["model"], "steps": config["steps"],
+                                         "guidance": config["guidance"], "seed": config["seed"],
+                                         "power": POWER_NORMALIZATION}))
+    print(f"saved native profile {out}: {len(paths)} prompts, {len(sigmas)} sigma steps", flush=True)
+
+
+def rebuild_native_profile(traces, out):
+    """Read traces only; preserve the original reduction order when available."""
+    import numpy as np
+
+    traces, out = Path(traces), Path(out)
+    paths = sorted(traces.glob("*.npz"))
+    if traces.resolve() in out.resolve().parents:
+        raise ValueError("Rebuilt profile must be outside the read-only trace directory")
+    original = traces.with_name(traces.name.removesuffix("_traces") + ".npz")
+    if original.is_file():
+        with np.load(original, allow_pickle=False) as data:
+            ordered = [traces / Path(str(p)).name for p in data.get("source_traces", [])]
+        if len(ordered) == len(paths) and set(ordered) == set(paths):
+            paths = ordered
+    aggregate_native_traces(paths, out)
+
+
+def native_profile(args):
+    import numpy as np
     from crope.runtime import FluxExperiment, fingerprint, load_pipeline
-    from crope.spectral import POWER_NORMALIZATION, NativeProfile, axis_power
+    from crope.spectral import POWER_NORMALIZATION, axis_power
 
     prompts = read_prompts(args.prompts)
     if args.start < 0 or args.count <= 0 or args.start + args.count > len(prompts):
@@ -99,7 +183,6 @@ def native_profile(args):
     experiment = FluxExperiment(pipe, "base", (1024, 1024))
     trace_dir = args.out.parent / (args.out.stem + "_traces")
     trace_dir.mkdir(parents=True, exist_ok=True)
-    logs = [[], []]
     frequencies = None
     sources = []
     try:
@@ -134,25 +217,10 @@ def native_profile(args):
                     np.savez(handle, **trace)
                 os.replace(temporary, path)
                 print(f"native {row['id']} seconds={seconds:.3f}", flush=True)
-            late = trace["sigma"] < float(os.environ.get("CROPE_LATE_SIGMA", "0.3"))
-            if not late.any():
-                raise ValueError("No native steps with sigma<0.3; increase --steps")
-            frequencies = tuple(trace[f"frequency_{a}"] for a in ("h", "w"))
-            for i, a in enumerate(("h", "w")):
-                logs[i].append(trace[f"log_power_{a}"][late])
             sources.append(str(path.resolve()))
     finally:
         experiment.close()
-    profile = NativeProfile(tuple(torch.from_numpy(f) for f in frequencies),
-                            tuple(torch.from_numpy(np.concatenate(values).mean(0)) for values in logs))
-    profile.save(args.out, prompt_ids=np.asarray([r["id"] for r in selected]),
-                 source_traces=np.asarray(sources), n_prompts=len(selected),
-                 n_late_steps=sum(len(v) for v in logs[0]), native_grid=np.asarray([64, 64]),
-                 channels=64, late_sigma_threshold=0.3,
-                 config_json=json.dumps({"model": "black-forest-labs/FLUX.1-dev", "steps": args.steps,
-                                         "guidance": args.guidance, "seed": args.seed,
-                                         "power": POWER_NORMALIZATION}))
-    print(f"saved native profile {args.out}: {len(selected)} prompts", flush=True)
+    aggregate_native_traces(sources, args.out)
 
 
 def main(argv=None):
@@ -162,6 +230,10 @@ def main(argv=None):
         if args.prompts is None or (args.res is not None and args.res != (1024, 1024)):
             raise ValueError("Native mode requires --prompts and resolution1024x1024")
         native_profile(args)
+    elif args.mode == "native-rebuild":
+        if args.traces is None:
+            raise ValueError("native-rebuild requires --traces pointing to existing native traces")
+        rebuild_native_profile(args.traces, args.out)
     else:
         if not args.runs or args.res is None:
             raise ValueError("SEGA-static mode requires --runs and --res")

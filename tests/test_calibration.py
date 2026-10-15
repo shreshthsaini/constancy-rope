@@ -240,11 +240,32 @@ def test_native_calibration_late_log_mean_and_resume(scratch_dir, monkeypatch):
         assert int(data["n_prompts"]) == 2 and int(data["n_late_steps"]) == 4
         assert float(data["late_sigma_threshold"]) == 0.3
         assert len(data["source_traces"]) == 2
+        np.testing.assert_array_equal(data["sigma_steps"], sigmas)
+        for a in ("h", "w"):
+            powers = []
+            for trace_path in data["source_traces"]:
+                with np.load(trace_path, allow_pickle=False) as trajectory:
+                    powers.append(trajectory[f"log_power_{a}"])
+            np.testing.assert_array_equal(data[f"log_power_t_{a}"], np.stack(powers).mean(0))
+            np.testing.assert_array_equal(data[f"log_power_{a}"],
+                                          np.concatenate([p[np.asarray(sigmas) < 0.3] for p in powers]).mean(0))
         for trace in data["source_traces"]:
             with np.load(trace, allow_pickle=False) as trajectory:
                 assert json.loads(str(trajectory["config_json"]))["power_normalization"] == POWER_NORMALIZATION
                 np.testing.assert_array_equal(trajectory["sigma"], sigmas)
                 assert trajectory["log_power_h"].shape[0] == 4
+
+    trace_dir = args.out.with_name("native_traces")
+    before = {path.name: path.read_bytes() for path in trace_dir.glob("*.npz")}
+    rebuilt = scratch_dir / "rebuilt.npz"
+    with monkeypatch.context() as patch:
+        patch.setattr(runtime, "load_pipeline", lambda *args: pytest.fail("Rebuild must not load a model"))
+        calibrate.main(["--mode", "native-rebuild", "--traces", str(trace_dir), "--out", str(rebuilt)])
+    assert before == {path.name: path.read_bytes() for path in trace_dir.glob("*.npz")}
+    with np.load(args.out, allow_pickle=False) as original, np.load(rebuilt, allow_pickle=False) as result:
+        assert set(original.files) == set(result.files)
+        for key in original.files:
+            np.testing.assert_array_equal(original[key], result[key])
 
     calibrate.native_profile(args)
     assert generated == ["0", "1"], "Resume must reuse complete per-prompt traces"

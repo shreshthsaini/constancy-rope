@@ -14,7 +14,8 @@ from .spectral import axis_power, token_grid
 from .utils import HF_HOME, atomic_json, file_sha256, image_seed, image_stem
 
 METHODS = ("base", "pi", "ntk", "ntk2", "yarn", "dype", "yarn_temp", "sega", "sega_official",
-           "sega_static", "sega_official_static", "constancy", "temp_only", "constancy_nogate", "constancy_sref")
+           "sega_static", "sega_official_static", "constancy", "temp_only", "constancy_nogate", "constancy_sref",
+           "constancy_tm", "constancy_tm_nogate")
 
 
 def load_pipeline(device="cuda", cpu_offload=False, allow_download=False):
@@ -83,7 +84,7 @@ def implementation_hash():
 
 class FluxExperiment:
     def __init__(self, pipe, method, resolution, profile=None, static_profile=None, eta=1.0,
-                 target="profile", temperature=None, probe_band=None, probe_factor=1.5):
+                 target="profile", temperature=None, probe_band=None, probe_factor=1.5, gate=None):
         from .rope import FluxRoPE
         if method not in METHODS:
             raise ValueError(f"Unknown method {method}")
@@ -99,7 +100,9 @@ class FluxExperiment:
         mode = "yarn_temp" if method == "yarn" else (method if method in GainController.MODES else "none")
         self.rope = FluxRoPE(axes_dims=self.axes_dims, theta=10000, method=rope_method, grid=self.grid)
         self.controller = GainController(mode, self.grid, self.axes_dims, self.rope, profile, static_profile,
-                                         eta, target, temperature, probe_band, probe_factor)
+                                         eta, target, temperature, probe_band, probe_factor, gate)
+        if self.controller.time_matched:
+            self.method = self.controller.mode
         self.original_rope = pipe.transformer.pos_embed
         self.original_processors = dict(pipe.transformer.attn_processors)
         pipe.transformer.pos_embed = self.rope

@@ -28,3 +28,34 @@ def test_baseline_cli_defaults_and_static_calibration_selection():
     args = calibrate.parser().parse_args(["--mode", "sega-static", "--method", "sega_official",
                                          "--runs", "pilot/sega_official", "--res", "4096x4096"])
     assert args.method == "sega_official"
+
+
+@pytest.mark.parametrize("method", ["constancy_tm", "constancy_tm_nogate"])
+def test_time_matched_cli_and_rebuild_selection(method):
+    from scripts import calibrate, enqueue, sample
+
+    args = sample.parser().parse_args(["--method", method, "--res", "4096x4096",
+                                      "--prompts", "prompts.jsonl", "--out", "out",
+                                      "--profile", "tm.npz", "--gate", "off"])
+    assert args.method == method and args.profile == Path("tm.npz") and args.gate == "off"
+    args = enqueue.parser().parse_args(["--stage", "main", "--methods", method,
+                                       "--prompts", "prompts.jsonl", "--profile", "tm.npz"])
+    assert args.methods == [method] and args.profile == Path("tm.npz")
+    args = calibrate.parser().parse_args(["--mode", "native-rebuild", "--traces", "native_traces",
+                                         "--out", "tm.npz"])
+    assert args.traces == Path("native_traces") and args.out == Path("tm.npz")
+
+
+def test_time_matched_sample_rejects_late_only_profile_before_loading_model(tmp_path, monkeypatch):
+    import torch
+    from crope import runtime
+    from crope.spectral import NativeProfile
+    from scripts import sample
+
+    profile = tmp_path / "old.npz"
+    f = torch.tensor([0.02, 0.04])
+    NativeProfile((f, f), (f, f)).save(profile)
+    monkeypatch.setattr(runtime, "load_pipeline", lambda *a: pytest.fail("Must validate profile before model load"))
+    with pytest.raises(ValueError, match="time-resolved arrays"):
+        sample.main(["--method", "constancy_tm", "--res", "4096x4096", "--prompts", "unused.jsonl",
+                     "--out", str(tmp_path / "out"), "--profile", str(profile)])

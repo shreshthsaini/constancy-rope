@@ -38,8 +38,9 @@ REFS=$CR/prompts/aesthetic4k_refs.jsonl
 ```
 
 Calibrate the native profile before Constancy sampling. Each prompt has a
-resumable trace containing every step's axis log power. The final profile averages
-steps with sigma<0.3. Use separate calibration captions or reserve these IDs from
+resumable trace containing every step's axis log power. The final profile retains
+the mean over steps with sigma<0.3 and the mean over prompts at each native step.
+Use separate calibration captions or reserve these IDs from
 evaluation; the following examples reserve the first 16 rows.
 
 ```bash
@@ -52,7 +53,8 @@ evaluation; the following examples reserve the first 16 rows.
 
 Supported methods: `base`, `pi`, `ntk`, `ntk2`, `yarn`, `dype`, `sega`,
 `sega_static`, `constancy`, `temp_only`, `constancy_nogate`, `constancy_sref`,
-`yarn_temp`, and `sega_official`. Constancy accepts `--eta`,
+`constancy_tm`, `constancy_tm_nogate`, `yarn_temp`, `sega_official`, and
+`sega_official_static`. Constancy accepts `--eta`,
 `--target profile|slope`, and `--temperature logN|sref|none`.
 Seeds depend only on prompt ID and seed, across methods and chunk boundaries.
 Each PNG has a JSON sidecar with settings, source/model hashes, time, peak memory,
@@ -60,6 +62,28 @@ and per-step logit gains by dimension and axis. Completed matching results are
 skipped after integrity checks; conflicting settings require a new output path.
 Model loading defaults to the existing cache. `--cpu-offload` is an explicit
 fallback for VRAM pressure; attention slicing is never enabled.
+
+`constancy_tm` matches the native log band density at the current scheduler sigma,
+using the previous step's x0 estimate. It interpolates linearly in sigma, clamps
+outside the native schedule, and uses Constancy's log-frequency interpolation and
+low-frequency extrapolation. Its 16..64-token anchor bands do not require a
+visibility threshold; an empty anchor set gives zero offset. The Wiener gate,
+pair mapping, temperature, axis-0 behavior, and logs follow Constancy. The first
+step applies temperature only. `--gate off` selects `constancy_tm_nogate`; enqueue
+the ablation by that method name. Both modes require `--target profile` and a
+profile containing `sigma_steps`, `log_power_t_h`, and `log_power_t_w`.
+
+Rebuild both profiles from saved traces on CPU without loading a model or changing
+the inputs. The late-step reduction keeps its original source order when the
+sibling profile records the same trace set.
+
+```bash
+"$PY" scripts/calibrate.py --mode native-rebuild \
+  --traces "$CR/calib/krea_profile_traces" --out "$CR/calib/krea_profile_tm.npz"
+"$PY" scripts/sample.py --method constancy_tm --res 4096x4096 --prompts "$PROMPTS" \
+  --profile "$CR/calib/krea_profile_tm.npz" --eta 1 \
+  --out "$CR/out/main/constancy_tm/4096x4096"
+```
 
 SEGA-static calibration consumes completed `sega` logs at the target resolution
 and stores the arithmetic mean of its per-axis modulators. It performs no FFT

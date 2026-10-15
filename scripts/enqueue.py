@@ -27,7 +27,8 @@ from crope.utils import image_stem, read_prompts, resolution  # noqa: E402
 SCRATCH = Path("/scratch/09032/saini_2/constancy_rope")
 PYTHON = Path("/work/09032/saini_2/vista/library/uv-envs/crope/bin/python")
 METHODS = ("base", "pi", "ntk", "ntk2", "yarn", "yarn_temp", "dype", "sega", "sega_static",
-           "constancy", "temp_only", "constancy_nogate", "constancy_sref", "sega_official", "sega_official_static")
+           "constancy", "temp_only", "constancy_nogate", "constancy_sref", "sega_official", "sega_official_static",
+           "constancy_tm", "constancy_tm_nogate")
 DEFAULT_METHODS = ("ntk2", "yarn", "dype", "sega_official", "sega", "temp_only", "constancy")
 PILOT_METHODS = DEFAULT_METHODS
 STATIC_PROFILES = {"sega_static": "sega_static_profile", "sega_official_static": "sega_official_static_profile"}
@@ -221,6 +222,12 @@ def write_tasks(args: argparse.Namespace, tasks: list[Task]) -> list[dict]:
     if missing:
         display = "\n".join(missing[:12])
         raise ValueError(f"Missing {len(missing)} prerequisites; nothing enqueued:\n{display}")
+    for task in tasks:
+        for command in task.commands:
+            if (command[0] == "scripts/sample.py" and
+                    command[command.index("--method") + 1] in ("constancy_tm", "constancy_tm_nogate")):
+                from crope.spectral import NativeProfile
+                NativeProfile.load(command[command.index("--profile") + 1]).require_time_resolved()
     records = []
     for task in tasks:
         name = task.filename(args.python)

@@ -1,5 +1,17 @@
 # Constancy RoPE handover
 
+2026-10-15 time-matched controller complete: constancy_tm and constancy_tm_nogate
+are implemented. Full suite: 156 passed in 13.22 seconds in the crope uv env,
+OMP_NUM_THREADS=8, with fixtures and caches in /tmp. CPU-only native-rebuild wrote
+/scratch/09032/saini_2/constancy_rope/calib/krea_profile_tm.npz from 16 prompts,
+28 native steps, and nine bands per axis. All 14 prior profile fields match
+exactly, including both late-step arrays. SHA256 checks confirm the original
+profile and all 16 input traces are unchanged. Existing modes retain their
+behavior; --gate off selects constancy_tm_nogate. See
+.agent/notes/constancy_tm.md for changes, commands, checks, and width-axis values.
+Implementation and CPU validation are complete; 4K image quality is untested.
+No commits, model loads, GPU runs, queue, Slurm, or paper changes were made.
+
 2026-10-15 fix update: band density, empty-band interpolation, squared YaRN gain,
 official SEGA defaults, and sega_official_static are implemented. Full validation:
 125 tests passed in 22.96 seconds using the crope uv environment and
