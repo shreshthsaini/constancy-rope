@@ -90,7 +90,8 @@ class FluxExperiment:
         self.pipe, self.method, self.resolution = pipe, method, tuple(resolution)
         self.grid = tuple(n // 16 for n in resolution)
         # mu = max_shift at every resolution (see sample()); set before any config is recorded.
-        self.pipe.scheduler.register_to_config(max_image_seq_len=max(4096, self.grid[0] * self.grid[1]))
+        if hasattr(self.pipe.scheduler, "register_to_config"):
+            self.pipe.scheduler.register_to_config(max_image_seq_len=max(4096, self.grid[0] * self.grid[1]))
         self.axes_dims = tuple(pipe.transformer.config.axes_dims_rope)
         rope_method = method if method in ("base", "pi", "ntk", "ntk2", "yarn", "dype", "sega_official") else "ntk2"
         if method == "sega_official_static":
