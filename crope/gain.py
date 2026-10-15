@@ -212,7 +212,9 @@ def gained_attention(query, key, value, qk_scale, attention_mask=None):
     # Limit the flash-only policy to FLUX blocks. CLIP/T5 can have short masked
     # attention calls that need another SDPA backend. A math fallback here would
     # materialize quadratic attention for 65,536 image tokens.
-    with sdpa_kernel(SDPBackend.FLASH_ATTENTION) if query.is_cuda else nullcontext():
+    # cuDNN attention is the fast path on Hopper (GH200); flash and memory-efficient kernels are fallbacks.
+    backends = [SDPBackend.CUDNN_ATTENTION, SDPBackend.FLASH_ATTENTION, SDPBackend.EFFICIENT_ATTENTION]
+    with sdpa_kernel(backends, set_priority=True) if query.is_cuda else nullcontext():
         return F.scaled_dot_product_attention((query * m).transpose(1, 2), (key * m).transpose(1, 2),
                                              value.transpose(1, 2), attn_mask=attention_mask,
                                              dropout_p=0.0, is_causal=False).transpose(1, 2)

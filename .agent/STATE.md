@@ -3,10 +3,10 @@ Build and CPU-validate the resumable FLUX resolution-extrapolation codebase in d
 Research generations and paper claims follow separate GPU validation.
 
 ## Status and next action
-2026-10-15 11:55. CR3 1072630 RUNNING since 11:40 on c610-072,c619-102,c637-021,c637-022 (gh, 24h -> ends 10-16 11:40). Other CR jobs still pending (CR4,5,7,8,9).
-Done: 00 smoke (1024^2 9.2 s; 4096^2 291 s/img, peak 40.8 GB, sigmas OK mu=1.15), 10 calib (calib/flux_dev_profile.npz, 16 prompts).
-Running/pending: 20 probe, 30 pilots (ntk2, dype, constancy, yarn, sega_official, sega, temp_only), 8 prompts each at 4096^2 (~40 min/task).
-NEXT: 4K outputs show lattice artifacts (see notes/results.md). Waiting on 05_diag official DyPE+dev; Krea downloading. Probe extras held in taskq/hold.
+2026-10-15 14:40. KREA campaign live (FLUX.1-dev lattices at 4K even under official DyPE; Krea clean). Nodes: CR3 4n (until 10-16 11:40) + CR9 gh-dev 1n.
+Done (out_krea/pilot): ntk2, dype, sega_official, sega, constancy (8 prompts, 4096^2, ~290 s/img; dype 330). Images coherent; constancy comparable to sega_official/dype visually. Krea calib: calib/krea_profile.npz. Probe p0 done (probe_krea/4096x4096).
+Running/queued: pilots temp_only, yarn; probes p1 p2; 31 pilot-static (sega, sega_official); 112 main tasks 50_cXXXXX (ntk2, dype, sega_official, constancy x 195 prompts, interleaved by chunk, ~63 GPU-h).
+NEXT: when pilots + static done -> enqueue eval pilot (rename to 40_ so it runs before main) and read metrics. Read probe_krea mtf.csv (3 prompts). Perf: our pipeline 290 s/img vs official DyPE 192 s; investigate if time allows.
 
 ## Map
 | note | read it when |

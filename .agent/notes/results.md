@@ -13,3 +13,16 @@ Implication: the pre-registered sign (deficit -> raise gain) may be wrong for hi
 Native 1024 base is clean. At 4096^2 with FLUX.1-dev: ntk2 = featureless blur; dype and constancy = dense dot/halftone lattice over whole frame (pilotviz sheets in session scratchpad). Not publishable; pilot + probe numbers NOT trusted until resolved.
 Official DyPE and SEGA both use FLUX.1-Krea-dev (DyPE run script guidance 4.5). Diagnostic 05_diag_official_dype_dev runs official DyPE code with our FLUX.1-dev at 4096 (diag/). Krea transformer downloading (logs/download_krea.log).
 Decision rule: official-DyPE+dev also lattice -> checkpoint cause, switch campaign to Krea (matches both baselines' papers). Official clean -> bug in crope rope/gain path, diff against official.
+
+## Checkpoint diagnosis (2026-10-15 13:10) -> SWITCH TO KREA
+Official DyPE code + FLUX.1-dev at 4096^2 (guidance 3.5): same dense lattice texture as ours -> checkpoint cause, not our code.
+Official DyPE + FLUX.1-Krea-dev (guidance 4.5): clean composition at 4096^2 (diag/official_dype_krea_4096_g4.5_dype1.png), 192 s.
+Campaign now Krea + guidance 4.5 (matches DyPE and SEGA official). Roots: out_krea, calib/krea_profile.npz, probe_krea, eval_krea.
+The FLUX.1-dev T2 probe result above is void (lattice regime). Krea probe: 20_probe (prompt 0) + 35_probe_krea_p1/p2.
+
+## T2 probe on Krea, prompt 0 (probe_krea/4096x4096/mtf.csv)
+Diagonal elasticity vs mean off-diagonal: latent height [0.36,0.10,-0.08,0.08,0.34,0.08] vs 0.06; latent width [1.22,0.73,0.08,0.36,0.30,0.11] vs 0.18; image height [0.32,0.08,-0.13,-0.10,0.47,-0.02] vs 0.11; image width [1.69,0.78,0.32,0.49,0.51,0.20] vs 0.20.
+Coupling positive and band-selective on width, weak on height. Supports the method's sign assumption (FLUX.1-dev negative result was the lattice). Prompts 1, 2 pending.
+
+## Krea pilot timing
+~290 s/img for ntk2, sega_official, constancy; dype 330 s. Official DyPE script 192 s (pipeline overhead in ours to investigate).
