@@ -3,13 +3,9 @@ Build and CPU-validate the resumable FLUX resolution-extrapolation codebase in d
 Research generations and paper claims follow separate GPU validation.
 
 ## Status and next action
-Implementation complete: upstream ports, gains, sampling, calibration, probe, metrics, and task tooling.
-Final CPU suite: 107 passed in 15.14 seconds under mend (torch 2.11.0, diffusers 0.39.0).
-All CLI helps pass; 195 cached eval prompts exported; all-stage dry-run plans 347 scripts with an empty live queue.
-No enqueueing, scheduler operations, SSH, or GPU runs by this implementation session.
-Local commits blocked by the read-only .git mount; source remains reviewable in the working tree.
-External setup previously reported fleet 1071114 pending and env/download work; not rechecked here.
-NEXT: review the default-schedule diagnostic, finish the external crope env build, then run GPU smoke separately.
+2026-10-15 02:05. CR1 ran 23:39-01:11 on 4 nodes but all 3 tasks failed at load (IncompleteSnapshotError: root repo files never downloaded); workers idled 90 min and exited. FIXED: runtime.load_pipeline now loads the local snapshot dir. CPU end-to-end check running (logs: /scratch/09032/saini_2/constancy_rope/cpucheck/run.log; calibrate native 1 prompt 2 steps + sample 512^2 2 steps for 6 methods).
+Jobs: CR3 1072630 enlarged to gh 4n 24h (pending). Account at 42 queued jobs (submit cap), so no new submissions possible.
+NEXT: if cpucheck passes, mv taskq/failed/* -> taskq/pending/ and commit. Then on node start: smoke timing, calib -> pilot -> probe go/no-go.
 
 ## Map
 | note | read it when |

@@ -21,11 +21,16 @@ def load_pipeline(device="cuda", cpu_offload=False, allow_download=False):
     from diffusers import FluxPipeline
     if device.startswith("cuda") and not torch.cuda.is_available():
         raise RuntimeError("CUDA is required for full FLUX inference. Use pytest for tiny CPU validation.")
-    if not device.startswith("cuda"):
-        raise RuntimeError("Full FLUX inference on this shared CPU node is disabled")
+    if not device.startswith("cuda") and os.environ.get("CROPE_ALLOW_CPU") != "1":
+        raise RuntimeError("Full FLUX inference on this shared CPU node is disabled (set CROPE_ALLOW_CPU=1 for a plumbing check)")
     torch.set_num_threads(min(8, int(os.environ.get("OMP_NUM_THREADS", "8"))))
-    pipe = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-dev", torch_dtype=torch.bfloat16,
-                                       local_files_only=not allow_download)
+    source = "black-forest-labs/FLUX.1-dev"
+    if not allow_download:
+        # The cache holds only the diffusers-format subfolders (root single-file weights were skipped), which
+        # huggingface_hub treats as an incomplete snapshot. Load the snapshot directory directly instead.
+        hub = Path(os.environ.get("HF_HOME", "/scratch/09032/saini_2/tmp/hf")) / "hub/models--black-forest-labs--FLUX.1-dev"
+        source = str(hub / "snapshots" / (hub / "refs/main").read_text().strip())
+    pipe = FluxPipeline.from_pretrained(source, torch_dtype=torch.bfloat16, local_files_only=not allow_download)
     if cpu_offload:
         pipe.enable_model_cpu_offload(device=device)
     else:
