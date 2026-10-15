@@ -5,7 +5,8 @@ Research generations and paper claims follow separate GPU validation.
 ## Status and next action
 2026-10-15 03:00. CPU end-to-end check PASSED with real FLUX weights (calibrate + 6 methods at 512^2, gains logged; cpucheck/). Spool: 00 smoke, 10 calib, 20 probe, 30 pilot x6 (ntk2, yarn, dype, sega_official, sega, temp_only; 8 prompts, 4096^2).
 Jobs: CR3 1072630 (gh 4n 24h), CR4 1073495 (gh 2n 12h), CR5 1073496 (gh 1n 6h), CR7 1073851 (gh 1n 2h), CR8 1073852 (gh 2n 4h), CR9 1073853 (gh-dev 1n 2h); all drain the same spool. Guest use of other sessions idle nodes was DENIED by permission classifier: do not retry without user approval.
-NEXT: after 10 calib done -> enqueue constancy pilot (scripts/enqueue.py --stage pilot; it needs calib/flux_dev_profile.npz). After pilot sega done -> pilot-static. After 20 probe -> read probe CSV: diagonal d log P_b / d log g_b > 0 is go.
+The four requested fixes are complete: density normalization, empty-band interpolation, squared YaRN logit gain, and official SEGA defaults/static baseline. Full CPU suite: 125 passed in 22.96s with the crope uv environment, OMP_NUM_THREADS=8, and outputs/caches under /tmp. An existing runtime test double was updated to support the scheduler config API already used by production.
+NEXT: Review the uncommitted fixes. Old summed-power native profiles/traces require recalibration. This fix session did not access taskq or change Slurm/paper files; no campaign state above was rechecked.
 
 ## Map
 | note | read it when |

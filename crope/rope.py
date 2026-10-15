@@ -153,7 +153,7 @@ class FluxRoPE(nn.Module):
             "native_grid_tokens": list(self.native_grid),
             "spatial_scales": list(self.scales),
             "yarn_ramp": "r=wavelength/native_axis_length; alpha=1; beta=32",
-            "yarn_temperature": "controller logit gain; per-side geometric-mean scale",
+            "yarn_temperature": "controller logit gain=(1+0.1*ln(s))**2; per-side geometric-mean scale",
             "dype_schedule": "kappa=sigma**2; beta=(1.25,.75); gamma=(16,2)",
             "dype_amplitude": "spatial q/k scale=1+0.1*ln(axis_scale); axis0=1",
             "embedded_qk_gain": self.embedding_gain().tolist(),

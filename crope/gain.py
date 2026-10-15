@@ -6,7 +6,7 @@ import math
 import torch
 import torch.nn.functional as F
 
-from .spectral import NativeProfile, axis_power
+from .spectral import NativeProfile, axis_power, log_interpolate
 
 
 def sega_modulator(mean_latent, theta, theta_height=None):
@@ -52,7 +52,7 @@ class GainController:
     """Compute once per transformer call, then share gains across every block."""
 
     MODES = ("none", "yarn_temp", "sega", "sega_static", "constancy", "temp_only",
-             "constancy_nogate", "constancy_sref", "sega_official")
+             "constancy_nogate", "constancy_sref", "sega_official", "sega_official_static")
 
     def __init__(self, mode="none", grid=(64, 64), axes_dims=(16, 56, 56), rope=None,
                  profile=None, static_profile=None, eta=1.0, target="profile", temperature=None,
@@ -73,16 +73,26 @@ class GainController:
         if probe_factor <= 0:
             raise ValueError("Probe factor must be positive")
         self.static = None
-        if mode == "sega_static":
+        if mode in ("sega_static", "sega_official_static"):
             import numpy as np
             if static_profile is None:
-                raise ValueError("sega_static requires --sega-static-profile at the target resolution")
+                raise ValueError(f"{mode} requires --sega-static-profile at the target resolution")
             with np.load(static_profile, allow_pickle=False) as data:
                 if tuple(data["grid"]) != self.grid:
                     raise ValueError("SEGA-static profile resolution does not match")
-                self.static = torch.from_numpy(data["mean_modulator"].copy())
-                if self.static.shape != (2, axes_dims[1] // 2) or axes_dims[1] != axes_dims[2]:
-                    raise ValueError("SEGA-static profile dimensions do not match")
+                if mode == "sega_official_static":
+                    if str(data.get("source_method", "")) != "sega_official":
+                        raise ValueError("Official SEGA-static requires a sega_official gain profile")
+                    self.static = torch.from_numpy(data["mean_qk_scale"].copy())
+                    if self.static.shape != (sum(axes_dims),):
+                        raise ValueError("SEGA-static profile dimensions do not match")
+                    if (not torch.isfinite(self.static).all() or not (self.static > 0).all()
+                            or not torch.equal(self.static[::2], self.static[1::2])):
+                        raise ValueError("Invalid official SEGA-static q/k gains")
+                else:
+                    self.static = torch.from_numpy(data["mean_modulator"].copy())
+                    if self.static.shape != (2, axes_dims[1] // 2) or axes_dims[1] != axes_dims[2]:
+                        raise ValueError("SEGA-static profile dimensions do not match")
         if mode.startswith("constancy") and self.profile is None:
             raise ValueError("Constancy requires --profile from native calibration")
         self.reset()
@@ -121,7 +131,9 @@ class GainController:
         scale = math.sqrt(math.prod(self.grid)) / 64
         offsets = (self.axes_dims[0], self.axes_dims[0] + self.axes_dims[1])
         if self.mode == "yarn_temp":
-            logg.fill_(math.log(1 + 0.1 * math.log(scale)))
+            logg.fill_(2 * math.log(1 + 0.1 * math.log(scale)))
+        elif self.mode == "sega_official_static":
+            logg.copy_(2 * self.static.to(device).log())
         elif self.mode in ("sega", "sega_static"):
             if self.static is None:
                 stats = xt.to(torch.float64 if xt.dtype == torch.float64 else torch.float32)
@@ -158,10 +170,8 @@ class GainController:
                         c = torch.zeros((), device=device)
                     correction = self.eta * gate * deficit.clamp(-1, 1)
                     frequencies = self.frequencies(a + 1, device) / (2 * math.pi)
-                    # Assign the actual half-octave bin. Under-grid wavelengths receive temperature only.
-                    membership = (frequencies[:, None] >= e0.lower) & (frequencies[:, None] < e0.upper)
-                    membership[:, -1] |= frequencies == 0.5
-                    dim_delta = membership.to(correction.dtype) @ correction
+                    # Interpolate across empty bands and hold the endpoint corrections fixed.
+                    dim_delta = log_interpolate(frequencies, e0.frequency, correction, extrapolate=False)
                     dim_delta = torch.where(frequencies < 1 / self.grid[a], 0, dim_delta)
                     logg[off:off + self.axes_dims[a + 1]] += dim_delta.repeat_interleave(2)
                     bins.append({"axis": "height" if a == 0 else "width", "frequency": e0.frequency.cpu().tolist(),

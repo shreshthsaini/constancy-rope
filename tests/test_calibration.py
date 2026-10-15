@@ -15,7 +15,7 @@ import torch
 import crope.gain as gain_module
 import crope.runtime as runtime
 from crope.gain import GainController
-from crope.spectral import NativeProfile, axis_power
+from crope.spectral import POWER_NORMALIZATION, NativeProfile, axis_power
 from scripts import calibrate
 
 
@@ -50,6 +50,10 @@ def finished_record(directory, prompt_id, modulators, *, res="4096x4096", method
         "gains": [{"step": step, "modulator": np.asarray(value).tolist()}
                   for step, value in enumerate(modulators)],
     }
+    if method == "sega_official":
+        record["gains"] = [{"step": step, "controller_log_g": (2 * np.log(value)).tolist(),
+                            "log_g": (2 * np.log(value) + 0.5).tolist()}
+                           for step, value in enumerate(modulators)]
     path.write_text(json.dumps(record))
     return path
 
@@ -90,6 +94,56 @@ def test_static_averages_prompt_steps_with_height_width_order(scratch_dir, monke
     assert controller.history[-1]["modulator"] == expected.tolist()
 
 
+def test_official_static_averages_qk_gains_without_runtime_fft(scratch_dir, monkeypatch):
+    first = np.repeat(np.arange(2 * 64).reshape(2, 64) / 100 + 1, 2, axis=1)
+    first[:, :16] = 1
+    second = first.copy()
+    second[:, 16:] *= 1.3
+    directory = scratch_dir / "runs"
+    finished_record(directory, "a", first, method="sega_official")
+    finished_record(directory, "b", second, method="sega_official")
+    finished_record(directory, "reference", np.ones((2, 2, 28)))
+    finished_record(directory, "wrong-res", first, method="sega_official", res="2048x2048")
+    finished_record(directory, "unfinished", first, method="sega_official", complete=False)
+    out = scratch_dir / "official_static.npz"
+    calibrate.static_profile([directory], (4096, 4096), out, method="sega_official")
+    expected = np.concatenate((first, second)).mean(0)
+    with np.load(out, allow_pickle=False) as result:
+        np.testing.assert_allclose(result["mean_qk_scale"], expected)
+        np.testing.assert_array_equal(result["grid"], [256, 256])
+        assert str(result["source_method"]) == "sega_official"
+        assert result["prompt_ids"].tolist() == ["a", "b"]
+        assert int(result["n_images"]) == 2 and int(result["n_steps"]) == 4
+        assert "mean_modulator" not in result
+
+    def forbidden_fft(*args, **kwargs):
+        raise AssertionError("Released-SEGA static must not estimate spectra at runtime")
+
+    monkeypatch.setattr(torch.fft, "fft2", forbidden_fft)
+    monkeypatch.setattr(torch.fft, "fft", forbidden_fft)
+    monkeypatch.setattr(gain_module, "axis_power", forbidden_fft)
+    controller = GainController("sega_official_static", grid=(256, 256), static_profile=out)
+    controller.update(torch.zeros(1, 256, 256), 0.5)
+    torch.testing.assert_close(controller.qk_scale, torch.from_numpy(expected).float())
+    controller.update(torch.ones(1, 256, 256), 0.1)
+    torch.testing.assert_close(controller.qk_scale, torch.from_numpy(expected).float())
+
+
+@pytest.mark.parametrize("failure", ["shape", "nan", "pairs"])
+def test_official_static_rejects_invalid_qk_profiles(scratch_dir, failure):
+    values = np.ones((2, 128))
+    if failure == "shape":
+        values = values[:, :-2]
+    elif failure == "nan":
+        values[0, 0] = np.nan
+    else:
+        values[0, 17] = 1.5
+    directory = scratch_dir / "runs"
+    finished_record(directory, "a", values, method="sega_official")
+    with pytest.raises(ValueError, match="q/k gains"):
+        calibrate.static_profile([directory], (4096, 4096), scratch_dir / "static.npz", method="sega_official")
+
+
 @pytest.mark.parametrize("failure,match", [
     ("duplicate", "Duplicate prompt"),
     ("steps", "Incomplete gain trajectory"),
@@ -127,6 +181,14 @@ def test_static_profile_resolution_is_enforced(scratch_dir):
     np.savez(path, mean_modulator=np.ones((2, 28)), grid=np.array([128, 128]))
     with pytest.raises(ValueError, match="resolution does not match"):
         GainController("sega_static", grid=(256, 256), static_profile=path)
+
+
+def test_native_profile_rejects_legacy_summed_power(tmp_path):
+    path = tmp_path / "legacy.npz"
+    np.savez(path, frequency_h=[0.02, 0.04], frequency_w=[0.02, 0.04],
+             log_power_h=[1, 2], log_power_w=[1, 2])
+    with pytest.raises(ValueError, match="power normalization; recalibrate"):
+        NativeProfile.load(path)
 
 
 def test_native_calibration_late_log_mean_and_resume(scratch_dir, monkeypatch):
@@ -174,11 +236,13 @@ def test_native_calibration_late_log_mean_and_resume(scratch_dir, monkeypatch):
                                 for row in rows for scale in (3, 4)]).mean(0)
         torch.testing.assert_close(profile.log_power[axis], expected)
     with np.load(args.out, allow_pickle=False) as data:
+        assert str(data["power_normalization"]) == POWER_NORMALIZATION
         assert int(data["n_prompts"]) == 2 and int(data["n_late_steps"]) == 4
         assert float(data["late_sigma_threshold"]) == 0.3
         assert len(data["source_traces"]) == 2
         for trace in data["source_traces"]:
             with np.load(trace, allow_pickle=False) as trajectory:
+                assert json.loads(str(trajectory["config_json"]))["power_normalization"] == POWER_NORMALIZATION
                 np.testing.assert_array_equal(trajectory["sigma"], sigmas)
                 assert trajectory["log_power_h"].shape[0] == 4
 
@@ -189,3 +253,13 @@ def test_native_calibration_late_log_mean_and_resume(scratch_dir, monkeypatch):
     with pytest.raises(ValueError, match="different settings"):
         calibrate.native_profile(args)
     assert all(instance.closed for instance in instances)
+    args.guidance = 3.5
+    with np.load(trace, allow_pickle=False) as data:
+        legacy_trace = {key: data[key].copy() for key in data.files}
+    legacy_config = json.loads(str(legacy_trace["config_json"]))
+    legacy_config.pop("power_normalization")
+    legacy_trace["config_json"] = json.dumps(legacy_config)
+    legacy_trace["config_fingerprint"] = runtime.fingerprint(legacy_config)
+    np.savez(trace, **legacy_trace)
+    with pytest.raises(ValueError, match="different settings"):
+        calibrate.native_profile(args)

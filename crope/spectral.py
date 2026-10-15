@@ -1,4 +1,4 @@
-"""Axis spectra in cycles per token; FFTs use the unnormalized convention."""
+"""Channel-summed spectral densities in cycles per token."""
 
 from dataclasses import dataclass
 import math
@@ -6,6 +6,9 @@ from pathlib import Path
 
 import numpy as np
 import torch
+
+
+POWER_NORMALIZATION = "channel_sum_mean_ortho_fft2_power"
 
 
 def token_grid(packed, grid):
@@ -22,6 +25,7 @@ class AxisPower:
     frequency: torch.Tensor
     power: torch.Tensor
     noise: torch.Tensor
+    count: torch.Tensor
 
 
 def axis_power(x):
@@ -29,9 +33,9 @@ def axis_power(x):
         raise ValueError("Expected C,H,W token-grid latents")
     x = x.to(torch.float64 if x.dtype == torch.float64 else torch.float32)
     c, h, w = x.shape
-    p = torch.fft.fft2(x - x.mean((-2, -1), keepdim=True)).abs().square().sum(0)
+    p = torch.fft.fft2(x - x.mean((-2, -1), keepdim=True), norm="ortho").abs().square().sum(0)
     result = []
-    for length, other, marginal in ((h, w, p.sum(1)), (w, h, p.sum(0))):
+    for length, marginal in ((h, p.mean(1)), (w, p.mean(0))):
         # Common powers of sqrt(2) make native/target bins share absolute frequencies.
         low_exp = -math.ceil(math.log2(length))
         edges = torch.pow(2.0, torch.arange(low_exp, -0.999, 0.5, device=x.device, dtype=x.dtype))
@@ -43,13 +47,18 @@ def axis_power(x):
         lower, upper = edges[:-1][valid], edges[1:][valid]
         count = masks.sum(1).to(x.dtype)
         result.append(AxisPower(lower, upper, (lower * upper).sqrt(),
-                                masks.to(x.dtype) @ marginal, count * other * h * w * c))
+                                (masks.to(x.dtype) @ marginal) / count,
+                                torch.full_like(count, c), count))
     return result
 
 
-def log_interpolate(x, xp, yp):
+def log_interpolate(x, xp, yp, *, extrapolate=True):
     """Linear interpolation/extrapolation of a log-power law in log frequency."""
     xp, yp = xp.to(x), yp.to(x)
+    if not extrapolate:
+        if xp.numel() == 1:
+            return torch.full_like(x, yp[0])
+        x = x.clamp(xp[0], xp[-1])
     if xp.numel() < 2:
         raise ValueError("At least two native bins are required")
     a, b = x.log(), xp.log()
@@ -83,6 +92,8 @@ class NativeProfile:
     @classmethod
     def load(cls, path):
         with np.load(path, allow_pickle=False) as data:
+            if str(data.get("power_normalization", "")) != POWER_NORMALIZATION:
+                raise ValueError("Native profile uses incompatible power normalization; recalibrate it")
             return cls(tuple(torch.from_numpy(data[f"frequency_{a}"].copy()) for a in ("h", "w")),
                        tuple(torch.from_numpy(data[f"log_power_{a}"].copy()) for a in ("h", "w")))
 
@@ -104,5 +115,6 @@ class NativeProfile:
         with temporary.open("wb") as handle:
             np.savez(handle, **{f"frequency_{a}": self.frequencies[i].cpu().numpy() for i, a in enumerate(("h", "w"))},
                      **{f"log_power_{a}": self.log_power[i].cpu().numpy() for i, a in enumerate(("h", "w"))},
+                     power_normalization=POWER_NORMALIZATION,
                      **extra)
         os.replace(temporary, path)

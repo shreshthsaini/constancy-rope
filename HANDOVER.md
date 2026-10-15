@@ -1,5 +1,23 @@
 # Constancy RoPE handover
 
+2026-10-15 fix update: band density, empty-band interpolation, squared YaRN gain,
+official SEGA defaults, and sega_official_static are implemented. Full validation:
+125 tests passed in 22.96 seconds using the crope uv environment and
+OMP_NUM_THREADS=8. Test outputs and caches were redirected to /tmp.
+Native profiles and traces from the old summed-power implementation require
+recalibration. Official static profiles use calibrate.py --mode sega-static
+--method sega_official; pilot-static now includes both static SEGA variants.
+Probe records include DFT counts for density-preserving octave aggregation.
+Changed implementation files: crope/{spectral,gain,rope,runtime}.py and
+scripts/{calibrate,enqueue,eval,probe_mtf,sample}.py. Regression coverage is in
+tests/{test_gain,test_calibration,test_cli,test_tooling,test_probe,test_runtime}.py;
+tests/conftest.py now respects supplied thread settings. The runtime test double
+also supports the scheduler config API already called by production.
+The working tree stays uncommitted. No queue, Slurm, or paper files were changed.
+
+The earlier implementation notes below predate the scheduler/environment updates
+recorded in .agent/STATE.md. Their campaign and dependency status was not rechecked.
+
 Implementation is complete and CPU-validated on the shared node. Read `.agent/STATE.md`,
 then `.agent/notes/design.md` for the method specification and
 `.agent/notes/implementation.md` for implementation evidence and limitations.

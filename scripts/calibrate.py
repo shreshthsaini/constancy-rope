@@ -22,6 +22,8 @@ def parser():
     p.add_argument("--guidance", type=float, default=3.5)
     p.add_argument("--out", type=Path, default=Path("/scratch/09032/saini_2/constancy_rope/calib/flux_dev_profile.npz"))
     p.add_argument("--runs", type=Path, nargs="+", help="Completed target-resolution SEGA run directories")
+    p.add_argument("--method", choices=("sega", "sega_official"), default="sega",
+                   help="Source method for sega-static calibration")
     p.add_argument("--res", type=resolution, metavar="HxW", help="Required for sega-static; native is always1024x1024")
     p.add_argument("--device", default="cuda")
     p.add_argument("--cpu-offload", action="store_true")
@@ -29,14 +31,16 @@ def parser():
     return p
 
 
-def static_profile(runs, res, out):
+def static_profile(runs, res, out, method="sega"):
     import numpy as np
+    if method not in ("sega", "sega_official"):
+        raise ValueError("Static calibration requires sega or sega_official runs")
     modulators, sources, identities = [], [], set()
     settings = set()
     for path in sorted({p for directory in runs for p in directory.rglob("*.json")}):
         record = json.loads(path.read_text())
         config = record.get("config", {})
-        if config.get("method") != "sega" or config.get("res") != f"{res[0]}x{res[1]}":
+        if config.get("method") != method or config.get("res") != f"{res[0]}x{res[1]}":
             continue
         image = Path(record.get("image", path.with_suffix(".png")))
         if not record.get("complete") or not image.is_file():
@@ -48,21 +52,32 @@ def static_profile(runs, res, out):
         gains = record["gains"]
         if len(gains) != config["steps"]:
             raise ValueError(f"Incomplete gain trajectory: {path}")
-        values = np.asarray([g["modulator"] for g in gains], dtype=np.float64)
-        if values.shape[1:] != (2, 28) or not np.isfinite(values).all():
-            raise ValueError(f"Invalid SEGA M vectors: {path}")
+        if method == "sega_official":
+            values = np.asarray([g["controller_log_g"] for g in gains], dtype=np.float64)
+            with np.errstate(over="ignore"):
+                values = np.exp(values / 2)
+            if values.shape[1:] != (128,) or not np.isfinite(values).all() or (values <= 0).any():
+                raise ValueError(f"Invalid released-SEGA q/k gains: {path}")
+            if not np.array_equal(values[:, 0::2], values[:, 1::2]):
+                raise ValueError(f"Released-SEGA q/k gains must match within rotary pairs: {path}")
+        else:
+            values = np.asarray([g["modulator"] for g in gains], dtype=np.float64)
+            if values.shape[1:] != (2, 28) or not np.isfinite(values).all():
+                raise ValueError(f"Invalid SEGA M vectors: {path}")
         modulators.append(values)
         settings.add((config.get("model"), config.get("model_revision"), config["steps"], config["guidance"]))
         sources.append(str(path.resolve()))
     if not modulators:
-        raise ValueError("No completed SEGA images at the requested resolution")
+        raise ValueError(f"No completed SEGA images for {method} at the requested resolution")
     if len(settings) > 1:
         raise ValueError("SEGA-static calibration mixes models or sampling settings")
     out = Path(out)
     out.parent.mkdir(parents=True, exist_ok=True)
     temporary = out.with_name(out.name + f".tmp.{os.getpid()}")
+    key = "mean_qk_scale" if method == "sega_official" else "mean_modulator"
     with temporary.open("wb") as handle:
-        np.savez(handle, mean_modulator=np.concatenate(modulators).mean(0), grid=np.asarray(res) // 16,
+        np.savez(handle, **{key: np.concatenate(modulators).mean(0)}, grid=np.asarray(res) // 16,
+                 source_method=method,
                  axis_order=np.asarray(["height", "width"]), source_json=np.asarray(sources),
                  prompt_ids=np.asarray([p for p, _ in sorted(identities)]), n_images=len(modulators),
                  n_steps=sum(len(m) for m in modulators), config_json=json.dumps(list(settings)[0]))
@@ -74,7 +89,7 @@ def native_profile(args):
     import numpy as np
     import torch
     from crope.runtime import FluxExperiment, fingerprint, load_pipeline
-    from crope.spectral import NativeProfile, axis_power
+    from crope.spectral import POWER_NORMALIZATION, NativeProfile, axis_power
 
     prompts = read_prompts(args.prompts)
     if args.start < 0 or args.count <= 0 or args.start + args.count > len(prompts):
@@ -91,6 +106,7 @@ def native_profile(args):
         for row in selected:
             path = trace_dir / f"{image_stem(row['id'], args.seed)}.npz"
             config = experiment.config(row, args.seed, args.steps, args.guidance)
+            config["power_normalization"] = POWER_NORMALIZATION
             digest = fingerprint(config)
             if path.exists():
                 with np.load(path, allow_pickle=False) as data:
@@ -135,7 +151,7 @@ def native_profile(args):
                  channels=64, late_sigma_threshold=0.3,
                  config_json=json.dumps({"model": "black-forest-labs/FLUX.1-dev", "steps": args.steps,
                                          "guidance": args.guidance, "seed": args.seed,
-                                         "power": "channel-summed unnormalized FFT2 axis-marginal"}))
+                                         "power": POWER_NORMALIZATION}))
     print(f"saved native profile {args.out}: {len(selected)} prompts", flush=True)
 
 
@@ -149,7 +165,7 @@ def main(argv=None):
     else:
         if not args.runs or args.res is None:
             raise ValueError("SEGA-static mode requires --runs and --res")
-        static_profile(args.runs, args.res, args.out)
+        static_profile(args.runs, args.res, args.out, args.method)
 
 
 if __name__ == "__main__":

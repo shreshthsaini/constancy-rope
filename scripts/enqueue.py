@@ -27,9 +27,10 @@ from crope.utils import image_stem, read_prompts, resolution  # noqa: E402
 SCRATCH = Path("/scratch/09032/saini_2/constancy_rope")
 PYTHON = Path("/work/09032/saini_2/vista/library/uv-envs/crope/bin/python")
 METHODS = ("base", "pi", "ntk", "ntk2", "yarn", "yarn_temp", "dype", "sega", "sega_static",
-           "constancy", "temp_only", "constancy_nogate", "constancy_sref", "sega_official")
-DEFAULT_METHODS = tuple(method for method in METHODS if method not in ("sega_official", "yarn_temp"))
-PILOT_METHODS = ("ntk2", "yarn", "dype", "sega_official", "sega", "temp_only", "constancy")
+           "constancy", "temp_only", "constancy_nogate", "constancy_sref", "sega_official", "sega_official_static")
+DEFAULT_METHODS = ("ntk2", "yarn", "dype", "sega_official", "sega", "temp_only", "constancy")
+PILOT_METHODS = DEFAULT_METHODS
+STATIC_PROFILES = {"sega_static": "sega_static_profile", "sega_official_static": "sega_official_static_profile"}
 STAGES = ("smoke", "calibration", "probe", "pilot", "pilot-static", "main", "eval")
 
 
@@ -83,8 +84,8 @@ def sample_command(args, method: str, res: str, start: int, end: int, root: Path
                "--guidance", str(args.guidance), "--out", str(root / method / res)]
     if method.startswith("constancy"):
         command += ["--profile", str(args.profile)]
-    if method == "sega_static":
-        command += ["--sega-static-profile", str(args.sega_static_profile)]
+    if method in STATIC_PROFILES:
+        command += ["--sega-static-profile", str(getattr(args, STATIC_PROFILES[method]))]
     return command
 
 
@@ -92,8 +93,8 @@ def method_requirements(args, method: str) -> list[Path]:
     paths = [args.prompts]
     if method.startswith("constancy"):
         paths.append(args.profile)
-    if method == "sega_static":
-        paths.append(args.sega_static_profile)
+    if method in STATIC_PROFILES:
+        paths.append(getattr(args, STATIC_PROFILES[method]))
     return paths
 
 
@@ -151,23 +152,24 @@ def build_plan(args: argparse.Namespace, rows: list[dict]) -> list[Task]:
             for method in PILOT_METHODS:
                 commands = [sample_command(args, method, args.res, start, pilot_end, pilot_root)]
                 notes = ["T3 retains matched NTK2 image spectra for evaluation."] if method == "ntk2" else []
-                if method == "sega":
-                    commands.append(["scripts/calibrate.py", "--mode", "sega-static", "--runs",
-                                     str(pilot_root / "sega" / args.res), "--res", args.res,
-                                     "--out", str(args.sega_static_profile)])
+                if method in ("sega", "sega_official"):
+                    commands.append(["scripts/calibrate.py", "--mode", "sega-static", "--method", method, "--runs",
+                                     str(pilot_root / method / args.res), "--res", args.res,
+                                     "--out", str(getattr(args, STATIC_PROFILES[f"{method}_static"]))])
                     notes.append("Aggregate SEGA logs in this task; enqueue pilot-static after this finishes.")
                 estimate = args.startup_seconds + (pilot_end - start) * args.seconds_per_image
                 tasks.append(Task(f"30_pilot_{method}_{args.res}_{start:05d}-{pilot_end:05d}", commands,
                                   method_requirements(args, method), estimate, notes))
         elif stage == "pilot-static":
-            required = method_requirements(args, "sega_static")
-            required += finished_outputs(args, pilot_root, ("sega",), rows, start, pilot_end)
-            for lower in range(start, pilot_end, chunk):
-                upper = min(lower + chunk, pilot_end)
-                command = sample_command(args, "sega_static", args.res, lower, upper, pilot_root)
-                estimate = args.startup_seconds + (upper - lower) * args.seconds_per_image
-                tasks.append(Task(f"31_pilot_sega_static_{args.res}_{lower:05d}-{upper:05d}", [command],
-                                  required, estimate, ["T1 uses the completed pilot's target-resolution SEGA average."]))
+            for method in STATIC_PROFILES:
+                required = method_requirements(args, method)
+                required += finished_outputs(args, pilot_root, (method.removesuffix("_static"),), rows, start, pilot_end)
+                for lower in range(start, pilot_end, chunk):
+                    upper = min(lower + chunk, pilot_end)
+                    command = sample_command(args, method, args.res, lower, upper, pilot_root)
+                    estimate = args.startup_seconds + (upper - lower) * args.seconds_per_image
+                    tasks.append(Task(f"31_pilot_{method}_{args.res}_{lower:05d}-{upper:05d}", [command],
+                                      required, estimate, ["T1 uses the completed pilot's target-resolution SEGA average."]))
         elif stage == "main":
             for method in args.methods:
                 for lower in range(start, end, chunk):
@@ -178,7 +180,7 @@ def build_plan(args: argparse.Namespace, rows: list[dict]) -> list[Task]:
                                       method_requirements(args, method), estimate))
         elif stage == "eval":
             eval_root = pilot_root if args.eval_scope == "pilot" else args.out / "main"
-            methods = (*PILOT_METHODS, "sega_static") if args.eval_scope == "pilot" else args.methods
+            methods = (*PILOT_METHODS, *STATIC_PROFILES) if args.eval_scope == "pilot" else args.methods
             selected_end = pilot_end if args.eval_scope == "pilot" else end
             requirements = [args.prompts, args.references]
             requirements += finished_outputs(args, eval_root, methods, rows, start, selected_end)
@@ -194,7 +196,8 @@ def build_plan(args: argparse.Namespace, rows: list[dict]) -> list[Task]:
             if path.is_file():
                 stat = path.stat()
                 fingerprint.update(f"{stat.st_size}:{stat.st_mtime_ns}".encode())
-                if path in (args.prompts, args.calibration_prompts, args.profile, args.sega_static_profile):
+                if path in (args.prompts, args.calibration_prompts, args.profile,
+                            args.sega_static_profile, args.sega_official_static_profile):
                     fingerprint.update(path.read_bytes())
             else:
                 fingerprint.update(b"missing")
@@ -248,6 +251,7 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--queue", type=Path, default=SCRATCH / "taskq")
     result.add_argument("--profile", type=Path, default=SCRATCH / "calib/flux_dev_profile.npz")
     result.add_argument("--sega-static-profile", type=Path, help="Defaults to calib/sega_static_RES.npz")
+    result.add_argument("--sega-official-static-profile", type=Path, help="Defaults to calib/sega_official_static_RES.npz")
     result.add_argument("--probe-out", type=Path, default=SCRATCH / "probe")
     result.add_argument("--eval-out", type=Path, default=SCRATCH / "eval")
     result.add_argument("--python", type=Path, default=PYTHON)
@@ -266,7 +270,7 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--minutes-per-task", type=float, default=40.0)
     result.add_argument("--chunk-size", type=int, help="Override automatic per-method main/pilot-static chunks")
     result.add_argument("--eval-scope", choices=("main", "pilot"), default="main")
-    result.add_argument("--reference-method", choices=METHODS, default="sega")
+    result.add_argument("--reference-method", choices=METHODS, default="sega_official")
     result.add_argument("--dry-run", action="store_true", help="Print a plan without creating any directories or files")
     result.add_argument("--show-scripts", action="store_true", help="Print complete shell scripts with the plan")
     result.add_argument("--json", action="store_true", help="Print the plan as JSON")
@@ -280,7 +284,8 @@ def main(argv: list[str] | None = None) -> int:
         for name in ("prompts", "references", "out", "queue", "profile", "probe_out", "eval_out", "python"):
             setattr(args, name, getattr(args, name).absolute())
         args.calibration_prompts = (args.calibration_prompts or args.prompts).absolute()
-        args.sega_static_profile = (args.sega_static_profile or SCRATCH / f"calib/sega_static_{args.res}.npz").absolute()
+        for method, name in STATIC_PROFILES.items():
+            setattr(args, name, (getattr(args, name) or SCRATCH / f"calib/{method}_{args.res}.npz").absolute())
         rows = read_prompts(args.prompts)
         tasks = build_plan(args, rows)
         plan = []

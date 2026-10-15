@@ -40,13 +40,15 @@ def latent_powers(record, edges):
     for axis in record["final_latent_axis_power"]:
         f = np.asarray(axis["frequency"])
         p = np.asarray(axis["power"])
-        powers.append([float(p[(f >= lo) & (f < hi)].sum()) if ((f >= lo) & (f < hi)).any() else np.nan
+        counts = np.asarray(axis["count"])
+        powers.append([float(np.average(p[(f >= lo) & (f < hi)], weights=counts[(f >= lo) & (f < hi)]))
+                       if ((f >= lo) & (f < hi)).any() else np.nan
                        for lo, hi in zip(edges[:-1], edges[1:])])
     return np.asarray(powers)
 
 
 def image_powers(path, edges, device):
-    """Axis-marginal luminance power, using f_pixel = f_token/16."""
+    """Axis-marginal luminance density, using f_pixel = f_token/16."""
     import numpy as np
     import torch
     from PIL import Image
@@ -56,11 +58,11 @@ def image_powers(path, edges, device):
     # Decode sRGB before measuring physical luminance spectra.
     linear = torch.where(rgb <= 0.04045, rgb / 12.92, ((rgb + 0.055) / 1.055) ** 2.4)
     y = linear @ torch.tensor([0.2126, 0.7152, 0.0722], device=device)
-    p = torch.fft.fft2(y - y.mean()).abs().square()
+    p = torch.fft.fft2(y - y.mean(), norm="ortho").abs().square()
     result = []
-    for length, energy in ((y.shape[0], p.sum(1)), (y.shape[1], p.sum(0))):
+    for length, energy in ((y.shape[0], p.mean(1)), (y.shape[1], p.mean(0))):
         freq = torch.fft.fftfreq(length, device=device).abs() * 16
-        result.append([float(energy[(freq >= lo) & (freq < hi)].sum())
+        result.append([float(energy[(freq >= lo) & (freq < hi)].mean())
                        if ((freq >= lo) & (freq < hi)).any() else np.nan
                        for lo, hi in zip(edges[:-1], edges[1:])])
     return np.asarray(result)

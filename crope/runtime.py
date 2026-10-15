@@ -14,7 +14,7 @@ from .spectral import axis_power, token_grid
 from .utils import HF_HOME, atomic_json, file_sha256, image_seed, image_stem
 
 METHODS = ("base", "pi", "ntk", "ntk2", "yarn", "dype", "yarn_temp", "sega", "sega_official",
-           "sega_static", "constancy", "temp_only", "constancy_nogate", "constancy_sref")
+           "sega_static", "sega_official_static", "constancy", "temp_only", "constancy_nogate", "constancy_sref")
 
 
 def load_pipeline(device="cuda", cpu_offload=False, allow_download=False):
@@ -83,6 +83,8 @@ class FluxExperiment:
         self.grid = tuple(n // 16 for n in resolution)
         self.axes_dims = tuple(pipe.transformer.config.axes_dims_rope)
         rope_method = method if method in ("base", "pi", "ntk", "ntk2", "yarn", "dype", "sega_official") else "ntk2"
+        if method == "sega_official_static":
+            rope_method = "sega_official"
         mode = "yarn_temp" if method == "yarn" else (method if method in GainController.MODES else "none")
         self.rope = FluxRoPE(axes_dims=self.axes_dims, theta=10000, method=rope_method, grid=self.grid)
         self.controller = GainController(mode, self.grid, self.axes_dims, self.rope, profile, static_profile,
@@ -231,7 +233,8 @@ class FluxExperiment:
         if record_power:
             record["final_latent_axis_power"] = [
                 {"lower": a.lower.cpu().tolist(), "upper": a.upper.cpu().tolist(),
-                 "frequency": a.frequency.cpu().tolist(), "power": a.power.cpu().tolist()}
+                 "frequency": a.frequency.cpu().tolist(), "power": a.power.cpu().tolist(),
+                 "count": a.count.cpu().tolist()}
                 for a in axis_power(self.previous_x0)]
         atomic_json(metadata, record)
         print(f"saved {row['id']} {self.method} {config['res']} seconds={seconds:.3f}", flush=True)

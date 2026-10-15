@@ -41,7 +41,8 @@ def plan_args(tmp_path, *extra):
         "--prompts", str(source), "--queue", str(tmp_path / "spool"),
         "--out", str(tmp_path / "out"), "--references", str(tmp_path / "refs.jsonl"),
         "--profile", str(tmp_path / "profile.npz"),
-        "--sega-static-profile", str(tmp_path / "static.npz"), *extra,
+        "--sega-static-profile", str(tmp_path / "static.npz"),
+        "--sega-official-static-profile", str(tmp_path / "official-static.npz"), *extra,
     ])
     args.calibration_prompts = args.calibration_prompts or source
     return args
@@ -158,21 +159,31 @@ def test_spool_resume_preserves_running_and_done_tasks(tmp_path, monkeypatch):
     assert list((args.queue / "pending").iterdir()) == []
 
 
-def test_pilot_static_is_separate_and_requires_sega_outputs(tmp_path):
+@pytest.mark.parametrize("method", ["sega", "sega_official"])
+def test_pilot_static_is_separate_and_requires_sega_outputs(tmp_path, method):
     args = plan_args(tmp_path, "--stage", "pilot", "--dry-run")
     rows = enqueue.read_prompts(args.prompts)
     tasks = enqueue.build_plan(args, rows)
-    sega = next(task for task in tasks if task.label.startswith("30_pilot_sega_"))
+    sega = next(task for task in tasks if task.commands[0][task.commands[0].index("--method") + 1] == method)
     assert len(sega.commands) == 2
     assert sega.commands[1][:3] == ["scripts/calibrate.py", "--mode", "sega-static"]
-    assert not any(task.commands[0][task.commands[0].index("--method") + 1] == "sega_static" for task in tasks)
+    assert sega.commands[1][sega.commands[1].index("--method") + 1] == method
+    static_profile = getattr(args, enqueue.STATIC_PROFILES[f"{method}_static"])
+    assert sega.commands[1][sega.commands[1].index("--out") + 1] == str(static_profile)
+    assert not any(task.commands[0][task.commands[0].index("--method") + 1].endswith("_static") for task in tasks)
     args.stage = "pilot-static"
     static_tasks = enqueue.build_plan(args, rows)
-    requirements = static_tasks[0].requirements
-    assert args.sega_static_profile in requirements
+    static_task = next(task for task in static_tasks
+                       if task.commands[0][task.commands[0].index("--method") + 1] == f"{method}_static")
+    requirements = static_task.requirements
+    assert static_profile in requirements
+    command = static_task.commands[0]
+    assert command[command.index("--sega-static-profile") + 1] == str(static_profile)
     assert sum(path.suffix == ".png" for path in requirements) == 8
     expected = enqueue.image_stem("example.0", 0)
     assert any(path.name == f"{expected}.json" for path in requirements)
+    assert all(path.parent == args.out / "pilot" / method / args.res
+               for path in requirements if path.suffix in (".json", ".png"))
 
 
 def test_main_eval_uses_isolated_main_root(tmp_path):
@@ -180,4 +191,22 @@ def test_main_eval_uses_isolated_main_root(tmp_path):
     task, = enqueue.build_plan(args, enqueue.read_prompts(args.prompts))
     command = task.commands[0]
     assert command[command.index("--root") + 1] == str(args.out / "main")
+    assert command[command.index("--reference-method") + 1] == "sega_official"
     assert "--res" in command
+
+
+def test_main_defaults_use_official_sega_and_requested_methods(tmp_path):
+    args = plan_args(tmp_path, "--stage", "main", "--dry-run")
+    expected = ["ntk2", "yarn", "dype", "sega_official", "sega", "temp_only", "constancy"]
+    assert args.methods == expected
+    tasks = enqueue.build_plan(args, enqueue.read_prompts(args.prompts))
+    methods = list(dict.fromkeys(task.commands[0][task.commands[0].index("--method") + 1] for task in tasks))
+    assert methods == expected
+
+
+def test_pilot_eval_requires_both_static_baselines(tmp_path):
+    args = plan_args(tmp_path, "--stage", "eval", "--eval-scope", "pilot", "--dry-run")
+    task, = enqueue.build_plan(args, enqueue.read_prompts(args.prompts))
+    for method in ("sega_static", "sega_official_static"):
+        assert sum(path.suffix == ".png" and path.parent == args.out / "pilot" / method / args.res
+                   for path in task.requirements) == args.pilot_count

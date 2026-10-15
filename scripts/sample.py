@@ -12,7 +12,7 @@ from crope.utils import read_prompts, resolution, runtime_environment
 def parser():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--method", required=True, choices=("base", "pi", "ntk", "ntk2", "yarn", "dype", "yarn_temp",
-                   "sega", "sega_official", "sega_static", "constancy", "temp_only", "constancy_nogate", "constancy_sref"))
+                   "sega", "sega_official", "sega_static", "sega_official_static", "constancy", "temp_only", "constancy_nogate", "constancy_sref"))
     p.add_argument("--res", type=resolution, required=True, metavar="HxW")
     p.add_argument("--prompts", type=Path, required=True)
     p.add_argument("--start", type=int, default=0)

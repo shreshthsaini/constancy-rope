@@ -6,7 +6,7 @@ Flux RoPE: head_dim 128, axes_dims (16, 56, 56), theta 10000, interleaved pairs 
 
 ## Position embedding variants (spatial axes only, per-axis s_a = target_tokens_a / 64)
 - base: unchanged. pi: theta_d / s. ntk: b' = b * s^(D/(D-2)), D=56. ntk2 (SEGA's): b' = b * s^(2D/(D-2)).
-- yarn: NTK-by-parts ramp on r_d = T_d / 64 (alpha=1, beta=32) + global logit temperature 0.1 ln(s) + 1, s = area ratio? -> use per-side s as in YaRN 1D form, log the choice.
+- yarn: NTK-by-parts ramp on r_d = T_d / 64 (alpha=1, beta=32) + global logit gain (1 + 0.1 ln(s))^2. Use geometric-mean per-side s; q and k each receive 1 + 0.1 ln(s).
 - dype: port official DyPE (github guyyariv/DyPE) Flux implementation if available, else paper Eq.13 Dy-YaRN.
 
 ## q/k gain hook
@@ -18,15 +18,16 @@ If official SEGA code exists, use it instead and note it.
 
 ## SEGA-static (ablation of SEGA's own claim)
 m_d = m_ref * mean over (calibration prompts, steps) of SEGA's M_d at the same resolution. No FFT at run time.
+The main baseline is sega_official. Its sega_official_static ablation averages the released method's full q/k gain vector over prompts and steps, preserving its RoPE and axis-0 gains. Build it with calibrate.py --mode sega-static --method sega_official.
 
 ## Constancy RoPE (ours)
 Calibration (once per model): native 1024^2 runs, M prompts, record per-axis half-octave power profile of x0hat = x_t - t*v (channel-SUMMED power) at each step; native profile P_nat(f) = mean log power over late steps (t<0.3), f in cycles/token.
 Per step t at target res, per spatial axis a, half-octave bins b of |k|/L (cycles/token), only bins with >=1 FFT bin:
-- E_t(b) = channel-summed axis-marginal power of x_t; noise floor n_b = (#k bins in b) * L_other * H * W * C_noise (unit-variance noise per channel; unnormalized FFT gives H*W per bin per channel; marginal sums L_other bins). rho_b = max(E_t/(t^2 n_b) - 1, 0); w_b = rho/(1+rho).
+- E_t(b) = channel-summed spectral density of x_t: divide squared unnormalized FFT by H*W, average the marginalized axis, then average the DFT frequencies in b. Noise floor n_b = C_noise (number of unit-variance noise channels), with the same density normalization. rho_b = max(E_t/(t^2 n_b) - 1, 0); w_b = rho/(1+rho). Native calibration and E0 use this same density.
 - E0(b) from x0hat of the previous step (first step: no correction).
 - Target: log S*(b) = P_nat(f_b) + c, c = mean over anchor bins (wavelength 16..64 tokens and w_b>0.5) of log E0 - P_nat. For f below native range (wavelength > 64 tokens) extrapolate P_nat linearly in log-log from its two lowest bins.
 - e_b = 0.5 * (log S* - log E0); log g_b = log tau_N + eta * w_b * clip(e_b, -1, 1); tau_N = ln(N_tgt)/ln(N_train) (image tokens).
-- RoPE dim d gets the bin of its wavelength; wavelengths longer than the grid get log tau_N only. q,k scale = exp(log g / 2). Axis-0 dims: sqrt(tau_N).
+- Interpolate the computed non-empty-band corrections linearly in log frequency onto each RoPE pair, holding the outermost values fixed. Wavelengths longer than the grid get log tau_N only. q,k scale = exp(log g / 2). Axis-0 dims: sqrt(tau_N).
 Options: eta (default 1), gate on/off, target profile|slope, temperature logN|sref|none.
 Ablations: temp_only (tau_N only), constancy w/o gate, constancy with SEGA's m_ref instead of tau_N.
 

@@ -235,21 +235,89 @@ def test_nogate_and_sref_ablations(native_latents):
     torch.testing.assert_close(controller.qk_scale[:16], torch.full((16,), math.sqrt(8) ** 0.08))
 
 
+@pytest.mark.parametrize("grid", [(64, 64), (256, 256), (128, 256)])
+def test_yarn_temperature_scales_both_queries_and_keys(grid):
+    controller = GainController("yarn_temp", grid=grid)
+    controller.update(torch.zeros(1, *grid), 0.5)
+    scale = math.sqrt(math.prod(grid)) / 64
+    amplitude = 1 + 0.1 * math.log(scale)
+    torch.testing.assert_close(controller.qk_scale, torch.full((128,), amplitude))
+    torch.testing.assert_close(controller.log_g.exp(), torch.full((128,), amplitude ** 2))
+
+
 @pytest.mark.parametrize("grid", [(32, 64), (48, 96)])
 def test_rectangular_axis_power_parseval_and_noise_floor(grid):
     channels = 64
     value = torch.randn(channels, *grid, generator=torch.Generator().manual_seed(71), dtype=torch.float64)
     powers = axis_power(value)
     for axis, power in enumerate(powers):
-        length, other = grid[axis], grid[1 - axis]
+        other = grid[1 - axis]
         centered = value - value.mean(dim=axis + 1, keepdim=True)
-        expected = math.prod(grid) * centered.square().sum()
-        torch.testing.assert_close(power.power.sum(), expected, rtol=1e-12, atol=1e-6)
-        expected_noise = (length - 1) * other * math.prod(grid) * channels
-        assert power.noise.sum().item() == expected_noise
+        expected = centered.square().sum() / other
+        torch.testing.assert_close((power.power * power.count).sum(), expected, rtol=1e-12, atol=1e-6)
+        torch.testing.assert_close(power.noise, torch.full_like(power.noise, channels))
         assert power.power.shape == power.frequency.shape == power.noise.shape
         assert torch.all(power.lower < power.frequency) and torch.all(power.frequency < power.upper)
         torch.testing.assert_close(power.power / power.noise, torch.ones_like(power.power), rtol=0.05, atol=0.01)
+
+
+@pytest.mark.parametrize("alpha", [0.5, 1.0])
+def test_power_law_density_and_constancy_transfer_from_64_to_256(alpha):
+    fields = []
+    for length in (64, 256):
+        frequency = torch.fft.fftfreq(length, dtype=torch.float64)
+        radius = torch.hypot(frequency[:, None], frequency[None, :])
+        amplitude = radius.clamp_min(1e-9).pow(-alpha / 2)
+        amplitude[0, 0] = 0
+        white = torch.randn(32, length, length, dtype=torch.float64,
+                            generator=torch.Generator().manual_seed(113 + length))
+        # Sample the same continuous 1/f^alpha spectrum in cycles/token on each grid.
+        fields.append(torch.fft.ifft2(torch.fft.fft2(white) * amplitude).real)
+    native, target = map(axis_power, fields)
+    for small, large in zip(native, target):
+        indices = torch.searchsorted(large.frequency, small.frequency)
+        torch.testing.assert_close(large.frequency[indices], small.frequency)
+        # Finite realizations and sparse native DFT bins limit band agreement.
+        torch.testing.assert_close(large.power[indices], small.power, rtol=0.12, atol=0)
+    controller = GainController("constancy", grid=(256, 256), profile=NativeProfile.from_latents(fields[0]))
+    controller.update(fields[1], 0.01, fields[1])
+    for axis in controller.history[-1]["bins"]:
+        assert axis["anchor_count"] > 0
+        np.testing.assert_allclose(axis["deficit"], 0, atol=0.05)
+
+
+def test_all_resolvable_ntk2_pairs_interpolate_corrections_at_4096_pixels():
+    grid = (256, 256)  # FLUX packs 4096x4096 pixels into 256x256 tokens.
+    clean = torch.randn(8, *grid, generator=torch.Generator().manual_seed(19), dtype=torch.float64)
+    native = axis_power(clean[:, :64, :64])
+    profile = NativeProfile(tuple(a.frequency for a in native),
+                            tuple(-2 * a.frequency.log() for a in native))
+    rope = FluxRoPE(method="ntk2", grid=grid)
+    controller = GainController("constancy", grid=grid, profile=profile, rope=rope)
+    controller.update(clean, 0.01, clean)
+    temperature = math.log(math.log(math.prod(grid)) / math.log(4096))
+    for a, (power, offset) in enumerate(zip(axis_power(clean), (16, 72))):
+        frequency = rope.frequencies(a + 1) / (2 * math.pi)
+        resolvable = frequency >= 1 / grid[a]
+        membership = (frequency[:, None] >= power.lower) & (frequency[:, None] < power.upper)
+        assert (resolvable & ~membership.any(1)).any()
+        bins = controller.history[-1]["bins"][a]
+        expected = np.interp(np.log(frequency.numpy()), np.log(bins["frequency"]), bins["correction"])
+        expected[~resolvable.numpy()] = 0
+        actual = controller.log_g[offset:offset + 56:2] - temperature
+        np.testing.assert_allclose(actual, expected, rtol=1e-6, atol=1e-7)
+        assert (actual[resolvable].abs() > 1e-3).all()
+        torch.testing.assert_close(actual[~resolvable], torch.zeros_like(actual[~resolvable]))
+
+
+def test_correction_interpolation_holds_outermost_values():
+    frequency = torch.tensor([0.01, 0.04], dtype=torch.float64)
+    values = torch.tensor([2.0, 4.0], dtype=torch.float64)
+    query = torch.tensor([0.005, 0.01, 0.02, 0.04, 0.08], dtype=torch.float64)
+    expected = torch.tensor([2.0, 2.0, 3.0, 4.0, 4.0], dtype=torch.float64)
+    torch.testing.assert_close(log_interpolate(query, frequency, values, extrapolate=False), expected)
+    torch.testing.assert_close(log_interpolate(query, frequency[:1], values[:1], extrapolate=False),
+                               torch.full_like(query, 2))
 
 
 def test_native_low_frequency_extrapolation_is_log_linear():
@@ -259,14 +327,21 @@ def test_native_low_frequency_extrapolation_is_log_linear():
     torch.testing.assert_close(log_interpolate(query, frequencies, values), 3 - 1.7 * query.log())
 
 
-@pytest.mark.parametrize("method", ["base", "sega_official"])
-def test_runtime_updates_once_and_uses_exact_scheduler_sigma(tiny_flux, monkeypatch, method):
+@pytest.mark.parametrize("method", ["base", "sega_official", "sega_official_static"])
+def test_runtime_updates_once_and_uses_exact_scheduler_sigma(tiny_flux, monkeypatch, tmp_path, method):
     monkeypatch.setattr(runtime, "code_revision", lambda: "test")
     monkeypatch.setattr(runtime, "model_revision", lambda: "test")
     sigmas = torch.tensor([0.777712345, 0.333312345, 0], dtype=torch.float64)
     pipe = SimpleNamespace(transformer=tiny_flux, scheduler=SimpleNamespace(sigmas=sigmas, config={}))
     original_rope, original_processors = tiny_flux.pos_embed, dict(tiny_flux.attn_processors)
-    experiment = runtime.FluxExperiment(pipe, method, (32, 48))
+    static = None
+    if method == "sega_official_static":
+        static = tmp_path / "official_static.npz"
+        np.savez(static, mean_qk_scale=np.repeat([1, 1, 1.1, 1.2, 1.3, 1.2, 1.3, 1.4], 2),
+                 grid=[2, 3], source_method="sega_official")
+    experiment = runtime.FluxExperiment(pipe, method, (32, 48), static_profile=static)
+    if method == "sega_official_static":
+        assert experiment.rope.method == "sega_official" and experiment.official is None
     calls, observed = [], []
     target = experiment.official if method == "sega_official" else experiment.controller
     original_update = target.update
@@ -291,7 +366,7 @@ def test_runtime_updates_once_and_uses_exact_scheduler_sigma(tiny_flux, monkeypa
                 assert calls[index][1] != float(kwargs["timestep"][0])
         assert len(calls) == len(experiment.controller.history) == experiment.step == 2
         assert [row[:2] for row in observed] == [(0, float(sigmas[0])), (1, float(sigmas[1]))]
-        if method == "base":
+        if method != "sega_official":
             assert calls[0][2] is None
             torch.testing.assert_close(calls[1][2], observed[0][3], atol=0, rtol=0)
         else:

@@ -16,7 +16,7 @@ def parser():
     p.add_argument("--root", required=True, help="Root containing sample PNG files and JSON sidecars")
     p.add_argument("--prompts", required=True, help="Prompt JSONL with id and prompt")
     p.add_argument("--references", help="Reference JSONL with id and path")
-    p.add_argument("--reference-method", default="sega")
+    p.add_argument("--reference-method", default="sega_official")
     p.add_argument("--res", help="Optional resolution filter, for example 4096x4096")
     p.add_argument("--out", required=True, help="Evaluation directory on scratch, also holds resumable caches")
     p.add_argument("--metrics", default="all", help="all (HPSv3 optional) or comma list: clip,imagereward,pickscore,hpsv3,musiq,clipiqa,fid,kid,patch_fid,patch_kid,spectrum,tiling")

@@ -29,7 +29,9 @@ class ToyTransformer(torch.nn.Module):
 class ToyPipeline:
     def __init__(self):
         self.transformer = ToyTransformer()
-        self.scheduler = SimpleNamespace(config={"shift": 1}, sigmas=None)
+        config = {"shift": 1, "max_image_seq_len": 4096}
+        self.scheduler = SimpleNamespace(config=config, sigmas=None,
+                                         register_to_config=lambda **kwargs: config.update(kwargs))
         self.vae = SimpleNamespace(enable_tiling=lambda: None)
         self._execution_device = "cpu"
         self.calls = 0
