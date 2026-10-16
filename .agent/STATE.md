@@ -7,7 +7,7 @@ Research generations and paper claims follow separate GPU validation.
 DEV (prompts 0-7) result: constancy(eta1,2,4) == temp_only (IR ~1.28) < sega_official (IR 1.42; pick 23.41 vs 23.10; clip 30.32 vs 30.10); nogate worse (IR 1.00). Correction inactive until sigma<=0.35 because the target is the LATE native profile.
 Codex3 complete: constancy_tm and constancy_tm_nogate; 156 tests passed in 13.22s. CPU native-rebuild created calib/krea_profile_tm.npz (16 prompts, 28 steps, 9 bands/axis). All 14 old profile fields equal exactly; 17 input hashes unchanged. Changes uncommitted; no queue, Slurm, or paper changes. Details: notes/constancy_tm.md.
 Sweep evals queued (41_eval_sweep_*, 41_eval_pilot_v3). Sweep outputs moved to out_krea/sweep/, eval roots out_krea/sweeproot_* (symlinks).
-NEXT: review+commit Codex3; run constancy_tm (eta 1, 2) on dev prompts 0-7; if it beats sega_official on dev -> requeue constancy main with that config, report on prompts 8-194. Else write honest analysis (SEGA measured) and tell user.
+NEXT: constancy_tm dev runs done (out_krea/devtm_eta{1,2}); correction now active from step ~8. Scoring: 42_eval_devtm_eta* + eval_krea/ir/devtm_eta*.csv. Compare vs sega_official on dev; if better -> requeue constancy main as constancy_tm (profile calib/krea_profile_tm.npz) and report held-out prompts 8-194.
 
 ## Map
 | note | read it when |

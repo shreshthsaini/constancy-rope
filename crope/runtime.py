@@ -97,6 +97,8 @@ class FluxExperiment:
         rope_method = method if method in ("base", "pi", "ntk", "ntk2", "yarn", "dype", "sega_official") else "ntk2"
         if method == "sega_official_static":
             rope_method = "sega_official"
+        # Controlled comparison: run any gain controller on another method's RoPE base (recorded in config["rope"]).
+        rope_method = os.environ.get("CROPE_ROPE", rope_method)
         mode = "yarn_temp" if method == "yarn" else (method if method in GainController.MODES else "none")
         self.rope = FluxRoPE(axes_dims=self.axes_dims, theta=10000, method=rope_method, grid=self.grid)
         self.controller = GainController(mode, self.grid, self.axes_dims, self.rope, profile, static_profile,
