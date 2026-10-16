@@ -49,3 +49,8 @@ Paired vs sega_official (bootstrap 95% CI):
 - temp_only_sbase (no allocation): IR/pick/clip/musiq_crop tie; musiq -2.1 worse; clipiqa -0.009 worse; spectral slightly worse; tiling better.
 - dype: IR -0.16, pick -0.49 worse; musiq_crop +2.0, clipiqa +0.03 better. ntk2 far worse.
 VERDICT: Constancy RoPE (best variant) does NOT beat released SEGA; it is worse on most image-quality metrics and slightly worse than no allocation. SEGA's released allocation gives a small real full-res MUSIQ/CLIP-IQA gain over no allocation (dev-set claim "allocation adds nothing" was wrong on MUSIQ). Method hypothesis refuted. No method paper.
+
+## Seed-1 replication (prompts 8-62, n=55), paired vs sega_official
+temp_only_sbase: IR +0.031 tie, pick tie, clip tie, musiq -2.79 worse, musiq_crop tie, clipiqa tie.
+constancy_tm_sbase: IR +0.019 tie, pick tie, clip tie, musiq -3.53 worse, musiq_crop -1.99 worse, clipiqa -0.025 worse.
+Same pattern as seed 0. Verdict stable. Workers stopped (taskq/STOP) and CR8 cancelled 2026-10-16 04:45: no runnable work left.
