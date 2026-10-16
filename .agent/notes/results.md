@@ -54,3 +54,6 @@ VERDICT: Constancy RoPE (best variant) does NOT beat released SEGA; it is worse 
 temp_only_sbase: IR +0.031 tie, pick tie, clip tie, musiq -2.79 worse, musiq_crop tie, clipiqa tie.
 constancy_tm_sbase: IR +0.019 tie, pick tie, clip tie, musiq -3.53 worse, musiq_crop -1.99 worse, clipiqa -0.025 worse.
 Same pattern as seed 0. Verdict stable. Workers stopped (taskq/STOP) and CR8 cancelled 2026-10-16 04:45: no runnable work left.
+
+## Ops lesson (2026-10-16)
+Fleet jobs did not end after workers exited: the background gpu_telemetry.sh kept the srun step alive. Fixed in slurm/node_launch.sh (kill telemetry after workers). CR3/CR4 scancelled 04:52 with no runnable work left.

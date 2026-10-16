@@ -3,9 +3,9 @@ Build and CPU-validate the resumable FLUX resolution-extrapolation codebase in d
 Research generations and paper claims follow separate GPU validation.
 
 ## Status and next action
-2026-10-16 04:10. HELD-OUT VERDICT (notes/results.md, eval_krea/heldout/): Constancy RoPE does NOT beat released SEGA (worse on CLIP, MUSIQ, CLIP-IQA, spectral; ties IR/Pick). Method hypothesis refuted; no method paper unless user chooses the analysis framing.
-Seed-1 replication done (same verdict). taskq/STOP touched; CR8 cancelled; running fleet jobs end as workers exit.
-NEXT: report to user; await decision (analysis paper vs new method iteration). Do not write a 'beats SEGA' paper.
+2026-10-16 04:55. CAMPAIGN COMPLETE. All GPU jobs released (CR3/CR4 scancelled after workers exited; CR8 cancelled). taskq/STOP present: remove it before any new fleet.
+Verdict (seed 0 n=187 + seed 1 n=55, held-out, paired vs released SEGA): Constancy RoPE does not beat released SEGA; worse on MUSIQ/CLIP-IQA/spectral, ties on IR/Pick. Details: notes/results.md, eval_krea/heldout/.
+NEXT: user decision: (1) analysis paper, (2) iterate (per-band temperature or derived RoPE base, same dev/held-out protocol), (3) stop. Paper draft in paper/ still assumes a method win; rewrite before any use.
 
 ## Map
 | note | read it when |
