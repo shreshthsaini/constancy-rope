@@ -32,3 +32,20 @@ clip/pick/musiq/musiq_crop/slope_err: constancy 30.10/23.10/40.6/58.6/0.174; seg
 Diagnosis: constancy ~= temp_only. Per-band correction is exactly 0 for steps 0-23 and acts only at sigma<=0.35 (log g change -0.1..-0.6 on high pairs). Constancy shows high-freq excess in decoded images vs A4K refs (spectrum_log_error b07-b09 +0.75..+1.35).
 Missing metrics: ImageReward (crope transformers too new -> scripts/imagereward_score.py in mend env), FID/KID (torch-fidelity installed now), HPSv3 skipped.
 Protocol decision: prompts 0-7 are the DEV set for eta/gate choice; final numbers on held-out prompts 8-194 only. Sweep queued: 12_sweep_{constancy_eta2,constancy_eta4,constancy_nogate}. Constancy main (eta=1) tasks held in taskq/hold (7 chunks already ran at eta=1, keep as ablation).
+
+## Dev time-matched (2026-10-15 19:48), prompts 0-7
+IR / pick / musiq / spec_rmse: sega_official 1.423/23.41/42.5/0.857; constancy_tm eta1 1.314/23.10/41.9/0.998; eta2 1.313/23.04/43.3/1.018; constancy 1.285; temp_only 1.282. Correction now active from step ~8 (pairs 6-8 lowered up to -0.57). Still below sega_official.
+Confound: ours use ntk2 base + tau_N (1.333 logit); sega_official uses its own NTK base and m_ref (~1.25 logit). Controlled dev runs on SEGA base + sref temp: 11_devsb_temp (no allocation), 11_devsb_ctm (constancy_tm allocation); chain logs/devsb_chain.sh scores them vs sega_official (its own allocation).
+
+## CONTROLLED dev (SEGA RoPE base + sref temperature), prompts 0-7 (eval_krea/devsb), 2026-10-15 20:54
+IR/pick/clip/musiq: no allocation 1.444/23.26/30.32/42.7; constancy_tm allocation 1.432/23.25/30.24/41.7; SEGA allocation (sega_official) 1.423/23.41/30.32/42.5. All within dev noise.
+=> Per-band allocation (SEGA's or ours) adds nothing measurable; RoPE base + global temperature drive the gains. Constancy does NOT beat released SEGA (ties). Do not claim a win.
+Held-out confirmation queued: 52_cXXXXX_main_{tsb,ctmsb} (temp_only and constancy_tm on CROPE_ROPE=sega_official, --temperature sref), out_krea/mainsb/, prompts 7-194 (report 8-194). Constancy eta=1 ntk2-base main superseded (7 chunks done, rest left in taskq/hold).
+Paper decision: user said paper only if it beats baselines. Present honest status; the defensible paper is an analysis ("what drives training-free RoPE extrapolation"), pending held-out CIs.
+
+## HELD-OUT RESULT (prompts 8-194, n=187, 4096^2, Krea, seed 0) -- eval_krea/heldout/, 2026-10-16 04:05
+Paired vs sega_official (bootstrap 95% CI):
+- constancy_tm_sbase: IR +0.018 [-0.023,0.059] tie; pick -0.046 tie; clip -0.27 worse; musiq -3.0 worse; musiq_crop -2.2 worse; clipiqa -0.025 worse; spec rmse +0.019 worse; slope err +0.018 worse; tiling -0.007 better.
+- temp_only_sbase (no allocation): IR/pick/clip/musiq_crop tie; musiq -2.1 worse; clipiqa -0.009 worse; spectral slightly worse; tiling better.
+- dype: IR -0.16, pick -0.49 worse; musiq_crop +2.0, clipiqa +0.03 better. ntk2 far worse.
+VERDICT: Constancy RoPE (best variant) does NOT beat released SEGA; it is worse on most image-quality metrics and slightly worse than no allocation. SEGA's released allocation gives a small real full-res MUSIQ/CLIP-IQA gain over no allocation (dev-set claim "allocation adds nothing" was wrong on MUSIQ). Method hypothesis refuted. No method paper.

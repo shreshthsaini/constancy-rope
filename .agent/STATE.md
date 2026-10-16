@@ -3,11 +3,9 @@ Build and CPU-validate the resumable FLUX resolution-extrapolation codebase in d
 Research generations and paper claims follow separate GPU validation.
 
 ## Status and next action
-2026-10-15 18:15. Krea campaign. CR3 4n until 10-16 11:40. Main baselines (ntk2, dype, sega_official x 195) running; constancy eta=1 main held (taskq/hold).
-DEV (prompts 0-7) result: constancy(eta1,2,4) == temp_only (IR ~1.28) < sega_official (IR 1.42; pick 23.41 vs 23.10; clip 30.32 vs 30.10); nogate worse (IR 1.00). Correction inactive until sigma<=0.35 because the target is the LATE native profile.
-Codex3 complete: constancy_tm and constancy_tm_nogate; 156 tests passed in 13.22s. CPU native-rebuild created calib/krea_profile_tm.npz (16 prompts, 28 steps, 9 bands/axis). All 14 old profile fields equal exactly; 17 input hashes unchanged. Changes uncommitted; no queue, Slurm, or paper changes. Details: notes/constancy_tm.md.
-Sweep evals queued (41_eval_sweep_*, 41_eval_pilot_v3). Sweep outputs moved to out_krea/sweep/, eval roots out_krea/sweeproot_* (symlinks).
-NEXT: constancy_tm dev runs done (out_krea/devtm_eta{1,2}); correction now active from step ~8. Scoring: 42_eval_devtm_eta* + eval_krea/ir/devtm_eta*.csv. Compare vs sega_official on dev; if better -> requeue constancy main as constancy_tm (profile calib/krea_profile_tm.npz) and report held-out prompts 8-194.
+2026-10-15 22:00. Running: CR3 4n (until 10-16 11:40), CR4 2n (until ~10-16 09:40), CR5 1n (until ~10-16 03:40); 7 GPUs, ~4.6h of queue left. Queue: 34 baseline main chunks (50_c: ntk2, dype, sega_official) + 54 controlled-arm chunks (52_c: temp_only and constancy_tm on SEGA base + sref temp) ~ 9.6h.
+KEY RESULT (dev, notes/results.md): per-band allocation (SEGA's or Constancy's) ~ no allocation once RoPE base + temperature are matched. Constancy ties released SEGA; does not beat it.
+NEXT: generation DONE 02:21. Scoring running: 60_eval_main (recreated), 60_eval_mainsb, 61_ir_main, 61_ir_mainsb. Seed-1 runs (70_s1_*, sega_official/temp_only/constancy_tm on SEGA base, prompts 7-63) use idle GPUs -> out_krea/seed1. Then held-out (8-194) paired deltas + bootstrap CIs; report to user. Stale dype outputs moved to out_krea/stale_main_dype.
 
 ## Map
 | note | read it when |
