@@ -48,15 +48,25 @@ def sega_modulator(mean_latent, theta, theta_height=None):
     return torch.stack(out), sigma
 
 
+def alias_logit_gain(wavelength, length, other_length, native_length=64, native_other=64):
+    """Specified effective-pool heuristic, with the same post-base wavelength in both pools."""
+    # n(lam,L) = min(L, max(1, L/lam)); axial pairs leave the other axis unresolved.
+    # g_d = ln(n(lam,L_tgt) * N_other_tgt) / ln(n(lam,L_nat) * N_other_nat).
+    # lam -> 0: global Jin ratio. lam >= max(L_tgt,L_nat): other-axis ratio.
+    target = (length / wavelength).clamp(min=1, max=length) * other_length
+    native = (native_length / wavelength).clamp(min=1, max=native_length) * native_other
+    return target.log() / native.log()
+
+
 class GainController:
     """Compute once per transformer call, then share gains across every block."""
 
     MODES = ("none", "yarn_temp", "sega", "sega_static", "constancy", "temp_only",
              "constancy_nogate", "constancy_sref", "sega_official", "sega_official_static",
-             "constancy_tm", "constancy_tm_nogate")
+             "constancy_tm", "constancy_tm_nogate", "alias_temp", "alias_temp_sref", "sega_ctm")
 
     def __init__(self, mode="none", grid=(64, 64), axes_dims=(16, 56, 56), rope=None,
-                 profile=None, static_profile=None, eta=1.0, target="profile", temperature=None,
+                 profile=None, static_profile=None, eta=None, target="profile", temperature=None,
                  probe_band=None, probe_factor=1.5, gate=None):
         if gate not in (None, "on", "off"):
             raise ValueError("Gate must be on or off")
@@ -70,10 +80,14 @@ class GainController:
         self.profile = NativeProfile.load(profile) if isinstance(profile, (str, bytes)) else profile
         if profile is not None and hasattr(profile, "__fspath__"):
             self.profile = NativeProfile.load(profile)
-        self.eta, self.target = float(eta), target
+        self.eta, self.target = float((0.5 if mode == "sega_ctm" else 1.0) if eta is None else eta), target
         if not math.isfinite(self.eta) or self.eta < 0 or target not in ("profile", "slope"):
             raise ValueError("eta must be finite and nonnegative; target must be profile or slope")
-        self.temperature = temperature or ("sref" if mode == "constancy_sref" else "logN")
+        fixed_gain = mode in ("alias_temp", "alias_temp_sref", "sega_ctm")
+        if fixed_gain and temperature not in (None, "none"):
+            raise ValueError(f"{mode} defines its own gain; no extra temperature is allowed")
+        self.temperature = temperature or ("none" if fixed_gain else
+                                           "sref" if mode == "constancy_sref" else "logN")
         if self.temperature not in ("logN", "sref", "none"):
             raise ValueError("Temperature must be logN, sref, or none")
         self.probe_band, self.probe_factor = probe_band, probe_factor
@@ -100,13 +114,13 @@ class GainController:
                     self.static = torch.from_numpy(data["mean_modulator"].copy())
                     if self.static.shape != (2, axes_dims[1] // 2) or axes_dims[1] != axes_dims[2]:
                         raise ValueError("SEGA-static profile dimensions do not match")
-        if mode.startswith("constancy") and self.profile is None:
+        if (mode.startswith("constancy") or mode == "sega_ctm") and self.profile is None:
             raise ValueError("Constancy requires --profile from native calibration")
-        self.time_matched = mode in ("constancy_tm", "constancy_tm_nogate")
+        self.time_matched = mode in ("constancy_tm", "constancy_tm_nogate", "sega_ctm")
         if self.time_matched:
             self.profile.require_time_resolved()
             if target != "profile":
-                raise ValueError("constancy_tm requires --target profile")
+                raise ValueError(f"{mode} requires --target profile")
         self.reset()
 
     def reset(self):
@@ -131,7 +145,7 @@ class GainController:
         return math.log(math.prod(self.grid)) / math.log(64 * 64)
 
     @torch.no_grad()
-    def update(self, xt, t, x0hat=None):
+    def update(self, xt, t, x0hat=None, official_qk_scale=None):
         if xt.ndim != 3 or tuple(xt.shape[-2:]) != self.grid:
             raise ValueError("Controller expects C,H,W packed token-grid latents")
         t = float(t)
@@ -142,7 +156,17 @@ class GainController:
         info = {"step": len(self.history), "sigma": t, "mode": self.mode}
         scale = math.sqrt(math.prod(self.grid)) / 64
         offsets = (self.axes_dims[0], self.axes_dims[0] + self.axes_dims[1])
-        if self.mode == "yarn_temp":
+        if self.mode in ("alias_temp", "alias_temp_sref"):
+            logg.fill_(math.log(math.log(math.prod(self.grid)) / math.log(64 * 64)))
+            for a, off in enumerate(offsets):
+                wavelength = 2 * math.pi / self.frequencies(a + 1, device)
+                gain = alias_logit_gain(wavelength, self.grid[a], self.grid[1 - a])
+                logg[off:off + self.axes_dims[a + 1]] = gain.log().repeat_interleave(2)
+            if self.mode == "alias_temp_sref":
+                # Include every pair, including axis 0. SEGA uses the longest-side scale.
+                logg += 0.16 * math.log(max(max(self.grid) / 64, 1.0)) - logg.mean()
+            info["gain_rule"] = "axial_alias_pool_log_ratio"
+        elif self.mode == "yarn_temp":
             logg.fill_(2 * math.log(1 + 0.1 * math.log(scale)))
         elif self.mode == "sega_official_static":
             logg.copy_(2 * self.static.to(device).log())
@@ -160,10 +184,16 @@ class GainController:
                 m = (self.grid[a] / 64) ** 0.08 * mod[a]
                 logg[off:off + self.axes_dims[a + 1]] = 2 * m.abs().clamp_min(1e-30).log().repeat_interleave(2)
             info["modulator"] = mod.cpu().tolist()
-        elif self.mode.startswith("constancy") or self.mode == "temp_only":
-            logg.fill_(math.log(self._temperature()))
-            for a, off in enumerate(offsets):
-                logg[off:off + self.axes_dims[a + 1]] = math.log(self._temperature(a))
+        elif self.mode.startswith("constancy") or self.mode in ("temp_only", "sega_ctm"):
+            if self.mode == "sega_ctm":
+                if official_qk_scale is None:
+                    raise ValueError("sega_ctm requires the released SEGA projected-feature gain")
+                logg.copy_(2 * official_qk_scale.to(device).log())
+                info["official_log_g"] = logg.cpu().tolist()
+            else:
+                logg.fill_(math.log(self._temperature()))
+                for a, off in enumerate(offsets):
+                    logg[off:off + self.axes_dims[a + 1]] = math.log(self._temperature(a))
             if self.mode != "temp_only" and x0hat is not None:
                 xt_axes, x0_axes = axis_power(xt), axis_power(x0hat)
                 bins = []

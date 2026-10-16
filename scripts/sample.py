@@ -13,7 +13,7 @@ def parser():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--method", required=True, choices=("base", "pi", "ntk", "ntk2", "yarn", "dype", "yarn_temp",
                    "sega", "sega_official", "sega_static", "sega_official_static", "constancy", "temp_only", "constancy_nogate", "constancy_sref",
-                   "constancy_tm", "constancy_tm_nogate"))
+                   "constancy_tm", "constancy_tm_nogate", "alias_temp", "alias_temp_sref", "sega_ctm"))
     p.add_argument("--res", type=resolution, required=True, metavar="HxW")
     p.add_argument("--prompts", type=Path, required=True)
     p.add_argument("--start", type=int, default=0)
@@ -24,7 +24,7 @@ def parser():
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--profile", type=Path)
     p.add_argument("--sega-static-profile", type=Path)
-    p.add_argument("--eta", type=float, default=1.0)
+    p.add_argument("--eta", type=float, help="Correction strength; default 0.5 for sega_ctm, otherwise 1")
     p.add_argument("--gate", choices=("on", "off"), help="constancy_tm visibility gate; off selects constancy_tm_nogate")
     p.add_argument("--target", choices=("profile", "slope"), default="profile")
     p.add_argument("--temperature", choices=("logN", "sref", "none"))
@@ -37,7 +37,7 @@ def parser():
 def main(argv=None):
     args = parser().parse_args(argv)
     runtime_environment()
-    if args.method in ("constancy_tm", "constancy_tm_nogate") or args.gate is not None:
+    if args.method in ("constancy_tm", "constancy_tm_nogate", "sega_ctm", "alias_temp", "alias_temp_sref") or args.gate is not None:
         # Reject missing or legacy profiles before loading the large model.
         from crope.gain import GainController
         GainController(args.method, grid=tuple(n // 16 for n in args.res), profile=args.profile,

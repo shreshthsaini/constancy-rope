@@ -1,0 +1,12 @@
+{
+  "checked": "2026-10-16T16:36:48.992159-05:00",
+  "paired_reference_count": 187,
+  "image_paths_match": true,
+  "all_ten_metrics_finite": true,
+  "scorer_versions_settings_revisions_match": true,
+  "baseline_means": {
+    "imagereward": 1.1899414117647058,
+    "musiq": 45.227842983715036,
+    "clip": 29.13552042507233
+  }
+}

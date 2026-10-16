@@ -1,0 +1,27 @@
+{
+  "start_inclusive": 8,
+  "end_exclusive": 195,
+  "seed": 0,
+  "reference": "sega_official",
+  "roots": [
+    [
+      "main",
+      ""
+    ],
+    [
+      "mainsb",
+      "_sbase"
+    ],
+    [
+      "main2",
+      "_v2"
+    ]
+  ],
+  "paired_bootstrap_draws": 2000,
+  "bootstrap_seed": 0,
+  "ci_percentiles": [
+    2.5,
+    97.5
+  ],
+  "purpose": "Held-out paired comparisons; dev rows 0-7 excluded"
+}

@@ -1,0 +1,266 @@
+{
+  "created": "2026-10-16T11:17:30.490812-05:00",
+  "tests": "194 passed in 16.61s",
+  "variants": [
+    {
+      "variant": "alias_temp",
+      "method": "alias_temp",
+      "eta": null,
+      "task": "13_dev_alias_temp.sh",
+      "sha256": "bc18ef551b82b57e2d419851792fd2de3f4b8faf01a90657491e8910881dcf05",
+      "root": "/scratch/09032/saini_2/constancy_rope/out_krea/dev2_alias_temp",
+      "original_task_archive": "/scratch/09032/saini_2/constancy_rope/taskq/hold/archived_20261016T142622_13_dev_alias_temp.sh",
+      "original_sha256": "489f275e2b31bca674fc9004d28091523b0aac02a423ac09ed8657d4d197ae07",
+      "publishes_scoring_after_success": true
+    },
+    {
+      "variant": "alias_temp_sref",
+      "method": "alias_temp_sref",
+      "eta": null,
+      "task": "13_dev_alias_temp_sref.sh",
+      "sha256": "f8a3ab81ea8e1b9a47df6f796579bee6d219375e4d73a0d2414cdf8d57f4c17f",
+      "root": "/scratch/09032/saini_2/constancy_rope/out_krea/dev2_alias_temp_sref",
+      "original_task_archive": "/scratch/09032/saini_2/constancy_rope/taskq/hold/archived_20261016T142622_13_dev_alias_temp_sref.sh",
+      "original_sha256": "075016f57c0375a2adb52fe4494b70db6a4795bb29b9cb11defbd3f1e09c6de5",
+      "publishes_scoring_after_success": true
+    },
+    {
+      "variant": "sega_ctm_eta05",
+      "method": "sega_ctm",
+      "eta": 0.5,
+      "task": "13_dev_sega_ctm_eta05.sh",
+      "sha256": "eab476076ed61b23007212638c2adf7339ac44c7cc9a478e881f3f7b4739463e",
+      "root": "/scratch/09032/saini_2/constancy_rope/out_krea/dev2_sega_ctm_eta05",
+      "original_task_archive": "/scratch/09032/saini_2/constancy_rope/taskq/hold/archived_20261016T142622_13_dev_sega_ctm_eta05.sh",
+      "original_sha256": "2782784f8ca034cb0919e4926dde0b20e0f55724c2f3affd0efd4d69dc8fd815",
+      "publishes_scoring_after_success": true
+    },
+    {
+      "variant": "sega_ctm_eta10",
+      "method": "sega_ctm",
+      "eta": 1.0,
+      "task": "13_dev_sega_ctm_eta10.sh",
+      "sha256": "1b30d14b19b4194ee033cd96186af05eb703156b9f59eee1d16a6e8d29f3db31",
+      "root": "/scratch/09032/saini_2/constancy_rope/out_krea/dev2_sega_ctm_eta10",
+      "original_task_archive": "/scratch/09032/saini_2/constancy_rope/taskq/hold/archived_20261016T142622_13_dev_sega_ctm_eta10.sh",
+      "original_sha256": "09127c743f862492fde7511e91d188e996b37dbe5ae2ad9c48653e548c4cadd3",
+      "publishes_scoring_after_success": true
+    }
+  ],
+  "code_sha256": {
+    "crope/gain.py": "7e0c391b8aa9ba0c8f2d98b7c0df86d4344179c85946f8336fa86f1374bab810",
+    "crope/runtime.py": "3db65efbd55c7755123b5cb2218eb82262b21aeef4ea6ebcf8885e6eb81e7fae",
+    "scripts/sample.py": "46fc63563e7114668798c81fbe86c1dfb3cdc0d7da35042fc09ebba6a6cb9f72",
+    "scripts/enqueue.py": "5884fe198772841c192053f1a0ad85b349b082cfce49b01148cb3c18adff7865"
+  },
+  "rule": "IR delta > 0 AND full-res MUSIQ delta > 0 AND CLIP delta >= -0.3; at most 2 by IR delta, MUSIQ tie-break",
+  "dev_rows": [
+    0,
+    8
+  ],
+  "heldout_rows": [
+    8,
+    195
+  ],
+  "score_tasks_staged": false,
+  "observed_active_fleet": {
+    "job_id": 1076092,
+    "host": "c672-016",
+    "gpus": 4,
+    "start": "2026-10-16T15:58:26-05:00"
+  },
+  "dev_tasks_complete": true,
+  "scores_published_by_completion_hooks": true,
+  "dev_scoring_complete": true,
+  "selected": [
+    "sega_ctm_eta10"
+  ],
+  "heldout": {
+    "published": "2026-10-16T16:32:20.507784-05:00",
+    "method": "sega_ctm",
+    "eta": 1.0,
+    "output_root": "/scratch/09032/saini_2/constancy_rope/out_krea/main2",
+    "tasks": [
+      {
+        "name": "53_c00007_main2_sega_ctm_eta10.sh",
+        "start": 7,
+        "end": 14,
+        "sha256": "43a7177ab258eb3832799ec75cb509986d7083c4d6416794a05cc710f765f4d0"
+      },
+      {
+        "name": "53_c00014_main2_sega_ctm_eta10.sh",
+        "start": 14,
+        "end": 21,
+        "sha256": "a9461962b47a8a3984d6fdb92b06e121a0aa81b1c33c38546a49d54d7e3db3e3"
+      },
+      {
+        "name": "53_c00021_main2_sega_ctm_eta10.sh",
+        "start": 21,
+        "end": 28,
+        "sha256": "6a8c858a573f107a0e3feaba1e45e575b6321cd0a312c2fcd5ae9714d712bef2"
+      },
+      {
+        "name": "53_c00028_main2_sega_ctm_eta10.sh",
+        "start": 28,
+        "end": 35,
+        "sha256": "ded0cd361cb6c271e2f66b6ab263185292417e625f101ba489119c137dc047bb"
+      },
+      {
+        "name": "53_c00035_main2_sega_ctm_eta10.sh",
+        "start": 35,
+        "end": 42,
+        "sha256": "d50e9c054c249f531224cf63d353ea9475c976813cd5cbd90f9314da667fbdb5"
+      },
+      {
+        "name": "53_c00042_main2_sega_ctm_eta10.sh",
+        "start": 42,
+        "end": 49,
+        "sha256": "ef6f9aa85b17c5c4e9d4fafbda09daf2d33730a848462c10cab6439092f0c9ca"
+      },
+      {
+        "name": "53_c00049_main2_sega_ctm_eta10.sh",
+        "start": 49,
+        "end": 56,
+        "sha256": "6d743cb88ff4962a52801e422e08cec82891af95c9b4dc7bc603eead896a57ec"
+      },
+      {
+        "name": "53_c00056_main2_sega_ctm_eta10.sh",
+        "start": 56,
+        "end": 63,
+        "sha256": "fa29bac5f74c70fb9d5331be510c97ef399cd42bdc3d2c85620423474b446db6"
+      },
+      {
+        "name": "53_c00063_main2_sega_ctm_eta10.sh",
+        "start": 63,
+        "end": 70,
+        "sha256": "1cafcef512fe32afa6b4c319b14874ab9b3c3844b23089496d6a58f620df3067"
+      },
+      {
+        "name": "53_c00070_main2_sega_ctm_eta10.sh",
+        "start": 70,
+        "end": 77,
+        "sha256": "a63a200b4235d984ad16f05e01b0633e3d7bc0773ca11f841bde29c1220d9aba"
+      },
+      {
+        "name": "53_c00077_main2_sega_ctm_eta10.sh",
+        "start": 77,
+        "end": 84,
+        "sha256": "00662872ea29d3ad523657bf5b459dc1d2377dec3f0e738d6d5a44f10c0db9ac"
+      },
+      {
+        "name": "53_c00084_main2_sega_ctm_eta10.sh",
+        "start": 84,
+        "end": 91,
+        "sha256": "8982fe8d56ac0cbb737078054890ba97574271917bd8ae0f9106897ba9a456fa"
+      },
+      {
+        "name": "53_c00091_main2_sega_ctm_eta10.sh",
+        "start": 91,
+        "end": 98,
+        "sha256": "533bb79c5282fc9d662e377446abc51ef328e2e7bf1b1cbb5be5677f838a84e1"
+      },
+      {
+        "name": "53_c00098_main2_sega_ctm_eta10.sh",
+        "start": 98,
+        "end": 105,
+        "sha256": "82af330e26d2e5a3af5bc8d0f21707aac0d4d3122a602894d0d1d39286de13eb"
+      },
+      {
+        "name": "53_c00105_main2_sega_ctm_eta10.sh",
+        "start": 105,
+        "end": 112,
+        "sha256": "37725d7992fd76061533e3b63c6953b0a60f8c7991597fd9dc929ed0877e49ab"
+      },
+      {
+        "name": "53_c00112_main2_sega_ctm_eta10.sh",
+        "start": 112,
+        "end": 119,
+        "sha256": "28fee17e00714ba64f3eb56b4cff9eca644381d7c3d796ea67b01d4bc836ad31"
+      },
+      {
+        "name": "53_c00119_main2_sega_ctm_eta10.sh",
+        "start": 119,
+        "end": 126,
+        "sha256": "7f7503ffebe8ccc3f06d17a21b0af799c610556ed6692ff44ca89dc915459f9e"
+      },
+      {
+        "name": "53_c00126_main2_sega_ctm_eta10.sh",
+        "start": 126,
+        "end": 133,
+        "sha256": "b9c1058a6707f91143cebb3773aed4375787a985de67c3f411d3e539d1f4efbf"
+      },
+      {
+        "name": "53_c00133_main2_sega_ctm_eta10.sh",
+        "start": 133,
+        "end": 140,
+        "sha256": "f8eb5ed15067792bad02d5822bb6ebd6cbaadb4134317b8951d83e0d8068a5f4"
+      },
+      {
+        "name": "53_c00140_main2_sega_ctm_eta10.sh",
+        "start": 140,
+        "end": 147,
+        "sha256": "2a8db3d643ced7e05dc94dfc8ef8809e9f6c092812401d64306d9d44314d76f1"
+      },
+      {
+        "name": "53_c00147_main2_sega_ctm_eta10.sh",
+        "start": 147,
+        "end": 154,
+        "sha256": "4e15284209926e83de2b843f6073248bad10dcb40f3354efb904cfa5d425f7f3"
+      },
+      {
+        "name": "53_c00154_main2_sega_ctm_eta10.sh",
+        "start": 154,
+        "end": 161,
+        "sha256": "cfb98535cfaa719c0d214189d819cdf1554f3f7f6092957c0c92c1f58f8d41e9"
+      },
+      {
+        "name": "53_c00161_main2_sega_ctm_eta10.sh",
+        "start": 161,
+        "end": 168,
+        "sha256": "16c3724a4de7ac89f5a2c72d7b48faef1172addb906770d1f8212ef399378a7c"
+      },
+      {
+        "name": "53_c00168_main2_sega_ctm_eta10.sh",
+        "start": 168,
+        "end": 175,
+        "sha256": "acbc787bb4b118883aee62f331a61669fddbf75b97ee047a618e577e48448df8"
+      },
+      {
+        "name": "53_c00175_main2_sega_ctm_eta10.sh",
+        "start": 175,
+        "end": 182,
+        "sha256": "473a356a8ed8f188c3ddf17156b73dcf206cd18e51ce06dece47a4cdc6f0db1d"
+      },
+      {
+        "name": "53_c00182_main2_sega_ctm_eta10.sh",
+        "start": 182,
+        "end": 189,
+        "sha256": "2026c108e5d2981fa6670610ed5da298966805dc06053aef38edc71c3361e62b"
+      },
+      {
+        "name": "53_c00189_main2_sega_ctm_eta10.sh",
+        "start": 189,
+        "end": 195,
+        "sha256": "8547dda493d5913e279b8780d9f9418a94829968118172fa492f382f8e3e3aa0"
+      }
+    ],
+    "generation_rows": [
+      7,
+      195
+    ],
+    "analysis_rows": [
+      8,
+      195
+    ],
+    "generation_complete": true,
+    "generation_audit": "main2_generation_check.json",
+    "final_scores_published": "2026-10-16T17:58:57-05:00",
+    "scoring_complete": true,
+    "analysis_report": "main2/REPORT.md",
+    "n": 187,
+    "STOP_created": "2026-10-16T18:05:35-05:00",
+    "workers_exited_by": "2026-10-16T18:06:06-05:00",
+    "independent_review": "all ten paired means/CIs reproduced within 1e-10"
+  },
+  "campaign_status": "complete_negative_heldout"
+}

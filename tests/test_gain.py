@@ -412,7 +412,7 @@ def test_native_low_frequency_extrapolation_is_log_linear():
 
 
 @pytest.mark.parametrize("method", ["base", "sega_official", "sega_official_static",
-                                    "constancy_tm", "constancy_tm_nogate"])
+                                    "constancy_tm", "constancy_tm_nogate", "alias_temp", "alias_temp_sref", "sega_ctm"])
 def test_runtime_updates_once_and_uses_exact_scheduler_sigma(tiny_flux, monkeypatch, tmp_path, method):
     monkeypatch.setattr(runtime, "code_revision", lambda: "test")
     monkeypatch.setattr(runtime, "model_revision", lambda: "test")
@@ -425,7 +425,7 @@ def test_runtime_updates_once_and_uses_exact_scheduler_sigma(tiny_flux, monkeypa
         np.savez(static, mean_qk_scale=np.repeat([1, 1, 1.1, 1.2, 1.3, 1.2, 1.3, 1.4], 2),
                  grid=[2, 3], source_method="sega_official")
     profile = None
-    if method.startswith("constancy_tm"):
+    if method.startswith("constancy_tm") or method == "sega_ctm":
         profile = tmp_path / "native_tm.npz"
         f = torch.tensor([1 / 64, 1 / 16, 1 / 4])
         NativeProfile((f, f), (f * 0, f * 0), torch.tensor([0.9, 0.1]),
@@ -471,3 +471,79 @@ def test_runtime_updates_once_and_uses_exact_scheduler_sigma(tiny_flux, monkeypa
         experiment.close()
     assert tiny_flux.pos_embed is original_rope
     assert all(tiny_flux.attn_processors[key] is value for key, value in original_processors.items())
+
+
+@pytest.mark.parametrize("length,other", [(256, 256), (128, 256), (256, 128)])
+def test_alias_pool_limits_and_intermediate_wavelength(length, other):
+    wavelengths = torch.tensor([1e-20, 16, 64, length, 1e20], dtype=torch.float64)
+    actual = gain_module.alias_logit_gain(wavelengths, length, other)
+    expected = [math.log(length * other) / math.log(4096),
+                math.log(length / 16 * other) / math.log(4 * 64),
+                math.log(length / 64 * other) / math.log(64),
+                math.log(other) / math.log(64), math.log(other) / math.log(64)]
+    torch.testing.assert_close(actual, torch.tensor(expected, dtype=torch.float64))
+
+
+@pytest.mark.parametrize("grid", [(64, 64), (256, 256), (128, 256)])
+def test_alias_uses_post_base_axial_wavelengths_and_sref_all_pairs(grid):
+    rope = FluxRoPE(method="sega_official", grid=grid)
+    xt = torch.zeros(1, *grid)
+    raw = GainController("alias_temp", grid=grid, rope=rope)
+    scaled = GainController("alias_temp_sref", grid=grid, rope=rope)
+    raw.update(xt, 1)
+    scaled.update(xt, 1)
+    global_gain = math.log(math.prod(grid)) / math.log(4096)
+    torch.testing.assert_close(raw.log_g[:16].exp(), torch.full((16,), global_gain))
+    for a, offset in enumerate((16, 72)):
+        lam = 2 * math.pi / rope.frequencies(a + 1)
+        expected = gain_module.alias_logit_gain(lam, grid[a], grid[1 - a])
+        torch.testing.assert_close(raw.log_g[offset:offset + 56:2].exp(), expected.float())
+    reference = (max(grid) / 64) ** 0.16
+    assert scaled.log_g[::2].mean().exp().item() == pytest.approx(reference)
+    difference = scaled.log_g - raw.log_g
+    torch.testing.assert_close(difference, difference.mean().expand_as(difference))
+    torch.testing.assert_close(scaled.qk_scale[::2], scaled.qk_scale[1::2], rtol=0, atol=0)
+    if grid == (64, 64):
+        assert torch.equal(raw.qk_scale, torch.ones(128))
+        assert torch.equal(scaled.qk_scale, torch.ones(128))
+
+
+@pytest.mark.parametrize("eta", [0, 0.5, 1.0])
+def test_sega_ctm_is_released_gain_times_only_time_matched_correction(time_profile, eta):
+    from crope.sega_official import OfficialSEGA
+    profile, fields = time_profile
+    grid = (128, 128)
+    rope = FluxRoPE(method="sega_official", grid=grid)
+    xt = 5 * fields[-1].repeat(1, 2, 2)
+    x0 = blur(fields[1], 1.2).repeat(1, 2, 2)
+    official = OfficialSEGA(grid)
+    projected = torch.randn(1, math.prod(grid), 8, generator=torch.Generator().manual_seed(53))
+    base = official.update(projected, 0.6)
+    refinement = GainController("constancy_tm", grid=grid, rope=rope, profile=profile,
+                                eta=eta, temperature="none")
+    combined = GainController("sega_ctm", grid=grid, rope=rope, profile=profile, eta=eta)
+    first = combined.update(xt, 0.9, official_qk_scale=base)
+    torch.testing.assert_close(first, base)
+    refinement.update(xt, 0.6, x0)
+    combined.update(xt, 0.6, x0, base)
+    torch.testing.assert_close(combined.qk_scale, base * refinement.qk_scale)
+    assert combined.history[-1]["bins"] == refinement.history[-1]["bins"]
+    assert torch.equal(combined.qk_scale[:16], base[:16])
+    if eta:
+        assert refinement.log_g.abs().max() > 0.01
+    else:
+        torch.testing.assert_close(combined.qk_scale, base)
+
+
+def test_new_mode_defaults_and_required_inputs(time_profile):
+    profile, fields = time_profile
+    controller = GainController("sega_ctm", profile=profile)
+    assert controller.eta == 0.5 and controller.temperature == "none"
+    assert GainController("constancy_tm", profile=profile).eta == 1.0
+    with pytest.raises(ValueError, match="projected-feature"):
+        controller.update(fields[0], 0.6)
+    with pytest.raises(ValueError, match="requires --target profile"):
+        GainController("sega_ctm", profile=profile, target="slope")
+    for mode in ("alias_temp", "alias_temp_sref", "sega_ctm"):
+        with pytest.raises(ValueError, match="no extra temperature"):
+            GainController(mode, profile=profile, temperature="sref")

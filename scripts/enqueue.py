@@ -28,7 +28,7 @@ SCRATCH = Path("/scratch/09032/saini_2/constancy_rope")
 PYTHON = Path("/work/09032/saini_2/vista/library/uv-envs/crope/bin/python")
 METHODS = ("base", "pi", "ntk", "ntk2", "yarn", "yarn_temp", "dype", "sega", "sega_static",
            "constancy", "temp_only", "constancy_nogate", "constancy_sref", "sega_official", "sega_official_static",
-           "constancy_tm", "constancy_tm_nogate")
+           "constancy_tm", "constancy_tm_nogate", "alias_temp", "alias_temp_sref", "sega_ctm")
 DEFAULT_METHODS = ("ntk2", "yarn", "dype", "sega_official", "sega", "temp_only", "constancy")
 PILOT_METHODS = DEFAULT_METHODS
 STATIC_PROFILES = {"sega_static": "sega_static_profile", "sega_official_static": "sega_official_static_profile"}
@@ -84,8 +84,10 @@ def sample_command(args, method: str, res: str, start: int, end: int, root: Path
                "--prompts", str(args.prompts), "--start", str(start), "--end", str(end),
                "--seed", str(args.seed), "--steps", str(args.steps),
                "--guidance", str(args.guidance), "--out", str(root / method / res)]
-    if method.startswith("constancy"):
+    if method.startswith("constancy") or method == "sega_ctm":
         command += ["--profile", str(args.profile)]
+    if getattr(args, "eta", None) is not None:
+        command += ["--eta", str(args.eta)]
     if method in STATIC_PROFILES:
         command += ["--sega-static-profile", str(getattr(args, STATIC_PROFILES[method]))]
     return command
@@ -93,7 +95,7 @@ def sample_command(args, method: str, res: str, start: int, end: int, root: Path
 
 def method_requirements(args, method: str) -> list[Path]:
     paths = [args.prompts]
-    if method.startswith("constancy"):
+    if method.startswith("constancy") or method == "sega_ctm":
         paths.append(args.profile)
     if method in STATIC_PROFILES:
         paths.append(getattr(args, STATIC_PROFILES[method]))
@@ -225,7 +227,7 @@ def write_tasks(args: argparse.Namespace, tasks: list[Task]) -> list[dict]:
     for task in tasks:
         for command in task.commands:
             if (command[0] == "scripts/sample.py" and
-                    command[command.index("--method") + 1] in ("constancy_tm", "constancy_tm_nogate")):
+                    command[command.index("--method") + 1] in ("constancy_tm", "constancy_tm_nogate", "sega_ctm")):
                 from crope.spectral import NativeProfile
                 NativeProfile.load(command[command.index("--profile") + 1]).require_time_resolved()
     records = []
@@ -270,6 +272,7 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--seed", type=int, default=0)
     result.add_argument("--steps", type=int, default=28)
     result.add_argument("--guidance", type=float, default=4.5)
+    result.add_argument("--eta", type=float, help="Optional correction strength; otherwise use the method default")
     result.add_argument("--native-count", type=int, default=16)
     result.add_argument("--pilot-count", type=int, default=8)
     result.add_argument("--seconds-per-image", type=float, default=300.0,

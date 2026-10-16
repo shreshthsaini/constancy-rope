@@ -1,0 +1,61 @@
+metric              imagereward  pickscore    clip   musiq  musiq_crop1024  clipiqa  clipiqa_crop1024  spectrum_log_rmse  spectrum_slope_error  tiling1024
+method                                                                                                                                                    
+constancy                 1.177     22.698  29.457  40.550          60.747    0.572             0.543              1.337                 0.276       0.059
+constancy_tm_sbase        1.208     23.007  28.867  42.192          56.135    0.578             0.550              1.088                 0.218       0.062
+dype                      1.026     22.566  28.765  43.350          60.298    0.632             0.599              1.096                 0.218       0.087
+ntk2                      0.596     22.028  27.147  29.488          39.631    0.557             0.537              1.285                 0.165       0.076
+sega_ctm_v2               1.199     22.977  29.042  45.019          57.196    0.606             0.588              1.066                 0.197       0.068
+sega_official             1.190     23.053  29.136  45.228          58.328    0.603             0.586              1.068                 0.200       0.068
+temp_only_sbase           1.216     23.081  29.154  43.142          58.217    0.594             0.569              1.102                 0.224       0.062
+
+            method               metric   n   delta      lo      hi verdict
+constancy_tm_sbase          imagereward 187   0.018  -0.023   0.059     tie
+constancy_tm_sbase            pickscore 187  -0.046  -0.106   0.015     tie
+constancy_tm_sbase                 clip 187  -0.268  -0.491  -0.039   worse
+constancy_tm_sbase                musiq 187  -3.036  -4.282  -1.815   worse
+constancy_tm_sbase       musiq_crop1024 187  -2.193  -2.812  -1.567   worse
+constancy_tm_sbase              clipiqa 187  -0.025  -0.034  -0.017   worse
+constancy_tm_sbase     clipiqa_crop1024 187  -0.036  -0.045  -0.027   worse
+constancy_tm_sbase    spectrum_log_rmse 187   0.019   0.001   0.037   worse
+constancy_tm_sbase spectrum_slope_error 187   0.018   0.008   0.027   worse
+constancy_tm_sbase           tiling1024 187  -0.007  -0.011  -0.003  better
+              dype          imagereward 187  -0.164  -0.258  -0.087   worse
+              dype            pickscore 187  -0.486  -0.629  -0.361   worse
+              dype                 clip 187  -0.371  -0.720  -0.008   worse
+              dype                musiq 187  -1.878  -3.263  -0.562   worse
+              dype       musiq_crop1024 187   1.970   1.162   2.796  better
+              dype              clipiqa 187   0.029   0.020   0.038  better
+              dype     clipiqa_crop1024 187   0.013   0.003   0.023  better
+              dype    spectrum_log_rmse 187   0.028  -0.007   0.061     tie
+              dype spectrum_slope_error 187   0.018   0.003   0.033   worse
+              dype           tiling1024 187   0.018   0.009   0.028   worse
+              ntk2          imagereward 187  -0.594  -0.701  -0.494   worse
+              ntk2            pickscore 187  -1.025  -1.156  -0.893   worse
+              ntk2                 clip 187  -1.988  -2.434  -1.552   worse
+              ntk2                musiq 187 -15.740 -17.501 -14.003   worse
+              ntk2       musiq_crop1024 187 -18.697 -20.680 -16.857   worse
+              ntk2              clipiqa 187  -0.046  -0.062  -0.031   worse
+              ntk2     clipiqa_crop1024 187  -0.049  -0.066  -0.034   worse
+              ntk2    spectrum_log_rmse 187   0.216   0.154   0.287   worse
+              ntk2 spectrum_slope_error 187  -0.035  -0.053  -0.018  better
+              ntk2           tiling1024 187   0.007  -0.004   0.019     tie
+       sega_ctm_v2          imagereward 187   0.009  -0.008   0.027     tie
+       sega_ctm_v2            pickscore 187  -0.075  -0.102  -0.049   worse
+       sega_ctm_v2                 clip 187  -0.094  -0.197  -0.004   worse
+       sega_ctm_v2                musiq 187  -0.209  -0.709   0.315     tie
+       sega_ctm_v2       musiq_crop1024 187  -1.132  -1.388  -0.902   worse
+       sega_ctm_v2              clipiqa 187   0.003  -0.000   0.006     tie
+       sega_ctm_v2     clipiqa_crop1024 187   0.002  -0.001   0.006     tie
+       sega_ctm_v2    spectrum_log_rmse 187  -0.002  -0.009   0.004     tie
+       sega_ctm_v2 spectrum_slope_error 187  -0.003  -0.007   0.002     tie
+       sega_ctm_v2           tiling1024 187   0.000  -0.001   0.001     tie
+   temp_only_sbase          imagereward 187   0.026  -0.016   0.070     tie
+   temp_only_sbase            pickscore 187   0.028  -0.030   0.090     tie
+   temp_only_sbase                 clip 187   0.019  -0.194   0.233     tie
+   temp_only_sbase                musiq 187  -2.085  -3.245  -0.964   worse
+   temp_only_sbase       musiq_crop1024 187  -0.110  -0.710   0.507     tie
+   temp_only_sbase              clipiqa 187  -0.009  -0.018  -0.001   worse
+   temp_only_sbase     clipiqa_crop1024 187  -0.017  -0.026  -0.008   worse
+   temp_only_sbase    spectrum_log_rmse 187   0.034   0.016   0.051   worse
+   temp_only_sbase spectrum_slope_error 187   0.024   0.013   0.034   worse
+   temp_only_sbase           tiling1024 187  -0.007  -0.011  -0.003  better

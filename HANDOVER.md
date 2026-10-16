@@ -12,6 +12,18 @@ started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact ht
 - User authorized holding GPUs on any partition and using Codex in the background.
 
 ## 2. Verdict so far (do not relitigate without new evidence)
+Second campaign COMPLETE (2026-10-16): neither new candidate demonstrates an improvement over released SEGA.
+Full report and tables: `.agent/notes/main2/REPORT.md`. Full CPU suite: 194 passed.
+Dev only (n=8): both alias variants lose IR; sega_ctm eta 0.5 narrowly loses MUSIQ; eta 1.0 alone passes.
+Held-out sega_ctm eta 1.0 (187 paired prompts 8-194, seed 0):
+- IR +0.008575, 95% CI [-0.008414,+0.027420]; full-res MUSIQ -0.208599 [-0.708869,+0.315118].
+- PickScore -0.075259 [-0.102335,-0.049140]; crop MUSIQ -1.131657 [-1.387535,-0.902193].
+- CLIP -0.093916 [-0.196506,-0.003680]. Remaining metric CIs cross zero.
+Thus the B3 refinement does not repair the earlier failure. No equivalence claim follows from CIs crossing zero.
+All generation/scoring succeeded; exact paired tables and per-prompt data are archived on work.
+STOP was touched after pending/running were empty; all four workers exited by 18:06:06 CDT.
+Independent review reproduced all ten paired means/CIs within 1e-10. No new experiments are queued.
+The older evidence follows.
 Held-out prompts 8-194 (n=187, seed 0) + seed-1 replication on 8-62 (n=55); FLUX.1-Krea-dev, guidance 4.5, 28 steps,
 mu = max_shift 1.15; bootstrap 95% CIs, paired vs sega_official (`eval_krea/heldout/heldout_paired_vs_sega_official.csv`).
 - constancy_tm on SEGA's RoPE base + SEGA temperature: ties ImageReward/PickScore; WORSE on MUSIQ (-3.0), MUSIQ crop (-2.2),
@@ -33,6 +45,7 @@ mu = max_shift 1.15; bootstrap 95% CIs, paired vs sega_official (`eval_krea/held
   NTK base / (1 + 0.1 ln s)). `sega_official` = released; `sega` = paper equations. See `crope/THIRD_PARTY.md`.
 - Band power must be a grid-independent density (orthonormal FFT, mean per band). Fixed.
 - SDPA: prefer cuDNN on GH200 (215 s/img at 4096^2 vs 290 s with forced flash). Peak 41 GB. GPU compute-bound at 100%.
+- Blackwell gb nodes (e.g. c672-016) have 4 GPUs; node_launch.sh starts 4 workers; 4096^2 Krea ~97 s/img (2.2x GH200). torch 2.11 cu128 works there. qgb allows 3 submits per user.
 - Krea native 1024^2: 5.5 s/img. Calibration (16 Pick-a-Pic prompts, disjoint from eval) -> `calib/krea_profile.npz`,
   time-resolved `calib/krea_profile_tm.npz`.
 - ImageReward needs the `mend` env (crope's transformers too new): `scripts/imagereward_score.py`.
@@ -43,12 +56,12 @@ mu = max_shift 1.15; bootstrap 95% CIs, paired vs sega_official (`eval_krea/held
 Code (git, local only, no remote): `/work/09032/saini_2/vista/Projects/Exploration/constancy_rope`
 - `crope/` runtime.py (pipeline, FluxExperiment, resume), gain.py (controllers + attention processor), rope.py (pos-embed
   variants), spectral.py, sega_official.py, metrics/. `scripts/` sample.py, calibrate.py, probe_mtf.py, eval.py, enqueue.py,
-  imagereward_score.py, heldout_analysis.py. `tests/` (156 pass: `OMP_NUM_THREADS=8 <crope python> -m pytest -q tests`).
+  imagereward_score.py, heldout_analysis.py, dev2_analysis.py. `tests/` (194 pass: `OMP_NUM_THREADS=8 <crope python> -m pytest -q tests`).
 - `slurm/` fleet_CR*.sbatch, node_launch.sh (per-GPU workers; kills telemetry after workers exit), worker_loop.sh
   (atomic claim, requeue on SIGTERM, exits after 90 min idle or when taskq/STOP exists).
 Env: `/work/09032/saini_2/vista/library/uv-envs/crope/bin/python` (torch 2.11 cu128, diffusers 0.39). ImageReward: `.../uv-envs/mend/bin/python`.
 Scratch: `/scratch/09032/saini_2/constancy_rope/`
-- `taskq/{pending,running,done,failed,hold}` + `STOP` marker (PRESENT now; remove before starting a new fleet).
+- `taskq/{pending,running,done,failed,hold}` + `STOP` marker (present after the completed second campaign).
 - `out_krea/{pilot,main,mainsb,seed1,devtm_eta*,devsb,sweep}/METHOD/4096x4096/*.png+json`; `eval_krea/{pilot,main,mainsb,
   seed1,devsb,heldout,ir}/`; `calib/`; `probe_krea/`; `logs/task_<name>.log`, `logs/fleet_<jobid>.out`; `telemetry/`.
 - Old FLUX.1-dev outputs in `out/` are NOT for any paper (lattice regime).
@@ -58,24 +71,34 @@ Prompts: `prompts/aesthetic4k_eval.jsonl` (195 Aesthetic-4K eval captions, refs 
 ## 5. Protocol (keep it)
 Dev = eval prompts 0-7 (choose variants/hyperparameters here only). Held-out = prompts 8-194 (report only these).
 Main baselines already exist for held-out: ntk2, dype, sega_official (out_krea/main), temp_only_sbase and constancy_tm_sbase
-(out_krea/mainsb). Any new method: dev run (8 prompts, ~30 min/GPU) -> if it beats sega_official on dev on IR AND MUSIQ ->
+(out_krea/mainsb). Any new method: dev run (8 prompts, ~30 min/GPU) -> if it beats sega_official on dev on IR AND MUSIQ, with CLIP delta >= -0.3; select at most two ->
 held-out main (27 chunks of 7 prompts, ~25 min each) -> `scripts/heldout_analysis.py` (add the new root to the loader).
 
 ## 6. How to run things
 - Task script template: copy any `taskq/done/52_c*_main_ctmsb.sh` and edit method/out/flags; `bash -n` it; drop in taskq/pending.
-- Submit a fleet (from this compute node): check `ssh login1 /usr/local/etc/taccinfo` (stop at 96% burn), then ONE
-  `ssh login1 'sbatch /work/.../slurm/fleet_CR3.sbatch'`. Account ASC26048. Never 1-node-per-task arrays. gb QOS allows 3 submits.
-  User's account often near the 40-job submit cap (other sessions). gh-dev: 1 job/user.
+- The completed second campaign ran on externally launched fleet 1076092 on c672-016 (four GPUs, gb/CR13 configuration).
+  The originally recorded CR10 job has no visible log. The user forbids SSH, sbatch, and scancel in this session.
+  Do not submit a replacement or cancel an allocation. Monitor the task spool and project logs every five minutes.
 - Eval: copy `taskq/done/60_eval_mainsb.sh` (root/out/reference) and `61_ir_main.sh`.
-- Release nodes when nothing runnable remains: touch taskq/STOP; if jobs linger, scancel the exact CR job ids.
+- When the campaign is complete and pending is empty, touch taskq/STOP so the existing workers exit.
+  Do not cancel jobs. Do not modify worker_loop.sh or node_launch.sh.
 
-## 7. Open directions (user decides; Codex may pursue option B)
-A. Analysis paper ("what drives training-free RoPE extrapolation"): controlled ablations above, checkpoint dependence,
-   SEGA paper-vs-code gap, temperature as the main lever. All data exist.
-B. New method iteration, same protocol. Evidence says the lever is the attention temperature and RoPE base, and SEGA's
-   released allocation adds a small sharpness gain. Candidates: (B1) per-band entropy-matched temperature calibrated against
-   the native model at the same sigma (adaptation / divisive normalization), (B2) derived RoPE base from the native
-   positional-spectrum match, (B3) SEGA allocation + time-matched target as a correction on top of SEGA (not replacing it).
+## 7. Completed campaign and resume procedure
+The authorized B1/B3 campaign is complete. No further GPU work is queued.
+1. Read `.agent/notes/main2/REPORT.md` for the dev decision and full held-out result.
+2. Dev sources/decision live in `.agent/notes/dev2`; held-out means, paired CIs, per-prompt data,
+   prompt manifest, and final raw scorer reports live in `.agent/notes/main2` on work.
+3. Full generated images remain at out_krea/main2/sega_ctm/4096x4096 on scratch. All 188 passed the
+   generation audit; held-out analysis excludes row 7 and uses exactly 187 paired seed-0 prompts.
+4. All 53_ and 62_ tasks succeeded. STOP was touched at 18:05:35 CDT after pending/running were empty.
+   All four workers exited by 18:06:06; no scheduler cancellation occurred.
+   Do not submit or rerun anything for this completed campaign. Preserve the negative evidence.
+5. Both aliases and eta 0.5 stopped at dev. Do not reinterpret dev scores as results or tune on held-out.
+Formulas and frozen rule: `.agent/notes/alias_temp.md`; task/source hashes: `.agent/notes/dev2_manifest.json`.
+New modes and analysis plumbing remain uncommitted in the tree because .git is read-only.
+CPU-only prepasses used local receipts after a documented W&B socket failure. Final GPU evaluation
+logged offline W&B run n8xhe6iy; no remote synchronization is claimed. No worker/node-launch edits,
+SSH, Slurm submission/cancellation, package installs, or scratch deletion occurred in this session.
 
 ## 8. Process rules for any agent here
 Vista: compute only on compute nodes; login node only for sbatch/squeue/short ssh, max 3 concurrent ssh, never ssh in loops.

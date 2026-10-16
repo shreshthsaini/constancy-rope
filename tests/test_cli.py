@@ -46,7 +46,8 @@ def test_time_matched_cli_and_rebuild_selection(method):
     assert args.traces == Path("native_traces") and args.out == Path("tm.npz")
 
 
-def test_time_matched_sample_rejects_late_only_profile_before_loading_model(tmp_path, monkeypatch):
+@pytest.mark.parametrize("method", ["constancy_tm", "sega_ctm"])
+def test_time_matched_sample_rejects_late_only_profile_before_loading_model(tmp_path, monkeypatch, method):
     import torch
     from crope import runtime
     from crope.spectral import NativeProfile
@@ -57,5 +58,5 @@ def test_time_matched_sample_rejects_late_only_profile_before_loading_model(tmp_
     NativeProfile((f, f), (f, f)).save(profile)
     monkeypatch.setattr(runtime, "load_pipeline", lambda *a: pytest.fail("Must validate profile before model load"))
     with pytest.raises(ValueError, match="time-resolved arrays"):
-        sample.main(["--method", "constancy_tm", "--res", "4096x4096", "--prompts", "unused.jsonl",
+        sample.main(["--method", method, "--res", "4096x4096", "--prompts", "unused.jsonl",
                      "--out", str(tmp_path / "out"), "--profile", str(profile)])

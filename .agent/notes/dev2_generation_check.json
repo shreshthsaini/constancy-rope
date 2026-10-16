@@ -1,0 +1,200 @@
+{
+  "checked": "2026-10-16T16:10:10.819650-05:00",
+  "implementation_sha256": "391bfb422e05ec9ba4a2a7c5b18d0a80346044ffb0346db68c88ca1454f19ece",
+  "profile_sha256": "1cd6bceb50dea48607b125681ade330e5203cc8342eeb99834c3493d41b2cc45",
+  "status": "passed",
+  "checks": "source hashes; baseline prompt/seed/executed schedule/model/software match; 4096 PNG dimensions; 28 sigma-matched steps; paired finite gains; alias static/reference mean; B3 first-step parity, axis0, active bounded correction",
+  "scheduler_metadata_notes": [
+    {
+      "variant": "alias_temp",
+      "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+      "differences": {
+        "max_image_seq_len": [
+          65536,
+          4096
+        ]
+      },
+      "executed_sigmas_exactly_match": true
+    },
+    {
+      "variant": "alias_temp_sref",
+      "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+      "differences": {
+        "max_image_seq_len": [
+          65536,
+          4096
+        ]
+      },
+      "executed_sigmas_exactly_match": true
+    },
+    {
+      "variant": "sega_ctm_eta05",
+      "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+      "differences": {
+        "max_image_seq_len": [
+          65536,
+          4096
+        ]
+      },
+      "executed_sigmas_exactly_match": true
+    },
+    {
+      "variant": "sega_ctm_eta10",
+      "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+      "differences": {
+        "max_image_seq_len": [
+          65536,
+          4096
+        ]
+      },
+      "executed_sigmas_exactly_match": true
+    }
+  ],
+  "normalization": "Unordered private _use_default_values lists sorted. Historical first baseline image stored max_image_seq_len before generate() changed it; executed sigma sequence matches exactly. Original sidecars preserved.",
+  "variants": [
+    {
+      "variant": "alias_temp",
+      "validated_images": 5,
+      "samples": [
+        {
+          "prompt_id": "a4k_eval_4096_3614061571823823193",
+          "seconds": 93.17270885594189,
+          "max_absolute_logit_correction": null,
+          "sidecar_sha256": "0190c1d95e69a360e458524f9bb217fcf077a6d6ea1b673cd03fa0fad0093273"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_7354534197758042049",
+          "seconds": 93.46232450380921,
+          "max_absolute_logit_correction": null,
+          "sidecar_sha256": "7918b585e7b28f7ae17ca057190406fd665ce9bdecd66c3b68abfff198b370a2"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_788875264758341041",
+          "seconds": 93.30091279186308,
+          "max_absolute_logit_correction": null,
+          "sidecar_sha256": "ec201e594646701502fa28f67afcb739376194f33ebe49110e54a0828734e136"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+          "seconds": 93.28077598847449,
+          "max_absolute_logit_correction": null,
+          "sidecar_sha256": "d867548bd08c01cd530eef1b6b0fb359c7d2078fc38857145fdeaed63f73119a"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+          "seconds": 96.61771104112267,
+          "max_absolute_logit_correction": null,
+          "sidecar_sha256": "f2133a5c3bcbfc38f51b70d7e71596ebf911edb13d15b310294afe833620641a"
+        }
+      ]
+    },
+    {
+      "variant": "alias_temp_sref",
+      "validated_images": 5,
+      "samples": [
+        {
+          "prompt_id": "a4k_eval_4096_3614061571823823193",
+          "seconds": 92.06237393245101,
+          "max_absolute_logit_correction": null,
+          "sidecar_sha256": "06de5d06378209e34d9b6184c2a9b09320fd7c1744f2326d86dfbce83762c826"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_7354534197758042049",
+          "seconds": 92.52140432037413,
+          "max_absolute_logit_correction": null,
+          "sidecar_sha256": "1dbd955cac3c4763739a2a2d0c8003102d247c85977dfcdca9cd30d7d1c14276"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_788875264758341041",
+          "seconds": 92.06892810203135,
+          "max_absolute_logit_correction": null,
+          "sidecar_sha256": "63e10b039a525cf17fd4383ee11c6d9a61107d80cfd5a649f71eb8ed0efa1c24"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+          "seconds": 92.05538669973612,
+          "max_absolute_logit_correction": null,
+          "sidecar_sha256": "da3e0c0423ce7afcb95c0304a0fdeb24f59fad43ef3b0bb201a29ad0ec417ff4"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+          "seconds": 96.31564212590456,
+          "max_absolute_logit_correction": null,
+          "sidecar_sha256": "eb2aa265f03caca187dddf73c22e97c997eeabc6ee21feeb7bcea0f8b7dd3832"
+        }
+      ]
+    },
+    {
+      "variant": "sega_ctm_eta05",
+      "validated_images": 5,
+      "samples": [
+        {
+          "prompt_id": "a4k_eval_4096_3614061571823823193",
+          "seconds": 93.48789079301059,
+          "max_absolute_logit_correction": 0.46950937807559967,
+          "sidecar_sha256": "e9a6ee6a7c3c1c70b5b620c06208649a22c48e47aa826366e0da700674128bbe"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_7354534197758042049",
+          "seconds": 93.94718658737838,
+          "max_absolute_logit_correction": 0.2630540430545807,
+          "sidecar_sha256": "feab4f6861e4237a0e8ebe90046c78059cc7cb00cab5b301ace973c4cc358416"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_788875264758341041",
+          "seconds": 93.6104251742363,
+          "max_absolute_logit_correction": 0.37799857184290886,
+          "sidecar_sha256": "550af63afad780b5ff07bcfd19c73c900b4548fbe64802943cc7445e6f9865dc"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+          "seconds": 93.42264407128096,
+          "max_absolute_logit_correction": 0.24441078305244446,
+          "sidecar_sha256": "bee36de43abfb07e92964897d3dd7c02d94ae080b5011c310f4047f251143e5a"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+          "seconds": 97.87148203700781,
+          "max_absolute_logit_correction": 0.36432535387575626,
+          "sidecar_sha256": "de77c233999675227c2af69324f1cabd34b0010b7f2ca8daf9c6d962ee4e08c5"
+        }
+      ]
+    },
+    {
+      "variant": "sega_ctm_eta10",
+      "validated_images": 5,
+      "samples": [
+        {
+          "prompt_id": "a4k_eval_4096_3614061571823823193",
+          "seconds": 94.29468344710767,
+          "max_absolute_logit_correction": 0.9391773343086243,
+          "sidecar_sha256": "2ae41d890909c229ea39d9b445b8391284d1aa6a9d8e883346d71a81c83d1d69"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_7354534197758042049",
+          "seconds": 94.65822912752628,
+          "max_absolute_logit_correction": 0.5185980200767517,
+          "sidecar_sha256": "9d7c6c75c2fab2ec202e9e4fb8a2c7579210120805ec18d9cbc264cb2ddc686b"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_788875264758341041",
+          "seconds": 94.27105109766126,
+          "max_absolute_logit_correction": 0.7568557858467102,
+          "sidecar_sha256": "061882df6485cabdf2fd31e3f7c48c23420233f88cf0c328c8eb6536a53d8023"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+          "seconds": 94.33546263165772,
+          "max_absolute_logit_correction": 0.48743173480033875,
+          "sidecar_sha256": "ea4060a22370c7ce1df57b350fe388087886488283b1b021464a8e7b4a5c41c3"
+        },
+        {
+          "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+          "seconds": 98.9786763060838,
+          "max_absolute_logit_correction": 0.7289087772369385,
+          "sidecar_sha256": "2554d764ce8cdd721c150c92e367e19758e2ba80da746808961d60a5216328a4"
+        }
+      ]
+    }
+  ]
+}

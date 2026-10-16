@@ -1,0 +1,45 @@
+{
+  "prepared": "2026-10-16T16:34:37.221226-05:00",
+  "source": "/scratch/09032/saini_2/constancy_rope/eval_krea/dev2_sega_ctm_eta10",
+  "target": "/scratch/09032/saini_2/constancy_rope/eval_krea/main2",
+  "reference_spectra": 195,
+  "reference_feature_files": 390,
+  "settings": {
+    "schema": 1,
+    "crop_seed": 0,
+    "crops": 4,
+    "versions": {
+      "torch": "2.11.0+cu128",
+      "transformers": "5.19.0",
+      "pyiqa": "0.1.16",
+      "image-reward": "1.5",
+      "hpsv3": null,
+      "torch-fidelity": "0.4.0",
+      "pytorch-fid": null
+    },
+    "model_revisions": {
+      "openai/clip-vit-large-patch14": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+      "yuvalkirstain/PickScore_v1": "a4e4367c6dfa7288a00c550414478f865b875800",
+      "laion/CLIP-ViT-H-14-laion2B-s32B-b79K": "1c2b8495b28150b8a4922ee1c8edee224c284c0c",
+      "THUDM/ImageReward": "5736be03b2652728fb87788c9797b0570450ab72",
+      "MizzenAI/HPSv3": null
+    }
+  },
+  "score_tasks": [
+    {
+      "name": "62_eval_main2.sh",
+      "sha256": "754f4b3a6d8bdffab19dc70499d2c59287c501d8f0a59c8f8f319bcb44e6b275"
+    },
+    {
+      "name": "62_ir_main2.sh",
+      "sha256": "b1b6a12f4b96e221fdbfa077925948a2aeaaf29e6bb3023034e3a856f4bedecc"
+    }
+  ],
+  "score_tasks_published": false,
+  "gpu_prepass": {
+    "task": "62_00_gpu_prepass_main2.sh",
+    "published": "2026-10-16T17:26:22.204781-05:00",
+    "sha256": "958b46dd574895c0a679851caad602d85ff4b6bf382cb3b9692722b95766635b",
+    "purpose": "Use the spare GPU after all 53_ generation tasks have been claimed. Cache learned metrics and IR on completed images; final all-image tasks remain required."
+  }
+}

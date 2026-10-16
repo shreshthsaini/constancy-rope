@@ -1,0 +1,37 @@
+{
+  "checked": "2026-10-16T16:29:43.487642-05:00",
+  "checks": [
+    {
+      "variant": "alias_temp",
+      "complete": true,
+      "errors": [],
+      "versions_match": true,
+      "scorer_provenance_matches": true,
+      "cached_model_revisions_match": true
+    },
+    {
+      "variant": "alias_temp_sref",
+      "complete": true,
+      "errors": [],
+      "versions_match": true,
+      "scorer_provenance_matches": true,
+      "cached_model_revisions_match": true
+    },
+    {
+      "variant": "sega_ctm_eta05",
+      "complete": true,
+      "errors": [],
+      "versions_match": true,
+      "scorer_provenance_matches": true,
+      "cached_model_revisions_match": true
+    },
+    {
+      "variant": "sega_ctm_eta10",
+      "complete": true,
+      "errors": [],
+      "versions_match": true,
+      "scorer_provenance_matches": true,
+      "cached_model_revisions_match": true
+    }
+  ]
+}

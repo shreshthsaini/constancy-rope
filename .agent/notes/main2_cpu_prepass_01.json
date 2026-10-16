@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-16T17:03:50.327836-05:00",
+  "diagnostic_images": 57,
+  "spectrum": "complete",
+  "tiling": "complete",
+  "logging_error": [
+    {
+      "metric": "wandb",
+      "error": "ServicePollForTokenError: wandb-core exited with code 1"
+    }
+  ],
+  "next_action": "Use --no-wandb for CPU-only preprocessing in socket-restricted sandbox; final GPU scorers retain W&B",
+  "cache_valid": true
+}

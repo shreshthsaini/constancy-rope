@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-16T18:10:13.922558-05:00",
+  "independent_numerical_review": {
+    "all_ten_metrics_verified": true,
+    "mean_and_ci_tolerance": 1e-10,
+    "source": "Raw candidate and baseline CSVs; separate read-only reviewer",
+    "n": 187,
+    "rows": [
+      8,
+      195
+    ],
+    "seed": 0,
+    "bootstrap_draws": 2000,
+    "bootstrap_seed": 0,
+    "discrepancies": []
+  },
+  "worker_exit_lines": [
+    "2026-10-16T18:05:41 c672-016-g1 worker exit",
+    "2026-10-16T18:05:46 c672-016-g3 worker exit",
+    "2026-10-16T18:05:57 c672-016-g0 worker exit",
+    "2026-10-16T18:06:06 c672-016-g2 worker exit"
+  ],
+  "pending": 0,
+  "running": 0,
+  "STOP_exists": true,
+  "git_diff_check": "passed",
+  "full_test_suite": "194 passed in 16.61s",
+  "slurm_allocation_status": "Not queried; four worker exits verified from fleet log"
+}

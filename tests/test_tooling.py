@@ -112,7 +112,7 @@ def test_missing_profile_blocks_entire_stage_before_spool_creation(tmp_path):
     assert not args.queue.exists()
 
 
-@pytest.mark.parametrize("method", ["constancy_tm", "constancy_tm_nogate"])
+@pytest.mark.parametrize("method", ["constancy_tm", "constancy_tm_nogate", "sega_ctm"])
 def test_time_matched_tasks_require_valid_time_profile(tmp_path, monkeypatch, method):
     import torch
     from crope.spectral import NativeProfile

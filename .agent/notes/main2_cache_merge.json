@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-16T17:58:57.900513-05:00",
+  "sources": [
+    {
+      "source": "main2_cpu_prepass",
+      "images": 186,
+      "imported_entries": 372
+    },
+    {
+      "source": "main2_gpu_prepass",
+      "images": 168,
+      "imported_entries": 672
+    }
+  ],
+  "total_cache_entries": 1239,
+  "imagereward_imported": 180,
+  "final_tasks_published": [
+    "62_eval_main2.sh",
+    "62_ir_main2.sh"
+  ],
+  "checks": "Current image signatures/config hashes, scorer settings/revisions/versions/provenance, finite learned scores, reward path identities, task hashes"
+}

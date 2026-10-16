@@ -1,0 +1,14 @@
+{
+  "checked": "2026-10-16T18:05:35.749492-05:00",
+  "complete_images": 188,
+  "all_ten_metrics_finite": true,
+  "exact_prompt_ids_and_paths": true,
+  "scorer_versions_settings_revisions_provenance_match_baseline": true,
+  "wandb": {
+    "status": "logged",
+    "mode": "offline",
+    "run_id": "n8xhe6iy"
+  },
+  "errors": [],
+  "STOP_created": "2026-10-16T18:05:35.753715-05:00"
+}
