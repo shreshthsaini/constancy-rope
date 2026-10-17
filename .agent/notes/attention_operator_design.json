@@ -92,7 +92,7 @@
     "keys_values": "All actual text and image K after gained BF16 multiplication, and original BF16 V, for the two selected heads; text first, image raster order",
     "reference_outputs": "Corresponding actual SDPA attention outputs for selected query/head pairs",
     "stored_tensors": "Selected Q, all K/V for selected heads, selected SDPA outputs, explicit token indices, shape/dtype/hash receipts. Approximately400MB total for2prompts/3blocks/2heads; scratch bulk.",
-    "guard": "Observe exactly57attentioncalls; same gains across calls. Restore wrapper in finally. Reject masks/unexpectedgeometry rather than silently reinterpret."
+    "guard": "Observe exactly57 outer and inner attention calls during capture only; baseline remains unwrapped. Inspect actual SDPA arguments and returned tensors, not reconstructed multiplication. Same gains across calls; restore both wrappers in finally. Reject masks, scale changes or unexpected geometry."
   },
   "offline_analysis_proposal": {
     "reference": "CPUFP64 dense attention on saved BF16 consumed tensors, with1/sqrt128 scaling; separately report difference from actual BF16 SDPA outputs.",
@@ -104,7 +104,7 @@
       "True complementary-cell mean H with same mass/zero-order terms",
       "Alpha-weighted per-cell first-order correction"
     ],
-    "metrics": "Perprompt/block/head/query absolute and dense-relative output errors; mass error, nonfinite values, value-hull violations. No pooled selected winner or response-size tuning. Rank8 projected alternatives remain optional UNRUN until explicitly frozen.",
+    "metrics": "Every prompt/block/head/query absolute and dense-relative output error; logmass error, exact-support mass error, nonfinite values, coordinatewise value-range violations (necessary condition only, not a full convex-hull membership test). No selected winner. Rank8 remains unrun and is excluded from this collection analysis.",
     "boundaries": "PISA-style equations only, not official fused-kernel reproduction; lower operator error is not image-quality gain or speed."
   },
   "gpu_budget_proposal": {
