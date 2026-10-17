@@ -1,0 +1,11 @@
+{
+  "utc": "2026-10-17T12:42:20.982456+00:00",
+  "files": [
+    "scripts/response_report.py",
+    "tests/test_response_report.py"
+  ],
+  "tests_passed": 20,
+  "seconds": 9.34,
+  "executed_on_live_CR15": false,
+  "status": "CPU validation only; CR15 incomplete and cannot pass the report preconditions"
+}

@@ -1,0 +1,25 @@
+{
+  "submitted_utc": "2026-10-17T12:41:01.381301+00:00",
+  "job_id": "1077122",
+  "source_commit": "5262ca4",
+  "protocol_sha256": "e4b1adaa3f0428c95e707b711314137f4c8c1479b444ea0ce68a91afeaebfe8a",
+  "budget_available_su": 7946,
+  "allocation_su": 40000,
+  "nodes": 2,
+  "minutes": 15,
+  "registry": {
+    "job_id": "1077122",
+    "queue_dir": "/scratch/09032/saini_2/constancy_rope/taskq_repeatability",
+    "completion_files": [
+      "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt0/completion.json",
+      "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt1/completion.json"
+    ],
+    "progress_dirs": [
+      "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt0",
+      "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt1"
+    ],
+    "telemetry_dir": "/scratch/09032/saini_2/constancy_rope/telemetry"
+  },
+  "status": "RUNNING on c638-141,c638-142; existing watcher hot registry and scheduler observation verified",
+  "watcher_registration_verified_utc": "2026-10-17T12:42:46.124389+00:00"
+}
