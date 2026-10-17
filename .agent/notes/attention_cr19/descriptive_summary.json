@@ -1,0 +1,628 @@
+{
+  "created_utc": "2026-10-17T14:28:47.040876+00:00",
+  "scope": "Descriptive summaries of all fixed cases; no representative-population, significance, efficacy or selected-winner inference",
+  "report_sha256": "6ad008611008013eb3066d917d41c55db81cd4b612c61ffda5fa704d63b95fff",
+  "all_cases": {
+    "n": 192,
+    "relative_error": {
+      "sparse": {
+        "median": 0.3132709180256211,
+        "min": 0.008577676383578148,
+        "max": 0.9297476142402047
+      },
+      "zero_order": {
+        "median": 0.0399873386245906,
+        "min": 0.0025007266297201705,
+        "max": 0.6063498868925384
+      },
+      "global_mean": {
+        "median": 0.02031564454460174,
+        "min": 0.00033768185564207027,
+        "max": 0.5930134687614299
+      },
+      "complement_mean": {
+        "median": 0.019229218858205978,
+        "min": 0.0007731069462705879,
+        "max": 0.5939645329830592
+      },
+      "weighted_cells": {
+        "median": 0.011647617845408768,
+        "min": 0.0003753864423290178,
+        "max": 0.5349390305642173
+      }
+    },
+    "sdpa_relative_error_median": 0.0016423507686420564,
+    "conditional_better_than_global": 138,
+    "weighted_better_than_conditional": 147,
+    "value_range_violations": {
+      "sparse": 0,
+      "zero_order": 0,
+      "global_mean": 0,
+      "complement_mean": 0,
+      "weighted_cells": 0
+    },
+    "true_exact_mass_range": [
+      0.030616920564479067,
+      0.953965396591449
+    ],
+    "conditional_global_output_difference_over_sdpa_gap_median": 0.7885152273403757
+  },
+  "by_prompt_call_head": [
+    {
+      "prompt": 0,
+      "call": 0,
+      "head": 0,
+      "n": 16,
+      "relative_error": {
+        "sparse": {
+          "median": 0.35141628644762035,
+          "min": 0.27962703727796145,
+          "max": 0.4402211239139895
+        },
+        "zero_order": {
+          "median": 0.027820699246745476,
+          "min": 0.02498184472890856,
+          "max": 0.03467485384004368
+        },
+        "global_mean": {
+          "median": 0.006430084226430031,
+          "min": 0.003391140002339468,
+          "max": 0.01258713474731044
+        },
+        "complement_mean": {
+          "median": 0.006062341847083586,
+          "min": 0.004173538097527377,
+          "max": 0.009634361035270888
+        },
+        "weighted_cells": {
+          "median": 0.004212584871562335,
+          "min": 0.0030444275831193295,
+          "max": 0.0069568160453700465
+        }
+      },
+      "sdpa_relative_error_median": 0.0015983628484781188,
+      "conditional_better_than_global": 12,
+      "weighted_better_than_conditional": 16,
+      "value_range_violations": {
+        "sparse": 0,
+        "zero_order": 0,
+        "global_mean": 0,
+        "complement_mean": 0,
+        "weighted_cells": 0
+      },
+      "true_exact_mass_range": [
+        0.0616121558360655,
+        0.10477093843762787
+      ],
+      "conditional_global_output_difference_over_sdpa_gap_median": 1.1173468884463666
+    },
+    {
+      "prompt": 0,
+      "call": 0,
+      "head": 12,
+      "n": 16,
+      "relative_error": {
+        "sparse": {
+          "median": 0.5265775034485782,
+          "min": 0.39942816787454416,
+          "max": 0.7204653614900336
+        },
+        "zero_order": {
+          "median": 0.03645153880557337,
+          "min": 0.03184097057826281,
+          "max": 0.04055468428355387
+        },
+        "global_mean": {
+          "median": 0.002466412680977013,
+          "min": 0.0010728205284039566,
+          "max": 0.0037609619407935105
+        },
+        "complement_mean": {
+          "median": 0.0015340899820443063,
+          "min": 0.0012017723751920372,
+          "max": 0.0021222800355754274
+        },
+        "weighted_cells": {
+          "median": 0.0013864822950357088,
+          "min": 0.001151277255036575,
+          "max": 0.001577696383856868
+        }
+      },
+      "sdpa_relative_error_median": 0.0016318804456170104,
+      "conditional_better_than_global": 12,
+      "weighted_better_than_conditional": 16,
+      "value_range_violations": {
+        "sparse": 0,
+        "zero_order": 0,
+        "global_mean": 0,
+        "complement_mean": 0,
+        "weighted_cells": 0
+      },
+      "true_exact_mass_range": [
+        0.06484339308960511,
+        0.10468172135133949
+      ],
+      "conditional_global_output_difference_over_sdpa_gap_median": 1.0484460055532168
+    },
+    {
+      "prompt": 0,
+      "call": 18,
+      "head": 0,
+      "n": 16,
+      "relative_error": {
+        "sparse": {
+          "median": 0.44852116400386144,
+          "min": 0.19198531543581238,
+          "max": 0.9297476142402047
+        },
+        "zero_order": {
+          "median": 0.28326324397202784,
+          "min": 0.12355223832607735,
+          "max": 0.4815584484404519
+        },
+        "global_mean": {
+          "median": 0.2661814381357509,
+          "min": 0.1286462574525443,
+          "max": 0.47919485445348536
+        },
+        "complement_mean": {
+          "median": 0.2650905887236982,
+          "min": 0.12683573916067745,
+          "max": 0.4790310126635005
+        },
+        "weighted_cells": {
+          "median": 0.27080713392562683,
+          "min": 0.12811341236280865,
+          "max": 0.4830010745382529
+        }
+      },
+      "sdpa_relative_error_median": 0.0016951547113686462,
+      "conditional_better_than_global": 14,
+      "weighted_better_than_conditional": 6,
+      "value_range_violations": {
+        "sparse": 0,
+        "zero_order": 0,
+        "global_mean": 0,
+        "complement_mean": 0,
+        "weighted_cells": 0
+      },
+      "true_exact_mass_range": [
+        0.14990883074651246,
+        0.6916122796792787
+      ],
+      "conditional_global_output_difference_over_sdpa_gap_median": 3.3430511833367342
+    },
+    {
+      "prompt": 0,
+      "call": 18,
+      "head": 12,
+      "n": 16,
+      "relative_error": {
+        "sparse": {
+          "median": 0.236969634449598,
+          "min": 0.04446534852946113,
+          "max": 0.8405456457460474
+        },
+        "zero_order": {
+          "median": 0.20958993559735567,
+          "min": 0.042712178610526,
+          "max": 0.6063498868925384
+        },
+        "global_mean": {
+          "median": 0.21129205549157087,
+          "min": 0.042665012321093695,
+          "max": 0.5930134687614299
+        },
+        "complement_mean": {
+          "median": 0.21080091258457084,
+          "min": 0.04265897104475708,
+          "max": 0.5939645329830592
+        },
+        "weighted_cells": {
+          "median": 0.21077325323586432,
+          "min": 0.0426742545195487,
+          "max": 0.4627543009920066
+        }
+      },
+      "sdpa_relative_error_median": 0.0016763560743967834,
+      "conditional_better_than_global": 13,
+      "weighted_better_than_conditional": 10,
+      "value_range_violations": {
+        "sparse": 0,
+        "zero_order": 0,
+        "global_mean": 0,
+        "complement_mean": 0,
+        "weighted_cells": 0
+      },
+      "true_exact_mass_range": [
+        0.030616920564479067,
+        0.953965396591449
+      ],
+      "conditional_global_output_difference_over_sdpa_gap_median": 0.5587198816520782
+    },
+    {
+      "prompt": 0,
+      "call": 56,
+      "head": 0,
+      "n": 16,
+      "relative_error": {
+        "sparse": {
+          "median": 0.6610252633006888,
+          "min": 0.35026039313869256,
+          "max": 0.7469585400847699
+        },
+        "zero_order": {
+          "median": 0.0568574667431595,
+          "min": 0.03881146912817225,
+          "max": 0.08642003174306272
+        },
+        "global_mean": {
+          "median": 0.03398251117362559,
+          "min": 0.029043767288384755,
+          "max": 0.03816973351716925
+        },
+        "complement_mean": {
+          "median": 0.03324766052103405,
+          "min": 0.02848213253710085,
+          "max": 0.038732253941686244
+        },
+        "weighted_cells": {
+          "median": 0.02908705414481213,
+          "min": 0.026769257852058685,
+          "max": 0.03370080775866555
+        }
+      },
+      "sdpa_relative_error_median": 0.0016344165452438558,
+      "conditional_better_than_global": 11,
+      "weighted_better_than_conditional": 16,
+      "value_range_violations": {
+        "sparse": 0,
+        "zero_order": 0,
+        "global_mean": 0,
+        "complement_mean": 0,
+        "weighted_cells": 0
+      },
+      "true_exact_mass_range": [
+        0.23311460948713897,
+        0.4396232629063234
+      ],
+      "conditional_global_output_difference_over_sdpa_gap_median": 0.7980810151259048
+    },
+    {
+      "prompt": 0,
+      "call": 56,
+      "head": 12,
+      "n": 16,
+      "relative_error": {
+        "sparse": {
+          "median": 0.020250118253266714,
+          "min": 0.008577676383578148,
+          "max": 0.07793217376073378
+        },
+        "zero_order": {
+          "median": 0.008956730846139163,
+          "min": 0.0025007266297201705,
+          "max": 0.046426917740341446
+        },
+        "global_mean": {
+          "median": 0.00885927680182914,
+          "min": 0.0026085355344961317,
+          "max": 0.046512434638328784
+        },
+        "complement_mean": {
+          "median": 0.0088254550549663,
+          "min": 0.0024868156131522432,
+          "max": 0.04626324470269038
+        },
+        "weighted_cells": {
+          "median": 0.008712462252409535,
+          "min": 0.0028487501161429014,
+          "max": 0.04658090679426502
+        }
+      },
+      "sdpa_relative_error_median": 0.00162151850246633,
+      "conditional_better_than_global": 13,
+      "weighted_better_than_conditional": 6,
+      "value_range_violations": {
+        "sparse": 0,
+        "zero_order": 0,
+        "global_mean": 0,
+        "complement_mean": 0,
+        "weighted_cells": 0
+      },
+      "true_exact_mass_range": [
+        0.7761705534326848,
+        0.8885985292021373
+      ],
+      "conditional_global_output_difference_over_sdpa_gap_median": 0.11263079860402281
+    },
+    {
+      "prompt": 1,
+      "call": 0,
+      "head": 0,
+      "n": 16,
+      "relative_error": {
+        "sparse": {
+          "median": 0.1883477076507991,
+          "min": 0.1126987714557842,
+          "max": 0.5414546318938971
+        },
+        "zero_order": {
+          "median": 0.025274218790272134,
+          "min": 0.023100112928771132,
+          "max": 0.03185844176495016
+        },
+        "global_mean": {
+          "median": 0.00228620536393941,
+          "min": 0.0014156841305094788,
+          "max": 0.003693934402066252
+        },
+        "complement_mean": {
+          "median": 0.0022016640376281253,
+          "min": 0.001708412831807564,
+          "max": 0.0026665806884974153
+        },
+        "weighted_cells": {
+          "median": 0.0012672844645183385,
+          "min": 0.0008270655347013814,
+          "max": 0.001592043100610605
+        }
+      },
+      "sdpa_relative_error_median": 0.0015592484330722532,
+      "conditional_better_than_global": 7,
+      "weighted_better_than_conditional": 16,
+      "value_range_violations": {
+        "sparse": 0,
+        "zero_order": 0,
+        "global_mean": 0,
+        "complement_mean": 0,
+        "weighted_cells": 0
+      },
+      "true_exact_mass_range": [
+        0.06551600649259463,
+        0.10677604259050892
+      ],
+      "conditional_global_output_difference_over_sdpa_gap_median": 0.5177775411393094
+    },
+    {
+      "prompt": 1,
+      "call": 0,
+      "head": 12,
+      "n": 16,
+      "relative_error": {
+        "sparse": {
+          "median": 0.27257383615082914,
+          "min": 0.16656085944453716,
+          "max": 0.7052801160577379
+        },
+        "zero_order": {
+          "median": 0.014344412145409812,
+          "min": 0.012430251928576047,
+          "max": 0.016517856024775363
+        },
+        "global_mean": {
+          "median": 0.001124552101430585,
+          "min": 0.00033768185564207027,
+          "max": 0.0031409045853041276
+        },
+        "complement_mean": {
+          "median": 0.0012312585581084746,
+          "min": 0.0007731069462705879,
+          "max": 0.0014453319587072067
+        },
+        "weighted_cells": {
+          "median": 0.0005519509486555467,
+          "min": 0.0003753864423290178,
+          "max": 0.0006853775596425504
+        }
+      },
+      "sdpa_relative_error_median": 0.0015550614795425662,
+      "conditional_better_than_global": 7,
+      "weighted_better_than_conditional": 16,
+      "value_range_violations": {
+        "sparse": 0,
+        "zero_order": 0,
+        "global_mean": 0,
+        "complement_mean": 0,
+        "weighted_cells": 0
+      },
+      "true_exact_mass_range": [
+        0.0661622085957978,
+        0.10207551654305566
+      ],
+      "conditional_global_output_difference_over_sdpa_gap_median": 0.5384693725835368
+    },
+    {
+      "prompt": 1,
+      "call": 18,
+      "head": 0,
+      "n": 16,
+      "relative_error": {
+        "sparse": {
+          "median": 0.5391423699443432,
+          "min": 0.18243361925823007,
+          "max": 0.8435494476995244
+        },
+        "zero_order": {
+          "median": 0.22286239567652588,
+          "min": 0.14767254324639717,
+          "max": 0.41703381024000774
+        },
+        "global_mean": {
+          "median": 0.20654360894149992,
+          "min": 0.14858241435788055,
+          "max": 0.41768403143609906
+        },
+        "complement_mean": {
+          "median": 0.2071289195827385,
+          "min": 0.1483105876170508,
+          "max": 0.41744267103925026
+        },
+        "weighted_cells": {
+          "median": 0.20438665921202093,
+          "min": 0.12670254171889447,
+          "max": 0.4162252235846382
+        }
+      },
+      "sdpa_relative_error_median": 0.0017043561045415661,
+      "conditional_better_than_global": 11,
+      "weighted_better_than_conditional": 12,
+      "value_range_violations": {
+        "sparse": 0,
+        "zero_order": 0,
+        "global_mean": 0,
+        "complement_mean": 0,
+        "weighted_cells": 0
+      },
+      "true_exact_mass_range": [
+        0.12542411092554243,
+        0.7925483196584069
+      ],
+      "conditional_global_output_difference_over_sdpa_gap_median": 4.795714567779465
+    },
+    {
+      "prompt": 1,
+      "call": 18,
+      "head": 12,
+      "n": 16,
+      "relative_error": {
+        "sparse": {
+          "median": 0.34966670032193026,
+          "min": 0.17483958449072998,
+          "max": 0.5398189857376028
+        },
+        "zero_order": {
+          "median": 0.34386489814416066,
+          "min": 0.1719809656711384,
+          "max": 0.5359549130778309
+        },
+        "global_mean": {
+          "median": 0.3443067464407002,
+          "min": 0.17205811698185353,
+          "max": 0.5357285332883628
+        },
+        "complement_mean": {
+          "median": 0.3438236498827984,
+          "min": 0.1720416708861373,
+          "max": 0.5356932467447264
+        },
+        "weighted_cells": {
+          "median": 0.3434868647182649,
+          "min": 0.17170283852062715,
+          "max": 0.5349390305642173
+        }
+      },
+      "sdpa_relative_error_median": 0.0016354260872267342,
+      "conditional_better_than_global": 16,
+      "weighted_better_than_conditional": 11,
+      "value_range_violations": {
+        "sparse": 0,
+        "zero_order": 0,
+        "global_mean": 0,
+        "complement_mean": 0,
+        "weighted_cells": 0
+      },
+      "true_exact_mass_range": [
+        0.13569312950198462,
+        0.7771678725868014
+      ],
+      "conditional_global_output_difference_over_sdpa_gap_median": 0.12305970334142974
+    },
+    {
+      "prompt": 1,
+      "call": 56,
+      "head": 0,
+      "n": 16,
+      "relative_error": {
+        "sparse": {
+          "median": 0.13447690125070175,
+          "min": 0.09489558848550042,
+          "max": 0.24275543745282682
+        },
+        "zero_order": {
+          "median": 0.05908715223109519,
+          "min": 0.04662803186581559,
+          "max": 0.0658532908473106
+        },
+        "global_mean": {
+          "median": 0.02053188907259746,
+          "min": 0.01566922036996046,
+          "max": 0.025224987335371193
+        },
+        "complement_mean": {
+          "median": 0.019824395037624565,
+          "min": 0.01202878253019008,
+          "max": 0.023374519079629
+        },
+        "weighted_cells": {
+          "median": 0.009155553144511344,
+          "min": 0.007015039264793952,
+          "max": 0.01187425751077333
+        }
+      },
+      "sdpa_relative_error_median": 0.0015446705926323683,
+      "conditional_better_than_global": 10,
+      "weighted_better_than_conditional": 16,
+      "value_range_violations": {
+        "sparse": 0,
+        "zero_order": 0,
+        "global_mean": 0,
+        "complement_mean": 0,
+        "weighted_cells": 0
+      },
+      "true_exact_mass_range": [
+        0.1096195939522018,
+        0.22053324629359006
+      ],
+      "conditional_global_output_difference_over_sdpa_gap_median": 1.7296745602039858
+    },
+    {
+      "prompt": 1,
+      "call": 56,
+      "head": 12,
+      "n": 16,
+      "relative_error": {
+        "sparse": {
+          "median": 0.04201033657757693,
+          "min": 0.015542143485668482,
+          "max": 0.07387936105925166
+        },
+        "zero_order": {
+          "median": 0.015565826270400079,
+          "min": 0.004842194712843209,
+          "max": 0.036114388331928614
+        },
+        "global_mean": {
+          "median": 0.01552607858190313,
+          "min": 0.005327948511172767,
+          "max": 0.03653505536016201
+        },
+        "complement_mean": {
+          "median": 0.015518060541398353,
+          "min": 0.005385249629266862,
+          "max": 0.03626724139376488
+        },
+        "weighted_cells": {
+          "median": 0.015657756153635898,
+          "min": 0.004689508252473216,
+          "max": 0.036545268345770154
+        }
+      },
+      "sdpa_relative_error_median": 0.0017250723408743793,
+      "conditional_better_than_global": 12,
+      "weighted_better_than_conditional": 6,
+      "value_range_violations": {
+        "sparse": 0,
+        "zero_order": 0,
+        "global_mean": 0,
+        "complement_mean": 0,
+        "weighted_cells": 0
+      },
+      "true_exact_mass_range": [
+        0.40822554359600705,
+        0.8647911200112344
+      ],
+      "conditional_global_output_difference_over_sdpa_gap_median": 0.11681735909858115
+    }
+  ]
+}

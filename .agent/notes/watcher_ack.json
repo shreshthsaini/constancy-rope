@@ -65,6 +65,11 @@
       "acknowledged_utc": "2026-10-17T14:25:08.573945+00:00",
       "event": "CR18 running event continuation completed; CR19 replacement registered",
       "verified": "CR18 completed and archived without rerun; CPU method/cost/capture/report work completed. CR19job1077286 pending, frozena0fb07d23, existingwatcherPID1581602 hot-read and scheduler observation verified. Controllerlease12:45CDT. No duplicatewatcher."
+    },
+    {
+      "acknowledged_utc": "2026-10-17T14:27:30.397246+00:00",
+      "event": "Delayed CR18 transition/completion events plus CR19 running workflows",
+      "verified": "CR18 already accepted and preserved, no rerun. Direct scheduler confirms CR19RUNNING on c610-042/c610-051; active task progress checked. ExistingwatcherPID1581602/controllerlease12:45CDT unchanged."
     }
   ]
 }

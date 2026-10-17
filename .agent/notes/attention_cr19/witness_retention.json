@@ -1,0 +1,85 @@
+{
+  "created_utc": "2026-10-17T14:28:27.998031+00:00",
+  "archive_root": "/work/09032/saini_2/vista/results/constancy_rope/attention_cr19_job1077286",
+  "files": [
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt0/attention_00.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/attention_cr19_job1077286/prompt0/attention_00.pt",
+      "bytes": 68182292,
+      "sha256": "f2dc130e235be7e2a0c534f4b10cd9cd119763a8ce812999752abb1ac73a7074"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt0/attention_18.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/attention_cr19_job1077286/prompt0/attention_18.pt",
+      "bytes": 68182292,
+      "sha256": "ce69ebb209e393647cc5839da0e6dbf62c969ec0f54c89a0afbc0c59b4e3d9cb"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt0/attention_56.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/attention_cr19_job1077286/prompt0/attention_56.pt",
+      "bytes": 68182292,
+      "sha256": "b185ccb37327b22e17563ada235161373c7f099171ff15f2f0f210f2e634289c"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt0/baseline_output.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/attention_cr19_job1077286/prompt0/baseline_output.pt",
+      "bytes": 8390305,
+      "sha256": "663b0bfd411fb24b0692cab997307148b13709b7c0c8a33752954f23bc323ce3"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt0/capture_output.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/attention_cr19_job1077286/prompt0/capture_output.pt",
+      "bytes": 8390298,
+      "sha256": "124940b94eb7b807d33bb5774a7825da402478477b1713f8c29cd08259ec7a76"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/attention_00.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/attention_cr19_job1077286/prompt1/attention_00.pt",
+      "bytes": 68182292,
+      "sha256": "a3302f043020020b3b941efd679062fa1cdb099488f7030a90ae9f83fe6a5228"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/attention_18.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/attention_cr19_job1077286/prompt1/attention_18.pt",
+      "bytes": 68182292,
+      "sha256": "f33f81ea0e299c1ced122733354450096a58f8b16287d9afe05e19cff6d2baea"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/attention_56.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/attention_cr19_job1077286/prompt1/attention_56.pt",
+      "bytes": 68182292,
+      "sha256": "baab172c876c76f2b53ec5572b58c8999dcdec259b19c48ed059842d44f4d891"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/baseline_output.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/attention_cr19_job1077286/prompt1/baseline_output.pt",
+      "bytes": 8390305,
+      "sha256": "1565068b5a9f781bee67b2eeec8b9393e5b3f7acdf61c023e65c42c738fb0e62"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/capture_output.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/attention_cr19_job1077286/prompt1/capture_output.pt",
+      "bytes": 8390298,
+      "sha256": "74eb8858f6c1eb5627b834e6b6a539bcb07057223557c8425ef34eb3fc9c4eb5"
+    }
+  ],
+  "total_bytes": 442654958,
+  "file_count": 10,
+  "json_sha256": {
+    "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt0/attention_00.json": "37c385acb6bb4b147af9d0b8a3549d70bb631b70ff07532bb1d46e62f269e3f5",
+    "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt0/attention_18.json": "c71e9223aee4cccaad1eeea5f7892270e25aca5a2e071776febe58e3efb751c9",
+    "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt0/attention_56.json": "218be2052fc0b711f74a1e8d79508162fe816ba85b1725454a0432ee13fd022e",
+    "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt0/completion.json": "31bdd134b36f73ba28e855848b1c9ce5cc95596555a91b2b2851b67e0df74771",
+    "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt0/manifest.json": "1ef79a96a9137ae95b1cd5ef9c7dee99e1ba18470c93049d6e8782dbf6d4fdc1",
+    "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt0/progress.json": "6f8af987eaf67a72c7dd22693028ec7db35574de4e50c9eae59bb89e20008dad",
+    "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt0/replay_validation.json": "cca9aa5547c44666b100806d6bbef6d9e280fba94bdc3343b46d4a47d09a2aa9",
+    "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/attention_00.json": "228b9816a9ceba3bcead3f9f675d2ca84eadf772441140606ca367691f72b436",
+    "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/attention_18.json": "a5250d7ace3a5a85aec7c749fec0ee80ca87b659d8174ff663f5c53c95198c18",
+    "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/attention_56.json": "e1ea160261437dc58dd6fb94df29ca119e734908eb1778866d6cd5324f73cb1f",
+    "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/completion.json": "2bcdc26e92f4df2ee41ffb0d41cb146c80177052e453b5863027555929e87008",
+    "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/manifest.json": "c74f6b4b4cf7fc4c2773295191ff962eb52b9ce038c9752174dbca0f8ed4df4b",
+    "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/progress.json": "6f8af987eaf67a72c7dd22693028ec7db35574de4e50c9eae59bb89e20008dad",
+    "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/replay_validation.json": "016b0126034b01831bdf3189d76eb8fe8afb69f7e48ba97e9381e10667f80a5b"
+  },
+  "input_ancestry": "Original inputs and CR17 dependencies remain in observer_cr18/witness_retention.json durable archive. No deletion of scratch."
+}

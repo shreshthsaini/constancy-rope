@@ -1,0 +1,147 @@
+{
+  "purpose": "CR19: bounded pretrained relevance check of known PISA within-cell-moment approximations on existing artificial CR18 states; no efficacy or novelty claim",
+  "prompt_index": 0,
+  "prompt": {
+    "id": "a4k_eval_4096_minus6873203881450547484",
+    "prompt": "A row of weathered small boats in various colors rests at the water's edge, reflecting the overcast sky and surrounded by a calm harbor filled with larger boats and sailboats in the distance.",
+    "reference_image": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/eval/size_4096/images/minus6873203881450547484.jpg",
+    "dataset": "zhang0jhon/Aesthetic-4K",
+    "dataset_revision": "8c5d5cb8b94230ff897d87bf060451257d1c7bf8",
+    "split": "eval",
+    "reference_size": 4096,
+    "source_file_name": "eval/size_4096/images/minus6873203881450547484.jpg",
+    "source_url": "https://huggingface.co/datasets/zhang0jhon/Aesthetic-4K/resolve/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/eval/size_4096/images/minus6873203881450547484.jpg"
+  },
+  "protocol_sha256": "a0fb07d23ad61224f275829741287d4a242e862418002f00f8e052bec1081dea",
+  "source_sha256": {
+    "crope/gain.py": "fc3008af7eb00fb344c41577b7e85fe2ab324b4767c44af3d33492c431efa66a",
+    "crope/rope.py": "8d6b58593323815e3e98b3b52608bd93701fd25b28ecd829d7e68714df108485",
+    "crope/runtime.py": "6bfdb60f77a961409f66bf9cfe29e330516a6ac8b086c49cb7bc19a6c1082e9d",
+    "crope/utils.py": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e",
+    "scripts/attention_operator_capture.py": "4b61011d23f774d2d7d2bf435c54162038dcf1d07cb13e0ca3c60ef926bcbe7d",
+    "scripts/attention_operator_report.py": "6d2ee63424713bc97a85071282f58d049371100171fab0ccbc5fbb71e3417648",
+    "scripts/observer_pretrained_audit.py": "85b444d7c2d438c7231efc83f3946c087ed9d08b75b24042945a332b311817f0",
+    "scripts/observer_pretrained_report.py": "c3db28d3918783925d0d87d4ee7ffe82c4235221cd4518aebb69d12957796b2b",
+    "scripts/pisa_complement_cpu.py": "fe49e9626c969f189fa0397151aedd2076be0c1c1272b43d0510e2e05299810c",
+    "slurm/attention_operator_fleet.sh": "2ed36d3fbf6d757a2fa73e8c426209a906e1b6d9ec4f5dd762bd778d0dfae6e5",
+    "slurm/attention_operator_task.sh": "6f6a1befaa6786da53bb532e898b362eef0dd2e559850a6bc5d6e29195b4ee9e",
+    "slurm/fleet_attention_operator_gh.sbatch": "8540f7f6b50baa918833c5f073b5b7171f70e1bee21796a508dacfb3e30874bd",
+    "tests/test_attention_operator_capture.py": "1c28aea34b14812a6fc66d45da11397107d395a7faf3912fa903b302c4399e91",
+    "tests/test_attention_operator_report.py": "dbb3d3acd7b061440cd6a3ebcb91af9d8b2232e0458e841ff50bf07eadf2698a",
+    "tests/test_pisa_complement_cpu.py": "a086483ea8297d55b37d2018c43ff98ab1d7e04c3562d77785ded371412e96f3"
+  },
+  "accepted_cr18_report_sha256": "127ef1c2a2b5b27e590a1d80ee7baead59bf6ec9375c59a4f5616dcbef84df49",
+  "cr18_protocol_sha256": "b98de615bdb3c475b38f355f35b13fbce50240f614aaac9492ebf803a77374da",
+  "model": {
+    "transformer_revision": "8162a9c7b05a641be098422bf2fcf335615c2f28",
+    "base_revision": "3de623fc3c33e44ffbe2bad470d0f45bccf2eb21",
+    "transformer_config_sha256": "a8d4ca92dc64ca8116c370ab91339e18a723ab950c18de513d09c3922df7a2d1",
+    "base_model_index_sha256": "24946df21ff25e210486b5f6b14208983a90c9c73f8d48cfa724c0e4e03f7201"
+  },
+  "input_sha256": "dfef990cda8d1da1c00e285abeb30b2f68413f7de485c67a58787c5645f4c3ee",
+  "gain_float32_sha256": "44ca3dd944c6eafa2556584bb4fda9c9de03672496f4e83181c4d62b327cda54",
+  "gain_bfloat16_sha256": "43162bb87aa8ec16464fc0c843282c9f2f72892adcb91572f7fedc70abbda80c",
+  "capture": {
+    "attention_call_indices_zero_based": [
+      0,
+      18,
+      56
+    ],
+    "heads_zero_based": [
+      0,
+      12
+    ],
+    "image_query_grid_coordinates": [
+      [
+        40,
+        40
+      ],
+      [
+        40,
+        104
+      ],
+      [
+        40,
+        168
+      ],
+      [
+        40,
+        232
+      ],
+      [
+        104,
+        40
+      ],
+      [
+        104,
+        104
+      ],
+      [
+        104,
+        168
+      ],
+      [
+        104,
+        232
+      ],
+      [
+        168,
+        40
+      ],
+      [
+        168,
+        104
+      ],
+      [
+        168,
+        168
+      ],
+      [
+        168,
+        232
+      ],
+      [
+        232,
+        40
+      ],
+      [
+        232,
+        104
+      ],
+      [
+        232,
+        168
+      ],
+      [
+        232,
+        232
+      ]
+    ]
+  },
+  "layout": "B,H,S,D; joint keys are text first then image raster order",
+  "sdpa_target": {
+    "scale": "default 1/sqrt(128)",
+    "dropout_p": 0.0,
+    "is_causal": false,
+    "attn_mask": null
+  },
+  "forward_order": [
+    "baseline",
+    "capture"
+  ],
+  "forward_budget": 2,
+  "count_scope": "57 observed outer/inner calls on capture; baseline has 57 architecture blocks and no wrapper",
+  "on_trajectory": false,
+  "efficacy_evaluated": false,
+  "torch": "2.11.0+cu128",
+  "diffusers": "0.39.0",
+  "cuda": "12.8",
+  "slurm_job_id": "1077286",
+  "hardware": "NVIDIA GH200 120GB, GPU-16a403d2-443a-cb36-b7dc-553f46a316f2, 590.48.01",
+  "conditioning_sha256": {
+    "encoder_hidden_states": "1ad5fdd9e0857d36816b0900131e5e518d52e4791076a7713f59dbb568ad7c4d",
+    "pooled_projections": "3b308da9c6bc1970913d8a8d29a5f1fd3f41a0a7cd724e0aeb50a9582c2fdd15",
+    "txt_ids": "e80232b4d18d0bb7e794be263ba937626f383f9917d4b8a737ba893a8f752293",
+    "img_ids": "6d9ceea480b2b981e107ab10286c7f22fa473c469d4d0a62ad3b0f649f1e2f7f"
+  }
+}

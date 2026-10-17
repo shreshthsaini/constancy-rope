@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-17T14:31:11.802499+00:00",
+  "status": "stop_fixed_window_conditional_mean_branch",
+  "reason": "Small mixed fixed-operator changes near numerical scale; PISA Equation8 already formulates complementary mean. Large final-joint-block approximation error persists even with weighted cells. No distinct compelling quality mechanism or measured GPU cost advantage established.",
+  "official_report_sha256": "6ad008611008013eb3066d917d41c55db81cd4b612c61ffda5fa704d63b95fff",
+  "independent_review_sha256": "d9c95c42048798f705087a1477268f5589bd2a52cca7ee11973c8e1bc4ad8bb4",
+  "do_not_run": [
+    "No conditional-prefix GPU kernel project from this result.",
+    "No replacement layers/heads/query/sigma sweep to rescue this diagnostic.",
+    "No automatic generation-quality campaign or fresh64."
+  ],
+  "remaining_research": "Identify resolution-specific semantic failure using a predeclared comparison and a distinct mechanism; native comparisons are under review. Prior negative results stay preserved.",
+  "scope": "This decision closes this fixed-window engineering branch, not all hybrid attention or PISA; no family-level efficacy conclusion."
+}

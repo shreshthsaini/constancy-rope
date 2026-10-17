@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution method competitive with r
 User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 09:23 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+2026-10-17 09:32 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
 Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
 RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
 PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
@@ -32,12 +32,16 @@ Equal-cell PISA16tests and actual-SDPA collector30tests independently pass; all 
 Conditional moments help selected-H cases but do not fix attention-weight heterogeneity.
 Spatial prefix30tests and offline reporter13tests independently pass; independent reviews found no blocker.
 Fullrank cellH+prefix857MB/24heads; grouped reuse plausible, no GPU performance claim.
-CR19job1077286 PENDING(Priority),2nodes15min,4forwards total. Registered with existing watcher.
-Frozen source28092cc/protocola0fb07d23ad61224f275829741287d4a242e862418002f00f8e052bec1081dea.
-Watcher hot-read and scheduler PENDING coverage verified09:23:57CDT.
-NEXT on completion: validate via attention_operator_submission.json command; archive/review all192cases.
-CR19 uses original CR18 states and actual consumed QKV,3calls/2heads/16queries; output byte replay required.
-Report all192query cases/fivecontrols; distinguish within-cell from single-cloud covariance. No automatic promotion.
+CR19job1077286 COMPLETED09:27:35CDT,2m03s,4forwards. Official+independent192caseaudit accepted.
+Frozen source28092cc/protocola0fb07d23ad61224f275829741287d4a242e862418002f00f8e052bec1081dea unchanged.
+Own-equation outputs agreewithin3.91e-14. ReportSHA6ad008611008013eb3066d917d41c55db81cd4b612c61ffda5fa704d63b95fff.
+Medianrelativeerrors sparse.313271/zero.039987/global.020316/complement.019229/weighted.011648.
+Complement improves138,worsens54; only33changes exceedBF16gap,26improve/7worsen. Call18errorsremainlarge.
+Stop fixed-window conditional-mean branch; no GPUkernel/qualitysweep. PISAEq8 alreadyformulatesit.
+10QKV/outputwitnesses442654958bytes archivedonwork; map notes/attention_cr19/witness_retention.json.
+W&Boffline7ppsy698/v41n6z5j.30stelemetrymissed14sforwards; no100percentutilizationclaim.
+NEXT: researchnative1024 comparators for8existingdevcaptions; captionpredicateplan andworker inprogress.
+No nativejob/protocol submittedyet; observationalcapabilityscreen, notcausal ornewmethod. Fresh64unused.
 Covariance/gain proposal lacks justified target; DoPE adds a close prior-art collision.
 Stop promotion of that branch. Resolution pivot review lacks native comparators and a distinct intervention.
 Eight dev baseline previews show no obvious global duplication; garbled shop text has no proven resolution cause.
@@ -47,8 +51,8 @@ Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.js
 Direct autonomous wake verified; scheduler120s/files60s. Never duplicate watcher.
 Controller lease ends12:45:04 CDT, alert one hour before. Handoff not yet needed or verified.
 Last budget7928/40000SU remaining (09:22 CDT); refresh before every submission, no new nodes at96percent burn.
-Paper rebuilt to8pages including accepted CR18 and DoPE boundary; pages6/7 visually checked.
-CR14/CR17/CR18 completed; CR19 pending. Do not repeat completed campaigns.
+Paper rebuilt to9pages including acceptedCR19 and prior results; newpage7 visually checked.
+CR14/CR17/CR18/CR19 completed; no projectGPUactive. Do not repeat completed campaigns.
 
 ## Map
 | File | Purpose |
@@ -66,7 +70,9 @@ CR14/CR17/CR18 completed; CR19 pending. Do not repeat completed campaigns.
 | notes/attention_measure_cpu.json | Known-formula CPU counterexamples and covariance comparison |
 | notes/attention_measure_research.json | Exact target, primary collisions and pending tests |
 | notes/attention_operator_protocol.json | Frozen CR19 collection and analysis |
-| notes/attention_operator_submission.json | Job1077286, watcher and exact analysis command |
+| notes/attention_cr19/report.json | Accepted192case operator analysis |
+| notes/attention_cr19_independent.json | Independent exact replay, hashes and equations |
+| notes/attention_cr19/decision.json | Stop conditional-mean branch |
 | notes/observer_cr18/report.json | Accepted pretrained synthetic-state contrasts |
 | notes/observer_cr18_independent.json | Independent exact saved-tensor recomputation |
 | notes/observer_cr18/witness_retention.json | Durable24file tensor archive on work |

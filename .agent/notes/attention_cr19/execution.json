@@ -1,0 +1,23 @@
+{
+  "created_utc": "2026-10-17T14:31:11.700002+00:00",
+  "job_id": "1077286",
+  "state": "COMPLETED",
+  "start_CDT": "2026-10-17 09:25:32",
+  "end_CDT": "2026-10-17 09:27:35",
+  "elapsed_seconds": 123,
+  "nodes": [
+    "c610-042",
+    "c610-051"
+  ],
+  "total_forwards": 4,
+  "report_sha256": "6ad008611008013eb3066d917d41c55db81cd4b612c61ffda5fa704d63b95fff",
+  "independent_review_sha256": "d9c95c42048798f705087a1477268f5589bd2a52cca7ee11973c8e1bc4ad8bb4",
+  "frozen_protocol_sha256": "a0fb07d23ad61224f275829741287d4a242e862418002f00f8e052bec1081dea",
+  "scheduler": "JobID|State|Elapsed|Start|End|ExitCode\n1077286|COMPLETED|00:02:03|2026-10-17T09:25:32|2026-10-17T09:27:35|0:0\n1077286.batch|COMPLETED|00:02:03|2026-10-17T09:25:32|2026-10-17T09:27:35|0:0\n1077286.0|COMPLETED|00:01:56|2026-10-17T09:25:39|2026-10-17T09:27:35|0:0\n",
+  "telemetry_scope": "30second telemetry samples cover startup and miss the roughly14second twoforward window. No100percent-utilization or efficiency claim follows. Finite workflows exited normally; no allocation held idle after completion.",
+  "wandb_mode": "offline; no cloud sync claimed",
+  "wandb_run_ids": [
+    "7ppsy698",
+    "v41n6z5j"
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "path": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/attention_00.pt",
+  "file_sha256": "a3302f043020020b3b941efd679062fa1cdb099488f7030a90ae9f83fe6a5228",
+  "tensors": {
+    "query": {
+      "shape": [
+        1,
+        2,
+        16,
+        128
+      ],
+      "dtype": "torch.bfloat16",
+      "sha256": "a6b51e178b31bcd40ea11c11407760ec84667fc53fe216a3725fb1f723336916"
+    },
+    "key": {
+      "shape": [
+        1,
+        2,
+        66048,
+        128
+      ],
+      "dtype": "torch.bfloat16",
+      "sha256": "34aa96c97a4e68710a35d5151e9dfae49cbc62a9d17ec32de57793a99fe1d5df"
+    },
+    "value": {
+      "shape": [
+        1,
+        2,
+        66048,
+        128
+      ],
+      "dtype": "torch.bfloat16",
+      "sha256": "909d6f92468155f70c8f05e0b6706d08288a32f518c41acef54373890878cff1"
+    },
+    "head_indices": {
+      "shape": [
+        2
+      ],
+      "dtype": "torch.int64",
+      "sha256": "df065f4871e06699366ccb668ce9b2a58f41b698fc7f95123d307a70c5379505"
+    },
+    "query_joint_indices": {
+      "shape": [
+        16
+      ],
+      "dtype": "torch.int64",
+      "sha256": "93f6667cdbe70977249b23fd34c8a6b6304a6410a3bc7b14d976b427f6ac7408"
+    },
+    "query_image_indices": {
+      "shape": [
+        16
+      ],
+      "dtype": "torch.int64",
+      "sha256": "f04b4194d059cb2ca37c5347cb23f54254b23641d6179570974cd5184c306b17"
+    },
+    "key_joint_indices": {
+      "shape": [
+        66048
+      ],
+      "dtype": "torch.int64",
+      "sha256": "90d4c8c8e9c6ff5ada45f6aaceea5d6f66a89e07246b577b73c4f9f8f18bf20b"
+    },
+    "gain_bfloat16": {
+      "shape": [
+        128
+      ],
+      "dtype": "torch.bfloat16",
+      "sha256": "5e8670a2721e2d6219c830b888e1b604fe2301e1009dfc71bd99081f35c7b140"
+    },
+    "sdpa_output": {
+      "shape": [
+        1,
+        2,
+        16,
+        128
+      ],
+      "dtype": "torch.bfloat16",
+      "sha256": "7909ea097b0494026a384d97a6aa0c3f5aba5b75b91ba7c83189fd4f2ded8948"
+    }
+  }
+}

@@ -1,0 +1,297 @@
+{
+  "completed_forwards": 2,
+  "captured_attention_calls": 57,
+  "captured_sdpa_calls": 57,
+  "captures": {
+    "0": {
+      "path": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/attention_00.pt",
+      "file_sha256": "a3302f043020020b3b941efd679062fa1cdb099488f7030a90ae9f83fe6a5228",
+      "tensors": {
+        "query": {
+          "shape": [
+            1,
+            2,
+            16,
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "a6b51e178b31bcd40ea11c11407760ec84667fc53fe216a3725fb1f723336916"
+        },
+        "key": {
+          "shape": [
+            1,
+            2,
+            66048,
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "34aa96c97a4e68710a35d5151e9dfae49cbc62a9d17ec32de57793a99fe1d5df"
+        },
+        "value": {
+          "shape": [
+            1,
+            2,
+            66048,
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "909d6f92468155f70c8f05e0b6706d08288a32f518c41acef54373890878cff1"
+        },
+        "head_indices": {
+          "shape": [
+            2
+          ],
+          "dtype": "torch.int64",
+          "sha256": "df065f4871e06699366ccb668ce9b2a58f41b698fc7f95123d307a70c5379505"
+        },
+        "query_joint_indices": {
+          "shape": [
+            16
+          ],
+          "dtype": "torch.int64",
+          "sha256": "93f6667cdbe70977249b23fd34c8a6b6304a6410a3bc7b14d976b427f6ac7408"
+        },
+        "query_image_indices": {
+          "shape": [
+            16
+          ],
+          "dtype": "torch.int64",
+          "sha256": "f04b4194d059cb2ca37c5347cb23f54254b23641d6179570974cd5184c306b17"
+        },
+        "key_joint_indices": {
+          "shape": [
+            66048
+          ],
+          "dtype": "torch.int64",
+          "sha256": "90d4c8c8e9c6ff5ada45f6aaceea5d6f66a89e07246b577b73c4f9f8f18bf20b"
+        },
+        "gain_bfloat16": {
+          "shape": [
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "5e8670a2721e2d6219c830b888e1b604fe2301e1009dfc71bd99081f35c7b140"
+        },
+        "sdpa_output": {
+          "shape": [
+            1,
+            2,
+            16,
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "7909ea097b0494026a384d97a6aa0c3f5aba5b75b91ba7c83189fd4f2ded8948"
+        }
+      }
+    },
+    "18": {
+      "path": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/attention_18.pt",
+      "file_sha256": "f33f81ea0e299c1ced122733354450096a58f8b16287d9afe05e19cff6d2baea",
+      "tensors": {
+        "query": {
+          "shape": [
+            1,
+            2,
+            16,
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "918169dc63cd92c560678808719b9cc9cd6b72286cc9b855cbacc9d3e47632e0"
+        },
+        "key": {
+          "shape": [
+            1,
+            2,
+            66048,
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "896f6deadcf8e19f34a63e026d3fbf77fc48c2e881566ff110939627301c67b3"
+        },
+        "value": {
+          "shape": [
+            1,
+            2,
+            66048,
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "e49f022f7232f834afa9a7f2ac42e31bee424337daed51e99ab2671f212bb89b"
+        },
+        "head_indices": {
+          "shape": [
+            2
+          ],
+          "dtype": "torch.int64",
+          "sha256": "df065f4871e06699366ccb668ce9b2a58f41b698fc7f95123d307a70c5379505"
+        },
+        "query_joint_indices": {
+          "shape": [
+            16
+          ],
+          "dtype": "torch.int64",
+          "sha256": "93f6667cdbe70977249b23fd34c8a6b6304a6410a3bc7b14d976b427f6ac7408"
+        },
+        "query_image_indices": {
+          "shape": [
+            16
+          ],
+          "dtype": "torch.int64",
+          "sha256": "f04b4194d059cb2ca37c5347cb23f54254b23641d6179570974cd5184c306b17"
+        },
+        "key_joint_indices": {
+          "shape": [
+            66048
+          ],
+          "dtype": "torch.int64",
+          "sha256": "90d4c8c8e9c6ff5ada45f6aaceea5d6f66a89e07246b577b73c4f9f8f18bf20b"
+        },
+        "gain_bfloat16": {
+          "shape": [
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "5e8670a2721e2d6219c830b888e1b604fe2301e1009dfc71bd99081f35c7b140"
+        },
+        "sdpa_output": {
+          "shape": [
+            1,
+            2,
+            16,
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "9194c1138bb8262e24e3b4e299d0e24a4e1d5cbbf6b63d9f7a0f86251db48b91"
+        }
+      }
+    },
+    "56": {
+      "path": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/attention_56.pt",
+      "file_sha256": "baab172c876c76f2b53ec5572b58c8999dcdec259b19c48ed059842d44f4d891",
+      "tensors": {
+        "query": {
+          "shape": [
+            1,
+            2,
+            16,
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "1bdd327af74f4588e914acdea0ca8474545fad2a9128855fa0ecca859d7518d0"
+        },
+        "key": {
+          "shape": [
+            1,
+            2,
+            66048,
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "c9cbfbba76f8d87029b418cb1bbea1b10807fa91053c0677ed96143e6d136030"
+        },
+        "value": {
+          "shape": [
+            1,
+            2,
+            66048,
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "e4514416cd3e3d1b0129108ea67ff82422db193f980571d94e4e4839baf82813"
+        },
+        "head_indices": {
+          "shape": [
+            2
+          ],
+          "dtype": "torch.int64",
+          "sha256": "df065f4871e06699366ccb668ce9b2a58f41b698fc7f95123d307a70c5379505"
+        },
+        "query_joint_indices": {
+          "shape": [
+            16
+          ],
+          "dtype": "torch.int64",
+          "sha256": "93f6667cdbe70977249b23fd34c8a6b6304a6410a3bc7b14d976b427f6ac7408"
+        },
+        "query_image_indices": {
+          "shape": [
+            16
+          ],
+          "dtype": "torch.int64",
+          "sha256": "f04b4194d059cb2ca37c5347cb23f54254b23641d6179570974cd5184c306b17"
+        },
+        "key_joint_indices": {
+          "shape": [
+            66048
+          ],
+          "dtype": "torch.int64",
+          "sha256": "90d4c8c8e9c6ff5ada45f6aaceea5d6f66a89e07246b577b73c4f9f8f18bf20b"
+        },
+        "gain_bfloat16": {
+          "shape": [
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "5e8670a2721e2d6219c830b888e1b604fe2301e1009dfc71bd99081f35c7b140"
+        },
+        "sdpa_output": {
+          "shape": [
+            1,
+            2,
+            16,
+            128
+          ],
+          "dtype": "torch.bfloat16",
+          "sha256": "0e0db1bfa2fe68ec0c191b30f75d59fd1f45bd5424f6cf520471480d98e2cfde"
+        }
+      }
+    }
+  },
+  "replay": {
+    "within_job": {
+      "max_abs": 0.0,
+      "l2": 0.0,
+      "relative_l2": 0.0,
+      "reference_l2": 2764.670983195973,
+      "bitwise_equal": true
+    },
+    "prior_cr18": {
+      "max_abs": 0.0,
+      "l2": 0.0,
+      "relative_l2": 0.0,
+      "reference_l2": 2764.670983195973,
+      "bitwise_equal": true
+    },
+    "within_job_byte_equal": true,
+    "prior_cr18_byte_equal": true
+  },
+  "outputs": {
+    "baseline": {
+      "file_sha256": "1565068b5a9f781bee67b2eeec8b9393e5b3f7acdf61c023e65c42c738fb0e62",
+      "shape": [
+        1,
+        65536,
+        64
+      ],
+      "dtype": "torch.bfloat16",
+      "sha256": "d4481fc2facbb238f4361a8b9f823d41b4f2164c9360e22da11e58df26e3e22f"
+    },
+    "capture": {
+      "file_sha256": "74eb8858f6c1eb5627b834e6b6a539bcb07057223557c8425ef34eb3fc9c4eb5",
+      "shape": [
+        1,
+        65536,
+        64
+      ],
+      "dtype": "torch.bfloat16",
+      "sha256": "d4481fc2facbb238f4361a8b9f823d41b4f2164c9360e22da11e58df26e3e22f"
+    }
+  },
+  "seconds_including_capture": {
+    "baseline": 6.903558287769556,
+    "capture": 7.269651360809803
+  },
+  "on_trajectory": false,
+  "efficacy_evaluated": false,
+  "interpretation": "Within-job byte replay is required. Across-node prior CR18 output equality is descriptive only. Capture timing includes copies/hashes/I/O and is not a speed benchmark."
+}

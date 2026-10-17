@@ -295,6 +295,40 @@ measurement~\citep{area2026}. Its statistic is also invariant to a common-channe
 shift in real arithmetic. The SEGA-specific audit establishes sensitivity under
 the declared intervention, not a new-method claim.
 
+\paragraph{Spatial-complement attention diagnostic.}
+A separate passive capture tests whether spatial complement statistics justify
+further method development. PISA already formulates a first-order correction
+using the mean within-block value--key cross-moment over unselected blocks,
+then replaces it with an all-block mean for efficiency~\citep{li2026pisa}.
+Computing the conditional mean is therefore a refinement of a known expression,
+not a new attention approximation.
+
+We reuse the two artificial inputs above with their original gains. One
+unmodified forward and one capture forward per prompt give four forwards in
+total; their final outputs match byte for byte. We retain the actual BF16
+post-gain queries, keys, values and attention outputs at calls 0, 18 and 56,
+heads 0 and 12, and 16 fixed image queries. Independent FP64 evaluation uses
+these saved tensors and the same dense softmax target. Image tokens form
+$16\times16$ cells; the exact set contains cells within Chebyshev distance two
+of the query cell and all text tokens. All remaining cells share a centroid
+mass approximation. We compare zeroth-order values, global or complementary
+mean cross-moments, and individually weighted cell cross-moments.
+
+Across all 192 fixed cases, median relative output errors are 0.3133 for exact
+sparse attention, 0.0400 for zeroth-order completion, 0.0203 for the global
+first-order mean, 0.0192 for the complementary mean, and 0.0116 for the weighted
+cell correction. The corresponding maxima are 0.9297, 0.6063, 0.5930, 0.5940,
+and 0.5349. These are descriptive summaries of this stencil, not a representative
+benchmark or a reproduction of PISA's routing and fused kernels.
+The complementary mean improves 138 cases and worsens 54. Its absolute error
+change exceeds the separately measured BF16-versus-FP64 attention gap in only
+33 cases: 26 improvements and seven regressions. Errors remain large in the
+sampled final joint block, including with individually weighted moments.
+Independent blockwise calculations agree with all reported outputs within
+$3.91\times10^{-14}$. The small, mixed conditional-mean benefit does not justify
+a GPU implementation or a generation campaign for this branch. No image-quality,
+resolution-extrapolation, speed, or novelty claim follows.
+
 The second-campaign candidate has one held-out seed and one evaluated backbone
 at one resolution. No second-seed replication of this candidate, new backbone,
 human preference study, or broader resolution claim is supported. Aggregate

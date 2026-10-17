@@ -1,0 +1,18 @@
+{
+  "created_utc": "2026-10-17T14:32:08.108294+00:00",
+  "pages": 9,
+  "visually_checked_pages": [
+    7
+  ],
+  "build": "tectonic cached resources, clean build",
+  "evidence_sha256": {
+    "paper/constancy_rope_working_2026-10-17.pdf": "9b5032fe9f406e8fe0b485d5aaabce018fc49db72e3c642c3f26cdacb17a0026",
+    "paper/sec/current_report.tex": "eb6458dc38fda500ac50bf483ca14fbc235db2e0ceb6d36c57397ed47ed89176",
+    "paper/refs.bib": "a019a3b1773393e76f8d56b4ccd805bf4cc5ccf0c597762f6598994265f53487",
+    ".agent/notes/attention_cr19/report.json": "6ad008611008013eb3066d917d41c55db81cd4b612c61ffda5fa704d63b95fff",
+    ".agent/notes/attention_cr19/descriptive_summary.json": "6aae902120b2d6eee2173ea28cb3dadf45a6aa01b721e8204a65eb72948b44b9",
+    ".agent/notes/attention_cr19_independent.json": "d9c95c42048798f705087a1477268f5589bd2a52cca7ee11973c8e1bc4ad8bb4",
+    ".agent/notes/attention_cr19/witness_retention.json": "a7f2de84cd0b8fdc13c5c8fd06a4d59a23a6f21c4895fffee96b9e599a41e38b"
+  },
+  "scope": "Accepted CR19 fixed-operator diagnosis, all192cases; knownPISA approximation, smallmixedconditionalgain, branchstopped. Noefficacy/novelty/SOTAclaim. Fresh64untouched."
+}

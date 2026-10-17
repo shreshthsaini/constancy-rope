@@ -1,0 +1,81 @@
+{
+  "path": "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/attention_18.pt",
+  "file_sha256": "f33f81ea0e299c1ced122733354450096a58f8b16287d9afe05e19cff6d2baea",
+  "tensors": {
+    "query": {
+      "shape": [
+        1,
+        2,
+        16,
+        128
+      ],
+      "dtype": "torch.bfloat16",
+      "sha256": "918169dc63cd92c560678808719b9cc9cd6b72286cc9b855cbacc9d3e47632e0"
+    },
+    "key": {
+      "shape": [
+        1,
+        2,
+        66048,
+        128
+      ],
+      "dtype": "torch.bfloat16",
+      "sha256": "896f6deadcf8e19f34a63e026d3fbf77fc48c2e881566ff110939627301c67b3"
+    },
+    "value": {
+      "shape": [
+        1,
+        2,
+        66048,
+        128
+      ],
+      "dtype": "torch.bfloat16",
+      "sha256": "e49f022f7232f834afa9a7f2ac42e31bee424337daed51e99ab2671f212bb89b"
+    },
+    "head_indices": {
+      "shape": [
+        2
+      ],
+      "dtype": "torch.int64",
+      "sha256": "df065f4871e06699366ccb668ce9b2a58f41b698fc7f95123d307a70c5379505"
+    },
+    "query_joint_indices": {
+      "shape": [
+        16
+      ],
+      "dtype": "torch.int64",
+      "sha256": "93f6667cdbe70977249b23fd34c8a6b6304a6410a3bc7b14d976b427f6ac7408"
+    },
+    "query_image_indices": {
+      "shape": [
+        16
+      ],
+      "dtype": "torch.int64",
+      "sha256": "f04b4194d059cb2ca37c5347cb23f54254b23641d6179570974cd5184c306b17"
+    },
+    "key_joint_indices": {
+      "shape": [
+        66048
+      ],
+      "dtype": "torch.int64",
+      "sha256": "90d4c8c8e9c6ff5ada45f6aaceea5d6f66a89e07246b577b73c4f9f8f18bf20b"
+    },
+    "gain_bfloat16": {
+      "shape": [
+        128
+      ],
+      "dtype": "torch.bfloat16",
+      "sha256": "5e8670a2721e2d6219c830b888e1b604fe2301e1009dfc71bd99081f35c7b140"
+    },
+    "sdpa_output": {
+      "shape": [
+        1,
+        2,
+        16,
+        128
+      ],
+      "dtype": "torch.bfloat16",
+      "sha256": "9194c1138bb8262e24e3b4e299d0e24a4e1d5cbbf6b63d9f7a0f86251db48b91"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "within_job": {
+    "max_abs": 0.0,
+    "l2": 0.0,
+    "relative_l2": 0.0,
+    "reference_l2": 2764.670983195973,
+    "bitwise_equal": true
+  },
+  "prior_cr18": {
+    "max_abs": 0.0,
+    "l2": 0.0,
+    "relative_l2": 0.0,
+    "reference_l2": 2764.670983195973,
+    "bitwise_equal": true
+  },
+  "within_job_byte_equal": true,
+  "prior_cr18_byte_equal": true
+}
