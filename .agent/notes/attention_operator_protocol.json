@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "status": "frozen",
+  "development_prompt_indices": [
+    0,
+    1
+  ],
+  "forwards_per_prompt": 2,
+  "forward_order": [
+    "baseline",
+    "capture"
+  ],
+  "resolution": 4096,
+  "grid": [
+    256,
+    256
+  ],
+  "sigma": 0.5,
+  "guidance": 4.5,
+  "text_tokens": 512,
+  "attention_heads": 24,
+  "head_dim": 128,
+  "expected_attention_calls": 57,
+  "dtype": "bfloat16",
+  "capture": {
+    "attention_call_indices_zero_based": [
+      0,
+      18,
+      56
+    ],
+    "heads_zero_based": [
+      0,
+      12
+    ],
+    "image_query_grid_coordinates": [
+      [
+        40,
+        40
+      ],
+      [
+        40,
+        104
+      ],
+      [
+        40,
+        168
+      ],
+      [
+        40,
+        232
+      ],
+      [
+        104,
+        40
+      ],
+      [
+        104,
+        104
+      ],
+      [
+        104,
+        168
+      ],
+      [
+        104,
+        232
+      ],
+      [
+        168,
+        40
+      ],
+      [
+        168,
+        104
+      ],
+      [
+        168,
+        168
+      ],
+      [
+        168,
+        232
+      ],
+      [
+        232,
+        40
+      ],
+      [
+        232,
+        104
+      ],
+      [
+        232,
+        168
+      ],
+      [
+        232,
+        232
+      ]
+    ]
+  },
+  "accepted_cr18_report": {
+    "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/observer_cr18/report.json",
+    "sha256": "127ef1c2a2b5b27e590a1d80ee7baead59bf6ec9375c59a4f5616dcbef84df49"
+  },
+  "accepted_cr18_receipt": {
+    "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/observer_cr18/archive_receipt.json",
+    "sha256": "68c1efe39c3ef76941faf07a111bd6b81be418073d3f09b96fc3b0ee58089f40"
+  },
+  "cr18_protocol": {
+    "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/observer_pretrained_protocol.json",
+    "sha256": "b98de615bdb3c475b38f355f35b13fbce50240f614aaac9492ebf803a77374da"
+  },
+  "witness_retention": {
+    "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/observer_cr18/witness_retention.json",
+    "sha256": "3448410981259c799edc1f813933f2b107ac0ad87e8d65e05001f1164c522307"
+  },
+  "source_sha256": {
+    "crope/gain.py": "fc3008af7eb00fb344c41577b7e85fe2ab324b4767c44af3d33492c431efa66a",
+    "crope/rope.py": "8d6b58593323815e3e98b3b52608bd93701fd25b28ecd829d7e68714df108485",
+    "crope/runtime.py": "6bfdb60f77a961409f66bf9cfe29e330516a6ac8b086c49cb7bc19a6c1082e9d",
+    "crope/utils.py": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e",
+    "scripts/attention_operator_capture.py": "4b61011d23f774d2d7d2bf435c54162038dcf1d07cb13e0ca3c60ef926bcbe7d",
+    "scripts/attention_operator_report.py": "6d2ee63424713bc97a85071282f58d049371100171fab0ccbc5fbb71e3417648",
+    "scripts/observer_pretrained_audit.py": "85b444d7c2d438c7231efc83f3946c087ed9d08b75b24042945a332b311817f0",
+    "scripts/observer_pretrained_report.py": "c3db28d3918783925d0d87d4ee7ffe82c4235221cd4518aebb69d12957796b2b",
+    "scripts/pisa_complement_cpu.py": "fe49e9626c969f189fa0397151aedd2076be0c1c1272b43d0510e2e05299810c",
+    "slurm/attention_operator_fleet.sh": "2ed36d3fbf6d757a2fa73e8c426209a906e1b6d9ec4f5dd762bd778d0dfae6e5",
+    "slurm/attention_operator_task.sh": "6f6a1befaa6786da53bb532e898b362eef0dd2e559850a6bc5d6e29195b4ee9e",
+    "slurm/fleet_attention_operator_gh.sbatch": "8540f7f6b50baa918833c5f073b5b7171f70e1bee21796a508dacfb3e30874bd",
+    "tests/test_attention_operator_capture.py": "1c28aea34b14812a6fc66d45da11397107d395a7faf3912fa903b302c4399e91",
+    "tests/test_attention_operator_report.py": "dbb3d3acd7b061440cd6a3ebcb91af9d8b2232e0458e841ff50bf07eadf2698a",
+    "tests/test_pisa_complement_cpu.py": "a086483ea8297d55b37d2018c43ff98ab1d7e04c3562d77785ded371412e96f3"
+  },
+  "purpose": "CR19: bounded pretrained relevance check of known PISA within-cell-moment approximations on existing artificial CR18 states; no efficacy or novelty claim",
+  "analysis_policy": {
+    "cell_shape": [
+      16,
+      16
+    ],
+    "exact_cell_chebyshev_radius": 2,
+    "text_exact_once": true,
+    "dtype": "float64",
+    "rank_projection": null
+  },
+  "frozen_utc": "2026-10-17T14:22:14.661529+00:00",
+  "source_commit": "28092ccff9d19c7f0f0a9b7d05bb956aacc370db",
+  "interpretation_rules": [
+    "This tests the relevance of a specific already-known approximation, not a new attention family or generation quality.",
+    "All192 head/query/call/prompt cases and every control remain in the report; do not search replacement heads, query coordinates, layers or artificial states after reading errors.",
+    "No trajectory generation or fresh64 follows automatically. A positive operator result still requires a concrete distinct algorithm, recent prior-art review, practical GPU cost and a development generation comparison.",
+    "If conditional correction provides no meaningful advantage, preserve the result and stop this fixed-window conditional-mean branch. Do not rescue it with a parameter sweep.",
+    "The alpha-weighted control diagnoses the gap caused by averaging across cells. A weighted-control gain alone is not evidence for the conditional-mean algorithm.",
+    "Compare absolute changes with the captured BF16-versus-FP64 numerical gap, while keeping approximation and numerical errors separate. No post-hoc statistical significance or population claim on this fixed stencil.",
+    "Rank8 fixed-random statistics validate bookkeeping only and can lose an entire correction. Fullrank storage and shared-cell query reuse must be evaluated before dismissing fullrank as infeasible."
+  ],
+  "allocation_budget": {
+    "nodes": 2,
+    "minutes": 15,
+    "forwards_total": 4,
+    "maximum_reserved_node_hours": 0.5,
+    "no_followup_sweep": true
+  },
+  "previous_protocols_and_fresh64": "Preserved unchanged; neither source nor prompts in fresh64 are accessed"
+}

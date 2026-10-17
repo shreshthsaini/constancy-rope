@@ -1,0 +1,33 @@
+{
+  "reviewer": "evidence_diagnostic",
+  "scope": "Read-only pre-freeze integration review; no GPU/model execution, source edit, submission or repeated test run.",
+  "status": "No concrete blocker found in reviewed sources; not runtime campaign acceptance.",
+  "source_sha256": {
+    "scripts/attention_operator_capture.py": "4b61011d23f774d2d7d2bf435c54162038dcf1d07cb13e0ca3c60ef926bcbe7d",
+    "scripts/attention_operator_report.py": "6d2ee63424713bc97a85071282f58d049371100171fab0ccbc5fbb71e3417648",
+    "crope/gain.py": "fc3008af7eb00fb344c41577b7e85fe2ab324b4767c44af3d33492c431efa66a",
+    "scripts/pisa_complement_cpu.py": "fe49e9626c969f189fa0397151aedd2076be0c1c1272b43d0510e2e05299810c",
+    "tests/test_attention_operator_capture.py": "1c28aea34b14812a6fc66d45da11397107d395a7faf3912fa903b302c4399e91",
+    "tests/test_attention_operator_report.py": "dbb3d3acd7b061440cd6a3ebcb91af9d8b2232e0458e841ff50bf07eadf2698a"
+  },
+  "blockers": [],
+  "verified_by_source_review": [
+    "Accepted-input loader pins CR18 report/protocol, verifies both completed prompts and all frozen source hashes, verifies durable input/output witness file and tensor hashes, shape (1,65536,64), BF16 and finiteness before model load.",
+    "Runtime reloads the pinned Krea transformer and FLUX base, compares software, parameter dtypes, model geometry and conditioning hashes. Fixed state, sigma .5, FP32 guidance4.5, SEGA RoPE and archived original gains are reused without allocator updates.",
+    "Baseline is unwrapped. Capture wraps the existing gained_attention and its actual SDPA call. BF16 m is formed by the original implementation; payload Q/K are copied after original BF16 multiplication, avoiding reconstructed gain arithmetic or double gain application. V is unchanged.",
+    "Capture observes57 outer and57 inner calls; selected calls0,18,56 correspond to first/last joint blocks and final single block of19+38 architecture blocks. Masks, causal/dropout/custom-scale drift and unexpected consumed geometry are rejected.",
+    "Stored layouts are B,H,S,D with text keys first, then raster image keys. Two heads and16 image queries per call retain full66048-token K/V. Sidecars, completion capture keys, file names, tensor keys/shapes/dtypes/hash fields agree with the reporter.",
+    "Both terminal completions are required. Report independently verifies all saved Q/K/V/SDPA output/gain/token-ID tensors, original/capture output tensors, file hashes, within-job byte replay, progress and sidecar consistency. Failed or incomplete captures are rejected.",
+    "Reporter computes the same full target from consumed BF16 Q/K/V in FP64: softmax(Q K^T/sqrt128)V. Actual BF16 SDPA discrepancy is reported separately without subtracting it from approximation errors.",
+    "All approximations retain text exactly once and a clipped radius2 union of whole16x16 cells. Equal-size cell H is unnormalized sum V(K-meanK)^T, distinct from raw complement-cloud covariance. Zeroth/global/complement/weighted controls share centroid mass; sparse has its own exact-support mass.",
+    "Global and complement mean H terms multiply sum(alpha); weighted correction sums alpha_j H_j. This matches the reusable equal-cell PISA comparison. No rank projection enters the captured operator analysis.",
+    "Exactly192 per-query rows are retained across2prompts,3calls,2heads,16queries; no outcome-dependent selection or automatic promotion."
+  ],
+  "evidence_boundaries": [
+    "Current review inspected existing tests rather than rerunning parent-reported30capture+13report+16PISA tests. Stored capture preflight source hashes match current capture source and tests; that preflight already validated durable inputs on CPU.",
+    "Input execution, conditioning and full-model provenance at capture remain runtime assertions from frozen source. Reporter compares their manifests to accepted CR18 receipts; it does not independently reconstruct unsaved conditioning tensors or hash model weight contents.",
+    "Across-node comparison with prior CR18 velocity is descriptive worker output. Reporter rechecks within-job byte replay only; it does not independently recompute the prior-CR18 contrast.",
+    "No completed CUDA evidence exists for this proposed capture yet. Runtime exact replay remains required; no claim of speed, image quality, natural-trajectory efficacy, novelty or representative layer/head statistics follows.",
+    "The report test suite covers reusable equations, geometry, payload corruption and replay/source failures; it does not contain a complete build_report happy-path fixture. Source tracing found no actual schema mismatch."
+  ]
+}

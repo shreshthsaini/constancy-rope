@@ -1,0 +1,96 @@
+{
+  "reviewer": "prior_art independent review",
+  "created_utc": "2026-10-17T14:22:23.332914+00:00",
+  "host": "i618-051.vista.tacc.utexas.edu",
+  "status": "accepted_for_bounded_operator_measurement_only",
+  "blockers": [],
+  "gpu_used": false,
+  "jobs_submitted": false,
+  "source_and_evidence_sha256": {
+    "scripts/spatial_complement_cpu.py": "263ccde5b16490954792fcb910efadb37790d6f2f06f30e257920720adf2d4e1",
+    "tests/test_spatial_complement_cpu.py": "3fc7b869d8d799167e2fe7c9ad5ad61c6cdaa179e116c5539f6b2da8876f83b2",
+    ".agent/notes/spatial_complement_cpu_with_cell_h.json": "5b14dd47458f0c5040f4a473b448b693e6e4d51fc068b23e2f4a584da6757642",
+    ".agent/notes/pisa_complement_cpu.json": "31451d19fb6045dca3c6ee34711b9ef95c2c2c328cd7b352eb47be18d545bc46",
+    "scripts/attention_operator_capture.py": "4b61011d23f774d2d7d2bf435c54162038dcf1d07cb13e0ca3c60ef926bcbe7d",
+    "tests/test_attention_operator_capture.py": "1c28aea34b14812a6fc66d45da11397107d395a7faf3912fa903b302c4399e91",
+    ".agent/notes/attention_operator_capture_preflight.json": "fc643b4355a99d1819f34e6c32a21170070f20c845fc277c4992df54e8a97cd5"
+  },
+  "checks": {
+    "command": "OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python -m pytest -q tests/test_spatial_complement_cpu.py",
+    "result": "30 passed in 1.77s",
+    "report_source_matches_current": true,
+    "reviewed": "Implementation, tests, report scalar receipts, PISA comparison and arithmetic recomputation. No full-rank GPU implementation or quality measurement."
+  },
+  "algebra": {
+    "raw_complement": "Count, sum K, sum V and sum V(KU)^T are additive. Inclusion-exclusion removes two overlapping cell-aligned rectangles once, and register IDs outside rectangles are deduplicated. Recenter only after raw subtraction.",
+    "within_cell_h": "H_j U = sum_i v_i(k_i U)^T - sum_i v_i mean_i(k_i U)^T. Cell prefixes add these unnormalized within-cell moments. The mean over complete complementary cells is the intended PISA-style object.",
+    "different_objects": "Single-cloud covariance equals mean within-cell covariance plus covariance of cell means for equal-size cells. It cannot substitute for mean within-cell H without the between-cell term. Tests independently verify this identity.",
+    "whole_cell_restrictions": "Within-cell H lookup rejects partial cell edges and register deletions. Raw complement supports registers, but that does not establish within-cell H support for partially removed cells.",
+    "floating_point": "Real-arithmetic additivity is exact; FP32/FP64 results retain accumulation and cancellation error."
+  },
+  "reported_fp64_checks": {
+    "cell_h_construction_max_abs": 1.5631940186722204e-13,
+    "complement_sum_h_max_abs": 2.7284841053187847e-12,
+    "complement_mean_h_max_abs": 9.379164112033322e-13
+  },
+  "conditioning": {
+    "fixed_near_full_case": "One residual token has exactly zero centered covariance. FP32 raw subtraction and recentering leave a nonzero result, explicitly retained rather than clipped.",
+    "observed_error": {
+      "max_abs": 0.0008373809978365898,
+      "l2": 0.003857793181123016,
+      "relative_l2": null,
+      "reference_l2": 0.0
+    },
+    "interpretation": "Relative error against a zero reference is undefined. These figures measure the full projection/aggregation/subtraction/recentering path, not subtraction alone. The new within-cell report uses FP64; it does not establish FP32 H stability on pretrained features. The actual-QKV offline report should use direct centered FP64 cells for the numerical reference."
+  },
+  "rank8_counterexample": {
+    "dimension": 16,
+    "rank": 8,
+    "projection_seed": 19,
+    "construction": "Choose unit w in the orthogonal complement of U, keys [w,-w], values [[1,0],[-1,0]], and q=w. H=V^T K. All feature means are zero.",
+    "norm_HU": 1.1698394192390652e-15,
+    "norm_full_Hq": 2.0,
+    "norm_projected_Hq": 7.281398846105715e-31,
+    "relative_directional_error": 1.0,
+    "conclusion": "Fixed projected sufficient statistics preserve bookkeeping, but can discard the entire useful correction. Rank8 is not justified for actual operator fidelity and is excluded from the prospective full-rank analysis."
+  },
+  "full_rank_analytical_cost": {
+    "dtype": "float32",
+    "heads": 24,
+    "grid": [
+      256,
+      256
+    ],
+    "cells": 256,
+    "cell_h_bytes": 402653184,
+    "prefix_h_bytes": 454557696,
+    "h_plus_prefix_bytes": 857210880,
+    "optional_materialized_complement_bytes": 402653184,
+    "h_prefix_and_complement_total_bytes": 1259864064,
+    "build_cross_moment_flops": 51539607552,
+    "all_image_query_Hq_flops": 51539607552,
+    "grouped_four_corner_logical_read_bytes": 1610612736,
+    "uncached_per_query_four_corner_logical_read_bytes": 412316860416,
+    "limits": "These are per-attention-layer selected operation/storage counts, not end-to-end model memory or speed. H-only 403 MB excludes prefixes, optional complementary supports, QKV, other moments and model tensors. Existing Python prototype retains both raw and centered moments and borrowed K/V; its total resident tensor count is not incremental cache overhead. Grouping 256 queries sharing each cell-local support is prospective and can stream the complement cache. Logical read counts are not measured DRAM traffic; CPU timings and process RSS do not predict GPU latency."
+  },
+  "prior_art_boundary": {
+    "primary_source": "https://arxiv.org/html/2602.01077v2",
+    "specific_collision": "PISA Section 3.3, Equation 8 uses a mean of complementary within-cell H and then substitutes a global mean for efficiency. Retrieving the complementary mean with spatial sums evaluates that known object. It does not create a new moment approximation.",
+    "other_established_components": "Centered first-order corrections, exact-plus-approximate mass normalization, sufficient-statistic subtraction and spatial prefix sums are established. See attention_measure_independent.json for Scatterbrain, MomentKV and Sol-Attn boundaries.",
+    "possible_conditional_contribution": "A measured favorable accuracy/cost tradeoff for spatially conditioned H in this particular diffusion attention target could motivate an engineering refinement. Novelty, model-quality preservation and actual speed remain unestablished."
+  },
+  "decision": {
+    "bounded_four_forward_capture_justified": true,
+    "scientific_question": "Does the known global-H substitution materially lose accuracy on actual gained post-RoPE attention, and how much remains due to unweighted complementary averaging versus alpha-weighted first-order correction and Taylor/denominator approximation?",
+    "why_synthetic_evidence_is_insufficient": "Synthetic cases demonstrate both a large selected/global-H mismatch and residual attention-weight heterogeneity. They do not reveal which dominates on pretrained QKV. Four passive replay/capture forwards can measure that gap without changing model outputs.",
+    "supporting_synthetic_relative_errors": {
+      "selected_large_H_global": 0.38083312764819055,
+      "selected_large_H_complement": 0.003734341816225747,
+      "heterogeneous_alphas_complement": 0.09972746187792296,
+      "heterogeneous_alphas_weighted": 0.0013169740811816027
+    },
+    "scope": "Two already accepted artificial sigma0.5 development states, two heads, three attention calls and sixteen fixed image queries each. Use full rank, exact text support and fixed spatial selection. Require same-job baseline/capture byte equality and all frozen-source/input/conditioning receipts.",
+    "limits": "A successful capture measures operator approximation at these selected states only. It does not establish natural-trajectory behavior, quality, latency, generalization, resolution gains or novelty. Do not turn a favorable component error into automatic authorization for fused GPU kernels, a quality sweep or fresh64 use. Preserve every declared control and negative case.",
+    "next_step": "Parent may freeze and submit the bounded capture once the independent offline reporter and protocol checks are ready. No additional GPU test is needed merely to repeat these CPU identities."
+  }
+}

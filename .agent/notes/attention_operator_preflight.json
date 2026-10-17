@@ -1,0 +1,29 @@
+{
+  "created_utc": "2026-10-17T14:22:52.543230+00:00",
+  "protocol_sha256": "a0fb07d23ad61224f275829741287d4a242e862418002f00f8e052bec1081dea",
+  "source_files_verified": 15,
+  "previous_frozen_source_files_verified": 16,
+  "durable_inputs_verified": [
+    0,
+    1
+  ],
+  "tests": {
+    "capture": 30,
+    "offline_report": 13,
+    "equal_cell_reference": 16,
+    "spatial_stats": 30
+  },
+  "shell_syntax": "all3newfilespass",
+  "independent_reviews": [
+    "attention_operator_code_review.json",
+    "spatial_complement_review.json"
+  ],
+  "SU_balance": {
+    "available": 7928,
+    "allocation_total": 40000,
+    "burn_fraction": 0.8018,
+    "checked_utc": "2026-10-17T14:22:52.543355+00:00"
+  },
+  "decision": "Proceed with declared four-forward capture only. No efficacy or novelty inference.",
+  "next_action": "Submit2node15minfinite spool and register existing watcher."
+}
