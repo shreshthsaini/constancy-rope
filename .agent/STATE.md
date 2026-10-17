@@ -52,6 +52,7 @@ Account balance checked: 8212.919/40000 SUs remaining, burn 79.47%.
 - Retain old theory sources for audit, exclude stale settings from current PDF.
 - Current user authorizes active project operations. Do not alter old campaign artifacts or other projects.
 - Repository has no remote; preserve changes in a local commit.
+- User authorizes background Codex/GPT-6.1 Sol agents; higher effort for critical work, within guard limits.
 
 ## Open questions
 - Three frozen diagnostics in notes/continuation3/PROTOCOL.md; no new GPU results yet.

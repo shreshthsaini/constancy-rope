@@ -7,6 +7,7 @@ started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact ht
 ## Current takeover checkpoint (2026-10-17)
 - User first requested a state review, then explicitly assigned full project ownership and
   authorized continuing experiments, evaluation, and paper work autonomously.
+- User explicitly authorizes background Codex agents and GPT-6.1 Sol with effort chosen by the main agent; use higher effort for critical work. Respect tool concurrency and login-guard limits.
 - Third diagnostic submitted as CR14 job1076857, currently PENDING Priority on two GH200 nodes.
   See `.agent/notes/continuation3/PROTOCOL.md`; frozen source commit395ba85, 237 CPU tests passed.
   Three parameter-free/timing controls plus fresh SEGA, 32 development images, no held-out tuning.
