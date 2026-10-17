@@ -4,8 +4,9 @@
     "scripts/response_report.py",
     "tests/test_response_report.py"
   ],
-  "tests_passed": 20,
-  "seconds": 9.34,
+  "tests_passed": 33,
+  "seconds": 15.55,
   "executed_on_live_CR15": false,
-  "status": "CPU validation only; CR15 incomplete and cannot pass the report preconditions"
+  "status": "CPU validation only; explicit numerical-policy and manifest-source validation added for CR17; CR15 remains invalid/incomplete",
+  "updated_utc": "2026-10-17T12:47:25.249295+00:00"
 }

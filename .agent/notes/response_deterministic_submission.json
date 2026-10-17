@@ -1,0 +1,31 @@
+{
+  "submitted_utc": "2026-10-17T12:46:41.732878+00:00",
+  "job_id": "1077143",
+  "source_commit": "1a06786",
+  "protocol_sha256": "15b979336a23d1f3cd4f55ee9acbf29f96f1c2ab46af84b709cd2503c16bd03c",
+  "task_sha256": {
+    "/scratch/09032/saini_2/constancy_rope/taskq_response_deterministic/pending/prompt0.sh": "1c39e47866b5ddabcff62ddbfcbdeb5743bf59fad051e2c6b0d910df65fafae3",
+    "/scratch/09032/saini_2/constancy_rope/taskq_response_deterministic/pending/prompt1.sh": "87bcb3032dd253a60cfc8f9f89f8c63d5d8e96b6a386d1e97dde62af0411e5ca"
+  },
+  "budget_available_su": 7946,
+  "allocation_su": 40000,
+  "nodes": 2,
+  "minutes": 30,
+  "registry": {
+    "job_id": "1077143",
+    "queue_dir": "/scratch/09032/saini_2/constancy_rope/taskq_response_deterministic",
+    "completion_files": [
+      "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/summary.json",
+      "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/summary.json"
+    ],
+    "progress_dirs": [
+      "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/smoke",
+      "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/4k",
+      "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/smoke",
+      "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/4k"
+    ],
+    "telemetry_dir": "/scratch/09032/saini_2/constancy_rope/telemetry"
+  },
+  "status": "RUNNING on c638-141/142; watcher hot registry and scheduler observation verified",
+  "watcher_registration_verified_utc": "2026-10-17T12:48:07.223068+00:00"
+}

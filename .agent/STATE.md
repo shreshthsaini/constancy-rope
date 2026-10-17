@@ -3,21 +3,24 @@ Develop a genuinely novel training-free DiT resolution-extrapolation method comp
 User authorizes full unattended project ownership, experiments, evaluation, paper, and background agents.
 
 ## Status and next action
-2026-10-17 ~07:42CDT: CR14 job1076857 RUNNING since07:21:46 on c609-092,c609-151.
+2026-10-17 ~07:47CDT: CR14 job1076857 RUNNING since07:21:46 on c609-092,c609-151.
 Both GPUs100percent; no failed workflows; two workflows active, two pending.
 CR15 job1077082 FAILED after2m12s: both2048smoke endpoints bitwise equal, same-state replay exact, histories differ.
 No4K started. Failure evidence archived in notes/response_cr15_failure; original acceptance rule unchanged.
-CR16 repeatability job1077122 RUNNING on c638-141/142;2GH200nodes/15min,2dev prompts.
-Runs baselineA/B/probedC/baselineD plus isolated allocation repeats; records full histories and per-step hashes.
-Spools taskq_response and taskq_repeatability registered in existing watcher_cr14/registrations.json.
-Response source frozen at6d14fe5; notes/response_probe_protocol.json immutable for this run.
-Audit fixed gain-vector RMS wording,2048smoke coverage, fixed operating-point replay, provenance and timing.
-Earlier CPU suite306passed/47.73s. New repeatability comparison tests2passed; independent critical audit found no blocker.
-Separate report/archive helper20tests passed; rejects incomplete CR15; not run as a successful campaign.
-Full baseline/probed endpoints and histories must match before any response analysis is accepted.
-Next: review CR16 baseline-vs-baseline history drift before attributing differences to probe instrumentation.
-Compare actual BF16 gains/intermediate hashes and isolated allocation default/deterministic repeatability.
-No response inversion or4Kretry until the numerical failure is understood; verify CR14 results when complete.
+CR16 job1077122 COMPLETED/0:0 in2m14s. BaselineA/B/D histories drift; all BF16gains/state/velocity/endpoints match.
+Prompt1B/C FP32gain maxdifference1.1920928955078125e-07; default identical-feature allocation repeats drift.
+Eight isolated deterministic repeats match for both prompts. Evidence archived in notes/response_cr16_repeatability.
+CR17 deterministic-allocation response job1077143 RUNNING on c638-141/142;2GH200nodes/30min.
+Source1a06786; separate frozen notes/response_deterministic_protocol.json; strict original equality checks retained.
+Policy determinism applies only inside OfficialSEGA.update; enabled/warn-only flags restored in finally.
+All numericalpolicy/source provenance recorded; both gain histories saved. No proven originalbaseline qualityequivalence.
+Existing watcher hot registry includes taskq_response_deterministic plus prior queues; never duplicate watcher.
+New wrapper+response tests13passed/10s; adapted report helper33tests/15.55s; independent review found no blocker.
+Earlier full CPU suite306passed. CR15/CR16 protocol/source hashes unchanged; fresh64unused.
+Next: validate CR17 smoke first, then4K local response prediction/sign/coupling if strict checks pass.
+Use scripts/response_report.py <scratch/response_probe_deterministic/job1077143> --out <freshworkdir>
+with --protocol .agent/notes/response_deterministic_protocol.json --submission .agent/notes/response_deterministic_submission.json.
+The helper rejects incomplete/failed campaigns; neither numerical repair nor diagnostic pass establishes novelty/SOTA.
 No automatic confirmation or promotion from diagnostics to novelty/SOTA.
 Existing watcher v3: tmux crope-watch-cr14, PID1581602, i618-051/controllerjob1073260.
 Scheduler120s/files60s;33watcher tests. Direct idle-thread wake verified by actual operator receipt.
@@ -32,7 +35,9 @@ Fresh64 remains unused; current runs use development rows only.
 ## Map
 | File | Purpose |
 | HANDOVER.md | Long project context and operating constraints |
-| notes/response_repeatability_submission.json | CR16 job, budget and watcher registration |
+| notes/response_deterministic_submission.json | CR17 job, budget and watcher registration |
+| notes/response_deterministic_protocol.json | Frozen numerical-policy response probe |
+| notes/response_cr16_repeatability/receipt.json | Numerical drift evidence and source artifacts |
 | notes/response_repeatability_protocol.json | Separate bounded numerical diagnosis, immutable |
 | notes/response_cr15_failure/receipt.json | Failed smoke status and archived evidence hashes |
 | notes/response_probe_protocol.json | Frozen two-prompt smoke/4K measurement protocol |
@@ -59,7 +64,7 @@ Fresh64 remains unused; current runs use development rows only.
 - Old taskq drained:255done,5olderfailures,25held;STOP remains. Do not revive consumed pilots.
 - Preserve scratch; archive paper crux on work. W&B offline evidence is retained.
 - Local-only repository has no remote; commit meaningful changes locally.
-- No controller lease extension or handoff is verified yet; current lease has about five hours left.
+- No controller lease extension or handoff is verified yet; current lease has just under five hours left.
 
 ## Open questions
 - Do same-state interventions predict smaller unfit perturbations above numerical/quantization noise?
