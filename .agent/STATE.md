@@ -3,8 +3,10 @@ Develop a genuinely novel training-free DiT resolution-extrapolation method comp
 User authorizes full unattended project ownership, experiments, evaluation, paper, and background agents.
 
 ## Status and next action
-2026-10-17 ~07:51CDT: CR14 job1076857 RUNNING since07:21:46 on c609-092,c609-151.
-Both GPUs100percent; no failed workflows; two workflows active, two pending.
+2026-10-17 07:57CDT: CR14 job1076857 RUNNING since07:21:46 on c609-092,c609-151.
+CR14baseline/uniform workflowsDONE; normalized/lagRUNNING, bothGPUs100percent, nofailures.
+Partial8pairaudit verifies16PNGs/provenance/scores: uniform-minusfresh IR-.01739,MUSIQ-1.56672,
+CLIP+.58680,Pick-.08321,cropMUSIQ-.51775. Descriptive only; no selection beforeallfourdone.
 CR15 job1077082 FAILED after2m12s: both2048smoke endpoints bitwise equal, same-state replay exact, histories differ.
 No4K started. Failure evidence archived in notes/response_cr15_failure; original acceptance rule unchanged.
 CR16 job1077122 COMPLETED/0:0 in2m14s. BaselineA/B/D histories drift; all BF16gains/state/velocity/endpoints match.
@@ -29,7 +31,8 @@ Hot registry covers subsequent jobs; never duplicate watcher. Register next jobs
 Controller lease ends12:45:04CDT; watcher alerts one hour before expiry. Arrange verified compute handoff then.
 Account balance before CR15 submission7946/40000SUs,~80.14percent burn. Refresh before each new submission.
 Paper: paper/constancy_rope_working_2026-10-17.pdf. Active empirical report, no positive efficacy claim.
-Recent prior-art comparison: notes/response_prior_art_20261017.md; generic Jacobian/control ideas established.
+Prior-art notes: response_prior_art_20261017.md and response_actuator_prior_art_20261017.md.
+AFM already edits attentionFourierbands and discussesnonmonotonicity; inversion/reuse alone notnovel.
 Potential distinction is attention-actuator-to-Fourier-power response; efficacy and originality remain unproved.
 Fresh64 remains unused; current runs use development rows only.
 
@@ -47,6 +50,7 @@ Fresh64 remains unused; current runs use development rows only.
 | notes/watcher_cr14.json | Watcher PID, socket, registry, lease and stop instructions |
 | notes/watcher_ack.json | Actual autonomous wake acknowledgment |
 | notes/continuation3/PROTOCOL.md | Frozen CR14 four-control diagnostic |
+| notes/continuation3/partial_baseline_uniform.json | Verified partial8pair audit, no selection |
 | notes/continuation3/dev/completion.json | Expected validated CR14 finalizer receipt |
 | notes/continuation3/confirmation_plan.md | Conditional unused fresh64 protocol |
 | notes/main2/REPORT.md | Completed negative held-out campaign |

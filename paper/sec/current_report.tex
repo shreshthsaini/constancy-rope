@@ -193,8 +193,11 @@ denoiser-input Jacobian spectra and train with response regularization, while
 JAPS uses denoiser Jacobian information for inverse-problem
 guidance~\citep{graikos2026jacobian,hen2026japs}. Our measured object is instead
 the response of Fourier-power statistics to attention gains at a fixed state.
-That distinction is a hypothesis to test, not sufficient evidence of a novel
-controller. Local prediction must also transfer to the final image at acceptable
+Attention Frequency Modulation already edits spatial frequency bands of
+cross-attention logits and uses entropy-dependent gating~\citep{oh2026afm}.
+Thus spectral attention control itself is also established.
+The proposed response map remains a hypothesis to test, not sufficient evidence
+of a novel controller. Local prediction must also transfer to the final image at acceptable
 sampling cost. The failed two-prompt smoke test is retained as an implementation
 finding, not a result about generation quality or the proposed response model.
 
@@ -220,8 +223,8 @@ uniform gains matched to the released allocation's realized RMS; and the
 $\eta=1$ constancy composition with its target evaluated at the delayed
 estimate's own scheduler noise level. A fresh released-SEGA run is the reference.
 These distinguish gain magnitude from frequency allocation and isolate target
-timing. The code passes 256 CPU tests, but no GPU outcome for these controls is
-available in this snapshot. The job contains 32 images and began running
+timing. The code passes 256 CPU tests. The baseline and uniform-gain workflows
+have completed; the full four-way outcome remains pending. The job contains 32 images and began running
 on October 17. A positive development result remains diagnostic; advancing a
 method requires a defensible novelty distinction and separate confirmation.
 }

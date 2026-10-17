@@ -1,0 +1,677 @@
+{
+  "purpose": "Partial development-only descriptive verification; not confirmatory and not novel",
+  "created_utc": "2026-10-17T12:56:24.248774+00:00",
+  "job_id": "1076857",
+  "scope": "Completed baseline and uniform workflows only; no candidate selection, gate or finalizer executed",
+  "selection_rule_applied": false,
+  "automatic_promotion": false,
+  "prompt_ids": [
+    "a4k_eval_4096_minus6873203881450547484",
+    "a4k_eval_4096_3614061571823823193",
+    "a4k_eval_4096_7354534197758042049",
+    "a4k_eval_4096_788875264758341041",
+    "a4k_eval_4096_minus5023570400257826529",
+    "a4k_eval_4096_minus8041742109062037958",
+    "a4k_eval_4096_5968998903196670637",
+    "a4k_eval_4096_minus8648158440845565467"
+  ],
+  "generation": {
+    "sega_official": {
+      "n": 8,
+      "means": {
+        "imagereward": 1.3912745,
+        "musiq": 43.28140211105347,
+        "clip": 30.147244930267334,
+        "pickscore": 23.375039100646973,
+        "musiq_crop1024": 58.590646862983704,
+        "clipiqa": 0.5450999885797501,
+        "clipiqa_crop1024": 0.574002071749419
+      },
+      "per_prompt": [
+        {
+          "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus6873203881450547484_292264a271_seed0.png",
+          "png_sha256": "d560aaeb6f14cd29e8e520da62c8be78860b8ad8be13f647c5fac3cffeb8f120",
+          "imagereward": 0.987624,
+          "musiq": 44.139892578125,
+          "clip": 26.182031631469727,
+          "pickscore": 23.971315383911133,
+          "musiq_crop1024": 59.37635612487793,
+          "clipiqa": 0.61528080701828,
+          "clipiqa_crop1024": 0.6381554827094078
+        },
+        {
+          "prompt_id": "a4k_eval_4096_3614061571823823193",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_3614061571823823193_68ec961735_seed0.png",
+          "png_sha256": "ac145940d8f696ff01075ae03a0ceb6d50c574caf61cf12aa4e5dd1aaee4e186",
+          "imagereward": 1.551181,
+          "musiq": 21.49173355102539,
+          "clip": 38.61063003540039,
+          "pickscore": 23.06504249572754,
+          "musiq_crop1024": 60.19416904449463,
+          "clipiqa": 0.7046777606010437,
+          "clipiqa_crop1024": 0.6656699329614639
+        },
+        {
+          "prompt_id": "a4k_eval_4096_7354534197758042049",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_7354534197758042049_20b08c89ad_seed0.png",
+          "png_sha256": "83ab85b2d56c9092e6ddd056ed523593a58323010c85b99162606f924cea1d58",
+          "imagereward": 1.540606,
+          "musiq": 50.8685188293457,
+          "clip": 32.79288864135742,
+          "pickscore": 23.185699462890625,
+          "musiq_crop1024": 66.69691181182861,
+          "clipiqa": 0.47101029753685,
+          "clipiqa_crop1024": 0.6039523109793663
+        },
+        {
+          "prompt_id": "a4k_eval_4096_788875264758341041",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_788875264758341041_ecc1df74d6_seed0.png",
+          "png_sha256": "ed0848a142717364bb9c04d5e3b478542290a0a3b4343a1b8dda9031587fdccc",
+          "imagereward": 1.831038,
+          "musiq": 44.22970962524414,
+          "clip": 28.925952911376953,
+          "pickscore": 24.47623062133789,
+          "musiq_crop1024": 51.98303413391113,
+          "clipiqa": 0.481731653213501,
+          "clipiqa_crop1024": 0.5001373738050461
+        },
+        {
+          "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus5023570400257826529_b6561f2b88_seed0.png",
+          "png_sha256": "9bcad28aa572c51e2578f4282936abd070edb2f82eee7c60bb0126c5df5d6df9",
+          "imagereward": 1.363142,
+          "musiq": 50.10075378417969,
+          "clip": 28.298032760620117,
+          "pickscore": 21.235301971435547,
+          "musiq_crop1024": 61.11798858642578,
+          "clipiqa": 0.6907521486282349,
+          "clipiqa_crop1024": 0.6551700681447983
+        },
+        {
+          "prompt_id": "a4k_eval_4096_minus8041742109062037958",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus8041742109062037958_f5c747aef8_seed0.png",
+          "png_sha256": "ab3ba205baa563b4efb21adcd65a0ac976183f48833133250407d52db7bb82e2",
+          "imagereward": 0.518109,
+          "musiq": 39.226139068603516,
+          "clip": 28.97410011291504,
+          "pickscore": 21.70427894592285,
+          "musiq_crop1024": 41.59971809387207,
+          "clipiqa": 0.3401232063770294,
+          "clipiqa_crop1024": 0.3974999226629734
+        },
+        {
+          "prompt_id": "a4k_eval_4096_5968998903196670637",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_5968998903196670637_d418993014_seed0.png",
+          "png_sha256": "26222588d9ec76d88dd494c4515006cdf28ca819b5cc1e9f4efabdc4c902381e",
+          "imagereward": 1.458781,
+          "musiq": 44.503440856933594,
+          "clip": 25.967777252197266,
+          "pickscore": 25.282590866088867,
+          "musiq_crop1024": 61.96614456176758,
+          "clipiqa": 0.5290385484695435,
+          "clipiqa_crop1024": 0.5441238209605217
+        },
+        {
+          "prompt_id": "a4k_eval_4096_minus8648158440845565467",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus8648158440845565467_16f444f640_seed0.png",
+          "png_sha256": "d23875339c9747c50070ca2a867c6891127a3b8a894f3aab8c25c5204b818e70",
+          "imagereward": 1.879715,
+          "musiq": 51.6910285949707,
+          "clip": 31.426546096801758,
+          "pickscore": 24.079853057861328,
+          "musiq_crop1024": 65.7908525466919,
+          "clipiqa": 0.5281854867935181,
+          "clipiqa_crop1024": 0.5873076617717743
+        }
+      ],
+      "code_revisions": [
+        "b443b2781575554635a6f163da019cc6a3b83e95"
+      ],
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "generation_seconds_mean": 185.1829810515046
+    },
+    "sega_rms_uniform": {
+      "n": 8,
+      "means": {
+        "imagereward": 1.373884875,
+        "musiq": 41.71468377113342,
+        "clip": 30.734049320220947,
+        "pickscore": 23.291831493377686,
+        "musiq_crop1024": 58.072897493839264,
+        "clipiqa": 0.5629460960626602,
+        "clipiqa_crop1024": 0.5876397085376084
+      },
+      "per_prompt": [
+        {
+          "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_minus6873203881450547484_292264a271_seed0.png",
+          "png_sha256": "c81d8490bc1896b65ff3e41c7be4b6e46e75ee3c10bff5b4b48b652f3deebd8c",
+          "imagereward": 0.901401,
+          "musiq": 41.0608024597168,
+          "clip": 28.000200271606445,
+          "pickscore": 23.694046020507812,
+          "musiq_crop1024": 58.0146484375,
+          "clipiqa": 0.6543340086936951,
+          "clipiqa_crop1024": 0.6988436728715897
+        },
+        {
+          "prompt_id": "a4k_eval_4096_3614061571823823193",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_3614061571823823193_68ec961735_seed0.png",
+          "png_sha256": "c061796214ae701d8b7f6f9ae32feaa70cc9310f4626a42ff8deeb84d33eebcc",
+          "imagereward": 1.48029,
+          "musiq": 21.600313186645508,
+          "clip": 39.5026969909668,
+          "pickscore": 23.03886604309082,
+          "musiq_crop1024": 59.46257305145264,
+          "clipiqa": 0.6710934638977051,
+          "clipiqa_crop1024": 0.6627810150384903
+        },
+        {
+          "prompt_id": "a4k_eval_4096_7354534197758042049",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_7354534197758042049_20b08c89ad_seed0.png",
+          "png_sha256": "a3a09487e70e3755cedd6ac5b5b2b0ce580b18805e390470e6cc8ae204a7d009",
+          "imagereward": 1.417934,
+          "musiq": 45.763671875,
+          "clip": 33.24586868286133,
+          "pickscore": 22.900480270385742,
+          "musiq_crop1024": 65.7578353881836,
+          "clipiqa": 0.5225540399551392,
+          "clipiqa_crop1024": 0.6134403869509697
+        },
+        {
+          "prompt_id": "a4k_eval_4096_788875264758341041",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_788875264758341041_ecc1df74d6_seed0.png",
+          "png_sha256": "d3460434e6e204461457cdf09f617cf127a8ce998a5f6f6c39d3112452590ba6",
+          "imagereward": 1.846344,
+          "musiq": 45.64631652832031,
+          "clip": 29.143882751464844,
+          "pickscore": 24.304363250732422,
+          "musiq_crop1024": 53.233553886413574,
+          "clipiqa": 0.4582102298736572,
+          "clipiqa_crop1024": 0.48669178038835526
+        },
+        {
+          "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_minus5023570400257826529_b6561f2b88_seed0.png",
+          "png_sha256": "2bd78a28bb34b772e57f1e29b0bd58aa46933d37527949a666dde93b1858b4b5",
+          "imagereward": 1.391837,
+          "musiq": 51.51041030883789,
+          "clip": 27.53050994873047,
+          "pickscore": 21.19710922241211,
+          "musiq_crop1024": 61.23567867279053,
+          "clipiqa": 0.6374222040176392,
+          "clipiqa_crop1024": 0.6203781813383102
+        },
+        {
+          "prompt_id": "a4k_eval_4096_minus8041742109062037958",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_minus8041742109062037958_f5c747aef8_seed0.png",
+          "png_sha256": "a4e7a13af0b0789b67863f3bf94532275bec68261b566354ad40b4719706cb85",
+          "imagereward": 0.525019,
+          "musiq": 33.845237731933594,
+          "clip": 28.716012954711914,
+          "pickscore": 21.48061180114746,
+          "musiq_crop1024": 40.93636083602905,
+          "clipiqa": 0.35461413860321045,
+          "clipiqa_crop1024": 0.3962484635412693
+        },
+        {
+          "prompt_id": "a4k_eval_4096_5968998903196670637",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_5968998903196670637_d418993014_seed0.png",
+          "png_sha256": "a53045a68c0c0a1ef15f717950c8847d5b77e370d21a21eaf941801cd471c7ae",
+          "imagereward": 1.490633,
+          "musiq": 42.764766693115234,
+          "clip": 26.756732940673828,
+          "pickscore": 25.473310470581055,
+          "musiq_crop1024": 60.98685073852539,
+          "clipiqa": 0.5468910932540894,
+          "clipiqa_crop1024": 0.5643656104803085
+        },
+        {
+          "prompt_id": "a4k_eval_4096_minus8648158440845565467",
+          "png": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_minus8648158440845565467_16f444f640_seed0.png",
+          "png_sha256": "762232b428ec1f61d1536569331f3ed1c606f88ee6ecebeaaefb2741c5852786",
+          "imagereward": 1.937621,
+          "musiq": 51.52595138549805,
+          "clip": 32.97649002075195,
+          "pickscore": 24.245864868164062,
+          "musiq_crop1024": 64.95567893981934,
+          "clipiqa": 0.6584495902061462,
+          "clipiqa_crop1024": 0.6583685576915741
+        }
+      ],
+      "code_revisions": [
+        "b443b2781575554635a6f163da019cc6a3b83e95"
+      ],
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "generation_seconds_mean": 189.87310540885665
+    }
+  },
+  "uniform_minus_fresh_baseline": {
+    "imagereward": -0.017389625000000075,
+    "musiq": -1.566718339920044,
+    "clip": 0.5868043899536133,
+    "pickscore": -0.08320760726928711,
+    "musiq_crop1024": -0.5177493691444397,
+    "clipiqa": 0.017846107482910156,
+    "clipiqa_crop1024": 0.013637636788189411
+  },
+  "pilot_reproducibility": {
+    "archived_pilot_means": {
+      "imagereward": 1.423017875,
+      "musiq": 42.488059997558594,
+      "clip": 30.32000422477722,
+      "pickscore": 23.409926891326904,
+      "musiq_crop1024": 58.23458290100098,
+      "clipiqa": 0.5565925128757954,
+      "clipiqa_crop1024": 0.5799324591644108
+    },
+    "fresh_baseline_minus_archived_pilot": {
+      "imagereward": -0.03174337500000002,
+      "musiq": 0.793342113494873,
+      "clip": -0.1727592945098877,
+      "pickscore": -0.03488779067993164,
+      "musiq_crop1024": 0.35606396198272705,
+      "clipiqa": -0.011492524296045303,
+      "clipiqa_crop1024": -0.005930387414991856
+    }
+  },
+  "hardware": {
+    "sega_official": {
+      "hosts": [
+        "c609-151"
+      ],
+      "gpu_names": [
+        "NVIDIA GH200 120GB"
+      ],
+      "gpu_uuids": [
+        "GPU-c816ea30-fd08-ebce-c1f1-533ac25b660d"
+      ],
+      "generation_wandb_record": "/scratch/09032/saini_2/constancy_rope/wandb/wandb/offline-run-20261017_072204-331cluge/run-331cluge.wandb",
+      "metadata_recovery": "Exact host/GPU strings from completed binary W&B record; no selected-kernel instrumentation.",
+      "imagereward_checkpoint_paths": [
+        "/scratch/09032/saini_2/tmp/hf/hub/models--THUDM--ImageReward/snapshots/5736be03b2652728fb87788c9797b0570450ab72/ImageReward.pt"
+      ],
+      "requirements_sha256": "d2064f05b672aba588f9afcc82b6b673c95b1fc5107dc0a6882eb8268bcc1fe0",
+      "offline_wandb": true
+    },
+    "sega_rms_uniform": {
+      "hosts": [
+        "c609-092"
+      ],
+      "gpu_names": [
+        "NVIDIA GH200 120GB"
+      ],
+      "gpu_uuids": [
+        "GPU-d60942e0-4e3e-fece-621f-24620c058da4"
+      ],
+      "generation_wandb_record": "/scratch/09032/saini_2/constancy_rope/wandb/wandb/offline-run-20261017_072206-c5vinbyo/run-c5vinbyo.wandb",
+      "metadata_recovery": "Exact host/GPU strings from completed binary W&B record; no selected-kernel instrumentation.",
+      "imagereward_checkpoint_paths": [
+        "/scratch/09032/saini_2/tmp/hf/hub/models--THUDM--ImageReward/snapshots/5736be03b2652728fb87788c9797b0570450ab72/ImageReward.pt"
+      ],
+      "requirements_sha256": "d2064f05b672aba588f9afcc82b6b673c95b1fc5107dc0a6882eb8268bcc1fe0",
+      "offline_wandb": true
+    }
+  },
+  "generation_manifest": {
+    "transformer_snapshot": "/scratch/09032/saini_2/tmp/hf/hub/models--black-forest-labs--FLUX.1-Krea-dev/snapshots/8162a9c7b05a641be098422bf2fcf335615c2f28",
+    "transformer_revision": "8162a9c7b05a641be098422bf2fcf335615c2f28",
+    "transformer_config_sha256": "a8d4ca92dc64ca8116c370ab91339e18a723ab950c18de513d09c3922df7a2d1",
+    "base_pipeline": "black-forest-labs/FLUX.1-dev",
+    "note": "Legacy image config model_revision describes the base pipeline, not the overridden transformer."
+  },
+  "scorer_provenance": {
+    "versions": {
+      "torch": "2.11.0+cu128",
+      "transformers": "5.19.0",
+      "pyiqa": "0.1.16",
+      "image-reward": "1.5",
+      "hpsv3": null,
+      "torch-fidelity": "0.4.0",
+      "pytorch-fid": null
+    },
+    "model_revisions": {
+      "openai/clip-vit-large-patch14": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+      "yuvalkirstain/PickScore_v1": "a4e4367c6dfa7288a00c550414478f865b875800",
+      "laion/CLIP-ViT-H-14-laion2B-s32B-b79K": "1c2b8495b28150b8a4922ee1c8edee224c284c0c",
+      "THUDM/ImageReward": "5736be03b2652728fb87788c9797b0570450ab72",
+      "MizzenAI/HPSv3": null
+    },
+    "metric_status": {
+      "clip": {
+        "status": "complete",
+        "provenance": {
+          "model": "openai/clip-vit-large-patch14",
+          "processor": "openai/clip-vit-large-patch14",
+          "revision": null,
+          "definition": "100*max(cosine,0)"
+        }
+      },
+      "pickscore": {
+        "status": "complete",
+        "provenance": {
+          "model": "yuvalkirstain/PickScore_v1",
+          "processor": "laion/CLIP-ViT-H-14-laion2B-s32B-b79K",
+          "revision": null,
+          "definition": "exp(logit_scale)*cosine"
+        }
+      },
+      "musiq": {
+        "status": "complete",
+        "provenance": {
+          "model": "pyiqa/musiq",
+          "full_input": "native resolution, model preprocessing unchanged",
+          "crop_input": "random 1024x1024, averaged within image"
+        }
+      },
+      "clipiqa": {
+        "status": "complete",
+        "provenance": {
+          "model": "pyiqa/clipiqa",
+          "full_input": "native resolution, model preprocessing unchanged",
+          "crop_input": "random 1024x1024, averaged within image"
+        }
+      }
+    },
+    "common_configuration": {
+      "prompts": "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl",
+      "references": null,
+      "reference_method": "sega_official",
+      "res": "4096x4096",
+      "metrics": "clip,pickscore,musiq,clipiqa",
+      "device": "cuda",
+      "bootstrap": 1000,
+      "bootstrap_seed": 0,
+      "crop_seed": 0,
+      "crops": 4,
+      "threads": 8,
+      "allow_missing": false,
+      "no_wandb": false
+    }
+  },
+  "checks": {
+    "all_16_png_checksums_and_dimensions_verified": true,
+    "unique_exact_8_dev_ids_per_method": true,
+    "same_eval_and_IR_image_paths": true,
+    "prompt_text_derived_seed_model_software_match": true,
+    "actual_sigmas_match_mu_1_15": true,
+    "krea_revision_config_hash_verified": true,
+    "finite_paired_gains_unit_index_axis": true,
+    "uniform_spatial_axes_constant": true,
+    "uniform_max_abs_mean_logit_coefficient_error": 3.2160856755503175e-07,
+    "frozen_repository_sources_match": true,
+    "completed_task_hashes_match": true
+  },
+  "source_checks": [
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/utils.py",
+      "match": true,
+      "expected": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e",
+      "actual": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/spectral.py",
+      "match": true,
+      "expected": "0db65ba2016b99d30916eb644c736d4018b3659fdf09f0c2e89363b45641be6f",
+      "actual": "0db65ba2016b99d30916eb644c736d4018b3659fdf09f0c2e89363b45641be6f"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/__init__.py",
+      "match": true,
+      "expected": "61da3242d99ead9a95ff5e597982e5edbaba67040a8ca28b2d6b2580a35cdcf9",
+      "actual": "61da3242d99ead9a95ff5e597982e5edbaba67040a8ca28b2d6b2580a35cdcf9"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/sega_official.py",
+      "match": true,
+      "expected": "80edc67b2958c707822038d3758d985f53df88d222bb1625bc73799dacee79be",
+      "actual": "80edc67b2958c707822038d3758d985f53df88d222bb1625bc73799dacee79be"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/schedule.py",
+      "match": true,
+      "expected": "499d67705d3fad8d6305eb7b259eadb082253472f9156954a514d360e2476a91",
+      "actual": "499d67705d3fad8d6305eb7b259eadb082253472f9156954a514d360e2476a91"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/runtime.py",
+      "match": true,
+      "expected": "6bfdb60f77a961409f66bf9cfe29e330516a6ac8b086c49cb7bc19a6c1082e9d",
+      "actual": "6bfdb60f77a961409f66bf9cfe29e330516a6ac8b086c49cb7bc19a6c1082e9d"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/gain.py",
+      "match": true,
+      "expected": "fc3008af7eb00fb344c41577b7e85fe2ab324b4767c44af3d33492c431efa66a",
+      "actual": "fc3008af7eb00fb344c41577b7e85fe2ab324b4767c44af3d33492c431efa66a"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/rope.py",
+      "match": true,
+      "expected": "8d6b58593323815e3e98b3b52608bd93701fd25b28ecd829d7e68714df108485",
+      "actual": "8d6b58593323815e3e98b3b52608bd93701fd25b28ecd829d7e68714df108485"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/_figure_style.py",
+      "match": true,
+      "expected": "549a08bb0fe4e515852c96d39c928fd9288867e04fc6915c8653df6b3c3de68f",
+      "actual": "549a08bb0fe4e515852c96d39c928fd9288867e04fc6915c8653df6b3c3de68f"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_generate.py",
+      "match": true,
+      "expected": "bd898322d156cd235c80962f28f9d48ac5ee75dc3c49556e7baf14f3c47bb364",
+      "actual": "bd898322d156cd235c80962f28f9d48ac5ee75dc3c49556e7baf14f3c47bb364"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_analysis.py",
+      "match": true,
+      "expected": "99e5ca33f03025ec0c0a0693c71b521ce0daacbf00673debdc4698f92e8eceb8",
+      "actual": "99e5ca33f03025ec0c0a0693c71b521ce0daacbf00673debdc4698f92e8eceb8"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/eval.py",
+      "match": true,
+      "expected": "c59c4b3a71357aeeb884ea6536759f39a742d1ac00bcdbae04ea31c1fb9a9d8a",
+      "actual": "c59c4b3a71357aeeb884ea6536759f39a742d1ac00bcdbae04ea31c1fb9a9d8a"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/imagereward_score.py",
+      "match": true,
+      "expected": "3c8967914fbc07d533377a2f7bff5d12e2528649611f61c5f40479a07e0c2d3c",
+      "actual": "3c8967914fbc07d533377a2f7bff5d12e2528649611f61c5f40479a07e0c2d3c"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/fleet_CR14.sbatch",
+      "match": true,
+      "expected": "f11132aeb58d0fae26311bf4710f510fe0672a9c273e4d660191bac4c45fe747",
+      "actual": "f11132aeb58d0fae26311bf4710f510fe0672a9c273e4d660191bac4c45fe747"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/dev3_launch.sh",
+      "match": true,
+      "expected": "30c33b89bd90ea6fd457b66579c57cd8597c9d80307e3787a82c025d26c3041d",
+      "actual": "30c33b89bd90ea6fd457b66579c57cd8597c9d80307e3787a82c025d26c3041d"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/dev3_task.sh",
+      "match": true,
+      "expected": "e1b4752e4e351d8c73d4f92cb4533897d5cc4f1d27147e5d742cc73b7a374240",
+      "actual": "e1b4752e4e351d8c73d4f92cb4533897d5cc4f1d27147e5d742cc73b7a374240"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/dev3_worker.sh",
+      "match": true,
+      "expected": "52ac4884f2985223d0fcbf98c1ec93f0f2ec3ec6da82f9fd517b01c97d40f4e9",
+      "actual": "52ac4884f2985223d0fcbf98c1ec93f0f2ec3ec6da82f9fd517b01c97d40f4e9"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/continuation3/PROTOCOL.md",
+      "match": true,
+      "expected": "0deb73f90630224e763f2b3f4d0f46b9e010f009a145dd97086d6addc5b8aa72",
+      "actual": "0deb73f90630224e763f2b3f4d0f46b9e010f009a145dd97086d6addc5b8aa72"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/fleet_CR14_gh.sbatch",
+      "match": true,
+      "expected": "d4e1753d19a98c682ad7d786f5c9c59855685396d463a85216054ad0105e6419",
+      "actual": "d4e1753d19a98c682ad7d786f5c9c59855685396d463a85216054ad0105e6419"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_finalize.py",
+      "match": true,
+      "expected": "523fbcca8e04b3c8f6c32b722de154f0f67944be9ed85383398567773e2bde13",
+      "actual": "523fbcca8e04b3c8f6c32b722de154f0f67944be9ed85383398567773e2bde13"
+    }
+  ],
+  "missing_required_artifacts": [],
+  "limitations": [
+    "Eight repeatedly used development prompts; no confirmatory uncertainty or eligibility claims.",
+    "Same GH200 architecture on distinct hosts/devices. Actual SDPA kernel not instrumented.",
+    "IR checkpoint revision matched from both task logs; IR CSV has no independent environment/checkpoint receipt. No weights loaded or rehashed.",
+    "Full gate/selection/finalizer must wait for all four workflows."
+  ],
+  "sources": [
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/continuation3/frozen_manifest.json",
+      "sha256": "ab53bdaf06ae6fbd93debe6783747fa8a742222f61743d1fa6f613d22b728cf8"
+    },
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/continuation3/PROTOCOL.md",
+      "sha256": "0deb73f90630224e763f2b3f4d0f46b9e010f009a145dd97086d6addc5b8aa72"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl",
+      "sha256": "ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/taskq_dev3/done/00_sega_official.sh",
+      "sha256": "79df3dd7a666f754a0afecf268c33a8d2d7a6a76329e08214fa738b287739c65"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_official/per_image.csv",
+      "sha256": "036e0ce36836338505f526f90fa015b6be61acd0532b68091b6a11a0ac74665a"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/dev3_sega_official.csv",
+      "sha256": "ba0832c6ad213d79bc5f5bbf695bd4585fba82482ed076b753985c8cd6c2039b"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/generation_manifest.json",
+      "sha256": "919cadfc20e12cc43b404c42007c252f66d4732a9b5749000c84b48baa65ab9d"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_official/metrics.json",
+      "sha256": "f31fa010f9885cda80b02ec6a1125a40881a054978fc742f0f539d73a35e6ae2"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus6873203881450547484_292264a271_seed0.json",
+      "sha256": "2e0494f560a7b61bc485227b1dea9699d64267b506fd6ac4921d42bda8c94631"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_3614061571823823193_68ec961735_seed0.json",
+      "sha256": "5a5ebafe06da494172e8e893511b8b89952ed3f81456e0d69042cd44e8301125"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_7354534197758042049_20b08c89ad_seed0.json",
+      "sha256": "f76c13c5499e8b313e958c10a1d436fdcae08d78b034f1de597cb297a421d5a1"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_788875264758341041_ecc1df74d6_seed0.json",
+      "sha256": "2e5ff7c17be367d6ff3e34ffe10b9a06ddb45b557d2e4f4381d3da71f6c8e602"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus5023570400257826529_b6561f2b88_seed0.json",
+      "sha256": "832a271d05a76b6edeb9a7c6ae3691fb4b5945b2dd5a6a8b5d8a555803c8a90e"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus8041742109062037958_f5c747aef8_seed0.json",
+      "sha256": "54db75e1657eba00986927d923965b60d91cfbc4dbaceacdfae759cc66d015cd"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_5968998903196670637_d418993014_seed0.json",
+      "sha256": "f4125898e51f4afefd1577168f3c0969aa1725af3feaa655b1496c3985f0f3c7"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus8648158440845565467_16f444f640_seed0.json",
+      "sha256": "e917666d70fe6f7b48ea58efe25f086095aabcf3371c2a399fd6e6a4f48f9e75"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/taskq_dev3/logs/00_sega_official.sh.log",
+      "sha256": "116a434658a96fe9bee3829f6faa8964eb93b24eab7ae6d7042ca3fa89338a0b"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/wandb/wandb/offline-run-20261017_072204-331cluge/run-331cluge.wandb",
+      "sha256": "6b8ccce299ad92bcc0a3c7e51907d90b871a32ae729aa7cf99a24ea6024b9715"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/taskq_dev3/done/01_sega_rms_uniform.sh",
+      "sha256": "6ed6b0f09ccb736590833710eea1c39a2d9b623ef524fb42c5103403aac1ef7c"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_rms_uniform/per_image.csv",
+      "sha256": "ef46d9b8b9eb21f656c6b9b8bcf60ad706597eb8bf1579c7968c78067120dc8f"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/dev3_sega_rms_uniform.csv",
+      "sha256": "0f0d4b95953fa7ee398cc62bbc4dd262ad214afc4fec466b63986e1220c51a9f"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/generation_manifest.json",
+      "sha256": "919cadfc20e12cc43b404c42007c252f66d4732a9b5749000c84b48baa65ab9d"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_rms_uniform/metrics.json",
+      "sha256": "e7d51454a7d30f3ed4e5adf7f4f7ab310174a8b1aa653de592ad6b020dabb939"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_minus6873203881450547484_292264a271_seed0.json",
+      "sha256": "23cd1c1910e40dc5f577e3449a87ff20c258625ec99a6842eeb7ae6923161b4d"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_3614061571823823193_68ec961735_seed0.json",
+      "sha256": "9d1ec2b05bc8eb51505d6609ddd5994b75d859f41d66932987a00f822974822c"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_7354534197758042049_20b08c89ad_seed0.json",
+      "sha256": "d16d50e766ce34e98acd504084ab7e6336eccb115472a53fcb15c92d66a748f8"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_788875264758341041_ecc1df74d6_seed0.json",
+      "sha256": "e7a27a6795f2466b6e062001e31dbb5de637e88d612f249e6635d7c52581f9fe"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_minus5023570400257826529_b6561f2b88_seed0.json",
+      "sha256": "d974cb641394472562a28885fa6d8d00eeaba9cc3554fb2ccdadbfb1b2d24a3c"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_minus8041742109062037958_f5c747aef8_seed0.json",
+      "sha256": "6bcb006f8e7dba10cb06204c56dbfe68d9ce1b34603c342a42b9570a28f34fb5"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_5968998903196670637_d418993014_seed0.json",
+      "sha256": "fcbcfc4c1ed762f66e95918770e105eb7f17baeff98ffe9715d1caee6295db41"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_rms_uniform/sega_rms_uniform/4096x4096/a4k_eval_4096_minus8648158440845565467_16f444f640_seed0.json",
+      "sha256": "8bbf56730cec879a5d2553498424c57cc7658e4cc5b5d0dff8e5b4c3ca516039"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/taskq_dev3/logs/01_sega_rms_uniform.sh.log",
+      "sha256": "a95a4d07ff40621ee4ba18690ba997003e6777a3905429b0804fe92a0e5987d1"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/wandb/wandb/offline-run-20261017_072206-c5vinbyo/run-c5vinbyo.wandb",
+      "sha256": "7497cb1809672157a14d66334fa7c7520322b90d8201ce87c9023b44a55c338e"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/pilot/4096x4096/per_image.csv",
+      "sha256": "d877b11104f5493078e247c0ab03167210de6f4d742afdb6f953e65c712e95b4"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/pilot.csv",
+      "sha256": "9123d7282f2e387a01fed733991aed09f88281b1592a48018ce1649f55d8bd52"
+    }
+  ]
+}
