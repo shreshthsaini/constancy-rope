@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution-extrapolation method comp
 User authorizes full unattended project ownership, experiments, evaluation, paper, and background agents.
 
 ## Status and next action
-2026-10-17 08:04 CDT: CR14 job1076857 RUNNING since07:21:46 on c609-092,c609-151.
+2026-10-17 08:10 CDT: CR14 job1076857 RUNNING since07:21:46 on c609-092,c609-151.
 CR14baseline/uniform workflowsDONE; normalized/lagRUNNING, bothGPUs100percent, nofailures.
 Partial8pairaudit verifies16PNGs/provenance/scores: uniform-minusfresh IR-.01739,MUSIQ-1.56672,
 CLIP+.58680,Pick-.08321,cropMUSIQ-.51775. Descriptive only; no selection beforeallfourdone.
@@ -28,9 +28,8 @@ Half-gain off-linearity remains substantial; no quantization-dead intervention. 
 Decision: stop scalar-as-new-method branch; fixed temperature scheduling is not a distinct mechanism.
 No new GPU job before CR14 completes; interpret its controls, then choose a distinct causal hypothesis.
 Resolved spatial-frequency rotary bands remain untested, not refuted by octave -11 results.
-Use scripts/response_report.py <scratch/response_probe_deterministic/job1077143> --out <freshworkdir>
-with --protocol .agent/notes/response_deterministic_protocol.json --submission .agent/notes/response_deterministic_submission.json.
-The helper rejects incomplete/failed campaigns; neither numerical repair nor diagnostic pass establishes novelty/SOTA.
+CR17 archive accepted and committed; do not rerun it on delayed completion events.
+CPU research: attention contribution/phase behavior and feature-spectrum prior art; no mechanism selected.
 No automatic confirmation or promotion from diagnostics to novelty/SOTA.
 Existing watcher v3: tmux crope-watch-cr14, PID1581602, i618-051/controllerjob1073260.
 Scheduler120s/files60s;33watcher tests. Direct idle-thread wake verified by actual operator receipt.

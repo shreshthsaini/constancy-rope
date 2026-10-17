@@ -35,6 +35,11 @@
       "acknowledged_utc": "2026-10-17T13:04:58.414321+00:00",
       "event": "CR14 baseline/uniform done; CR17 prompt1 receipt, with prompt0 completion verified live",
       "verified": "CR17 COMPLETED 08:00:25 CDT; full archive independently validates both smoke/4K trajectories and provenance. CR14 remaining GPUs active."
+    },
+    {
+      "acknowledged_utc": "2026-10-17T13:12:25.633795+00:00",
+      "event": "Delayed CR17 prompt0 done/completing/completion/not-in-queue event",
+      "verified": "sacct COMPLETED13m49s; full campaign already validated and archived in90cc4c7. No rerun. CR14 active, watcher healthy, controller ends12:45CDT."
     }
   ]
 }
