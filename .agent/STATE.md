@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution method competitive with r
 User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 09:32 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+2026-10-17 09:38 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
 Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
 RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
 PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
@@ -40,7 +40,7 @@ Complement improves138,worsens54; only33changes exceedBF16gap,26improve/7worsen.
 Stop fixed-window conditional-mean branch; no GPUkernel/qualitysweep. PISAEq8 alreadyformulatesit.
 10QKV/outputwitnesses442654958bytes archivedonwork; map notes/attention_cr19/witness_retention.json.
 W&Boffline7ppsy698/v41n6z5j.30stelemetrymissed14sforwards; no100percentutilizationclaim.
-NEXT: researchnative1024 comparators for8existingdevcaptions; captionpredicateplan andworker inprogress.
+NEXT: researchnative1024 comparators for8existingdevcaptions; captionpredicateplan fixed and nativeworker27CPUtests pass.
 No nativejob/protocol submittedyet; observationalcapabilityscreen, notcausal ornewmethod. Fresh64unused.
 Covariance/gain proposal lacks justified target; DoPE adds a close prior-art collision.
 Stop promotion of that branch. Resolution pivot review lacks native comparators and a distinct intervention.

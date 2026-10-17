@@ -1,0 +1,92 @@
+{
+  "created_utc": "2026-10-17T14:36:33.028731+00:00",
+  "status": "predeclared before native generation",
+  "display_max_side": 1024,
+  "resampling": "Pillow LANCZOS for archived4096 to1024; native1024 unchanged",
+  "ordering_seed": 20261017,
+  "mapping": [
+    {
+      "condition": "archived4096",
+      "row": 1,
+      "label": "view01"
+    },
+    {
+      "condition": "archived4096",
+      "row": 6,
+      "label": "view02"
+    },
+    {
+      "condition": "archived4096",
+      "row": 4,
+      "label": "view03"
+    },
+    {
+      "condition": "native1024",
+      "row": 6,
+      "label": "view04"
+    },
+    {
+      "condition": "native1024",
+      "row": 3,
+      "label": "view05"
+    },
+    {
+      "condition": "archived4096",
+      "row": 3,
+      "label": "view06"
+    },
+    {
+      "condition": "native1024",
+      "row": 4,
+      "label": "view07"
+    },
+    {
+      "condition": "native1024",
+      "row": 5,
+      "label": "view08"
+    },
+    {
+      "condition": "archived4096",
+      "row": 7,
+      "label": "view09"
+    },
+    {
+      "condition": "archived4096",
+      "row": 5,
+      "label": "view10"
+    },
+    {
+      "condition": "native1024",
+      "row": 1,
+      "label": "view11"
+    },
+    {
+      "condition": "archived4096",
+      "row": 2,
+      "label": "view12"
+    },
+    {
+      "condition": "native1024",
+      "row": 2,
+      "label": "view13"
+    },
+    {
+      "condition": "native1024",
+      "row": 7,
+      "label": "view14"
+    },
+    {
+      "condition": "native1024",
+      "row": 0,
+      "label": "view15"
+    },
+    {
+      "condition": "archived4096",
+      "row": 0,
+      "label": "view16"
+    }
+  ],
+  "review_policy": "Provide reviewers only view labels, caption and frozen primary/secondary/auxiliary predicates. Keep condition map separate until annotations committed. Prior image familiarity and visible texture may defeat complete blinding, so label hiding is not guaranteed blindness. Record common-scale and detail-view judgments separately.",
+  "all_images": 16,
+  "no_condition_selection": true
+}

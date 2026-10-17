@@ -1,0 +1,147 @@
+{
+  "date_utc": "2026-10-17T14:32:11.642303+00:00",
+  "scope": "Bounded primary-source follow-up after accepted CR19, directed at general resolution extrapolation rather than OCR repair. No GPU, model loads, paper or frozen edits.",
+  "decision": "No distinct corrective mechanism is established. Collect the missing eight native1024 comparators as a descriptive capability screen before choosing an intervention. The conditional-prefix branch does not supply a semantic target.",
+  "one_direction_examined": {
+    "target": "Resolution-associated loss of a caption-entitled directed relation or contact condition, despite the relevant entities being present.",
+    "hypothesis_only": "A high-resolution model can retain global layout and total text attention yet assign the wrong roles to participating entities or lose their required contact. A correction would need a reliable role-specific causal signal rather than another global attention scalar.",
+    "distinct_mechanism_status": "Not ready. No local artifact yet shows native success followed by high-resolution failure on a named relation; no reliable noisy-state role detector or minimally effective intervention has been identified.",
+    "why_not_native_anchor": "Copying native spatial features, latent low frequencies, clean predictions or trajectory increments is already occupied. Caption constraints should not freeze incidental native composition.",
+    "why_not_scene_graph_as_novelty": "Explicit relation-binding attention objectives and layout guidance already exist. Representing the same target as a scene graph does not resolve the mechanism gap."
+  },
+  "primary_source_rechecks": [
+    {
+      "work": "HiFlow: Training-free High-Resolution Image Generation with Flow-Aligned Guidance",
+      "version": "arXiv2504.06232v2,16May2025",
+      "url": "https://arxiv.org/html/2504.06232v2",
+      "verified_method": "Section3.2 forms a virtual high-resolution flow from upsampled low-resolution predicted clean samples at each timestep. Section3.3 aligns initialization, replaces low-frequency clean-prediction content for direction guidance, and aligns differences between consecutive velocities for acceleration guidance.",
+      "collision": "Time-matched native trajectory preservation and native detail-timing guidance are already explicit mechanisms, not unexplored alternatives to endpoint anchoring."
+    },
+    {
+      "work": "ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers",
+      "version": "arXiv2512.01426v1",
+      "url": "https://arxiv.org/html/2512.01426v1",
+      "verified_method": "Sections3.2-3.4 use globally interpolated positional indices, local independently positioned patches, minimum-overlap partitioning, Gaussian splicing and frequency fusion of global layout with local detail.",
+      "collision": "A global semantic/layout branch plus local detail branch with overlap or spectral merging is directly occupied. It does not require a separately sampled native image."
+    },
+    {
+      "work": "HRDiT: Training-Free High-Resolution Image Generation with Off-the-Shelf Diffusion Transformer Models",
+      "version": "arXiv2608.07003v1",
+      "url": "https://arxiv.org/html/2608.07003v1",
+      "verified_method": "Spatial Position Alignment groups positional indices into bundles, then slides bundle boundaries across mappings to recover intra-bundle distinctions; the method also uses head-adaptive attention pruning.",
+      "collision": "Content described as losing fine spatial distinctions is not sufficient novelty for another positional grouping/sliding rule. The paper explicitly addresses this loss."
+    },
+    {
+      "work": "AReA: Adaptive Receptive-Field Attention for Efficient High-Resolution Diffusion Transformers",
+      "version": "arXiv2610.17227v1",
+      "url": "https://arxiv.org/html/2610.17227v1",
+      "verified_method": "Uses coarse global context and progressively local receptive fields. AppendixE inserts actual remote K/V registers, preserving their post-RoPE positions and excluding local duplicates. Selection represents both salient content and otherwise empty regions to reduce duplicate generation.",
+      "collision": "Global object memory, context bridges and knowledge of what exists elsewhere already have concrete mechanisms. No absence of relation guarantees establishes a flaw in these mechanisms."
+    },
+    {
+      "work": "TIDE: Text-Informed Dynamic Extrapolation with Step-Aware Temperature Control for Diffusion Transformers",
+      "authors": [
+        "Yihua Liu",
+        "Fanjiang Ye",
+        "Bowen Lin",
+        "Rongyu Fang",
+        "Chengming Zhang"
+      ],
+      "version": "arXiv2603.08928v1,9Mar2026",
+      "url": "https://arxiv.org/html/2603.08928v1",
+      "verified_method": "Section3.2 adds a common text-logit bias based on image area ratio. Section3.3 schedules temperature over time and rotary frequency.",
+      "exact_algebra_boundary": "For fixed temperature and a common text-logit bias, the ratio of two text probabilities is unchanged by that bias: exp(l_a+b)/exp(l_b+b)=exp(l_a-l_b). Aggregate text/image balancing cannot by itself alter within-text odds. Temperature can change those odds, and downstream multi-layer effects can change content, so this is not an end-to-end impossibility result.",
+      "collision": "Generic semantic attention preservation or text anchoring is occupied. A measured total text-mass deficit would suggest a TIDE control before a new method."
+    }
+  ],
+  "closest_additional_binding_collision": {
+    "work": "R-Bind: Unified Enhancement of Attribute and Relation Binding in Text-to-Image Diffusion Models",
+    "authors": [
+      "Huixuan Zhang",
+      "Xiaojun Wan"
+    ],
+    "version": "EMNLP2025 proceedings,November2025,pages6856-6870",
+    "url": "https://aclanthology.org/2025.emnlp-main.349/",
+    "official_code": "https://github.com/lleozhang/R-Bind",
+    "inspected_source": "https://raw.githubusercontent.com/lleozhang/R-Bind/master/loss_utils.py",
+    "verified_method": "The official loss code combines focus, entity-attribute and entity-relation-entity terms. The relation term averages symmetric KL between each entity attention map and the relation map, and repels the two entity maps and mismatched triplets. Released examples include SD1.5 and SD3.",
+    "exact_limited_gap": "For one isolated triplet, its direct entity-relation-entity objective is symmetric under exchanging the entity endpoints. It does not explicitly encode subject/object direction. Contextual prompt embeddings, the generator and other losses may still encode direction; the full method is not proved direction-blind.",
+    "implication": "A role-sensitive target would be more specific than generic relation binding, but this algebraic distinction is not yet an exploitable resolution mechanism or novelty result.",
+    "verification_limits": "Official proceedings metadata and released loss code were inspected. The PDF exceeded the web fetch size limit; no full PDF or runnable reproduction was completed. The master branch URL is mutable and was read on2026-10-17; no code revision is proposed for execution."
+  },
+  "causal_sensor_warning": {
+    "work": "Circuit Mechanisms for Spatial Relation Generation in Diffusion Transformers",
+    "authors": [
+      "Binxu Wang",
+      "Jingxuan Fan",
+      "Xu Pan"
+    ],
+    "version": "arXiv2601.06338v2,4Apr2026",
+    "url": "https://arxiv.org/html/2601.06338v2",
+    "verified_result": "Controlled DiTs trained with T5 can read relation and object information jointly from an object token. The pretrained transfer section studies PixArt-Sigma and finds relation information in both relation and object words.",
+    "scope_limit": "This does not establish the same circuit in FLUX/Krea, nor a resolution-specific failure.",
+    "actionable_limit": "Do not equate a small attention weight on the literal relation word with lost relational information. Do not boost that word or preserve its attention map without causal evidence."
+  },
+  "bounded_native_comparison": {
+    "purpose": "Identify a target on the existing development sample, not prove a causal resolution effect or estimate a failure probability.",
+    "sample": "All eight existing development captions0-7, one fixed seed0 draw each, exactly1024x1024, compared with their existing official-SEGA4096x4096 outputs. No replacements, prompt edits, seed search or fresh64.",
+    "implementation": "Use the existing official-SEGA runtime at1024 with the same Krea/base revisions, conditioning,28steps,guidance4.5,prompt-ID seed derivation and decode policy as the archived comparator. Verify sidecars/configs and record actual sigma schedule. Do not implement a new native sampler.",
+    "source_check": "At grid64x64, crope/sega_official.py sets scale1,reference_gain1,ntk_factor1 and returns all-one q/k gains. crope/rope.py sets the official theta multiplier to1. crope/runtime.py uses max_image_seq_len4096 at1024, matching the native4096-token reference. This is source-level algebraic identity, not measured byte equality to stock diffusers.",
+    "rubric": "Freeze caption-derived predicates before seeing native images. Score each as satisfied, violated or unjudgeable; separately record presence of required entities and whether their relation/contact is visible. Review at a common display size and allow original-pixel inspection. Archive fixed views and method-blinded labels where practical.",
+    "predicate_source": ".agent/notes/resolution_pivot_20261017.json:caption_grounded_audit_candidates_not_new_method_options",
+    "all_eight_predicates": [
+      {
+        "row": 0,
+        "predicate": "Small boats at the water's edge with multiple colors; larger boats in the distant harbor.",
+        "ambiguity": "No exact boat count or hull lettering is required."
+      },
+      {
+        "row": 1,
+        "predicate": "Moai statue against a starry sky with sunset colors near the horizon.",
+        "ambiguity": "Upward gaze and simultaneous sky conditions require a consistent annotation rubric."
+      },
+      {
+        "row": 2,
+        "predicate": "A kneeling woman offers grapes to the brown bear beside her.",
+        "ambiguity": "Grapes and the offering relation must be visibly judgeable; mere entity co-presence is insufficient."
+      },
+      {
+        "row": 3,
+        "predicate": "Surfer, yellow board and coral within the explicitly requested underwater/wave composition.",
+        "ambiguity": "Do not call the underwater scene a failure simply because it is physically unusual; the caption requests it."
+      },
+      {
+        "row": 4,
+        "predicate": "Prominent ringed foreground planet and two smaller celestial bodies with the specified relations.",
+        "ambiguity": "Define celestial-body and silhouette criteria before counting; stars and small debris complicate annotation."
+      },
+      {
+        "row": 5,
+        "predicate": "Woman with black top and green striped skirt; man with newspaper and boy; shop signs Kodak and Paradis.",
+        "ambiguity": "Quoted strings can be transcribed, but their absence is not by itself resolution-specific."
+      },
+      {
+        "row": 6,
+        "predicate": "Seated man and woman holding hands on a teal couch.",
+        "ambiguity": "Hand contact can be unjudgeable if occluded or malformed; avoid inferring it from proximity."
+      },
+      {
+        "row": 7,
+        "predicate": "Ballerina in a yellow dress posing on one supporting leg.",
+        "ambiguity": "Support and contact should be assessed explicitly; aesthetic pose preference is not the target."
+      }
+    ],
+    "aggregation": "Preserve all per-predicate outcomes. Count native-satisfied/high-resolution-violated separately from failures at both sizes and all unjudgeable cases. An ambiguous native view is not a success and does not count as a lost relation.",
+    "interpretation": "Same integer seed samples different tensor sizes and does not couple semantic noise. Existing4K and new1024 runs may also differ in hardware/numerical history. A positive pair is a capability witness and descriptive discrepancy; it is not proof that resolution alone caused loss.",
+    "negative_outcome": "If no clear native-success/high-resolution-failure case appears, stop this target on the inspected sample. Do not choose new seeds until a satisfying example appears.",
+    "positive_outcome": "Retain the exact named predicate and case for a separately bounded causal localization design. First distinguish text-mass dilution, role/geometry error and generic native weakness. Existing TIDE, AReA/HRDiT and native-reference mechanisms are candidate controls, not assumptions of solved performance. Do not automatically launch a method sweep.",
+    "this_review_launches_no_compute": true
+  },
+  "limits": "This is a targeted method and code check, not exhaustive prior-art exclusion. No new architecture or theorem is claimed. Semantic relation preservation is a measurement target; it becomes a method only with a justified intervention and end-to-end evidence.",
+  "local_source_sha256": {
+    "crope/sega_official.py": "80edc67b2958c707822038d3758d985f53df88d222bb1625bc73799dacee79be",
+    "crope/rope.py": "8d6b58593323815e3e98b3b52608bd93701fd25b28ecd829d7e68714df108485",
+    "crope/runtime.py": "6bfdb60f77a961409f66bf9cfe29e330516a6ac8b086c49cb7bc19a6c1082e9d",
+    ".agent/notes/resolution_pivot_20261017.json": "10c46c97f711f85bc0ed73fcc436c23d6174f679652ad280a47ccdcd9a9bb893"
+  }
+}
