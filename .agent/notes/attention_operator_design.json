@@ -1,0 +1,117 @@
+{
+  "status": "prospective, not frozen or submitted",
+  "purpose": "Bounded pretrained Q/K/V operator fidelity check of spatial complement moment refinements; not a generation-quality experiment or new-method claim",
+  "preconditions": [
+    "Complete and independently inspect equal-cell PISA substitution test and spatial-prefix bookkeeping/cost test.",
+    "Freeze collection source/model/input/query/layer/head protocol before any GPU execution.",
+    "Review actual cost and scientific distinction; do not submit merely because instrumentation is ready."
+  ],
+  "inputs": "Accepted CR18 original artificial sigma0.5 input and original gain vector for prompts0/1, with archived model/conditioning/source provenance; no shifted arm and no fresh64. This collects previously unsaved internal tensors at existing diagnostic inputs, not a new natural trajectory.",
+  "forwards_per_prompt": 2,
+  "forward_order": [
+    "Uninstrumented original-gain baseline",
+    "Identical input/gain forward with capture only; bytewise output equality required"
+  ],
+  "capture": {
+    "attention_call_indices_zero_based": [
+      0,
+      18,
+      56
+    ],
+    "heads_zero_based": [
+      0,
+      12
+    ],
+    "image_query_grid_coordinates": [
+      [
+        40,
+        40
+      ],
+      [
+        40,
+        104
+      ],
+      [
+        40,
+        168
+      ],
+      [
+        40,
+        232
+      ],
+      [
+        104,
+        40
+      ],
+      [
+        104,
+        104
+      ],
+      [
+        104,
+        168
+      ],
+      [
+        104,
+        232
+      ],
+      [
+        168,
+        40
+      ],
+      [
+        168,
+        104
+      ],
+      [
+        168,
+        168
+      ],
+      [
+        168,
+        232
+      ],
+      [
+        232,
+        40
+      ],
+      [
+        232,
+        104
+      ],
+      [
+        232,
+        168
+      ],
+      [
+        232,
+        232
+      ]
+    ],
+    "query_representation": "Actual BF16 Q multiplied by BF16 gains, after normalization and RoPE; preserve original gained_attention arithmetic",
+    "keys_values": "All actual text and image K after gained BF16 multiplication, and original BF16 V, for the two selected heads; text first, image raster order",
+    "reference_outputs": "Corresponding actual SDPA attention outputs for selected query/head pairs",
+    "stored_tensors": "Selected Q, all K/V for selected heads, selected SDPA outputs, explicit token indices, shape/dtype/hash receipts. Approximately400MB total for2prompts/3blocks/2heads; scratch bulk.",
+    "guard": "Observe exactly57attentioncalls; same gains across calls. Restore wrapper in finally. Reject masks/unexpectedgeometry rather than silently reinterpret."
+  },
+  "offline_analysis_proposal": {
+    "reference": "CPUFP64 dense attention on saved BF16 consumed tensors, with1/sqrt128 scaling; separately report difference from actual BF16 SDPA outputs.",
+    "cell_geometry": "16x16image-token cells on256x256grid. For each sampled query, exact image cells within Chebyshev radius2 of its containing cell, clipped atboundary; text keys always exact. No partial cells or register selection in this first PISA-isolation check.",
+    "controls": [
+      "Exact sparse only",
+      "Exact sparse plus cell-centroid zeroth-order complement",
+      "PISA-style global mean within-cell H",
+      "True complementary-cell mean H with same mass/zero-order terms",
+      "Alpha-weighted per-cell first-order correction"
+    ],
+    "metrics": "Perprompt/block/head/query absolute and dense-relative output errors; mass error, nonfinite values, value-hull violations. No pooled selected winner or response-size tuning. Rank8 projected alternatives remain optional UNRUN until explicitly frozen.",
+    "boundaries": "PISA-style equations only, not official fused-kernel reproduction; lower operator error is not image-quality gain or speed."
+  },
+  "gpu_budget_proposal": {
+    "nodes": 2,
+    "minutes": 15,
+    "forwards_total": 4,
+    "status": "No job submitted; SU check and frozen review required before submission."
+  },
+  "preservation": "CR14-18 sources/protocols/results and fresh64 unchanged; distinct collection directory and watcher registration if submitted."
+}

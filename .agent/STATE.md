@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution method competitive with r
 User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 08:55 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+2026-10-17 09:10 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
 Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
 RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
 PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
@@ -26,7 +26,11 @@ Supports gain-mediated sensitivity at artificial sigma.5 states; no natural-traj
 Full projected-feature/conditioning checks remain runtime receipts; not independently reconstructed.
 24saved tensor witnesses+CR17dependencies preserved on work outside repo,139505284bytes; retention map archived.
 CPU validator28tests+frozenworker23tests pass. Do not repeat the consumed diagnostic.
-NEXT: CPU research on overlap-consistent multiscale attention; check proportional attention/MomentKV collisions.
+Attention-measure toy prototype complete:15tests pass; knownformulas, exactbookkeeping, approximation failures archived.
+Scatterbrain/PISA/SolAttn/MomentKV occupy core mechanism; conditionalspatial refinement remainshypothesis.
+NEXT: finish equal-cell PISA substitution and spatial-cell prefix/cost CPU tests.
+Four-forward QKV capture design is prospective/unfrozen/unsubmitted; collector implementation inprogress.
+No new GPU before operator/cost/scientific review; distinguish within-cell from single-cloud covariance.
 Covariance/gain proposal lacks justified target; DoPE adds a close prior-art collision.
 Stop promotion of that branch. Resolution pivot review lacks native comparators and a distinct intervention.
 Eight dev baseline previews show no obvious global duplication; garbled shop text has no proven resolution cause.
@@ -52,6 +56,9 @@ CR14/CR17/CR18 completed; no pending or running project GPU job. Do not repeat c
 | notes/observer_feedback_cpu.json | Tiny gain-mediated output change |
 | notes/next_mechanism_derivation.json | Architecture proof, scope and recommendation |
 | notes/rotary_kernel_prior_art_20261017.md | AReA/LayerNorm and phase/covariance collisions |
+| notes/attention_measure_cpu.json | Known-formula CPU counterexamples and covariance comparison |
+| notes/attention_measure_research.json | Exact target, primary collisions and pending tests |
+| notes/attention_operator_design.json | Prospective capture only; not frozen or submitted |
 | notes/observer_cr18/report.json | Accepted pretrained synthetic-state contrasts |
 | notes/observer_cr18_independent.json | Independent exact saved-tensor recomputation |
 | notes/observer_cr18/witness_retention.json | Durable24file tensor archive on work |

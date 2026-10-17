@@ -1,0 +1,312 @@
+{
+  "date": "2026-10-17",
+  "decision": "Continue only the bounded CPU operator/cost unit. The narrow technical question is whether spatially cached, complement-specific cross-moments improve the documented PISA global-covariance shortcut at acceptable cost for overlapping adaptive windows. PISA already formulates the complement quantity, Sol-Attn already avoids exact/approximate double counting, and Scatterbrain already combines exact sparse with residual global approximation. No new attention family or moment theorem is claimed.",
+  "next_action": "The full-rank single-cloud CPU falsifier is complete. Next isolate the PISA substitution on fixed equal-sized cells: use identical exact support, centroid masses, zeroth numerator and average-alpha coefficient while comparing global Hbar, true complement Hbar, alpha-weighted per-cell correction and dense attention. Only if that comparison shows a meaningful gap, implement one fixed-base-cell prefix retrieval and CPU cost microbenchmark against direct enumeration. Rank8 and partial-cell handling remain explicit unrun extensions. No GPU follows merely from algebra passing.",
+  "CR18_boundary": "Parent reports both prompts accepted, ten forwards and exact original repeats. Gain-only L2 effects 109.986/66.181 exceed fixed-gain residuals 16.505/16.448 by 6.664/4.024, with adaptive/gain-only cosines 0.9878/0.9629. These are parent-reported synthetic-state diagnostics, not independently recomputed here and not efficacy evidence for this separate attention hypothesis.",
+  "official_implementation_audit": {
+    "AReA": {
+      "revision": "dcd4bcb114dbd9bac85e7178617c1c1f760ef760",
+      "coarse_phase": "area/backbones/flux.py pools normalized unrotated image K/V, retains text, applies coarse-grid RoPE to the resulting keys, and calls dispatch_attention_fn with attn_mask=None. area/attention.py supports mean, medoid, random and subsample representatives. No log cell-size bias or value-key conditional correction appears on this inspected path. All image blocks have the same f*f size, so a uniform size bias would cancel within image-only attention but change image/text competition.",
+      "fine_phase": "Local keys, halo keys and selected global registers are concatenated in one attention call with attn_mask=None. Registers are actual selected tokens, not mass-preserving pooled representatives. No population size is assigned to them. Reweighting selected registers by an invented represented area is not justified by the selection algorithm.",
+      "overlap": "bridge.select_registers excludes local window indices only. It receives no halo indices. windowed_attention subsequently appends the halo and registers without a union/deduplication step. Thus a halo token can appear twice in one softmax. A legal synthetic selector call confirms this possibility; natural overlap frequency and quality effect were not measured.",
+      "output_merge": "tiling.merge_weights uses normalized raised-cosine center weights, rescaled to the coverage count; windowed_attention divides image output by coverage. Text output is averaged over windows. Output overlap is therefore explicitly handled. This is different from duplicate key multiplicity inside an individual softmax and must not be reported as an unhandled output merge.",
+      "interpretation": "AReA deliberately changes receptive field, token count and positional geometry to stay near the native regime. Absence of a dense-equivalence correction is not by itself a bug. Adding image cell mass may undo a useful change in image/text balance. Dense fidelity is an operator target for the proposed hypothesis, not an assumed image-quality optimum.",
+      "raw_source_sha256": {
+        "area/attention.py": "7500418a5a1dad78188d80929d0775e02a484ed4b42be27f6579e6d1d23dc9aa",
+        "area/backbones/flux.py": "59622e6c4f84676f2e8aa3954d1e2fc2dabc5bf4fbbef41b255160a31d5f02f6",
+        "area/bridge.py": "fe128fb2729dee06f54f0ac7161e944ad20ade4f7c159d40e15da20d4e6e3685",
+        "area/tiling.py": "8ba1978121cada89085c93445355781e39d9d7ba594df9d3b28bba815b2a7950"
+      },
+      "source_root": "https://github.com/KooroshRH/AReA/tree/dcd4bcb114dbd9bac85e7178617c1c1f760ef760/area"
+    },
+    "ResDiT": {
+      "verified": "The inspected primary paper uses global and local attention branches, Gaussian-weighted spatial splicing, and spectral output fusion. This is not the same construction as a single softmax mixing pooled global keys with fine local keys.",
+      "code_limit": "No attributable official ResDiT repository was found in the bounded paper/arXiv/GitHub repository search. Consequently no claim is made that its official code omits mass weighting or mishandles overlaps. Gaussian splicing is handled in the paper; source implementation remains unverified.",
+      "source": "https://arxiv.org/html/2512.01426v1"
+    }
+  },
+  "exact_target": {
+    "reference": "Freeze normalized Q/K after the SAME chosen RoPE transform, V, text keys, attention mask and scale. Let s_j=q^T k_j/sqrt(d). The target is y(q)=sum_j exp(s_j)v_j / sum_j exp(s_j). Do not compare a coarsened-coordinate operator to a true-coordinate reference and attribute all error to token mass.",
+    "cell_identity": "For a disjoint cell C, Z_C(q)=sum_{j in C} exp(s_j), b_C(q)=log Z_C(q), and u_C(q)=sum_{j in C} exp(s_j)v_j/Z_C(q). Then dense attention equals sum_C softmax_C(b_C)*u_C. This is an elementary grouping identity. Exact b_C AND exact u_C are required; neither is generally query independent.",
+    "homogeneous_key_case": "If all keys in C are identical, b_C=s_C+log n_C and u_C=mean_C(v), even when values differ. This is the known proportional-attention special case. A size correction alone is insufficient once within-cell scores differ and correlate with values.",
+    "heterogeneous_case": "Write mu_k=mean_C(k), mu_v=mean_C(v), delta_j=q^T(k_j-mu_k)/sqrt(d). Then b_C=log n_C+q^T mu_k/sqrt(d)+log mean_C exp(delta), and u_C=mu_v+mean_C[(v-mu_v)exp(delta)]/mean_C exp(delta). The second expression is the missing conditional-value term that no denominator-only correction can reconstruct.",
+    "small_spread_expansion": "The log-mass correction is Var(delta)/2 plus higher cumulants. The first value correction is Cov_C(v,k)*q/sqrt(d), with higher mixed cumulants remaining. For a jointly Gaussian distribution of k and v, log mass uses the quadratic cumulant exactly and the tilted value is mu_v+Cov(v,k)q/sqrt(d). Empirical finite cells need not be Gaussian; moment matching does not make these formulas exact.",
+    "overlapping_cells": "If cells overlap, the grouping identity requires ownership weights a_Cj>=0 satisfying sum_C a_Cj=1. Both Z_C and the weighted numerator must use the SAME a_Cj. For duplicate copies of an identical key/value, a -log multiplicity logit shift or explicit deduplication restores the union measure. Subtracting duplicates only from the denominator is wrong.",
+    "unique_exact_set": "For each adaptive query window w define E_w=unique(text union local union halo union registers), and R_w=all image keys minus the image part of E_w. Text is exact and present once. The exact identity is y=(Z_E*y_E+Z_R*u_R)/(Z_E+Z_R). Empty R has Z_R=0 and needs no log/mean computation.",
+    "partition_invariance_limit": "Dense attention and the exact grouped oracle are invariant to how E/R or cells are chosen. A moment approximation is generally NOT partition invariant, because its truncation error changes with the conditional distribution. The hypothesis is reduced partition-induced error, not exact invariance of a finite moment closure."
+  },
+  "one_candidate_for_CPU_falsification": {
+    "description": "Condition a low-rank residual moment model on the complement of each deduplicated adaptive spatial support, and combine its unnormalized mass/numerator with exact local attention through a common normalization.",
+    "fixed_first_prototype": "Use one complement summary per window and head. Retain Jensen mass Zhat_R=n_R*exp(q^T mu_k/sqrt(d)) and first-order value uhat_R=mu_v+C_vk*U*(U^T q)/sqrt(d), where U is an orthonormal rank-r basis fixed before the test. Initially compare full rank U=I and fixed seeded rank r=8 on d=16 CPU tensors. Do not fit a basis on held-aside queries. No Gaussian mass inflation or result-selected clipping is added to this first prototype.",
+    "sufficient_statistics": "Accumulate n, sum k, sum v, and sum v*(U^T k)^T over all image keys once. For each window, subtract these RAW statistics of the unique exact image-key set E_w to obtain complement statistics. Recover centered C_vr=sum(v*r^T)/n-mu_v*mu_r^T, where r=U^T k. Evaluate uhat_R=mu_v+C_vr*(U^T q)/sqrt(d). The full mean-key term remains q^T mu_k/sqrt(d).",
+    "why_raw_conditioning_matters": "Subtracting already normalized global attention or an already centered approximate output is not equivalent to removing selected tokens before computing the closure. Counts, means, covariances and the exponential reference all change. Test subtraction against direct enumeration of the same complement before any approximation claims.",
+    "stable_combination": "Compute logZhat_R=log n_R+q^T mu_k/sqrt(d); combine with exact logZ_E using logaddexp, then use the corresponding two mixture weights. Duplicate exact keys are removed before attention. This prevents overflow of exponentials but does not prevent statistical approximation error or covariance cancellation.",
+    "possible_distinct_contribution": "A training-free implementation that cheaply recomputes a conditional global summary for changing, irregular, overlapping 2D supports and preserves useful dense interactions better than zero-order complement pooling or existing hybrid kernels. The difference must survive matched-cost comparisons and cannot be claimed from moving a fixed sliding-window method to two dimensions alone.",
+    "what_is_not_new": "Log token mass, sufficient-statistic subtraction, moment closure, exact/surrogate mixing, and local-plus-global attention are established. A new name for their combination is insufficient. The note retains a concrete implementation hypothesis because its adaptive spatial setting and failure target can be tested, not because novelty has been certified.",
+    "major_risk": "A single remote complement may be highly multimodal after RoPE, making first-order value approximation poor. Rank truncation adds another error. The finite-moment counterexamples below forbid universal exactness or an always-better-than-sparse claim. Restoring dense interactions could also undo AReA's intentionally useful locality even if operator error improves."
+  },
+  "closest_prior_art": [
+    {
+      "work": "ToMe",
+      "covers": "Token-size tracking and log-size proportional attention. Exact homogeneous-key mass restoration is occupied.",
+      "source": "https://arxiv.org/html/2210.09461v1"
+    },
+    {
+      "work": "Expected Attention",
+      "covers": "Gaussian query statistics and positional averaging for attention estimation. Gaussian exponential moments and covariance-aware attention prediction are established.",
+      "source": "https://arxiv.org/html/2510.00636v1"
+    },
+    {
+      "work": "MomentKV",
+      "covers": "Count, key mean, value mean and value-key covariance; first-order query-dependent missing-value reconstruction; Jensen count-times-exp-mean mass; mixing with exact retained attention. These are the same closure ingredients proposed here. Its moment-informed eviction tries to keep the summarized set regular. A spatial-window application must justify approximation validity rather than inherit that regularity.",
+      "difference_left_to_test": "Our possible distinction is per-window conditional summaries of irregular overlapping spatial supports, rebuilt at each DiT layer/call rather than an append-only evicted cache. This is an implementation/composition distinction, not a new approximation identity.",
+      "source": "https://arxiv.org/html/2606.01563v1"
+    },
+    {
+      "work": "FlashPrefill V2",
+      "covers": "Exact selected blocks plus zero-order pooled means for unselected blocks, with log block size and shared online softmax. Complement-aware normalization is already implemented efficiently in a nearby setting.",
+      "source": "https://arxiv.org/html/2608.19758v1"
+    },
+    {
+      "work": "LLSA",
+      "covers": "Hierarchical coarse/fine KV enrichment and size reweighting for DiTs. The paper explicitly treats different token granularities. It is trainable and not the proposed conditional covariance closure, but multi-scale mass compensation itself is occupied.",
+      "source": "https://arxiv.org/html/2512.16615v1"
+    },
+    {
+      "work": "Statistically Calibrated Scaling for Token Merging",
+      "covers": "Corrects merged-value energy and attention distribution using an explicit reconstruction analysis. Merely correcting both values and logits is not a sufficient novelty distinction.",
+      "source": "https://proceedings.mlr.press/v306/zhou26bj.html"
+    },
+    {
+      "work": "Based and TaylorShift",
+      "covers": "Based combines Taylor linear attention with exact local attention; TaylorShift implements polynomial attention efficiently. Hybrid local/global structure and Taylor features are established. The inspected sources do not by themselves verify an irregular spatial conditional-moment implementation.",
+      "sources": [
+        "https://arxiv.org/html/2402.18668v1",
+        "https://arxiv.org/html/2403.02920v1"
+      ]
+    },
+    {
+      "work": "RATTENTION and STILL",
+      "covers": "RATTENTION explicitly models out-of-window tokens with linear attention. STILL routes locally relevant and selected salient remote tokens to softmax while the complementary tokens enter linear attention. Thus even exact local-plus-selected-global with a complementary summary is not a new routing principle. Their trained/distilled LLM settings differ from a training-free DiT operator replacement.",
+      "sources": [
+        "https://machinelearning.apple.com/research/rattention",
+        "https://arxiv.org/html/2602.02180v1"
+      ]
+    },
+    {
+      "work": "Scatterbrain",
+      "covers": "Independent prior-art agent identified Section 4.2 and Appendix C: add exact exponential-minus-low-rank-kernel corrections on sparse support to a global low-rank attention sum. With a common additive feature representation this is exactly global-minus-local approximation plus exact local attention, including normalization. Arbitrary sparse support is allowed, so irregular support alone is not a novelty escape.",
+      "difference_left_to_test": "Recomputing a centered moment closure after conditioning on the complement is nonlinear in the raw moments and is not generally identical to subtracting a fixed additive surrogate. Whether that distinction improves accuracy enough to matter is untested; it could be worse. Do not claim that this different algebra automatically creates a new method.",
+      "source": "https://arxiv.org/pdf/2110.15343",
+      "verification": "Specific equation identification supplied by the independent prior-art agent; parent is receiving its separate derivation and check."
+    },
+    {
+      "work": "PISA, 2602.01077v2",
+      "covers": "Section 3.3 Equation8 formulates the mean first-order matrix over unselected blocks. Equations9-10 replace that conditional mean by the all-block mean to avoid streaming distinct matrices. Its numerator keeps blockwise zeroth-order contributions; its denominator includes exact and approximate mass. This is a direct DiT predecessor, not merely an LLM analogy.",
+      "difference_left_to_test": "A geometry-assisted implementation of the already-formulated conditional mean could remove that particular approximation. It must be compared with PISA using identical selected blocks, block centroids, normalizers and coefficient, so other changes cannot receive credit.",
+      "source": "https://arxiv.org/html/2602.01077v2",
+      "verification": "Primary Section3.2/3.3 equations and algorithm inspected in this unit."
+    },
+    {
+      "work": "Sol-Attn, 2607.24027v1",
+      "covers": "Equations9-10 combine exact selected blocks with zero-order approximate unselected blocks in a common normalization. Selected columns are explicitly masked out of the approximate path. Exact-or-approximate ownership is already a DiT/video mechanism.",
+      "source": "https://arxiv.org/html/2607.24027v1",
+      "verification": "Primary Section3.2 inspected in this unit."
+    }
+  ],
+  "cost_and_integration": {
+    "notation": "N image tokens, H heads, d key dimension, dv value dimension, r projected residual rank, W query windows, M=sum_w |E_w image|, Q=sum_w number of queries, including repeated queries across overlaps.",
+    "statistics": "Projection and global outer-product accumulation cost O(N*H*(d*r+dv*r)); global storage O(H*(d+dv+dv*r)). Direct unique-set subtraction costs O(M*H*(d+dv+dv*r)) and storage O(W*H*(d+dv+dv*r)) if all window summaries are retained. Process groups/chunks to bound memory.",
+    "query_cost": "Residual query evaluation costs O(Q*H*(d+ d*r+dv*r)), plus ordinary sparse attention O(H*sum_w Q_w*|E_w|*(d+dv)). For one complement per window there is no factor equal to the number of remote cells. Multiple residual cells would multiply query-side cost and are excluded from the first prototype.",
+    "rectangle_optimization_limit": "Prefix sums could reduce repeated rectangular local subtraction, but storing an N-by-dv-by-r spatial prefix tensor per head can be large. Jagged halo and selected registers still need union-aware subtraction. Do not quote constant-time window updates without including the prefix memory and build cost. Direct grouped accumulation is the initial honest baseline.",
+    "basis_cost": "A fresh full PCA at every block is not free and can restore O(N*d^2) work. The completed CPU prototype is full rank; a fixed orthonormal basis is specified only for an unrun extension. Any calibrated or dynamic basis later needs its own cost and held-aside test.",
+    "LSE_requirement": "The current AReA dispatch call returns normalized output, not the exact local log normalizer needed by the mixing equation. A production implementation needs an LSE-returning fused attention path or an extra local-logit reduction; counting that overhead is mandatory. Independent normalized branch outputs cannot simply be added to obtain the target.",
+    "precision": "Accumulate raw sums in FP32 or better for tests; subtraction of large nearly equal sums can lose precision. Preserve exact n_R=0 handling, deterministic union indices, and pairwise input provenance. CPU FP64 success does not establish BF16 numerical or GPU timing behavior.",
+    "budget": "This review does not recommend a GPU benchmark or full trajectory before the operator/cost test. Necessary bounded research remains within existing user authorization. No projected GPU speedup is claimed."
+  },
+  "executed_small_CPU_checks": {
+    "implementation": "Inline Python math and a CPU call to the inspected pinned official AReA select_registers function. No model, no new script, no source mutation. These are algebra/selection counterexamples, not a pretrained operator benchmark.",
+    "duplicate_halo": {
+      "h": 8,
+      "w": 8,
+      "local_indices": [
+        0
+      ],
+      "illustrative_halo_indices": [
+        1
+      ],
+      "register_count": 63,
+      "score": "arange(64)",
+      "selected_halo_token_multiplicity_in_registers": 1,
+      "uniform_logits_unique_support_output_if_v1_is_one_else_zero": 0.015625,
+      "same_with_halo_register_duplicate": 0.03076923076923077,
+      "scope": "The selector returns all 63 outside tokens, so appending halo token1 duplicates it. The one-token window is a legal helper input, not a claim about the default production tiling or its overlap rate."
+    },
+    "identical_keys": {
+      "case": "Two image keys with scalar value1 and one text key with value0, all logits0",
+      "dense": 0.6666666666666666,
+      "pooled_without_size": 0.5,
+      "pooled_with_log_size": 0.6666666666666666
+    },
+    "heterogeneous_cell": {
+      "case": "One cell with keys[-a,+a] and values[-1,+1], plus one exact outside key0/value0; q=1 with scale absorbed into a.",
+      "formula": "dense=2*sinh(a)/(1+2*cosh(a)); any cell-mass correction with mean value0 still predicts0. First-order conditional value with Jensen mass predicts2*a/3.",
+      "rows": [
+        {
+          "a": 0.25,
+          "dense": 0.16495373901923208,
+          "mass_only": 0.0,
+          "first_order_Jensen": 0.16666666666666666,
+          "first_order_Gaussian_mass": 0.16839364257223138
+        },
+        {
+          "a": 1.0,
+          "dense": 0.5752103826044415,
+          "mass_only": 0.0,
+          "first_order_Jensen": 0.6666666666666666,
+          "first_order_Gaussian_mass": 0.7673034623811014
+        },
+        {
+          "a": 2.0,
+          "dense": 0.8509370922208682,
+          "mass_only": 0.0,
+          "first_order_Jensen": 1.3333333333333333,
+          "first_order_Gaussian_mass": 1.8732421233339247
+        },
+        {
+          "a": 4.0,
+          "dense": 0.9813610723865406,
+          "mass_only": 0.0,
+          "first_order_Jensen": 2.6666666666666665
+        }
+      ],
+      "implication": "Correlation correction helps in the small-spread example but can leave the value convex hull and become worse than dropping the residual. Adding a Gaussian mass estimate can amplify a poor conditional-value estimate. No universal monotonic improvement or self-regularization guarantee is imported from a cited paper."
+    },
+    "second_moment_insufficiency": {
+      "keys_values_A": [
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        1
+      ],
+      "keys_values_B": [
+        -1.7320508075688772,
+        0,
+        0,
+        0,
+        0,
+        1.7320508075688772
+      ],
+      "query": 1,
+      "shared_count": 6,
+      "shared_mean_key_value": 0,
+      "shared_key_variance_value_key_covariance": 1,
+      "dense_A": 0.7615941559557647,
+      "dense_B": 0.9648356849434977,
+      "implication": "Identical count/means/second moments do not determine dense attention. This rules out universal exact recovery from those summaries, not useful approximation on measured pretrained distributions."
+    },
+    "zero_complement": "The exact empty-set contribution is mass0 and numerator0. The separate completed full-rank prototype tests this executable branch; see attention_measure_cpu.json."
+  },
+  "bounded_CPU_test_for_parent": {
+    "maximum_scope": "One isolated script and tests; fixed 16x16 spatial grid, two heads, d=dv=16, FP64, seed1729, three predetermined logit scales0.25/1/4. At most three fixed layouts with shifted overlapping rectangles, a halo and deliberately overlapping registers. No hyperparameter sweep, pretrained model or GPU.",
+    "mandatory_exact_checks": [
+      "Exact grouped cell oracle agrees with dense attention within1e-12 relative/absolute tolerance on bounded tensors.",
+      "Zero complement reduces to exact attention and has no NaNs; all-text/exact support is handled once.",
+      "Identical-key heterogeneous-value cells with count correction match dense attention; omitting count fails the constructed text/image example.",
+      "Union deduplication matches attention over explicit unique indices when halo/register/local sets overlap. Reordering and repeating index lists must not change the result.",
+      "Raw-statistic subtraction yields the same complement count, means and cross-covariance as direct enumeration, including shifted overlapping windows.",
+      "The non-Gaussian matched-moment cases reproduce distinct dense outputs and expose the impossibility of exact moment-only reconstruction."
+    ],
+    "approximation_comparisons": "At fixed Q/K/V and fixed exact-key budget, compare sparse unique support; zero-order conditional count/mean correction; first-order full-rank conditional correction; rank8 conditional correction; and a global unconditioned-summary ablation that double counts exact support. Add the parent's independently specified Scatterbrain/Taylor additive residual control before any claim that conditioning adds a distinct benefit. Keep the same output normalization and explicitly record any negative surrogate denominator.",
+    "metrics": "Report dense-relative output error, absolute error when dense norm is near0, text probability-mass error when available, and output change caused only by changing the window partition. Report each logit scale/layout, not a selected average. Exact invariances apply to the oracle/union bookkeeping; finite-moment partition invariance is not an assertion.",
+    "stop": "Stop this implementation direction if complement conditioning adds no benefit over correctly normalized zero-order or additive hybrid controls at comparable cost, if gains rely only on duplicate removal, or if moderate logit spread makes the closure unreliable. A toy pass only licenses considering a separately frozen pretrained-QKV operator check, not a trajectory or efficacy campaign.",
+    "missing_next_evidence": "No cached pretrained Q/K/V batch has been identified in the current response artifacts. A later same-state operator evaluation would need its own bounded collection design and would still not establish that dense fidelity improves high-resolution images.",
+    "implementation_status": "The evidence agent completed the full-rank single-cloud algebra/heterogeneity prototype, and the parent independently reran its15 passing tests. Rank8 projection, literal equal-cell PISA substitution, geometry prefix/hierarchy and partial-cell tests remain UNRUN; they are not part of the passed tests.",
+    "additional_PISA_test": "Use fixed equal-sized spatial cells first. Hold Q/K/V, exact cell union, denominator, zero-order numerator and average-alpha coefficient fixed. Compare all-cell Hbar, true unselected-cell Hbar, alpha-weighted per-cell first-order oracle and dense attention. Include a selected cell with large covariance and a low-covariance complement, then reverse their assignment; include homogeneous cells where the two means agree. Add shifted overlapping aligned rectangles and check direct versus prefix H sums. Partial-cell conditioning and fixed-rank8 are a later CPU extension, not required to finish the current full-rank falsifier."
+  },
+  "research_readout": "The current operator unit ends with a narrowly specified engineering hypothesis: can geometry make the conditional correction already described by PISA worthwhile compared with its global shortcut? Existing exact/surrogate ownership and moment methods prevent a new-family claim. CPU tests may justify a focused implementation/cost study; they cannot establish image quality, novelty, or near-SOTA performance.",
+  "writes_and_limits": {
+    "only_written_file": ".agent/notes/attention_measure_research.json",
+    "paper_runtime_protocols_unchanged": true,
+    "fresh64_untouched": true,
+    "no_jobs_or_model_loads": true,
+    "search": "Bounded primary literature and pinned AReA source inspection; no absence-of-prior-art claim. ResDiT source availability remains an explicit audit limit."
+  },
+  "conditional_PISA_delta": {
+    "target": "Keep the exact same dense post-RoPE operator and the same sparse selection. Change only which block cross-moment enters the first-order correction.",
+    "formula": "For equally sized fixed base cells j, t=q/sqrt(d), alpha_j=exp(t^T mu_kj), H_j=sum_{n in j} v_n*(k_n-mu_kj)^T. Let U be unselected cells. Denominator D=Z_exact+sum_U n_j*alpha_j. Zeroth numerator N0=N_exact+sum_U alpha_j*sum_vj. Compare N_global=N0+(sum_U alpha_j)*Hbar_all*t against N_cond=N0+(sum_U alpha_j)*Hbar_U*t, where Hbar_U=sum_U H_j/|U|. Also measure the blockwise first-order oracle N_block=N0+sum_U alpha_j*H_j*t. This orientation transposes the paper convention but gives the same value vector.",
+    "separate_errors": "Global-to-conditional difference isolates the all-block substitution. Conditional-to-blockwise difference retains the error from replacing alpha-weighted cross-moments by an unweighted conditional mean. Blockwise-to-dense difference contains Taylor truncation. Conditioning need not improve either of the last two errors.",
+    "do_not_confuse_with_single_cloud": "The initial MomentKV-like single-complement prototype uses one mean key and one centered covariance across all remote tokens. It includes between-cell correlations and replaces all remote centroid masses by one Jensen mass. It is NOT the same as restoring PISA Equation8. Keep it as a separately named algebra baseline and do not claim its result tests the isolated PISA substitution.",
+    "technical_delta": "Cache fixed spatial base-cell cross-moments and a 2D prefix or hierarchy. For an aligned union of exact cells, retrieve the excluded-cell sum and compute Hbar_U from all-cell minus exact-cell statistics. This may avoid PISA's all-block substitution without loading every unselected cross-moment for every query window. The composition is testable; its mathematical target already exists in prior art.",
+    "alignment_and_ownership": "Build the union in original token identity space first. For complete aligned base cells, H_j is additive across the cell index set and prefix queries are exact. Local, halo and register overlaps cannot be subtracted twice. Rectangular geometry helps contiguous interiors; arbitrary selected registers and jagged boundaries still cost explicit work.",
+    "partial_cells": "For a residual fragment F of a base cell, obtain count, sum k, sum v and sum v*k^T after removing the unique exact tokens, then recompute H_F=sum(v*k^T)-sum(v)*sum(k)^T/count. Do not subtract a removed token's centered contribution while keeping the old centroid. Residual centroid mass and value sum must change consistently. The first isolated PISA comparison should use whole cells; the second test introduces partial cells and compares with direct enumeration. No equivalence to equal-sized PISA blocks is assumed for fragments.",
+    "projection_rule": "With a shared fixed U of size d by r, H_j U and projected raw outer sums remain additive. Use H_j U U^T t. Per-cell or per-window independently fitted SVD factors cannot be subtracted as if they shared a basis. A fresh PCA/downdate algorithm has its own cost and is not included.",
+    "pass_condition": "At the same exact support, residual block granularity and coefficient, conditional cross-moments should materially reduce dense-output error compared with all-block moments in the selected-heterogeneity cases, without merely fixing duplicates or changing token mass. Any win must persist on held-aside tensor cases and pay for metadata, moment construction and retrieval. Failure localizes this engineering hypothesis, not all sparse attention.",
+    "novelty_limit": "Cheap geometry-specific conditional retrieval would be an algorithm/systems contribution if demonstrated useful and not already implemented by a closer method. It is not a new softmax target, covariance identity, or exact-minus-approximate decomposition. The current primary-source search has not certified novelty."
+  },
+  "completed_prototype_checkpoint": {
+    "artifact": ".agent/notes/attention_measure_cpu.json",
+    "implementation_owner": "evidence_diagnostic; parent reviewed the source and independently reran 15 passing tests",
+    "scope": "Synthetic FP64 CPU tensors, seed20261017. The actual executed cases in the artifact supersede the provisional test shape/seed above. Full-rank one-complement-cloud formulas only; no model or quality evaluation.",
+    "exact_complement_oracle_max_abs_error": 8.881784197001252e-16,
+    "fixed_heterogeneous_case_relative_errors_rounded": {
+      "mean_only": 0.029276,
+      "conditional_covariance": 0.00695,
+      "global_covariance_substitution": 0.150759
+    },
+    "non_Gaussian_failure_rounded": {
+      "dense_output": 0.999664,
+      "first_order_output": 5.333333
+    },
+    "interpretation": "The fixed case establishes that covariance conditioning can matter, while the bimodal case exposes uncontrolled first-order error. These are known-formula algebra examples. The global-covariance substitution uses one complement cloud; it is PISA-inspired and is not the literal equal-cell PISA Equation8 versus Equation10 comparison. It does not establish pretrained benefit, speed, novelty, quality or near-SOTA performance.",
+    "remaining_unit": "One fixed equal-cell conditional-versus-global covariance comparison, followed conditionally by exact geometry retrieval and CPU cost measurement. Keep the alpha-weighted per-cell oracle to distinguish conditioning error from residual unweighted averaging and Taylor truncation. No parameter sweep.",
+    "unrun": [
+      "Fixed-rank projection",
+      "Prefix/hierarchy retrieval and runtime",
+      "Partial-cell conditioning",
+      "Pretrained Q/K/V evaluation",
+      "GPU or full-trajectory evaluation"
+    ],
+    "checkpoint": "Research note complete; paper, runtime, frozen protocols and fresh64 unchanged. Parent owns the project-wide HANDOVER and STATE checkpoint."
+  },
+  "geometry_cost_envelope": {
+    "status": "Arithmetic storage/work estimates only. No CPU/GPU runtime measurement, no claim of HBM residency or speedup.",
+    "configuration": {
+      "grid": [
+        256,
+        256
+      ],
+      "tokens": 65536,
+      "heads": 24,
+      "key_value_dim": 128,
+      "example_rank": 8,
+      "base_cell": [
+        8,
+        8
+      ],
+      "base_cells": 1024,
+      "example_window": [
+        32,
+        32
+      ],
+      "nonoverlapping_example_windows": 64
+    },
+    "rank8_cell_cross_moment_MiB": 96.0,
+    "rank8_33x33_prefix_cross_moment_MiB": 102.09375,
+    "rank8_cell_raw_stats_MiB_count_keymean_value_sum_outer": 120.09375,
+    "rank8_per_token_cross_moment_prefix_MiB": 6144.0,
+    "full_rank_cell_cross_moment_MiB": 1536.0,
+    "full_rank_33x33_prefix_cross_moment_MiB": 1633.5,
+    "rank8_64_window_raw_summary_MiB": 7.505859375,
+    "rank8_project_keys_MAC": 1610612736,
+    "rank8_outer_accumulation_MAC": 1610612736,
+    "rank8_query_projection_and_correction_MAC_without_overlap": 3221225472,
+    "interpretation": "With rank8, one cell cross-moment field is96MiB and its33x33 prefix is102.09MiB; keeping both is198.09MiB before centroids, values, residual boundaries and workspace. Full-rank equivalents are1536MiB and1633.5MiB. A per-token rank8 outer-product prefix alone costs6144MiB, so a naive fine-grid prefix is not cheap. Rank8 key projection plus outer accumulation needs3.22 billion multiply-accumulates per layer/call; each multiply-accumulate counts as two FLOPs under the common convention. Window overlap increases query and subtraction work.",
+    "retrieval": "For an axis-aligned rectangle of complete base cells, a prefix sum uses four H-by-dv-by-r corner reads plus arithmetic, independent of rectangle area. A union of K disjoint rectangles costs O(K*H*dv*r); making the cover disjoint is essential. The complement mean then divides by its actual residual cell count. Explicit irregular boundary/register fragments add O(T_boundary*H*dv*r) statistics work and corresponding reads.",
+    "remaining_query_cost": "PISA-style residual centroid masses still require scanning the unselected coarse cells for each query. A moment prefix eliminates neither that scan nor exact local attention. Projected correction costs O(Q*H*dv*r) plus query projection, and centroid mass work costs O(Q*H*C*d) before masking. A prefix is therefore a fix for one covariance-retrieval bottleneck, not an overall linear-time proof.",
+    "lifetime": "Build and discard statistics per transformer layer/call unless justified reuse is measured. Estimates are per active layer, not multiplied by all layers resident simultaneously. Do not cache stale moments across denoising steps.",
+    "zero_complement": "When no residual cells/tokens remain, bypass correction and use exact output. Empty counts are not clamped into artificial mass."
+  }
+}

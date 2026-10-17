@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-17",
+  "reviewer": "prior_art",
+  "conclusion": "The proposed exact union plus moment-summary complement is a plausible bounded approximation experiment, but its main ingredients and correction pattern are established. Complement-conditioned spatial statistics could remove a specific approximation in PISA. Neither novelty, partition-invariant approximate outputs, nor practical acceleration follows from the algebra alone.",
+  "scope": "Targeted primary-source method check and one three-token CPU calculation. No model load, GPU work, implementation change, frozen edit or exhaustive novelty search.",
+  "primary_sources": [
+    {
+      "title": "Scatterbrain: Unifying Sparse and Low-rank Attention Approximation",
+      "authors": "Beidi Chen, Tri Dao, Eric Winsor, Zhao Song, Atri Rudra, Christopher Re",
+      "version": "2110.15343v1, 2021-10-28",
+      "url": "https://arxiv.org/pdf/2110.15343v1",
+      "location": "Section 4.2 Equations 1-2; Appendix C Algorithm 1",
+      "collision": "Adds a global kernel approximation and sparse residual exp(qk)-phi(q)^T phi(k), including denominator correction. Algebraically this is exact selected support plus the approximate complement. The paper explicitly permits local attention and alternate low-rank components. No-double-counting and global-minus-selected evaluation are occupied.",
+      "limit": "Its displayed construction uses random features and LSH, not complement-conditioned centered moments in adaptive spatial windows."
+    },
+    {
+      "title": "PISA: Piecewise Sparse Attention Is Wiser for Efficient Diffusion Transformers",
+      "authors": "Haopeng Li, Shitong Shao, Wenliang Zhong, Zikai Zhou, Lichen Bai, Hui Xiong, Zeke Xie",
+      "version": "2602.01077v2, 2026-02-03",
+      "url": "https://arxiv.org/html/2602.01077v2",
+      "location": "Sections 3.2-3.3 Equations 7-10; Appendix C",
+      "collision": "Exact selected blocks share one denominator with approximated unselected blocks. Its first-order K/V correction initially depends on complement statistics, then replaces their query-dependent mean with a global all-block mean for hardware efficiency. Exact complement conditioning can remove this replacement but does not originate the mechanism.",
+      "limit": "PISA combines block-centered zeroth-order terms with a global first-order proxy. Recomputing a single centered closure on the raw spatial complement changes its approximation and may lose blockwise multimodality. Its stated covariance-heterogeneity theorem bounds one replacement error, not all Taylor or denominator errors."
+    },
+    {
+      "title": "Sol-Attn: Accelerating Video Generation Inference via On-the-Fly Attention Sparsification",
+      "authors": "Haopeng Li, Yitong Li, Junsong Chen, Tian Ye, Haozhe Liu, Jincheng Yu, Duomin Wang, Ruihua Zhang, Zeke Xie, Enze Xie, Song Han",
+      "version": "2607.24027v1, 2026-07-27",
+      "url": "https://arxiv.org/html/2607.24027v1",
+      "location": "Section 3.2 Equations 8-10 and Algorithm 1",
+      "collision": "Training-free visual diffusion attention computes selected blocks exactly and skipped blocks approximately in shared online-softmax numerator/denominator. Selected columns are masked from approximation. Dynamic routing, union execution, mass correction and avoided double counting are established.",
+      "limit": "Uses blockwise zeroth-order correction; it does not supply this proposed raw-moment complement downdate."
+    },
+    {
+      "title": "MomentKV: Closing the Directional Gap in KV Cache Eviction for Long-Context Inference",
+      "authors": "Yu Li, Binxu Li, Tian Lan",
+      "version": "2606.01563v1, 2026-06-01",
+      "url": "https://arxiv.org/html/2606.01563v1",
+      "location": "Section 4.1 Equations 8-9; Appendix B",
+      "collision": "Retained exact tokens combine with an evicted summary using count, key sum, value sum and V-K outer-product sum. Centered first-order value correction and zeroth-order mass are the proposed formula's immediate precedent.",
+      "limit": "Maintains an autoregressive evicted set. Applying those statistics to changing spatial complements is a different deployment, not by itself evidence of a new approximation."
+    },
+    {
+      "title": "Simple linear attention language models balance the recall-throughput tradeoff",
+      "authors": "Simran Arora, Sabri Eyuboglu, Michael Zhang, Aman Timalsina, Silas Alberti, Dylan Zinsley, James Zou, Atri Rudra, Christopher Re",
+      "version": "2402.18668v2, 2025-03-07",
+      "url": "https://arxiv.org/html/2402.18668v2",
+      "location": "Section 4; model configuration Table 7",
+      "collision": "Based combines Taylor-feature linear attention with small exact sliding-window attention. Local/global hybridity and tensor-power sufficient statistics are established.",
+      "limit": "The inspected configuration uses separate linear and sliding-window layers, with RoPE only in window layers. It is less exact a collision than Scatterbrain for one shared normalized target."
+    },
+    {
+      "title": "TaylorShift: Shifting the Complexity of Self-Attention from Squared to Linear (and Back) using Taylor-Softmax",
+      "authors": "Tobias Christian Nauen, Sebastian Palacio, Andreas Dengel",
+      "version": "2403.02920v2, 2024-07-17",
+      "url": "https://arxiv.org/html/2403.02920v2",
+      "location": "Section 3.2 Equations 2-4; Section 3.3",
+      "collision": "Rearranges second-order polynomial attention using tensor-power moment sums, including numerator and denominator. Exact equivalence is between direct and factored polynomial-kernel attention.",
+      "limit": "This does not make truncated Taylor attention equal to exponential softmax. Its Q/K normalization and learned temperature must not be imported while claiming an unchanged pretrained dense target."
+    }
+  ],
+  "additional_checked_boundary": {
+    "title": "Efficient Long-Context Modeling in Diffusion Language Models via Block Approximate Sparse Attention",
+    "version": "2605.19726v1",
+    "url": "https://arxiv.org/html/2605.19726v1",
+    "finding": "BA-Att explicitly defines its target using RoPE-enhanced Q/K and adds diagonal-covariance compensation to block-routing logits. Post-RoPE moments and covariance-aware routing are therefore not standalone distinctions. Full reproduction or code audit was outside this bounded review."
+  },
+  "derivation": {
+    "target": "Declare one original token universe Omega, fixed already-normalized and post-RoPE q,k, original v, and logits s_j=q^T k_j/sqrt(d). Existing register/text tokens may be included exactly. Newly invented pooled registers alter the measure unless they explicitly represent original tokens with correct mass and no overlap.",
+    "exact_union": "Let U be the set union of local, halo and retained-global token IDs, with deduplication; C=Omega\\U. Exact target y=(N_U+N_C)/(Z_U+Z_C), where N_A=sum_A exp(s_j)v_j and Z_A=sum_A exp(s_j). This elementary identity is valid for every partition; it is not a new theorem.",
+    "raw_statistics": "For C, store n, a=sum k, b=sum v, M=sum v k^T. All four are exactly additive, so T_C=T_Omega-T_U. For overlapping input lists, subtract T_union, not the sum of each list. Means/covariances themselves are not additive.",
+    "moment_closure": "mu=a/n; H=M-b mu^T; zhat_C=n exp(q^T mu/sqrt(d)); nhat_C=exp(q^T mu/sqrt(d)) [b+Hq/sqrt(d)]. Set both complement contributions to zero when n=0. This is the centered first-order MomentKV closure combined with its zeroth-order mass, not an exact softmax identity.",
+    "fixed_feature_equivalence": "For any fixed separable approximate kernel h(q,k)=phi(q)^T psi(k), exact U plus h on C equals global h plus sum_U [exp(s_j)-h(q,k_j)] in both numerator and denominator. This is Scatterbrain's correction algebra.",
+    "partition_limit": "Raw-statistic subtraction is exact. Centering then exponentiating/truncating is nonlinear: closure(T_A+T_B) generally differs from closure(T_A)+closure(T_B). Changing U or splitting its complement changes the approximate output even while the declared dense target remains fixed.",
+    "low_rank_limit": "A shared fixed linear projection commutes with raw-statistic subtraction; independently truncated SVDs do not. Example: rank1(diag(2,1))-rank1(diag(2,0))=0, but rank1(diag(0,1))=diag(0,1). A compressed global summary cannot generally support exact complement recovery after a selected dominant component is removed.",
+    "accuracy_limit": "The neglected terms depend on centered logits delta_j=q^T(k_j-mu)/sqrt(d); small covariance alone does not control rare large logits. First-order value estimates can lie outside the value convex hull. Lower mass is not sufficient to make the directional error small.",
+    "cost_limit": "Naively recomputing full outer-product statistics for each query's union costs O(|U| d_k d_v) per query, not ordinary sparse attention's O(|U|(d_k+d_v)). Shared windows, blocks or fixed low-rank sketches may help, but their bookkeeping, projection error and memory cost must be included."
+  },
+  "cpu_check": {
+    "executed": true,
+    "device": "CPU",
+    "implementation": "Inline Python standard-library calculation; no source file or model loaded",
+    "input": {
+      "q": 1,
+      "keys": [
+        -2,
+        0,
+        2
+      ],
+      "values": [
+        0,
+        1,
+        0
+      ]
+    },
+    "dense": 0.11731042782619837,
+    "one_summary_all_tokens": 0.3333333333333333,
+    "exact_positive_key_remainder_summarized": 0.09055700148725815,
+    "exact_negative_key_remainder_summarized": 0,
+    "all_tokens_exact": 0.11731042782619837,
+    "interpretation": "These exact arithmetic formulas, evaluated with ordinary double-precision scalars, falsify generic partition-invariance of the approximation. Splitting the same full complement into singleton summaries recovers the dense result, so approximation grouping itself matters."
+  },
+  "bounded_falsifier_for_implementation": [
+    "At FP64 on a small fixed post-RoPE tensor, compare direct complement statistics with global-minus-deduplicated-union statistics; include overlapping halo/register IDs, empty complement and all-exact cases.",
+    "Check identical complement keys, where the moment closure is exact, and heterogeneous two-cluster keys, where it need not be. Record numerator, mass and normalized-output errors separately.",
+    "Compare one complement summary versus several disjoint summaries under exactly the same dense target and exact token union. Do not label a change in approximation as a change in target.",
+    "Compare full complement covariance with a fixed projected sketch and with a wrongly downdated truncated SVD on the diagonal counterexample. This exposes whether low rank breaks the claimed bookkeeping identity.",
+    "At matched exact union and statistics budget, compare complement-conditioned moments with PISA's global covariance proxy and zeroth-order block correction. This can isolate a useful conditional improvement without requiring an entirely new primitive."
+  ],
+  "possible_conditional_contribution": "A viable contribution would be a demonstrated spatial-complement implementation or error-control rule that preserves token accounting, handles adaptive overlaps efficiently, and improves measured accuracy/cost over PISA, Scatterbrain-style correction and zeroth-order block summaries on the same frozen target. A new primitive is not required, but these specific gains and constraints must be shown. The bounded search establishes collisions, not global absence or impossibility of novelty.",
+  "next_action": "Complete only the assigned small CPU falsifier. Do not promote to GPU work or a new method claim from the algebra review alone."
+}
