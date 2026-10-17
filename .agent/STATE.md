@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution method competitive with r
 User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 09:53 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+2026-10-17 10:06 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
 Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
 RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
 PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
@@ -48,8 +48,10 @@ Secondarykneeling V/S; auxiliaryKodak V/V,Paradis S/V. No disagreements ordetail
 All16commonviews recorded before5detailoriginals perreviewer. Not humanstudy orcausalresolutioneffect.
 Close this semantic-loss rationale; no seedsearch,OCRpivot orfresh64. Otherresolutionfailures notexcluded.
 Parentreporter config gap fixed:27tests,8supplemental checks pass; originalsource/report/archive preserved.
-NEXT: distinctmechanism/priorart review in post_cr20_mechanism_design.json and post_cr20_prior_art.json (pending).
-No new GPUprotocol; proposed cross-modal rotaryphase intervention is only a hypothesis.
+NEXT: implement/test provisional cross-modal phase pilot; design/priorart complete, no novelty claim.
+Fixed endpointmap to64, nativebasefrequencies for image-to-text only; image logits/textmass preserved.
+Planned6images: dev0/1 x baseline/fixedmass/unnormalized,seed0,28steps,all57blocks; native4stepsmokes first.
+Unnormalized control uses extraimageonlypass forstablemixture; itscost differs. NoGPU submittedyet.
 Covariance/gain proposal lacks justified target; DoPE adds a close prior-art collision.
 Stop promotion of that branch. Native comparator screen is complete; no concrete primary semantic-loss target emerged.
 Eight dev baseline previews show no obvious global duplication; garbled shop text has no proven resolution cause.
@@ -75,8 +77,8 @@ CR14/CR17/CR18/CR19/CR20 completed; no projectGPUactive. Do not repeat completed
 | notes/observer_feedback_cpu.json | Tiny gain-mediated output change |
 | notes/next_mechanism_derivation.json | Architecture proof, scope and recommendation |
 | notes/rotary_kernel_prior_art_20261017.md | AReA/LayerNorm and phase/covariance collisions |
-| notes/attention_measure_cpu.json | Known-formula CPU counterexamples and covariance comparison |
-| notes/attention_measure_research.json | Exact target, primary collisions and pending tests |
+| notes/post_cr20_mechanism_design.json | Exact provisional phase operator, limits and six-image pilot |
+| notes/post_cr20_prior_art.json | PMA/CircleRoPE/Untwisting/TACA collisions; narrow composition only |
 | notes/attention_operator_protocol.json | Frozen CR19 collection and analysis |
 | notes/attention_cr19/report.json | Accepted192case operator analysis |
 | notes/attention_cr19_independent.json | Independent exact replay, hashes and equations |

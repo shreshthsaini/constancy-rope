@@ -1,0 +1,69 @@
+{
+  "source_path": "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_official/metrics.json",
+  "source_sha256": "f31fa010f9885cda80b02ec6a1125a40881a054978fc742f0f539d73a35e6ae2",
+  "scope": "Scorer cache revision reference from accepted CR14 baseline; new pilot scores remain unrun.",
+  "model_revisions": {
+    "openai/clip-vit-large-patch14": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+    "yuvalkirstain/PickScore_v1": "a4e4367c6dfa7288a00c550414478f865b875800",
+    "laion/CLIP-ViT-H-14-laion2B-s32B-b79K": "1c2b8495b28150b8a4922ee1c8edee224c284c0c",
+    "THUDM/ImageReward": "5736be03b2652728fb87788c9797b0570450ab72",
+    "MizzenAI/HPSv3": null
+  },
+  "versions": {
+    "torch": "2.11.0+cu128",
+    "transformers": "5.19.0",
+    "pyiqa": "0.1.16",
+    "image-reward": "1.5",
+    "hpsv3": null,
+    "torch-fidelity": "0.4.0",
+    "pytorch-fid": null
+  },
+  "status": {
+    "clip": {
+      "status": "complete",
+      "provenance": {
+        "model": "openai/clip-vit-large-patch14",
+        "processor": "openai/clip-vit-large-patch14",
+        "revision": null,
+        "definition": "100*max(cosine,0)"
+      }
+    },
+    "pickscore": {
+      "status": "complete",
+      "provenance": {
+        "model": "yuvalkirstain/PickScore_v1",
+        "processor": "laion/CLIP-ViT-H-14-laion2B-s32B-b79K",
+        "revision": null,
+        "definition": "exp(logit_scale)*cosine"
+      }
+    },
+    "musiq": {
+      "status": "complete",
+      "provenance": {
+        "model": "pyiqa/musiq",
+        "full_input": "native resolution, model preprocessing unchanged",
+        "crop_input": "random 1024x1024, averaged within image"
+      }
+    },
+    "clipiqa": {
+      "status": "complete",
+      "provenance": {
+        "model": "pyiqa/clipiqa",
+        "full_input": "native resolution, model preprocessing unchanged",
+        "crop_input": "random 1024x1024, averaged within image"
+      }
+    }
+  },
+  "imagereward_files": {
+    "ImageReward.pt": {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/models--THUDM--ImageReward/snapshots/5736be03b2652728fb87788c9797b0570450ab72/ImageReward.pt",
+      "sha256": "d71dc8d4912bc633c06ab8ef1ef6a81e8199d4369f14b47b29baf1d19de561f6",
+      "bytes": 1786880927
+    },
+    "med_config.json": {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/models--THUDM--ImageReward/snapshots/5736be03b2652728fb87788c9797b0570450ab72/med_config.json",
+      "sha256": "d8b5029cc3c0124313d17009d043f0701bbe497f3721fa4ceb818720fe665326",
+      "bytes": 485
+    }
+  }
+}

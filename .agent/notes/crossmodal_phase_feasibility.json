@@ -1,0 +1,94 @@
+{
+  "status": "Local source/API feasibility review; no CUDA execution, new kernels, models or capture analysis",
+  "torch": "2.11.0+cu128",
+  "cuda_build": "12.8",
+  "source_sha256": {
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/gain.py": "fc3008af7eb00fb344c41577b7e85fe2ab324b4767c44af3d33492c431efa66a",
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/attention_operator_capture.py": "4b61011d23f774d2d7d2bf435c54162038dcf1d07cb13e0ca3c60ef926bcbe7d",
+    "/scratch/09032/saini_2/VISTA_LIBS/library/uv-envs/crope/lib/python3.11/site-packages/torch/_meta_registrations.py": "9e76a7cd3c4310d8128b3d77d11755e296af536f2f97dc98b308ca3374d0fd98",
+    "/scratch/09032/saini_2/VISTA_LIBS/library/uv-envs/crope/lib/python3.11/site-packages/torch/nn/attention/varlen.py": "9efc95d28ad93a8567ca695cd4b00875692a01e2a91f140aecdb60feb05cca00",
+    "/scratch/09032/saini_2/VISTA_LIBS/library/uv-envs/crope/lib/python3.11/site-packages/torch/nn/attention/flex_attention.py": "0ef8670530b39d9b4c1427fc2d0a7a9eac8f4f26c657a728991b0da55896304d"
+  },
+  "answer": "Practical exact-real-arithmetic mass preservation needs full-row normalization or an equivalent auxiliary mass channel. Current public SDPA output and existing telemetry do not expose it. Installed cuDNN/Flash ATen operators already return LSE, so replacing the one full attention call can obtain it without a second image-attention pass or a newly written custom kernel. CUDA support, baseline parity and throughput remain untested.",
+  "local_interfaces": {
+    "public_sdpa": "torch.nn.functional.scaled_dot_product_attention returns only output Tensor; no LSE or attention-mass argument.",
+    "aten_schemas": {
+      "_scaled_dot_product_flash_attention": "aten::_scaled_dot_product_flash_attention(Tensor query, Tensor key, Tensor value, float dropout_p=0., bool is_causal=False, bool return_debug_mask=False, *, float? scale=None) -> (Tensor output, Tensor logsumexp, Tensor cum_seq_q, Tensor cum_seq_k, SymInt max_q, SymInt max_k, Tensor rng_state, Tensor unused, Tensor debug_attn_mask)",
+      "_scaled_dot_product_cudnn_attention": "aten::_scaled_dot_product_cudnn_attention(Tensor query, Tensor key, Tensor value, Tensor? attn_bias, bool compute_log_sumexp, float dropout_p=0., bool is_causal=False, bool return_debug_mask=False, *, float? scale=None) -> (Tensor output, Tensor logsumexp, Tensor cum_seq_q, Tensor cum_seq_k, SymInt max_q, SymInt max_k, Tensor philox_seed, Tensor philox_offset, Tensor debug_attn_mask)",
+      "_scaled_dot_product_efficient_attention": "aten::_scaled_dot_product_efficient_attention(Tensor query, Tensor key, Tensor value, Tensor? attn_bias, bool compute_log_sumexp, float dropout_p=0., bool is_causal=False, *, float? scale=None) -> (Tensor output, Tensor log_sumexp, Tensor philox_seed, Tensor philox_offset)"
+    },
+    "cudnn": "Pass attn_bias=None, compute_log_sumexp=True, dropout_p=0, is_causal=False, return_debug_mask=False, scale=1/sqrt128. Meta specifies output B,H,S,D and FP32 LSE B,H,S,1.",
+    "flash": "ATen _scaled_dot_product_flash_attention returns output and FP32 LSE B,H,S even without debug mask. It is a different explicit backend from current cuDNN-first priority.",
+    "efficient": "ATen efficient attention also has compute_log_sumexp=True; metadata can pad row length to a multiple of32.",
+    "public_varlen": "torch.nn.attention.varlen.varlen_attn exposes return_aux=AuxRequest(lse=True), but installed _should_use_cudnn returns False. This wrapper takes T,H,D packed sequences and invokes Flash. Its doc/fake metadata differ in LSE axis wording, so verify actual layout rather than assume it.",
+    "public_flex": "flex_attention return_aux=AuxRequest(lse=True) exposes LSE with explicit internal base2-to-natural-log conversion. This changes kernel/compile path and is not a drop-in preservation of current cuDNN attention.",
+    "existing_telemetry": "CR19 payloads contain selected Q/K/V/output/gains, not kernel LSE. Offline rows provide only the sampled192 full normalization values. Backend priority is not proof of which backend executed; no whole-model mass stream is cached."
+  },
+  "operator": {
+    "old_text_mass": "m=exp(LSE(q_image K_text^T/sqrtD)-LSE(q_image K_all^T/sqrtD))",
+    "fixed_mass": "y_new=y_old+m*(u_new_text-u_old_text). Equivalent in real arithmetic to shifting all new text logits by LSE_old_text-LSE_new_text, leaving image logits and total text probability unchanged.",
+    "target_phase": "Native endpoint map p*63/(L-1), base theta10000, axis0 unchanged; all512 text keys including padding. Preserve pre-RoPE normalized image Q for alternate rotation, then apply the same BF16 pair gains. Inverting already-rounded captured Q is only a surrogate.",
+    "scope": "Text-query rows copied from baseline within each attention call. This does not imply all later-layer text states remain unchanged after image states are modified.",
+    "mass_not_identifiable_from_output_alone": "General128-dimensional attention output does not identify the total probability on a512-key subset among66048keys. Recomputing text LSE alone does not supply the full normalizer."
+  },
+  "viable_route": [
+    "One explicit cuDNN output+LSE baseline over the full joint sequence, with the existing post-RoPE BF16 gain multiplication and layout. Keep all original outputs, including text-query rows.",
+    "Compute old and phase-altered image-query-to-text-only attention pools with the same gains/scale, obtaining old text LSE; new text LSE is needed for the unnormalized comparison arm.",
+    "Use FP32 LSE differences and merge arithmetic, cast resulting image rows back to the original dtype. Text branches can be query-chunked while all512text keys remain present. No dense N-by-N score tensor.",
+    "Require an unsupported-kernel error rather than a large math fallback. First future GPU use needs baseline/repeat/no-op and tiny dense-oracle comparisons; no GPU validation is claimed here."
+  ],
+  "costs": [
+    {
+      "image_tokens": 4096,
+      "joint_tokens": 4608,
+      "two_text_branches_extra_qk_flops": 25769803776,
+      "two_text_branches_extra_pv_flops": 25769803776,
+      "total_extra_matmul_flops_per_call": 51539607552,
+      "all57_calls_extra_flops": 2937757630464,
+      "all57_calls28steps_extra_flops": 82257213652992,
+      "baseline_dense_qk_plus_pv_flops_per_call": 260919263232,
+      "extra_fraction_of_dense_attention_arithmetic": 0.19753086419753085,
+      "one_alternate_query_or_conditional_output_bf16_bytes": 25165824,
+      "optional_copies_of_text_k_and_v_bf16_bytes": 6291456,
+      "full_row_lse_fp32_bytes": 442368,
+      "one_image_lse_or_mass_fp32_bytes": 393216,
+      "one_unfused_image_text_logit_matrix_fp32_bytes": 201326592,
+      "three_bf16_buffers_altq_oldpool_newpool_plus_full_and_two_text_lse_bytes": 76726272,
+      "one_fp32_merge_buffer_bytes": 50331648
+    },
+    {
+      "image_tokens": 65536,
+      "joint_tokens": 66048,
+      "two_text_branches_extra_qk_flops": 412316860416,
+      "two_text_branches_extra_pv_flops": 412316860416,
+      "total_extra_matmul_flops_per_call": 824633720832,
+      "all57_calls_extra_flops": 47004122087424,
+      "all57_calls28steps_extra_flops": 1316115418447872,
+      "baseline_dense_qk_plus_pv_flops_per_call": 53604413079552,
+      "extra_fraction_of_dense_attention_arithmetic": 0.0153836908839613,
+      "one_alternate_query_or_conditional_output_bf16_bytes": 402653184,
+      "optional_copies_of_text_k_and_v_bf16_bytes": 6291456,
+      "full_row_lse_fp32_bytes": 6340608,
+      "one_image_lse_or_mass_fp32_bytes": 6291456,
+      "one_unfused_image_text_logit_matrix_fp32_bytes": 3221225472,
+      "three_bf16_buffers_altq_oldpool_newpool_plus_full_and_two_text_lse_bytes": 1226883072,
+      "one_fp32_merge_buffer_bytes": 805306368
+    }
+  ],
+  "cost_scope": "Multiply+add=2FLOPs; both QK and PV counted. Excludes softmax/reductions, projection layers, phase rotation, merge, launch/layout costs, kernel workspaces, full-model wall time and all claims of speed. Multiplying by57 or28 assumes intervention on all calls/steps; tensors need not persist across calls.",
+  "memory_interpretation": [
+    "At4K, straightforward alternate Q plus two BF16 conditional outputs and LSE buffers cost1.227GB beyond baseline tensors. An FP32 merge buffer adds805MB; kernel/phase temporaries are additional.",
+    "With4096-query chunks, alternateQ and two outputs total75.50MB; full baseline LSE6.34MB, two chunk LSEs0.786MB, mass0.393MB, and one FP32 merge buffer50.33MB totalabout133.35MB. Retaining pre-RoPE Q for faithful alternate rotation addsabout405.8MB if kept for the entire joint sequence, or precompute full alternateQ and stream the pool branches.",
+    "Existing text K/V can be views; optional contiguous copies add6.29MB. Unfused text logits alone cost3.22GB per matrix at4K, so fused or chunked computation is preferable.",
+    "At1024 native resolution there are4096image tokens, not65536; the same two-branch overhead is19.75percent of dense attention arithmetic. Identity phase should bypass interventions when scientifically allowed, but no such shortcut has been implemented."
+  ],
+  "numerical_obstacles": [
+    "Real-arithmetic partition preservation does not guarantee BF16 byte equivalence. Separate softmax kernels and output subtraction have rounding error; establish no-op residual explicitly.",
+    "LSE shapes/base convention and compute_log_sumexp inference behavior must be checked on the actual CUDA operator; local schemas are not execution proof.",
+    "Unnormalized phase uses log-domain partition reweighting. If original text mass rounds to1 and strong downweighting exposes an image contribution lost in BF16 output, stable exact recovery from baseline-minus-text is not guaranteed without separately evaluating image conditional attention.",
+    "Switching from automatic public SDPA to explicit cuDNN removes automatic backend fallback; unsupported shapes/layouts should fail explicitly. Returning LSE can change backend graph/kernel choice even for identical mathematical attention."
+  ],
+  "alternative_mass_channel": "Appending a text-indicator coordinate to V could return m with the baseline output in real arithmetic, avoiding LSE. It changes value head width and backend constraints; support, padding, numerical precision and cost are unverified. This is not a cleaner established route than the installed LSE-returning kernels.",
+  "novelty_claim": false,
+  "gpu_benchmark": false
+}

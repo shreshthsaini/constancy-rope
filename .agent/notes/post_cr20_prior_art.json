@@ -1,0 +1,182 @@
+{
+  "date_utc": "2026-10-17T14:55:10.614900+00:00",
+  "scope": "Targeted primary-source review of the two concrete post-CR20 proposals shared by response_review. No GPU, source edits, paper edits or frozen edits.",
+  "closed_rationale": {
+    "source": ".agent/notes/native_cr20/visual_summary.json",
+    "sha256": "bb0042a63d133fdb3a9eec601c237f3d6122bbcf9b7cb5a8df132b464e091db2",
+    "result": "The accepted two-model review finds seven primary predicates satisfied at both resolutions; row4 is native-violated/high-resolution-unjudgeable. No primary native-success/high-resolution-failure case was found. Kneeling improves at4K; only auxiliary Paradis lettering regresses.",
+    "consequence": "Close this particular semantic-loss premise on these eight observations. It neither refutes all resolution research nor supports promoting the remaining lettering example into an OCR project. This note reads the accepted review artifact; it does not constitute a third image reviewer."
+  },
+  "candidate1": {
+    "name": "Mass-preserving image-to-text phase remapping",
+    "specific_operator": "Keep all image logits b and values fixed. Replace text logits a by native-reference phase logits a_prime from the same content vectors, then set a_tilde=a_prime+LSE(a)-LSE(a_prime). This changes only text conditional probabilities while preserving their partition mass. Restrict the first diagnostic to image queries; reverse text-to-image editing is a separate intervention.",
+    "exact_real_arithmetic_properties": [
+      "The text partition function, total text probability m, image weights and image weighted-value contribution are unchanged.",
+      "Output change is m times the change of the text-only normalized value average.",
+      "KL(new_full||old_full)=m*KL(new_text_conditional||old_text_conditional).",
+      "Output-change norm is bounded by m times the diameter of the text values. Large conditional KL at tiny m may produce little full-output change."
+    ],
+    "mathematics_status": "Partition-mass normalization, softmax block decomposition and these identities are elementary. They are not new theorems or novel algorithmic ingredients.",
+    "remaining_specific_distinction": "A frozen diffusion backbone with deployed image-image geometry and exactly fixed modality mass, changing only image-to-text phases toward one declared reference coordinate grid. No identical complete operator was located in this targeted source check. That is a narrow composition distinction, not proof of novelty or usefulness.",
+    "premise_limits": [
+      "Grid64x64 is the project1024 reference, not a verified hard upper bound of the training coordinate support. Do not label every coordinate beyond63 unseen during training.",
+      "Phase sensitivity is not evidence of harmful bias. The proposed reference can increase or decrease useful conditional odds depending on content.",
+      "CR20 supplies no observed primary semantic failure to repair. This CPU investigation asks whether a distinct operator exists and has measurable leverage, not whether it solves the rejected semantic premise."
+    ],
+    "implementation_limits": [
+      "A single shared image-Q/K positional transform generally cannot alter cross-modal phases while preserving every image-image logit; separate block computation or equivalent correction is needed.",
+      "Normalized SDPA output alone does not expose original text mass. Full deployment needs a global log-normalizer from the attention kernel or extra reduction, plus text-only attention work. No latency claim follows from inexpensive selected-query CPU analysis.",
+      "Pair-equal gains commute with rotary rotations in real arithmetic. Inverting saved BF16 post-RoPE vectors recovers a surrogate, not exact original pre-RoPE activations. Same-coordinate reconstruction must be reported separately."
+    ],
+    "independent_tiny_cpu_check": {
+      "description": "One2D rotary pair, q=[1,0], text keys e1/e2, old angle2 and new angle0.5; two fixed image logits0.2,-0.3. Float64 Python math.",
+      "old_text_logits": [
+        -0.4161468365471424,
+        0.9092974268256817
+      ],
+      "new_text_logits": [
+        0.8775825618903728,
+        0.479425538604203
+      ],
+      "old_text_mass": 0.6155810962054553,
+      "new_text_mass": 0.6155810962054553,
+      "maximum_image_weight_change": 0.0,
+      "old_conditional": [
+        0.20991393596406224,
+        0.7900860640359378
+      ],
+      "new_conditional": [
+        0.598244784728399,
+        0.40175521527160096
+      ],
+      "delta_output_for_text_values_0_1": -0.23904912957274532,
+      "interpretation": "Verifies controllability and algebra only. No preferred semantic outcome is assigned to either token."
+    }
+  },
+  "closest_primary_collisions": [
+    {
+      "title": "Phase-Aligned RoPE for Mixed-Resolution Diffusion Transformer",
+      "authors": [
+        "Haoyu Wu",
+        "Jingyi Xu",
+        "Qiaomu Miao",
+        "Dimitris Samaras",
+        "Hieu Le"
+      ],
+      "version": "arXiv2511.19778v2,30June2026",
+      "url": "https://arxiv.org/html/2511.19778v2",
+      "mechanism": "Section4.1 PMA, formerly referred to as CRPA, remaps key positions separately for each query scale. Equation8 uses the relative phase alpha_(k_to_q)*p_k-p_q. LR queries also use strided HR keys.",
+      "collision": "Query-key-specific native-scale phases already exist.",
+      "difference": "This concerns mixed-resolution image/video token groups, not an image-to-text-only transport with image logits and text mass fixed. It does not certify our nominal64-coordinate target."
+    },
+    {
+      "title": "Circle-RoPE: Cone-like Decoupled Rotary Positional Embedding for Vision-Language Models",
+      "authors": [
+        "Chengcheng Wang",
+        "Jianyuan Guo",
+        "Hongguang Li",
+        "Yuchuan Tian",
+        "Ying Nie",
+        "Chang Xu",
+        "Kai Han"
+      ],
+      "version": "arXiv2505.16416v3,21May2026",
+      "url": "https://arxiv.org/html/2505.16416v3",
+      "mechanism": "Maps image coordinates to an annulus orthogonal to the text axis to reduce cross-modal positional coupling, and alternates that geometry with ordinary grid encoding across layers. Section5.1 updates the VLM language component during training.",
+      "collision": "Separating cross-modal positional geometry from intra-image geometry is established.",
+      "difference": "No preservation of the deployed image-image logits or text partition mass is shown. Its expected-kernel geometric argument has assumptions and is not a universal theorem about actual FLUX logits."
+    },
+    {
+      "title": "Untwisting RoPE: Frequency Control for Shared Attention in DiTs",
+      "authors": [
+        "Aryan Mikaeili",
+        "Or Patashnik",
+        "Andrea Tagliasacchi",
+        "Daniel Cohen-Or",
+        "Ali Mahdavi-Amiri"
+      ],
+      "version": "arXiv2602.05013v1,4February2026",
+      "url": "https://arxiv.org/html/2602.05013v1",
+      "mechanism": "Section5 and Equation10 apply frequency-dependent amplitude scales only to reference-image keys; target image keys, text keys and queries remain unchanged. The paper also tests disabling RoPE for reference attention and reports artifacts.",
+      "collision": "Selective rotary-channel manipulation limited to a token group is established.",
+      "difference": "Reference-image style transfer and amplitude modulation are different from image-to-text phase remapping with fixed text mass. A claim that selective RoPE editing itself is new would be false."
+    },
+    {
+      "title": "Rethinking Cross-Modal Interaction in Multimodal Diffusion Transformers",
+      "authors": [
+        "Zhengyao Lv",
+        "Tianlin Pan",
+        "Chenyang Si",
+        "Zhaoxi Chen",
+        "Wangmeng Zuo",
+        "Ziwei Liu",
+        "Kwan-Yee K. Wong"
+      ],
+      "version": "arXiv2506.07986v3,23July2025;ICCV2025 proceedings",
+      "url": "https://arxiv.org/html/2506.07986v3",
+      "mechanism": "TACA Equation10 scales visual-text logits by gamma while leaving visual-visual logits unchanged; Equation11 schedules gamma by timestep. It adds LoRA tuning to reduce artifacts from the changed output distribution.",
+      "collision": "Modality-specific adjustment already changes relative text-token odds, unlike a common additive bias. Thus changing within-text odds is not by itself a distinction.",
+      "difference": "Temperature scaling does not rotate content directions and generally changes total text mass. The proposed mass-preserving phase intervention has a different controlled target; useful efficacy remains unmeasured."
+    }
+  ],
+  "candidate2": {
+    "name": "Expectation of normalized native-cardinality random subsets",
+    "status": "Do not promote as a new mechanism from the expectation/normalization distinction alone.",
+    "primary_collision": {
+      "title": "DropKey for Vision Transformer",
+      "authors": [
+        "Bonan Li",
+        "Yinhan Hu",
+        "Xuecheng Nie",
+        "Congying Han",
+        "Xiangjian Jiang",
+        "Tiande Guo",
+        "Luoqi Liu"
+      ],
+      "version": "CVPR2023,pp22700-22709",
+      "url": "https://openaccess.thecvf.com/content/CVPR2023/html/Li_DropKey_for_Vision_Transformer_CVPR_2023_paper.html",
+      "mechanism": "Drops keys before softmax, so retained attention is renormalized within each random subset. The paper studies regularization, layer schedules and structured dropping.",
+      "boundary": "Training-time stochastic key masks differ from a fixed-cardinality stratified inference expectation, but the central normalized-random-subset operator is established."
+    },
+    "known_math": "E[N_S/Z_S] generally differs from E[N_S]/E[Z_S]. Naming that difference is not an independent justification for native-cardinality attention.",
+    "independent_enumeration": {
+      "unnormalized_weights": [
+        1,
+        2,
+        8
+      ],
+      "values": [
+        0,
+        1,
+        0
+      ],
+      "uniform_two_of_three_outputs": [
+        0.6666666666666666,
+        0,
+        0.2
+      ],
+      "expected_normalized_output": 0.2888888888888889,
+      "dense_or_ratio_of_expectations": 0.18181818181818182,
+      "uniform_singleton_output": 0.3333333333333333,
+      "interpretation": "The expectation is a different target; it is not a dense-attention estimator. At one key per uniform subset it becomes the mean value and ignores query affinity. This supplies a concrete falsifier against an unconditional semantic-benefit claim."
+    },
+    "conditional_future_value": "Only a separately justified target for cardinality, stratification and desired bias, with equal-cost comparisons, could turn this into a useful refinement. No such evidence is supplied by CR20."
+  },
+  "recommended_bounded_cpu_unit": {
+    "choose": "Candidate1 only, using the already accepted CR19 saved Q/K/V and fixed selected queries. No new capture or GPU generation is needed.",
+    "freeze_before_reading_results": [
+      "One coordinate convention and native-frequency rule, including endpoint mapping versus pixel-center mapping.",
+      "Image-to-text only; leave image-image and text-query behavior unchanged in this diagnostic.",
+      "Original, same-coordinate inverse/forward roundtrip, changed phase without mass correction, changed phase with mass correction, and a mass-preserving temperature-only comparison.",
+      "Preserve all declared prompts, heads, blocks and queries without choosing a favorable subset."
+    ],
+    "measure": [
+      "Native-grid identity on exact toy pre-RoPE tensors and no-op numerical floor on saved BF16 tensors.",
+      "Image-block and text-partition conservation errors.",
+      "Text mass, conditional KL/total variation, mass-weighted full-distribution change and full output delta.",
+      "Whether the phase correction is materially non-collinear with simple temperature reweighting on the captured logits. This establishes operator distinction only."
+    ],
+    "scientific_interpretation": "A nonzero distinct perturbation supports actuator availability, not correctness, semantic benefit or image quality. A null perturbation or a correction at the reconstruction floor is useful negative evidence. Any later GPU intervention requires an independently justified endpoint and cost comparison rather than a return to the closed CR20 relation-loss rationale."
+  },
+  "search_limits": "Targeted full-method reading of PMA, Circle-RoPE, UntwistingRoPE and TACA plus the primary DropKey proceedings page. Not an exhaustive prior-art search; no author-reported benchmark was reproduced. The new candidates do not establish a local-texture or geometry failure merely by changing labels."
+}

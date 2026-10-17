@@ -1,0 +1,14 @@
+{
+  "scope": "Exploratory method screen on development rows 0 and 1 only; no population, novelty or SOTA conclusion.",
+  "conditions": ["baseline", "fixedmass", "unnormalized"],
+  "unit": "Within each caption, all three conditions share prompt, seed, actual initial transformer input, 28 executed sigmas, guidance, model and decode policy. Later hidden states and adaptive gains may differ.",
+  "primary_question": "Does image-to-text native-reference phase transport preserve or improve the two completed images, and does fixing text mass differ from allowing it to change? These captions already satisfy their primary native/4K predicates; this is not repair of a demonstrated relation loss.",
+  "metrics": ["imagereward", "musiq", "musiq_crop1024", "clip", "pickscore", "clipiqa", "clipiqa_crop1024"],
+  "metric_policy": "Report every per-image value and both paired changes against the matched-kernel baseline, plus their descriptive two-caption means. No confidence intervals, significance claims, weighted aggregate or retrospective metric selection. Crop seed0, four1024 crops using the existing scorer. Record runtime and peak memory separately; unnormalized control explicitly costs an additional image-attention pass.",
+  "visual_policy": "Preserve all six full images. Two independent model readings where available, explicitly labeled model-based, not human. First inspect all six at common1024 scale with randomized hidden condition labels, retaining the eight-caption screen's fixed primary/secondary predicates for rows0/1. Then inspect each image's four corner1024 crops at original pixels. Record visible detail, deformation, duplication and texture artifacts without treating stylistic preference or unstated objects as caption violations. The same crop coordinates need not contain corresponding objects when composition changes.",
+  "presentation_seed": 20261018,
+  "presentation_algorithm": "random.Random(seed).shuffle([(condition,row) for condition in conditions for row in [0,1]]); label sequentially view01..view06. Keep mapping from reviewers until common and detail records are frozen.",
+  "detail_boxes_xyxy": [[0,0,1024,1024],[3072,0,4096,1024],[0,3072,1024,4096],[3072,3072,4096,4096]],
+  "analysis_limits": "Two development captions can expose a gross failure or suggest a subsequent question, but cannot establish average benefit. Model judges can share errors. No old held-out or fresh64 images are opened or generated.",
+  "continuation": "Validate implementation and artifacts before interpreting quality. Retain failures and all controls. No automatic promotion, parameter or seed search follows. A later development extension would require a separate declared protocol and closer controls, including mass-preserving scalar text temperature if the current candidate is promising. Recent end-to-end baselines and untouched confirmation remain necessary for a competitive-method claim."
+}
