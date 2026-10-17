@@ -2,6 +2,7 @@
 from pathlib import Path
 import sys
 from types import SimpleNamespace
+from contextlib import nullcontext
 
 import pytest
 
@@ -58,15 +59,40 @@ def test_startup_grace_then_inactivity_and_expiry():
     assert 'lease:5000' in found
 
 
-def test_delivery_requires_matching_thread_receipt(monkeypatch):
-    monkeypatch.setattr(watcher.subprocess, 'run', lambda *a, **kw:
-                        SimpleNamespace(stdout='Queued message wrong-thread'))
-    with pytest.raises(RuntimeError, match='acknowledgment'):
+def mock_transport(monkeypatch, status='idle', cwd=watcher.ROOT):
+    calls = []
+    monkeypatch.setattr(watcher, 'connect', lambda: nullcontext(SimpleNamespace(send=lambda x: None)))
+    def rpc(ws, method, params):
+        calls.append(method)
+        if method == 'thread/read':
+            return {'thread': {'id': watcher.THREAD, 'cwd': str(cwd), 'status': {'type': status}}}
+        if method == 'turn/start':
+            return {'turn': {'id': 'test-turn', 'status': 'inProgress'}}
+        return {}
+    monkeypatch.setattr(watcher, 'rpc', rpc)
+    return calls
+
+
+def test_refuses_different_project(monkeypatch):
+    calls = mock_transport(monkeypatch, cwd='/other/project')
+    with pytest.raises(RuntimeError, match='different project'):
         watcher.enqueue('test')
+    assert 'turn/start' not in calls
 
 
-def test_matching_delivery_receipt(monkeypatch):
-    receipt = f'Queued message test for thread {watcher.THREAD}.'
-    monkeypatch.setattr(watcher.subprocess, 'run', lambda *a, **kw:
-                        SimpleNamespace(stdout=receipt))
-    assert watcher.enqueue('test') == receipt
+def test_busy_operator_defers_without_duplicate_turn(monkeypatch):
+    calls = mock_transport(monkeypatch, status='active')
+    assert watcher.enqueue('test') is None
+    assert 'turn/start' not in calls
+
+
+def test_idle_operator_starts_turn(monkeypatch):
+    calls = mock_transport(monkeypatch)
+    assert watcher.enqueue('test')['turn_id'] == 'test-turn'
+    assert 'turn/start' in calls
+
+
+def test_unloaded_operator_resumes_before_turn(monkeypatch):
+    calls = mock_transport(monkeypatch, status='notLoaded')
+    watcher.enqueue('test')
+    assert calls.index('thread/resume') < calls.index('turn/start')

@@ -3,7 +3,7 @@
   "script": "scripts/watch_cr14.py",
   "thread": "01a14899-2e69-7d71-93f8-b42aad182afd",
   "tmux_session": "crope-watch-cr14",
-  "pid_at_launch": 1095337,
+  "pid_at_launch": 1105783,
   "host": "i618-051.vista.tacc.utexas.edu",
   "host_job": "1073260",
   "gpu_job": "1076857",
@@ -12,15 +12,19 @@
   "filesystem_interval_seconds": 60,
   "controller_end_utc": "2026-10-17T17:45:04+00:00",
   "stop": "Touch /scratch/09032/saini_2/constancy_rope/watcher_cr14/STOP; watcher exits within 60 seconds. Do not delete scratch files.",
-  "checks": "7 targeted tests passed; live dry run passed; live PID and initial heartbeat verified.",
+  "checks": "9 targeted tests passed. Live socket returned the correct thread/cwd; active operator correctly deferred. Live PID and heartbeat verified.",
   "delivery_test": {
-    "message_id": "01a148f0-f17e-7743-82be-b079f9e980ae",
-    "status": "CLI accepted queued message; model receipt is to be acknowledged in watcher_ack.json on the following turn."
+    "status": "Old queue-only test removed. Direct WAKE_TEST armed; acknowledge the actual resulting model turn in .agent/notes/watcher_ack.json.",
+    "marker": "/scratch/09032/saini_2/constancy_rope/watcher_cr14/WAKE_TEST"
   },
   "limits": [
-    "Requires existing compute allocation and Codex app server to remain available.",
-    "Wakes once per event; delivery failures retained and retried.",
-    "Stops after final report delivery; next campaign requires explicit rearming with correct job and queue.",
-    "No GPU result or SOTA claim from watcher activity."
-  ]
+    "Requires the controller compute allocation and Codex app server to remain alive.",
+    "Continues monitoring controller lease after the CR14 report; resumed operator must register subsequent jobs before waiting.",
+    "Events deduplicated; failed deliveries remain pending.",
+    "The first direct wake still requires model-side acknowledgment.",
+    "No GPU result or novelty/SOTA claim from watcher activity."
+  ],
+  "version": 2,
+  "python": "/work/09032/saini_2/vista/library/uv-envs/dcc-watch/bin/python",
+  "delivery": "Direct app-server turn/start over owned local Unix socket when the operator is idle; active turns retain the outbox. No model calls during polling."
 }

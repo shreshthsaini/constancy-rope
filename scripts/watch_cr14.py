@@ -13,12 +13,14 @@ import resource
 import socket
 import subprocess
 import time
+import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRATCH = Path('/scratch/09032/saini_2/constancy_rope')
 RUNTIME = SCRATCH / 'watcher_cr14'
 THREAD = '01a14899-2e69-7d71-93f8-b42aad182afd'
 JOB, HOST_JOB = '1076857', '1073260'
+SOCKET = '/tmp/cx-883311-1ae2ac8f/home/app-server-control/app-server-control.sock'
 
 
 def save(path, value):
@@ -99,12 +101,42 @@ def events(current, previous, now, running_since=None, all_done_since=None):
     return found
 
 
+def connect():
+    from websockets.sync.client import unix_connect
+    return unix_connect(SOCKET, open_timeout=10, close_timeout=3)
+
+
+def rpc(ws, method, params):
+    request_id = str(uuid.uuid4())
+    ws.send(json.dumps({'id': request_id, 'method': method, 'params': params}))
+    deadline = time.monotonic() + 20
+    while time.monotonic() < deadline:
+        reply = json.loads(ws.recv(timeout=max(.1, deadline - time.monotonic())))
+        if reply.get('id') == request_id:
+            if 'error' in reply:
+                raise RuntimeError(f'{method}: {reply["error"]}')
+            return reply['result']
+    raise TimeoutError(method)
+
+
 def enqueue(message):
-    result = subprocess.run(['codex', 'queue', '--thread', THREAD, '--message', message],
-                            capture_output=True, text=True, timeout=30, check=True, cwd=ROOT)
-    if 'Queued message ' not in result.stdout or THREAD not in result.stdout:
-        raise RuntimeError('No matching Codex queue acknowledgment')
-    return result.stdout.strip()
+    """Start the existing operator when idle; a busy operator keeps the outbox."""
+    with connect() as ws:
+        rpc(ws, 'initialize', {'clientInfo': {'name': 'crope-watcher', 'version': '2'},
+                              'capabilities': {'experimentalApi': True}})
+        ws.send(json.dumps({'method': 'initialized'}))
+        thread = rpc(ws, 'thread/read', {'threadId': THREAD, 'includeTurns': False})['thread']
+        if thread['id'] != THREAD or Path(thread['cwd']) != ROOT:
+            raise RuntimeError('Refusing to wake a different project/thread')
+        if thread['status']['type'] == 'active':
+            return None
+        if thread['status']['type'] == 'notLoaded':
+            rpc(ws, 'thread/resume', {'threadId': THREAD})
+        result = rpc(ws, 'turn/start', {
+            'threadId': THREAD, 'input': [{'type': 'text', 'text': message}],
+            'clientUserMessageId': str(uuid.uuid5(uuid.NAMESPACE_URL, message)),
+            'turnTrigger': 'crope-watcher'})
+        return {'turn_id': result['turn']['id'], 'turn_status': result['turn']['status']}
 
 
 def main():
@@ -131,6 +163,10 @@ def main():
                     jobs = scheduler()
                     next_scheduler = now + 120
                 current = snapshot(jobs, now)
+                if (RUNTIME / 'WAKE_TEST').exists() and 'wake_test' not in sent:
+                    pending['wake_test'] = ('Direct wake-up verification: record receipt in '
+                        '.agent/notes/watcher_ack.json, then continue the response-probe '
+                        'implementation and prior-art work that do not need GPUs')
                 if jobs[JOB]['state'] == 'RUNNING':
                     state.setdefault('running_since', now)
                 if len(current['tasks']['done']) == 4:
@@ -145,7 +181,8 @@ def main():
                                f'{path}. Verify live facts, handle failures/utilization, evaluate '
                                'results, and continue novel-method research and paper work. '
                                'A diagnostic pass is not novelty or SOTA. Preserve frozen protocols '
-                               'and fresh64. Do not duplicate this watcher. If controller lease '
+                               'and fresh64. Register replacement jobs with this watcher before '
+                               'returning to waiting. Do not duplicate this watcher. If controller lease '
                                'is expiring, arrange and verify a compute-node handoff. Events: '
                                + '; '.join(pending.values()))
                     if args.dry_run:
@@ -154,15 +191,16 @@ def main():
                         state['last_attempt'] = now
                         save(path, state)
                         receipt = enqueue(message)
-                        with (RUNTIME / 'deliveries.jsonl').open('a') as stream:
-                            stream.write(json.dumps({'time': now, 'events': dict(pending),
-                                                     'receipt': receipt}) + '\n')
-                        sent.update({k: now for k in pending})
-                        pending.clear()
+                        if receipt is not None:
+                            with (RUNTIME / 'deliveries.jsonl').open('a') as stream:
+                                stream.write(json.dumps({'time': now, 'events': dict(pending),
+                                                         'receipt': receipt}) + '\n')
+                            sent.update({k: now for k in pending})
+                            pending.clear()
                 if not args.dry_run:
                     save(path, state)
-                if current['complete'] and not pending:
-                    break
+                # Keep observing the controller lease after the first report;
+                # the resumed operator must register the next campaign.
             except Exception as exc:
                 state['last_error'] = {'time': now, 'error': str(exc)}
                 print(json.dumps(state['last_error']), flush=True)

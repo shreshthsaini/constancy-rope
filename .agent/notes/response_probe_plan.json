@@ -1,0 +1,22 @@
+{
+  "status": "Implementation next; no GPU evidence and no novelty claim",
+  "reason": "scripts/probe_mtf.py perturbs separate whole trajectories and does not admit sega_official; it cannot estimate a same-state local SEGA response.",
+  "scope": "New diagnostic files only; leave CR14 frozen sources and four task workflows unchanged.",
+  "required_invariants": [
+    "Use released SEGA at the pinned Krea checkpoint and exact same latent, conditioning, scheduler sigma, model timestep and baseline attention gains for all interventions.",
+    "Separate height and width interventions; preserve index-axis gains and include a matched scalar-gain control.",
+    "Evaluate symmetric positive/negative perturbations and an independent held-aside perturbation magnitude for response prediction.",
+    "Restore controller and official-SEGA diagnostics/history, hook behavior, RNG and trajectory state; advance the outer sampler exactly once per baseline step.",
+    "Demonstrate a no-op probe leaves the complete unprobed trajectory and configuration unchanged before interpreting derivatives.",
+    "Record every extra transformer call, wall time and memory; finite-difference overhead counts toward any later cost comparison.",
+    "Use development/calibration prompts only. Preserve the fresh64 confirmation set."
+  ],
+  "integration_candidate": "A temporary wrapper around the transformer forward implementation could perform repeated same-input calls before the outer post-forward hook advances the sampler. Audit x_embedder hooks and restore all mutable state. Validate on a small stateful fake model before a real GPU smoke test. This is a design candidate, not verified code.",
+  "next_work": [
+    "Inspect FluxExperiment._before/_projected/_after and OfficialSEGA mutable state.",
+    "Implement isolated same-state response harness and meaningful state-restoration/no-op tests.",
+    "Complete primary-source algorithm/code comparison against SEGA and SCG before proposing a method.",
+    "Freeze a bounded GPU probe protocol and use packed compute with cost checks, after verifying current allocation and campaign progress."
+  ],
+  "continuation": "On watcher wake, verify live job state first, acknowledge the direct wake test, then continue this implementation while CR14 queues or runs."
+}
