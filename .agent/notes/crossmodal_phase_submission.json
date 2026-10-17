@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-10-17T10:22:23.792928-05:00",
+  "job_id": "1077335",
+  "allocation": "2 GH200 nodes, maximum 40 minutes",
+  "protocol_sha256": "7a5d072bbaeae9534dd01b0b26bab9da8326ccb01311ef276a0a7d22bb176be9",
+  "implementation_commit": "0eb2161",
+  "protocol_commit": "0f88f2d",
+  "su_available_before_submission": 7910,
+  "su_total": 40000,
+  "burn_fraction": 0.80225,
+  "registry": "/scratch/09032/saini_2/constancy_rope/watcher_cr14/registrations.json",
+  "registration": {
+    "job_id": "1077335",
+    "queue_dir": "/scratch/09032/saini_2/constancy_rope/taskq_crossmodal_phase",
+    "telemetry_dir": "/scratch/09032/saini_2/constancy_rope/telemetry",
+    "completion_files": [
+      "/scratch/09032/saini_2/constancy_rope/crossmodal_phase/job1077335/prompt0/completion.json",
+      "/scratch/09032/saini_2/constancy_rope/crossmodal_phase/job1077335/prompt0/workflow_scored.json",
+      "/scratch/09032/saini_2/constancy_rope/crossmodal_phase/job1077335/prompt1/completion.json",
+      "/scratch/09032/saini_2/constancy_rope/crossmodal_phase/job1077335/prompt1/workflow_scored.json"
+    ],
+    "progress_dirs": [
+      "/scratch/09032/saini_2/constancy_rope/crossmodal_phase/job1077335/prompt0",
+      "/scratch/09032/saini_2/constancy_rope/crossmodal_phase/job1077335/prompt1"
+    ]
+  },
+  "watcher_pid": 1581602,
+  "watcher_hot_read": "pending",
+  "controller_end": "2026-10-17T12:45:04-05:00"
+}

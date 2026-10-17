@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution method competitive with r
 User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 10:17 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+2026-10-17 10:23 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
 Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
 RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
 PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
@@ -48,21 +48,21 @@ Secondarykneeling V/S; auxiliaryKodak V/V,Paradis S/V. No disagreements ordetail
 All16commonviews recorded before5detailoriginals perreviewer. Not humanstudy orcausalresolutioneffect.
 Close this semantic-loss rationale; no seedsearch,OCRpivot orfresh64. Otherresolutionfailures notexcluded.
 Parentreporter config gap fixed:27tests,8supplemental checks pass; originalsource/report/archive preserved.
-NEXT: freeze/register CR21 provisional phase pilot;99CPUtests pass twice, independentreview clear.
+CR21 job1077335 submitted: 2 GH200nodes,40min maximum;99CPUtests pass twice, independentreview clear.
 Fixed endpointmap to64, nativebasefrequencies for image-to-text only; image logits/textmass preserved.
 Planned6images: dev0/1 x baseline/fixedmass/unnormalized,seed0,28steps,all57blocks; native4stepsmokes first.
-Unnormalized control uses extraimageonlypass forstablemixture; itscost differs. NoGPU submittedyet; prototypecomplete, isolatednewfiles only.
+Unnormalized control uses extraimageonlypass forstablemixture; itscost differs. Protocol7a5d072b frozen; job1077335 registered with existing watcher, hot-read pending.
 Covariance/gain proposal lacks justified target; DoPE adds a close prior-art collision.
 Stop promotion of that branch. Native comparator screen is complete; no concrete primary semantic-loss target emerged.
 Eight dev baseline previews show no obvious global duplication; garbled shop text has no proven resolution cause.
 Fresh64 and all completed frozen protocols remain untouched. No method sweep or confirmation authorized by diagnostics.
 Existing watcher PID1581602, tmux crope-watch-cr14, i618-051/controllerjob1073260.
-Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17/18/19/20; CR20 hot-read and scheduler observation verified.
+Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17/18/19/20/21; CR21 hot-read pending.
 Direct autonomous wake verified; scheduler120s/files60s. Never duplicate watcher.
 Controller lease ends12:45:04 CDT, alert one hour before. Handoff not yet needed or verified.
-Last budget7928/40000SU remaining (09:39 CDT); refresh before every submission, no new nodes at96percent burn.
+Last budget7910/40000SU remaining (10:21 CDT); refresh before every submission, no new nodes at96percent burn.
 Paper rebuilt to10pages including CR20 full8pairtable; pages7/8 visually checked. Receipt native_cr20/paper_receipt.json.
-CR14/CR17/CR18/CR19/CR20 completed; no projectGPUactive. Do not repeat completed campaigns.
+CR14/CR17/CR18/CR19/CR20 completed; CR21job1077335 submitted. Do not repeat completed campaigns.
 
 ## Map
 | File | Purpose |
