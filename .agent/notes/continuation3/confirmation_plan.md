@@ -1,5 +1,12 @@
 # Frozen fresh confirmation plan
 
+**October 17 user clarification:** the target is a novel method competitive with
+recent SOTA. Passing a CR14 diagnostic gate does not establish novelty and no longer
+triggers confirmation by itself. Preserve this plan and unused prompt set; require
+a distinct method, current baselines, and an explicitly revised protocol before
+launching confirmation. See `../novelty_20261017.md`. Statistical and prompt-selection
+records below are retained unchanged as the original preregistered preparation.
+
 Freeze date: October 17, 2026, before dev3 outcome-based selection. No generation
 was queued. Run this confirmation only if a prespecified dev3 candidate passes
 the existing development rule. Keep the selected controller and hyperparameters

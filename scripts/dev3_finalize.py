@@ -49,7 +49,7 @@ def main():
         for row in report['rows'] if row['variant'] != 'sega_official') + '.')
     if report['selected']:
         names = ', '.join(LABELS[m] for m in report['selected'])
-        text += [names + ' passed the development gate. A separate set of 64 confirmation captions was frozen before these outcomes. No confirmation result or efficacy claim follows from this table.']
+        text += [names + ' passed the development gate. These controls remain diagnostics, not an established novel method. A separate set of 64 confirmation captions was frozen before these outcomes; its use requires a distinct method and a recent-baseline protocol. No confirmation result or efficacy claim follows from this table.']
     else:
         text += ['None passed the frozen development gate, so no confirmation generation is justified by this diagnostic. The negative outcome is retained with all three variants.']
     target = ROOT / 'paper/sec/dev3_results.tex'
@@ -75,9 +75,9 @@ def main():
     (out / 'completion.json').write_text(json.dumps(receipt, indent=2) + '\n')
     state_path = ROOT / '.agent/STATE.md'
     state = state_path.read_text()
-    next_action = ('Review the fresh development selection and run the frozen confirmation64 protocol.'
+    next_action = ('Review the causal diagnostic and establish a distinct method against recent prior art before confirmation.'
                    if report['selected'] else
-                   'Third diagnostic failed the development gate; preserve the negative result and review closure.')
+                   'Third diagnostic failed the development gate; preserve the result and develop a distinct mechanism against recent prior art.')
     state = '\n'.join('NEXT: ' + next_action if line.startswith('NEXT:') else line
                       for line in state.splitlines()) + '\n'
     state = state.replace('CR14 job1076857 is PENDING Priority; no estimated start.',

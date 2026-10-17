@@ -5,6 +5,7 @@ Design spec: `.agent/notes/design.md`. Codex briefs: `.agent/notes/codex_brief_{
 started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact https://claude.ai/artifact/Phv2pGDvZDZwpmNM3Qh8GL).
 
 ## Current takeover checkpoint (2026-10-17)
+- Current success target: a genuinely novel mechanism, distinct from recent methods, with close-to-or-better-than-SOTA performance in matched training-free DiT resolution extrapolation. Neither requirement is currently met. See `.agent/notes/novelty_20261017.md`.
 - User first requested a state review, then explicitly assigned full project ownership and
   authorized continuing experiments, evaluation, and paper work autonomously.
 - User explicitly authorizes background Codex agents, GPT-6 Astra, and GPT-6.1 Sol with effort chosen by the main agent; use higher effort for critical work. Respect tool concurrency and login-guard limits.
@@ -20,12 +21,12 @@ started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact ht
 - `paper/main.tex` now builds an empirical working report from `sec/current_report.tex` and
   `sec/current_table.tex`. Earlier proposal sections remain in source but are excluded until audited.
   PDF: `paper/constancy_rope_working_2026-10-17.pdf`. No positive efficacy claim is supported.
-- Added fixed-order qualitative examples from held-out rows 8-10, chosen before image viewing. Six source PNG hashes and sidecars verified; native center crops and display assets archived in `paper/figs/heldout_example_assets/`. PDF now six pages, clean build and visual inspection.
+- Added fixed-order qualitative examples from held-out rows 8-10, chosen before image viewing. Six source PNG hashes and sidecars verified; native center crops and display assets archived in `paper/figs/heldout_example_assets/`. PDF figures have clean builds and visual inspection.
 - `paper/update_evidence.py` reproduced all ten selected-candidate paired means/CIs exactly
   from archived per-prompt CSVs. Receipt: `.agent/notes/paper_verification_20261017.json`.
 - Current step: monitor job1076857, verify telemetry and source/protocol invariants, then
   run `scripts/dev3_analysis.py` with `--reference-root dev3_sega_official`. No GPU outcome yet.
-  Fresh64 confirmation manifest is frozen under continuation3, conditional on dev selection.
+  Fresh64 confirmation manifest remains unused; a dev-control pass alone does not authorize advancing it as the main method. Require a distinct mechanism and current-baseline protocol.
   The last successful worker host runs `scripts/dev3_finalize.py`: validates all four outputs,
   archives the selection, logs W&B, rebuilds the PDF, and commits its own outputs/state.
   It never treats a dev pass as a held-out result or submits confirmation automatically.

@@ -1,5 +1,5 @@
 ## Goal
-Resume Constancy RoPE from verified evidence; maintain and share an honest working paper.
+Develop a genuinely novel training-free DiT resolution-extrapolation method competitive with recent SOTA; maintain and share the evidence and paper.
 User clarified full ownership: continue experiments, evaluation, and paper autonomously.
 
 ## Status and next action
@@ -16,13 +16,13 @@ Paper now compiles an empirical working report. Prior proposal sections retained
 All ten paired means/CIs independently recomputed exactly from archived per-prompt CSVs today.
 PDF: paper/constancy_rope_working_2026-10-17.pdf. Build directory on project scratch.
 New work is isolated in taskq_dev3; old campaign outputs and STOP remain unchanged.
-NEXT: monitor CR14 job1076857 (two GH200 nodes, 90min); verify live telemetry/output invariants, then run dev3_analysis with fresh reference.
+NEXT: monitor CR14 diagnostics; investigate signed SEGA response and a distinct mechanism after the recent-prior-art audit. No automatic confirmation for a diagnostic pass.
 
 Third diagnostic submitted: spatial RMS uniform/normalized controls and lag-aligned ctm, eta1.
 Fresh SEGA baseline prespecified; 32 dev images total. Full CPU suite 256 passed in 45.93 seconds, two threads.
 CR14 job1076857 is PENDING Priority; no estimated start. Initial gb attempt rejected at qgb submit cap.
 Frozen source commit395ba85; spool taskq_dev3 has four ready workflows, old taskq unchanged.
-Fresh64 confirmation prompts frozen before outcomes; run only if a candidate passes dev.
+Fresh64 confirmation prompts remain unused; require novelty review and a new fixed method/baseline protocol before use.
 Confirmation generator/analyzer prepared and tested; no confirmation tasks or allocation submitted.
 The primary adjustment and complete-pair validation were fixed while CR14 remained pending.
 After all four task successes, dev3_launch invokes dev3_finalize to validate scores, log W&B,
@@ -33,6 +33,7 @@ Fixed-order qualitative panel added from rows 8-10, six verified images; display
 Account balance checked: 8212.919/40000 SUs remaining, burn 79.47%.
 
 ## Map
+See notes/novelty_20261017.md for the clarified target, recent sources, and response-calibration hypothesis.
 | File | Read it when |
 | notes/continuation3/confirmation_plan.md | planning conditional fresh-prompt confirmation |
 | notes/continuation3/theory_audit.md | restoring qualified theory to the manuscript |
@@ -58,5 +59,5 @@ Account balance checked: 8212.919/40000 SUs remaining, burn 79.47%.
 - User authorizes background Codex/GPT-6 Astra/GPT-6.1 Sol agents; higher effort for critical work, within guard limits.
 
 ## Open questions
-- Three frozen diagnostics in notes/continuation3/PROTOCOL.md; no new GPU results yet.
+- CR14 remains diagnostic only; no new GPU results yet. Recent AReA and SCG are direct novelty collisions.
 - Earlier theoretical and literature claims need audit before a submission-ready manuscript.

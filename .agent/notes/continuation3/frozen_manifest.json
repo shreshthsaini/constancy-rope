@@ -32,7 +32,7 @@
     "/scratch/09032/saini_2/constancy_rope/calib/krea_profile_tm.npz": "1cd6bceb50dea48607b125681ade330e5203cc8342eeb99834c3493d41b2cc45",
     "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl": "ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1",
     "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/fleet_CR14_gh.sbatch": "d4e1753d19a98c682ad7d786f5c9c59855685396d463a85216054ad0105e6419",
-    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_finalize.py": "49f731d5ac97fba0429e2b17f7992be2b9ffd87eefe4626d9306f397a21ed32e"
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_finalize.py": "523fbcca8e04b3c8f6c32b722de154f0f67944be9ed85383398567773e2bde13"
   },
   "cpu_tests": {
     "passed": 237,
@@ -45,5 +45,6 @@
     "frozen_fallback": "two GH200 nodes, 90 minutes, same four tasks and fresh baseline"
   },
   "finalization": "Attached while job pending: validate all four completed workflows, archive selection, log W&B, rebuild exploratory paper table. No candidate implementation changes.",
-  "transformer_provenance": "Runner requires pinned Krea snapshot and records its config hash separately from legacy FLUX.1-dev base metadata."
+  "transformer_provenance": "Runner requires pinned Krea snapshot and records its config hash separately from legacy FLUX.1-dev base metadata.",
+  "continuation_amendment": "User explicitly requires novel and near-SOTA-or-better method. CR14 numerical protocol is unchanged; finalizer now requires novelty/current-baseline review before confirmation. Reporting-only change while pending; three finalizer tests passed."
 }
