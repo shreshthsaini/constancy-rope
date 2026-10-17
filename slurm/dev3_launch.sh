@@ -3,11 +3,11 @@ set -euo pipefail
 ROOT=/work/09032/saini_2/vista/Projects/Exploration/constancy_rope
 R=/scratch/09032/saini_2/constancy_rope
 count=$(nvidia-smi --query-gpu=index --format=csv,noheader | wc -l)
-[[ "$count" -eq 4 ]] || { echo "Expected four GPUs; found $count"; exit 2; }
+[[ "$count" -eq 1 || "$count" -eq 4 ]] || { echo "Expected one or four GPUs; found $count"; exit 2; }
 /work/09032/saini_2/vista/library/bin/gpu_telemetry.sh "$R/telemetry" 30 &
 telemetry_pid=$!
 pids=()
-for gpu in 0 1 2 3; do
+for ((gpu=0; gpu<count; gpu++)); do
     CUDA_VISIBLE_DEVICES=$gpu bash "$ROOT/slurm/dev3_worker.sh" &
     pids+=("$!")
 done

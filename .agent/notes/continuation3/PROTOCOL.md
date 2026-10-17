@@ -34,7 +34,10 @@ bug that invalidates the completed negative results.
 No parameter sweep, learned controller, new backbone, or training. Each workflow
 generates exactly development rows 0-7 at 4096x4096, seed 0, 28 steps, guidance 4.5,
 the existing Krea checkpoint, and mu=1.15. Calibration and native profile unchanged.
-All four workflows use a packed four-GPU Blackwell node and separate outputs.
+All four workflows use the same GPU architecture and separate outputs.
+The Blackwell submission was rejected before any job existed because all three
+qgb submit slots were occupied. The frozen fallback is two GH200 nodes sharing
+the same finite spool; no candidate settings or image counts change.
 
 ## Evaluation and decisions
 
@@ -55,18 +58,19 @@ If none passes, end this diagnostic and preserve its negative result.
 
 ## Cost and execution
 
-32 images. Prior same-workload Blackwell timing is about 97 seconds/image at high
-GPU utilization, so generation is roughly 13 minutes per GPU, plus model loading
-and scoring. Plan approximately 20-30 minutes on one four-GPU node, with a 45-minute
-walltime ceiling. This packs four independent workflows into one allocation, not
-one node per task. Exact service-unit charges will be taken from accounting.
+32 images. Prior same-workload GH200 timing is about 215 seconds/image at high
+GPU utilization. With two GPUs, generation is roughly 57 minutes per GPU, plus
+loading and scoring. Plan approximately 70 minutes (60-90 minutes) on two nodes,
+with a 90-minute walltime ceiling, about 2.3 node-hours centrally and at most 3
+node-hours reserved. This packs four workflows into one shared allocation.
+Exact service-unit charges will be taken from accounting.
 
 Live balance before preparation: 8212.919 SUs remaining of 40000, used 31787.081
 (79.47%), below the 96% stop threshold. Recheck taccinfo immediately before submission.
 No prior allocations are cancelled or repurposed. Old taskq and STOP are preserved.
 New isolated spool: /scratch/09032/saini_2/constancy_rope/taskq_dev3.
 Generation writes per-image manifests and W&B progress; evaluation logs W&B metrics.
-The shared GPU logger records all four devices. Offline W&B is explicit if no key
+The shared GPU logger records every allocated device. Offline W&B is explicit if no key
 is configured. Workers exit after their finite tasks, and the recorded logger child
 is stopped and reaped after worker completion.
 
