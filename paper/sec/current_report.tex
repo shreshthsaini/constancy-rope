@@ -177,9 +177,12 @@ FP32 gain discrepancy was $1.19\times10^{-7}$. Repeating allocation on identical
 projected features also drifted under default arithmetic, while eight repeats
 with deterministic allocation matched for each prompt. This localizes a numerical
 repeatability issue to feature-to-gain arithmetic without identifying a unique
-kernel. A new diagnostic will enable deterministic arithmetic only during
-allocation, record this numerical-policy change, and retain all strict equality
-checks. No quality equivalence with the original baseline is established.
+kernel. A separately frozen diagnostic enables deterministic arithmetic only
+during allocation and records this numerical-policy change. Both 2048-resolution
+smoke tests now pass the original exact replay, gain-history, and endpoint checks;
+the 4K stage is running. These two smoke endpoints also match those from the
+original numerical policy. This is a bounded numerical validation, not evidence
+of general quality equivalence with the original baseline.
 This is an instrument for testing the controller
 hypothesis, not a new validated generation method. SCG acts directly on latent
 Fourier magnitudes, whereas this diagnostic measures the response to internal

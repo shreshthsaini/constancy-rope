@@ -5,6 +5,7 @@ Design spec: `.agent/notes/design.md`. Codex briefs: `.agent/notes/codex_brief_{
 started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact https://claude.ai/artifact/Phv2pGDvZDZwpmNM3Qh8GL).
 
 ## Current takeover checkpoint (2026-10-17)
+- Latest07:51CDT: both CR17 deterministic-allocation2048smokes passed exactreplay/history/endpointchecks; both4Kdiagnostics nowrunning at100percentGPU. Smoke endpoint hashes also match the corresponding originalCR15 endpoints, a bounded numerical check only. Receipt `.agent/notes/response_cr17_smoke.json`; preserve originalCR15 failedstatus. No4Kresponse result accepted yet.
 - Live checkpoint07:47CDT: CR14 job1076857 remains RUNNING on c609-092/c609-151 at100percentGPU utilization with no failed workflow. CR15 job1077082 remains FAILED: both2048smoke endpoints bitwise identical, no-op replay error0, exact gain histories differ. No4K stage started. Original protocol/source unchanged; failure archived in `.agent/notes/response_cr15_failure/`.
 - CR16 job1077122 COMPLETED in2m14s. Ordinary baseline histories also drift. All observed BF16gains, input/velocity/clean-estimate hashes and endpoints match; prompt1B/C additionally differs by max1.1920928955078125e-07 in FP32gain. Identical-feature defaultallocation repeats drift, while8deterministic repeats match for eachprompt. Independent review confirmed comparisons. This localizes numerical repeatability to feature-to-gain arithmetic, not one uniquely identified kernel. Evidence archived in `.agent/notes/response_cr16_repeatability/`.
 - CR17 job1077143 RUNNING on c638-141/142; twoGH200nodes/30min. Source1a06786, new frozen `.agent/notes/response_deterministic_protocol.json`, submission receipt `.agent/notes/response_deterministic_submission.json`. Deterministic algorithms apply only during each OfficialSEGA.update and restore enabled/warn-only flags in finally. All baseline/replay allocations use this declared policy; strict replay/history/endpoint checks remain. Both histories now saved. CR15 is not reclassified as successful. No original-baseline qualityequivalence or efficacy claim.
@@ -22,7 +23,7 @@ started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact ht
 - Live accounting confirms CR13 job 1076092 COMPLETED October 16 at 18:06:13 CDT.
   Spool: pending 0, running 0, done 255, failed 5, hold 25; STOP remains present.
   Failed/held files are older pilot, superseded original-constancy, or archived task files.
-  CR14 and CR15 are the current project jobs; unrelated allocations were left unchanged.
+  CR14 and CR17 are the current project jobs; CR15 failed and CR16 completed. Unrelated allocations were left unchanged.
 - Historical second-campaign commit: a1ede1a, October 16 at 18:11:57 CDT. Earlier uncommitted-state notes
   are superseded. Repository has no configured remote.
 - `paper/main.tex` now builds an empirical working report from `sec/current_report.tex` and

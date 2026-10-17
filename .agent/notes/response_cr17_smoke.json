@@ -1,0 +1,25 @@
+{
+  "verified_utc": "2026-10-17T12:50:31.410143+00:00",
+  "job": "1077143",
+  "scope": "Both2048smokes passed strictchecks under declared deterministicallocationpolicy.4Kruns inprogress; no response/efficacyresult accepted yet.",
+  "rows": [
+    {
+      "prompt_index": 0,
+      "history_equal_rechecked": true,
+      "endpoint_hash": "cc4dd8103bf5cb732341c07a0da9ac2a7d6052b74419fe9f49c2a108e1ec0a95",
+      "baseline_seconds": 7.284249803982675,
+      "probed_seconds": 14.166667526005767,
+      "replay_error": 0.0,
+      "completion_sha256": "923782213304f551f0d8ce8b99a3aa5544d73a8d636afd7176f011c244b9c622"
+    },
+    {
+      "prompt_index": 1,
+      "history_equal_rechecked": true,
+      "endpoint_hash": "b0c1ff7283aec29c4bb195b254956b3cc53e5591564dfc7983aff4c14b107b85",
+      "baseline_seconds": 7.011320114950649,
+      "probed_seconds": 14.115298060933128,
+      "replay_error": 0.0,
+      "completion_sha256": "d276c7a4c317761473b831780b36c7fe061244258fb6811dd2b1d99d13567540"
+    }
+  ]
+}

@@ -25,6 +25,11 @@
       "acknowledged_utc": "2026-10-17T12:34:56.165368+00:00",
       "event": "Job1077082 PENDING -> RUNNING; both prompt tasks claimed",
       "verified": "squeue RUNNING on c639-051,c639-132; both logs loading model; no failed task"
+    },
+    {
+      "acknowledged_utc": "2026-10-17T12:50:31.413080+00:00",
+      "event": "Batched alreadyhandledCR15failure/CR16completion plusCR17RUNNING",
+      "action": "Confirmed CR17bothsmokespassed and4Kworkersprogressing; no duplicatewatcher orjob."
     }
   ]
 }

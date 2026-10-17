@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution-extrapolation method comp
 User authorizes full unattended project ownership, experiments, evaluation, paper, and background agents.
 
 ## Status and next action
-2026-10-17 ~07:47CDT: CR14 job1076857 RUNNING since07:21:46 on c609-092,c609-151.
+2026-10-17 ~07:51CDT: CR14 job1076857 RUNNING since07:21:46 on c609-092,c609-151.
 Both GPUs100percent; no failed workflows; two workflows active, two pending.
 CR15 job1077082 FAILED after2m12s: both2048smoke endpoints bitwise equal, same-state replay exact, histories differ.
 No4K started. Failure evidence archived in notes/response_cr15_failure; original acceptance rule unchanged.
@@ -17,7 +17,8 @@ All numericalpolicy/source provenance recorded; both gain histories saved. No pr
 Existing watcher hot registry includes taskq_response_deterministic plus prior queues; never duplicate watcher.
 New wrapper+response tests13passed/10s; adapted report helper33tests/15.55s; independent review found no blocker.
 Earlier full CPU suite306passed. CR15/CR16 protocol/source hashes unchanged; fresh64unused.
-Next: validate CR17 smoke first, then4K local response prediction/sign/coupling if strict checks pass.
+BothCR17 2048smokes PASSED exactno-op/history/endpointchecks; receipt notes/response_cr17_smoke.json.
+4Kdiagnostics running on bothGPUs at100percent. Next: validate full4Ktrajectory then responseprediction/sign/coupling.
 Use scripts/response_report.py <scratch/response_probe_deterministic/job1077143> --out <freshworkdir>
 with --protocol .agent/notes/response_deterministic_protocol.json --submission .agent/notes/response_deterministic_submission.json.
 The helper rejects incomplete/failed campaigns; neither numerical repair nor diagnostic pass establishes novelty/SOTA.
@@ -64,7 +65,7 @@ Fresh64 remains unused; current runs use development rows only.
 - Old taskq drained:255done,5olderfailures,25held;STOP remains. Do not revive consumed pilots.
 - Preserve scratch; archive paper crux on work. W&B offline evidence is retained.
 - Local-only repository has no remote; commit meaningful changes locally.
-- No controller lease extension or handoff is verified yet; current lease has just under five hours left.
+- No controller lease extension or handoff is verified yet; current lease has about4h54left.
 
 ## Open questions
 - Do same-state interventions predict smaller unfit perturbations above numerical/quantization noise?
