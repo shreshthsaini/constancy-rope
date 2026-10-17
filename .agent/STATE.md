@@ -1,84 +1,66 @@
 ## Goal
-Develop a genuinely novel training-free DiT resolution-extrapolation method competitive with recent SOTA.
-User authorizes full unattended project ownership, experiments, evaluation, paper, and background agents.
+Develop a genuinely novel training-free DiT resolution method competitive with recent SOTA.
+User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 08:10 CDT: CR14 job1076857 RUNNING since07:21:46 on c609-092,c609-151.
-CR14baseline/uniform workflowsDONE; normalized/lagRUNNING, bothGPUs100percent, nofailures.
-Partial8pairaudit verifies16PNGs/provenance/scores: uniform-minusfresh IR-.01739,MUSIQ-1.56672,
-CLIP+.58680,Pick-.08321,cropMUSIQ-.51775. Descriptive only; no selection beforeallfourdone.
-CR15 job1077082 FAILED after2m12s: both2048smoke endpoints bitwise equal, same-state replay exact, histories differ.
-No4K started. Failure evidence archived in notes/response_cr15_failure; original acceptance rule unchanged.
-CR16 job1077122 COMPLETED/0:0 in2m14s. BaselineA/B/D histories drift; all BF16gains/state/velocity/endpoints match.
-Prompt1B/C FP32gain maxdifference1.1920928955078125e-07; default identical-feature allocation repeats drift.
-Eight isolated deterministic repeats match for both prompts. Evidence archived in notes/response_cr16_repeatability.
-CR17 job1077143 COMPLETED at 08:00:25 CDT, elapsed 13m49s on c638-141/142.
-Source1a06786; separate frozen notes/response_deterministic_protocol.json; strict original equality checks retained.
-Policy determinism applies only inside OfficialSEGA.update; enabled/warn-only flags restored in finally.
-All numericalpolicy/source provenance recorded; both gain histories saved. No proven originalbaseline qualityequivalence.
-Existing watcher hot registry includes taskq_response_deterministic plus prior queues; never duplicate watcher.
-New wrapper+response tests13passed/10s; adapted report helper33tests/15.55s; independent review found no blocker.
-Earlier full CPU suite306passed. CR15/CR16 protocol/source hashes unchanged; fresh64unused.
-BothCR17 2048smokes PASSED exactno-op/history/endpointchecks; receipt notes/response_cr17_smoke.json.
-Both 4K stages also PASSED; full provenance/endpoint/history archive verified in notes/response_cr17.
-Axis-octave prediction error median .937 (range .709-1.354); scalar .426 (.050-3.039).
-The octave map has limited predictive value; one early scalar case fails. No controller promotion.
-Secondary BF16-coordinate analysis complete: axial errors .688-1.339, scalar .029-3.004.
-Half-gain off-linearity remains substantial; no quantization-dead intervention. New helper: 12 tests passed.
-Decision: stop scalar-as-new-method branch; fixed temperature scheduling is not a distinct mechanism.
-No new GPU job before CR14 completes; interpret its controls, then choose a distinct causal hypothesis.
-Resolved spatial-frequency rotary bands remain untested, not refuted by octave -11 results.
-CR17 archive accepted and committed; do not rerun it on delayed completion events.
-CPU research: attention contribution/phase behavior and feature-spectrum prior art; no mechanism selected.
-No automatic confirmation or promotion from diagnostics to novelty/SOTA.
-Existing watcher v3: tmux crope-watch-cr14, PID1581602, i618-051/controllerjob1073260.
-Scheduler120s/files60s;33watcher tests. Direct idle-thread wake verified by actual operator receipt.
-Hot registry covers subsequent jobs; never duplicate watcher. Register next jobs before returning to waiting.
-Controller lease ends12:45:04CDT; watcher alerts one hour before expiry. Arrange verified compute handoff then.
-Account balance before CR15 submission7946/40000SUs,~80.14percent burn. Refresh before each new submission.
-Paper: paper/constancy_rope_working_2026-10-17.pdf. Active empirical report, no positive efficacy claim.
-Prior-art notes: response_prior_art_20261017.md and response_actuator_prior_art_20261017.md.
-AFM already edits attentionFourierbands and discussesnonmonotonicity; inversion/reuse alone notnovel.
-Potential distinction is attention-actuator-to-Fourier-power response; efficacy and originality remain unproved.
-Fresh64 remains unused; current runs use development rows only.
+2026-10-17 08:23 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
+RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
+PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
+Finalizer c056ce9 archived results and rebuilt paper. No novelty/SOTA/confirmation follows.
+CR17 job1077143 COMPLETED at08:00:25; all4 smoke/4K stages independently validated.
+Strict no-op, full history, endpoint and provenance checks pass; accepted archive notes/response_cr17.
+Octave prediction error median .937; scalar .426, with an early scalar failure at3.039.
+BF16-coordinate correction does not resolve weak octave prediction. Scalar-method branch stopped.
+CR15 remains FAILED under original protocol; CR16 repeatability diagnosis is complete.
+CPU observer audit: common-channel shifts invisible to fixed-gain FLUX affect SEGA's sensor/gains.
+Seven fixed-gain tests and seven feedback tests pass on tiny random FLUX; no pretrained claim.
+Feedback test: gain change .11748, output change .00717; mediation residual <=1.34e-15.
+LayerNorm shift symmetry and invariant statistics are established; AReA already rejects mean cancellation.
+Preparing CR18 pretrained BF16 audit, NOT SUBMITTED; helper/tests and draft protocol under review.
+Two dev prompts, synthetic renoised CR17 endpoints at sigma .5, five forwards each including repeat.
+Four-arm mediation separates gain changes from BF16 shift rounding. No quality or novelty claim.
+NEXT: review/freeze CR18 code/protocol, check SU balance, submit packed2node/15min spool, register watcher.
+Fresh64 and all completed frozen protocols remain untouched. No method sweep or confirmation authorized by diagnostics.
+Existing watcher PID1581602, tmux crope-watch-cr14, i618-051/controllerjob1073260.
+Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17.
+Direct autonomous wake verified; scheduler120s/files60s. Never duplicate watcher.
+Controller lease ends12:45:04 CDT, alert one hour before. Handoff not yet needed or verified.
+Last budget7946/40000SU remaining; refresh before every submission, no new nodes at96percent burn.
+Paper rebuilt to8pages with CR14 and qualified observer audit; clean build, pages6/7 visually checked.
+No active project GPU job after CR14/CR17 completion. Existing completed jobs must not be repeated.
 
 ## Map
 | File | Purpose |
-| HANDOVER.md | Long project context and operating constraints |
-| notes/response_deterministic_submission.json | CR17 job, budget and watcher registration |
-| notes/response_deterministic_protocol.json | Frozen numerical-policy response probe |
-| notes/response_cr16_repeatability/receipt.json | Numerical drift evidence and source artifacts |
-| notes/response_repeatability_protocol.json | Separate bounded numerical diagnosis, immutable |
-| notes/response_cr15_failure/receipt.json | Failed smoke status and archived evidence hashes |
-| notes/response_probe_protocol.json | Frozen two-prompt smoke/4K measurement protocol |
-| notes/response_probe_audit.json | Critical review fixes and CPU validation |
-| notes/response_prior_art_20261017.md | Full-method/code comparisons and next research tests |
-| notes/watcher_cr14.json | Watcher PID, socket, registry, lease and stop instructions |
-| notes/watcher_ack.json | Actual autonomous wake acknowledgment |
-| notes/continuation3/PROTOCOL.md | Frozen CR14 four-control diagnostic |
-| notes/continuation3/partial_baseline_uniform.json | Verified partial8pair audit, no selection |
-| notes/continuation3/dev/completion.json | Expected validated CR14 finalizer receipt |
-| notes/continuation3/confirmation_plan.md | Conditional unused fresh64 protocol |
-| notes/main2/REPORT.md | Completed negative held-out campaign |
-| notes/main2/heldout_per_prompt.csv | Archived187paired prompt-level measurements |
-| notes/novelty_20261017.md | Goal and expanded recent-baseline boundaries |
+| HANDOVER.md | Current context and historical campaign boundaries |
+| notes/continuation3/dev/selection.json | Completed CR14 four-control results |
+| notes/continuation3/independent_review.json | Independent32image/provenance/score audit |
+| notes/response_cr17/report.json | Accepted two-prompt response campaign |
+| notes/response_cr17_interpretation.json | Independent response interpretation |
+| notes/response_cr17_realized.json | Secondary BF16-coordinate analysis |
+| notes/response_next_design.json | Stop scalar method branch; no extra transfer sweep |
+| notes/observer_shift_cpu.json | Tiny fixed-gain invariance and negative control |
+| notes/observer_feedback_cpu.json | Tiny gain-mediated output change |
+| notes/next_mechanism_derivation.json | Architecture proof, scope and recommendation |
+| notes/rotary_kernel_prior_art_20261017.md | AReA/LayerNorm and phase/covariance collisions |
+| notes/observer_pretrained_protocol.json | Draft CR18 protocol, not frozen/submitted yet |
+| notes/watcher_cr14.json | Watcher process, registration and lease instructions |
+| notes/watcher_ack.json | Actual wake receipts |
+| notes/continuation3/confirmation_plan.md | Frozen unused fresh64 |
+| notes/main2/REPORT.md | Earlier187prompt negative campaign |
 
 ## Decisions
-- Preserve frozen CR14 sources/spool and immutable CR15 protocol;20CR14repository hashes verified unchanged.
-- CR14 covers fresh SEGA plus spatial RMS uniform/normalized and lag-aligned constancy;32dev images.
-- Last successful CR14 worker validates/archives, updates paper/WandB offline and commits via dev3_finalize.
-- Live-state wording may differ from finalizer literal replacements; reconcile state after its receipt.
-- First two campaigns complete and negative; do not tune on previously inspected held-out rows8-194.
-- Second campaign187pairs/seed0:IR+.008575 CI[-.008414,.027420],MUSIQ-.208599[-.708869,.315118].
-- PickScore-.075259[-.102335,-.049140],cropMUSIQ-1.131657[-1.387535,-.902193].
-- CIs crossing zero do not establish equivalence. No near-SOTA/SOTA claim currently supported.
-- Old taskq drained:255done,5olderfailures,25held;STOP remains. Do not revive consumed pilots.
-- Preserve scratch; archive paper crux on work. W&B offline evidence is retained.
-- Local-only repository has no remote; commit meaningful changes locally.
-- No controller lease extension or handoff is verified yet; current lease ends 12:45 CDT.
+- All prior frozen sources/protocols/results remain unchanged; no consumed pilot reruns.
+- CR14 is a completed diagnostic. A gate pass does not justify fresh64 or a novel-method claim.
+- Existing octave-11 response is weak; resolved-frequency controls remain untested, not refuted.
+- Observer-null sensitivity is a causal hypothesis; centering/energy replacement alone is not novel.
+- CR18 adds two no-op repeats to the suggested8forward design, making10 total for numerical validity.
+- No amplitude, sigma or seed sweep after seeing the observer outcome.
+- First two campaigns remain negative; do not tune on previously inspected held-out rows8-194.
+- Preserve scratch. Paper-critical evidence stays on work. W&B offline state is explicit.
+- Local-only repository has no remote. Commit meaningful changes; no push destination exists.
 
 ## Open questions
-- Do same-state interventions predict smaller unfit perturbations above numerical/quantization noise?
-- Can a cheap reusable response model improve final-image quality over SEGA and direct spectral correction?
-- How does any eventual mechanism differ substantively from recent AReA,SCG and Jacobian-guidance methods?
-- Novelty and matched-cost efficacy must be established before spending the fresh64 confirmation set.
+- Does pretrained BF16 observer feedback exceed fixed-gain rounding effects under the frozen intervention?
+- Can a distinct mechanism improve natural generation beyond SEGA and strong recent methods including AReA?
+- How can any improvement satisfy novelty and matched-cost efficacy before using fresh64?

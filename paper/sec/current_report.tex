@@ -227,6 +227,45 @@ of a novel controller. Local prediction must also transfer to the final image at
 sampling cost. The failed two-prompt smoke test is retained as an implementation
 finding, not a result about generation quality or the proposed response model.
 
+\paragraph{Observer invariance diagnostic.}
+A separate source audit identifies a limitation of the released SEGA observer.
+For the standard text-conditioned FLUX path, with fixed attention gains and no
+optional adapters, each residual branch reads a LayerNorm-normalized state and
+the output projection follows a final LayerNorm. In real arithmetic,
+$\operatorname{LN}(h_i+a_i\mathbf{1})=\operatorname{LN}(h_i)$ for a scalar $a_i$
+at each token. Residual additions preserve this common-channel shift until the
+final normalization removes it. Such residual-stream centering is established
+in transformer analysis~\citep{transformerlenscentering}.
+However, SEGA takes the spatial spectrum of the channel mean of the initial
+projected features. That mean changes by $a_i$, so the observer can change even
+when the fixed-gain denoiser function does not. This argument concerns a
+representation dependence, not proof of poor quality on the released weights.
+Finite-precision reparameterizations require separate checks.
+On a randomly initialized miniature FLUX with one joint and one single block,
+three common-channel reparameterizations preserve the output within
+$1.23\times10^{-15}$ maximum absolute error while changing or zeroing the
+observer's spatial energy. A channel-dependent negative control preserves the
+channel mean but changes the output by 2.025 maximum absolute error.
+Parameters and outputs are FP64; the installed rotary implementation includes
+FP32 casts. Seven CPU checks pass. This is an architecture-level numerical
+counterexample, with no pretrained, BF16, trajectory, or image-quality result.
+An independent miniature test uses the released SEGA observer and the installed
+gain processor on a $4\times128$ token grid. A spatially varying common-channel
+intervention changes gains by 0.1175 and the adaptive output by 0.00717 maximum
+absolute difference. Keeping original gains reduces the output difference to
+$1.34\times10^{-15}$; applying the changed gains to original features reproduces
+the shifted adaptive output to the same tolerance. Seven additional checks
+pass. This isolates gain mediation in the miniature; the intervention is on
+activations at one input, not a universal parameter reparameterization.
+
+Changing the observer to channel-centered spectral energy would remove this
+particular dependence, but would not itself establish novelty or quality.
+AReA already rejects channel means because opposite-sign feature changes can
+cancel, and uses channel standard deviation before its wavelet detail
+measurement~\citep{area2026}. Its statistic is also invariant to a common-channel
+shift in real arithmetic. The narrower SEGA-specific observation motivates a
+causal audit, not a new-method claim.
+
 The second-campaign candidate has one held-out seed and one evaluated backbone
 at one resolution. No second-seed replication of this candidate, new backbone,
 human preference study, or broader resolution claim is supported. Aggregate

@@ -1,0 +1,1672 @@
+{
+  "created_utc": "2026-10-17T13:21:41.621603+00:00",
+  "job_id": "1076857",
+  "status": "Independent post-completion audit passed",
+  "independence": "Reconstructed from raw score CSVs, PNGs and sidecars without invoking dev3_analysis/analyze or finalizer. No model/scorer rerun.",
+  "all_four_workflows_completed_before_selection_review": true,
+  "prompt_ids": [
+    "a4k_eval_4096_minus6873203881450547484",
+    "a4k_eval_4096_3614061571823823193",
+    "a4k_eval_4096_7354534197758042049",
+    "a4k_eval_4096_788875264758341041",
+    "a4k_eval_4096_minus5023570400257826529",
+    "a4k_eval_4096_minus8041742109062037958",
+    "a4k_eval_4096_5968998903196670637",
+    "a4k_eval_4096_minus8648158440845565467"
+  ],
+  "counts": {
+    "methods": 4,
+    "images_verified": 32,
+    "raw_score_csvs": 8,
+    "frozen_paths_checked": 26
+  },
+  "gate": "IR delta>0, full MUSIQ delta>0, CLIP delta>=-0.3; rank IR, MUSIQ, name; at most2",
+  "selected": [
+    "sega_rms_normalized"
+  ],
+  "max_absolute_difference_from_archive": 2.498001805406602e-16,
+  "rows": [
+    {
+      "method": "sega_official",
+      "n": 8,
+      "means": {
+        "imagereward": 1.3912745,
+        "musiq": 43.28140211105347,
+        "clip": 30.147244930267334,
+        "pickscore": 23.375039100646973,
+        "musiq_crop1024": 58.590646862983704,
+        "clipiqa": 0.5450999885797501,
+        "clipiqa_crop1024": 0.574002071749419
+      },
+      "paired_delta": {
+        "imagereward": 0.0,
+        "musiq": 0.0,
+        "clip": 0.0,
+        "pickscore": 0.0,
+        "musiq_crop1024": 0.0,
+        "clipiqa": 0.0,
+        "clipiqa_crop1024": 0.0
+      },
+      "eligible": false,
+      "wins": {
+        "imagereward": 0,
+        "musiq": 0,
+        "clip": 0,
+        "pickscore": 0,
+        "musiq_crop1024": 0,
+        "clipiqa": 0,
+        "clipiqa_crop1024": 0
+      }
+    },
+    {
+      "method": "sega_rms_uniform",
+      "n": 8,
+      "means": {
+        "imagereward": 1.3738848750000001,
+        "musiq": 41.71468377113342,
+        "clip": 30.734049320220947,
+        "pickscore": 23.291831493377686,
+        "musiq_crop1024": 58.072897493839264,
+        "clipiqa": 0.5629460960626602,
+        "clipiqa_crop1024": 0.5876397085376084
+      },
+      "paired_delta": {
+        "imagereward": -0.017389624999999964,
+        "musiq": -1.566718339920044,
+        "clip": 0.5868043899536133,
+        "pickscore": -0.08320760726928711,
+        "musiq_crop1024": -0.5177493691444397,
+        "clipiqa": 0.017846107482910156,
+        "clipiqa_crop1024": 0.013637636788189411
+      },
+      "eligible": false,
+      "wins": {
+        "imagereward": 5,
+        "musiq": 3,
+        "clip": 6,
+        "pickscore": 2,
+        "musiq_crop1024": 2,
+        "clipiqa": 5,
+        "clipiqa_crop1024": 4
+      },
+      "exploratory_leave_one_out_gate": [
+        {
+          "omitted_prompt_id": "a4k_eval_4096_minus6873203881450547484",
+          "eligible": false,
+          "delta_imagereward": -0.007556285714285682,
+          "delta_musiq": -1.3506652287074499,
+          "delta_clip": 0.4108952113560268
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_3614061571823823193",
+          "eligible": false,
+          "delta_imagereward": -0.009746571428571413,
+          "delta_musiq": -1.806046622140067,
+          "delta_clip": 0.5431954520089286
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_7354534197758042049",
+          "eligible": false,
+          "delta_imagereward": -0.0023492857142856888,
+          "delta_musiq": -1.0612713950020927,
+          "delta_clip": 0.6059221540178571
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_788875264758341041",
+          "eligible": false,
+          "delta_imagereward": -0.022060428571428536,
+          "delta_musiq": -1.9929076603480749,
+          "delta_clip": 0.6395007542201451
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_minus5023570400257826529",
+          "eligible": false,
+          "delta_imagereward": -0.023973142857142804,
+          "delta_musiq": -1.9919147491455078,
+          "delta_clip": 0.7802797045026507
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_minus8041742109062037958",
+          "eligible": false,
+          "delta_imagereward": -0.020860999999999956,
+          "delta_musiq": -1.0218350546700614,
+          "delta_clip": 0.707503182547433
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_5968998903196670637",
+          "eligible": false,
+          "delta_imagereward": -0.024424142857142814,
+          "delta_musiq": -1.5421532222202845,
+          "delta_clip": 0.5579256330217633
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_minus8648158440845565467",
+          "eligible": false,
+          "delta_imagereward": -0.028146142857142818,
+          "delta_musiq": -1.7669527871268136,
+          "delta_clip": 0.44921302795410156
+        }
+      ]
+    },
+    {
+      "method": "sega_rms_normalized",
+      "n": 8,
+      "means": {
+        "imagereward": 1.4275595,
+        "musiq": 43.67026352882385,
+        "clip": 30.081754207611084,
+        "pickscore": 23.308472394943237,
+        "musiq_crop1024": 58.37568420171738,
+        "clipiqa": 0.5566990971565247,
+        "clipiqa_crop1024": 0.5816750731319189
+      },
+      "paired_delta": {
+        "imagereward": 0.036285,
+        "musiq": 0.38886141777038574,
+        "clip": -0.06549072265625,
+        "pickscore": -0.06656670570373535,
+        "musiq_crop1024": -0.2149626612663269,
+        "clipiqa": 0.011599108576774597,
+        "clipiqa_crop1024": 0.007673001382499933
+      },
+      "eligible": true,
+      "wins": {
+        "imagereward": 5,
+        "musiq": 6,
+        "clip": 3,
+        "pickscore": 2,
+        "musiq_crop1024": 3,
+        "clipiqa": 7,
+        "clipiqa_crop1024": 5
+      },
+      "exploratory_leave_one_out_gate": [
+        {
+          "omitted_prompt_id": "a4k_eval_4096_minus6873203881450547484",
+          "eligible": true,
+          "delta_imagereward": 0.02455957142857141,
+          "delta_musiq": 0.39902850559779574,
+          "delta_clip": -0.06678553989955358
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_3614061571823823193",
+          "eligible": true,
+          "delta_imagereward": 0.04093971428571427,
+          "delta_musiq": 0.4333185468401228,
+          "delta_clip": -0.08350317818777901
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_7354534197758042049",
+          "eligible": true,
+          "delta_imagereward": 0.04006314285714285,
+          "delta_musiq": 0.49858066013881136,
+          "delta_clip": -0.07813480922154017
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_788875264758341041",
+          "eligible": true,
+          "delta_imagereward": 0.04196585714285712,
+          "delta_musiq": 0.31354004996163504,
+          "delta_clip": -0.06323214939662389
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_minus5023570400257826529",
+          "eligible": true,
+          "delta_imagereward": 0.034125857142857145,
+          "delta_musiq": 0.4084606170654297,
+          "delta_clip": -0.12448556082589286
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_minus8041742109062037958",
+          "eligible": true,
+          "delta_imagereward": 0.022175428571428575,
+          "delta_musiq": 0.1317206791469029,
+          "delta_clip": -0.0010820116315569197
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_5968998903196670637",
+          "eligible": true,
+          "delta_imagereward": 0.04472142857142859,
+          "delta_musiq": 0.5146410805838448,
+          "delta_clip": -0.05029460362025669
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_minus8648158440845565467",
+          "eligible": true,
+          "delta_imagereward": 0.041729000000000016,
+          "delta_musiq": 0.4116012028285435,
+          "delta_clip": -0.056407928466796875
+        }
+      ]
+    },
+    {
+      "method": "sega_ctm_lag",
+      "n": 8,
+      "means": {
+        "imagereward": 1.41052925,
+        "musiq": 43.058090686798096,
+        "clip": 30.15639638900757,
+        "pickscore": 23.320427656173706,
+        "musiq_crop1024": 58.43766778707504,
+        "clipiqa": 0.5595129542052746,
+        "clipiqa_crop1024": 0.5780910775065422
+      },
+      "paired_delta": {
+        "imagereward": 0.019254750000000015,
+        "musiq": -0.2233114242553711,
+        "clip": 0.009151458740234375,
+        "pickscore": -0.0546114444732666,
+        "musiq_crop1024": -0.1529790759086609,
+        "clipiqa": 0.014412965625524521,
+        "clipiqa_crop1024": 0.004089005757123232
+      },
+      "eligible": false,
+      "wins": {
+        "imagereward": 4,
+        "musiq": 3,
+        "clip": 4,
+        "pickscore": 4,
+        "musiq_crop1024": 4,
+        "clipiqa": 5,
+        "clipiqa_crop1024": 3
+      },
+      "exploratory_leave_one_out_gate": [
+        {
+          "omitted_prompt_id": "a4k_eval_4096_minus6873203881450547484",
+          "eligible": false,
+          "delta_imagereward": 0.019891142857142868,
+          "delta_musiq": -0.2832145690917969,
+          "delta_clip": -0.1252779279436384
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_3614061571823823193",
+          "eligible": false,
+          "delta_imagereward": 0.02386114285714285,
+          "delta_musiq": -0.08855492728097099,
+          "delta_clip": 0.07674952915736608
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_7354534197758042049",
+          "eligible": false,
+          "delta_imagereward": 0.02000242857142858,
+          "delta_musiq": -0.12405885968889509,
+          "delta_clip": 0.004443032400948661
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_788875264758341041",
+          "eligible": false,
+          "delta_imagereward": 0.024374428571428592,
+          "delta_musiq": -0.21181106567382812,
+          "delta_clip": 0.008309228079659598
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_minus5023570400257826529",
+          "eligible": false,
+          "delta_imagereward": 0.017524142857142877,
+          "delta_musiq": -0.2950434003557478,
+          "delta_clip": 0.01750673566545759
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_minus8041742109062037958",
+          "eligible": false,
+          "delta_imagereward": -0.0007064285714285523,
+          "delta_musiq": -0.5063580104282924,
+          "delta_clip": 0.024969373430524553
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_5968998903196670637",
+          "eligible": false,
+          "delta_imagereward": 0.026831142857142894,
+          "delta_musiq": -0.21045630318777903,
+          "delta_clip": 0.007799965994698661
+        },
+        {
+          "omitted_prompt_id": "a4k_eval_4096_minus8648158440845565467",
+          "eligible": false,
+          "delta_imagereward": 0.02226000000000001,
+          "delta_musiq": -0.06699425833565849,
+          "delta_clip": 0.058711733136858256
+        }
+      ]
+    }
+  ],
+  "per_prompt": [
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+      "scores": {
+        "imagereward": 0.987624,
+        "musiq": 44.139892578125,
+        "clip": 26.182031631469727,
+        "pickscore": 23.971315383911133,
+        "musiq_crop1024": 59.37635612487793,
+        "clipiqa": 0.61528080701828,
+        "clipiqa_crop1024": 0.6381554827094078
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.0,
+        "musiq": 0.0,
+        "clip": 0.0,
+        "pickscore": 0.0,
+        "musiq_crop1024": 0.0,
+        "clipiqa": 0.0,
+        "clipiqa_crop1024": 0.0
+      }
+    },
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_3614061571823823193",
+      "scores": {
+        "imagereward": 1.551181,
+        "musiq": 21.49173355102539,
+        "clip": 38.61063003540039,
+        "pickscore": 23.06504249572754,
+        "musiq_crop1024": 60.19416904449463,
+        "clipiqa": 0.7046777606010437,
+        "clipiqa_crop1024": 0.6656699329614639
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.0,
+        "musiq": 0.0,
+        "clip": 0.0,
+        "pickscore": 0.0,
+        "musiq_crop1024": 0.0,
+        "clipiqa": 0.0,
+        "clipiqa_crop1024": 0.0
+      }
+    },
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_7354534197758042049",
+      "scores": {
+        "imagereward": 1.540606,
+        "musiq": 50.8685188293457,
+        "clip": 32.79288864135742,
+        "pickscore": 23.185699462890625,
+        "musiq_crop1024": 66.69691181182861,
+        "clipiqa": 0.47101029753685,
+        "clipiqa_crop1024": 0.6039523109793663
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.0,
+        "musiq": 0.0,
+        "clip": 0.0,
+        "pickscore": 0.0,
+        "musiq_crop1024": 0.0,
+        "clipiqa": 0.0,
+        "clipiqa_crop1024": 0.0
+      }
+    },
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_788875264758341041",
+      "scores": {
+        "imagereward": 1.831038,
+        "musiq": 44.22970962524414,
+        "clip": 28.925952911376953,
+        "pickscore": 24.47623062133789,
+        "musiq_crop1024": 51.98303413391113,
+        "clipiqa": 0.481731653213501,
+        "clipiqa_crop1024": 0.5001373738050461
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.0,
+        "musiq": 0.0,
+        "clip": 0.0,
+        "pickscore": 0.0,
+        "musiq_crop1024": 0.0,
+        "clipiqa": 0.0,
+        "clipiqa_crop1024": 0.0
+      }
+    },
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+      "scores": {
+        "imagereward": 1.363142,
+        "musiq": 50.10075378417969,
+        "clip": 28.298032760620117,
+        "pickscore": 21.235301971435547,
+        "musiq_crop1024": 61.11798858642578,
+        "clipiqa": 0.6907521486282349,
+        "clipiqa_crop1024": 0.6551700681447983
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.0,
+        "musiq": 0.0,
+        "clip": 0.0,
+        "pickscore": 0.0,
+        "musiq_crop1024": 0.0,
+        "clipiqa": 0.0,
+        "clipiqa_crop1024": 0.0
+      }
+    },
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_minus8041742109062037958",
+      "scores": {
+        "imagereward": 0.518109,
+        "musiq": 39.226139068603516,
+        "clip": 28.97410011291504,
+        "pickscore": 21.70427894592285,
+        "musiq_crop1024": 41.59971809387207,
+        "clipiqa": 0.3401232063770294,
+        "clipiqa_crop1024": 0.3974999226629734
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.0,
+        "musiq": 0.0,
+        "clip": 0.0,
+        "pickscore": 0.0,
+        "musiq_crop1024": 0.0,
+        "clipiqa": 0.0,
+        "clipiqa_crop1024": 0.0
+      }
+    },
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_5968998903196670637",
+      "scores": {
+        "imagereward": 1.458781,
+        "musiq": 44.503440856933594,
+        "clip": 25.967777252197266,
+        "pickscore": 25.282590866088867,
+        "musiq_crop1024": 61.96614456176758,
+        "clipiqa": 0.5290385484695435,
+        "clipiqa_crop1024": 0.5441238209605217
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.0,
+        "musiq": 0.0,
+        "clip": 0.0,
+        "pickscore": 0.0,
+        "musiq_crop1024": 0.0,
+        "clipiqa": 0.0,
+        "clipiqa_crop1024": 0.0
+      }
+    },
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_minus8648158440845565467",
+      "scores": {
+        "imagereward": 1.879715,
+        "musiq": 51.6910285949707,
+        "clip": 31.426546096801758,
+        "pickscore": 24.079853057861328,
+        "musiq_crop1024": 65.7908525466919,
+        "clipiqa": 0.5281854867935181,
+        "clipiqa_crop1024": 0.5873076617717743
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.0,
+        "musiq": 0.0,
+        "clip": 0.0,
+        "pickscore": 0.0,
+        "musiq_crop1024": 0.0,
+        "clipiqa": 0.0,
+        "clipiqa_crop1024": 0.0
+      }
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+      "scores": {
+        "imagereward": 0.901401,
+        "musiq": 41.0608024597168,
+        "clip": 28.000200271606445,
+        "pickscore": 23.694046020507812,
+        "musiq_crop1024": 58.0146484375,
+        "clipiqa": 0.6543340086936951,
+        "clipiqa_crop1024": 0.6988436728715897
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": -0.08622299999999994,
+        "musiq": -3.079090118408203,
+        "clip": 1.8181686401367188,
+        "pickscore": -0.2772693634033203,
+        "musiq_crop1024": -1.3617076873779297,
+        "clipiqa": 0.03905320167541504,
+        "clipiqa_crop1024": 0.060688190162181854
+      }
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_3614061571823823193",
+      "scores": {
+        "imagereward": 1.48029,
+        "musiq": 21.600313186645508,
+        "clip": 39.5026969909668,
+        "pickscore": 23.03886604309082,
+        "musiq_crop1024": 59.46257305145264,
+        "clipiqa": 0.6710934638977051,
+        "clipiqa_crop1024": 0.6627810150384903
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": -0.07089099999999982,
+        "musiq": 0.10857963562011719,
+        "clip": 0.8920669555664062,
+        "pickscore": -0.02617645263671875,
+        "musiq_crop1024": -0.7315959930419922,
+        "clipiqa": -0.03358429670333862,
+        "clipiqa_crop1024": -0.002888917922973633
+      }
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_7354534197758042049",
+      "scores": {
+        "imagereward": 1.417934,
+        "musiq": 45.763671875,
+        "clip": 33.24586868286133,
+        "pickscore": 22.900480270385742,
+        "musiq_crop1024": 65.7578353881836,
+        "clipiqa": 0.5225540399551392,
+        "clipiqa_crop1024": 0.6134403869509697
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": -0.12267199999999989,
+        "musiq": -5.104846954345703,
+        "clip": 0.45298004150390625,
+        "pickscore": -0.2852191925048828,
+        "musiq_crop1024": -0.9390764236450195,
+        "clipiqa": 0.051543742418289185,
+        "clipiqa_crop1024": 0.009488075971603394
+      }
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_788875264758341041",
+      "scores": {
+        "imagereward": 1.846344,
+        "musiq": 45.64631652832031,
+        "clip": 29.143882751464844,
+        "pickscore": 24.304363250732422,
+        "musiq_crop1024": 53.233553886413574,
+        "clipiqa": 0.4582102298736572,
+        "clipiqa_crop1024": 0.48669178038835526
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.015306000000000042,
+        "musiq": 1.4166069030761719,
+        "clip": 0.21792984008789062,
+        "pickscore": -0.17186737060546875,
+        "musiq_crop1024": 1.2505197525024414,
+        "clipiqa": -0.02352142333984375,
+        "clipiqa_crop1024": -0.013445593416690826
+      }
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+      "scores": {
+        "imagereward": 1.391837,
+        "musiq": 51.51041030883789,
+        "clip": 27.53050994873047,
+        "pickscore": 21.19710922241211,
+        "musiq_crop1024": 61.23567867279053,
+        "clipiqa": 0.6374222040176392,
+        "clipiqa_crop1024": 0.6203781813383102
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.028694999999999915,
+        "musiq": 1.4096565246582031,
+        "clip": -0.7675228118896484,
+        "pickscore": -0.0381927490234375,
+        "musiq_crop1024": 0.1176900863647461,
+        "clipiqa": -0.0533299446105957,
+        "clipiqa_crop1024": -0.03479188680648804
+      }
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_minus8041742109062037958",
+      "scores": {
+        "imagereward": 0.525019,
+        "musiq": 33.845237731933594,
+        "clip": 28.716012954711914,
+        "pickscore": 21.48061180114746,
+        "musiq_crop1024": 40.93636083602905,
+        "clipiqa": 0.35461413860321045,
+        "clipiqa_crop1024": 0.3962484635412693
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.006909999999999972,
+        "musiq": -5.380901336669922,
+        "clip": -0.258087158203125,
+        "pickscore": -0.22366714477539062,
+        "musiq_crop1024": -0.6633572578430176,
+        "clipiqa": 0.01449093222618103,
+        "clipiqa_crop1024": -0.0012514591217041016
+      }
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_5968998903196670637",
+      "scores": {
+        "imagereward": 1.490633,
+        "musiq": 42.764766693115234,
+        "clip": 26.756732940673828,
+        "pickscore": 25.473310470581055,
+        "musiq_crop1024": 60.98685073852539,
+        "clipiqa": 0.5468910932540894,
+        "clipiqa_crop1024": 0.5643656104803085
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.03185199999999999,
+        "musiq": -1.7386741638183594,
+        "clip": 0.7889556884765625,
+        "pickscore": 0.1907196044921875,
+        "musiq_crop1024": -0.9792938232421875,
+        "clipiqa": 0.0178525447845459,
+        "clipiqa_crop1024": 0.020241789519786835
+      }
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_minus8648158440845565467",
+      "scores": {
+        "imagereward": 1.937621,
+        "musiq": 51.52595138549805,
+        "clip": 32.97649002075195,
+        "pickscore": 24.245864868164062,
+        "musiq_crop1024": 64.95567893981934,
+        "clipiqa": 0.6584495902061462,
+        "clipiqa_crop1024": 0.6583685576915741
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.05790600000000001,
+        "musiq": -0.16507720947265625,
+        "clip": 1.5499439239501953,
+        "pickscore": 0.16601181030273438,
+        "musiq_crop1024": -0.8351736068725586,
+        "clipiqa": 0.13026410341262817,
+        "clipiqa_crop1024": 0.0710608959197998
+      }
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+      "scores": {
+        "imagereward": 1.105987,
+        "musiq": 44.457584381103516,
+        "clip": 26.1256046295166,
+        "pickscore": 23.895893096923828,
+        "musiq_crop1024": 59.83009147644043,
+        "clipiqa": 0.64874267578125,
+        "clipiqa_crop1024": 0.6641151160001755
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.11836300000000011,
+        "musiq": 0.3176918029785156,
+        "clip": -0.056427001953125,
+        "pickscore": -0.07542228698730469,
+        "musiq_crop1024": 0.4537353515625,
+        "clipiqa": 0.03346186876296997,
+        "clipiqa_crop1024": 0.02595963329076767
+      }
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_3614061571823823193",
+      "scores": {
+        "imagereward": 1.554883,
+        "musiq": 21.569395065307617,
+        "clip": 38.671226501464844,
+        "pickscore": 22.909690856933594,
+        "musiq_crop1024": 60.038583755493164,
+        "clipiqa": 0.712027370929718,
+        "clipiqa_crop1024": 0.6710364818572998
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.003702000000000094,
+        "musiq": 0.07766151428222656,
+        "clip": 0.060596466064453125,
+        "pickscore": -0.1553516387939453,
+        "musiq_crop1024": -0.15558528900146484,
+        "clipiqa": 0.007349610328674316,
+        "clipiqa_crop1024": 0.0053665488958358765
+      }
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_7354534197758042049",
+      "scores": {
+        "imagereward": 1.550444,
+        "musiq": 50.48934555053711,
+        "clip": 32.8159065246582,
+        "pickscore": 23.22718048095703,
+        "musiq_crop1024": 66.98497200012207,
+        "clipiqa": 0.4626741111278534,
+        "clipiqa_crop1024": 0.5982572212815285
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.009838000000000013,
+        "musiq": -0.37917327880859375,
+        "clip": 0.02301788330078125,
+        "pickscore": 0.04148101806640625,
+        "musiq_crop1024": 0.28806018829345703,
+        "clipiqa": -0.008336186408996582,
+        "clipiqa_crop1024": -0.00569508969783783
+      }
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_788875264758341041",
+      "scores": {
+        "imagereward": 1.827557,
+        "musiq": 45.14582061767578,
+        "clip": 28.84465217590332,
+        "pickscore": 24.209569931030273,
+        "musiq_crop1024": 50.77725791931152,
+        "clipiqa": 0.4851551055908203,
+        "clipiqa_crop1024": 0.49516649544239044
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": -0.0034809999999998453,
+        "musiq": 0.9161109924316406,
+        "clip": -0.08130073547363281,
+        "pickscore": -0.2666606903076172,
+        "musiq_crop1024": -1.2057762145996094,
+        "clipiqa": 0.003423452377319336,
+        "clipiqa_crop1024": -0.00497087836265564
+      }
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+      "scores": {
+        "imagereward": 1.414541,
+        "musiq": 50.352420806884766,
+        "clip": 28.645505905151367,
+        "pickscore": 21.273590087890625,
+        "musiq_crop1024": 60.63766574859619,
+        "clipiqa": 0.7100452780723572,
+        "clipiqa_crop1024": 0.6724061518907547
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.05139899999999997,
+        "musiq": 0.2516670227050781,
+        "clip": 0.34747314453125,
+        "pickscore": 0.038288116455078125,
+        "musiq_crop1024": -0.48032283782958984,
+        "clipiqa": 0.019293129444122314,
+        "clipiqa_crop1024": 0.01723608374595642
+      }
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_minus8041742109062037958",
+      "scores": {
+        "imagereward": 0.653161,
+        "musiq": 41.41498565673828,
+        "clip": 28.457748413085938,
+        "pickscore": 21.649145126342773,
+        "musiq_crop1024": 41.29778242111206,
+        "clipiqa": 0.34370478987693787,
+        "clipiqa_crop1024": 0.40037599205970764
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.13505199999999995,
+        "musiq": 2.1888465881347656,
+        "clip": -0.5163516998291016,
+        "pickscore": -0.055133819580078125,
+        "musiq_crop1024": -0.30193567276000977,
+        "clipiqa": 0.0035815834999084473,
+        "clipiqa_crop1024": 0.0028760693967342377
+      }
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_5968998903196670637",
+      "scores": {
+        "imagereward": 1.436011,
+        "musiq": 44.011844635009766,
+        "clip": 25.795913696289062,
+        "pickscore": 25.266504287719727,
+        "musiq_crop1024": 60.995144844055176,
+        "clipiqa": 0.5326945781707764,
+        "clipiqa_crop1024": 0.5440742149949074
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": -0.02277000000000018,
+        "musiq": -0.4915962219238281,
+        "clip": -0.17186355590820312,
+        "pickscore": -0.016086578369140625,
+        "musiq_crop1024": -0.9709997177124023,
+        "clipiqa": 0.00365602970123291,
+        "clipiqa_crop1024": -4.960596561431885e-05
+      }
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_minus8648158440845565467",
+      "scores": {
+        "imagereward": 1.877892,
+        "musiq": 51.920711517333984,
+        "clip": 31.297475814819336,
+        "pickscore": 24.036205291748047,
+        "musiq_crop1024": 66.4439754486084,
+        "clipiqa": 0.5585488677024841,
+        "clipiqa_crop1024": 0.6079689115285873
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": -0.00182300000000013,
+        "musiq": 0.22968292236328125,
+        "clip": -0.12907028198242188,
+        "pickscore": -0.04364776611328125,
+        "musiq_crop1024": 0.6531229019165039,
+        "clipiqa": 0.030363380908966064,
+        "clipiqa_crop1024": 0.02066124975681305
+      }
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+      "scores": {
+        "imagereward": 1.002424,
+        "musiq": 44.33590316772461,
+        "clip": 27.13218879699707,
+        "pickscore": 24.094240188598633,
+        "musiq_crop1024": 60.268917083740234,
+        "clipiqa": 0.6709095239639282,
+        "clipiqa_crop1024": 0.6708406060934067
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.014800000000000035,
+        "musiq": 0.19601058959960938,
+        "clip": 0.9501571655273438,
+        "pickscore": 0.1229248046875,
+        "musiq_crop1024": 0.8925609588623047,
+        "clipiqa": 0.05562871694564819,
+        "clipiqa_crop1024": 0.03268512338399887
+      }
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_3614061571823823193",
+      "scores": {
+        "imagereward": 1.538191,
+        "musiq": 20.32512664794922,
+        "clip": 38.1465950012207,
+        "pickscore": 22.978816986083984,
+        "musiq_crop1024": 59.00870895385742,
+        "clipiqa": 0.7060118317604065,
+        "clipiqa_crop1024": 0.6627257317304611
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": -0.012989999999999835,
+        "musiq": -1.1666069030761719,
+        "clip": -0.4640350341796875,
+        "pickscore": -0.08622550964355469,
+        "musiq_crop1024": -1.185460090637207,
+        "clipiqa": 0.001334071159362793,
+        "clipiqa_crop1024": -0.0029442012310028076
+      }
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_7354534197758042049",
+      "scores": {
+        "imagereward": 1.554627,
+        "musiq": 49.950439453125,
+        "clip": 32.834999084472656,
+        "pickscore": 23.143478393554688,
+        "musiq_crop1024": 66.73902988433838,
+        "clipiqa": 0.46779537200927734,
+        "clipiqa_crop1024": 0.5965317115187645
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.014021000000000061,
+        "musiq": -0.9180793762207031,
+        "clip": 0.042110443115234375,
+        "pickscore": -0.0422210693359375,
+        "musiq_crop1024": 0.042118072509765625,
+        "clipiqa": -0.003214925527572632,
+        "clipiqa_crop1024": -0.007420599460601807
+      }
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_788875264758341041",
+      "scores": {
+        "imagereward": 1.814455,
+        "musiq": 43.92589569091797,
+        "clip": 28.94099998474121,
+        "pickscore": 24.130945205688477,
+        "musiq_crop1024": 50.95315933227539,
+        "clipiqa": 0.48650121688842773,
+        "clipiqa_crop1024": 0.4941794201731682
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": -0.016583000000000014,
+        "musiq": -0.3038139343261719,
+        "clip": 0.015047073364257812,
+        "pickscore": -0.34528541564941406,
+        "musiq_crop1024": -1.0298748016357422,
+        "clipiqa": 0.004769563674926758,
+        "clipiqa_crop1024": -0.005957953631877899
+      }
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+      "scores": {
+        "imagereward": 1.394511,
+        "musiq": 50.37956619262695,
+        "clip": 28.24869728088379,
+        "pickscore": 21.25754165649414,
+        "musiq_crop1024": 61.12804698944092,
+        "clipiqa": 0.7029251456260681,
+        "clipiqa_crop1024": 0.668542742729187
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.03136899999999998,
+        "musiq": 0.2788124084472656,
+        "clip": -0.049335479736328125,
+        "pickscore": 0.02223968505859375,
+        "musiq_crop1024": 0.010058403015136719,
+        "clipiqa": 0.012172996997833252,
+        "clipiqa_crop1024": 0.013372674584388733
+      }
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_minus8041742109062037958",
+      "scores": {
+        "imagereward": 0.677092,
+        "musiq": 40.984153747558594,
+        "clip": 28.872526168823242,
+        "pickscore": 21.716772079467773,
+        "musiq_crop1024": 42.72227907180786,
+        "clipiqa": 0.33495673537254333,
+        "clipiqa_crop1024": 0.38316288590431213
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": 0.15898299999999999,
+        "musiq": 1.7580146789550781,
+        "clip": -0.10157394409179688,
+        "pickscore": 0.012493133544921875,
+        "musiq_crop1024": 1.122560977935791,
+        "clipiqa": -0.005166471004486084,
+        "clipiqa_crop1024": -0.01433703675866127
+      }
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_5968998903196670637",
+      "scores": {
+        "imagereward": 1.425001,
+        "musiq": 44.19014358520508,
+        "clip": 25.98638916015625,
+        "pickscore": 25.34497833251953,
+        "musiq_crop1024": 61.6917667388916,
+        "clipiqa": 0.5253605246543884,
+        "clipiqa_crop1024": 0.5408347696065903
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": -0.03378000000000014,
+        "musiq": -0.3132972717285156,
+        "clip": 0.018611907958984375,
+        "pickscore": 0.06238746643066406,
+        "musiq_crop1024": -0.27437782287597656,
+        "clipiqa": -0.0036780238151550293,
+        "clipiqa_crop1024": -0.003289051353931427
+      }
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_minus8648158440845565467",
+      "scores": {
+        "imagereward": 1.877933,
+        "musiq": 50.373497009277344,
+        "clip": 31.088775634765625,
+        "pickscore": 23.896648406982422,
+        "musiq_crop1024": 64.98943424224854,
+        "clipiqa": 0.581643283367157,
+        "clipiqa_crop1024": 0.6079107522964478
+      },
+      "delta_vs_fresh_sega": {
+        "imagereward": -0.0017819999999999503,
+        "musiq": -1.3175315856933594,
+        "clip": -0.3377704620361328,
+        "pickscore": -0.18320465087890625,
+        "musiq_crop1024": -0.8014183044433594,
+        "clipiqa": 0.053457796573638916,
+        "clipiqa_crop1024": 0.020603090524673462
+      }
+    }
+  ],
+  "generation_provenance": {
+    "transformer_snapshot": "/scratch/09032/saini_2/tmp/hf/hub/models--black-forest-labs--FLUX.1-Krea-dev/snapshots/8162a9c7b05a641be098422bf2fcf335615c2f28",
+    "transformer_revision": "8162a9c7b05a641be098422bf2fcf335615c2f28",
+    "transformer_config_sha256": "a8d4ca92dc64ca8116c370ab91339e18a723ab950c18de513d09c3922df7a2d1",
+    "base_pipeline": "black-forest-labs/FLUX.1-dev",
+    "note": "Legacy image config model_revision describes the base pipeline, not the overridden transformer."
+  },
+  "hardware": {
+    "sega_official": {
+      "generation_wandb_file": "/scratch/09032/saini_2/constancy_rope/wandb/wandb/offline-run-20261017_072204-331cluge/run-331cluge.wandb",
+      "hosts": [
+        "c609-151"
+      ],
+      "gpu_names": [
+        "NVIDIA GH200 120GB"
+      ],
+      "gpu_uuids": [
+        "GPU-c816ea30-fd08-ebce-c1f1-533ac25b660d"
+      ],
+      "ir_checkpoint_paths": [
+        "/scratch/09032/saini_2/tmp/hf/hub/models--THUDM--ImageReward/snapshots/5736be03b2652728fb87788c9797b0570450ab72/ImageReward.pt"
+      ]
+    },
+    "sega_rms_uniform": {
+      "generation_wandb_file": "/scratch/09032/saini_2/constancy_rope/wandb/wandb/offline-run-20261017_072206-c5vinbyo/run-c5vinbyo.wandb",
+      "hosts": [
+        "c609-092"
+      ],
+      "gpu_names": [
+        "NVIDIA GH200 120GB"
+      ],
+      "gpu_uuids": [
+        "GPU-d60942e0-4e3e-fece-621f-24620c058da4"
+      ],
+      "ir_checkpoint_paths": [
+        "/scratch/09032/saini_2/tmp/hf/hub/models--THUDM--ImageReward/snapshots/5736be03b2652728fb87788c9797b0570450ab72/ImageReward.pt"
+      ]
+    },
+    "sega_rms_normalized": {
+      "generation_wandb_file": "/scratch/09032/saini_2/constancy_rope/wandb/wandb/offline-run-20261017_075032-m12edluq/run-m12edluq.wandb",
+      "hosts": [
+        "c609-151"
+      ],
+      "gpu_names": [
+        "NVIDIA GH200 120GB"
+      ],
+      "gpu_uuids": [
+        "GPU-c816ea30-fd08-ebce-c1f1-533ac25b660d"
+      ],
+      "ir_checkpoint_paths": [
+        "/scratch/09032/saini_2/tmp/hf/hub/models--THUDM--ImageReward/snapshots/5736be03b2652728fb87788c9797b0570450ab72/ImageReward.pt"
+      ]
+    },
+    "sega_ctm_lag": {
+      "generation_wandb_file": "/scratch/09032/saini_2/constancy_rope/wandb/wandb/offline-run-20261017_075110-zpze5qws/run-zpze5qws.wandb",
+      "hosts": [
+        "c609-092"
+      ],
+      "gpu_names": [
+        "NVIDIA GH200 120GB"
+      ],
+      "gpu_uuids": [
+        "GPU-d60942e0-4e3e-fece-621f-24620c058da4"
+      ],
+      "ir_checkpoint_paths": [
+        "/scratch/09032/saini_2/tmp/hf/hub/models--THUDM--ImageReward/snapshots/5736be03b2652728fb87788c9797b0570450ab72/ImageReward.pt"
+      ]
+    }
+  },
+  "scoring_provenance": {
+    "model_revisions": {
+      "openai/clip-vit-large-patch14": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+      "yuvalkirstain/PickScore_v1": "a4e4367c6dfa7288a00c550414478f865b875800",
+      "laion/CLIP-ViT-H-14-laion2B-s32B-b79K": "1c2b8495b28150b8a4922ee1c8edee224c284c0c",
+      "THUDM/ImageReward": "5736be03b2652728fb87788c9797b0570450ab72",
+      "MizzenAI/HPSv3": null
+    },
+    "versions": {
+      "torch": "2.11.0+cu128",
+      "transformers": "5.19.0",
+      "pyiqa": "0.1.16",
+      "image-reward": "1.5",
+      "hpsv3": null,
+      "torch-fidelity": "0.4.0",
+      "pytorch-fid": null
+    },
+    "crops": 4,
+    "crop_seed": 0,
+    "metric_status": {
+      "clip": {
+        "status": "complete",
+        "provenance": {
+          "model": "openai/clip-vit-large-patch14",
+          "processor": "openai/clip-vit-large-patch14",
+          "revision": null,
+          "definition": "100*max(cosine,0)"
+        }
+      },
+      "pickscore": {
+        "status": "complete",
+        "provenance": {
+          "model": "yuvalkirstain/PickScore_v1",
+          "processor": "laion/CLIP-ViT-H-14-laion2B-s32B-b79K",
+          "revision": null,
+          "definition": "exp(logit_scale)*cosine"
+        }
+      },
+      "musiq": {
+        "status": "complete",
+        "provenance": {
+          "model": "pyiqa/musiq",
+          "full_input": "native resolution, model preprocessing unchanged",
+          "crop_input": "random 1024x1024, averaged within image"
+        }
+      },
+      "clipiqa": {
+        "status": "complete",
+        "provenance": {
+          "model": "pyiqa/clipiqa",
+          "full_input": "native resolution, model preprocessing unchanged",
+          "crop_input": "random 1024x1024, averaged within image"
+        }
+      }
+    }
+  },
+  "image_verification": [
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+      "image_sha256": "d560aaeb6f14cd29e8e520da62c8be78860b8ad8be13f647c5fac3cffeb8f120",
+      "image_bytes": 21967751,
+      "sidecar_sha256": "2e0494f560a7b61bc485227b1dea9699d64267b506fd6ac4921d42bda8c94631",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 188.8368832943961
+    },
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_3614061571823823193",
+      "image_sha256": "ac145940d8f696ff01075ae03a0ceb6d50c574caf61cf12aa4e5dd1aaee4e186",
+      "image_bytes": 19019772,
+      "sidecar_sha256": "5a5ebafe06da494172e8e893511b8b89952ed3f81456e0d69042cd44e8301125",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 184.71710980590433
+    },
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_7354534197758042049",
+      "image_sha256": "83ab85b2d56c9092e6ddd056ed523593a58323010c85b99162606f924cea1d58",
+      "image_bytes": 25997862,
+      "sidecar_sha256": "f76c13c5499e8b313e958c10a1d436fdcae08d78b034f1de597cb297a421d5a1",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 184.69176690559834
+    },
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_788875264758341041",
+      "image_sha256": "ed0848a142717364bb9c04d5e3b478542290a0a3b4343a1b8dda9031587fdccc",
+      "image_bytes": 26233048,
+      "sidecar_sha256": "2e5ff7c17be367d6ff3e34ffe10b9a06ddb45b557d2e4f4381d3da71f6c8e602",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 184.59185845125467
+    },
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+      "image_sha256": "9bcad28aa572c51e2578f4282936abd070edb2f82eee7c60bb0126c5df5d6df9",
+      "image_bytes": 23708398,
+      "sidecar_sha256": "832a271d05a76b6edeb9a7c6ae3691fb4b5945b2dd5a6a8b5d8a555803c8a90e",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 184.51283781137317
+    },
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_minus8041742109062037958",
+      "image_sha256": "ab3ba205baa563b4efb21adcd65a0ac976183f48833133250407d52db7bb82e2",
+      "image_bytes": 25623523,
+      "sidecar_sha256": "54db75e1657eba00986927d923965b60d91cfbc4dbaceacdfae759cc66d015cd",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 184.75613213796169
+    },
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_5968998903196670637",
+      "image_sha256": "26222588d9ec76d88dd494c4515006cdf28ca819b5cc1e9f4efabdc4c902381e",
+      "image_bytes": 20371480,
+      "sidecar_sha256": "f4125898e51f4afefd1577168f3c0969aa1725af3feaa655b1496c3985f0f3c7",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 184.82319935783744
+    },
+    {
+      "method": "sega_official",
+      "prompt_id": "a4k_eval_4096_minus8648158440845565467",
+      "image_sha256": "d23875339c9747c50070ca2a867c6891127a3b8a894f3aab8c25c5204b818e70",
+      "image_bytes": 21001426,
+      "sidecar_sha256": "e917666d70fe6f7b48ea58efe25f086095aabcf3371c2a399fd6e6a4f48f9e75",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 184.53406064771116
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+      "image_sha256": "c81d8490bc1896b65ff3e41c7be4b6e46e75ee3c10bff5b4b48b652f3deebd8c",
+      "image_bytes": 22452239,
+      "sidecar_sha256": "23cd1c1910e40dc5f577e3449a87ff20c258625ec99a6842eeb7ae6923161b4d",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 192.98940072208643
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_3614061571823823193",
+      "image_sha256": "c061796214ae701d8b7f6f9ae32feaa70cc9310f4626a42ff8deeb84d33eebcc",
+      "image_bytes": 18979128,
+      "sidecar_sha256": "9d1ec2b05bc8eb51505d6609ddd5994b75d859f41d66932987a00f822974822c",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 189.2235669028014
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_7354534197758042049",
+      "image_sha256": "a3a09487e70e3755cedd6ac5b5b2b0ce580b18805e390470e6cc8ae204a7d009",
+      "image_bytes": 25926667,
+      "sidecar_sha256": "d16d50e766ce34e98acd504084ab7e6336eccb115472a53fcb15c92d66a748f8",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 189.73753962200135
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_788875264758341041",
+      "image_sha256": "d3460434e6e204461457cdf09f617cf127a8ce998a5f6f6c39d3112452590ba6",
+      "image_bytes": 25989576,
+      "sidecar_sha256": "e7a27a6795f2466b6e062001e31dbb5de637e88d612f249e6635d7c52581f9fe",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 189.33785088080913
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+      "image_sha256": "2bd78a28bb34b772e57f1e29b0bd58aa46933d37527949a666dde93b1858b4b5",
+      "image_bytes": 23922489,
+      "sidecar_sha256": "d974cb641394472562a28885fa6d8d00eeaba9cc3554fb2ccdadbfb1b2d24a3c",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 189.22008452937007
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_minus8041742109062037958",
+      "image_sha256": "a4e7a13af0b0789b67863f3bf94532275bec68261b566354ad40b4719706cb85",
+      "image_bytes": 25765902,
+      "sidecar_sha256": "6bcb006f8e7dba10cb06204c56dbfe68d9ce1b34603c342a42b9570a28f34fb5",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 189.56986459624022
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_5968998903196670637",
+      "image_sha256": "a53045a68c0c0a1ef15f717950c8847d5b77e370d21a21eaf941801cd471c7ae",
+      "image_bytes": 20376048,
+      "sidecar_sha256": "fcbcfc4c1ed762f66e95918770e105eb7f17baeff98ffe9715d1caee6295db41",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 189.51417495682836
+    },
+    {
+      "method": "sega_rms_uniform",
+      "prompt_id": "a4k_eval_4096_minus8648158440845565467",
+      "image_sha256": "762232b428ec1f61d1536569331f3ed1c606f88ee6ecebeaaefb2741c5852786",
+      "image_bytes": 20810620,
+      "sidecar_sha256": "8bbf56730cec879a5d2553498424c57cc7658e4cc5b5d0dff8e5b4c3ca516039",
+      "code_revision": "b443b2781575554635a6f163da019cc6a3b83e95",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 189.3923610607162
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+      "image_sha256": "0a2a29a1dfa00f4825af4092cf954f6c3a6eea7b13b40199f77b28aa9a31c9cf",
+      "image_bytes": 22001291,
+      "sidecar_sha256": "4c0a400a4068cc0eff57576b47db76a8803d2cb37c8c7a6a66691f6445918de5",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 185.31544643454254
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_3614061571823823193",
+      "image_sha256": "8425b0c9f6f27ebbfd0be13192e7851162cb33f29ee244d862d8571fa823dc61",
+      "image_bytes": 18999661,
+      "sidecar_sha256": "daeb5b42a1849d437651d7a359032d21890090b6f41d4a93c0f93ef4d74ff9a1",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 184.6766983801499
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_7354534197758042049",
+      "image_sha256": "520695872290c04be3eb70b25fad86ecf23a120c1f14637cae4d251c8039899d",
+      "image_bytes": 25861438,
+      "sidecar_sha256": "1fd5715efbde27e1b5012cbc723902ca04aa47195c38ce65c6e1118a9a2eae07",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 184.71680760197341
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_788875264758341041",
+      "image_sha256": "aa05b9eaa22906f4d5c04d341180f644881642e8f07667c12dc81ba3c4fb40cf",
+      "image_bytes": 26028181,
+      "sidecar_sha256": "9ca77c9621bd2a7633353526a6f3b881d4631c318b06d1e0b474e589694cdea1",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 184.89229516591877
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+      "image_sha256": "b9dae75eaa6365fe586590b91e065bbbb87d3ac4c26378fff6cfa46c0f36a402",
+      "image_bytes": 23718124,
+      "sidecar_sha256": "550654d3f5b50816778a4da18aad7416cc89d4a6ff721ff3cafb37af4e239a2e",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 184.56987293995917
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_minus8041742109062037958",
+      "image_sha256": "fc8e0f97b14469174a060a6f89a254412042f49dda0da92004e9c12044e5e4e9",
+      "image_bytes": 25597719,
+      "sidecar_sha256": "d9035366a51680e07aac2e573547efec069cbb97d7b702ebb9865f3f8eb6ab69",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 184.81187063176185
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_5968998903196670637",
+      "image_sha256": "ec9edc3f0036931368b332eea9ef679a663b733631edfded7ec2fd71c59d1b18",
+      "image_bytes": 20183698,
+      "sidecar_sha256": "601baed426ebc32ebbbf812503e85c462666215e9eae5140c6f8b803df82d968",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 184.70720556471497
+    },
+    {
+      "method": "sega_rms_normalized",
+      "prompt_id": "a4k_eval_4096_minus8648158440845565467",
+      "image_sha256": "9b276d1c053887c10efa9a154116511e11ec81d09aa1d8b63e76cf59698fff76",
+      "image_bytes": 20934308,
+      "sidecar_sha256": "61f19daf4faa2e20073bc9ed4fd384b10c05686d8902a67ce733a2cddaa7e2cd",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 184.44899948127568
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+      "image_sha256": "d0eeb92f89aaee6bc30977915af6e830d70249f4f5108f75de535d1e9206fc67",
+      "image_bytes": 21948516,
+      "sidecar_sha256": "6b02f35b3a726d3c61cb599fc62b84a2e1dd926a6dbb0e7880fb1dad8da6a97c",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 190.51400002185255
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_3614061571823823193",
+      "image_sha256": "943e370c21bfe93990daf64fa198eb48527f7af82d5baa7ddb9e817b0ef32d19",
+      "image_bytes": 18932274,
+      "sidecar_sha256": "6d80fda6a212fd48c27c57f135cefcd35be9b62efe1399c68b358883a061d444",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 189.85630470328033
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_7354534197758042049",
+      "image_sha256": "8ae1c3977f730b96ec0cadf84bd664d593f469380a5bca02bfe8ab67ec8be3a3",
+      "image_bytes": 25779265,
+      "sidecar_sha256": "cb8d73e43ad7072c301e89b892166bdd6087f42f3901c0cf04c9578d088cbf98",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 189.6419781949371
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_788875264758341041",
+      "image_sha256": "cf90c4590046f53a7a772827e7fbb448551e966912ede04e37353f4c74fd4419",
+      "image_bytes": 25973559,
+      "sidecar_sha256": "19b4953b1ccf2b0d5dc586efe5d7d112bc99418ba4406280e5e3ff7c3ca33fc3",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 189.80229374207556
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+      "image_sha256": "884f153fad5546922ecbd3dca112931bbace3c7d4eb2d5a435f2b5c1f1d7699e",
+      "image_bytes": 23843742,
+      "sidecar_sha256": "85ed8a844075abe213dd3d55142802e998c67541c2d0de39187a64dbcb189b1b",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 189.40987221337855
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_minus8041742109062037958",
+      "image_sha256": "29bd33ff245e8cf4ec5fff7682388aa5a0d3202b656ca7197c116e9240727f83",
+      "image_bytes": 25619754,
+      "sidecar_sha256": "94a43a0ae47c03ef1c001c68e766676cf04ba474888d70057179bbec7ff7a4a2",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 189.57360649853945
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_5968998903196670637",
+      "image_sha256": "da6bf2181d4bcb20703e2afcf2a69df998116ec8a54681e69d2141ca4348c2df",
+      "image_bytes": 20321489,
+      "sidecar_sha256": "3c4183c40b255072e6b4611cb5d9695a4cbb798a53c6da125aaba4b8190f6945",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 189.64263837225735
+    },
+    {
+      "method": "sega_ctm_lag",
+      "prompt_id": "a4k_eval_4096_minus8648158440845565467",
+      "image_sha256": "abdb4ffa281301ce36b03b81c16ba1658153daac350a0156550a6b98fd60efbd",
+      "image_bytes": 20810523,
+      "sidecar_sha256": "9eeba4d0b075108ea1e41d022151de438ae967090234e735b4e6d3ae72295e23",
+      "code_revision": "39b30cbe157ec7eef209d0997575e7b3a57eaec0",
+      "implementation_sha256": "d81a3185935306f2893fb726c2478074f5c694cfdc1501d2a5059dc95c851e51",
+      "seconds": 189.3935554800555
+    }
+  ],
+  "source_checks": [
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/utils.py",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/utils.py",
+      "sha256": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/spectral.py",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/spectral.py",
+      "sha256": "0db65ba2016b99d30916eb644c736d4018b3659fdf09f0c2e89363b45641be6f"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/__init__.py",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/__init__.py",
+      "sha256": "61da3242d99ead9a95ff5e597982e5edbaba67040a8ca28b2d6b2580a35cdcf9"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/sega_official.py",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/sega_official.py",
+      "sha256": "80edc67b2958c707822038d3758d985f53df88d222bb1625bc73799dacee79be"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/schedule.py",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/schedule.py",
+      "sha256": "499d67705d3fad8d6305eb7b259eadb082253472f9156954a514d360e2476a91"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/runtime.py",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/runtime.py",
+      "sha256": "6bfdb60f77a961409f66bf9cfe29e330516a6ac8b086c49cb7bc19a6c1082e9d"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/gain.py",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/gain.py",
+      "sha256": "fc3008af7eb00fb344c41577b7e85fe2ab324b4767c44af3d33492c431efa66a"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/rope.py",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/rope.py",
+      "sha256": "8d6b58593323815e3e98b3b52608bd93701fd25b28ecd829d7e68714df108485"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/_figure_style.py",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/_figure_style.py",
+      "sha256": "549a08bb0fe4e515852c96d39c928fd9288867e04fc6915c8653df6b3c3de68f"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_generate.py",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_generate.py",
+      "sha256": "bd898322d156cd235c80962f28f9d48ac5ee75dc3c49556e7baf14f3c47bb364"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_analysis.py",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_analysis.py",
+      "sha256": "99e5ca33f03025ec0c0a0693c71b521ce0daacbf00673debdc4698f92e8eceb8"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/eval.py",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/eval.py",
+      "sha256": "c59c4b3a71357aeeb884ea6536759f39a742d1ac00bcdbae04ea31c1fb9a9d8a"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/imagereward_score.py",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/imagereward_score.py",
+      "sha256": "3c8967914fbc07d533377a2f7bff5d12e2528649611f61c5f40479a07e0c2d3c"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/fleet_CR14.sbatch",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/fleet_CR14.sbatch",
+      "sha256": "f11132aeb58d0fae26311bf4710f510fe0672a9c273e4d660191bac4c45fe747"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/dev3_launch.sh",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/dev3_launch.sh",
+      "sha256": "30c33b89bd90ea6fd457b66579c57cd8597c9d80307e3787a82c025d26c3041d"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/dev3_task.sh",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/dev3_task.sh",
+      "sha256": "e1b4752e4e351d8c73d4f92cb4533897d5cc4f1d27147e5d742cc73b7a374240"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/dev3_worker.sh",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/dev3_worker.sh",
+      "sha256": "52ac4884f2985223d0fcbf98c1ec93f0f2ec3ec6da82f9fd517b01c97d40f4e9"
+    },
+    {
+      "registered_path": "/scratch/09032/saini_2/constancy_rope/taskq_dev3/pending/00_sega_official.sh",
+      "current_path": "/scratch/09032/saini_2/constancy_rope/taskq_dev3/done/00_sega_official.sh",
+      "sha256": "79df3dd7a666f754a0afecf268c33a8d2d7a6a76329e08214fa738b287739c65"
+    },
+    {
+      "registered_path": "/scratch/09032/saini_2/constancy_rope/taskq_dev3/pending/01_sega_rms_uniform.sh",
+      "current_path": "/scratch/09032/saini_2/constancy_rope/taskq_dev3/done/01_sega_rms_uniform.sh",
+      "sha256": "6ed6b0f09ccb736590833710eea1c39a2d9b623ef524fb42c5103403aac1ef7c"
+    },
+    {
+      "registered_path": "/scratch/09032/saini_2/constancy_rope/taskq_dev3/pending/02_sega_rms_normalized.sh",
+      "current_path": "/scratch/09032/saini_2/constancy_rope/taskq_dev3/done/02_sega_rms_normalized.sh",
+      "sha256": "2b36ed2831e146c6f41a1216abd2066d432fea1b583779905293c459ff498b4f"
+    },
+    {
+      "registered_path": "/scratch/09032/saini_2/constancy_rope/taskq_dev3/pending/03_sega_ctm_lag.sh",
+      "current_path": "/scratch/09032/saini_2/constancy_rope/taskq_dev3/done/03_sega_ctm_lag.sh",
+      "sha256": "28e7fa0b05443946ee7ad4080fdbcd86c673d3819dabacd018736926d872b94e"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/continuation3/PROTOCOL.md",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/continuation3/PROTOCOL.md",
+      "sha256": "0deb73f90630224e763f2b3f4d0f46b9e010f009a145dd97086d6addc5b8aa72"
+    },
+    {
+      "registered_path": "/scratch/09032/saini_2/constancy_rope/calib/krea_profile_tm.npz",
+      "current_path": "/scratch/09032/saini_2/constancy_rope/calib/krea_profile_tm.npz",
+      "sha256": "1cd6bceb50dea48607b125681ade330e5203cc8342eeb99834c3493d41b2cc45"
+    },
+    {
+      "registered_path": "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl",
+      "current_path": "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl",
+      "sha256": "ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/fleet_CR14_gh.sbatch",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/fleet_CR14_gh.sbatch",
+      "sha256": "d4e1753d19a98c682ad7d786f5c9c59855685396d463a85216054ad0105e6419"
+    },
+    {
+      "registered_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_finalize.py",
+      "current_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_finalize.py",
+      "sha256": "523fbcca8e04b3c8f6c32b722de154f0f67944be9ed85383398567773e2bde13"
+    }
+  ],
+  "score_input_sha256": {
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_official/per_image.csv": "036e0ce36836338505f526f90fa015b6be61acd0532b68091b6a11a0ac74665a",
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/dev3_sega_official.csv": "ba0832c6ad213d79bc5f5bbf695bd4585fba82482ed076b753985c8cd6c2039b",
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_official/metrics.json": "f31fa010f9885cda80b02ec6a1125a40881a054978fc742f0f539d73a35e6ae2",
+    "/scratch/09032/saini_2/constancy_rope/taskq_dev3/logs/00_sega_official.sh.log": "116a434658a96fe9bee3829f6faa8964eb93b24eab7ae6d7042ca3fa89338a0b",
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_rms_uniform/per_image.csv": "ef46d9b8b9eb21f656c6b9b8bcf60ad706597eb8bf1579c7968c78067120dc8f",
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/dev3_sega_rms_uniform.csv": "0f0d4b95953fa7ee398cc62bbc4dd262ad214afc4fec466b63986e1220c51a9f",
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_rms_uniform/metrics.json": "e7d51454a7d30f3ed4e5adf7f4f7ab310174a8b1aa653de592ad6b020dabb939",
+    "/scratch/09032/saini_2/constancy_rope/taskq_dev3/logs/01_sega_rms_uniform.sh.log": "a95a4d07ff40621ee4ba18690ba997003e6777a3905429b0804fe92a0e5987d1",
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_rms_normalized/per_image.csv": "4206e7da2c43ad2e0a1c2b0ea5c3516fc44eb6a46d7817df21273714ed7ace95",
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/dev3_sega_rms_normalized.csv": "77e11a83ad69b30ebaeeef34a2c1507addc3599a62a56ab56fff35f7be0186e7",
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_rms_normalized/metrics.json": "015ee10e1f8983dbffce9fcce8f676f913c57316daf3190469c794f3b1ecdbed",
+    "/scratch/09032/saini_2/constancy_rope/taskq_dev3/logs/02_sega_rms_normalized.sh.log": "0c081a2398bba3ff4d5ab82708df8eba213aaa8fc52db074ea4185190f50b451",
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_ctm_lag/per_image.csv": "ec5c0d1193f23a996f82c9b6816167639a0d0bfe2b214b6893e46117262d2de5",
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/dev3_sega_ctm_lag.csv": "c522f3b6642e23dadc4113f6a3a06c6b0f45d144f97299b117039b79d2839319",
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_ctm_lag/metrics.json": "3e4e2d63e1cee94ce3e34b39993ad0726bcdff182030175c213d4f8bc6a30e9e",
+    "/scratch/09032/saini_2/constancy_rope/taskq_dev3/logs/03_sega_ctm_lag.sh.log": "28a600a85af71d562942d0977183c5522bf8990beaed07e63d99daefcc30a4a9"
+  },
+  "pilot_reproducibility": {
+    "means": {
+      "imagereward": 1.423017875,
+      "musiq": 42.488059997558594,
+      "clip": 30.32000422477722,
+      "pickscore": 23.409926891326904,
+      "musiq_crop1024": 58.23458290100098,
+      "clipiqa": 0.5565925128757954,
+      "clipiqa_crop1024": 0.5799324591644108
+    },
+    "fresh_minus_pilot": {
+      "imagereward": -0.03174337500000002,
+      "musiq": 0.793342113494873,
+      "clip": -0.1727592945098877,
+      "pickscore": -0.03488779067993164,
+      "musiq_crop1024": 0.35606396198272705,
+      "clipiqa": -0.011492524296045303,
+      "clipiqa_crop1024": -0.005930387414991856
+    },
+    "interpretation": "Separate repeatability comparison, not the gate reference or an estimate of pure hardware error."
+  },
+  "interpretation": [
+    "Only RMS-normalized allocation passes the frozen development mean-score gate. Its positive IR and full MUSIQ effects are modest; PickScore and crop MUSIQ regress. This is an exploratory selection outcome on eight reused development prompts.",
+    "RMS-matched uniform allocation loses IR, full/crop MUSIQ and PickScore while improving CLIP. This supports retaining allocation as a control question, not a theorem that its effect is universally beneficial.",
+    "Lag-aligned correction fails full MUSIQ despite a positive IR mean; crop MUSIQ and PickScore also decline. Timing alignment does not supply a broad development rescue of the earlier constancy correction.",
+    "Earlier eta1 constancy also passed a weak development gate before its187-prompt evaluation failed to establish improvement and regressed PickScore/crop MUSIQ. The present modest gate pass does not overturn that evidence or transfer to held-out performance.",
+    "The fresh baseline differs from the archived pilot by IR-0.031743375 and MUSIQ+0.7933421135. Same-hardware fresh pairing is therefore essential; those differences are not a calibrated noise distribution.",
+    "Gain-vector normalization is an established control, not a demonstrated new mechanism. No fresh64 confirmation, novelty, SOTA, superiority or equivalence claim follows."
+  ],
+  "limitations": [
+    "Frozen sources, recorded model/config hashes, image bytes and scorer-revision receipts were checked. Large checkpoint weight shards were not rehashed or reloaded.",
+    "ImageReward checkpoint revision is matched from all four execution logs; its CSV lacks an independent per-row environment/weight receipt.",
+    "Actual SDPA kernel selection was not instrumented. Legacy image metadata names flash attention, while source policy prioritizes cuDNN with alternatives.",
+    "Leave-one-out gates and win counts are post hoc descriptive diagnostics, not the frozen selection rule or independent significance tests.",
+    "No new held-out data was read. Fresh64 non-execution is supported by the completed protocol/receipt and this audit scope, not a full account-wide job-history audit."
+  ],
+  "actions": "Only this independent_review.json was written. No scheduler commands, GPU use, finalizer rerun, source edit or selection before completion."
+}

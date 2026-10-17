@@ -1,0 +1,17 @@
+{
+  "created_utc": "2026-10-17T13:27:45.654620+00:00",
+  "pages": 8,
+  "visually_checked_pages": [
+    6,
+    7
+  ],
+  "build": "tectonic cached resources, no warnings",
+  "evidence_sha256": {
+    "paper/constancy_rope_working_2026-10-17.pdf": "a0d28c4a6957e0e102a418631ee5ee9717ff04b666dda71ea8710b750a0fb2cd",
+    ".agent/notes/continuation3/independent_review.json": "75ac0af27572b1e99b436cde86d035784757ecd531fbe4d6cbbf413fabeae02c",
+    ".agent/notes/observer_shift_cpu.json": "d9b93361965bdf38915a466a29c14a9e86053135ca9793800b56d7c27d14b4f4",
+    ".agent/notes/observer_feedback_cpu.json": "e01b30e5ad03ec29f5b6dad346d87a631777921ab02e58a20acd7c3d3642b318",
+    ".agent/notes/rotary_kernel_prior_art_20261017.md": "5206e5c2e4a0cbc295b60c1aee31d195b3044023dcd0591f5c7833193f811190"
+  },
+  "scope": "CR14 dev-control outcome; two tiny CPU observer audits,14tests; no pretrained observer outcome, novelty or SOTA claim; fresh64unused."
+}
