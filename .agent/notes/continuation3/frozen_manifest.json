@@ -16,7 +16,7 @@
     "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/gain.py": "fc3008af7eb00fb344c41577b7e85fe2ab324b4767c44af3d33492c431efa66a",
     "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/rope.py": "8d6b58593323815e3e98b3b52608bd93701fd25b28ecd829d7e68714df108485",
     "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/_figure_style.py": "549a08bb0fe4e515852c96d39c928fd9288867e04fc6915c8653df6b3c3de68f",
-    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_generate.py": "3361402234eb5281957b06253aec11157202c84f7bfda3cbe3fc33cd379a23e5",
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_generate.py": "bd898322d156cd235c80962f28f9d48ac5ee75dc3c49556e7baf14f3c47bb364",
     "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_analysis.py": "99e5ca33f03025ec0c0a0693c71b521ce0daacbf00673debdc4698f92e8eceb8",
     "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/eval.py": "c59c4b3a71357aeeb884ea6536759f39a742d1ac00bcdbae04ea31c1fb9a9d8a",
     "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/imagereward_score.py": "3c8967914fbc07d533377a2f7bff5d12e2528649611f61c5f40479a07e0c2d3c",
@@ -32,16 +32,18 @@
     "/scratch/09032/saini_2/constancy_rope/calib/krea_profile_tm.npz": "1cd6bceb50dea48607b125681ade330e5203cc8342eeb99834c3493d41b2cc45",
     "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl": "ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1",
     "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/fleet_CR14_gh.sbatch": "d4e1753d19a98c682ad7d786f5c9c59855685396d463a85216054ad0105e6419",
-    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_finalize.py": "ff62a45679af048d4368b2d3456ed9c2fe7b42770173cba785c464757f3aec01"
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_finalize.py": "49f731d5ac97fba0429e2b17f7992be2b9ffd87eefe4626d9306f397a21ed32e"
   },
   "cpu_tests": {
-    "passed": 234,
+    "passed": 237,
     "threads": 2,
-    "seconds": 21.87
+    "seconds": 27.96,
+    "finalizer_followup": "3 passed in 0.24s after PickScore reporting and completed-state refresh"
   },
   "submission_preflight": {
     "blackwell_attempt": "QOSMaxSubmitJobPerUserLimit; no job submitted",
     "frozen_fallback": "two GH200 nodes, 90 minutes, same four tasks and fresh baseline"
   },
-  "finalization": "Attached while job pending: validate all four completed workflows, archive selection, log W&B, rebuild exploratory paper table. No candidate implementation changes."
+  "finalization": "Attached while job pending: validate all four completed workflows, archive selection, log W&B, rebuild exploratory paper table. No candidate implementation changes.",
+  "transformer_provenance": "Runner requires pinned Krea snapshot and records its config hash separately from legacy FLUX.1-dev base metadata."
 }

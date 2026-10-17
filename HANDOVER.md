@@ -8,12 +8,12 @@ started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact ht
 - User first requested a state review, then explicitly assigned full project ownership and
   authorized continuing experiments, evaluation, and paper work autonomously.
 - Third diagnostic submitted as CR14 job1076857, currently PENDING Priority on two GH200 nodes.
-  See `.agent/notes/continuation3/PROTOCOL.md`; frozen source commit395ba85, 234 CPU tests passed.
+  See `.agent/notes/continuation3/PROTOCOL.md`; frozen source commit395ba85, 237 CPU tests passed.
   Three parameter-free/timing controls plus fresh SEGA, 32 development images, no held-out tuning.
 - Live accounting confirms CR13 job 1076092 COMPLETED October 16 at 18:06:13 CDT.
   Spool: pending 0, running 0, done 255, failed 5, hold 25; STOP remains present.
   Failed/held files are older pilot, superseded original-constancy, or archived task files.
-  No current scheduler job directly names this project; generic workspaces were not probed remotely.
+  CR14 is the only newly submitted project job; unrelated allocations were left unchanged.
 - Last research commit: a1ede1a, October 16 at 18:11:57 CDT. Earlier uncommitted-state notes
   are superseded. Repository has no configured remote.
 - `paper/main.tex` now builds an empirical working report from `sec/current_report.tex` and
@@ -46,7 +46,7 @@ Held-out sega_ctm eta 1.0 (187 paired prompts 8-194, seed 0):
 Thus the B3 refinement does not repair the earlier failure. No equivalence claim follows from CIs crossing zero.
 All generation/scoring succeeded; exact paired tables and per-prompt data are archived on work.
 STOP was touched after pending/running were empty; all four workers exited by 18:06:06 CDT.
-Independent review reproduced all ten paired means/CIs within 1e-10. No new experiments are queued.
+Independent review reproduced all ten paired means/CIs within 1e-10. The third diagnostic queued on October 17 is separate from this completed campaign.
 The older evidence follows.
 Held-out prompts 8-194 (n=187, seed 0) + seed-1 replication on 8-62 (n=55); FLUX.1-Krea-dev, guidance 4.5, 28 steps,
 mu = max_shift 1.15; bootstrap 95% CIs, paired vs sega_official (`eval_krea/heldout/heldout_paired_vs_sega_official.csv`).
@@ -93,23 +93,23 @@ Scratch: `/scratch/09032/saini_2/constancy_rope/`
 Prompts: `prompts/aesthetic4k_eval.jsonl` (195 Aesthetic-4K eval captions, refs in aesthetic4k_refs.jsonl),
 `prompts/calib_pickapic.jsonl` (39 filtered, calibration only).
 
-## 5. Protocol (keep it)
+## 5. Original protocol (completed campaigns)
 Dev = eval prompts 0-7 (choose variants/hyperparameters here only). Held-out = prompts 8-194 (report only these).
+The already inspected held-out set is not fresh confirmation for new variants. Third-diagnostic selection uses the separate frozen64 confirmation plan.
 Main baselines already exist for held-out: ntk2, dype, sega_official (out_krea/main), temp_only_sbase and constancy_tm_sbase
 (out_krea/mainsb). Any new method: dev run (8 prompts, ~30 min/GPU) -> if it beats sega_official on dev on IR AND MUSIQ, with CLIP delta >= -0.3; select at most two ->
 held-out main (27 chunks of 7 prompts, ~25 min each) -> `scripts/heldout_analysis.py` (add the new root to the loader).
 
-## 6. How to run things
+## 6. Historical second-campaign execution notes (superseded for new work)
 - Task script template: copy any `taskq/done/52_c*_main_ctmsb.sh` and edit method/out/flags; `bash -n` it; drop in taskq/pending.
 - The completed second campaign ran on externally launched fleet 1076092 on c672-016 (four GPUs, gb/CR13 configuration).
-  The originally recorded CR10 job has no visible log. The user forbids SSH, sbatch, and scancel in this session.
-  Do not submit a replacement or cancel an allocation. Monitor the task spool and project logs every five minutes.
+  The originally recorded CR10 job has no visible log. The previous monitor-only session forbade SSH, sbatch, and scancel. That session restriction is historical; the current user explicitly authorized full project operations. Preserve this completed campaign.
 - Eval: copy `taskq/done/60_eval_mainsb.sh` (root/out/reference) and `61_ir_main.sh`.
 - When the campaign is complete and pending is empty, touch taskq/STOP so the existing workers exit.
   Do not cancel jobs. Do not modify worker_loop.sh or node_launch.sh.
 
-## 7. Completed campaign and resume procedure
-The authorized B1/B3 campaign is complete. No further GPU work is queued.
+## 7. Completed second-campaign archive
+The authorized B1/B3 campaign is complete. Its original spool remains stopped. New work uses taskq_dev3.
 1. Read `.agent/notes/main2/REPORT.md` for the dev decision and full held-out result.
 2. Dev sources/decision live in `.agent/notes/dev2`; held-out means, paired CIs, per-prompt data,
    prompt manifest, and final raw scorer reports live in `.agent/notes/main2` on work.

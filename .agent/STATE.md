@@ -3,11 +3,11 @@ Resume Constancy RoPE from verified evidence; maintain and share an honest worki
 User clarified full ownership: continue experiments, evaluation, and paper autonomously.
 
 ## Status and next action
-2026-10-17 CDT takeover: both campaigns COMPLETE; no demonstrated improvement over released SEGA.
+2026-10-17 CDT takeover: first two campaigns COMPLETE; no demonstrated improvement over released SEGA.
 Last research commit a1ede1a (October 16, 18:11:57 CDT); earlier uncommitted-state notes are stale.
 Live sacct: CR13 / 1076092 completed October 16 at 18:06:13 CDT.
 Spool: 0 pending, 0 running, 255 done, 5 older failures, 25 held/archived files; STOP present.
-No direct project job in current scheduler records. Generic workspaces were not probed remotely.
+CR14 job1076857 is the new project allocation; unrelated allocations were left unchanged.
 Second campaign: only sega_ctm eta 1 passed development; held-out n=187, seed 0, rows 8-194.
 IR +0.008575 [-0.008414,+0.027420]; full MUSIQ -0.208599 [-0.708869,+0.315118].
 PickScore -0.075259 [-0.102335,-0.049140]; crop MUSIQ -1.131657 [-1.387535,-0.902193].
@@ -15,11 +15,11 @@ CLIP -0.093916 [-0.196506,-0.003680]; remaining metric CIs cross zero.
 Paper now compiles an empirical working report. Prior proposal sections retained but excluded.
 All ten paired means/CIs independently recomputed exactly from archived per-prompt CSVs today.
 PDF: paper/constancy_rope_working_2026-10-17.pdf. Build directory on project scratch.
-No new GPU work, scorer reruns, installs, SSH, submissions, cancellations, or scratch deletion.
+New work is isolated in taskq_dev3; old campaign outputs and STOP remain unchanged.
 NEXT: monitor CR14 job1076857 (two GH200 nodes, 90min); verify live telemetry/output invariants, then run dev3_analysis with fresh reference.
 
 Third diagnostic submitted: spatial RMS uniform/normalized controls and lag-aligned ctm, eta1.
-Fresh SEGA baseline prespecified; 32 dev images total. Full CPU suite 234 passed.
+Fresh SEGA baseline prespecified; 32 dev images total. Full CPU suite 237 passed in 27.96 seconds, two threads.
 CR14 job1076857 is PENDING Priority; no estimated start. Initial gb attempt rejected at qgb submit cap.
 Frozen source commit395ba85; spool taskq_dev3 has four ready workflows, old taskq unchanged.
 Fresh64 confirmation prompts frozen before outcomes; run only if a candidate passes dev.

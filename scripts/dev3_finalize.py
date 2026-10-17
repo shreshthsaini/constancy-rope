@@ -21,9 +21,14 @@ def main():
         raise RuntimeError('Cannot finalize while tasks remain')
     if list((queue / 'failed').glob('*.sh')) or len(list((queue / 'done').glob('*.sh'))) != 4:
         raise RuntimeError('Require all four complete workflows with no failed tasks')
+    provenance = [json.loads((SCRATCH / f'out_krea/dev3_{method}/generation_manifest.json').read_text())
+                  for method in LABELS]
+    if not all(p == provenance[0] for p in provenance):
+        raise RuntimeError('Actual transformer provenance differs between workflows')
     out = ROOT / '.agent/notes/continuation3/dev'
     report = analyze(SCRATCH / 'eval_krea', SCRATCH / 'prompts/aesthetic4k_eval.jsonl',
                      out, reference_root='dev3_sega_official')
+    (out / 'generation_provenance.json').write_text(json.dumps(provenance[0], indent=2) + '\n')
     text = [r'\paragraph{Third development diagnostic.}',
             r'The three prespecified controls and a fresh released-SEGA baseline completed on eight development prompts, seed 0. These are exploratory selection scores, not held-out efficacy evidence.',
             r'\begin{table}[ht]', r'\centering\small', r'\setlength{\tabcolsep}{4pt}',
@@ -39,6 +44,9 @@ def main():
         text.append(LABELS[row['variant']] + ' & ' + values + ' & ' +
                     ('Pass' if row['eligible'] else 'Fail') + r'\\')
     text += [r'\bottomrule', r'\end{tabular}', r'\end{table}']
+    text.append('PickScore differences against the same baseline are ' + '; '.join(
+        LABELS[row['variant']] + f": {row['delta_pickscore']:+.4f}"
+        for row in report['rows'] if row['variant'] != 'sega_official') + '.')
     if report['selected']:
         names = ', '.join(LABELS[m] for m in report['selected'])
         text += [names + ' passed the development gate. A separate set of 64 confirmation captions was frozen before these outcomes. No confirmation result or efficacy claim follows from this table.']
@@ -74,11 +82,18 @@ def main():
                       for line in state.splitlines()) + '\n'
     state = state.replace('CR14 job1076857 is PENDING Priority; no estimated start.',
                           'CR14 development workflows and analysis COMPLETE; see notes/continuation3/dev/completion.json.')
+    state = state.replace('no new GPU results yet.',
+                          'development results archived in notes/continuation3/dev/.')
     state_path.write_text(state)
     handover_path = ROOT / 'HANDOVER.md'
     handover = handover_path.read_text().replace(
         'currently PENDING Priority on two GH200 nodes.',
         'development workflows complete on two GH200 nodes; see `.agent/notes/continuation3/dev/completion.json`.')
+    handover = handover.replace(
+        '- Current step: monitor job1076857, verify telemetry and source/protocol invariants, then\n'
+        '  run `scripts/dev3_analysis.py` with `--reference-root dev3_sega_official`. No GPU outcome yet.',
+        '- Current step: ' + next_action + '\n'
+        '  Development scores and selection are archived in `.agent/notes/continuation3/dev/`.')
     handover_path.write_text(handover)
     paths = ['paper/sec/dev3_results.tex', 'paper/constancy_rope_working_2026-10-17.pdf',
              '.agent/notes/continuation3/dev', '.agent/STATE.md', 'HANDOVER.md']
