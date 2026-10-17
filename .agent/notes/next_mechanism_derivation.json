@@ -1,0 +1,170 @@
+{
+  "created_utc": "2026-10-17T13:18:12.081370+00:00",
+  "hypothesis": "SEGA allocation is sensitive to a common-channel component that is invisible to the fixed-gain FLUX denoiser in real arithmetic. A controller driven by this component can change generation under function-preserving embedding reparameterizations.",
+  "status": "Source-derived architecture statement with a tiny actual-FLUX CPU counterexample. Not a pretrained GPU result, quality result, or novelty claim.",
+  "scope": {
+    "architecture": "diffusers 0.39.0 FluxTransformer2DModel; standard text-conditioned path with guidance embedding, LayerNorm-based double/single blocks and final LayerNorm; no optional ControlNet or IP-Adapter paths.",
+    "invariance_object": "Fixed-gain denoiser. Adaptive SEGA is not invariant and is precisely the object under test.",
+    "arithmetic": "Exact in real arithmetic under the stated architecture. Float64 toy agreement is numerical evidence. BF16 reparameterization may change nonnull components through rounding.",
+    "versions": {
+      "torch": "2.11.0+cu128",
+      "diffusers": "0.39.0",
+      "test_device": "CPU"
+    },
+    "source_locations": {
+      "FluxSingleTransformerBlock": "models/transformers/transformer_flux.py:356-406",
+      "FluxTransformerBlock": "models/transformers/transformer_flux.py:410-490",
+      "embedding_and_output": "models/transformers/transformer_flux.py:688 and780-781",
+      "output_norm_configuration": "models/transformers/transformer_flux.py:630",
+      "AdaLayerNormZero": "models/normalization.py:130-170",
+      "AdaLayerNormZeroSingle": "models/normalization.py:173-200",
+      "AdaLayerNormContinuous": "models/normalization.py:320-356",
+      "SEGA_observer": "crope/sega_official.py:107-116"
+    }
+  },
+  "derivation": [
+    {
+      "step": 1,
+      "claim": "Let h_i be a C-channel residual-stream token and 1 the all-ones vector. For any per-token scalar a_i, LN(h_i+a_i 1)=LN(h_i), including nonzero epsilon, in real arithmetic."
+    },
+    {
+      "step": 2,
+      "claim": "Each double block computes attention and MLP updates from LayerNorm-normalized states. With text, time/guidance and attention gains fixed, adding a_i 1 to image token i changes neither branch. Residual addition carries exactly a_i 1 to the next block; the text stream remains unchanged."
+    },
+    {
+      "step": 3,
+      "claim": "Each single block concatenates image/text tokens, normalizes each token before attention and MLP, and adds the result to its residual. The image-token shift survives unchanged. Final LayerNorm removes it before output projection. Thus F_m(H+A1^T)=F_m(H)."
+    },
+    {
+      "step": 4,
+      "claim": "For x_embedder h_i=W x_i+b with W of shape C by d, set W_prime=W+1 a^T and b_prime=b+c1. This produces the allowed shift (a^T x_i+c)1 at every input, so the entire fixed-gain denoiser function is unchanged in real arithmetic."
+    },
+    {
+      "step": 5,
+      "claim": "SEGA observes channel mean mu_i=(1/C)1^T h_i. Under the same reparameterization, mu_prime_i=mu_i+a^T x_i+c. Spatial demeaning removes c but not a^T x_i. Choosing a=-(1/C)W^T1 removes the input-dependent observer everywhere; other choices redirect it to another affine latent readout."
+    },
+    {
+      "step": 6,
+      "claim": "Consequently the prescribed spectral allocation is not a function only of the underlying fixed-gain denoiser. It depends on its embedding representative. Adaptive output can change solely through the changed gain, despite invariant fixed-gain denoiser behavior."
+    }
+  ],
+  "sensor_math": {
+    "mean_sensor": "At non-DC Fourier index k, h_hat(k)=W x_hat(k). SEGA mean power is |w_mean^T x_hat(k)|^2, with w_mean=W^T1/C. This is a rank-one metric on packed latent features.",
+    "why_plain_feature_energy_is_not_enough": "Uncentered channel-summed feature power changes under h_i\u2192h_i+a_i 1. Orthogonal invariance alone does not address the actual LayerNorm shift symmetry.",
+    "shift_invariant_candidate": "Let P=I-11^T/C. E(k)=||P h_hat(k)||^2/C=x_hat(k)^* [W^T P W/C] x_hat(k). This channel-centered spectral energy is invariant under W\u2192W+1a^T and b\u2192b+c1 for non-DC k.",
+    "cheap_exact_implementation_identity": "For FLUX packed latent dimension 64, the candidate requires a 64x64 positive-semidefinite Gram matrix W^T P W/C rather than FFTs over 3072 projected channels. This is an algebraic implementation identity, not an executed pretrained implementation.",
+    "limits": "The invariant statistic is not guaranteed to be a useful target or controller input. AReA already uses a shift-invariant channel-standard-deviation detail sensor. Replacing mean by standard deviation or centered energy alone is not a defensible novelty claim."
+  },
+  "relation_to_actual_rotary_actuator": {
+    "pair_formula": "For one rotary pair with relative displacement phase theta=omega\u00b7(position_j-position_i), logit contribution is m_r^2[A_ij cos(theta)+B_ij sin(theta)], where A and B are the content-dependent dot/cross coefficients of that q/k pair.",
+    "consequence": "A positive gain rescales both quadratures; it does not change that pair frequency or phase. It also changes zero-lag content interaction and actual q/k norms. Mixtures of pairs can change the aggregate lag profile, so this is not a blanket impossibility theorem for gain control.",
+    "normalization": "Preserving sum_r m_r^2 does not preserve sum_r m_r^2||q_ir||^2, its key analogue, or attention-logit variance. Content-dependent energy is the relevant quantity for such claims.",
+    "frequency_caveat": "CR17 octave-11 selected two pairs per spatial axis at 0.0009474 and 0.0006181 cycles/token, below 1/256. Their direct phase excursions span only 0.243 and 0.158 cycles across the grid, while normalization changes other pairs too. These measurements cannot reject resolved-band or phase mechanisms.",
+    "why_this_hypothesis_is_different": "The proposed causal defect lies in the observer-to-actuator link: an invisible residual-stream component can alter real rotary gains and therefore attention. It is not scalar scheduling, a new frequency mask, or finite-difference inversion."
+  },
+  "executed_cpu_counterexample": {
+    "seed": 917,
+    "random_weight_model": true,
+    "pretrained_weights_loaded": false,
+    "gpu_used": false,
+    "constructor": {
+      "patch_size": 1,
+      "in_channels": 8,
+      "out_channels": 8,
+      "num_layers": 1,
+      "num_single_layers": 1,
+      "attention_head_dim": 20,
+      "num_attention_heads": 1,
+      "joint_attention_dim": 12,
+      "pooled_projection_dim": 6,
+      "guidance_embeds": true,
+      "axes_dims_rope": [
+        4,
+        8,
+        8
+      ]
+    },
+    "dtype": "float64",
+    "grid": [
+      4,
+      128
+    ],
+    "image_tokens": 512,
+    "text_tokens": 3,
+    "hidden_channels": 20,
+    "conditioning": {
+      "guidance": 4.5,
+      "timestep_argument": 0.4,
+      "other_inputs": "Seeded normal tensors; image IDs from 4x128 grid; text IDs zero."
+    },
+    "gauge_field": "Compute h=x_embedder(x). Add a_i=0.5 sin(2pi i/16)-mean_channels(h_i) identically to all channels through a temporary forward hook. This activation intervention sets the observer to a specified sinusoid. It is the general activation symmetry test, not the separate all-input affine-weight reparameterization test.",
+    "gains": "Compute g0=OfficialSEGA(h), g1=OfficialSEGA(h+a1). Compare original and shifted model outputs with fixed g0; then evaluate shifted output with g1. Install existing FluxGainAttnProcessor and sega_official FluxRoPE. No source files or pretrained weights changed.",
+    "results": {
+      "fixed_gain_output_max_abs_change": 8.881784197001252e-16,
+      "fixed_gain_output_relative_l2_change": 2.5900556378235607e-16,
+      "mean_observer_target_max_abs_error": 1.6653345369377348e-16,
+      "official_qk_gain_max_abs_change": 0.08843398094177246,
+      "adaptive_gain_output_max_abs_change": 0.01030069010580803,
+      "adaptive_gain_output_relative_l2_change": 0.0029360801788972423,
+      "centered_energy_relative_l2_change": 6.582128168116012e-17,
+      "official_reference_gain": 1.0570180405613803
+    },
+    "runtime_seconds_including_imports": 9.254118031,
+    "causal_readout": "Fixed-gain shift leakage is at floating-point noise while changed-gain output differs visibly numerically. In real arithmetic the shift-induced adaptive difference is entirely a gain change at the same denoiser function. The independent reproducible audit should also evaluate unshifted h with g1 to verify this fourth-arm decomposition numerically.",
+    "limits": "Tiny random-weight rectangular model with one block of each type. This is a counterexample and architecture check, not evidence of typical pretrained behavior, image quality, numerical stability at 4K, or useful alternative allocation.",
+    "dtype_qualification": "Model parameters and supplied floating tensors were float64, but installed apply_rotary_emb explicitly casts Q/K arithmetic to float32 before returning the original dtype. SEGA feature reduction is also float32. This was not an all-FP64 numerical execution."
+  },
+  "training_claim_limit": {
+    "do_not_claim": "The channel-mean readout is untrained, random, unchanged from initialization, or necessarily useless.",
+    "correct_statement": "Its value is not identified by the fixed-gain denoiser function under the real-arithmetic symmetry. Although denoising-loss gradients sum to zero in the null direction, coordinatewise optimizer preconditioning, regularization and finite precision can move parameter means. A fixed checkpoint mean can still correlate with useful data features."
+  },
+  "prior_art": [
+    {
+      "source": "https://transformerlensorg.github.io/TransformerLens/generated/demos/Main_Demo.html",
+      "verification": "Official documentation search result checked this turn. It explains LayerNorm mean insensitivity and center_writing_weights.",
+      "boundary": "Residual-stream mean removal and weight centering are established. The architecture symmetry itself is not claimed new."
+    },
+    {
+      "source": "https://arxiv.org/html/2610.17227v1",
+      "verification": "Primary paper Appendix C.1 and Equation 12 opened and checked this turn.",
+      "boundary": "AReA explicitly motivates channel standard deviation by cancellation in the channel mean, then uses Haar detail energy for tiling. Its sensor is common-shift invariant. Neither cancellation detection nor an invariant detail sensor is claimed new."
+    },
+    {
+      "source": ".agent/notes/response_actuator_prior_art_20261017.md",
+      "boundary": "SEGA, AFM and related response-control precedents remain relevant. A controller consistency counterexample does not establish a new useful sampling algorithm."
+    }
+  ],
+  "smallest_remaining_falsifiable_test": {
+    "current_permission": "Design only. Do not launch a GPU job or modify frozen source/protocol.",
+    "recommendation": "After the independent CPU architecture audit, one narrowly scoped pretrained same-state causal audit is justified before any method ablation, provided CR14 operations and budget allow it. No quality campaign or new allocation policy yet.",
+    "configuration": "One existing development prompt, pinned Krea transformer, 2048 resolution, four-step schedule, selected state step 1. Original deterministic-allocation-only policy retained for numerical repeatability. No fresh 64-prompt or held-out access.",
+    "intervention": "Freeze one modest common-channel shift before looking at responses, preferably the affine embedding centering gauge W_prime=P W,b_prime=P b, applied temporarily and never saved to checkpoint. Record BF16 reparameterization residuals. If it induces large numeric leakage, report failure of that numerical probe rather than assuming exact invariance.",
+    "four_arms": [
+      "A: original features with fixed g0=G(h).",
+      "B: shifted features with g0, measuring finite-precision gauge leakage.",
+      "C: original features with g1=G(h_shifted), isolating gain intervention at unchanged model execution.",
+      "D: shifted features with g1, the adaptive shifted case."
+    ],
+    "budget": "At most 8 transformer forwards: four-step ordinary trajectory, three additional branches at the selected state, and one unperturbed repeat. One checkpoint load, no VAE decode or scoring. Reuse an existing authorized allocation if feasible; do not reserve a new fleet solely for this audit without parent decision.",
+    "record": [
+      "Actual g0/g1 in FP32 and BF16; observer spectral profiles; full provenance.",
+      "Velocity differences B-A,D-C,C-A,D-A and exact no-op replay.",
+      "Relative leakage norms and direct causal decomposition, with all arrays needed to recompute."
+    ],
+    "predeclared_readout": "Treat numerical support as strong only if ||B-A|| and ||D-C|| are each at most 10 percent of ||C-A||, with nonzero BF16 gain change and exact no-op replay. This 10 percent is a proposed diagnostic effect-separation rule, not an established error tolerance or quality criterion.",
+    "falsifiers": "If changed gains disappear after BF16 casting, adaptive differences do not exceed fixed-gain numerical leakage, or the architecture path includes unverified non-invariant operations, do not extrapolate the tiny proof into a pretrained causal result.",
+    "what_a_positive_result_enables": "A bounded diagnosis that SEGA augmentation is representation-sensitive in a functionally null direction for the tested pretrained state. It does not yet justify sensor-replacement efficacy experiments or novelty claims; AReA and simple invariant-sensor baselines would be mandatory for any later proposed method."
+  },
+  "decision": "Preserve this one concrete observer-nullspace hypothesis and complete the independent CPU audit. A single pretrained causal audit is a defensible next diagnostic; do not launch a broader invariant-allocation or phase-control campaign yet.",
+  "source_sha256": {
+    "crope/rope.py": "8d6b58593323815e3e98b3b52608bd93701fd25b28ecd829d7e68714df108485",
+    "crope/gain.py": "fc3008af7eb00fb344c41577b7e85fe2ab324b4767c44af3d33492c431efa66a",
+    "crope/sega_official.py": "80edc67b2958c707822038d3758d985f53df88d222bb1625bc73799dacee79be",
+    "crope/response.py": "e46d5f287f97d58d4c903f12834dacda29c6d63ab244b99e0829a4c564ac1e13",
+    "/work/09032/saini_2/vista/library/uv-envs/crope/lib/python3.11/site-packages/diffusers/models/transformers/transformer_flux.py": "1f2acab9b562086b6f767004ac882e20f576cb0607848b72f37aeb86d3e62ba8",
+    "/work/09032/saini_2/vista/library/uv-envs/crope/lib/python3.11/site-packages/diffusers/models/normalization.py": "e92ebbb130082578f3cff3361891a1adaa32331347e7bb09e4c70b208a0a6059",
+    "/work/09032/saini_2/vista/library/uv-envs/crope/lib/python3.11/site-packages/diffusers/models/embeddings.py": "4eb810f715786eb1f24f2a4641e529817f7c951b9caf2f7925811329a03ec796"
+  },
+  "actions_taken": "Read source and primary documentation; execute one tiny random-weight CPU counterexample; write only this derivation JSON. No GPU, pretrained model load, source mutation, or fresh 64-prompt use.",
+  "independent_followup_artifact": ".agent/notes/observer_shift_cpu.json; separate evidence agent supplied independent architecture checks, not recomputed in this derivation."
+}
