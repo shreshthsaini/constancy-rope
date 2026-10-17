@@ -1,0 +1,64 @@
+\section{What the gain algebra establishes}
+\label{sec:audited-algebra}
+
+\paragraph{Pair scaling and its causal limit.}
+For fixed content vectors, the rotary-position logit~\citep{su2024roformer}
+can be written as a finite trigonometric sum
+\begin{equation}
+ \ell(\Delta)=\frac{1}{\sqrt{d_k}}
+ \sum_j \operatorname{Re}\bigl[c_j e^{i\theta_j\Delta}\bigr].
+\end{equation}
+Applying a shared multiplier $m_j$ to the query and key coordinates of pair $j$
+multiplies that term by $m_j^2$. Its sign and phase still depend on $c_j$.
+Increasing a high-frequency coefficient therefore does not by itself establish
+more local attention, higher image-band power, or sharper decoded detail.
+The three existing Krea development probes have inconsistent response signs:
+one prompt has no positive decoded-width diagonal among six tested bands.
+Those probes jointly perturb both spatial axes on NTK2, so they also cannot
+identify a single-axis response under released SEGA.
+
+\paragraph{Standardized profile shape.}
+Let $\ell$ be a nonconstant vector of sampled log powers and let
+$z(\ell)=(\ell-\operatorname{mean}\ell)/\operatorname{std}(\ell)$,
+using one fixed standard-deviation convention. For $\beta>0$,
+\begin{equation}
+ z(a\mathbf{1}+\beta\ell)=z(\ell).
+\end{equation}
+This elementary identity applies to an ideal standardized-profile allocation.
+It does not imply invariance of SEGA's radial spread or its complete gain.
+The paper-inspired reference implementation adds a standard-deviation epsilon,
+and the released implementation floors energy and standard deviation. Their
+behavior is therefore invariant only under the corresponding inactive-floor
+or negligible-stabilizer conditions, up to floating-point error. The statement
+is about a formed log-power profile; raising a two-dimensional spectrum to a
+power need not commute with averaging it into that profile.
+
+\paragraph{Allocation and scalar magnitude are coupled.}
+Before clipping, write a centered SEGA multiplier as
+$m_j=m_{\mathrm{ref}}(1+a_j)$ with $\operatorname{mean}a_j=0$. Then
+\begin{equation}
+ \operatorname{mean}(m_j^2)
+ =m_{\mathrm{ref}}^2\bigl[1+\operatorname{mean}(a_j^2)\bigr].
+\end{equation}
+Thus centering query/key multipliers does not preserve their mean squared
+magnitude, which is the mean coefficient gain. Clipping changes these moments
+again. The new RMS controls isolate this effect per spatial axis. They do not
+match the actual attention-logit distribution, its variance, or its entropy.
+
+\paragraph{Forward-noise expectation and the gate.}
+For the linear data--noise interpolation used to motivate rectified
+flow~\citep{liu2023flow}, assume independent data $x_0$ and unit white noise
+$\varepsilon$, with $x_\sigma=(1-\sigma)x_0+\sigma\varepsilon$.
+With an orthonormal transform, channel summation over $C$ channels, and
+mean-per-band density on non-DC bands,
+\begin{equation}
+ \mathbb{E}_{\varepsilon} P_b(x_\sigma)
+ =(1-\sigma)^2P_b(x_0)+\sigma^2C.
+\end{equation}
+The cross term vanishes in expectation. This is not an exact decomposition of
+one noisy sample or one generated ODE trajectory. The controller's statistic
+$\rho_b=\max(P_b(x_\sigma)/(\sigma^2C)-1,0)$ and gate
+$w_b=\rho_b/(1+\rho_b)$ are design choices inspired by this identity. They do
+not estimate the uncertainty of the delayed clean prediction. Likewise, zero
+correction at an anchored target spectrum is an algebraic property of the
+rule, not a stability theorem for the full sampling process.

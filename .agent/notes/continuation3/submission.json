@@ -1,0 +1,17 @@
+{
+  "job_id": 1076857,
+  "name": "CR14",
+  "partition": "gh",
+  "nodes": 2,
+  "walltime": "01:30:00",
+  "source_commit": "395ba85",
+  "status_at_check": "PENDING Priority",
+  "blackwell_submission": "rejected: QOSMaxSubmitJobPerUserLimit, no job created",
+  "allocation": {
+    "total_su": 40000,
+    "used_su": 31787.081,
+    "available_su": 8212.919,
+    "burn_fraction": 0.7946770249999999
+  },
+  "old_taskq_unchanged": true
+}

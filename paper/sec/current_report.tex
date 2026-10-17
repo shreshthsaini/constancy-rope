@@ -18,7 +18,7 @@ submission-ready methods paper.
 The project asks whether feedback toward a model's native latent spectrum can
 improve resolution extrapolation through per-band attention gains. The target
 image size is $4096\times4096$, compared with a $1024\times1024$ native
-calibration size. The baseline is the released SEGA allocation and RoPE base,
+calibration size. The baseline is the released SEGA~\citep{sega2026} allocation and RoPE base,
 identified in the implementation as \texttt{sega\_official}. The released
 allocation differs from the paper-equation implementation; the two are not
 interchangeable baselines.
@@ -46,6 +46,8 @@ The first step has no correction, the index axis retains unit gain, and no
 additional global temperature is applied. Spectral powers use orthonormal
 FFTs and means within bands. The vision analogy motivates this controller;
 it does not establish its efficacy or novelty.
+
+\input{sec/audited_algebra}
 
 \section{Executed protocol}
 All reported comparisons use the FLUX.1-Krea-dev transformer with FLUX.1-dev
@@ -107,6 +109,18 @@ reduces full-resolution MUSIQ by $2.08550$ points, with a paired interval
 $[-3.24526,-0.96407]$. These comparisons constrain the tested designs;
 they do not show that all spectral controllers must fail.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figs/heldout_comparison.pdf}
+\caption{Neither constancy variant demonstrates a joint preference and quality
+gain over released SEGA. Points show paired differences; whiskers are nominal
+95\% prompt-bootstrap intervals from 2,000 draws over 187 prompts, single seed.
+Zero is the released SEGA baseline; higher is better in all panels. DyPE's crop
+quality gain accompanies a preference loss. The temperature-only and time-matched
+constancy variants use SEGA's RoPE base and reference temperature.}
+\label{fig:heldout-current}
+\end{figure}
+
 \section{Limits and continuation}
 The second-campaign candidate has one held-out seed and one evaluated backbone
 at one resolution. No second-seed replication of this candidate, new backbone,
@@ -115,13 +129,24 @@ FID/KID scores from the raw 188-image evaluation include development row 7 and
 are excluded from the held-out conclusion. No new throughput comparison is
 claimed in this report.
 
-The earlier theory and literature sections remain in the source tree for
-review, but are excluded from this snapshot because they describe superseded
-settings and unresolved claims. They require an implementation and source audit
-before incorporation into a submission. The next research step is to formulate
+The earlier extended theory and literature sections remain in the source tree
+but are excluded because they describe superseded settings and unresolved claims.
+Section~\ref{sec:audited-algebra} retains only qualified algebraic observations.
+The next research step is to formulate
 a different, testable mechanism and freeze a development-only diagnostic before
 any new GPU campaign. The already inspected held-out set must not become a
 tuning set presented as fresh evaluation.
+
+\paragraph{Prespecified development diagnostics, not results.}
+A third diagnostic compares three controls on development rows 0--7:
+released-SEGA allocation normalized to the reference query/key RMS; spatially
+uniform gains matched to the released allocation's realized RMS; and the
+$\eta=1$ constancy composition with its target evaluated at the delayed
+estimate's own scheduler noise level. A fresh released-SEGA run is the reference.
+These distinguish gain magnitude from frequency allocation and isolate target
+timing. The code passes 234 CPU tests, but no GPU outcome for these controls is
+available in this snapshot. The planned job contains 32 images and was queued
+on October 17. A positive development result would require separate confirmation.
 
 \paragraph{Evidence provenance.}
 The completed campaign is recorded at implementation commit

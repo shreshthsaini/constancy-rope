@@ -1,0 +1,1012 @@
+{
+  "created_utc": "2026-10-17T06:56:48.848207+00:00",
+  "status": "Frozen before dev3 outcomes; no generation queued",
+  "source": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/eval/size_2048/metadata.jsonl",
+  "source_sha256": "cf7693e850ebc885ac083f750804aa1cee92e1d1178dbf90518adedec0a54e1d",
+  "revision": "8c5d5cb8b94230ff897d87bf060451257d1c7bf8",
+  "selection_rule": "Sort SHA256(UTF8(salt + NUL + source file_name + NUL + normalized caption)), take first64; source row breaks any hash tie",
+  "salt": "constancy_rope_confirmation_v1",
+  "normalization": "Unicode NFKC, casefold, extract regex \\w+ tokens and join with ASCII spaces",
+  "source_rows": 2781,
+  "eligible_rows": 2586,
+  "selected_rows": 64,
+  "prior_eval_rows": 195,
+  "prior_calib_rows": 39,
+  "exclusion_manifests": [
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl",
+      "sha256": "ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/prompts/calib_pickapic.jsonl",
+      "sha256": "981465f4ee73949ec58de2a4f80168b7ab48a0a5ed3dfec7371a536c8287df68"
+    }
+  ],
+  "excluded_rows": [
+    {
+      "source_row": 3,
+      "file_name": "images/minus6873203881450547484.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 7,
+      "file_name": "images/3614061571823823193.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 17,
+      "file_name": "images/7354534197758042049.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 67,
+      "file_name": "images/788875264758341041.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 73,
+      "file_name": "images/minus5023570400257826529.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 75,
+      "file_name": "images/minus8041742109062037958.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 79,
+      "file_name": "images/5968998903196670637.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 81,
+      "file_name": "images/minus8648158440845565467.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 97,
+      "file_name": "images/880657115260655727.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 103,
+      "file_name": "images/minus2014927182109364975.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 118,
+      "file_name": "images/1516768667427572324.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 144,
+      "file_name": "images/minus4012780704267384036.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 157,
+      "file_name": "images/820801809737345747.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 184,
+      "file_name": "images/1594791064055740275.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 195,
+      "file_name": "images/minus702025498990232048.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 205,
+      "file_name": "images/minus5805253890620089726.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 213,
+      "file_name": "images/minus9196631274539277035.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 226,
+      "file_name": "images/1046736963520652161.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 231,
+      "file_name": "images/3943607367684487957.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 238,
+      "file_name": "images/minus5673083787255800687.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 256,
+      "file_name": "images/minus5685677173773420545.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 269,
+      "file_name": "images/minus2712631331773394876.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 273,
+      "file_name": "images/minus6493435680635123221.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 281,
+      "file_name": "images/minus7393293802729135153.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 303,
+      "file_name": "images/minus2729538226706404616.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 324,
+      "file_name": "images/minus8032855769722351595.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 326,
+      "file_name": "images/6066373865342273390.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 332,
+      "file_name": "images/1041106339713796826.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 342,
+      "file_name": "images/minus8737279395568207187.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 345,
+      "file_name": "images/334788259750040356.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 377,
+      "file_name": "images/7543519915112968451.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 387,
+      "file_name": "images/7637161027288029693.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 445,
+      "file_name": "images/5826245701465116957.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 465,
+      "file_name": "images/minus1017950324987649681.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 495,
+      "file_name": "images/7009273464006889449.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 506,
+      "file_name": "images/minus2679953061215100202.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 525,
+      "file_name": "images/minus4469448794852185540.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 540,
+      "file_name": "images/minus263777997664289445.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 541,
+      "file_name": "images/8020030205210970395.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 555,
+      "file_name": "images/4525259556400020626.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 568,
+      "file_name": "images/1139740195494332405.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 612,
+      "file_name": "images/9082507599514684465.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 635,
+      "file_name": "images/3826098298648979216.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 643,
+      "file_name": "images/minus680414676224257344.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 656,
+      "file_name": "images/8065862701789418887.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 699,
+      "file_name": "images/minus3145908358244441177.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 757,
+      "file_name": "images/1638867997226496674.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 779,
+      "file_name": "images/3667310823951382336.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 795,
+      "file_name": "images/minus2857555394095239941.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 797,
+      "file_name": "images/minus2447481760626661988.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 812,
+      "file_name": "images/3305730548209556640.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 816,
+      "file_name": "images/924453187493270635.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 856,
+      "file_name": "images/minus7320315357894569493.Jpg.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 879,
+      "file_name": "images/minus3130703310573987496.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 880,
+      "file_name": "images/minus6858649860006634381.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 883,
+      "file_name": "images/11799097571596124.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 914,
+      "file_name": "images/6978695891801939003.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 915,
+      "file_name": "images/60170519444801447.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 934,
+      "file_name": "images/minus493587068337986360.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 952,
+      "file_name": "images/8899498425633254014.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 960,
+      "file_name": "images/6068056094592774588.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 963,
+      "file_name": "images/7961019668960160206.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 974,
+      "file_name": "images/minus7918457735894026443.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 988,
+      "file_name": "images/minus7459007800202269666.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 989,
+      "file_name": "images/minus7321186811358178749.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 994,
+      "file_name": "images/7883963688096379563.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1002,
+      "file_name": "images/1095479033191131413.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1004,
+      "file_name": "images/minus3112502764021036396.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1013,
+      "file_name": "images/minus3645125026227080560.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1021,
+      "file_name": "images/3411143122470771726.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1022,
+      "file_name": "images/4068519309780255312.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1023,
+      "file_name": "images/1269964769307095670.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1035,
+      "file_name": "images/8612805720316271716.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1039,
+      "file_name": "images/minus3514666929034129151.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1054,
+      "file_name": "images/5846978273166845219.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1063,
+      "file_name": "images/minus8573543815140502534.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1077,
+      "file_name": "images/1442138154946148100.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1096,
+      "file_name": "images/minus5674469394223680466.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1129,
+      "file_name": "images/minus1057810871814672649.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1138,
+      "file_name": "images/7095623346664983157.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1153,
+      "file_name": "images/8142852677968042257.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1179,
+      "file_name": "images/minus654082322195551039.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1198,
+      "file_name": "images/4783241696049918576.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1200,
+      "file_name": "images/minus8343371271909676658.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1219,
+      "file_name": "images/7265494513082458083.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1237,
+      "file_name": "images/4450574274095877124.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1254,
+      "file_name": "images/5374762814090317810.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1255,
+      "file_name": "images/minus548913239957610051.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1262,
+      "file_name": "images/minus5830554056706593436.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1271,
+      "file_name": "images/minus8919475713516982506.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1290,
+      "file_name": "images/2232973817337527860.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1325,
+      "file_name": "images/minus8988030172357329111.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1397,
+      "file_name": "images/6422600338162192082.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1406,
+      "file_name": "images/minus3268147817845827695.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1418,
+      "file_name": "images/7109958488611222679.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1440,
+      "file_name": "images/minus6845347395255545991.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1450,
+      "file_name": "images/997293625843621481.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1452,
+      "file_name": "images/minus1066207185399086750.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1453,
+      "file_name": "images/minus795146951737249951.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1462,
+      "file_name": "images/minus836402013429605880.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1478,
+      "file_name": "images/305536346962135631.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1493,
+      "file_name": "images/2155209427123413237.1.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1500,
+      "file_name": "images/1723076348288051710.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1516,
+      "file_name": "images/minus5711416573811300201.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1520,
+      "file_name": "images/3800770485785560687.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1533,
+      "file_name": "images/minus9039328566106297566.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1542,
+      "file_name": "images/8243634342676936133.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1557,
+      "file_name": "images/minus2670470656524755471.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1571,
+      "file_name": "images/1261491082604086083.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1581,
+      "file_name": "images/minus1071233499893339092.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1582,
+      "file_name": "images/8995582008874513707.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1592,
+      "file_name": "images/minus5795767365495583614.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1604,
+      "file_name": "images/minus7946139341219184985.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1614,
+      "file_name": "images/584490852172808533.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1625,
+      "file_name": "images/7329730529604954318.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1631,
+      "file_name": "images/1118979843958125111.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1632,
+      "file_name": "images/minus4850138611731379908.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1673,
+      "file_name": "images/8253776796901638375.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1679,
+      "file_name": "images/minus210790534622161044.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1695,
+      "file_name": "images/5469459941248315308.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1703,
+      "file_name": "images/minus3880872769316591135.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1706,
+      "file_name": "images/minus2978915343052374306.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1708,
+      "file_name": "images/minus5370774387421928008.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1717,
+      "file_name": "images/5898105534094229113.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1739,
+      "file_name": "images/minus7824758602266642611.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1758,
+      "file_name": "images/4537479891260587671.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1772,
+      "file_name": "images/minus7878071503822468846.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1786,
+      "file_name": "images/minus6127054465263660958.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1803,
+      "file_name": "images/6581493267593213349.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1825,
+      "file_name": "images/minus7264311869050248176.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1870,
+      "file_name": "images/minus4526778177368208567.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1884,
+      "file_name": "images/8308343334897494229.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1906,
+      "file_name": "images/minus7692529131595280570.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1914,
+      "file_name": "images/minus3108444262580777290.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1919,
+      "file_name": "images/6599424322813629311.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1928,
+      "file_name": "images/58350587024203491.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1940,
+      "file_name": "images/3912690245302078105.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1970,
+      "file_name": "images/6384782444147762726.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1980,
+      "file_name": "images/minus7713773572301072741.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 1983,
+      "file_name": "images/minus7000000382587116439.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2033,
+      "file_name": "images/minus6362293977233387960.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2059,
+      "file_name": "images/minus1222532847814836069.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2085,
+      "file_name": "images/minus2742856837225126754.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2087,
+      "file_name": "images/8911522276379666744.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2098,
+      "file_name": "images/minus3651203496105491158.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2133,
+      "file_name": "images/3657338173664010496.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2136,
+      "file_name": "images/3638740675706761149.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2148,
+      "file_name": "images/7414267858891695058.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2153,
+      "file_name": "images/minus3413373481783671760.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2163,
+      "file_name": "images/4136654375773102327.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2182,
+      "file_name": "images/3191725509755028570.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2184,
+      "file_name": "images/minus4844341235185759356.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2207,
+      "file_name": "images/minus4460699761507361961.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2220,
+      "file_name": "images/7396058529551312081.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2241,
+      "file_name": "images/minus4188988968446046766.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2249,
+      "file_name": "images/4230887929316158402.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2296,
+      "file_name": "images/minus5996982714209002611.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2302,
+      "file_name": "images/minus9219623328452982854.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2303,
+      "file_name": "images/minus8314017227778408466.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2309,
+      "file_name": "images/minus2714724190150744968.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2313,
+      "file_name": "images/minus4644721849865361850.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2314,
+      "file_name": "images/7241348597486365303.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2325,
+      "file_name": "images/minus5715104867979054073.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2330,
+      "file_name": "images/minus4462838239161450556.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2335,
+      "file_name": "images/minus5691444384207183173.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2385,
+      "file_name": "images/minus6394968997939197542.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2409,
+      "file_name": "images/1316997283360365550.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2416,
+      "file_name": "images/8689685467512870777.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2426,
+      "file_name": "images/175243114551627459.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2430,
+      "file_name": "images/1052899493017962912.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2442,
+      "file_name": "images/5849277588805396896.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2502,
+      "file_name": "images/minus947425340308551929.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2509,
+      "file_name": "images/1543306621910747533.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2538,
+      "file_name": "images/minus653754125991313145.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2548,
+      "file_name": "images/2100482621711410240.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2560,
+      "file_name": "images/2922388873318712541.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2597,
+      "file_name": "images/7289666028778764798.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2613,
+      "file_name": "images/5467301199144503406.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2618,
+      "file_name": "images/minus293370523718655394.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2622,
+      "file_name": "images/minus8922241834174790036.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2628,
+      "file_name": "images/4673559490456019105.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2634,
+      "file_name": "images/minus7169704122316291462.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2637,
+      "file_name": "images/7202527118696509246.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2641,
+      "file_name": "images/5941097972571555184.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2689,
+      "file_name": "images/minus7677772662486342378.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2695,
+      "file_name": "images/9112592444131713102.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2696,
+      "file_name": "images/minus5606822722792416000.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2697,
+      "file_name": "images/1195301905298426486.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2712,
+      "file_name": "images/2022937813048109690.png",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2714,
+      "file_name": "images/8562792468822776695.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2732,
+      "file_name": "images/minus5332089088153794307.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2739,
+      "file_name": "images/6648013380537069782.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2746,
+      "file_name": "images/4820545723762191815.jpeg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2759,
+      "file_name": "images/minus3118670343091498341.jpg",
+      "reason": "prior_normalized_caption"
+    },
+    {
+      "source_row": 2769,
+      "file_name": "images/minus4450387145579100387.png",
+      "reason": "prior_normalized_caption"
+    }
+  ],
+  "manifest": ".agent/notes/continuation3/confirmation64_prompts.jsonl",
+  "manifest_sha256": "965992616563a274ea275d8ef0a7083415800adb5c88d494a37fb272a996e6f2",
+  "all_selected_reference_files_cached": true,
+  "image_quality_used_for_selection": false,
+  "model_training_disjointness_claimed": false,
+  "notes": [
+    "Prior probe prompts are among195eval; native16calibration are among39calib. No additional project prompt manifest was found in project prompts directory.",
+    "This is a new project confirmation subset of source2048 captions; no semantic near-duplicate detection or underlying training-set audit was performed.",
+    "Reference images were not decoded or scored; their content did not affect selection."
+  ]
+}

@@ -16,14 +16,20 @@ Paper now compiles an empirical working report. Prior proposal sections retained
 All ten paired means/CIs independently recomputed exactly from archived per-prompt CSVs today.
 PDF: paper/constancy_rope_working_2026-10-17.pdf. Build directory on project scratch.
 No new GPU work, scorer reruns, installs, SSH, submissions, cancellations, or scratch deletion.
-NEXT: finish CPU validation, freeze dev3 sources, submit packed four-GPU diagnostic, evaluate all variants.
+NEXT: monitor CR14 job1076857 (two GH200 nodes, 90min); verify live telemetry/output invariants, then run dev3_analysis with fresh reference.
 
-Third diagnostic in preparation: spatial RMS uniform/normalized controls and lag-aligned ctm, eta1.
-Fresh SEGA baseline prespecified; 32 dev images total. Source/test agents working.
+Third diagnostic submitted: spatial RMS uniform/normalized controls and lag-aligned ctm, eta1.
+Fresh SEGA baseline prespecified; 32 dev images total. Full CPU suite 234 passed.
+CR14 job1076857 is PENDING Priority; no estimated start. Initial gb attempt rejected at qgb submit cap.
+Frozen source commit395ba85; spool taskq_dev3 has four ready workflows, old taskq unchanged.
+Fresh64 confirmation prompts frozen before outcomes; run only if a candidate passes dev.
+Paper figure and qualified algebra updated; all16 plotted intervals re-derived exactly.
 Account balance checked: 8212.919/40000 SUs remaining, burn 79.47%.
 
 ## Map
 | File | Read it when |
+| notes/continuation3/confirmation_plan.md | planning conditional fresh-prompt confirmation |
+| notes/continuation3/theory_audit.md | restoring qualified theory to the manuscript |
 | notes/continuation3/PROTOCOL.md | running the frozen third development diagnostic |
 | HANDOVER.md | resuming project ownership and checking operating constraints |
 | notes/main2/REPORT.md | reviewing development decision and full held-out results |

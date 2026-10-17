@@ -7,7 +7,8 @@ started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact ht
 ## Current takeover checkpoint (2026-10-17)
 - User first requested a state review, then explicitly assigned full project ownership and
   authorized continuing experiments, evaluation, and paper work autonomously.
-- Third diagnostic is in preparation: see `.agent/notes/continuation3/PROTOCOL.md`.
+- Third diagnostic submitted as CR14 job1076857, currently PENDING Priority on two GH200 nodes.
+  See `.agent/notes/continuation3/PROTOCOL.md`; frozen source commit395ba85, 234 CPU tests passed.
   Three parameter-free/timing controls plus fresh SEGA, 32 development images, no held-out tuning.
 - Live accounting confirms CR13 job 1076092 COMPLETED October 16 at 18:06:13 CDT.
   Spool: pending 0, running 0, done 255, failed 5, hold 25; STOP remains present.
@@ -20,8 +21,9 @@ started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact ht
   PDF: `paper/constancy_rope_working_2026-10-17.pdf`. No positive efficacy claim is supported.
 - `paper/update_evidence.py` reproduced all ten selected-candidate paired means/CIs exactly
   from archived per-prompt CSVs. Receipt: `.agent/notes/paper_verification_20261017.json`.
-- Resume after the completed negative campaign. Current step: finish tests and freeze dev3
-  sources before submitting a packed diagnostic. No new GPU result yet.
+- Current step: monitor job1076857, verify telemetry and source/protocol invariants, then
+  run `scripts/dev3_analysis.py` with `--reference-root dev3_sega_official`. No GPU outcome yet.
+  Fresh64 confirmation manifest is frozen under continuation3, conditional on dev selection.
 
 ## 1. Goal and the user's rules
 - Training-free resolution extrapolation for FLUX at 4096^2. Beat released SEGA (arXiv 2605.22668, github rajabi2001/sega)
