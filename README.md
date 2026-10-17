@@ -1,5 +1,15 @@
 # Constancy RoPE
 
+Current status (2026-10-17): both campaigns are complete and do not demonstrate
+an improvement over released SEGA. Read `HANDOVER.md` before resuming.
+The current evidence report is `paper/constancy_rope_working_2026-10-17.pdf`;
+rebuild its verified table with `paper/update_evidence.py` in the crope uv env,
+then compile `paper/main.tex` with Tectonic on a compute node.
+
+The executed campaign uses FLUX.1-Krea-dev, guidance 4.5, 28 steps, scheduler
+shift 1.15, and held-out rows 8-194. The older usage examples below describe
+the initial implementation and must not be used as the completed protocol.
+
 Resumable FLUX.1-dev comparisons at 4096x4096, 3072x3072, and rectangular resolutions.
 The default protocol is bf16, batch 1, 28 steps, guidance 3.5, the pipeline's shifted
 flow scheduler, PyTorch SDPA flash attention, and tiled large-image VAE decode.

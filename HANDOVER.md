@@ -1,8 +1,24 @@
 # Constancy RoPE: handover (read this first)
 
-Last full rewrite: 2026-10-16 05:10 CDT. Live short state: `.agent/STATE.md`. Result log: `.agent/notes/results.md`.
+Last takeover update: 2026-10-17 CDT. Live short state: `.agent/STATE.md`. Result log: `.agent/notes/results.md`.
 Design spec: `.agent/notes/design.md`. Codex briefs: `.agent/notes/codex_brief_{1,2,3}.md`. Review of the SEGA paper that
 started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact https://claude.ai/artifact/Phv2pGDvZDZwpmNM3Qh8GL).
+
+## Current takeover checkpoint (2026-10-17)
+- User requested a state review and confirmation before new experiments, plus paper updates and a PDF.
+- Live accounting confirms CR13 job 1076092 COMPLETED October 16 at 18:06:13 CDT.
+  Spool: pending 0, running 0, done 255, failed 5, hold 25; STOP remains present.
+  Failed/held files are older pilot, superseded original-constancy, or archived task files.
+  No current scheduler job directly names this project; generic workspaces were not probed remotely.
+- Last research commit: a1ede1a, October 16 at 18:11:57 CDT. Earlier uncommitted-state notes
+  are superseded. Repository has no configured remote.
+- `paper/main.tex` now builds an empirical working report from `sec/current_report.tex` and
+  `sec/current_table.tex`. Earlier proposal sections remain in source but are excluded until audited.
+  PDF: `paper/constancy_rope_working_2026-10-17.pdf`. No positive efficacy claim is supported.
+- `paper/update_evidence.py` reproduced all ten selected-candidate paired means/CIs exactly
+  from archived per-prompt CSVs. Receipt: `.agent/notes/paper_verification_20261017.json`.
+- Resume after the completed negative campaign. Next: agree on a revised mechanism and
+  development-only diagnostic before another GPU campaign. No experiments were queued here.
 
 ## 1. Goal and the user's rules
 - Training-free resolution extrapolation for FLUX at 4096^2. Beat released SEGA (arXiv 2605.22668, github rajabi2001/sega)
@@ -34,7 +50,8 @@ mu = max_shift 1.15; bootstrap 95% CIs, paired vs sega_official (`eval_krea/held
   its static tilt breaks images (CLIP 13).
 - Constancy (ntk2 base, tau_N = ln N_tgt / ln N_train) == temp_only; per-band correction only acted at sigma <= 0.35
   (late-profile target); time-matched target (constancy_tm) fixed activity but not quality.
-=> Method hypothesis refuted as designed. Paper draft in `paper/` assumes a win: rewrite before any use.
+=> Method hypothesis refuted as designed. Current paper reports this negative evidence;
+older theory/proposal section files remain excluded pending review.
 
 ## 3. Hard-won facts
 - FLUX.1-dev at 4096^2 gives a dot/halftone lattice even under OFFICIAL DyPE code -> use FLUX.1-Krea-dev (both DyPE and SEGA do).
@@ -95,7 +112,7 @@ The authorized B1/B3 campaign is complete. No further GPU work is queued.
    Do not submit or rerun anything for this completed campaign. Preserve the negative evidence.
 5. Both aliases and eta 0.5 stopped at dev. Do not reinterpret dev scores as results or tune on held-out.
 Formulas and frozen rule: `.agent/notes/alias_temp.md`; task/source hashes: `.agent/notes/dev2_manifest.json`.
-New modes and analysis plumbing remain uncommitted in the tree because .git is read-only.
+New modes and analysis plumbing were subsequently committed as a1ede1a.
 CPU-only prepasses used local receipts after a documented W&B socket failure. Final GPU evaluation
 logged offline W&B run n8xhe6iy; no remote synchronization is claimed. No worker/node-launch edits,
 SSH, Slurm submission/cancellation, package installs, or scratch deletion occurred in this session.

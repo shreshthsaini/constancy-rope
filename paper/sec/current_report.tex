@@ -1,0 +1,134 @@
+\begin{abstract}
+We test whether spectral feedback on rotary-position attention gains improves
+training-free 4K generation with FLUX.1-Krea-dev. Constancy RoPE compares the
+predicted clean latent spectrum with a native-resolution reference and applies
+a bounded, noise-gated correction to spatial attention gains. Two completed
+campaigns fail to demonstrate an improvement over the released SEGA baseline.
+In the second campaign, only SEGA plus time-matched constancy at gain $\eta=1$
+passes the eight-prompt development gate. On 187 held-out prompt pairs, its
+ImageReward difference is $+0.00857$ with a 95\% confidence interval of
+$[-0.00841,0.02742]$, while full-resolution MUSIQ changes by $-0.20860$
+$[-0.70887,0.31512]$. PickScore and crop MUSIQ decrease.
+These results do not support an efficacy or state-of-the-art claim.
+This working report records the completed experiments; it is not a
+submission-ready methods paper.
+\end{abstract}
+
+\section{Question and tested controllers}
+The project asks whether feedback toward a model's native latent spectrum can
+improve resolution extrapolation through per-band attention gains. The target
+image size is $4096\times4096$, compared with a $1024\times1024$ native
+calibration size. The baseline is the released SEGA allocation and RoPE base,
+identified in the implementation as \texttt{sega\_official}. The released
+allocation differs from the paper-equation implementation; the two are not
+interchangeable baselines.
+
+The first campaign tested the original constancy controller, then a time-matched
+native spectral target. The latter was also tested on SEGA's RoPE base with its
+reference temperature. This did not establish an improvement. The second
+campaign tested two effective-pool temperature rules, \texttt{alias\_temp}
+and \texttt{alias\_temp\_sref}, and a composition of released SEGA with
+time-matched constancy, \texttt{sega\_ctm}, at $\eta=0.5$ and $1.0$.
+
+For the composed controller, let $m_d$ be SEGA's released query/key multiplier
+for rotary pair $d$. A correction in spectral band $b$ is
+\begin{align}
+ e_b &= \tfrac12\bigl(\log P_{\mathrm{native},b}(\sigma)
+              + a - \log \widehat P_b\bigr),\\
+ \delta_b &= \eta w_b\,\clip(e_b,-1,1),\\
+ g_d &= m_d^2\exp\bigl(\operatorname{interp}(\delta)_d\bigr).
+\end{align}
+Here $a$ is the anchor offset, $w_b$ is the existing visibility gate, and
+$\widehat P_b$ is measured from the preceding transformer call's clean estimate.
+The native target is interpolated at the current scheduler noise level.
+Query and key are each multiplied by $m_d\exp(\delta_d/2)$.
+The first step has no correction, the index axis retains unit gain, and no
+additional global temperature is applied. Spectral powers use orthonormal
+FFTs and means within bands. The vision analogy motivates this controller;
+it does not establish its efficacy or novelty.
+
+\section{Executed protocol}
+All reported comparisons use the FLUX.1-Krea-dev transformer with FLUX.1-dev
+text encoders and VAE, $4096^2$ output, 28 sampling steps, distilled guidance
+4.5, and scheduler shift $\mu=1.15$. The selected candidate and baseline share
+the executed schedule, seed convention, and SEGA RoPE base. Earlier FLUX.1-dev
+outputs exhibited a lattice artifact and are excluded from these results.
+
+The 195 Aesthetic-4K evaluation captions are split into development rows 0--7
+and held-out rows 8--194. Native calibration uses 16 separate Pick-a-Pic
+prompts. Development eligibility requires positive mean differences in both
+ImageReward and full-resolution MUSIQ, with CLIP difference at least $-0.3$.
+At most two variants may advance; no settings change after selection.
+
+The second campaign reports exactly 187 matched seed-0 prompt pairs. Generation
+produced 188 images because row 7 was included to preserve task chunking; that
+row is excluded from all held-out tables. Confidence intervals use 2,000 paired
+bootstrap draws with bootstrap seed 0 and the 2.5 and 97.5 percentiles.
+Intervals are nominal per metric, without multiple-comparison adjustment.
+An interval crossing zero does not establish equivalence.
+
+\section{Results}
+\subsection{Development selection}
+Table~\ref{tab:dev-current} records selection only. Both alias variants lose
+ImageReward. The $\eta=0.5$ composition misses the MUSIQ gate by 0.007850.
+Only $\eta=1$ advances; development scores are not generalization evidence.
+
+\begin{table}[ht]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\caption{Development means on eight prompts, seed 0.}
+\label{tab:dev-current}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Variant & ImageReward & MUSIQ & CLIP & Advance\\
+\midrule
+Released SEGA & 1.423018 & 42.488060 & 30.320004 & Reference\\
+Alias temperature & 1.281098 & 35.807356 & 29.366986 & No\\
+Alias, reference gain & 1.277426 & 44.972845 & 30.238460 & No\\
+SEGA + constancy, $\eta=0.5$ & 1.441334 & 42.480210 & 30.200250 & No\\
+SEGA + constancy, $\eta=1$ & 1.448742 & 42.505928 & 30.342451 & Yes\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Held-out comparison}
+\input{sec/current_table}
+The selected composition has no demonstrated gain on ImageReward or
+full-resolution MUSIQ. PickScore, crop MUSIQ, and CLIP have negative nominal
+confidence intervals. The remaining intervals cross zero. This second
+campaign therefore does not repair the original controller's failure.
+
+The earlier time-matched controller on SEGA's base also regresses on the same
+187 seed-0 prompts. Full-resolution MUSIQ changes by $-3.03602$, with interval
+$[-4.28169,-1.81488]$. Crop MUSIQ changes by $-2.19266$, with interval
+$[-2.81241,-1.56666]$. Its ImageReward difference is unresolved at
+$+0.01782$ $[-0.02271,0.05913]$. A temperature-only control on SEGA's base
+reduces full-resolution MUSIQ by $2.08550$ points, with a paired interval
+$[-3.24526,-0.96407]$. These comparisons constrain the tested designs;
+they do not show that all spectral controllers must fail.
+
+\section{Limits and continuation}
+The second-campaign candidate has one held-out seed and one evaluated backbone
+at one resolution. No second-seed replication of this candidate, new backbone,
+human preference study, or broader resolution claim is supported. Aggregate
+FID/KID scores from the raw 188-image evaluation include development row 7 and
+are excluded from the held-out conclusion. No new throughput comparison is
+claimed in this report.
+
+The earlier theory and literature sections remain in the source tree for
+review, but are excluded from this snapshot because they describe superseded
+settings and unresolved claims. They require an implementation and source audit
+before incorporation into a submission. The next research step is to formulate
+a different, testable mechanism and freeze a development-only diagnostic before
+any new GPU campaign. The already inspected held-out set must not become a
+tuning set presented as fresh evaluation.
+
+\paragraph{Evidence provenance.}
+The completed campaign is recorded at implementation commit
+\texttt{a1ede1a} on October 16, 2026. Its archived paired table, per-prompt
+scores, and analysis protocol are in \path{.agent/notes/main2/}.
+The current held-out table is generated from those CSVs after checking its
+means and paired intervals against the per-prompt records. This check reuses
+saved scorer outputs; it is not a fresh image-scoring reproduction.
+The previous session records 194 passing CPU tests. No inference or training
+was rerun for this paper update.

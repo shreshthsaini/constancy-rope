@@ -1,0 +1,14 @@
+{
+  "candidate": "sega_ctm_v2",
+  "pairs": 187,
+  "metrics_checked": 10,
+  "maximum_absolute_error": 0.0,
+  "bootstrap_draws": 2000,
+  "bootstrap_seed": 0,
+  "fresh_image_scoring": false,
+  "source_sha256": {
+    "heldout_per_prompt.csv": "1832f7b52358ce45e178d075b4e5cf77173b511affd4252dcf64e45b5a196ac6",
+    "heldout_means.csv": "0eb24b8846b724aa71cdb32e73eca7429d9aa0ba1619006fb3558cba124e4756",
+    "heldout_paired_vs_sega_official.csv": "d41a77fc6c881d68a57af9e6ec5be62a0d2b6e0605587ca3c56c05b712802ff3"
+  }
+}
