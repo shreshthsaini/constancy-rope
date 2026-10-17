@@ -57,12 +57,29 @@ def tensor_hash(value):
                           .numpy().tobytes()).hexdigest()
 
 
+def check_response_protocol(args):
+    path = ROOT / '.agent/notes/response_probe_protocol.json'
+    protocol = json.loads(path.read_text())
+    for name, expected in protocol['source_sha256'].items():
+        if hashlib.sha256((ROOT / name).read_bytes()).hexdigest() != expected:
+            raise ValueError(f'Response protocol source changed: {name}')
+    modes = [protocol['smoke'], protocol['diagnostic']]
+    selected = [int(v) for v in args.probe_steps.split(',')]
+    if (args.prompt_index not in protocol['development_prompt_indices']
+            or args.epsilon != protocol['epsilon']
+            or not any(tuple(args.res) == (m['resolution'], m['resolution'])
+                       and args.steps == m['steps'] and selected == m['probe_steps'] for m in modes)):
+        raise ValueError('Requested run differs from frozen response protocol')
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 def main():
     args = parser().parse_args()
     selected_steps = [int(v) for v in args.probe_steps.split(',')]
     if not selected_steps or len(set(selected_steps)) != len(selected_steps) or any(
             step < 0 or step >= args.steps for step in selected_steps):
         raise ValueError('Probe step indices must be unique and within the sampling schedule')
+    protocol_hash = check_response_protocol(args)
     if SCRATCH not in args.out.resolve().parents:
         raise ValueError('Bulk probe outputs must be under project scratch')
     args.out.mkdir(parents=True, exist_ok=True)
@@ -106,8 +123,26 @@ def main():
                      mode=os.environ.get('WANDB_MODE', 'online' if os.environ.get('WANDB_API_KEY') else 'offline'))
     experiment = None
     try:
+        hub = Path(os.environ['HF_HOME']) / 'hub/models--black-forest-labs--FLUX.1-dev'
+        base_revision = (hub / 'refs/main').read_text().strip()
+        base_snapshot = hub / 'snapshots' / base_revision
         pipe = load_pipeline('cuda', False, False)
+        if (hub / 'refs/main').read_text().strip() != base_revision:
+            raise RuntimeError('Base model cache revision changed during loading')
+        if Path(pipe.config['_name_or_path']).resolve() != base_snapshot.resolve():
+            raise RuntimeError('Loaded base snapshot differs from recorded source')
         experiment = FluxExperiment(pipe, 'sega_official', args.res)
+        if experiment.rope.method != 'sega_official':
+            raise ValueError('Response protocol requires sega_official RoPE')
+        configuration = experiment.config(row, seed=0, steps=args.steps, guidance=4.5)
+        configuration.pop('attention', None)
+        configuration['attention_backend'] = 'PyTorch SDPA policy; actual selected kernel not instrumented'
+        manifest.update(experiment_configuration=configuration,
+                        base_snapshot=str(base_snapshot), base_revision=base_revision,
+                        base_model_index_sha256=hashlib.sha256((base_snapshot / 'model_index.json').read_bytes()).hexdigest(),
+                        response_protocol_sha256=protocol_hash)
+        atomic_json(args.out / 'manifest.json', manifest)
+        run.config.update(manifest, allow_val_change=True)
         pipe.transformer.eval()
         baseline, base_seconds, base_memory = experiment.generate(
             row, seed=0, steps=args.steps, guidance=4.5, output_type='latent')
@@ -132,6 +167,8 @@ def main():
                    'baseline_history_equal': base_history == experiment.controller.history,
                    'observed_probe_steps': [r['step'] for r in probe.records],
                    'directions': [d.name for d in directions], 'gpu_probe_executed': True,
+                   'sigmas': pipe.scheduler.sigmas.detach().float().cpu().tolist(),
+                   'timing_interpretation': 'Diagnostic accounting only; first baseline and later probed run are not warmup-matched performance benchmarks.',
                    'efficacy_evaluated': False}
         atomic_json(args.out / 'validation.json', receipt)
         if not receipt['trajectory_bitwise_equal'] or not receipt['baseline_history_equal']:

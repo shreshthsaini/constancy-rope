@@ -34,13 +34,13 @@ class Transformer(torch.nn.Module):
         return (result,)
 
 
-def make_experiment():
+def make_experiment(res=128):
     transformer = Transformer().eval()
     config = {}
     pipe = SimpleNamespace(transformer=transformer, scheduler=SimpleNamespace(
         config=config, sigmas=torch.tensor([.8, .4, 0.]),
         register_to_config=lambda **kw: config.update(kw)))
-    experiment = FluxExperiment(pipe, 'sega_official', (128, 128))
+    experiment = FluxExperiment(pipe, 'sega_official', (res, res))
     transformer.eval()
     transformer.controller = experiment.controller
     return experiment
@@ -149,6 +149,31 @@ def test_generated_controls_are_separate_axes_and_include_scalar():
         low, high = sum(exp.axes_dims[:axis]), sum(exp.axes_dims[:axis + 1])
         assert d.vector[:low].count_nonzero() == 0
         assert d.vector[high:].count_nonzero() == 0
+    exp.close()
+
+
+@torch.inference_mode()
+def test_above_native_allocation_replay_holds_actual_operating_point():
+    exp = make_experiment(2048)
+    assert exp.official.ntk_factor > 1
+    x = torch.randn(1, 128 * 128, 4)
+    update = exp.official.update
+    calls = []
+    def changing_allocation(*args, **kwargs):
+        gain = update(*args, **kwargs)
+        calls.append(gain.clone())
+        # Simulate replay reduction drift; the actual baseline gain stays fixed.
+        return gain if len(calls) == 1 else gain * 1.01
+    exp.official.update = changing_allocation
+    with SameStateProbe(exp, [0], [direction()]) as probe:
+        exp.pipe.transformer(hidden_states=x, timestep=torch.tensor([.8]))
+    record = probe.records[0]
+    assert len(calls) == 6
+    assert exp.official.diagnostics['spectral_spread'] > 0
+    assert record['replay_max_abs_velocity_error'] == 0
+    assert record['baseline_gain_float32'] == calls[0].tolist()
+    assert set(record['directions'][0]['realized_gains']) == {'plus', 'minus', 'half_plus', 'half_minus'}
+    assert torch.equal(exp.controller.qk_scale, calls[0])
     exp.close()
 
 

@@ -6,7 +6,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from response_analysis import summarize
-from response_probe import check_frozen_sources, parser, select_directions, tensor_hash
+from response_probe import check_frozen_sources, check_response_protocol, parser, select_directions, tensor_hash
 
 
 @pytest.fixture
@@ -54,6 +54,29 @@ def test_missing_step_or_incorrect_call_count_rejected(run):
 def test_runner_excludes_heldout_prompt_indices():
     with pytest.raises(SystemExit):
         parser().parse_args(['--prompt-index', '8', '--out', '/tmp/not-used'])
+
+
+def test_response_protocol_rejects_changed_sources_and_native_smoke(tmp_path, monkeypatch):
+    import hashlib
+    import response_probe
+    monkeypatch.setattr(response_probe, 'ROOT', tmp_path)
+    (tmp_path / 'source.py').write_text('frozen')
+    protocol = {'source_sha256': {'source.py': hashlib.sha256(b'frozen').hexdigest()},
+                'development_prompt_indices': [0, 1], 'epsilon': .1,
+                'smoke': {'resolution': 2048, 'steps': 4, 'probe_steps': [1]},
+                'diagnostic': {'resolution': 4096, 'steps': 28, 'probe_steps': [6, 14, 22]}}
+    path = tmp_path / '.agent/notes/response_probe_protocol.json'
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps(protocol))
+    args = parser().parse_args(['--prompt-index', '0', '--out', '/unused'])
+    assert len(check_response_protocol(args)) == 64
+    args.res = (1024, 1024)
+    with pytest.raises(ValueError, match='differs'):
+        check_response_protocol(args)
+    args.res = (4096, 4096)
+    (tmp_path / 'source.py').write_text('changed')
+    with pytest.raises(ValueError, match='source changed'):
+        check_response_protocol(args)
 
 
 def test_tensor_hash_is_dtype_safe_and_value_sensitive():

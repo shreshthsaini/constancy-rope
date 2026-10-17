@@ -6,6 +6,7 @@ Touch runtime/STOP to stop. The existing compute allocation bounds its lifetime.
 import argparse
 from datetime import datetime
 import fcntl
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -23,16 +24,72 @@ JOB, HOST_JOB = '1076857', '1073260'
 SOCKET = '/tmp/cx-883311-1ae2ac8f/home/app-server-control/app-server-control.sock'
 
 
+def registrations(path=None):
+    """Hot-read registrations.json; absent/empty means no additional jobs.
+
+    Schema: {"jobs": [{"job_id": "123", "queue_dir": "/scratch/.../taskq",
+    "completion_files": [], "progress_dirs": [], "telemetry_dir": "..."}]}.
+    Queue, telemetry and nonrecursive progress directories must be under this
+    project's scratch root; completion files may also be under ROOT on work.
+    Publish edits atomically. Invalid edits leave the last accepted set active.
+    """
+    path = path or RUNTIME / 'registrations.json'
+    if not path.exists():
+        return []
+    raw = path.read_text().strip()
+    data = json.loads(raw) if raw else {'jobs': []}
+    if not isinstance(data, dict) or set(data) != {'jobs'} or not isinstance(data['jobs'], list):
+        raise ValueError('Registration file must contain an object with a jobs list')
+
+    def checked_path(value, roots):
+        if not isinstance(value, str) or not Path(value).is_absolute():
+            raise ValueError('Registration paths must be absolute strings')
+        resolved = Path(value).resolve()
+        if not any(resolved != root.resolve() and resolved.is_relative_to(root.resolve())
+                   for root in roots):
+            raise ValueError(f'Registration path outside permitted project roots: {value}')
+        return str(resolved)
+
+    accepted, ids, queues = [], {JOB, HOST_JOB}, {str((SCRATCH / 'taskq_dev3').resolve())}
+    allowed = {'job_id', 'queue_dir', 'completion_files', 'progress_dirs', 'telemetry_dir'}
+    for item in data['jobs']:
+        if not isinstance(item, dict) or set(item) - allowed or not {'job_id', 'queue_dir'} <= set(item):
+            raise ValueError('Registration requires job_id and queue_dir, with only documented fields')
+        job = item['job_id']
+        if (type(job) not in (str, int) or not str(job).isascii()
+                or not str(job).isdigit() or int(job) <= 0):
+            raise ValueError('Registered job_id must be a positive numeric Slurm job ID')
+        job = str(int(job))
+        queue = checked_path(item['queue_dir'], (SCRATCH,))
+        if job in ids or queue in queues:
+            raise ValueError(f'Duplicate registered job ID or queue: {job}')
+        entry = {'job_id': job, 'queue_dir': queue,
+                 'telemetry_dir': checked_path(item.get('telemetry_dir', str(SCRATCH / 'telemetry')),
+                                               (SCRATCH,))}
+        for key, roots in (('completion_files', (SCRATCH, ROOT)), ('progress_dirs', (SCRATCH,))):
+            values = item.get(key, [])
+            if not isinstance(values, list):
+                raise ValueError(f'{key} must be a list')
+            entry[key] = [checked_path(value, roots) for value in values]
+            if len(set(entry[key])) != len(entry[key]):
+                raise ValueError(f'Duplicate {key}')
+        accepted.append(entry)
+        ids.add(job)
+        queues.add(queue)
+    return accepted
+
+
 def save(path, value):
     temporary = path.with_suffix(f'.{os.getpid()}.tmp')
     temporary.write_text(json.dumps(value, indent=2) + '\n')
     temporary.replace(path)
 
 
-def scheduler():
-    result = subprocess.run(['squeue', '-j', f'{JOB},{HOST_JOB}', '-h', '-o', '%i|%T|%e'],
+def scheduler(registered=()):
+    ids = list(dict.fromkeys([JOB, HOST_JOB] + [item['job_id'] for item in registered]))
+    result = subprocess.run(['squeue', '-j', ','.join(ids), '-h', '-o', '%i|%T|%e'],
                             capture_output=True, text=True, timeout=20, check=True)
-    jobs = {j: {'state': 'NOT_IN_QUEUE', 'end': None} for j in (JOB, HOST_JOB)}
+    jobs = {j: {'state': 'NOT_IN_QUEUE', 'end': None} for j in ids}
     for line in result.stdout.splitlines():
         job, status, end = line.strip().split('|')
         jobs[job] = {'state': status, 'end': None if end in ('N/A', 'Unknown')
@@ -40,12 +97,9 @@ def scheduler():
     return jobs
 
 
-def snapshot(jobs, now):
-    queue = SCRATCH / 'taskq_dev3'
-    tasks = {kind: sorted(p.name for p in (queue / kind).glob('*.sh*'))
-             for kind in ('pending', 'running', 'done', 'failed')}
+def telemetry_snapshot(directory, job, now):
     telemetry = {}
-    for path in (SCRATCH / 'telemetry').glob(f'*_job{JOB}_*.csv'):
+    for path in Path(directory).glob(f'*_job{job}_*.csv'):
         with path.open('rb') as stream:
             stream.seek(max(0, path.stat().st_size - 16384))
             lines = stream.read().decode(errors='replace').splitlines()
@@ -61,11 +115,53 @@ def snapshot(jobs, now):
             'stale': now - path.stat().st_mtime > 300,
             'low': (len(readings) >= 10 and readings[-1][0] - readings[0][0] >= 300
                     and all(value < 15 for _, value in readings))}
+    return telemetry
+
+
+def task_snapshot(queue):
+    return {kind: sorted(p.name for p in (queue / kind).glob('*.sh*'))
+            for kind in ('pending', 'running', 'done', 'failed')}
+
+
+def registered_snapshot(item, info, previous, now):
+    queue = Path(item['queue_dir'])
+    tasks = task_snapshot(queue)
+    progress = [p.stat().st_mtime for directory in [queue / 'logs'] +
+                [Path(p) for p in item['progress_dirs']]
+                for p in directory.glob('*') if p.is_file()]
+    # Timers belong to one registration and one continuous running interval.
+    if previous.get('registration') != item:
+        previous = {}
+    active = info['state'] == 'RUNNING'
+    running_since = (previous.get('running_since') or now) if active else None
+    last_progress = max(progress + [previous.get('last_progress', now)])
+    if running_since is not None:
+        last_progress = max(last_progress, running_since)
+    drained = (bool(tasks['done']) and not any(tasks[k] for k in ('pending', 'running', 'failed'))
+               and info['state'] not in ('PENDING', 'UNKNOWN'))
+    return {'registration': item, 'tasks': tasks,
+            'telemetry': telemetry_snapshot(item['telemetry_dir'], item['job_id'], now),
+            'last_progress': last_progress, 'running_since': running_since,
+            'all_done_since': (previous.get('all_done_since') or now) if drained else None,
+            'completion_files': {p: Path(p).is_file() for p in item['completion_files']}}
+
+
+def snapshot(jobs, now, registered=(), previous=None):
+    queue = SCRATCH / 'taskq_dev3'
+    tasks = task_snapshot(queue)
+    telemetry = telemetry_snapshot(SCRATCH / 'telemetry', JOB, now)
     progress = [p.stat().st_mtime for p in (queue / 'logs').glob('*.log')]
     for method in ('sega_official', 'sega_rms_uniform', 'sega_rms_normalized', 'sega_ctm_lag'):
         progress += [p.stat().st_mtime for p in
                      (SCRATCH / f'out_krea/dev3_{method}/{method}/4096x4096').glob('*.png')]
-    return {'time': now, 'jobs': jobs, 'tasks': tasks, 'telemetry': telemetry,
+    ids = {JOB, HOST_JOB} | {item['job_id'] for item in registered}
+    observed = {job: info for job, info in jobs.items() if job in ids}
+    extras = {item['job_id']: registered_snapshot(
+        item, jobs.get(item['job_id'], {'state': 'UNKNOWN'}),
+        (previous or {}).get('registered', {}).get(item['job_id'], {}), now)
+        for item in registered}
+    return {'time': now, 'jobs': observed, 'tasks': tasks, 'telemetry': telemetry,
+            'registered': extras,
             'last_progress': max(progress, default=now),
             'complete': (ROOT / '.agent/notes/continuation3/dev/completion.json').is_file()}
 
@@ -76,7 +172,7 @@ def events(current, previous, now, running_since=None, all_done_since=None):
         before = previous.get('jobs', {}).get(job, {}).get('state')
         if before and before != info['state']:
             found[f'job:{job}:{info["state"]}'] = f'Job {job}: {before} -> {info["state"]}'
-        if job == JOB and not before and info['state'] != 'PENDING':
+        if job != HOST_JOB and not before and info['state'] != 'PENDING':
             found[f'job:{job}:{info["state"]}'] = f'Initial GPU job state: {info["state"]}'
         if job == HOST_JOB and info['end'] and info['end'] - now < 3600:
             found[f'lease:{info["end"]}'] = 'Controller allocation expires within one hour; verify migration'
@@ -98,6 +194,31 @@ def events(current, previous, now, running_since=None, all_done_since=None):
         found['finalizer_delay'] = 'All workflows done, but no finalizer receipt after ten minutes'
     if current['complete']:
         found['complete'] = 'Validated development report and updated paper are ready'
+    for job, data in current.get('registered', {}).items():
+        prefix = f'job:{job}:'
+        for kind in ('failed', 'done', 'running'):
+            for name in data['tasks'][kind]:
+                found[f'{prefix}{kind}:{name}'] = f'Job {job} workflow {kind}: {name}'
+        active = current['jobs'].get(job, {}).get('state') == 'RUNNING'
+        if (active and data['running_since'] is not None
+                and now - data['running_since'] > 600 and data['tasks']['running']):
+            if not data['telemetry']:
+                found[f'{prefix}missing_telemetry'] = f'Job {job}: no GPU telemetry after ten minutes'
+            for name, info in data['telemetry'].items():
+                for key in ('stale', 'low'):
+                    if info[key]:
+                        found[f'{prefix}{key}:{name}'] = f'Job {job}: {key} GPU telemetry: {name}'
+            if now - data['last_progress'] > 1200:
+                found[f'{prefix}stalled'] = f'Job {job}: no file or task-log progress for twenty minutes'
+        receipts = data['completion_files']
+        for filename, present in receipts.items():
+            if present:
+                found[f'{prefix}receipt:{filename}'] = (
+                    f'Job {job}: completion file present at {filename}; verify validity and quality')
+        if (receipts and not all(receipts.values()) and data['all_done_since'] is not None
+                and now - data['all_done_since'] > 600):
+            found[f'{prefix}finalizer_delay'] = (
+                f'Job {job}: spool drained, but completion files still missing after ten minutes')
     return found
 
 
@@ -155,14 +276,23 @@ def main():
         state.update(pid=os.getpid(), host=socket.gethostname(), thread=THREAD,
                      host_job=HOST_JOB, started=time.time())
         pending, sent = state.setdefault('pending', {}), state.setdefault('sent', {})
-        next_scheduler, jobs = 0, {}
+        next_scheduler, jobs, registered = 0, {}, []
         while not (RUNTIME / 'STOP').exists():
             now = time.time()
             try:
+                try:
+                    registered = registrations()
+                    state.pop('registration_error', None)
+                except (ValueError, OSError) as exc:
+                    error = str(exc)
+                    state['registration_error'] = error
+                    key = 'registration_error:' + hashlib.sha256(error.encode()).hexdigest()[:16]
+                    if key not in sent:
+                        pending[key] = f'Watcher registration rejected; last accepted set retained: {error}'
                 if now >= next_scheduler:
-                    jobs = scheduler()
+                    jobs = scheduler(registered)
                     next_scheduler = now + 120
-                current = snapshot(jobs, now)
+                current = snapshot(jobs, now, registered, state.get('snapshot', {}))
                 if (RUNTIME / 'WAKE_TEST').exists() and 'wake_test' not in sent:
                     pending['wake_test'] = ('Direct wake-up verification: record receipt in '
                         '.agent/notes/watcher_ack.json, then continue the response-probe '

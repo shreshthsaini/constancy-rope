@@ -3,6 +3,8 @@ from pathlib import Path
 import sys
 from types import SimpleNamespace
 from contextlib import nullcontext
+import json
+import os
 
 import pytest
 
@@ -96,3 +98,249 @@ def test_unloaded_operator_resumes_before_turn(monkeypatch):
     calls = mock_transport(monkeypatch, status='notLoaded')
     watcher.enqueue('test')
     assert calls.index('thread/resume') < calls.index('turn/start')
+
+
+@pytest.fixture
+def project(monkeypatch, tmp_path):
+    scratch, root = tmp_path / 'scratch', tmp_path / 'work'
+    scratch.mkdir()
+    root.mkdir()
+    monkeypatch.setattr(watcher, 'SCRATCH', scratch)
+    monkeypatch.setattr(watcher, 'ROOT', root)
+    monkeypatch.setattr(watcher, 'RUNTIME', scratch / 'watcher_cr14')
+    watcher.RUNTIME.mkdir()
+    return scratch, root
+
+
+def register(project, **changes):
+    scratch, _ = project
+    entry = {'job_id': '123456', 'queue_dir': str(scratch / 'taskq_response')}
+    entry.update(changes)
+    (watcher.RUNTIME / 'registrations.json').write_text(json.dumps({'jobs': [entry]}))
+    return entry
+
+
+def jobs_for(registered, state='RUNNING'):
+    jobs = current()['jobs']
+    jobs.update({item['job_id']: {'state': state, 'end': None} for item in registered})
+    return jobs
+
+
+def put_task(queue, kind, name='probe.sh'):
+    directory = Path(queue) / kind
+    directory.mkdir(parents=True, exist_ok=True)
+    (directory / name).write_text('test task')
+
+
+def test_absent_empty_and_valid_registration(project):
+    assert watcher.registrations() == []
+    path = watcher.RUNTIME / 'registrations.json'
+    for text in ('', '{"jobs": []}'):
+        path.write_text(text)
+        assert watcher.registrations() == []
+    scratch, root = project
+    register(project, job_id=123456, completion_files=[str(root / 'receipt.json')],
+             progress_dirs=[str(scratch / 'output')])
+    item, = watcher.registrations()
+    assert item['job_id'] == '123456'
+    assert item['telemetry_dir'] == str(scratch / 'telemetry')
+    assert item['completion_files'] == [str(root / 'receipt.json')]
+
+
+@pytest.mark.parametrize('changes', [
+    {'job_id': True}, {'job_id': '123;456'}, {'job_id': '-1'}, {'job_id': '0'},
+    {'job_id': watcher.JOB}, {'job_id': watcher.HOST_JOB},
+    {'queue_dir': '/tmp/outside'}, {'queue_dir': 'relative'},
+    {'completion_files': ['/etc/passwd']}, {'progress_dirs': ['/etc']},
+    {'telemetry_dir': '/tmp'}, {'completion_files': 'not-a-list'}, {'unknown': 1},
+])
+def test_invalid_registrations_are_rejected(project, changes):
+    register(project, **changes)
+    with pytest.raises(ValueError):
+        watcher.registrations()
+
+
+def test_rejects_work_queue_traversal_symlinks_and_duplicate_paths(project):
+    scratch, root = project
+    outside = scratch.parent / 'outside'
+    outside.mkdir()
+    (scratch / 'escape').symlink_to(outside, target_is_directory=True)
+    for queue in (root / 'queue', scratch, scratch / '..' / 'outside', scratch / 'escape' / 'queue',
+                  scratch / 'taskq_dev3'):
+        register(project, queue_dir=str(queue))
+        with pytest.raises(ValueError):
+            watcher.registrations()
+    register(project, completion_files=[str(root / 'done'), str(root / '.' / 'done')])
+    with pytest.raises(ValueError, match='Duplicate completion_files'):
+        watcher.registrations()
+
+
+def test_rejects_duplicate_job_ids_and_shared_queues(project):
+    original = register(project)
+    for extra in (dict(original, queue_dir=str(project[0] / 'different')),
+                  dict(original, job_id='123457')):
+        (watcher.RUNTIME / 'registrations.json').write_text(json.dumps({'jobs': [original, extra]}))
+        with pytest.raises(ValueError, match='Duplicate'):
+            watcher.registrations()
+
+
+def test_scheduler_batches_all_ids_in_one_call(project, monkeypatch):
+    register(project)
+    entries = watcher.registrations()
+    calls = []
+    def run(command, **kwargs):
+        calls.append(command)
+        return SimpleNamespace(stdout=f'{watcher.JOB}|PENDING|N/A\n123456|RUNNING|Unknown\n')
+    monkeypatch.setattr(watcher.subprocess, 'run', run)
+    observed = watcher.scheduler(entries)
+    assert len(calls) == 1
+    assert calls[0][2] == f'{watcher.JOB},{watcher.HOST_JOB},123456'
+    assert observed['123456']['state'] == 'RUNNING'
+    assert observed[watcher.HOST_JOB]['state'] == 'NOT_IN_QUEUE'
+
+
+def test_registered_spool_events_have_job_namespaces(project):
+    register(project)
+    entries = watcher.registrations()
+    for kind in ('running', 'done', 'failed'):
+        put_task(entries[0]['queue_dir'], kind)
+    data = watcher.snapshot(jobs_for(entries), 1000, entries)
+    data['tasks']['done'] = ['probe.sh']
+    found = watcher.events(data, {}, 1000)
+    assert all(f'job:123456:{kind}:probe.sh' in found for kind in ('running', 'done', 'failed'))
+    assert 'done:probe.sh' in found
+    assert not any('complete' in key or 'receipt' in key for key in found)
+    exited = watcher.snapshot(jobs_for(entries, 'NOT_IN_QUEUE'), 1100, entries, data)
+    found = watcher.events(exited, data, 1100)
+    assert 'job:123456:NOT_IN_QUEUE' in found
+    assert 'complete' not in found
+
+
+def test_registered_pending_and_new_unscheduled_registration_are_quiet(project):
+    register(project, completion_files=[str(project[1] / 'receipt')])
+    entries = watcher.registrations()
+    put_task(entries[0]['queue_dir'], 'pending')
+    first = watcher.snapshot(current()['jobs'], 1000, entries)
+    assert watcher.events(first, {}, 1000) == {}
+    data = watcher.snapshot(jobs_for(entries, 'PENDING'), 10000, entries, first)
+    assert watcher.events(data, first, 10000) == {}
+    assert data['registered']['123456']['all_done_since'] is None
+
+
+def test_registered_telemetry_is_attributed_and_running_grace_resets(project):
+    register(project)
+    entries = watcher.registrations()
+    put_task(entries[0]['queue_dir'], 'running')
+    first = watcher.snapshot(jobs_for(entries), 1000, entries)
+    data = watcher.snapshot(jobs_for(entries), 2300, entries, first)
+    found = watcher.events(data, first, 2300)
+    assert 'job:123456:missing_telemetry' in found and 'job:123456:stalled' in found
+    telemetry = project[0] / 'telemetry'
+    telemetry.mkdir()
+    (telemetry / 'gpu_job999999_g0.csv').write_text('other job')
+    data = watcher.snapshot(jobs_for(entries), 2400, entries, data)
+    assert not data['registered']['123456']['telemetry']
+    (telemetry / 'gpu_job123456_g0.csv').write_text('\n'.join(
+        f'2026/10/17 00:{minute:02d}:00.000,0,0,1' for minute in range(20)))
+    data = watcher.snapshot(jobs_for(entries), 2500, entries, data)
+    found = watcher.events(data, first, 2500)
+    assert 'job:123456:low:gpu_job123456_g0.csv' in found
+    assert 'job:123456:missing_telemetry' not in found
+    paused = watcher.snapshot(jobs_for(entries, 'PENDING'), 2600, entries, data)
+    resumed = watcher.snapshot(jobs_for(entries), 3000, entries, paused)
+    assert resumed['registered']['123456']['running_since'] == 3000
+    assert 'job:123456:stalled' not in watcher.events(resumed, paused, 3000)
+
+
+def test_registered_drained_spool_and_receipts_do_not_claim_quality(project):
+    receipt = project[1] / 'receipt.json'
+    register(project, completion_files=[str(receipt)])
+    entries = watcher.registrations()
+    empty = watcher.snapshot(jobs_for(entries), 1000, entries)
+    assert empty['registered']['123456']['all_done_since'] is None
+    put_task(entries[0]['queue_dir'], 'done')
+    first = watcher.snapshot(jobs_for(entries), 1100, entries, empty)
+    data = watcher.snapshot(jobs_for(entries), 1800, entries, first)
+    assert 'job:123456:finalizer_delay' in watcher.events(data, first, 1800)
+    receipt.write_text('{"quality": "unassessed"}')
+    data = watcher.snapshot(jobs_for(entries), 1900, entries, data)
+    found = watcher.events(data, first, 1900)
+    assert 'job:123456:finalizer_delay' not in found
+    assert 'verify validity and quality' in found[f'job:123456:receipt:{receipt}']
+    assert 'complete' not in found
+
+
+def test_pending_wait_is_excluded_from_inactivity_and_progress_dirs_count(project):
+    progress = project[0] / 'response_output'
+    progress.mkdir()
+    register(project, progress_dirs=[str(progress)])
+    entries = watcher.registrations()
+    put_task(entries[0]['queue_dir'], 'running')
+    waiting = watcher.snapshot(jobs_for(entries, 'PENDING'), 1000, entries)
+    started = watcher.snapshot(jobs_for(entries), 10000, entries, waiting)
+    data = watcher.snapshot(jobs_for(entries), 10700, entries, started)
+    assert 'job:123456:stalled' not in watcher.events(data, started, 10700)
+    output = progress / 'sample.json'
+    output.write_text('{}')
+    os.utime(output, (11200, 11200))
+    progressed = watcher.snapshot(jobs_for(entries), 11300, entries, data)
+    assert progressed['registered']['123456']['last_progress'] == 11200
+    assert 'job:123456:stalled' not in watcher.events(progressed, data, 11300)
+
+
+def prepare_main(monkeypatch):
+    monkeypatch.setattr(watcher.resource, 'getrlimit', lambda _: (100000, 100000))
+    monkeypatch.setattr(watcher.socket, 'gethostname', lambda: 'compute-test')
+    monkeypatch.setattr(sys, 'argv', ['watch_cr14.py', '--once'])
+
+
+def test_busy_outbox_survives_then_sent_events_are_deduplicated(project, monkeypatch):
+    prepare_main(monkeypatch)
+    register(project)
+    entries = watcher.registrations()
+    put_task(entries[0]['queue_dir'], 'done')
+    monkeypatch.setattr(watcher, 'scheduler', lambda registered: jobs_for(registered))
+    messages = []
+    monkeypatch.setattr(watcher.time, 'time', lambda: 1000)
+    monkeypatch.setattr(watcher, 'enqueue', lambda message: messages.append(message))
+    watcher.main()
+    path = watcher.RUNTIME / 'state.json'
+    saved = json.loads(path.read_text())
+    assert 'job:123456:done:probe.sh' in saved['pending'] and not saved['sent']
+    monkeypatch.setattr(watcher.time, 'time', lambda: 1200)
+    monkeypatch.setattr(watcher, 'enqueue', lambda message: messages.append(message) or {'turn_id': 'ok'})
+    watcher.main()
+    saved = json.loads(path.read_text())
+    assert not saved['pending'] and 'job:123456:done:probe.sh' in saved['sent']
+    monkeypatch.setattr(watcher.time, 'time', lambda: 1400)
+    watcher.main()
+    assert len(messages) == 2
+
+
+def test_hot_registration_and_invalid_edit_keep_scheduler_cadence(project, monkeypatch):
+    prepare_main(monkeypatch)
+    monkeypatch.setattr(sys, 'argv', ['watch_cr14.py'])
+    clock, calls, steps = [1000], [], [0]
+    monkeypatch.setattr(watcher.time, 'time', lambda: clock[0])
+    monkeypatch.setattr(watcher, 'enqueue', lambda message: None)
+    def scheduler(registered):
+        calls.append((clock[0], [item['job_id'] for item in registered]))
+        return jobs_for(registered)
+    def sleep(seconds):
+        assert seconds == 60
+        clock[0] += seconds
+        steps[0] += 1
+        if steps[0] == 1:
+            register(project)
+        elif steps[0] == 2:
+            (watcher.RUNTIME / 'registrations.json').write_text('{invalid')
+        elif steps[0] == 3:
+            (watcher.RUNTIME / 'STOP').touch()
+    monkeypatch.setattr(watcher, 'scheduler', scheduler)
+    monkeypatch.setattr(watcher.time, 'sleep', sleep)
+    watcher.main()
+    assert calls == [(1000, []), (1120, ['123456'])]
+    saved = json.loads((watcher.RUNTIME / 'state.json').read_text())
+    assert '123456' in saved['snapshot']['registered']
+    assert saved['registration_error']
+    assert any(key.startswith('registration_error:') for key in saved['pending'])

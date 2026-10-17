@@ -15,8 +15,8 @@ if [[ -z "${WANDB_API_KEY:-}" && -z "${WANDB_MODE:-}" ]]; then export WANDB_MODE
 export OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 MKL_NUM_THREADS=8 NUMEXPR_NUM_THREADS=8
 export TOKENIZERS_PARALLELISM=false PYTHONUNBUFFERED=1
 out="$R/response_probe/job${SLURM_JOB_ID:?allocated job required}/prompt${index}"
-# Per-host native smoke precedes the 4K diagnostic; a failed no-op stops the chain.
-"$PY" scripts/response_probe.py --prompt-index "$index" --res 1024x1024 --steps 4 \
+# Above-native smoke exercises SEGA allocation before 4K; failed no-op stops the chain.
+"$PY" scripts/response_probe.py --prompt-index "$index" --res 2048x2048 --steps 4 \
     --probe-steps 1 --out "$out/smoke"
 "$PY" scripts/response_probe.py --prompt-index "$index" --res 4096x4096 --steps 28 \
     --probe-steps 6,14,22 --out "$out/4k"

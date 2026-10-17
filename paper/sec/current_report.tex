@@ -160,8 +160,10 @@ The earlier octave interventions compare complete sampling trajectories, so they
 do not identify a local map from attention gain to spectral power. A new diagnostic
 replays a selected transformer state with identical latent, conditioning, and
 noise level. It perturbs height and width gains separately while preserving the
-affected axis's query/key RMS, alongside a spatial scalar control. Symmetric
-finite differences estimate the response of the clean-estimate spectrum; smaller
+affected axis's gain-vector RMS before attention-dtype quantization, alongside a
+spatial scalar control. This does not preserve query/key activation energy.
+Symmetric finite differences estimate a directional response of the clean-estimate
+spectrum along this normalized path, including BF16 quantization; smaller
 perturbations check prediction accuracy. Only the baseline output advances the
 sampler. CPU tests, including a small randomly initialized FLUX transformer, check
 exact trajectory and state restoration. Pretrained GPU validation and response
@@ -194,7 +196,7 @@ $\eta=1$ constancy composition with its target evaluated at the delayed
 estimate's own scheduler noise level. A fresh released-SEGA run is the reference.
 These distinguish gain magnitude from frequency allocation and isolate target
 timing. The code passes 256 CPU tests, but no GPU outcome for these controls is
-available in this snapshot. The planned job contains 32 images and was queued
+available in this snapshot. The job contains 32 images and began running
 on October 17. A positive development result remains diagnostic; advancing a
 method requires a defensible novelty distinction and separate confirmation.
 }

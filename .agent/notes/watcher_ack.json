@@ -14,5 +14,12 @@
   },
   "heartbeat_age_seconds": 37.298431158065796,
   "result": "End-to-end verified: watcher started an idle operator turn; the operator received the event and resumed project work.",
-  "gpu_state_on_receipt": "PENDING Priority; no GPU outcome"
+  "gpu_state_on_receipt": "PENDING Priority; no GPU outcome",
+  "subsequent_event_receipts": [
+    {
+      "acknowledged_utc": "2026-10-17T12:30:02.637387+00:00",
+      "event": "Job1076857 PENDING -> RUNNING",
+      "verified": "Both GPUs active at 100percent; no failed workflows."
+    }
+  ]
 }

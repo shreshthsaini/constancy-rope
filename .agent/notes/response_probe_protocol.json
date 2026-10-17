@@ -3,10 +3,10 @@
   "status": "Prepared, not submitted and not GPU validated",
   "purpose": "Test whether same-state spectral response to axis-separated SEGA gain interventions is measurable and predicts smaller interventions. No efficacy claim.",
   "source_sha256": {
-    "crope/response.py": "4971e978698641f13db636d90519e3c06438da3f17a2598f82ae93f2931c3aa2",
-    "scripts/response_probe.py": "698c22b03bfe0953a6439592ef65e88d3ce85fc743477f085b1c3bb7762090eb",
+    "crope/response.py": "e46d5f287f97d58d4c903f12834dacda29c6d63ab244b99e0829a4c564ac1e13",
+    "scripts/response_probe.py": "d66e1df27002c8be951d58285262eafb14422c2e4c0547704153db94d05f303a",
     "scripts/response_analysis.py": "2c4b1450b81b0ae985ba4655ec7fe6ee450ea8f93a07adb3a7c4830ea338fe5f",
-    "slurm/response_task.sh": "fcb669165ef5c872029d7653198e2f848fafd720e7308f115c703d5a18414756",
+    "slurm/response_task.sh": "c5d9b5508d9a6444ee8f01d3366e0c996d7dc4d071b2153ed5dafc2d40b7e4f0",
     "slurm/response_fleet.sh": "a3bff74fe41b834dece3ca2df8e856f6f343f7324b40a6ad44a551d7289255af",
     "slurm/fleet_response_gh.sbatch": "bfb1bedb0d9cadf0e828c663526dfdb2fb26c8365529ce2a410773814874f964"
   },
@@ -19,7 +19,7 @@
   "guidance": 4.5,
   "scheduler_shift": 1.15,
   "smoke": {
-    "resolution": 1024,
+    "resolution": 2048,
     "steps": 4,
     "probe_steps": [
       1
@@ -36,7 +36,7 @@
     ],
     "baseline_and_probed_runs": true
   },
-  "controls": "One middle occupied RoPE octave per spatial axis, sorted by exponent, with exact affected-axis query/key RMS preservation; plus a shared spatial scalar control. Index axis unchanged. Do not reapply SEGA's minimum-one clipping after the perturbation; this is a local intervention with positive gains, not a selected sampling method.",
+  "controls": "One middle occupied RoPE octave per spatial axis, sorted by exponent, with affected-axis gain-vector RMS preservation in FP32 before BF16 casting, not query/key activation-energy preservation. Plus shared spatial scalar control. Hold actual baseline SEGA gain fixed for replays, index axis unchanged. Positive intervention gains are not reclipped to one.",
   "epsilon": 0.1,
   "fit_interventions": [
     -0.1,
@@ -51,7 +51,7 @@
     "Final baseline and instrumented trajectory endpoints and gain histories must be bitwise/exactly equal.",
     "All prespecified steps and forward calls must be accounted for."
   ],
-  "analysis": "Report signed Jacobian, cross-axis response fraction, and held-aside half-step residual relative to the zero-change predictor. Inspect response size and numerical precision. No automatic candidate selection or confirmation. Three controls do not identify the whole reachable subspace.",
+  "analysis": "Report signed finite-difference directional response along the normalized gain path, including BF16 quantization; cross-axis response fraction and held-aside half-step residual against zero-change predictor. Record baseline and realized FP32/BF16 gains. Three controls do not identify the whole reachable subspace. No automatic candidate selection or confirmation.",
   "call_budget_per_prompt": {
     "smoke_total": 21,
     "4k_total": 95,
@@ -88,13 +88,15 @@
     }
   ],
   "validation": {
-    "cpu_suite_passed": 280,
-    "cpu_seconds": 39.97,
-    "targeted_probe_analysis_watcher_passed": 24,
+    "cpu_suite_passed": 306,
+    "cpu_seconds": 47.73,
+    "targeted_probe_analysis_watcher_passed": 49,
     "frozen_cr14_repository_hashes_verified": 20,
     "paper_pages": 7,
     "paper_build": "clean Tectonic build, no unresolved references or overflow warnings; new paragraph visually inspected",
-    "gpu_validation": "not yet executed"
+    "gpu_validation": "not yet executed",
+    "watcher_tests": 33,
+    "critical_review": "GPT-6 Astra targeted recheck: no blocking correction; GPU no-op and full-history checks remain required."
   },
   "additional_primary_source_leads": [
     {
@@ -110,5 +112,14 @@
       "review_level": "Primary abstract checked, v3 June21,2026; full comparison remains open.",
       "relevance": "Jacobian-aware corrections are established in inverse-problem posterior sampling. Different task and actuator do not alone establish novelty."
     }
-  ]
+  ],
+  "amended_utc": "2026-10-17T12:29:23.903764+00:00",
+  "audit_amendments": [
+    "Above-native 2048 smoke exercises SEGA allocation.",
+    "Actual baseline gain fixed for replay to isolate operating point from CUDA reduction drift.",
+    "Record resolved base snapshot, full experiment config including seed/scheduler/RoPE, protocol hash, and realized gains.",
+    "Timing is diagnostic accounting, not a warmup-matched performance comparison.",
+    "Runner rejects changed protocol sources or run parameters."
+  ],
+  "frozen_utc": "2026-10-17T12:30:36.546236+00:00"
 }

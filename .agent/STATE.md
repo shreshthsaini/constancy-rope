@@ -3,12 +3,13 @@ Develop a genuinely novel training-free DiT resolution-extrapolation method comp
 User clarified full ownership: continue experiments, evaluation, and paper autonomously.
 
 ## Status and next action
-Unattended CR14 watcher active: tmux crope-watch-cr14, PID1105783, i618-051 / host job1073260.
+Unattended CR14 watcher active: tmux crope-watch-cr14, PID1581602, i618-051 / host job1073260.
 See notes/watcher_cr14.json and scratch watcher_cr14/state.json for lease, heartbeat, stop, and delivery receipts.
-Direct idle-thread wake via local app-server; scheduler120s / files60s; nine tests passed; no model calls while waiting.
+Direct idle-thread wake via local app-server; scheduler120s / files60s; 33 watcher tests passed; no model calls while waiting.
 Direct WAKE_TEST succeeded end to end; notes/watcher_ack.json records actual operator receipt.
-Same-state response module, runner/analyzer, and packed GPU scripts implemented; NOT GPU validated or submitted.
-Full suite280passed/39.97s;20frozen CR14 repository hashes unchanged; paper7pages rebuilt/inspected.
+Response diagnostic audit fixed gain-vector RMS wording, above-native2048smoke, provenance and operating-point replay.
+CPU suite306passed/47.73s; independent critical recheck found no blocker. NOT GPU validated/submitted yet.
+20frozen CR14 repository hashes unchanged; paper7pages rebuilt/inspected. Existing watcher extended to hot-read job registry.
 Read notes/response_probe_protocol.json before preparing the two-task spool, checking budget, and registering its job.
 Register each next campaign before waiting; watcher persists after CR14; migrate controller before expiry.
 2026-10-17 CDT takeover: first two campaigns COMPLETE; no demonstrated improvement over released SEGA.
@@ -28,7 +29,8 @@ NEXT: monitor CR14; review its controls, then run prepared same-state response s
 
 Third diagnostic submitted: spatial RMS uniform/normalized controls and lag-aligned ctm, eta1.
 Fresh SEGA baseline prespecified; 32 dev images total. Full CPU suite 256 passed in 45.93 seconds, two threads.
-CR14 job1076857 is PENDING Priority; no estimated start. Initial gb attempt rejected at qgb submit cap.
+CR14 job1076857 RUNNING since07:21:46CDT on c609-092,c609-151; both GPUs100percent, no failures.
+Controller lease ends12:45:04CDT; watcher alerts one hour before expiry.
 Frozen source commit395ba85; spool taskq_dev3 has four ready workflows, old taskq unchanged.
 Fresh64 confirmation prompts remain unused; require novelty review and a new fixed method/baseline protocol before use.
 Confirmation generator/analyzer prepared and tested; no confirmation tasks or allocation submitted.
@@ -38,7 +40,7 @@ archive the dev decision, rebuild the working PDF, and commit only its own outpu
 If the run fails, inspect taskq_dev3/failed and logs; no auto retry or hidden variant change.
 Paper figure and qualified algebra updated; all16 plotted intervals re-derived exactly.
 Fixed-order qualitative panel added from rows 8-10, six verified images; display assets archived on work.
-Account balance checked: 8212.919/40000 SUs remaining, burn 79.47%.
+Account balance October17~07:31CDT:7946/40000 SUs remaining, about80.14percent burn.
 
 ## Map
 See notes/novelty_20261017.md for the clarified target, recent sources, and response-calibration hypothesis.

@@ -44,7 +44,7 @@ def band_directions(experiment):
 
 
 def perturb_gain(base, direction, amount, axes_dims):
-    """Logit-space perturbation; optionally preserve each affected axis's RMS."""
+    """Preserve gain-vector RMS in FP32, not query/key activation energy."""
     vector = direction.vector.to(device=base.device, dtype=base.dtype)
     if vector.shape != base.shape or not torch.isfinite(vector).all():
         raise ValueError('Direction must be a finite full gain vector')
@@ -125,6 +125,9 @@ class SameStateProbe:
         self.epsilon, self.sink = epsilon, sink
         self.records, self.extra_calls = [], 0
         self.active = None
+        self.replaying = False
+        self.reference_gain = None
+        self.realized_gain = None
         self.handle = None
 
     def __enter__(self):
@@ -140,15 +143,24 @@ class SameStateProbe:
         self.handle = None
         del self.transformer.forward
         self.active = None
+        self.replaying = False
 
     def _intervene(self, module, args, projected):
-        if self.active is None:
-            return
         controller = self.experiment.controller
-        direction, amount = self.active
-        controller.qk_scale = perturb_gain(controller.qk_scale, direction, amount,
-                                           self.experiment.axes_dims)
+        if not self.replaying:
+            self.reference_gain = controller.qk_scale.detach().clone()
+            return
+        # Hold the actual baseline allocation fixed across local interventions;
+        # repeated CUDA spectral reductions must not change the operating point.
+        if self.active is None:
+            controller.qk_scale = self.reference_gain.clone()
+        else:
+            direction, amount = self.active
+            controller.qk_scale = perturb_gain(self.reference_gain, direction, amount,
+                                               self.experiment.axes_dims)
         controller.log_g = 2 * controller.qk_scale.log()
+        self.realized_gain = {'float32': controller.qk_scale.float().cpu().tolist(),
+                              'cast_bfloat16': controller.qk_scale.bfloat16().float().cpu().tolist()}
 
     def _statistics(self, velocity):
         exp = self.experiment
@@ -180,7 +192,11 @@ class SameStateProbe:
         record = {'step': exp.step, 'sigma': exp.sigma, 'model_timestep': exp.model_timestep,
                   'statistic': 'log axis power of x_t - sigma * v at identical x_t',
                   'bins': bins, 'baseline': base_stat.tolist(), 'epsilon': self.epsilon,
-                  'directions': [], 'extra_calls': 0}
+                  'directions': [], 'extra_calls': 0,
+                  'baseline_gain_float32': self.reference_gain.float().cpu().tolist(),
+                  'baseline_gain_cast_bfloat16': self.reference_gain.bfloat16().float().cpu().tolist(),
+                  'timer_scope': 'Replay forwards and their statistics; excludes initial cloning, '
+                                 'baseline statistics, and sink writes. Use full run times for accounting.'}
 
         def evaluate(direction=None, amount=0):
             with controller_transaction(exp):
@@ -188,6 +204,7 @@ class SameStateProbe:
                 if devices:
                     torch.cuda.set_rng_state(cuda_rng, device)
                 self.active = None if direction is None else (direction, amount)
+                self.replaying = True
                 try:
                     # __call__ would run the outer sampler hooks again: call the
                     # implementation directly so step and previous_x0 stay fixed.
@@ -198,24 +215,27 @@ class SameStateProbe:
                     velocity = _velocity(output)
                     stat, _ = self._statistics(velocity)
                     error = float((velocity.float() - base_velocity.float()).abs().max())
-                    return stat, error
+                    return stat, error, self.realized_gain
                 finally:
                     self.active = None
+                    self.replaying = False
 
         with torch.random.fork_rng(devices=devices):
-            _, replay_error = evaluate()
+            _, replay_error, _ = evaluate()
             record['replay_max_abs_velocity_error'] = replay_error
             if replay_error != 0:
                 raise RuntimeError('Unperturbed replay differs from baseline; response is not identified')
             for direction in self.directions:
-                plus, _ = evaluate(direction, self.epsilon)
-                minus, _ = evaluate(direction, -self.epsilon)
-                half_plus, _ = evaluate(direction, self.epsilon / 2)
-                half_minus, _ = evaluate(direction, -self.epsilon / 2)
+                plus, _, plus_gain = evaluate(direction, self.epsilon)
+                minus, _, minus_gain = evaluate(direction, -self.epsilon)
+                half_plus, _, half_plus_gain = evaluate(direction, self.epsilon / 2)
+                half_minus, _, half_minus_gain = evaluate(direction, -self.epsilon / 2)
                 jacobian = (plus - minus) / (2 * self.epsilon)
                 record['directions'].append({
                     'name': direction.name, 'vector': direction.vector.tolist(),
                     'preserve_axes': list(direction.preserve_axes),
+                    'realized_gains': {'plus': plus_gain, 'minus': minus_gain,
+                                      'half_plus': half_plus_gain, 'half_minus': half_minus_gain},
                     'plus': plus.tolist(), 'minus': minus.tolist(),
                     'half_plus': half_plus.tolist(), 'half_minus': half_minus.tolist(),
                     'jacobian': jacobian.tolist(),
