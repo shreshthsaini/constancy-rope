@@ -1,0 +1,44 @@
+{
+  "status": "ready_for_parent_invocation_after_both_complete_tasks_only",
+  "helper": "scripts/crossmodal_phase_report.py",
+  "command": "OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python scripts/crossmodal_phase_report.py --job-root /scratch/09032/saini_2/constancy_rope/crossmodal_phase/job1077335 --archive /work/09032/saini_2/vista/results/constancy_rope/crossmodal_cr21_job1077335",
+  "protocol_sha256": "7a5d072bbaeae9534dd01b0b26bab9da8326ccb01311ef276a0a7d22bb176be9",
+  "input_policy": "Exactly prompt0 and prompt1 in one jobNUMBER root. Require complete official workflow_scored receipts, full generation records, model/software/source identity, actual sidecars/PNG/tensor files, native smoke and kernel smoke. Resolve artifact paths within their task before opening tensor witnesses. No model loading, GPU, scoring, scheduler call or fresh prompt access.",
+  "validation": "Reuses frozen score and arm validators, rechecks both native endpoint gates from actual saved BF16 tensors, and records comparison residuals. Byte equality is strict; CPU scalar comparisons permit1e-12relative and1e-12absolute drift, while the original1e-3relative-L2 acceptance gate is rechecked without widening.",
+  "archive_policy": "Refuse existing or noncanonical destination. No output writes until both tasks validate. Copy all28 initial/final tensor witnesses, six PNGs, all14 image/smoke sidecars, completion/scoring/native/kernel/manifest/progress receipts, raw metric JSON/ImageReward CSV, frozen protocol and key provenance notes/source files. retention.json maps original paths to archived paths and hashes. No scratch deletion or source edits. A failure during copying leaves an incomplete archive without archive_complete.json and requires parent inspection before retry.",
+  "outputs": {
+    "report.json": "All6 image values for all7 metrics,4 paired intervention-minus-baseline contrasts, descriptive2-caption arm/contrast means, all actual runtime/memory receipts and native recheck residuals. No CI, significance, weighted score, winner, promotion or completed visual judgment.",
+    "retention.json": "Byte counts and source-to-archive SHA256 mapping for raw evidence and provenance snapshots.",
+    "archive_complete.json": "Written last, hashes report, retention, reviewer manifest and private mapping.",
+    "presentation/reviewer_manifest.json": "Condition-hidden common1024 and exact corner crop views, full captions and frozen rows0/1 primary/secondary predicates. Give this plus referenced images to reviewers, not the private mapping or metric report.",
+    "presentation/private_mapping.json": "Frozen random.Random(20261018) shuffle of condition-major row0/1 tuples; view01..view06 condition map, withheld until common and detail annotations are frozen.",
+    "presentation/viewNN/common1024.png": "Pillow LANCZOS common-scale view made from retained4096RGB PNG, no generative image tool.",
+    "presentation/viewNN/detail1..4.png": "Exact1024pixel corner crops at the four frozen boxes, no resizing. Matching boxes need not contain corresponding objects across altered compositions."
+  },
+  "runtime_limits": "Sequential baseline/fixedmass/unnormalized arm timings include encoding/denoising/endpointclone/VAE and exclude model loading/saving. They are not warmup-matched benchmarks. Unnormalized control adds image-only attention and is not an equal-cost method arm.",
+  "tests": {
+    "command": "OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python -m pytest -q tests/test_crossmodal_phase_report.py",
+    "result": "37 passed in14.13s",
+    "host": "i618-051.vista.tacc.utexas.edu",
+    "coverage": [
+      "actual frozen native-arm validator with wrong arm/threshold/sigma/source/protocol",
+      "one-ULP native receipt drift accepted and recorded; material numeric alteration rejected",
+      "manifest/job/source and official score receipt corruption",
+      "changed sidecar payload/hash, tensor, PNG, escaped path and incomplete task",
+      "kernel numerical/NaN/production geometry receipts",
+      "all7 descriptive metric contrasts and timings",
+      "fixed randomized condition hiding and actual corner pixels",
+      "no overwrite, no partial-task archive, byte-checked retention and last completion marker"
+    ]
+  },
+  "execution_boundary": "No CR21 GPU output was opened, no real archive was created, no job was launched, no frozen source or protocol was modified, and no commit was made by this unit.",
+  "source_sha256": {
+    "scripts/crossmodal_phase_report.py": "07aed22b4c8dcf654652bb856d847248b85ddd79701b0fe9756ca9e5823ee7d5",
+    "tests/test_crossmodal_phase_report.py": "3f6a9fcd8803f2feb1621837281115a0f68bbbe684f0ac432e7a09e9e46b004e"
+  },
+  "parent_validation": {
+    "at": "2026-10-17T10:32:17.579757-05:00",
+    "result": "37 passed in13.24s",
+    "review": "Checked artifact path binding, immutable sidecar checks, native comparison portability, frozen shuffle and archive completion order"
+  }
+}

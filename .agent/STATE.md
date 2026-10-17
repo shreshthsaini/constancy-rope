@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution method competitive with r
 User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 10:29 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+2026-10-17 10:32 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
 Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
 RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
 PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
@@ -48,8 +48,10 @@ Secondarykneeling V/S; auxiliaryKodak V/V,Paradis S/V. No disagreements ordetail
 All16commonviews recorded before5detailoriginals perreviewer. Not humanstudy orcausalresolutioneffect.
 Close this semantic-loss rationale; no seedsearch,OCRpivot orfresh64. Otherresolutionfailures notexcluded.
 Parentreporter config gap fixed:27tests,8supplemental checks pass; originalsource/report/archive preserved.
-CR21 job1077335 submitted: 2 GH200nodes,40min maximum;99CPUtests pass twice, independentreview clear.
+CR21 job1077335 PENDING priority: 2 GH200nodes,40min maximum;99CPUtests pass twice, independentreview clear.
 Fixed endpointmap to64, nativebasefrequencies for image-to-text only; image logits/textmass preserved.
+Post-completion archive helper ready,37tests pass twice; invocation notes/crossmodal_phase_report_interface.json.
+Next: monitor kernel/native gates, then both scored receipts; archive, two label-hidden reviews, update paper.
 Planned6images: dev0/1 x baseline/fixedmass/unnormalized,seed0,28steps,all57blocks; native4stepsmokes first.
 Unnormalized control uses extraimageonlypass forstablemixture; itscost differs. Protocol7a5d072b frozen; job1077335 registered with existing watcher, hot-read and scheduler observation verified.
 Covariance/gain proposal lacks justified target; DoPE adds a close prior-art collision.
