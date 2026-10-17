@@ -170,8 +170,16 @@ exact trajectory and state restoration. Both pretrained 2048-resolution smoke
 tests reproduced the baseline latent endpoint bitwise and passed the same-state
 no-op replay, but failed the required exact gain-history comparison. The 4K
 stage therefore did not start, and no response result is accepted under the
-frozen protocol. A separate repeatability diagnostic will compare ordinary
-baseline runs and isolated allocation arithmetic to locate the history drift.
+frozen protocol. A separate four-run repeatability diagnostic reproduced history
+drift between ordinary baselines. Across both prompts, BF16 gains, recorded
+intermediate states and velocities, and endpoints matched; the largest observed
+FP32 gain discrepancy was $1.19\times10^{-7}$. Repeating allocation on identical
+projected features also drifted under default arithmetic, while eight repeats
+with deterministic allocation matched for each prompt. This localizes a numerical
+repeatability issue to feature-to-gain arithmetic without identifying a unique
+kernel. A new diagnostic will enable deterministic arithmetic only during
+allocation, record this numerical-policy change, and retain all strict equality
+checks. No quality equivalence with the original baseline is established.
 This is an instrument for testing the controller
 hypothesis, not a new validated generation method. SCG acts directly on latent
 Fourier magnitudes, whereas this diagnostic measures the response to internal

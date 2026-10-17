@@ -21,6 +21,10 @@ from crope.utils import image_seed
 
 KREA = "8162a9c7b05a641be098422bf2fcf335615c2f28"
 INTERVENTIONS = {"plus": 1., "minus": -1., "half_plus": .5, "half_minus": -.5}
+ORIGINAL_MANIFEST_FILES = ("crope/response.py", "scripts/response_probe.py")
+DETERMINISTIC_MANIFEST_FILES = ("crope/response.py", "scripts/response_probe_deterministic.py",
+                                "crope/deterministic_allocation.py")
+DETERMINISTIC_POLICY = "deterministic_sega_update_only"
 
 
 def require(condition, message):
@@ -38,6 +42,23 @@ def read_json(path):
     require(path.is_file(), f"Incomplete evidence: missing {path}")
     require(path.stat().st_size < 8 * 1024 * 1024, f"Unexpectedly large JSON: {path}")
     return json.loads(path.read_text())
+
+
+def validate_manifest_provenance(manifest, protocol):
+    files = protocol.get("manifest_source_files", list(ORIGINAL_MANIFEST_FILES))
+    require(isinstance(files, list) and all(isinstance(name, str) for name in files) and
+            len(files) == len(set(files)) and bool(files), "Invalid manifest source-file specification")
+    config = manifest["experiment_configuration"]
+    if "allocation_numerics" in protocol:
+        require(protocol["allocation_numerics"] == DETERMINISTIC_POLICY, "Unsupported allocation numerics policy")
+        require(set(files) == set(DETERMINISTIC_MANIFEST_FILES), "Deterministic policy requires its explicit source files")
+        require(config.get("allocation_numerics") == DETERMINISTIC_POLICY, "Missing or mismatched allocation numerics policy")
+    else:
+        require(set(files) == set(ORIGINAL_MANIFEST_FILES), "Missing allocation numerics policy for changed source files")
+        require("allocation_numerics" not in config, "Unregistered allocation numerics policy")
+    require(all(name in protocol["source_sha256"] for name in files), "Manifest source omitted from frozen protocol hashes")
+    require(manifest.get("source_sha256") == {name: protocol["source_sha256"][name] for name in files},
+            "Response source provenance mismatch")
 
 
 def selected_directions(resolution):
@@ -149,8 +170,7 @@ def validate_stage(path, index, stage, protocol, protocol_hash, submission, prom
                           ("transformer_revision", KREA), ("slurm_job_id", str(submission["job_id"]))):
         require(manifest.get(key) == expected, f"Manifest {key} mismatch")
     require(manifest.get("frozen_cr14_source_sha256") == sources, "Frozen runtime source provenance mismatch")
-    require(manifest.get("source_sha256") == {k: protocol["source_sha256"][k]
-            for k in ("crope/response.py", "scripts/response_probe.py")}, "Response source provenance mismatch")
+    validate_manifest_provenance(manifest, protocol)
     config = manifest["experiment_configuration"]
     expected = dict(method="sega_official", res=f'{settings["resolution"]}x{settings["resolution"]}',
                     grid=[settings["resolution"] // 16] * 2, seed=protocol["seed"], steps=settings["steps"],

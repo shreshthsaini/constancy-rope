@@ -1,0 +1,31 @@
+{
+  "verified_utc": "2026-10-17T12:45:28.521736+00:00",
+  "job": "1077122",
+  "state": "COMPLETED",
+  "elapsed": "00:02:14",
+  "exit_code": "0:0",
+  "result": "Ordinary baselines differ in spectral_spread; prompt1baseline/probe also differs by max1.1920928955078125e-07 in FP32 gains. All BF16gains, per-stepinput/velocity/clean hashes and endpoints match.",
+  "isolation": "Identical-feature defaultallocation repeats drift on bothprompts;8deterministic repeats exact on both. First default/deterministic trials also match.",
+  "independent_review": "GPT-6 Astra independently recomputed histories/observation differences. Supports separate deterministic-allocation policy; not individual-kernelproof, universaldeterminism orbaselinequalityequivalence.",
+  "cr15_status": "Remains failed under original frozen protocol.",
+  "artifact_sha256": {
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt0/baseline_a.json": "7f00f6bbc5dee908fdfdc80fc7ad3ade54272116442c1e4594a7f284c8753ff2",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt0/baseline_b.json": "701449bd4e14ba0702bf2fa8cef05c5c1462f4cb662a308b2c7f68fd35f68811",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt0/baseline_d.json": "28c9628bea6c7fc198c177f42f8660b38d1ff0f35d70abf22c851f99f8a2bf77",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt0/comparison.json": "dcbc29f3e90167ba710fee3152f91db361a0c9eead13cdca9c677cee015a7916",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt0/completion.json": "a2ec0cac7e87debca93be672065b6756ea37b62d63609bc29e8a423de770a81f",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt0/isolated_allocation.json": "1b67f6a8a1211cdb52e0a3b6ee07b110a01e5968ba9b5abffd9133433e7f4e1d",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt0/manifest.json": "10de6ff4b0399a43310508c4e3425fe1a8331551e1a411461409af83620742af",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt0/probe_step.json": "20b0957fa78b7c5798cb90e905a2b1bd79ec15261f0ec3abc4acb3a74b5432c4",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt0/probed_c.json": "1390ff06837dc98d3e0b2d2eee928c1bcf6ffa3bf052f5856f8435a35e6f72cf",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt1/baseline_a.json": "f38a1b62b05ba14e13d63f8d8d321be52bca190dac9425387e6780e1ac6f857a",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt1/baseline_b.json": "432920e185acfa37d4e3aefc7a568b822612d855029707ce15ea7f5d60634737",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt1/baseline_d.json": "a6d9bc6463c1f55ddac47c02a9e532486151c3ce9f598a496f300584fd0e011d",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt1/comparison.json": "473a0d16826686c1e50feeff5bff1f271744f1ab95ca460314af9213f54c8140",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt1/completion.json": "32a7c813f6857102d43440b725b0be32598238db083186873de6ddddb0395431",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt1/isolated_allocation.json": "fa4b9a54503acf936ccf8600c2daeb7e3939dac148092efa46923e01d317d226",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt1/manifest.json": "b173350e449223603a9a4dea4d009824ae3cc619213976ebc61cd23f5032a2f2",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt1/probe_step.json": "eedc3aa98e4b13f45e173b7fced9043dc80dcf8820ff8704b16df01f6aeaca34",
+    "/scratch/09032/saini_2/constancy_rope/response_repeatability/job1077122/prompt1/probed_c.json": "804d19dddd40bc5db32798b3980399c09dda2047722e3c83bade6c14dc37a80f"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "baseline_a_vs_baseline_b": {
+    "history": [
+      {
+        "path": "/3/official/spectral_spread",
+        "a": 0.9997431571053049,
+        "b": 0.9997431570609048,
+        "abs_difference": 4.440015022311172e-11
+      }
+    ],
+    "observations": [],
+    "endpoint_equal": true
+  },
+  "baseline_b_vs_probed_c": {
+    "history": [
+      {
+        "path": "/3/official/spectral_spread",
+        "a": 0.9997431570609048,
+        "b": 0.9997431571053049,
+        "abs_difference": 4.440015022311172e-11
+      }
+    ],
+    "observations": [],
+    "endpoint_equal": true
+  },
+  "baseline_b_vs_baseline_d": {
+    "history": [
+      {
+        "path": "/3/official/spectral_spread",
+        "a": 0.9997431570609048,
+        "b": 0.9997431571053049,
+        "abs_difference": 4.440015022311172e-11
+      }
+    ],
+    "observations": [],
+    "endpoint_equal": true
+  }
+}

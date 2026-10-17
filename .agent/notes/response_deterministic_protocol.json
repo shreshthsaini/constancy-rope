@@ -1,0 +1,136 @@
+{
+  "created_utc": "2026-10-17T12:45:28.524206+00:00",
+  "status": "Prepared separate deterministic-allocation response diagnostic, not submitted yet",
+  "purpose": "Measure same-state response under an explicit deterministic SEGA allocation numerical policy; strict history/no-op/endpoint checks unchanged. No efficacy claim.",
+  "source_sha256": {
+    "crope/response.py": "e46d5f287f97d58d4c903f12834dacda29c6d63ab244b99e0829a4c564ac1e13",
+    "scripts/response_probe.py": "d66e1df27002c8be951d58285262eafb14422c2e4c0547704153db94d05f303a",
+    "scripts/response_analysis.py": "2c4b1450b81b0ae985ba4655ec7fe6ee450ea8f93a07adb3a7c4830ea338fe5f",
+    "slurm/response_task.sh": "c5d9b5508d9a6444ee8f01d3366e0c996d7dc4d071b2153ed5dafc2d40b7e4f0",
+    "slurm/response_fleet.sh": "a3bff74fe41b834dece3ca2df8e856f6f343f7324b40a6ad44a551d7289255af",
+    "slurm/fleet_response_gh.sbatch": "bfb1bedb0d9cadf0e828c663526dfdb2fb26c8365529ce2a410773814874f964",
+    "scripts/response_probe_deterministic.py": "e67dd20b31468f7c2bfa4ab0ec71a9b0337ffbb5ba0e03dbf2de19aa84c259e5",
+    "crope/deterministic_allocation.py": "bbb0670deee9c48d3fd13ddb1da6abdf587ef796c018eb68d8b9d29083072faf",
+    "slurm/response_deterministic_task.sh": "faca4b9cdbf57cbdfe4cc9ffe12b59bda726a38881e9e33defab7a60db62c8ce",
+    "slurm/response_deterministic_fleet.sh": "106d3f4c1b4f7fd68308d929e64c1822db61fbd38c4b30d234fbd77a085801b0",
+    "slurm/fleet_response_deterministic_gh.sbatch": "dd5c3bc5e694254d8a80e3a81579badd158a1c81de87208aff0a2c09d91134af"
+  },
+  "development_prompt_indices": [
+    0,
+    1
+  ],
+  "seed": 0,
+  "backbone": "FLUX.1-Krea-dev transformer 8162a9c7b05a641be098422bf2fcf335615c2f28 with FLUX.1-dev text encoders/VAE",
+  "guidance": 4.5,
+  "scheduler_shift": 1.15,
+  "smoke": {
+    "resolution": 2048,
+    "steps": 4,
+    "probe_steps": [
+      1
+    ],
+    "baseline_and_probed_runs": true
+  },
+  "diagnostic": {
+    "resolution": 4096,
+    "steps": 28,
+    "probe_steps": [
+      6,
+      14,
+      22
+    ],
+    "baseline_and_probed_runs": true
+  },
+  "controls": "One middle occupied RoPE octave per spatial axis, sorted by exponent, with affected-axis gain-vector RMS preservation in FP32 before BF16 casting, not query/key activation-energy preservation. Plus shared spatial scalar control. Hold actual baseline SEGA gain fixed for replays, index axis unchanged. Positive intervention gains are not reclipped to one.",
+  "epsilon": 0.1,
+  "fit_interventions": [
+    -0.1,
+    0.1
+  ],
+  "prediction_interventions": [
+    -0.05,
+    0.05
+  ],
+  "acceptance_for_interpretation": [
+    "Unperturbed same-state velocity replay must be bitwise identical.",
+    "Final baseline and instrumented trajectory endpoints and gain histories must be bitwise/exactly equal.",
+    "All prespecified steps and forward calls must be accounted for."
+  ],
+  "analysis": "Report signed finite-difference directional response along the normalized gain path, including BF16 quantization; cross-axis response fraction and held-aside half-step residual against zero-change predictor. Record baseline and realized FP32/BF16 gains. Three controls do not identify the whole reachable subspace. No automatic candidate selection or confirmation.",
+  "call_budget_per_prompt": {
+    "smoke_total": 21,
+    "4k_total": 95,
+    "total": 116
+  },
+  "planned_allocation": {
+    "partition": "gh",
+    "nodes": 2,
+    "minutes": 30,
+    "reservation_node_hours": 1.0,
+    "central_runtime_minutes": 15,
+    "range_minutes": [
+      12,
+      25
+    ],
+    "basis": "CR14 current4Kforward~6.5sec;95full4Kcalls plus21smokecalls and two model loads per prompt. Diagnostic accounting only."
+  },
+  "submission_conditions": [
+    "Preserve originalCR14/CR15/CR16sources and protocols; fresh64 unused.",
+    "Login guard and refreshed taccinfo before submission, below96percentburn.",
+    "Register actualjob and newtaskq_response_deterministic spool in existingwatcher beforewaiting."
+  ],
+  "prior_art": [
+    {
+      "source": "https://arxiv.org/html/2605.22668v1",
+      "checked": "Sections4.1-4.2; released allocation at ddaab08552c7b7ceba2ebd8f579a0f65dee90b5e in flux_sega/transformer_flux.py lines103-154 and feature projection near691-746.",
+      "finding": "SEGA maps projected-feature spectral profiles to per-pair gains using a fixed centered nonlinear allocation and clipping. The inspected allocation does not estimate a same-state model response. This is a narrow implementation distinction, not proof of novelty."
+    },
+    {
+      "source": "https://arxiv.org/html/2610.02753v1",
+      "checked": "Section4 and Algorithm1, AppendixE; no official implementation link established in this inspection.",
+      "finding": "SCG modifies latent Fourier magnitudes after the sampling update toward a time-dependent reference, retaining phase. It does not use the attention-gain actuator in its presented algorithm. Its common spectral-control objective remains a direct related-work boundary; absence of a published Jacobian in this algorithm is not an exhaustive novelty search."
+    }
+  ],
+  "validation": {
+    "shared_cpu_suite_passed": 306,
+    "critical_review": "CR16 independently reviewed; no scientific blocker to separate deterministic-allocation policy with unchanged strict checks.",
+    "gpu_validation": "Not yet executed under this policy",
+    "deterministic_and_response_tests_passed": 13,
+    "targeted_seconds": 10.0,
+    "reporter_tests_passed": 33,
+    "reporter_seconds": 15.55,
+    "implementation_review": "GPT-6 Astra: no blocker; flags restore on failure, subclass covers baseline/replay, strictchecks unchanged, all11sourcehashes match."
+  },
+  "additional_primary_source_leads": [
+    {
+      "url": "https://arxiv.org/abs/2609.36210",
+      "title": "On the spectral properties of generative denoiser Jacobians",
+      "submitted": "2026-09-28",
+      "review_level": "Primary abstract checked; full method/code comparison remains open.",
+      "relevance": "Denoiser input-Jacobian diagnostics and training-time response regularization already exist. Merely using a Jacobian or response diagnostic cannot be claimed new."
+    },
+    {
+      "url": "https://arxiv.org/abs/2511.18471",
+      "title": "Jacobian-Aware Posterior Sampling for Inverse Problems",
+      "review_level": "Primary abstract checked, v3 June21,2026; full comparison remains open.",
+      "relevance": "Jacobian-aware corrections are established in inverse-problem posterior sampling. Different task and actuator do not alone establish novelty."
+    }
+  ],
+  "audit_amendments": [
+    "Above-native 2048 smoke exercises SEGA allocation.",
+    "Actual baseline gain fixed for replay to isolate operating point from CUDA reduction drift.",
+    "Record resolved base snapshot, full experiment config including seed/scheduler/RoPE, protocol hash, and realized gains.",
+    "Timing is diagnostic accounting, not a warmup-matched performance comparison.",
+    "Runner rejects changed protocol sources or run parameters."
+  ],
+  "allocation_numerics": "deterministic_sega_update_only",
+  "manifest_source_files": [
+    "crope/response.py",
+    "scripts/response_probe_deterministic.py",
+    "crope/deterministic_allocation.py"
+  ],
+  "predecessor_cr15_protocol_sha256": "9a08daeed2a23ba78b57c803b9078437bad572439295b1b94e5fd34fefeac245",
+  "motivation_evidence": ".agent/notes/response_cr16_repeatability/receipt.json",
+  "numerical_policy_limitations": "Process-global deterministic flag enabled only during OfficialSEGA.update and restored including warn-only flag; serial transformer execution. This is changed numerical execution, not a new method or proven quality-equivalent baseline.",
+  "frozen_utc": "2026-10-17T12:46:14.483797+00:00"
+}

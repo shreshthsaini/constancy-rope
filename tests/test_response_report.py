@@ -210,6 +210,59 @@ def test_cast_corruption_is_rejected():
         rr.gain_diagnostics(record, rr.selected_directions(2048))
 
 
+@pytest.mark.parametrize("deterministic", [False, True])
+def test_registered_manifest_source_and_allocation_policies(deterministic):
+    files = rr.DETERMINISTIC_MANIFEST_FILES if deterministic else rr.ORIGINAL_MANIFEST_FILES
+    sources = {name: f"hash-{index}" for index, name in enumerate(files)}
+    protocol = {"source_sha256": sources}
+    config = {}
+    if deterministic:
+        protocol.update(manifest_source_files=list(files), allocation_numerics=rr.DETERMINISTIC_POLICY)
+        config["allocation_numerics"] = rr.DETERMINISTIC_POLICY
+    rr.validate_manifest_provenance({"source_sha256": sources, "experiment_configuration": config}, protocol)
+
+
+@pytest.mark.parametrize("problem", ["missing_protocol_policy", "unsupported_policy", "missing_config_policy",
+                                     "wrong_config_policy", "missing_source_spec", "missing_hash",
+                                     "wrong_hash", "extra_manifest_source", "duplicate_source", "old_runner_source"])
+def test_deterministic_policy_and_sources_fail_closed(problem):
+    files = list(rr.DETERMINISTIC_MANIFEST_FILES)
+    sources = {name: f"hash-{index}" for index, name in enumerate(files)}
+    protocol = {"source_sha256": sources.copy(), "manifest_source_files": files,
+                "allocation_numerics": rr.DETERMINISTIC_POLICY}
+    manifest = {"source_sha256": sources.copy(),
+                "experiment_configuration": {"allocation_numerics": rr.DETERMINISTIC_POLICY}}
+    if problem == "missing_protocol_policy":
+        protocol.pop("allocation_numerics")
+    elif problem == "unsupported_policy":
+        protocol["allocation_numerics"] = "global_determinism"
+    elif problem == "missing_config_policy":
+        manifest["experiment_configuration"].pop("allocation_numerics")
+    elif problem == "wrong_config_policy":
+        manifest["experiment_configuration"]["allocation_numerics"] = "original"
+    elif problem == "missing_source_spec":
+        protocol.pop("manifest_source_files")
+    elif problem == "missing_hash":
+        protocol["source_sha256"].pop(files[-1])
+    elif problem == "wrong_hash":
+        manifest["source_sha256"][files[-1]] = "changed"
+    elif problem == "extra_manifest_source":
+        manifest["source_sha256"]["unregistered.py"] = "extra"
+    elif problem == "duplicate_source":
+        files.append(files[0])
+    else:
+        protocol["manifest_source_files"] = list(rr.ORIGINAL_MANIFEST_FILES)
+    with pytest.raises(ValueError):
+        rr.validate_manifest_provenance(manifest, protocol)
+
+
+def test_old_protocol_cannot_silently_accept_new_config_policy():
+    sources = {name: "hash" for name in rr.ORIGINAL_MANIFEST_FILES}
+    manifest = {"source_sha256": sources, "experiment_configuration": {"allocation_numerics": rr.DETERMINISTIC_POLICY}}
+    with pytest.raises(ValueError, match="Unregistered"):
+        rr.validate_manifest_provenance(manifest, {"source_sha256": sources})
+
+
 @pytest.mark.parametrize("changed", [False, True])
 def test_independent_endpoint_hash_and_equality(tmp_path, changed):
     baseline = torch.zeros(2, 64, dtype=torch.bfloat16)

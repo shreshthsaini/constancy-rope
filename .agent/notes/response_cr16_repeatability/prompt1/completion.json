@@ -1,0 +1,21 @@
+{
+  "purpose": "Diagnostic executed; completion is not successful CR15 validation",
+  "comparisons": {
+    "baseline_a_vs_baseline_b": {
+      "history_differences": 2,
+      "observation_differences": 0,
+      "endpoint_equal": true
+    },
+    "baseline_b_vs_probed_c": {
+      "history_differences": 38,
+      "observation_differences": 12,
+      "endpoint_equal": true
+    },
+    "baseline_b_vs_baseline_d": {
+      "history_differences": 2,
+      "observation_differences": 0,
+      "endpoint_equal": true
+    }
+  },
+  "cr15_status": "Failed under original frozen protocol; no automatic retry/relaxation"
+}
