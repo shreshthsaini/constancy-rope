@@ -344,3 +344,150 @@ def test_hot_registration_and_invalid_edit_keep_scheduler_cadence(project, monke
     assert '123456' in saved['snapshot']['registered']
     assert saved['registration_error']
     assert any(key.startswith('registration_error:') for key in saved['pending'])
+
+
+def ready_record(**changes):
+    value = {'source_job': watcher.HOST_JOB, 'thread': watcher.THREAD,
+             'destination_job': '7654321', 'destination_node': 'i999-001',
+             'destination_socket': '/tmp/new-controller/control.sock', 'created': 1000}
+    value.update(changes)
+    return value
+
+
+def test_migration_cli_defaults_unchanged_and_overrides():
+    args = watcher.arguments([])
+    assert (args.host_job, args.socket, args.thread) == (watcher.HOST_JOB, watcher.SOCKET, watcher.THREAD)
+    args = watcher.arguments(['--host-job', '7654321', '--socket', '/tmp/new/socket',
+                              '--thread', '01a14899-2e69-7d71-93f8-b42aad182afd'])
+    assert args.host_job == '7654321' and args.socket == '/tmp/new/socket'
+
+
+@pytest.mark.parametrize('option,value', [('--host-job', '0'), ('--host-job', '-1'),
+    ('--host-job', '1;2'), ('--socket', 'relative.sock'), ('--thread', 'not-a-uuid')])
+def test_invalid_migration_cli_rejected(option, value):
+    with pytest.raises(SystemExit):
+        watcher.arguments([option, value])
+
+
+@pytest.mark.parametrize('changes', [
+    {'destination_job': '0'}, {'destination_job': '07654321'},
+    {'destination_job': watcher.HOST_JOB}, {'destination_socket': 'relative'},
+    {'destination_node': 'login1'}, {'destination_node': 'bad node'},
+    {'thread': '11111111-1111-1111-1111-111111111111'},
+    {'created': -3000}, {'created': 2000}, {'created': float('nan')}, {'created': True},
+])
+def test_invalid_ready_records_fail_closed(project, changes):
+    (watcher.RUNTIME / 'DESTINATION_READY.json').write_text(json.dumps(ready_record(**changes)))
+    with pytest.raises((ValueError, watcher.argparse.ArgumentTypeError)):
+        watcher.destination_ready(1000)
+    assert not (watcher.RUNTIME / 'HANDOFF_RELEASED.json').exists()
+
+
+def test_ready_is_inert_on_destination_and_absent_initially(project):
+    assert watcher.destination_ready(1000) is None
+    path = watcher.RUNTIME / 'DESTINATION_READY.json'
+    path.write_text(json.dumps(ready_record()))
+    assert watcher.destination_ready(1000)['destination_job'] == '7654321'
+    path.write_text(json.dumps(ready_record(source_job='123')))
+    assert watcher.destination_ready(1000) is None
+
+
+@pytest.mark.parametrize('status', ['active', 'notLoaded', 'systemError'])
+def test_handoff_requires_exact_idle_without_resuming(project, monkeypatch, status):
+    calls = mock_transport(monkeypatch, status=status, cwd=watcher.ROOT)
+    assert watcher.handoff_receipt(ready_record(), {'7654321': {'state': 'RUNNING'}}, 1000) is None
+    assert calls == ['initialize', 'thread/read']
+
+
+def test_handoff_requires_running_destination_and_right_project(project, monkeypatch):
+    calls = mock_transport(monkeypatch, cwd=watcher.ROOT)
+    for status in ['PENDING', 'COMPLETING', 'NOT_IN_QUEUE']:
+        assert watcher.handoff_receipt(ready_record(), {'7654321': {'state': status}}, 1000) is None
+    assert not calls
+    calls = mock_transport(monkeypatch, cwd='/other/project')
+    with pytest.raises(RuntimeError, match='different project'):
+        watcher.handoff_receipt(ready_record(), {'7654321': {'state': 'RUNNING'}}, 1000)
+    assert 'turn/start' not in calls
+
+
+def test_ready_destination_joins_same_scheduler_call(project, monkeypatch):
+    calls = []
+    monkeypatch.setattr(watcher.subprocess, 'run', lambda command, **kw:
+                        calls.append(command) or SimpleNamespace(stdout='7654321|RUNNING|Unknown\n'))
+    jobs = watcher.scheduler([], ['7654321'])
+    assert len(calls) == 1 and calls[0][2] == f'{watcher.JOB},{watcher.HOST_JOB},7654321'
+    assert jobs['7654321']['state'] == 'RUNNING'
+
+
+def test_main_releases_handoff_preserves_outbox_and_unlocks(project, monkeypatch):
+    prepare_main(monkeypatch)
+    record = ready_record()
+    (watcher.RUNTIME / 'DESTINATION_READY.json').write_text(json.dumps(record))
+    path = watcher.RUNTIME / 'state.json'
+    path.write_text(json.dumps({'pending': {'existing': 'Retain this event'}, 'sent': {'old': 900}}))
+    monkeypatch.setattr(watcher.time, 'time', lambda: 1000)
+    calls = mock_transport(monkeypatch, cwd=watcher.ROOT)
+    scheduler_calls = []
+    def scheduler(entries, extra_ids):
+        scheduler_calls.append(extra_ids)
+        return dict(jobs_for(entries), **{'7654321': {'state': 'RUNNING', 'end': None}})
+    monkeypatch.setattr(watcher, 'scheduler', scheduler)
+    monkeypatch.setattr(watcher, 'enqueue', lambda _: pytest.fail('Handoff must not start a turn'))
+    watcher.main()
+    assert scheduler_calls == [['7654321']]
+    receipt = json.loads((watcher.RUNTIME / 'HANDOFF_RELEASED.json').read_text())
+    assert all(receipt[key] == value for key, value in record.items())
+    assert receipt['source_node'] == 'compute-test' and receipt['released'] == 1000
+    saved = json.loads(path.read_text())
+    assert saved['pending']['existing'] == 'Retain this event' and saved['sent']['old'] == 900
+    assert calls == ['initialize', 'thread/read']
+    with (watcher.RUNTIME / 'lock').open('a+') as lock:
+        watcher.fcntl.flock(lock, watcher.fcntl.LOCK_EX | watcher.fcntl.LOCK_NB)
+
+
+def test_overridden_host_drives_state_scheduler_and_registry(project, monkeypatch):
+    prepare_main(monkeypatch)
+    # monkeypatch tracks restoration of the globals changed by main.
+    for key in ['HOST_JOB', 'SOCKET', 'THREAD']:
+        monkeypatch.setattr(watcher, key, getattr(watcher, key))
+    monkeypatch.setattr(sys, 'argv', ['watch_cr14.py', '--once', '--host-job', '7654321',
+                                    '--socket', '/tmp/new-controller/control.sock'])
+    observed = []
+    def scheduler(entries):
+        observed.append(watcher.HOST_JOB)
+        return current()['jobs']
+    monkeypatch.setattr(watcher, 'scheduler', scheduler)
+    monkeypatch.setattr(watcher, 'enqueue', lambda _: None)
+    watcher.main()
+    saved = json.loads((watcher.RUNTIME / 'state.json').read_text())
+    assert saved['host_job'] == '7654321' and saved['socket'] == '/tmp/new-controller/control.sock'
+    assert observed == ['7654321'] and '7654321' in saved['snapshot']['jobs']
+    register(project, job_id='7654321')
+    with pytest.raises(ValueError, match='Duplicate'):
+        watcher.registrations()
+
+
+def test_controller_urgent_expiry_thresholds_have_distinct_namespaces():
+    data = current()
+    data['jobs'][watcher.HOST_JOB]['end'] = 2000
+    at_hour = watcher.events(data, data, 1000)
+    assert 'lease:2000' in at_hour
+    assert f'lease:{watcher.HOST_JOB}:900:2000' not in at_hour
+    at_fifteen = watcher.events(data, data, 1200)
+    assert f'lease:{watcher.HOST_JOB}:900:2000' in at_fifteen
+    assert f'lease:{watcher.HOST_JOB}:300:2000' not in at_fifteen
+    at_five = watcher.events(data, data, 1800)
+    assert f'lease:{watcher.HOST_JOB}:300:2000' in at_five
+    assert all('handoff' in value for key, value in at_five.items() if key.startswith(f'lease:{watcher.HOST_JOB}:'))
+
+
+def test_dry_run_never_releases_handoff(project, monkeypatch):
+    prepare_main(monkeypatch)
+    monkeypatch.setattr(sys, 'argv', ['watch_cr14.py', '--once', '--dry-run'])
+    (watcher.RUNTIME / 'DESTINATION_READY.json').write_text(json.dumps(ready_record()))
+    monkeypatch.setattr(watcher.time, 'time', lambda: 1000)
+    monkeypatch.setattr(watcher, 'scheduler', lambda entries, extra:
+                        dict(jobs_for(entries), **{'7654321': {'state': 'RUNNING', 'end': None}}))
+    monkeypatch.setattr(watcher, 'handoff_receipt', lambda *a: pytest.fail('Dry run cannot release ownership'))
+    watcher.main()
+    assert not (watcher.RUNTIME / 'HANDOFF_RELEASED.json').exists()

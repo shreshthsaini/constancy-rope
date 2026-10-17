@@ -1,0 +1,66 @@
+{
+  "created_utc": "2026-10-17T16:47:40.525449+00:00",
+  "scope": "Read-only local infrastructure audit; no SSH, submission, process changes, auth reads or config edits.",
+  "host": "i618-051.vista.tacc.utexas.edu",
+  "cli_version": "0.163.0",
+  "source_controller": {
+    "job_id": "1073260",
+    "end_utc": "2026-10-17T17:45:04Z",
+    "watcher_pid": 1581602,
+    "thread_id": "01a14899-2e69-7d71-93f8-b42aad182afd",
+    "socket": "/tmp/cx-883311-1ae2ac8f/home/app-server-control/app-server-control.sock"
+  },
+  "verified": [
+    "Shared rollout exists on HOME at sessions/2026/10/17/rollout-2026-10-17T01-42-40-01a14899-2e69-7d71-93f8-b42aad182afd.jsonl and first session_meta has exact thread/cwd.",
+    "Wrapper symlinks config, auth, sessions, memories and other persistent files into boot-specific /tmp/cx-uid-boot/home.",
+    "Wrapper isolates SQLite and thread-writer-locks per node and proactively initializes rollout index before app-server daemon start.",
+    "CLI supports app-server daemon start, app-server --listen unix:///absolute/path, and exec resume SESSION_ID PROMPT.",
+    "Current watcher uses Unix WebSocket initialize, thread/read, thread/resume when notLoaded, turn/start when idle, shared flock and state/outbox.",
+    "Current watcher hardcodes source controller job and socket; unchanged migration would inspect wrong controller and unreachable old socket."
+  ],
+  "preferred_continuation": {
+    "destination_start_command": "/home1/09032/saini_2/.local/bin/codex app-server daemon start",
+    "destination_socket_derivation": "runtime=/tmp/cx-$(id -u)-${boot:0:8}, where boot is /proc/sys/kernel/random/boot_id; socket=$runtime/home/app-server-control/app-server-control.sock",
+    "fallback_foreground_command": "/home1/09032/saini_2/.local/bin/codex app-server --listen unix:///PRIVATE_NODE_LOCAL_DIRECTORY/control.sock",
+    "resume_sequence": [
+      "initialize with experimentalApi true",
+      "initialized notification",
+      "thread/read exact UUID includeTurns false, verify cwd",
+      "thread/resume exact UUID only after source idle and ownership handoff",
+      "turn/start with explicit handoff prompt after source writes have stopped"
+    ],
+    "watcher_changes_required": [
+      "Parameterize source HOST_JOB and SOCKET via explicit deployment configuration; preserve shared RUNTIME, THREAD and registrations.",
+      "Stop source watcher using its documented STOP sentinel, verify exact watcher PID exited, preserve STOP under timestamped name.",
+      "Start destination watcher only after shared flock is available; verify new PID/host/job/socket in state and real local thread/read handshake.",
+      "Verify one direct model wake writes a receipt from destination compute hostname before source allocation expiry."
+    ],
+    "unsafe_cases": [
+      "Do not resume same thread simultaneously on old and new app servers: thread-writer locks are node-local.",
+      "Do not start a second watcher or duplicate turns.",
+      "Do not stop unrelated app servers or interfere with other projects on destination."
+    ],
+    "ui_limit": "Local watcher continuation does not require Remote Control pairing, but original desktop attachment is not proven to migrate. This audit cannot claim seamless UI attachment."
+  },
+  "one_shot_fallback": {
+    "command": "cd /work/09032/saini_2/vista/Projects/Exploration/constancy_rope && /home1/09032/saini_2/.local/bin/codex exec resume 01a14899-2e69-7d71-93f8-b42aad182afd \"Read HANDOVER.md and .agent/STATE.md. Continue the user-authorized Constancy RoPE project from the verified compute-node handoff. Preserve frozen protocols and fresh64. Verify the existing watcher before resuming work.\"",
+    "limit": "Only after source turn is idle and writer ownership released; exits after one turn and alone is not unattended event continuity."
+  },
+  "allocation_note": "Parent owns live resource audit and submission. If a fresh workspace is necessary, launch-node skill requires /home1/09032/saini_2/.claude/tools/launch-node.sh; check balance and guard first. No destination capacity verified here.",
+  "unverified": [
+    "Actual destination app-server startup/auth",
+    "Destination session-index visibility",
+    "Source-to-destination thread transfer and resumed model call",
+    "New watcher event delivery",
+    "Destination lease"
+  ],
+  "sources": {
+    "/home1/09032/saini_2/.local/bin/codex": "89ea5c441503b5f30e990c9ed01d5e43eab7f964be08f101923042136d1e9306",
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/watch_cr14.py": "4d799e8ac0f787cd4eb513eacb62902b58a78164561461fe6e0ef40d907910fe"
+  },
+  "memory_used": {
+    "citation": "MEMORY.md:936-964",
+    "rollout_id": "019fa0ad-fc2a-7391-b0aa-e735719a4f67",
+    "note": "Historical compute-only Remote Control and socket migration context; current CLI behavior independently verified."
+  }
+}

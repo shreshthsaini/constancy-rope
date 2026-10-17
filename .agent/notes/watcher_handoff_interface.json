@@ -1,0 +1,61 @@
+{
+  "created_utc": "2026-10-17T16:51:53.867512+00:00",
+  "status": "implementation and60CPUtests pass; no watcher restart or destination execution by this agent",
+  "cli": {
+    "host_job": "--host-job POSITIVE_NUMERIC_ID",
+    "socket": "--socket ABSOLUTE_PATH",
+    "thread": "--thread UUID",
+    "defaults": "Existing source controller, socket and thread unchanged when options omitted."
+  },
+  "ready_path": "/scratch/09032/saini_2/constancy_rope/watcher_cr14/DESTINATION_READY.json",
+  "ready_exact_fields": [
+    "source_job",
+    "thread",
+    "destination_job",
+    "destination_node",
+    "destination_socket",
+    "created"
+  ],
+  "ready_example": {
+    "source_job": "1073260",
+    "thread": "01a14899-2e69-7d71-93f8-b42aad182afd",
+    "destination_job": "REPLACE_POSITIVE_JOB_ID",
+    "destination_node": "REPLACE_COMPUTE_HOST",
+    "destination_socket": "/tmp/REPLACE/control.sock",
+    "created": "REPLACE_UNIX_EPOCH_NUMBER"
+  },
+  "validation": [
+    "Exact field names; current source job/thread; different positive canonical destination job; another non-login hostname; absolute socket; created age at most3600s and future skew at most60s.",
+    "Destination ready is inert after relocation because source_job differs from destination watcher HOST_JOB."
+  ],
+  "handoff": [
+    "Existing120s batched squeue includes destination job, no additional scheduler poll.",
+    "Only the same iteration with a refreshed scheduler RUNNING result may hand off.",
+    "Local source socket initialize and thread/read must return exact project/thread and status exactly idle. No thread/resume or turn/start.",
+    "Persist watcher state/outbox, atomically publish HANDOFF_RELEASED.json, return and release shared flock.",
+    "Destination must acquire shared flock after seeing release before resuming operator or starting watcher."
+  ],
+  "release_exact_fields": [
+    "source_job",
+    "thread",
+    "destination_job",
+    "destination_node",
+    "destination_socket",
+    "created",
+    "source_node",
+    "source_socket",
+    "released"
+  ],
+  "urgent_alerts": "Distinct controller job+threshold+expiry keys at900s and300s, in addition to unchanged one-hour alert. No extra scheduler polling.",
+  "test_result": "60 passed in 1.52s",
+  "limits": [
+    "No destination capacity or app-server start verified here.",
+    "Source-idle check cannot prohibit an independent UI client from starting a later source turn; operator ownership transfer still requires coordination.",
+    "Expired or malformed READY fails closed through existing watcher repair path.",
+    "No automatic allocation, migration, thread resume or process kill."
+  ],
+  "sha256": {
+    "scripts/watch_cr14.py": "a734ccdf16d9e83908675d11885f4786b313058888a55468d214468edc0bc7c1",
+    "tests/test_watch_cr14.py": "4716807cb636d33776d23c2dca05567b216ca6f8d27915a689dd3b667fa9481e"
+  }
+}

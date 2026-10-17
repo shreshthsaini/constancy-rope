@@ -8,6 +8,7 @@ from datetime import datetime
 import fcntl
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import resource
@@ -22,6 +23,82 @@ RUNTIME = SCRATCH / 'watcher_cr14'
 THREAD = '01a14899-2e69-7d71-93f8-b42aad182afd'
 JOB, HOST_JOB = '1076857', '1073260'
 SOCKET = '/tmp/cx-883311-1ae2ac8f/home/app-server-control/app-server-control.sock'
+
+
+def positive_job(value):
+    if not isinstance(value, str) or not value.isascii() or not value.isdigit() or int(value) <= 0:
+        raise argparse.ArgumentTypeError('Job ID must be a positive integer')
+    return str(int(value))
+
+
+def absolute_socket(value):
+    if not isinstance(value, str) or not Path(value).is_absolute() or '\x00' in value:
+        raise argparse.ArgumentTypeError('Socket must be an absolute path')
+    return value
+
+
+def thread_uuid(value):
+    try:
+        parsed = uuid.UUID(value)
+    except (ValueError, TypeError, AttributeError) as exc:
+        raise argparse.ArgumentTypeError('Thread must be a UUID') from exc
+    return str(parsed)
+
+
+def arguments(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--once', action='store_true')
+    parser.add_argument('--dry-run', action='store_true')
+    parser.add_argument('--host-job', type=positive_job, default=HOST_JOB)
+    parser.add_argument('--socket', type=absolute_socket, default=SOCKET)
+    parser.add_argument('--thread', type=thread_uuid, default=THREAD)
+    return parser.parse_args(argv)
+
+
+def destination_ready(now):
+    """Read an operator-prepared handoff, never infer or allocate a destination."""
+    path = RUNTIME / 'DESTINATION_READY.json'
+    if not path.exists():
+        return None
+    value = json.loads(path.read_text())
+    required = {'source_job', 'thread', 'destination_job', 'destination_node',
+                'destination_socket', 'created'}
+    if not isinstance(value, dict) or set(value) != required:
+        raise ValueError('Invalid destination ready fields')
+    # The destination keeps the same runtime, so the old ready record is inert there.
+    if value['source_job'] != HOST_JOB:
+        return None
+    if positive_job(value['destination_job']) != value['destination_job'] or value['destination_job'] == HOST_JOB:
+        raise ValueError('Destination must be a different canonical job ID')
+    if thread_uuid(value['thread']) != THREAD or value['thread'] != THREAD:
+        raise ValueError('Destination thread does not match this operator')
+    absolute_socket(value['destination_socket'])
+    node = value['destination_node']
+    if (not isinstance(node, str) or not node or node.startswith('login')
+            or not all(c.isascii() and (c.isalnum() or c in '.-') for c in node)
+            or node == socket.gethostname()):
+        raise ValueError('Destination must name another compute node')
+    created = value['created']
+    if (type(created) not in (int, float) or not math.isfinite(created)
+            or not -60 <= now - created <= 3600):
+        raise ValueError('Destination ready timestamp is stale or invalid')
+    return value
+
+
+def handoff_receipt(ready, jobs, now):
+    """Caller supplies a scheduler result polled in this iteration, never a cache."""
+    if ready is None or jobs.get(ready['destination_job'], {}).get('state') != 'RUNNING':
+        return None
+    with connect() as ws:
+        rpc(ws, 'initialize', {'clientInfo': {'name': 'crope-watcher', 'version': '3'},
+                              'capabilities': {'experimentalApi': True}})
+        ws.send(json.dumps({'method': 'initialized'}))
+        thread = rpc(ws, 'thread/read', {'threadId': THREAD, 'includeTurns': False})['thread']
+        if thread['id'] != THREAD or Path(thread['cwd']) != ROOT:
+            raise RuntimeError('Refusing handoff of a different project/thread')
+        if thread['status']['type'] != 'idle':
+            return None
+    return dict(ready, source_node=socket.gethostname(), source_socket=SOCKET, released=now)
 
 
 def registrations(path=None):
@@ -85,8 +162,8 @@ def save(path, value):
     temporary.replace(path)
 
 
-def scheduler(registered=()):
-    ids = list(dict.fromkeys([JOB, HOST_JOB] + [item['job_id'] for item in registered]))
+def scheduler(registered=(), extra_ids=()):
+    ids = list(dict.fromkeys([JOB, HOST_JOB] + [item['job_id'] for item in registered] + list(extra_ids)))
     result = subprocess.run(['squeue', '-j', ','.join(ids), '-h', '-o', '%i|%T|%e'],
                             capture_output=True, text=True, timeout=20, check=True)
     jobs = {j: {'state': 'NOT_IN_QUEUE', 'end': None} for j in ids}
@@ -176,6 +253,11 @@ def events(current, previous, now, running_since=None, all_done_since=None):
             found[f'job:{job}:{info["state"]}'] = f'Initial GPU job state: {info["state"]}'
         if job == HOST_JOB and info['end'] and info['end'] - now < 3600:
             found[f'lease:{info["end"]}'] = 'Controller allocation expires within one hour; verify migration'
+            for seconds, label in ((900, 'fifteen minutes'), (300, 'five minutes')):
+                if info['end'] - now < seconds:
+                    found[f'lease:{HOST_JOB}:{seconds}:{info["end"]}'] = (
+                        f'Controller allocation {HOST_JOB} expires within {label}; '
+                        'verify compute-node handoff or preserve blocked migration state')
     for name in current['tasks']['failed']:
         found[f'failed:{name}'] = f'Failed workflow: {name}'
     for name in current['tasks']['done']:
@@ -261,20 +343,19 @@ def enqueue(message):
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--once', action='store_true')
-    parser.add_argument('--dry-run', action='store_true')
-    args = parser.parse_args()
+    global HOST_JOB, SOCKET, THREAD
+    args = arguments()
+    HOST_JOB, SOCKET, THREAD = args.host_job, args.socket, args.thread
     cap = resource.getrlimit(resource.RLIMIT_NPROC)[0]
     if socket.gethostname().startswith('login') or 0 < cap <= 512:
-        parser.error('Compute node required')
+        raise SystemExit('Compute node required')
     RUNTIME.mkdir(parents=True, exist_ok=True)
     with (RUNTIME / 'lock').open('a+') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         path = RUNTIME / 'state.json'
         state = json.loads(path.read_text()) if path.exists() else {}
         state.update(pid=os.getpid(), host=socket.gethostname(), thread=THREAD,
-                     host_job=HOST_JOB, started=time.time())
+                     host_job=HOST_JOB, socket=SOCKET, started=time.time())
         pending, sent = state.setdefault('pending', {}), state.setdefault('sent', {})
         next_scheduler, jobs, registered = 0, {}, []
         while not (RUNTIME / 'STOP').exists():
@@ -289,8 +370,11 @@ def main():
                     key = 'registration_error:' + hashlib.sha256(error.encode()).hexdigest()[:16]
                     if key not in sent:
                         pending[key] = f'Watcher registration rejected; last accepted set retained: {error}'
-                if now >= next_scheduler:
-                    jobs = scheduler(registered)
+                ready = destination_ready(now)
+                refreshed = now >= next_scheduler
+                if refreshed:
+                    jobs = (scheduler(registered, [ready['destination_job']]) if ready
+                            else scheduler(registered))
                     next_scheduler = now + 120
                 current = snapshot(jobs, now, registered, state.get('snapshot', {}))
                 if (RUNTIME / 'WAKE_TEST').exists() and 'wake_test' not in sent:
@@ -305,6 +389,13 @@ def main():
                                state.get('running_since'), state.get('all_done_since'))
                 pending.update({k: v for k, v in found.items() if k not in sent})
                 state.update(snapshot=current, heartbeat=now)
+                if ready and refreshed and not args.dry_run:
+                    receipt = handoff_receipt(ready, jobs, time.time())
+                    if receipt is not None:
+                        state['handoff_released'] = receipt
+                        save(path, state)
+                        save(RUNTIME / 'HANDOFF_RELEASED.json', receipt)
+                        return
                 if pending and (args.dry_run or now - state.get('last_attempt', 0) >= 120):
                     message = ('Constancy RoPE automatic watcher event, authorized by the user for '
                                'unattended continuation. Read HANDOVER.md, .agent/STATE.md and '
