@@ -113,5 +113,15 @@
     "forwards_total": 4,
     "status": "No job submitted; SU check and frozen review required before submission."
   },
-  "preservation": "CR14-18 sources/protocols/results and fresh64 unchanged; distinct collection directory and watcher registration if submitted."
+  "preservation": "CR14-18 sources/protocols/results and fresh64 unchanged; distinct collection directory and watcher registration if submitted.",
+  "scientific_question": "At the fixed captured pretrained operators, does replacing the global mean of within-cell H by the exact complementary-cell mean meaningfully reduce error against dense attention, and how much error remains when each cell retains its own alpha weight?",
+  "interpretation_rules": [
+    "This tests the relevance of a specific already-known approximation, not a new attention family or generation quality.",
+    "All192 head/query/call/prompt cases and every control remain in the report; do not search replacement heads, query coordinates, layers or artificial states after reading errors.",
+    "No trajectory generation or fresh64 follows automatically. A positive operator result still requires a concrete distinct algorithm, recent prior-art review, practical GPU cost and a development generation comparison.",
+    "If conditional correction provides no meaningful advantage, preserve the result and stop this fixed-window conditional-mean branch. Do not rescue it with a parameter sweep.",
+    "The alpha-weighted control diagnoses the gap caused by averaging across cells. A weighted-control gain alone is not evidence for the conditional-mean algorithm.",
+    "Compare absolute changes with the captured BF16-versus-FP64 numerical gap, while keeping approximation and numerical errors separate. No post-hoc statistical significance or population claim on this fixed stencil.",
+    "Rank8 fixed-random statistics validate bookkeeping only and can lose an entire correction. Fullrank storage and shared-cell query reuse must be evaluated before dismissing fullrank as infeasible."
+  ]
 }

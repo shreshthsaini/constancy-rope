@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution method competitive with r
 User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 09:23 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+2026-10-17 09:21 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
 Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
 RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
 PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
@@ -30,7 +30,9 @@ Attention-measure toy prototype complete:15tests pass; knownformulas, exactbookk
 Scatterbrain/PISA/SolAttn/MomentKV occupy core mechanism; conditionalspatial refinement remainshypothesis.
 Equal-cell PISA16tests and actual-SDPA collector30tests independently pass; all declared synthetic cases retained.
 Conditional moments help selected-H cases but do not fix attention-weight heterogeneity.
-NEXT: finish spatial-cell prefix/cost review and validated offline capture reporter.
+Spatial prefix30tests and offline reporter13tests independently pass; review complete outputs before freezing.
+Fullrank cellH+prefix857MB/24heads; grouped reuse plausible, no GPU performance claim.
+NEXT: finish independent integration/cost review, freeze bounded four-forward capture, refresh SU balance.
 Four-forward QKV capture design is prospective/unfrozen/unsubmitted; collector implementation inprogress.
 No new GPU before operator/cost/scientific review; distinguish within-cell from single-cloud covariance.
 Covariance/gain proposal lacks justified target; DoPE adds a close prior-art collision.

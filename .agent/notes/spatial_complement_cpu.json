@@ -1,0 +1,769 @@
+{
+  "scope": "One synthetic CPU head; cost/accounting only, no quality, novelty or GPU benchmark",
+  "seed": 20261018,
+  "projection_seed": 20261019,
+  "grid_tokens": [
+    256,
+    256
+  ],
+  "base_cell_tokens": [
+    16,
+    16
+  ],
+  "cell_grid": [
+    16,
+    16
+  ],
+  "d": 128,
+  "dv": 128,
+  "rank": 8,
+  "target_domain": "K is interpreted as already post-RoPE, V as its corresponding values. No actual RoPE transform is simulated.",
+  "projection": "Fixed shared orthonormal U; z=K U. Projection remains identical for global/retained/complement statistics.",
+  "orthonormality_max_abs_error": 5.551115123125783e-16,
+  "moment_definition": "n, sum(k), sum(v), sum[v (kU)^T]; raw moments are added/subtracted before single-cloud recentering.",
+  "prefix_definition": "2D prefix over16x16 base CELLS, not per-token outer products.",
+  "restrictions": [
+    "At most two cell-aligned rectangles; partial cells rejected.",
+    "Register IDs refer to original tokens; duplicates and IDs already inside rectangle union are removed.",
+    "This yields a single complement-cloud covariance, not PISA mean within-cell covariance or per-cell centroid routing.",
+    "No per-cell recentering after individual register deletion and no general AReA integration are implemented.",
+    "PISA, MomentKV and Scatterbrain are prior-art boundaries; no novelty claim follows from these statistics.",
+    "No adaptive clipping, error-based case selection or silent FP32 repair is performed."
+  ],
+  "versions": {
+    "torch": "2.11.0+cu128"
+  },
+  "cpu_threads": 2,
+  "float64_cases": [
+    {
+      "name": "full_complement",
+      "rectangles_token_coordinates": [],
+      "register_ids": [],
+      "accounting": {
+        "rectangle_union_count": 0,
+        "register_input_count": 0,
+        "unique_register_count": 0,
+        "outside_register_count": 0,
+        "retained_unique_count": 0,
+        "complement_count": 65536
+      },
+      "raw_statistics_error": {
+        "count_error": 0,
+        "sum_k": {
+          "max_abs": 2.7000623958883807e-13,
+          "l2": 1.2014109474337862e-12,
+          "relative_l2": 4.1943070123078553e-16,
+          "reference_l2": 2864.384852869241
+        },
+        "sum_v": {
+          "max_abs": 2.8421709430404007e-13,
+          "l2": 1.1259202099822816e-12,
+          "relative_l2": 4.197553370662791e-16,
+          "reference_l2": 2682.3249415992523
+        },
+        "sum_vk_u": {
+          "max_abs": 3.637978807091713e-12,
+          "l2": 2.2637316649450955e-11,
+          "relative_l2": 3.4840262294929713e-16,
+          "reference_l2": 64974.587326070025
+        }
+      },
+      "centered_covariance_vs_direct_moment_formula": {
+        "max_abs": 5.551115123125783e-17,
+        "l2": 3.4542342354021504e-16,
+        "relative_l2": 3.484109207152111e-16,
+        "reference_l2": 0.991425362991311
+      },
+      "query_seconds": 0.000304405577480793,
+      "direct_enumeration_seconds": 0.019149070605635643
+    },
+    {
+      "name": "empty_complement",
+      "rectangles_token_coordinates": [
+        [
+          0,
+          0,
+          256,
+          256
+        ]
+      ],
+      "register_ids": [],
+      "accounting": {
+        "rectangle_union_count": 65536,
+        "register_input_count": 0,
+        "unique_register_count": 0,
+        "outside_register_count": 0,
+        "retained_unique_count": 65536,
+        "complement_count": 0
+      },
+      "raw_statistics_error": {
+        "count_error": 0,
+        "sum_k": {
+          "max_abs": 0.0,
+          "l2": 0.0,
+          "relative_l2": null,
+          "reference_l2": 0.0
+        },
+        "sum_v": {
+          "max_abs": 0.0,
+          "l2": 0.0,
+          "relative_l2": null,
+          "reference_l2": 0.0
+        },
+        "sum_vk_u": {
+          "max_abs": 0.0,
+          "l2": 0.0,
+          "relative_l2": null,
+          "reference_l2": 0.0
+        }
+      },
+      "centered_covariance_vs_direct_moment_formula": null,
+      "query_seconds": 0.0003398926928639412,
+      "direct_enumeration_seconds": 0.0002417825162410736
+    },
+    {
+      "name": "overlapping_rectangles",
+      "rectangles_token_coordinates": [
+        [
+          0,
+          0,
+          128,
+          128
+        ],
+        [
+          64,
+          64,
+          192,
+          192
+        ]
+      ],
+      "register_ids": [
+        0,
+        0,
+        65535,
+        65535,
+        51400
+      ],
+      "accounting": {
+        "rectangle_union_count": 28672,
+        "register_input_count": 5,
+        "unique_register_count": 3,
+        "outside_register_count": 2,
+        "retained_unique_count": 28674,
+        "complement_count": 36862
+      },
+      "raw_statistics_error": {
+        "count_error": 0,
+        "sum_k": {
+          "max_abs": 2.5579538487363607e-13,
+          "l2": 9.680753642388504e-13,
+          "relative_l2": 4.690607382196292e-16,
+          "reference_l2": 2063.8592944557354
+        },
+        "sum_v": {
+          "max_abs": 2.8421709430404007e-13,
+          "l2": 9.333635393715309e-13,
+          "relative_l2": 4.824484166563108e-16,
+          "reference_l2": 1934.6390352783467
+        },
+        "sum_vk_u": {
+          "max_abs": 3.637978807091713e-12,
+          "l2": 1.406003536978321e-11,
+          "relative_l2": 3.814016109825521e-16,
+          "reference_l2": 36864.121610714465
+        }
+      },
+      "centered_covariance_vs_direct_moment_formula": {
+        "max_abs": 9.71445146547012e-17,
+        "l2": 3.8769856218079624e-16,
+        "relative_l2": 3.876896910163701e-16,
+        "reference_l2": 1.0000228821261739
+      },
+      "query_seconds": 0.0006154347211122513,
+      "direct_enumeration_seconds": 0.01098733488470316
+    },
+    {
+      "name": "duplicate_registers_only",
+      "rectangles_token_coordinates": [],
+      "register_ids": [
+        0,
+        1,
+        1,
+        512,
+        65535,
+        65535
+      ],
+      "accounting": {
+        "rectangle_union_count": 0,
+        "register_input_count": 6,
+        "unique_register_count": 4,
+        "outside_register_count": 4,
+        "retained_unique_count": 4,
+        "complement_count": 65532
+      },
+      "raw_statistics_error": {
+        "count_error": 0,
+        "sum_k": {
+          "max_abs": 2.8421709430404007e-13,
+          "l2": 1.1512338475162966e-12,
+          "relative_l2": 4.015719547545206e-16,
+          "reference_l2": 2866.8183469636006
+        },
+        "sum_v": {
+          "max_abs": 2.2737367544323206e-13,
+          "l2": 1.0880418559092482e-12,
+          "relative_l2": 4.062214271227989e-16,
+          "reference_l2": 2678.445259807376
+        },
+        "sum_vk_u": {
+          "max_abs": 4.547473508864641e-12,
+          "l2": 2.319330842653005e-11,
+          "relative_l2": 3.5698080269001454e-16,
+          "reference_l2": 64970.74422982358
+        }
+      },
+      "centered_covariance_vs_direct_moment_formula": {
+        "max_abs": 6.938893903907228e-17,
+        "l2": 3.538207762563588e-16,
+        "relative_l2": 3.568802987596363e-16,
+        "reference_l2": 0.9914270344597023
+      },
+      "query_seconds": 0.0004399530589580536,
+      "direct_enumeration_seconds": 0.017881370149552822
+    },
+    {
+      "name": "last_cell_boundary",
+      "rectangles_token_coordinates": [
+        [
+          240,
+          240,
+          256,
+          256
+        ]
+      ],
+      "register_ids": [
+        65535,
+        65535,
+        0,
+        0
+      ],
+      "accounting": {
+        "rectangle_union_count": 256,
+        "register_input_count": 4,
+        "unique_register_count": 2,
+        "outside_register_count": 1,
+        "retained_unique_count": 257,
+        "complement_count": 65279
+      },
+      "raw_statistics_error": {
+        "count_error": 0,
+        "sum_k": {
+          "max_abs": 2.8421709430404007e-13,
+          "l2": 1.2356933684403732e-12,
+          "relative_l2": 4.295241162212957e-16,
+          "reference_l2": 2876.8893800685455
+        },
+        "sum_v": {
+          "max_abs": 2.5579538487363607e-13,
+          "l2": 1.0126542794504851e-12,
+          "relative_l2": 3.777833373934549e-16,
+          "reference_l2": 2680.515997442796
+        },
+        "sum_vk_u": {
+          "max_abs": 3.637978807091713e-12,
+          "l2": 2.2017216920265412e-11,
+          "relative_l2": 3.402495088261747e-16,
+          "reference_l2": 64709.03366245116
+        }
+      },
+      "centered_covariance_vs_direct_moment_formula": {
+        "max_abs": 5.551115123125783e-17,
+        "l2": 3.363562819176299e-16,
+        "relative_l2": 3.393220210020923e-16,
+        "reference_l2": 0.9912598095587668
+      },
+      "query_seconds": 0.0005115661770105362,
+      "direct_enumeration_seconds": 0.017965047620236874
+    },
+    {
+      "name": "disjoint_edge_strips",
+      "rectangles_token_coordinates": [
+        [
+          0,
+          0,
+          16,
+          256
+        ],
+        [
+          240,
+          0,
+          256,
+          256
+        ]
+      ],
+      "register_ids": [],
+      "accounting": {
+        "rectangle_union_count": 8192,
+        "register_input_count": 0,
+        "unique_register_count": 0,
+        "outside_register_count": 0,
+        "retained_unique_count": 8192,
+        "complement_count": 57344
+      },
+      "raw_statistics_error": {
+        "count_error": 0,
+        "sum_k": {
+          "max_abs": 2.8421709430404007e-13,
+          "l2": 1.0596426399434114e-12,
+          "relative_l2": 3.961479667931518e-16,
+          "reference_l2": 2674.8657793735506
+        },
+        "sum_v": {
+          "max_abs": 2.8421709430404007e-13,
+          "l2": 9.67390626647484e-13,
+          "relative_l2": 3.66695706728512e-16,
+          "reference_l2": 2638.1291324026993
+        },
+        "sum_vk_u": {
+          "max_abs": 2.7284841053187847e-12,
+          "l2": 1.9276317679442223e-11,
+          "relative_l2": 3.381114765538718e-16,
+          "reference_l2": 57011.72251208958
+        }
+      },
+      "centered_covariance_vs_direct_moment_formula": {
+        "max_abs": 4.163336342344337e-17,
+        "l2": 3.3851655391493095e-16,
+        "relative_l2": 3.4049206143337867e-16,
+        "reference_l2": 0.9941980805363527
+      },
+      "query_seconds": 0.0004037618637084961,
+      "direct_enumeration_seconds": 0.0171341635286808
+    },
+    {
+      "name": "near_full_single_token_complement",
+      "rectangles_token_coordinates": [
+        [
+          0,
+          0,
+          240,
+          256
+        ],
+        [
+          240,
+          0,
+          256,
+          240
+        ]
+      ],
+      "register_ids": [
+        61680,
+        61681,
+        61682,
+        61683,
+        61684,
+        61685,
+        61686,
+        61687,
+        61688,
+        61689,
+        61690,
+        61691,
+        61692,
+        61693,
+        61694,
+        61695,
+        61936,
+        61937,
+        61938,
+        61939,
+        61940,
+        61941,
+        61942,
+        61943,
+        61944,
+        61945,
+        61946,
+        61947,
+        61948,
+        61949,
+        61950,
+        61951,
+        62192,
+        62193,
+        62194,
+        62195,
+        62196,
+        62197,
+        62198,
+        62199,
+        62200,
+        62201,
+        62202,
+        62203,
+        62204,
+        62205,
+        62206,
+        62207,
+        62448,
+        62449,
+        62450,
+        62451,
+        62452,
+        62453,
+        62454,
+        62455,
+        62456,
+        62457,
+        62458,
+        62459,
+        62460,
+        62461,
+        62462,
+        62463,
+        62704,
+        62705,
+        62706,
+        62707,
+        62708,
+        62709,
+        62710,
+        62711,
+        62712,
+        62713,
+        62714,
+        62715,
+        62716,
+        62717,
+        62718,
+        62719,
+        62960,
+        62961,
+        62962,
+        62963,
+        62964,
+        62965,
+        62966,
+        62967,
+        62968,
+        62969,
+        62970,
+        62971,
+        62972,
+        62973,
+        62974,
+        62975,
+        63216,
+        63217,
+        63218,
+        63219,
+        63220,
+        63221,
+        63222,
+        63223,
+        63224,
+        63225,
+        63226,
+        63227,
+        63228,
+        63229,
+        63230,
+        63231,
+        63472,
+        63473,
+        63474,
+        63475,
+        63476,
+        63477,
+        63478,
+        63479,
+        63480,
+        63481,
+        63482,
+        63483,
+        63484,
+        63485,
+        63486,
+        63487,
+        63728,
+        63729,
+        63730,
+        63731,
+        63732,
+        63733,
+        63734,
+        63735,
+        63736,
+        63737,
+        63738,
+        63739,
+        63740,
+        63741,
+        63742,
+        63743,
+        63984,
+        63985,
+        63986,
+        63987,
+        63988,
+        63989,
+        63990,
+        63991,
+        63992,
+        63993,
+        63994,
+        63995,
+        63996,
+        63997,
+        63998,
+        63999,
+        64240,
+        64241,
+        64242,
+        64243,
+        64244,
+        64245,
+        64246,
+        64247,
+        64248,
+        64249,
+        64250,
+        64251,
+        64252,
+        64253,
+        64254,
+        64255,
+        64496,
+        64497,
+        64498,
+        64499,
+        64500,
+        64501,
+        64502,
+        64503,
+        64504,
+        64505,
+        64506,
+        64507,
+        64508,
+        64509,
+        64510,
+        64511,
+        64752,
+        64753,
+        64754,
+        64755,
+        64756,
+        64757,
+        64758,
+        64759,
+        64760,
+        64761,
+        64762,
+        64763,
+        64764,
+        64765,
+        64766,
+        64767,
+        65008,
+        65009,
+        65010,
+        65011,
+        65012,
+        65013,
+        65014,
+        65015,
+        65016,
+        65017,
+        65018,
+        65019,
+        65020,
+        65021,
+        65022,
+        65023,
+        65264,
+        65265,
+        65266,
+        65267,
+        65268,
+        65269,
+        65270,
+        65271,
+        65272,
+        65273,
+        65274,
+        65275,
+        65276,
+        65277,
+        65278,
+        65279,
+        65520,
+        65521,
+        65522,
+        65523,
+        65524,
+        65525,
+        65526,
+        65527,
+        65528,
+        65529,
+        65530,
+        65531,
+        65532,
+        65533,
+        65534
+      ],
+      "accounting": {
+        "rectangle_union_count": 65280,
+        "register_input_count": 255,
+        "unique_register_count": 255,
+        "outside_register_count": 255,
+        "retained_unique_count": 65535,
+        "complement_count": 1
+      },
+      "raw_statistics_error": {
+        "count_error": 0,
+        "sum_k": {
+          "max_abs": 1.1657341758564144e-13,
+          "l2": 2.6333665677611323e-13,
+          "relative_l2": 2.3727023315631604e-14,
+          "reference_l2": 11.09859645152472
+        },
+        "sum_v": {
+          "max_abs": 1.2012613126444194e-13,
+          "l2": 2.382104502419434e-13,
+          "relative_l2": 2.3793258103309122e-14,
+          "reference_l2": 10.011678485041674
+        },
+        "sum_vk_u": {
+          "max_abs": 1.1514955655655967e-12,
+          "l2": 5.737235417351984e-12,
+          "relative_l2": 2.357156342943607e-13,
+          "reference_l2": 24.339647365890666
+        }
+      },
+      "centered_covariance_vs_direct_moment_formula": {
+        "max_abs": 1.1495526752725027e-12,
+        "l2": 5.780389480471918e-12,
+        "relative_l2": 418.39660272810823,
+        "reference_l2": 1.3815574607397705e-14
+      },
+      "query_seconds": 0.0010681552812457085,
+      "direct_enumeration_seconds": 0.000672169029712677
+    }
+  ],
+  "float64_storage": {
+    "resident_tensor_bytes_by_component": {
+      "keys": 67108864,
+      "values": 67108864,
+      "projection": 8192,
+      "sketch": 4194304,
+      "cell_count": 2048,
+      "cell_sum_k": 262144,
+      "cell_sum_v": 262144,
+      "cell_sum_vk_u": 2097152,
+      "prefix_count": 2312,
+      "prefix_sum_k": 295936,
+      "prefix_sum_v": 295936,
+      "prefix_sum_vk_u": 2367488
+    },
+    "resident_tensor_bytes_total": 144005384,
+    "raw_cross_moment_cache_bytes_included_above": 4464640,
+    "centered_covariance_cache_bytes": 0,
+    "single_query_centered_covariance_bytes": 8192,
+    "build_temporary_tensor_allowance_bytes": 4472832,
+    "build_peak_tensor_bytes_estimate": 148478216,
+    "estimate_limit": "Tensor accounting plus explicit packed-cell/prefix temporaries; allocator/BLAS internal workspaces excluded. Direct enumeration validation has additional gathers."
+  },
+  "timing": {
+    "synthetic_inputs_and_projection_setup_seconds": 0.24387329444289207,
+    "one_head_float64_build_seconds": 0.06439667008817196,
+    "seven_declared_query_seconds_total": 0.00368316937237978,
+    "query_scope": "Raw moment retrieval includes rectangle inclusion-exclusion, register dedup/gathers and global subtraction; covariance recentering and direct validation are outside this timer.",
+    "scope": "Single CPU pass, includes K U, base moments and cell-prefix build; setup and direct enumeration timed separately. Not a GPU or throughput benchmark."
+  },
+  "linear_24_head_arithmetic_only": {
+    "resident_bytes_same_float64_dtype": 3456129216,
+    "serial_build_seconds_24_times_measured_one_head": 1.545520082116127,
+    "query_seconds_24_times_measured_seven_queries": 0.08839606493711472,
+    "interpretation": "Scalar multiplication only; no24-head arrays, parallelism, GPU latency or model cost measured."
+  },
+  "float32_near_full_cancellation": {
+    "name": "near_full_single_token_complement",
+    "accounting": {
+      "rectangle_union_count": 65280,
+      "register_input_count": 255,
+      "unique_register_count": 255,
+      "outside_register_count": 255,
+      "retained_unique_count": 65535,
+      "complement_count": 1
+    },
+    "raw_statistics_error_against_direct_same_precision": {
+      "count_error": 0,
+      "sum_k": {
+        "max_abs": 6.268918514251709e-05,
+        "l2": 0.00018849613786074126,
+        "relative_l2": 1.6983781554039585e-05,
+        "reference_l2": 11.098596461628862
+      },
+      "sum_v": {
+        "max_abs": 6.920099258422852e-05,
+        "l2": 0.00016334050499059488,
+        "relative_l2": 1.6314996988438248e-05,
+        "reference_l2": 10.01167852536825
+      },
+      "sum_vk_u": {
+        "max_abs": 0.0008385363034904003,
+        "l2": 0.003813829783891211,
+        "relative_l2": 0.0001566920747251327,
+        "reference_l2": 24.339646983303936
+      }
+    },
+    "centered_covariance_error_against_centered_rows": {
+      "max_abs": 0.0008373809978365898,
+      "l2": 0.003857793181123016,
+      "relative_l2": null,
+      "reference_l2": 0.0
+    },
+    "covariance_min": -0.0008001327514648438,
+    "covariance_max": 0.0008373809978365898,
+    "direct_centered_covariance_l2": 0.0,
+    "storage": {
+      "resident_tensor_bytes_by_component": {
+        "keys": 33554432,
+        "values": 33554432,
+        "projection": 4096,
+        "sketch": 2097152,
+        "cell_count": 2048,
+        "cell_sum_k": 131072,
+        "cell_sum_v": 131072,
+        "cell_sum_vk_u": 1048576,
+        "prefix_count": 2312,
+        "prefix_sum_k": 147968,
+        "prefix_sum_v": 147968,
+        "prefix_sum_vk_u": 1183744
+      },
+      "resident_tensor_bytes_total": 72004872,
+      "raw_cross_moment_cache_bytes_included_above": 2232320,
+      "centered_covariance_cache_bytes": 0,
+      "single_query_centered_covariance_bytes": 4096,
+      "build_temporary_tensor_allowance_bytes": 2236416,
+      "build_peak_tensor_bytes_estimate": 74241288,
+      "estimate_limit": "Tensor accounting plus explicit packed-cell/prefix temporaries; allocator/BLAS internal workspaces excluded. Direct enumeration validation has additional gathers."
+    },
+    "build_seconds_including_float32_conversion": 0.04661257565021515,
+    "interpretation": "Predetermined one-token complement. Reports FP32 aggregation/subtraction/recentering error, including projection arithmetic; no clipping or PSD repair."
+  },
+  "process_peak_rss_bytes": {
+    "before_build": 2500788224,
+    "after_float64_build": 2500788224,
+    "final": 2500788224,
+    "scope": "Linux process high-water RSS includes imports, allocator and direct-enumeration validation; final includes both FP64 and FP32 indexes."
+  },
+  "source_sha256": {
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/spatial_complement_cpu.py": "259c23a90d13fdea1ab90ef0613b0d58c5d3f347e6d0b61829d154c7f8be2711"
+  },
+  "novelty_established": false,
+  "efficacy_evaluated": false,
+  "gpu_used": false
+}
