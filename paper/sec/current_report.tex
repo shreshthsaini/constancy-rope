@@ -155,6 +155,22 @@ competitiveness against this expanded set, and a development pass alone does not
 justify promoting a control to a new method. No near-SOTA or SOTA claim follows
 from the present evidence.
 
+\paragraph{Local response diagnostic under development.}
+The earlier octave interventions compare complete sampling trajectories, so they
+do not identify a local map from attention gain to spectral power. A new diagnostic
+replays a selected transformer state with identical latent, conditioning, and
+noise level. It perturbs height and width gains separately while preserving the
+affected axis's query/key RMS, alongside a spatial scalar control. Symmetric
+finite differences estimate the response of the clean-estimate spectrum; smaller
+perturbations check prediction accuracy. Only the baseline output advances the
+sampler. CPU tests, including a small randomly initialized FLUX transformer, check
+exact trajectory and state restoration. Pretrained GPU validation and response
+measurements remain unrun. This is an instrument for testing the controller
+hypothesis, not a new validated generation method. SCG acts directly on latent
+Fourier magnitudes, whereas this diagnostic measures the response to internal
+attention gains~\citep{scg2026,sega2026}; this difference alone does not establish
+novelty or improved quality.
+
 The second-campaign candidate has one held-out seed and one evaluated backbone
 at one resolution. No second-seed replication of this candidate, new backbone,
 human preference study, or broader resolution claim is supported. Aggregate

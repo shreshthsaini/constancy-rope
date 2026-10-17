@@ -7,7 +7,9 @@ Unattended CR14 watcher active: tmux crope-watch-cr14, PID1105783, i618-051 / ho
 See notes/watcher_cr14.json and scratch watcher_cr14/state.json for lease, heartbeat, stop, and delivery receipts.
 Direct idle-thread wake via local app-server; scheduler120s / files60s; nine tests passed; no model calls while waiting.
 Direct WAKE_TEST succeeded end to end; notes/watcher_ack.json records actual operator receipt.
-Implementing the same-state response diagnostic from notes/response_probe_plan.json.
+Same-state response module, runner/analyzer, and packed GPU scripts implemented; NOT GPU validated or submitted.
+Full suite280passed/39.97s;20frozen CR14 repository hashes unchanged; paper7pages rebuilt/inspected.
+Read notes/response_probe_protocol.json before preparing the two-task spool, checking budget, and registering its job.
 Register each next campaign before waiting; watcher persists after CR14; migrate controller before expiry.
 2026-10-17 CDT takeover: first two campaigns COMPLETE; no demonstrated improvement over released SEGA.
 Last research commit a1ede1a (October 16, 18:11:57 CDT); earlier uncommitted-state notes are stale.
@@ -22,7 +24,7 @@ Paper now compiles an empirical working report. Prior proposal sections retained
 All ten paired means/CIs independently recomputed exactly from archived per-prompt CSVs today.
 PDF: paper/constancy_rope_working_2026-10-17.pdf. Build directory on project scratch.
 New work is isolated in taskq_dev3; old campaign outputs and STOP remain unchanged.
-NEXT: monitor CR14 diagnostics; investigate signed SEGA response and a distinct mechanism after the recent-prior-art audit. No automatic confirmation for a diagnostic pass.
+NEXT: monitor CR14; review its controls, then run prepared same-state response smoke/probe when guard permits. No automatic confirmation.
 
 Third diagnostic submitted: spatial RMS uniform/normalized controls and lag-aligned ctm, eta1.
 Fresh SEGA baseline prespecified; 32 dev images total. Full CPU suite 256 passed in 45.93 seconds, two threads.

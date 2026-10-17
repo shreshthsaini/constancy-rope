@@ -1,5 +1,5 @@
 {
-  "status": "Implementation next; no GPU evidence and no novelty claim",
+  "status": "Implemented; CPU mock and real small-FLUX integration tests passed. GPU preflight prepared but not submitted.",
   "reason": "scripts/probe_mtf.py perturbs separate whole trajectories and does not admit sega_official; it cannot estimate a same-state local SEGA response.",
   "scope": "New diagnostic files only; leave CR14 frozen sources and four task workflows unchanged.",
   "required_invariants": [
@@ -18,5 +18,18 @@
     "Complete primary-source algorithm/code comparison against SEGA and SCG before proposing a method.",
     "Freeze a bounded GPU probe protocol and use packed compute with cost checks, after verifying current allocation and campaign progress."
   ],
-  "continuation": "On watcher wake, verify live job state first, acknowledge the direct wake test, then continue this implementation while CR14 queues or runs."
+  "continuation": "On watcher wake, verify live job state first, acknowledge the direct wake test, then continue this implementation while CR14 queues or runs.",
+  "artifacts": [
+    "crope/response.py",
+    "scripts/response_probe.py",
+    "scripts/response_analysis.py",
+    "slurm/response_task.sh",
+    "slurm/response_fleet.sh",
+    "slurm/fleet_response_gh.sbatch"
+  ],
+  "remaining": [
+    "Review and run packed pretrained smoke/response protocol when compute guard permits; register job with watcher.",
+    "Analyze finite-amplitude prediction accuracy before designing a controller.",
+    "Extend prior-art search and compare official implementations before claiming novelty."
+  ]
 }

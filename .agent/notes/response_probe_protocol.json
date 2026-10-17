@@ -1,0 +1,114 @@
+{
+  "created_utc": "2026-10-17T08:35:36.365925+00:00",
+  "status": "Prepared, not submitted and not GPU validated",
+  "purpose": "Test whether same-state spectral response to axis-separated SEGA gain interventions is measurable and predicts smaller interventions. No efficacy claim.",
+  "source_sha256": {
+    "crope/response.py": "4971e978698641f13db636d90519e3c06438da3f17a2598f82ae93f2931c3aa2",
+    "scripts/response_probe.py": "698c22b03bfe0953a6439592ef65e88d3ce85fc743477f085b1c3bb7762090eb",
+    "scripts/response_analysis.py": "2c4b1450b81b0ae985ba4655ec7fe6ee450ea8f93a07adb3a7c4830ea338fe5f",
+    "slurm/response_task.sh": "fcb669165ef5c872029d7653198e2f848fafd720e7308f115c703d5a18414756",
+    "slurm/response_fleet.sh": "a3bff74fe41b834dece3ca2df8e856f6f343f7324b40a6ad44a551d7289255af",
+    "slurm/fleet_response_gh.sbatch": "bfb1bedb0d9cadf0e828c663526dfdb2fb26c8365529ce2a410773814874f964"
+  },
+  "development_prompt_indices": [
+    0,
+    1
+  ],
+  "seed": 0,
+  "backbone": "FLUX.1-Krea-dev transformer 8162a9c7b05a641be098422bf2fcf335615c2f28 with FLUX.1-dev text encoders/VAE",
+  "guidance": 4.5,
+  "scheduler_shift": 1.15,
+  "smoke": {
+    "resolution": 1024,
+    "steps": 4,
+    "probe_steps": [
+      1
+    ],
+    "baseline_and_probed_runs": true
+  },
+  "diagnostic": {
+    "resolution": 4096,
+    "steps": 28,
+    "probe_steps": [
+      6,
+      14,
+      22
+    ],
+    "baseline_and_probed_runs": true
+  },
+  "controls": "One middle occupied RoPE octave per spatial axis, sorted by exponent, with exact affected-axis query/key RMS preservation; plus a shared spatial scalar control. Index axis unchanged. Do not reapply SEGA's minimum-one clipping after the perturbation; this is a local intervention with positive gains, not a selected sampling method.",
+  "epsilon": 0.1,
+  "fit_interventions": [
+    -0.1,
+    0.1
+  ],
+  "prediction_interventions": [
+    -0.05,
+    0.05
+  ],
+  "acceptance_for_interpretation": [
+    "Unperturbed same-state velocity replay must be bitwise identical.",
+    "Final baseline and instrumented trajectory endpoints and gain histories must be bitwise/exactly equal.",
+    "All prespecified steps and forward calls must be accounted for."
+  ],
+  "analysis": "Report signed Jacobian, cross-axis response fraction, and held-aside half-step residual relative to the zero-change predictor. Inspect response size and numerical precision. No automatic candidate selection or confirmation. Three controls do not identify the whole reachable subspace.",
+  "call_budget_per_prompt": {
+    "smoke_total": 21,
+    "4k_total": 95,
+    "total": 116
+  },
+  "planned_allocation": {
+    "partition": "gh",
+    "nodes": 2,
+    "minutes": 45,
+    "reservation_node_hours": 1.5,
+    "central_runtime_minutes": 20,
+    "range_minutes": [
+      15,
+      35
+    ],
+    "basis": "Prior generation approximately215 seconds/28-step4K image; approximate constant forward cost plus model loads and smoke. Not a benchmark or exact SU conversion."
+  },
+  "submission_conditions": [
+    "Inspect CR14 results/progress first; preserve its source hashes and queue.",
+    "Run login guard and check taccinfo before submission; respect96percent burn stop.",
+    "Prepare two distinct task files under taskq_response and register actual job ID and task paths with the watcher before waiting.",
+    "Do not leave a second unmonitored job or consume fresh64."
+  ],
+  "prior_art": [
+    {
+      "source": "https://arxiv.org/html/2605.22668v1",
+      "checked": "Sections4.1-4.2; released allocation at ddaab08552c7b7ceba2ebd8f579a0f65dee90b5e in flux_sega/transformer_flux.py lines103-154 and feature projection near691-746.",
+      "finding": "SEGA maps projected-feature spectral profiles to per-pair gains using a fixed centered nonlinear allocation and clipping. The inspected allocation does not estimate a same-state model response. This is a narrow implementation distinction, not proof of novelty."
+    },
+    {
+      "source": "https://arxiv.org/html/2610.02753v1",
+      "checked": "Section4 and Algorithm1, AppendixE; no official implementation link established in this inspection.",
+      "finding": "SCG modifies latent Fourier magnitudes after the sampling update toward a time-dependent reference, retaining phase. It does not use the attention-gain actuator in its presented algorithm. Its common spectral-control objective remains a direct related-work boundary; absence of a published Jacobian in this algorithm is not an exhaustive novelty search."
+    }
+  ],
+  "validation": {
+    "cpu_suite_passed": 280,
+    "cpu_seconds": 39.97,
+    "targeted_probe_analysis_watcher_passed": 24,
+    "frozen_cr14_repository_hashes_verified": 20,
+    "paper_pages": 7,
+    "paper_build": "clean Tectonic build, no unresolved references or overflow warnings; new paragraph visually inspected",
+    "gpu_validation": "not yet executed"
+  },
+  "additional_primary_source_leads": [
+    {
+      "url": "https://arxiv.org/abs/2609.36210",
+      "title": "On the spectral properties of generative denoiser Jacobians",
+      "submitted": "2026-09-28",
+      "review_level": "Primary abstract checked; full method/code comparison remains open.",
+      "relevance": "Denoiser input-Jacobian diagnostics and training-time response regularization already exist. Merely using a Jacobian or response diagnostic cannot be claimed new."
+    },
+    {
+      "url": "https://arxiv.org/abs/2511.18471",
+      "title": "Jacobian-Aware Posterior Sampling for Inverse Problems",
+      "review_level": "Primary abstract checked, v3 June21,2026; full comparison remains open.",
+      "relevance": "Jacobian-aware corrections are established in inverse-problem posterior sampling. Different task and actuator do not alone establish novelty."
+    }
+  ]
+}
