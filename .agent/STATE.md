@@ -3,6 +3,10 @@ Develop a genuinely novel training-free DiT resolution-extrapolation method comp
 User clarified full ownership: continue experiments, evaluation, and paper autonomously.
 
 ## Status and next action
+Unattended CR14 watcher active: tmux crope-watch-cr14, PID1095337, i618-051 / host job1073260.
+See notes/watcher_cr14.json and scratch watcher_cr14/state.json for lease, heartbeat, stop, and delivery receipts.
+No model calls while waiting; scheduler120s / files60s; seven event tests passed.
+CLI delivery test queued; acknowledge receipt on next turn. Migrate controller before its allocation expires.
 2026-10-17 CDT takeover: first two campaigns COMPLETE; no demonstrated improvement over released SEGA.
 Last research commit a1ede1a (October 16, 18:11:57 CDT); earlier uncommitted-state notes are stale.
 Live sacct: CR13 / 1076092 completed October 16 at 18:06:13 CDT.

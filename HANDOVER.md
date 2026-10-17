@@ -5,6 +5,7 @@ Design spec: `.agent/notes/design.md`. Codex briefs: `.agent/notes/codex_brief_{
 started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact https://claude.ai/artifact/Phv2pGDvZDZwpmNM3Qh8GL).
 
 ## Current takeover checkpoint (2026-10-17)
+- User requested unattended event-driven continuation. Watcher `scripts/watch_cr14.py` is running in compute-node tmux session `crope-watch-cr14`, PID1095337 on i618-051, controller job1073260. No model calls while waiting and no SSH. Scheduler checks every120s, file checks every60s; queues this Codex conversation on allocation, completed/failed workflows, inactivity, final report, or controller expiry within one hour. Runtime/stop instructions and lease are in `.agent/notes/watcher_cr14.json`; check live heartbeat before trusting it. Seven tests passed. CLI accepted the delivery test; next turn must record model receipt. Watcher lifetime depends on the compute allocation and app server.
 - Current success target: a genuinely novel mechanism, distinct from recent methods, with close-to-or-better-than-SOTA performance in matched training-free DiT resolution extrapolation. Neither requirement is currently met. See `.agent/notes/novelty_20261017.md`.
 - User first requested a state review, then explicitly assigned full project ownership and
   authorized continuing experiments, evaluation, and paper work autonomously.

@@ -1,0 +1,26 @@
+{
+  "created_utc": "2026-10-17T08:20:53.926610+00:00",
+  "script": "scripts/watch_cr14.py",
+  "thread": "01a14899-2e69-7d71-93f8-b42aad182afd",
+  "tmux_session": "crope-watch-cr14",
+  "pid_at_launch": 1095337,
+  "host": "i618-051.vista.tacc.utexas.edu",
+  "host_job": "1073260",
+  "gpu_job": "1076857",
+  "runtime": "/scratch/09032/saini_2/constancy_rope/watcher_cr14",
+  "scheduler_interval_seconds": 120,
+  "filesystem_interval_seconds": 60,
+  "controller_end_utc": "2026-10-17T17:45:04+00:00",
+  "stop": "Touch /scratch/09032/saini_2/constancy_rope/watcher_cr14/STOP; watcher exits within 60 seconds. Do not delete scratch files.",
+  "checks": "7 targeted tests passed; live dry run passed; live PID and initial heartbeat verified.",
+  "delivery_test": {
+    "message_id": "01a148f0-f17e-7743-82be-b079f9e980ae",
+    "status": "CLI accepted queued message; model receipt is to be acknowledged in watcher_ack.json on the following turn."
+  },
+  "limits": [
+    "Requires existing compute allocation and Codex app server to remain available.",
+    "Wakes once per event; delivery failures retained and retried.",
+    "Stops after final report delivery; next campaign requires explicit rearming with correct job and queue.",
+    "No GPU result or SOTA claim from watcher activity."
+  ]
+}
