@@ -1,0 +1,95 @@
+{
+  "date": "2026-10-17",
+  "decision": "Stop promotion of the current observer/gain branch into a new method. Complete and archive CR18 as a causal diagnostic. Do not launch a covariance-controller sweep, corrected-observer quality campaign, or fresh64 confirmation on the present rationale.",
+  "recommended_new_gpu_calls": 0,
+  "scope": "One candidate mechanism assessed below. No implementation, model load, job, protocol change, or new experimental result. This file is the only write made for this assignment.",
+  "why": "Actual rotary contribution statistics define a useful distortion metric, but neither that metric nor CR14 identifies the desired attention operator. The available proposal is a covariance-weighted approximation to a chosen positional schedule. Its algebra is elementary, its ingredients have close prior art, and no measured natural failure presently requires the combination. A successful CR18 mediation result would not supply the missing target or efficacy link.",
+  "candidate_assessed": {
+    "working_description": "Covariance-weighted compensation of displacement-dependent rotary distortion, with the content vectors held fixed while evaluating candidate positional phases.",
+    "precise_hypothesis": "At a fixed layer, head and denoising state, spatial extrapolation changes the phase mixing of correlated rotary-pair contributions. This can produce displacement-specific logit errors that a scalar temperature cannot remove. A small nonuniform positive pair-gain vector could reduce those errors on the occupied content subspace while preserving trained local interactions and text conditioning.",
+    "proposed_actuation_if_the_hypothesis_were_established": "Retain the deployed rotary frequencies and choose pair logit gains g=m^2 from a small covariance-weighted constrained fit to an independently justified target operator. Apply the resulting pair amplitudes before fused SDPA. Do not whiten q/k, infer gains from the channel-mean feature spectrum, or call a generic frequency schedule the new mechanism.",
+    "status": "Mathematically coherent approximate-control hypothesis, not an identified beneficial intervention and not established novelty. The target operator and natural causal defect are missing."
+  },
+  "exact_algebra": {
+    "implementation_scope": "crope/gain.py FluxGainAttnProcessor normalizes projected q/k, concatenates text and image tokens, applies RoPE, then applies the same pair-equal amplitudes to q and k. The current controller shares one gain vector across all heads and blocks. Standard text-conditioned FLUX path only; optional adapters are outside this assessment.",
+    "variables": "For each normalized, pre-RoPE q_i and k_j pair d, define A_d=q1*k1+q2*k2 and B_d=q2*k1-q1*k2. Let phi_d be the key-minus-query rotary angle. Let v=(A1,B1,...,AP,BP). Include fixed index-axis contributions when assessing complete logits.",
+    "logit": "ell_phi,g(i,j)=sum_d g_d*[A_d*cos(phi_d)+B_d*sin(phi_d)]/sqrt(D). Equivalently ell=v^T T_phi g/sqrt(D), where column d of T_phi has cos(phi_d),sin(phi_d) in pair d and zero elsewhere.",
+    "content_amplitude_phase_separation": "A_d^2+B_d^2=||q_d||^2*||k_d||^2. With rho_d=sqrt(A_d^2+B_d^2) and alpha_d=atan2(B_d,A_d), the contribution is g_d*rho_d*cos(phi_d-alpha_d). A gain changes amplitude, not that pair's content angle alpha or positional angle phi. Reweighting pairs can change the aggregate lag profile, so it is incorrect to say amplitudes can never affect positional behavior.",
+    "correct_moment": "For a declared ensemble of actual token pairs, M=E[v*v^T]=Cov(v)+E[v]E[v]^T. A squared-logit distortion needs M, not covariance alone unless the appropriate means have been removed. With b=T_phi*g-T_psi*g0, E[(ell_phi,g-ell_psi,g0)^2]=b^T*M*b/D. This identity requires the SAME q/k content samples in both counterfactual phase evaluations.",
+    "contribution_covariance": "At fixed deployed phases, c_d=A_d*cos(phi_d)+B_d*sin(phi_d), so Var(ell)=g^T*Cov(c)*g/D. Off-diagonal terms matter. Covariances of q alone and k alone do not determine the joint-product moments without additional assumptions. Conditional moments must state their displacement, layer, head, step, and token-type ensemble.",
+    "not_a_stationary_kernel": "Actual q/k depend on content and previous layers. A displacement-averaged logit curve mixes position and changing token-pair populations. It is not a content-independent stationary positional kernel, nor does lower variance certify better attention. Holding q/k fixed isolates the direct phase contribution at one layer only; it does not identify the total network effect of changing RoPE.",
+    "scalar_control": "For small gain perturbation delta_g, preserving baseline pooled logit variance to first order requires (Cov(c)*g0)^T*delta_g=0. This removes one scalar variance direction only. Gain-vector RMS uses an unweighted sum, query/key energy uses activation weights, and these constraints differ. None preserves attention entropy or text probability mass automatically.",
+    "softmax_relevance": "A per-query constant shift over all keys is invisible to softmax. A useful target must compare logit contrasts within a query, with text keys retained, or use the local softmax metric diag(p)-p*p^T. Replacing raw logit MSE by that standard metric is elementary and is not the novelty. Image-only covariance can miss changed image/text competition.",
+    "amplitude_only_obstruction": "If M is positive definite on all pair quadratures, zero expected error at one displacement requires T_phi*g=T_psi*g0. For positive nonzero g and g0, each pair then requires g_d=g0_d and phi_d=psi_d modulo 2*pi. Thus general phase distortion cannot be exactly repaired by positive pair amplitudes. At zero displacement, preserving logits for every content vector already forces g=g0. Approximate repair remains possible on a restricted or nearly singular occupied content subspace; that is an empirical requirement, not a free theorem.",
+    "objective_if_target_existed": "Minimize a declared weighted sum over sampled displacements of (T_phi*g-T_psi*g0)^T*M_delta*(T_phi*g-T_psi*g0), plus a fixed trust penalty, subject to positive bounded gains and independently specified local/text preservation constraints. This is an ordinary constrained quadratic fit when phases and sample weights are fixed. A fixed reference temperature should be retained or a matched scalar control used.",
+    "shared_gain_limitation": "A fit for one head or layer does not justify the existing globally shared gain vector. Pooling conflicting head-specific targets can hide damage. Moving to head/layer-dependent allocation would be a new implementation and budget choice, not a conclusion from the current response data."
+  },
+  "decisive_missing_identification": {
+    "native_target": "Using base-RoPE phases at displacement delta/s on the same content is a position-interpolation target. A covariance-weighted amplitude approximation to it combines known interpolation with known weighted least squares; it does not explain why that target beats deployed SEGA or scheduled DyPE.",
+    "native_versus_high_resolution_features": "Matching separate native and high-resolution logit distributions changes both content and position. There is no established token correspondence or semantic-detail-preserving target in the current artifacts. Global moment matching may erase useful fine detail or force scene-specific structure toward an inappropriate average.",
+    "alias_target": "Suppressing a large long-displacement coherence peak requires evidence that it is a harmful positional alias rather than a useful repeated texture, semantic match, or intentional global relation. Contribution covariance alone cannot label it. No currently inspected image artifact is causally attributed to such a peak.",
+    "phase_extension": "Allowing phase changes resolves the algebraic amplitude restriction but enters occupied phase-schedule/remapping territory. A new estimator and causal target would still be needed; more flexible actuation alone is not a distinctive contribution.",
+    "conclusion": "The missing object is a justified correction target, not a more accurate estimator or optimizer. Collecting more covariance before naming that target risks another instrumentation campaign without a useful next decision."
+  },
+  "novelty_boundaries": [
+    {
+      "work": "DyPE and HRDiT",
+      "boundary": "Time-dependent frequency restoration, position interpolation/remapping, and head-dependent spatial scope are occupied. The potential difference would have to be causal content-conditioned interaction correction, not another phase schedule or head-locality calibration.",
+      "sources": ["https://arxiv.org/html/2510.20766v2", "https://arxiv.org/html/2608.07003v1"]
+    },
+    {
+      "work": "AReA",
+      "boundary": "AReA already rejects channel-mean cancellation and uses a channel-standard-deviation detail sensor with adaptive receptive fields. A corrected invariant observer and generic content-dependent locality do not establish novelty. Actual cross-pair q/k product moments are a different measurement, but that distinction alone is insufficient.",
+      "source": "https://arxiv.org/html/2610.17227v1"
+    },
+    {
+      "work": "Attention Frequency Modulation",
+      "boundary": "Adaptive Fourier-band editing of attention logits with temporal/entropy controls is occupied. Rotary-pair frequency is not the same object as Fourier frequency over the attention map, but renaming the bands does not establish a new mechanism.",
+      "source": "https://arxiv.org/html/2603.28114v1"
+    },
+    {
+      "work": "Expected Attention; RoPE-aligned Q/K rotations; WorldRoPE",
+      "boundary": "Covariance-aware attention estimation, deployed-phase-aware covariance calibration, and uncertainty-driven rotary amplitude/phase attenuation have precedents. Their applications differ from frozen high-resolution DiT correction. Weighted covariance fitting, within-pair commuting rotations, or uncertainty attenuation must not be presented as new by themselves.",
+      "sources": ["https://arxiv.org/html/2510.00636v1", "https://arxiv.org/html/2608.13365v1", "https://arxiv.org/html/2610.16337v1"]
+    },
+    {
+      "work": "DoPE: Denoising Rotary Position Embedding",
+      "boundary": "Additional close collision found in this review. The inspected v1 studies rotary-band Gram spectra, identifies problematic heads with truncated matrix entropy, and modifies positional encoding for extrapolation. Generic covariance-aware bad-band/head suppression is therefore not an open novelty claim. This is LLM work; it does not establish DiT efficacy or the exact conditional cross-pair target proposed here.",
+      "source": "https://arxiv.org/html/2511.09146v1",
+      "verification": "Primary paper inspected, especially Sections 4.1-4.3. No author code or reported efficacy reproduced. Its claims are prior-art boundaries, not accepted causal facts about FLUX."
+    },
+    {
+      "work": "What Rotary Position Embedding Can Tell Us, NeurIPS 2024",
+      "boundary": "Content directions and rotary angles jointly determining attention, and learned weight-pair geometry creating position preferences, are established. Separating content angle from positional phase is useful analysis, not a new theorem.",
+      "source": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/61f425da6e0a201b8fe1454601abfba5-Abstract-Conference.html"
+    }
+  ],
+  "what_could_be_distinct_if_later_established": "A natural, reproducible extrapolation failure caused specifically by cross-pair phase interference, together with an independently justified target and a cheap controller that removes that failure while preserving useful local and text interactions. It would need to outperform a matched scalar, RMS-normalized SEGA, a fixed phase schedule, and a diagonal-moment control under the same budget. This is a conditional contribution specification. Neither the exact target nor the required causal evidence is currently available, and absence from the bounded search is not a novelty certification.",
+  "existing_evidence": {
+    "CR14": {
+      "n": 8,
+      "normalized_deltas": {"imagereward": 0.036285, "musiq": 0.38886141777038574, "clip": -0.06549072265625, "pickscore": -0.06656670570373535, "crop_musiq": -0.2149626612663269},
+      "uniform_deltas": {"imagereward": -0.017389624999999964, "musiq": -1.566718339920044},
+      "lag_deltas": {"imagereward": 0.019254750000000015, "musiq": -0.2233114242553711},
+      "inference": "RMS-normalized passes the frozen development gate with mixed quality outcomes; uniform and lag fail. These controls show sensitivity to allocation and amplitude, not actual-q/k covariance distortion or a causal harmful phase kernel. The normalized result is standard control evidence, not a distinct method."
+    },
+    "earlier_heldout": "The previous eta1 candidate passed a development gate yet failed to establish held-out improvement and regressed PickScore and crop quality on 187 inspected prompts. A second modest development gate pass is insufficient reason to spend fresh64 on another normalization variant.",
+    "CR17": "Same-state intervention machinery is validated. The two directly selected octave-11 frequencies were below the grid DFT floor; weak response prediction does not refute resolved-frequency actuation. Unequal actuator norms prevent interpreting scalar response magnitude as superior control efficiency. Sub-grid here means less than one cycle over the finite window, not a Nyquist sampling alias. No q/k cross-pair moment or natural harmful displacement peak was identified.",
+    "observer_CPU_and_CR18": "CPU evidence establishes a fixed-gain common-channel null direction and gain-mediated adaptive differences in tiny FLUX. CR18 is pending according to the parent task; no result is assumed here. Even a positive pretrained mediation result would show representation-dependent feedback at artificial renoised states, not natural image degradation, useful kernel targets, or near-SOTA efficacy.",
+    "artifact_limit": "Existing response artifacts contain gains, state/velocity summaries and spectral responses, not the normalized pre-RoPE q/k samples required to evaluate the proposed moment objective. Scalar feature spectra cannot reconstruct those moments."
+  },
+  "one_conditional_falsifier_not_a_current_experiment_request": {
+    "reentry_requirement": "Before any new collection, specify one naturally observed positional failure and a target grounded independently of the controller's own statistic. An arbitrary native-average spectrum or chosen PI schedule is insufficient. If no such target can be written down, stop this branch rather than run the following diagnostic.",
+    "smallest_test_if_requirement_is_met": "On two existing development states, freeze one block/head group and a fixed sample of query/key pairs spanning local and long displacements, including text keys. Capture normalized pre-RoPE q/k once. Offline, reuse exactly those content vectors under deployed and target phases. Fit positive gains on a declared subset and evaluate row-centered logit error on held-aside token pairs and the second state. Compare scalar, diagonal-moment and full cross-pair fits at matched realized logit perturbation cost. Test local/text preservation on samples excluded from fitting.",
+    "falsification": "Reject the candidate if full cross-pair information does not add held-aside predictive benefit over diagonal/scalar controls, if the useful correction collapses to scalar temperature or the chosen phase schedule, if local/text preservation fails, or if BF16 rounding removes the predicted benefit. Surrogate success alone does not justify a quality campaign without linking it to the named natural failure.",
+    "precision": "Evaluate the actually cast pair amplitudes and associated squared logit gains. Keep pair equality and finite values. Report whether rounding changes the candidate direction and rerun the offline objective with realized gains; do not retune epsilon or choose bands after inspecting quality.",
+    "cost_boundary": "The current recommendation is zero new forwards. This conditional test would require new q/k capture and therefore a separately frozen and reviewed collection design. Sampled pairs avoid an N-by-N attention matrix; cross-moment accumulation costs O(M*P^2) per sampled group with P rotary pairs. Layer/head/step-wide online statistics would multiply this cost and are not justified by a cheap per-head algebraic solve. No extra full trajectories, VAE decode, scorer, or fresh64 would be needed for the surrogate falsifier."
+  },
+  "opportunity_cost_and_pivot": "Finish the already committed CR18 diagnosis and preserve the negative/mixed campaigns. Treat the observer result as a bounded scientific finding. Pivot research selection away from repairing this feature-to-gain feedback family until an independently motivated failure target survives the prior-art check. Do not spend a dozen trajectories to demonstrate that a covariance fit can mimic a hand-chosen schedule. The user's novelty and near-SOTA objective is better served by rejecting an underidentified candidate now than by extending instrumentation into an unsupported method claim.",
+  "provenance": {
+    "local_inputs": ["HANDOVER.md", "crope/rope.py", "crope/gain.py", "crope/response.py", ".agent/notes/rotary_kernel_prior_art_20261017.md", ".agent/notes/continuation3/independent_review.json", ".agent/notes/response_next_design.json", ".agent/notes/observer_pretrained_protocol.json"],
+    "verification": "Local source and archived results inspected; targeted primary-source web verification performed. CR14 numbers are from the prior independent raw-data reconstruction. No fresh metrics were measured in this task. Named-method details not reopened in full rely on the linked targeted prior-art note. Search is bounded, not exhaustive.",
+    "current_protocols_unchanged": true,
+    "fresh64_used": false
+  }
+}
