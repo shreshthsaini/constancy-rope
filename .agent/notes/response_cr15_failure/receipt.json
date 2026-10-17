@@ -1,0 +1,25 @@
+{
+  "verified_utc": "2026-10-17T12:40:10.416798+00:00",
+  "job": "1077082",
+  "scheduler_state": "FAILED",
+  "exit_code": "1:0",
+  "elapsed": "00:02:12",
+  "accepted_response_result": false,
+  "4k_started": false,
+  "fresh64_used": false,
+  "failure": "Full gain-history equality failed for both2048smokes; no-op replay error0 and final endpoints bitwiseequal for both.",
+  "independent_review": "GPT-6 Astra CPU-loaded both endpoint tensorpairs:BF16shape[16384,64], torch.equal True, maxabsolute difference0.",
+  "suspected_cause": "SEGA fullprecision CUDA reduction/diagnostic nondeterminism; not yet proven because paired histories were not saved.",
+  "action": "Preserve failedrun and strictcriteria; separately diagnose baselineA/B/probedC/baselineD and isolatedallocationrepeatability.",
+  "artifact_sha256": {
+    "/scratch/09032/saini_2/constancy_rope/response_probe/job1077082/prompt0/smoke/manifest.json": "e81ddf81cd21cd71e82fe04e12df21eef3c70c405e68b5b538232e41f8e8161e",
+    "/scratch/09032/saini_2/constancy_rope/response_probe/job1077082/prompt0/smoke/validation.json": "9fd18da51ca8eddd752cb17e457dcd3c14181e7a5826c8670157e32320ed3ad3",
+    "/scratch/09032/saini_2/constancy_rope/response_probe/job1077082/prompt0/smoke/step_001.json": "60fdebd39f8ee6964108cff81dd915318d3c454701d1f4d714797a5b042281b5",
+    "/scratch/09032/saini_2/constancy_rope/response_probe/job1077082/prompt0/smoke/trajectory_endpoints.pt": "231352ad840b92245b24a84cd1a50a3a2af91df6b6a09f472ee57fe793420e77",
+    "/scratch/09032/saini_2/constancy_rope/response_probe/job1077082/prompt1/smoke/manifest.json": "301eed2c229f7a2742f50d1153aa72410fc3e9e603e7ff3f0979ace4f95c7035",
+    "/scratch/09032/saini_2/constancy_rope/response_probe/job1077082/prompt1/smoke/validation.json": "cfc514f3d2222e4ea95f23bdf34a138082320a788bd915b2ebc93c2818a9d3c7",
+    "/scratch/09032/saini_2/constancy_rope/response_probe/job1077082/prompt1/smoke/step_001.json": "5211b7e53e13e51e3d3ba6c0dce958a52163c0b68ab7142b099e7cecc68d7f93",
+    "/scratch/09032/saini_2/constancy_rope/response_probe/job1077082/prompt1/smoke/trajectory_endpoints.pt": "1300edf9bc9c745b9310b95dd64ce069a2b5a199bb0a8d9d62f3526cae8d50e3"
+  },
+  "original_source_hashes_unchanged": true
+}

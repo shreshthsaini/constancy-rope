@@ -166,8 +166,13 @@ Symmetric finite differences estimate a directional response of the clean-estima
 spectrum along this normalized path, including BF16 quantization; smaller
 perturbations check prediction accuracy. Only the baseline output advances the
 sampler. CPU tests, including a small randomly initialized FLUX transformer, check
-exact trajectory and state restoration. Pretrained GPU validation and response
-measurements remain unrun. This is an instrument for testing the controller
+exact trajectory and state restoration. Both pretrained 2048-resolution smoke
+tests reproduced the baseline latent endpoint bitwise and passed the same-state
+no-op replay, but failed the required exact gain-history comparison. The 4K
+stage therefore did not start, and no response result is accepted under the
+frozen protocol. A separate repeatability diagnostic will compare ordinary
+baseline runs and isolated allocation arithmetic to locate the history drift.
+This is an instrument for testing the controller
 hypothesis, not a new validated generation method. SCG acts directly on latent
 Fourier magnitudes, whereas this diagnostic measures the response to internal
 attention gains~\citep{scg2026,sega2026}; this difference alone does not establish
@@ -179,8 +184,8 @@ guidance~\citep{graikos2026jacobian,hen2026japs}. Our measured object is instead
 the response of Fourier-power statistics to attention gains at a fixed state.
 That distinction is a hypothesis to test, not sufficient evidence of a novel
 controller. Local prediction must also transfer to the final image at acceptable
-sampling cost. The two-prompt pretrained diagnostic was submitted on October 17;
-its results are pending.
+sampling cost. The failed two-prompt smoke test is retained as an implementation
+finding, not a result about generation quality or the proposed response model.
 
 The second-campaign candidate has one held-out seed and one evaluated backbone
 at one resolution. No second-seed replication of this candidate, new backbone,

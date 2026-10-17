@@ -20,6 +20,11 @@
       "acknowledged_utc": "2026-10-17T12:30:02.637387+00:00",
       "event": "Job1076857 PENDING -> RUNNING",
       "verified": "Both GPUs active at 100percent; no failed workflows."
+    },
+    {
+      "acknowledged_utc": "2026-10-17T12:34:56.165368+00:00",
+      "event": "Job1077082 PENDING -> RUNNING; both prompt tasks claimed",
+      "verified": "squeue RUNNING on c639-051,c639-132; both logs loading model; no failed task"
     }
   ]
 }

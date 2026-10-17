@@ -1,0 +1,26 @@
+{
+  "created_utc": "2026-10-17T12:35:35.527693+00:00",
+  "status": "Prospective interpretation and follow-up outline; no new experiment authorized by this file or submitted",
+  "current_evidence": "CR15 running; no validated response result available at writing",
+  "objects": {
+    "measured": "Finite-amplitude directional response of log clean-estimate Fourier power to RMS-normalized attention-gain controls at fixed noisy latent, sigma, conditioning and actual baseline gains.",
+    "not_measured": "Final-image derivative, perceptual quality, full reachable spectral subspace, analytic infinitesimal Jacobian or generalization."
+  },
+  "readouts": [
+    "Verify frozen protocol/config/source hashes and both complete smoke/4K trajectories before aggregate interpretation.",
+    "Compare half-amplitude spectral prediction residual with zero-change residual; report each prompt/time/direction without selecting only favorable cases.",
+    "Inspect realized BF16 gain changes and asymmetric changes; a nominal nonzero coefficient can produce zero or distorted gain perturbation.",
+    "Report signed cross-axis response and relative magnitude; normalization redistributes gain over the whole affected axis.",
+    "Inspect agreement across the two prompts/times without claiming transfer from two examples."
+  ],
+  "next_research": [
+    "If response is not predictive, use the actual failures to distinguish weak intervention/quantization from nonlinear behavior; do not invert an unreliable map.",
+    "If response is predictive, test one small combined control against the sum of measured directional responses, then its effect on the final sample under continued ordinary SEGA. A local spectral change alone does not establish useful final control.",
+    "Separate identifying the actuator from choosing a valid spectral target. A well-measured response can steer toward a wrong or prompt-inappropriate target.",
+    "A candidate would need a cheap reused response model, matched-cost scalar/diagonal/sign-shuffled controls, direct spectral correction and current resolution baselines. Online finite differences at every step are not an affordable contribution by themselves.",
+    "Freeze any actual follow-up protocol only after reviewing current evidence; record all changes and preserve negative outcomes. Fresh64 stays unused until method and baseline protocol are justified."
+  ],
+  "novelty_boundary": "Finite differences, least squares, projections, trust regions, and spectral feedback are established. The potential research question is specific causal failure of the attention actuator and an affordable correction that improves images. No new mechanism or SOTA result is established.",
+  "sources_note": ".agent/notes/response_prior_art_20261017.md",
+  "current_protocol_sha256": "9a08daeed2a23ba78b57c803b9078437bad572439295b1b94e5fd34fefeac245"
+}

@@ -1,0 +1,49 @@
+{
+  "created_utc": "2026-10-17T12:39:24.116166+00:00",
+  "purpose": "Isolate CR15 exact-history failure; no new efficacy or response result",
+  "failed_job": "1077082",
+  "failure": "Both2048smoke endpoints bitwise equal and no-op replay exact; full history differs. Neither4K chain started.",
+  "development_prompts": [
+    0,
+    1
+  ],
+  "resolution": 2048,
+  "steps": 4,
+  "seed": 0,
+  "guidance": 4.5,
+  "runs": [
+    "baseline_a",
+    "baseline_b",
+    "probed_c",
+    "baseline_d"
+  ],
+  "probe_steps": [
+    1
+  ],
+  "extra_forward_calls": 13,
+  "transformer_calls_per_prompt": 29,
+  "isolated_allocation": "8default and8deterministic repeated OfficialSEGA updates on identical first projected features, separate controller never used by sampler",
+  "record": "Full histories, per-step input/velocity/clean-estimate hashes and actualFP32/BF16 gains, endpoints, per-field differences, config/protocol/source hashes",
+  "acceptance": "Completion indicates diagnosis executed, not original CR15 success. No tolerance relaxation or4K continuation.",
+  "planned_allocation": {
+    "nodes": 2,
+    "partition": "gh",
+    "minutes": 15,
+    "max_node_hours": 0.5
+  },
+  "cr15_protocol_sha256": "9a08daeed2a23ba78b57c803b9078437bad572439295b1b94e5fd34fefeac245",
+  "transformer_revision": "8162a9c7b05a641be098422bf2fcf335615c2f28",
+  "prompt_sha256": "ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1",
+  "source_sha256": {
+    "crope/response.py": "e46d5f287f97d58d4c903f12834dacda29c6d63ab244b99e0829a4c564ac1e13",
+    "scripts/response_probe.py": "d66e1df27002c8be951d58285262eafb14422c2e4c0547704153db94d05f303a",
+    "scripts/response_analysis.py": "2c4b1450b81b0ae985ba4655ec7fe6ee450ea8f93a07adb3a7c4830ea338fe5f",
+    "slurm/response_task.sh": "c5d9b5508d9a6444ee8f01d3366e0c996d7dc4d071b2153ed5dafc2d40b7e4f0",
+    "slurm/response_fleet.sh": "a3bff74fe41b834dece3ca2df8e856f6f343f7324b40a6ad44a551d7289255af",
+    "slurm/fleet_response_gh.sbatch": "bfb1bedb0d9cadf0e828c663526dfdb2fb26c8365529ce2a410773814874f964",
+    "scripts/response_repeatability.py": "07ab4664501c4f4f5aa8658a08bc04b6d5e4c31cea20ce2782ede624845d9edb",
+    "slurm/repeatability_task.sh": "89936fbe58aa787c9e94e571d599c376ff3d658b2dbccad19213fe95b1a8e5e2",
+    "slurm/repeatability_fleet.sh": "53285e63d316bc4ca8a73fb8db66e20d1193fabc8cdd8360b5cc423c47470ae4",
+    "slurm/fleet_repeatability_gh.sbatch": "0e2ec62d2c0a76025bdf50d9c5292ceffc6630824c1e11b8792d1ffc01b7af82"
+  }
+}
