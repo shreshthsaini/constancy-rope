@@ -1,5 +1,5 @@
 {
-  "recorded_utc": "2026-10-17T17:44:07.576153+00:00",
+  "recorded_utc": "2026-10-17T17:44:38.180337+00:00",
   "recorded_pacific": "2026-10-17T10:32:08.521533-07:00",
   "status": "blocked_no_allocated_destination",
   "handoff_verified": false,
@@ -10,7 +10,7 @@
   "source_watcher_pid": 2142630,
   "successor_job": "1077574",
   "successor_state": "submitted; waiting for allocation",
-  "successor_forecast": "2026-10-17T22:36:26-07:00; scheduler estimate only, can change",
+  "successor_forecast": "Unknown for replacement1077574; no allocateddestination",
   "gpu_job": "1077335",
   "gpu_state": "PENDING Priority",
   "destination_ready": false,
@@ -18,22 +18,19 @@
   "actual_agent_receipt": false,
   "controller_and_CR21_source_pins": "all match",
   "submitted_batch_script_sha256_matches": true,
-  "durable_watcher_snapshot": "/work/09032/saini_2/vista/results/constancy_rope/controller_blocked_20261017T173208Z",
+  "durable_watcher_snapshot": "/work/09032/saini_2/vista/results/constancy_rope/controller_blocked_20261017T174438Z",
   "files": {
-    "state.json": {
-      "sha256": "8704fe34d84bd70d05f7660a0c311df4ce1b702eb4f79596d22b3e81f183d4b4",
-      "bytes": 19080,
-      "source": "/scratch/09032/saini_2/constancy_rope/watcher_cr14/state.json"
-    },
     "registrations.json": {
-      "sha256": "2d5f50913df83a07d97778cd71d45b4c836e19fb672caa4b36a4020fb61c4088",
-      "bytes": 5744,
-      "source": "/scratch/09032/saini_2/constancy_rope/watcher_cr14/registrations.json"
+      "sha256": "987b80384292d0d44b556fe6ecf3fc057681c5635a9da4b37c86b2a19eeaa0dc",
+      "bytes": 5159
     },
-    "submitted_controller_1077465.sbatch": {
-      "sha256": "d4f59a6d0a2f2188b350ee07c38a1990401d8bd11b9c6f405fc85e520ec8c4db",
-      "bytes": 1069,
-      "source": "/scratch/09032/saini_2/constancy_rope/watcher_cr14/submitted_controller_1077465.sbatch"
+    "CONTROLLER_REGISTRATION.json": {
+      "sha256": "aeaccfb6b4f474f7242af9d8c2ce40a82d83be9e84ee2e0d9465eeed145c1c60",
+      "bytes": 467
+    },
+    "state.json": {
+      "sha256": "434deac6bbb3d773b0ce96c464e68fcb49db95d98538cf94a8ffdd940701f084",
+      "bytes": 17827
     }
   },
   "restart": "CPUjob1077574 runs the source-pinned bootstrap automatically when allocated. It verifies source termination/ownership and shared watcher lock before resuming the saved project thread. Require actual controller_handoff_verified.json before claiming migration. Preserve frozen protocols and fresh64. No duplicate job or watcher.",

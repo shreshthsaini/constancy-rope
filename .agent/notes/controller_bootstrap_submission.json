@@ -6,7 +6,7 @@
   "walltime": "08:00:00",
   "su_available": 7698,
   "su_allocation": 40000,
-  "source_commit": "6f1f256",
+  "source_commit": "0b132deac99a35a330907084a973b1eddb8fc056",
   "protocol_sha256": "c65e465aaa65c9e86067eecb4faf920f5d0d3b6986fd8174d55db4fbdd3dad9c",
   "sbatch_sha256": "0d72ec73716b5326398f2e4a1fc33e897bcc6bd56e1da17d776755d812636979",
   "source_controller": "1073260",
@@ -22,7 +22,6 @@
     "set_at": "2026-10-17T17:00:01.611642+00:00",
     "reason": "Permit earlier bounded backfill; bootstrap lifetime follows actual allocated end time. No scientific protocol change."
   },
-  "scheduler_forecast_at_1159_cdt": "2026-10-18T20:20:00-05:00",
   "controller_role_transition": {
     "at": "2026-10-17T17:41:58.812493+00:00",
     "removed_from_extra_job_registry": {
