@@ -27,5 +27,20 @@
   "migration_verified": false,
   "live_destination_available": false,
   "limitation": "Pending resource; source lease may expire before destination runs. Autonomous bootstrap is staged, not a verified handoff. Original chat UI attachment on destination is unverified.",
-  "engine_note": "Launch-node engine generated GG8h header via --dry-run; changed body to source-pinned bootstrap and submitted directly to avoid engine3second scheduler polling that violates account10second minimum."
+  "engine_note": "Launch-node engine generated GG8h header via --dry-run; changed body to source-pinned bootstrap and submitted directly to avoid engine3second scheduler polling that violates account10second minimum.",
+  "runtime_override": {
+    "time_min": "01:00:00",
+    "time_max": "08:00:00",
+    "set_at": "2026-10-17T17:00:01.611642+00:00",
+    "reason": "Permit earlier bounded backfill; bootstrap lifetime follows actual allocated end time. No scientific protocol change."
+  },
+  "scheduler_forecast_at_1159_cdt": "2026-10-18T20:20:00-05:00",
+  "watcher_hot_read": {
+    "verified_at": "2026-10-17T17:01:04.101267+00:00",
+    "state": {
+      "state": "PENDING",
+      "end": 1792401600.0
+    },
+    "registration_matches": true
+  }
 }

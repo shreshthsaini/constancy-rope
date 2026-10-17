@@ -60,9 +60,9 @@ Stop promotion of that branch. Native comparator screen is complete; no concrete
 Eight dev baseline previews show no obvious global duplication; garbled shop text has no proven resolution cause.
 Fresh64 and all completed frozen protocols remain untouched. No method sweep or confirmation authorized by diagnostics.
 Existing watcher PID2142630, tmux crope-watch-cr14, i618-051/controllerjob1073260; oldPID1581602 exited.
-Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17/18/19/20/21 andCPU1077465; newCPU hot-read pending.
+Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17/18/19/20/21 andCPU1077465; newCPU hot-read and PENDING scheduler observation verified.
 Directwake verified; scheduler120s/files60s,leasealerts60/15/5min. Guardedbootstrap107tests pass. Never duplicate watcher.
-Controller ends10:45:04 Pacific. CPUfallback1077465 queued8h; no timelydestination orverifiedhandoff yet.
+Controller ends10:45:04 Pacific. CPUfallback1077465 queued1-8h; no timelydestination orverifiedhandoff yet.
 Last budget7908/40000SU remaining (11:57 CDT); refresh before every submission, no new nodes at96percent burn.
 Paper rebuilt to11pages: CR20 table plus prospective CR21 equations/limits; newpages9/10 checked. Receipt crossmodal_phase_paper_receipt.json.
 CR14/CR17/CR18/CR19/CR20 completed; CR21job1077335 submitted. Do not repeat completed campaigns.
