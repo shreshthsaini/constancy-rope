@@ -95,6 +95,11 @@
       "acknowledged_utc": "2026-10-17T17:32:08.521533+00:00",
       "event": "Controller1073260 fifteen-minute expiry alert",
       "verified": "No available destination; CPU1077465 and GPU1077335 pending. Sourcewatcher2142630 healthy. Bothprotocolsourcepins match, actualSlurmsubmittedCPUbatchmatches recordedSHA. Durablewatcherstate/registry snapshot /work/09032/saini_2/vista/results/constancy_rope/controller_blocked_20261017T173208Z. Blockedmigrationstate preserved; no migrationclaim orduplicatewatcher."
+    },
+    {
+      "acknowledged_utc": "2026-10-17T17:44:07.576153+00:00",
+      "event": "Five-minute controller expiry alert",
+      "verified": "No allocated destination. Fixed live-discovered FQDN Slurmquery startupbug,47tests pass, queued replacementCPU1077574 afterfresh7698SUcheck; actualbatchSHA verified. Old1077465 cancelled onlyPENDING. Dedicatedcontrollerrole avoids HOST_JOB registrationcollision. CR21unchanged. Migrationstillblocked."
     }
   ]
 }

@@ -1,28 +1,16 @@
 {
-  "submitted_utc": "2026-10-17T16:59:12.145128+00:00",
-  "job_id": "1077465",
+  "submitted_utc": "2026-10-17T17:44:07.576153+00:00",
+  "job_id": "1077574",
   "partition": "gg",
   "nodes": 1,
   "walltime": "08:00:00",
-  "su_available": 7908,
+  "su_available": 7698,
   "su_allocation": 40000,
   "source_commit": "6f1f256",
-  "protocol_sha256": "c0081074293f5a2736c3f8fdb7d4e96197193ebe1b05321105875a663c1dc528",
-  "sbatch_sha256": "d4f59a6d0a2f2188b350ee07c38a1990401d8bd11b9c6f405fc85e520ec8c4db",
+  "protocol_sha256": "c65e465aaa65c9e86067eecb4faf920f5d0d3b6986fd8174d55db4fbdd3dad9c",
+  "sbatch_sha256": "0d72ec73716b5326398f2e4a1fc33e897bcc6bd56e1da17d776755d812636979",
   "source_controller": "1073260",
   "source_end_utc": "2026-10-17T17:45:04Z",
-  "registration": {
-    "job_id": "1077465",
-    "queue_dir": "/scratch/09032/saini_2/constancy_rope/controller_jobs/job1077465/taskq",
-    "telemetry_dir": "/scratch/09032/saini_2/constancy_rope/telemetry",
-    "completion_files": [
-      "/scratch/09032/saini_2/constancy_rope/watcher_cr14/controller_job1077465/bootstrap_started.json",
-      "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/controller_handoff_verified.json"
-    ],
-    "progress_dirs": [
-      "/scratch/09032/saini_2/constancy_rope/watcher_cr14/controller_job1077465"
-    ]
-  },
   "tests": "107 passed in1.80s",
   "migration_verified": false,
   "live_destination_available": false,
@@ -35,12 +23,26 @@
     "reason": "Permit earlier bounded backfill; bootstrap lifetime follows actual allocated end time. No scientific protocol change."
   },
   "scheduler_forecast_at_1159_cdt": "2026-10-18T20:20:00-05:00",
-  "watcher_hot_read": {
-    "verified_at": "2026-10-17T17:01:04.101267+00:00",
-    "state": {
-      "state": "PENDING",
-      "end": 1792401600.0
+  "controller_role_transition": {
+    "at": "2026-10-17T17:41:58.812493+00:00",
+    "removed_from_extra_job_registry": {
+      "job_id": "1077465",
+      "queue_dir": "/scratch/09032/saini_2/constancy_rope/controller_jobs/job1077465/taskq",
+      "telemetry_dir": "/scratch/09032/saini_2/constancy_rope/telemetry",
+      "completion_files": [
+        "/scratch/09032/saini_2/constancy_rope/watcher_cr14/controller_job1077465/bootstrap_started.json",
+        "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/controller_handoff_verified.json"
+      ],
+      "progress_dirs": [
+        "/scratch/09032/saini_2/constancy_rope/watcher_cr14/controller_job1077465"
+      ]
     },
-    "registration_matches": true
-  }
+    "reason": "registrations() rejects HOST_JOB duplicates. Successor is a self-starting controller, monitored by destination-ready handshake before takeover and built-in HOST_JOB after takeover. Keeping it in ordinary experiment jobs would reject the complete destination registry.",
+    "validation": "Both current1073260 and destination1077465 hosts accept all7 experiment registrations; CR21 preserved",
+    "handoff_verified": false
+  },
+  "supersedes": "1077465 cancelled only if PENDING; stored old sources/submission preserved on scratch",
+  "correction": "Live Slurm rejects FQDN node filter; use short node name.47 bootstrap tests pass and actualshort-node squeue succeeded.",
+  "actual_submitted_script_hash_verified": true,
+  "registration_role": "Dedicated controller handoff, not ordinary extra experiment entry: bootstrap creates DESTINATION_READY, source watcher then monitors destination job; after takeover HOST_JOB monitors it directly. Ordinary registry entry would collide with HOST_JOB."
 }

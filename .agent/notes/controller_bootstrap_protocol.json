@@ -1,9 +1,9 @@
 {
-  "created_at": "2026-10-17T16:57:08.655970+00:00",
+  "created_at": "2026-10-17T17:42:51.856530+00:00",
   "source_job": "1073260",
   "thread": "01a14899-2e69-7d71-93f8-b42aad182afd",
   "source_sha256": {
-    "scripts/controller_bootstrap.py": "7e560a83fb981eb80244ce85637f5350ba9f40c2db5d825e70359536d628b861",
+    "scripts/controller_bootstrap.py": "1272d4754aa16137597658669e8d4694da676eee955af04a296ee4daf680be1c",
     "scripts/watch_cr14.py": "a734ccdf16d9e83908675d11885f4786b313058888a55468d214468edc0bc7c1",
     "tests/test_controller_bootstrap.py": "86664255606af7b077ba1636a36a304df99fc23f67760eb974bdcd7d00aa051c",
     "tests/test_watch_cr14.py": "4716807cb636d33776d23c2dca05567b216ca6f8d27915a689dd3b667fa9481e"
@@ -12,5 +12,7 @@
   "node_count": 1,
   "max_hours": 8,
   "guards": "source idle release or two terminal allocation probes and stale unlocked watcher; no duplicate watcher",
-  "actual_handoff_verified": false
+  "actual_handoff_verified": false,
+  "revision": 2,
+  "correction": "Normalize socket.gethostname FQDN to Slurm short node name; actual source-node command rejected FQDN."
 }

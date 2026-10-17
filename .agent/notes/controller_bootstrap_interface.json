@@ -44,7 +44,7 @@
     "seconds": 0.47
   },
   "sha256": {
-    "scripts/controller_bootstrap.py": "7e560a83fb981eb80244ce85637f5350ba9f40c2db5d825e70359536d628b861",
+    "scripts/controller_bootstrap.py": "1272d4754aa16137597658669e8d4694da676eee955af04a296ee4daf680be1c",
     "tests/test_controller_bootstrap.py": "86664255606af7b077ba1636a36a304df99fc23f67760eb974bdcd7d00aa051c"
   },
   "limitations": [
@@ -53,5 +53,6 @@
     "Parent must pin all bootstrap/watcher source hashes in submitted job wrapper",
     "Cannot establish actual resumed turn before controller_handoff_verified.json is written by resumed agent"
   ],
-  "onward_handoff": "Clean watcher exit0 accepted only with fresh exact release from own current job, hostname, socket and thread to a different canonical job and compute node; cleanup only own app-server/watcher children."
+  "onward_handoff": "Clean watcher exit0 accepted only with fresh exact release from own current job, hostname, socket and thread to a different canonical job and compute node; cleanup only own app-server/watcher children.",
+  "parent_live_correction": "Slurm host filter normalizes FQDN to shortname; actual currentallocation query validated; replacement1077574.47tests pass."
 }

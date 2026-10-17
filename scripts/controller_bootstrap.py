@@ -38,7 +38,7 @@ def require_compute(env, host, process_cap):
 
 
 def allocation_end(job, host):
-    result = subprocess.run(['squeue', '-j', job, '-w', host, '-h', '-o', '%i|%T|%e'],
+    result = subprocess.run(['squeue', '-j', job, '-w', host.split('.', 1)[0], '-h', '-o', '%i|%T|%e'],
                             capture_output=True, text=True, check=True, timeout=20)
     rows = [line.strip().split('|') for line in result.stdout.splitlines() if line.strip()]
     if len(rows) != 1 or rows[0][:2] != [job, 'RUNNING']:
