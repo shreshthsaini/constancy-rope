@@ -21,7 +21,7 @@
     "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/eval.py": "c59c4b3a71357aeeb884ea6536759f39a742d1ac00bcdbae04ea31c1fb9a9d8a",
     "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/imagereward_score.py": "3c8967914fbc07d533377a2f7bff5d12e2528649611f61c5f40479a07e0c2d3c",
     "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/fleet_CR14.sbatch": "f11132aeb58d0fae26311bf4710f510fe0672a9c273e4d660191bac4c45fe747",
-    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/dev3_launch.sh": "e030eeb411525fb186ce715fff58a743ef99d478f939fe8c06b2464448168427",
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/dev3_launch.sh": "30c33b89bd90ea6fd457b66579c57cd8597c9d80307e3787a82c025d26c3041d",
     "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/dev3_task.sh": "e1b4752e4e351d8c73d4f92cb4533897d5cc4f1d27147e5d742cc73b7a374240",
     "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/dev3_worker.sh": "52ac4884f2985223d0fcbf98c1ec93f0f2ec3ec6da82f9fd517b01c97d40f4e9",
     "/scratch/09032/saini_2/constancy_rope/taskq_dev3/pending/00_sega_official.sh": "79df3dd7a666f754a0afecf268c33a8d2d7a6a76329e08214fa738b287739c65",
@@ -31,7 +31,8 @@
     "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/continuation3/PROTOCOL.md": "0deb73f90630224e763f2b3f4d0f46b9e010f009a145dd97086d6addc5b8aa72",
     "/scratch/09032/saini_2/constancy_rope/calib/krea_profile_tm.npz": "1cd6bceb50dea48607b125681ade330e5203cc8342eeb99834c3493d41b2cc45",
     "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl": "ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1",
-    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/fleet_CR14_gh.sbatch": "d4e1753d19a98c682ad7d786f5c9c59855685396d463a85216054ad0105e6419"
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/fleet_CR14_gh.sbatch": "d4e1753d19a98c682ad7d786f5c9c59855685396d463a85216054ad0105e6419",
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/dev3_finalize.py": "ff62a45679af048d4368b2d3456ed9c2fe7b42770173cba785c464757f3aec01"
   },
   "cpu_tests": {
     "passed": 234,
@@ -41,5 +42,6 @@
   "submission_preflight": {
     "blackwell_attempt": "QOSMaxSubmitJobPerUserLimit; no job submitted",
     "frozen_fallback": "two GH200 nodes, 90 minutes, same four tasks and fresh baseline"
-  }
+  },
+  "finalization": "Attached while job pending: validate all four completed workflows, archive selection, log W&B, rebuild exploratory paper table. No candidate implementation changes."
 }

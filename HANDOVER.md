@@ -24,6 +24,9 @@ started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact ht
 - Current step: monitor job1076857, verify telemetry and source/protocol invariants, then
   run `scripts/dev3_analysis.py` with `--reference-root dev3_sega_official`. No GPU outcome yet.
   Fresh64 confirmation manifest is frozen under continuation3, conditional on dev selection.
+  The last successful worker host runs `scripts/dev3_finalize.py`: validates all four outputs,
+  archives the selection, logs W&B, rebuilds the PDF, and commits its own outputs/state.
+  It never treats a dev pass as a held-out result or submits confirmation automatically.
 
 ## 1. Goal and the user's rules
 - Training-free resolution extrapolation for FLUX at 4096^2. Beat released SEGA (arXiv 2605.22668, github rajabi2001/sega)

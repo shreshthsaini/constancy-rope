@@ -23,6 +23,9 @@ Fresh SEGA baseline prespecified; 32 dev images total. Full CPU suite 234 passed
 CR14 job1076857 is PENDING Priority; no estimated start. Initial gb attempt rejected at qgb submit cap.
 Frozen source commit395ba85; spool taskq_dev3 has four ready workflows, old taskq unchanged.
 Fresh64 confirmation prompts frozen before outcomes; run only if a candidate passes dev.
+After all four task successes, dev3_launch invokes dev3_finalize to validate scores, log W&B,
+archive the dev decision, rebuild the working PDF, and commit only its own outputs/state.
+If the run fails, inspect taskq_dev3/failed and logs; no auto retry or hidden variant change.
 Paper figure and qualified algebra updated; all16 plotted intervals re-derived exactly.
 Account balance checked: 8212.919/40000 SUs remaining, burn 79.47%.
 

@@ -137,6 +137,7 @@ a different, testable mechanism and freeze a development-only diagnostic before
 any new GPU campaign. The already inspected held-out set must not become a
 tuning set presented as fresh evaluation.
 
+\IfFileExists{sec/dev3_results.tex}{\input{sec/dev3_results}}{%
 \paragraph{Prespecified development diagnostics, not results.}
 A third diagnostic compares three controls on development rows 0--7:
 released-SEGA allocation normalized to the reference query/key RMS; spatially
@@ -147,6 +148,7 @@ These distinguish gain magnitude from frequency allocation and isolate target
 timing. The code passes 234 CPU tests, but no GPU outcome for these controls is
 available in this snapshot. The planned job contains 32 images and was queued
 on October 17. A positive development result would require separate confirmation.
+}
 
 \paragraph{Evidence provenance.}
 The completed campaign is recorded at implementation commit
@@ -155,5 +157,7 @@ scores, and analysis protocol are in \path{.agent/notes/main2/}.
 The current held-out table is generated from those CSVs after checking its
 means and paired intervals against the per-prompt records. This check reuses
 saved scorer outputs; it is not a fresh image-scoring reproduction.
-The previous session records 194 passing CPU tests. No inference or training
-was rerun for this paper update.
+The previous session records 194 passing CPU tests.
+\IfFileExists{sec/dev3_results.tex}{The third diagnostic adds new inference and
+evaluation; its development-only outcome is reported separately above.}{No new
+inference or training result is included in this snapshot.}
