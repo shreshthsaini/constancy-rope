@@ -1,73 +1,60 @@
 ## Goal
-Develop a genuinely novel training-free DiT resolution-extrapolation method competitive with recent SOTA; maintain and share the evidence and paper.
-User clarified full ownership: continue experiments, evaluation, and paper autonomously.
+Develop a genuinely novel training-free DiT resolution-extrapolation method competitive with recent SOTA.
+User authorizes full unattended project ownership, experiments, evaluation, paper, and background agents.
 
 ## Status and next action
-Unattended CR14 watcher active: tmux crope-watch-cr14, PID1581602, i618-051 / host job1073260.
-See notes/watcher_cr14.json and scratch watcher_cr14/state.json for lease, heartbeat, stop, and delivery receipts.
-Direct idle-thread wake via local app-server; scheduler120s / files60s; 33 watcher tests passed; no model calls while waiting.
-Direct WAKE_TEST succeeded end to end; notes/watcher_ack.json records actual operator receipt.
-Response diagnostic audit fixed gain-vector RMS wording, above-native2048smoke, provenance and operating-point replay.
-CPU suite306passed/47.73s; independent critical recheck found no blocker. NOT GPU validated/submitted yet.
-20frozen CR14 repository hashes unchanged; paper7pages rebuilt/inspected. Existing watcher extended to hot-read job registry.
-Read notes/response_probe_protocol.json before preparing the two-task spool, checking budget, and registering its job.
-Register each next campaign before waiting; watcher persists after CR14; migrate controller before expiry.
-2026-10-17 CDT takeover: first two campaigns COMPLETE; no demonstrated improvement over released SEGA.
-Last research commit a1ede1a (October 16, 18:11:57 CDT); earlier uncommitted-state notes are stale.
-Live sacct: CR13 / 1076092 completed October 16 at 18:06:13 CDT.
-Spool: 0 pending, 0 running, 255 done, 5 older failures, 25 held/archived files; STOP present.
-CR14 job1076857 is the new project allocation; unrelated allocations were left unchanged.
-Second campaign: only sega_ctm eta 1 passed development; held-out n=187, seed 0, rows 8-194.
-IR +0.008575 [-0.008414,+0.027420]; full MUSIQ -0.208599 [-0.708869,+0.315118].
-PickScore -0.075259 [-0.102335,-0.049140]; crop MUSIQ -1.131657 [-1.387535,-0.902193].
-CLIP -0.093916 [-0.196506,-0.003680]; remaining metric CIs cross zero.
-Paper now compiles an empirical working report. Prior proposal sections retained but excluded.
-All ten paired means/CIs independently recomputed exactly from archived per-prompt CSVs today.
-PDF: paper/constancy_rope_working_2026-10-17.pdf. Build directory on project scratch.
-New work is isolated in taskq_dev3; old campaign outputs and STOP remain unchanged.
-NEXT: monitor CR14; review its controls, then run prepared same-state response smoke/probe when guard permits. No automatic confirmation.
-
-Third diagnostic submitted: spatial RMS uniform/normalized controls and lag-aligned ctm, eta1.
-Fresh SEGA baseline prespecified; 32 dev images total. Full CPU suite 256 passed in 45.93 seconds, two threads.
-CR14 job1076857 RUNNING since07:21:46CDT on c609-092,c609-151; both GPUs100percent, no failures.
-Controller lease ends12:45:04CDT; watcher alerts one hour before expiry.
-Frozen source commit395ba85; spool taskq_dev3 has four ready workflows, old taskq unchanged.
-Fresh64 confirmation prompts remain unused; require novelty review and a new fixed method/baseline protocol before use.
-Confirmation generator/analyzer prepared and tested; no confirmation tasks or allocation submitted.
-The primary adjustment and complete-pair validation were fixed while CR14 remained pending.
-After all four task successes, dev3_launch invokes dev3_finalize to validate scores, log W&B,
-archive the dev decision, rebuild the working PDF, and commit only its own outputs/state.
-If the run fails, inspect taskq_dev3/failed and logs; no auto retry or hidden variant change.
-Paper figure and qualified algebra updated; all16 plotted intervals re-derived exactly.
-Fixed-order qualitative panel added from rows 8-10, six verified images; display assets archived on work.
-Account balance October17~07:31CDT:7946/40000 SUs remaining, about80.14percent burn.
+2026-10-17 ~07:33CDT: CR14 job1076857 RUNNING since07:21:46 on c609-092,c609-151.
+Both GPUs100percent; no failed workflows; two workflows active, two pending.
+CR15 response diagnostic job1077082 submitted, PENDING Priority;2GH200nodes/45min,2dev prompts.
+Spool taskq_response and exact output/receipt paths registered in watcher_cr14/registrations.json.
+Response source frozen at6d14fe5; notes/response_probe_protocol.json immutable for this run.
+Audit fixed gain-vector RMS wording,2048smoke coverage, fixed operating-point replay, provenance and timing.
+CPU suite306passed/47.73s; independent critical recheck found no blocker; GPU validation remains unrun.
+Full baseline/probed endpoints and histories must match before any response analysis is accepted.
+Next: verify CR14 results when complete; evaluate CR15 no-op, prediction accuracy, response sign/coupling.
+No automatic confirmation or promotion from diagnostics to novelty/SOTA.
+Existing watcher v3: tmux crope-watch-cr14, PID1581602, i618-051/controllerjob1073260.
+Scheduler120s/files60s;33watcher tests. Direct idle-thread wake verified by actual operator receipt.
+Hot registry covers subsequent jobs; never duplicate watcher. Register next jobs before returning to waiting.
+Controller lease ends12:45:04CDT; watcher alerts one hour before expiry. Arrange verified compute handoff then.
+Account balance before CR15 submission7946/40000SUs,~80.14percent burn. Refresh before each new submission.
+Paper: paper/constancy_rope_working_2026-10-17.pdf. Active empirical report, no positive efficacy claim.
+Recent prior-art comparison: notes/response_prior_art_20261017.md; generic Jacobian/control ideas established.
+Potential distinction is attention-actuator-to-Fourier-power response; efficacy and originality remain unproved.
+Fresh64 remains unused; current runs use development rows only.
 
 ## Map
-See notes/novelty_20261017.md for the clarified target, recent sources, and response-calibration hypothesis.
-| File | Read it when |
-| notes/continuation3/confirmation_plan.md | planning conditional fresh-prompt confirmation |
-| notes/continuation3/theory_audit.md | restoring qualified theory to the manuscript |
-| notes/continuation3/PROTOCOL.md | running the frozen third development diagnostic |
-| HANDOVER.md | resuming project ownership and checking operating constraints |
-| notes/main2/REPORT.md | reviewing development decision and full held-out results |
-| notes/main2/heldout_per_prompt.csv | re-deriving completed campaign statistics |
-| notes/main2/analysis_protocol.json | checking frozen reporting boundaries |
-| notes/paper_verification_20261017.json | checking current paper table provenance |
-| ../paper/update_evidence.py | rebuilding verified current LaTeX table |
-| notes/alias_temp.md | reviewing candidate formulas and frozen selection rules |
-| notes/results.md | inspecting earlier campaign checkpoints and held tasks |
+| File | Purpose |
+| HANDOVER.md | Long project context and operating constraints |
+| notes/response_submission.json | CR15 job, budget, spool hashes, watcher registration |
+| notes/response_probe_protocol.json | Frozen two-prompt smoke/4K measurement protocol |
+| notes/response_probe_audit.json | Critical review fixes and CPU validation |
+| notes/response_prior_art_20261017.md | Full-method/code comparisons and next research tests |
+| notes/watcher_cr14.json | Watcher PID, socket, registry, lease and stop instructions |
+| notes/watcher_ack.json | Actual autonomous wake acknowledgment |
+| notes/continuation3/PROTOCOL.md | Frozen CR14 four-control diagnostic |
+| notes/continuation3/dev/completion.json | Expected validated CR14 finalizer receipt |
+| notes/continuation3/confirmation_plan.md | Conditional unused fresh64 protocol |
+| notes/main2/REPORT.md | Completed negative held-out campaign |
+| notes/main2/heldout_per_prompt.csv | Archived187paired prompt-level measurements |
+| notes/novelty_20261017.md | Goal and expanded recent-baseline boundaries |
 
 ## Decisions
-- Preserve the negative outcome; there is no positive efficacy or SOTA result.
-- Development rows select variants only. Do not tune on the inspected held-out set.
-- CIs crossing zero mean unresolved differences, not equivalence; nominal per metric.
-- New candidate has one held-out seed; no new replication or human study is claimed.
-- Keep paper crux on work and bulk images on scratch; delete nothing.
-- Retain old theory sources for audit, exclude stale settings from current PDF.
-- Current user authorizes active project operations. Do not alter old campaign artifacts or other projects.
-- Repository has no remote; preserve changes in a local commit.
-- User authorizes background Codex/GPT-6 Astra/GPT-6.1 Sol agents; higher effort for critical work, within guard limits.
+- Preserve frozen CR14 sources/spool and immutable CR15 protocol;20CR14repository hashes verified unchanged.
+- CR14 covers fresh SEGA plus spatial RMS uniform/normalized and lag-aligned constancy;32dev images.
+- Last successful CR14 worker validates/archives, updates paper/WandB offline and commits via dev3_finalize.
+- Live-state wording may differ from finalizer literal replacements; reconcile state after its receipt.
+- First two campaigns complete and negative; do not tune on previously inspected held-out rows8-194.
+- Second campaign187pairs/seed0:IR+.008575 CI[-.008414,.027420],MUSIQ-.208599[-.708869,.315118].
+- PickScore-.075259[-.102335,-.049140],cropMUSIQ-1.131657[-1.387535,-.902193].
+- CIs crossing zero do not establish equivalence. No near-SOTA/SOTA claim currently supported.
+- Old taskq drained:255done,5olderfailures,25held;STOP remains. Do not revive consumed pilots.
+- Preserve scratch; archive paper crux on work. W&B offline evidence is retained.
+- Local-only repository has no remote; commit meaningful changes locally.
+- No controller lease extension or handoff is verified yet; current lease has over five hours left.
 
 ## Open questions
-- CR14 remains diagnostic only; no new GPU results yet. Recent AReA and SCG are direct novelty collisions.
-- Earlier theoretical and literature claims need audit before a submission-ready manuscript.
+- Do same-state interventions predict smaller unfit perturbations above numerical/quantization noise?
+- Can a cheap reusable response model improve final-image quality over SEGA and direct spectral correction?
+- How does any eventual mechanism differ substantively from recent AReA,SCG and Jacobian-guidance methods?
+- Novelty and matched-cost efficacy must be established before spending the fresh64 confirmation set.

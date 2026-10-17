@@ -1,5 +1,5 @@
 {
-  "status": "Implemented; CPU mock and real small-FLUX integration tests passed. GPU preflight prepared but not submitted.",
+  "status": "Audited implementation submitted as CR15 job1077082; GPU validation pending.",
   "reason": "scripts/probe_mtf.py perturbs separate whole trajectories and does not admit sega_official; it cannot estimate a same-state local SEGA response.",
   "scope": "New diagnostic files only; leave CR14 frozen sources and four task workflows unchanged.",
   "required_invariants": [
@@ -11,12 +11,12 @@
     "Record every extra transformer call, wall time and memory; finite-difference overhead counts toward any later cost comparison.",
     "Use development/calibration prompts only. Preserve the fresh64 confirmation set."
   ],
-  "integration_candidate": "A temporary wrapper around the transformer forward implementation could perform repeated same-input calls before the outer post-forward hook advances the sampler. Audit x_embedder hooks and restore all mutable state. Validate on a small stateful fake model before a real GPU smoke test. This is a design candidate, not verified code.",
+  "integration_candidate": "Implemented temporary transformer forward wrapper with fixed baseline-gain replay; CPU restoration tests and independent code review passed. GPU validation mandatory.",
   "next_work": [
-    "Inspect FluxExperiment._before/_projected/_after and OfficialSEGA mutable state.",
-    "Implement isolated same-state response harness and meaningful state-restoration/no-op tests.",
-    "Complete primary-source algorithm/code comparison against SEGA and SCG before proposing a method.",
-    "Freeze a bounded GPU probe protocol and use packed compute with cost checks, after verifying current allocation and campaign progress."
+    "Verify CR15 execution and strict no-op/full-trajectory checks.",
+    "Analyze held-aside half-amplitude prediction error and realized BF16 interventions.",
+    "Test local-to-final transfer and affordable reuse before proposing a generation method.",
+    "Preserve fresh64 until a novel, fixed method and baseline protocol exist."
   ],
   "continuation": "On watcher wake, verify live job state first, acknowledge the direct wake test, then continue this implementation while CR14 queues or runs.",
   "artifacts": [

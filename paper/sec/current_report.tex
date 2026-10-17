@@ -172,6 +172,15 @@ hypothesis, not a new validated generation method. SCG acts directly on latent
 Fourier magnitudes, whereas this diagnostic measures the response to internal
 attention gains~\citep{scg2026,sega2026}; this difference alone does not establish
 novelty or improved quality.
+Jacobian-based analysis and correction are established: Graikos et al. study
+denoiser-input Jacobian spectra and train with response regularization, while
+JAPS uses denoiser Jacobian information for inverse-problem
+guidance~\citep{graikos2026jacobian,hen2026japs}. Our measured object is instead
+the response of Fourier-power statistics to attention gains at a fixed state.
+That distinction is a hypothesis to test, not sufficient evidence of a novel
+controller. Local prediction must also transfer to the final image at acceptable
+sampling cost. The two-prompt pretrained diagnostic was submitted on October 17;
+its results are pending.
 
 The second-campaign candidate has one held-out seed and one evaluated backbone
 at one resolution. No second-seed replication of this candidate, new backbone,
