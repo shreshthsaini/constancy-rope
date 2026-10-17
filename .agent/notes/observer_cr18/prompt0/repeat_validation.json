@@ -1,0 +1,10 @@
+{
+  "output": {
+    "max_abs": 0.0,
+    "l2": 0.0,
+    "relative_l2": 0.0,
+    "reference_l2": 2210.1382110778377,
+    "bitwise_equal": true
+  },
+  "replayed_gain_equal": true
+}

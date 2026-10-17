@@ -50,6 +50,16 @@
       "acknowledged_utc": "2026-10-17T13:35:36.021925+00:00",
       "event": "CR14 remaining workflows done, validated report, completed allocation",
       "verified": "Already independently audited and paper updated in c5b3773. No rerun. CR18job1077211 pending; existing watcher now confirms scheduler and file coverage."
+    },
+    {
+      "acknowledged_utc": "2026-10-17T13:49:23.031371+00:00",
+      "event": "CR18 prompt0/prompt1 workflows running on c636-061,c636-111",
+      "verified": "Direct squeue confirms job1077211 RUNNING, end09:03:40CDT. Both logs/telemetry started. Watcher file event precedes scheduler snapshot refresh. Controller ends12:45:04CDT; no duplicate watcher."
+    },
+    {
+      "acknowledged_utc": "2026-10-17T13:55:37.939916+00:00",
+      "event": "CR18 completion verified live while processing running event",
+      "verified": "Job1077211 COMPLETED2m36s, both5forward audits accepted; report+independentreview+139505284byte work witness archive+paper updated. No rerun. Watcher healthy; controller ends12:45CDT."
     }
   ]
 }

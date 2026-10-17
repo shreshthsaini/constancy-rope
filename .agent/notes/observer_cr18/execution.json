@@ -1,0 +1,24 @@
+{
+  "verified_utc": "2026-10-17T13:55:37.939916+00:00",
+  "job_id": "1077211",
+  "state": "COMPLETED",
+  "start_cdt": "2026-10-17T08:48:40",
+  "end_cdt": "2026-10-17T08:51:16",
+  "elapsed_seconds": 156,
+  "nodes": [
+    "c636-061",
+    "c636-111"
+  ],
+  "exit_code": "0:0",
+  "completed_prompts": [
+    0,
+    1
+  ],
+  "completed_forwards": 10,
+  "failed_workflows": 0,
+  "report_sha256": "127ef1c2a2b5b27e590a1d80ee7baead59bf6ec9375c59a4f5616dcbef84df49",
+  "validation": "Official CPU reporter accepted; independent raw-tensor audit exactly matches contrast norms/maxima. Exact byte repeats pass for both prompts. All frozen source/protocol hashes remain unchanged.",
+  "wandb": "Offline runs mfbi997b and lsnr7zpv; no cloud sync claimed.",
+  "telemetry": "Both GPUs recorded 100percent utilization at08:50:47CDT; startup model loading is separately recorded. Finite task queue exited naturally; no cancellation.",
+  "next": "No replacement diagnostic or sweep justified by this result. Continue distinct mechanism research on CPU; preserve fresh64."
+}

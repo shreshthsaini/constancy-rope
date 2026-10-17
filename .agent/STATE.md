@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution method competitive with r
 User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 08:44 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+2026-10-17 08:55 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
 Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
 RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
 PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
@@ -17,26 +17,27 @@ CPU observer audit: common-channel shifts invisible to fixed-gain FLUX affect SE
 Seven fixed-gain tests and seven feedback tests pass on tiny random FLUX; no pretrained claim.
 Feedback test: gain change .11748, output change .00717; mediation residual <=1.34e-15.
 LayerNorm shift symmetry and invariant statistics are established; AReA already rejects mean cancellation.
-CR18 pretrained BF16 audit job1077211 is PENDING Priority;2GH200nodes/15min.
-Source061fa03, frozen protocol b98de615;23CPU tests pass, independent review no blockers.
-Two dev prompts, synthetic renoised CR17 endpoints at sigma .5, five forwards each including repeat.
-Four-arm mediation separates gain changes from BF16 shift rounding. No quality or novelty claim.
-NEXT: inspect CR18 execution/strict repeat and four-arm causal contrasts when watcher wakes.
-CPU validator/archiver ready:28reporter+23worker tests pass; all16 frozen source hashes match.
-Includes two-prompt synthetic/archive integration, corruption and byte-replay checks.
-Run command in observer_pretrained_report_preflight.json after both completions; archive notes/observer_cr18.
+CR18 job1077211 COMPLETED08:51:16CDT,2m36s,twoGH200nodes;10forwards total.
+Official CPU reporter and independent saved-tensor review accept both prompts; exact byte repeats pass.
+Source061fa03/protocolb98de615 unchanged. Archive notes/observer_cr18; reportSHA127ef1c2a2b5b27e590a1d80ee7baead59bf6ec9375c59a4f5616dcbef84df49.
+Gain-only/fixed-gain residual L2 ratios6.664/4.024; adaptive/gain-only cosines.98781/.96289.
+Mediation residual15.62/27.07percent of gain-only; interaction21.48/36.64percent.
+Supports gain-mediated sensitivity at artificial sigma.5 states; no natural-trajectory/quality/novelty claim.
+Full projected-feature/conditioning checks remain runtime receipts; not independently reconstructed.
+24saved tensor witnesses+CR17dependencies preserved on work outside repo,139505284bytes; retention map archived.
+CPU validator28tests+frozenworker23tests pass. Do not repeat the consumed diagnostic.
+NEXT: CPU research on overlap-consistent multiscale attention; check proportional attention/MomentKV collisions.
 Covariance/gain proposal lacks justified target; DoPE adds a close prior-art collision.
 Stop promotion of that branch. Resolution pivot review lacks native comparators and a distinct intervention.
 Eight dev baseline previews show no obvious global duplication; garbled shop text has no proven resolution cause.
-If CR18 is cited, preserve modest-size saved tensor witnesses on work outside implementation repo.
 Fresh64 and all completed frozen protocols remain untouched. No method sweep or confirmation authorized by diagnostics.
 Existing watcher PID1581602, tmux crope-watch-cr14, i618-051/controllerjob1073260.
 Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17/18; CR18 hot-read verified; scheduler observation verified.
 Direct autonomous wake verified; scheduler120s/files60s. Never duplicate watcher.
 Controller lease ends12:45:04 CDT, alert one hour before. Handoff not yet needed or verified.
 Last budget7941/40000SU remaining (08:28 CDT); refresh before every submission, no new nodes at96percent burn.
-Paper rebuilt to8pages with CR14 and qualified observer audit; DoPE boundary added; pages3/8 checked.
-CR14/CR17 completed; CR18 is the only pending project GPU job. Do not repeat completed campaigns.
+Paper rebuilt to8pages including accepted CR18 and DoPE boundary; pages6/7 visually checked.
+CR14/CR17/CR18 completed; no pending or running project GPU job. Do not repeat completed campaigns.
 
 ## Map
 | File | Purpose |
@@ -51,6 +52,9 @@ CR14/CR17 completed; CR18 is the only pending project GPU job. Do not repeat com
 | notes/observer_feedback_cpu.json | Tiny gain-mediated output change |
 | notes/next_mechanism_derivation.json | Architecture proof, scope and recommendation |
 | notes/rotary_kernel_prior_art_20261017.md | AReA/LayerNorm and phase/covariance collisions |
+| notes/observer_cr18/report.json | Accepted pretrained synthetic-state contrasts |
+| notes/observer_cr18_independent.json | Independent exact saved-tensor recomputation |
+| notes/observer_cr18/witness_retention.json | Durable24file tensor archive on work |
 | notes/observer_pretrained_report_preflight.json | Validated CPU analysis command and source hashes |
 | notes/resolution_pivot_20261017.json | Prompt-grounded resolution failure target; missing comparators |
 | notes/post_observer_research_decision.json | Reject underidentified covariance/gain proposal |
@@ -74,6 +78,6 @@ CR14/CR17 completed; CR18 is the only pending project GPU job. Do not repeat com
 - Local-only repository has no remote. Commit meaningful changes; no push destination exists.
 
 ## Open questions
-- Does pretrained BF16 observer feedback exceed fixed-gain rounding effects under the frozen intervention?
+- Does the observed synthetic-state sensitivity have any natural-trajectory quality consequence?
 - Can a distinct mechanism improve natural generation beyond SEGA and strong recent methods including AReA?
 - How can any improvement satisfy novelty and matched-cost efficacy before using fresh64?

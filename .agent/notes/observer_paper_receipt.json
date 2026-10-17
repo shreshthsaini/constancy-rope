@@ -7,18 +7,21 @@
   ],
   "build": "tectonic cached resources, no warnings",
   "evidence_sha256": {
-    "paper/constancy_rope_working_2026-10-17.pdf": "e6fd7c949f19a2d89cb3643be1244bc67a462090f81f185364370bd750fd30b6",
+    "paper/constancy_rope_working_2026-10-17.pdf": "199fab190bc9f6092d7e7c1ee4fc80f582f11a66385dff7a38aa4f2b150b552a",
     ".agent/notes/continuation3/independent_review.json": "75ac0af27572b1e99b436cde86d035784757ecd531fbe4d6cbbf413fabeae02c",
     ".agent/notes/observer_shift_cpu.json": "d9b93361965bdf38915a466a29c14a9e86053135ca9793800b56d7c27d14b4f4",
     ".agent/notes/observer_feedback_cpu.json": "e01b30e5ad03ec29f5b6dad346d87a631777921ab02e58a20acd7c3d3642b318",
     ".agent/notes/rotary_kernel_prior_art_20261017.md": "5206e5c2e4a0cbc295b60c1aee31d195b3044023dcd0591f5c7833193f811190",
-    ".agent/notes/post_observer_research_decision.json": "8fb6f70db3da5a1ecc32a5ff215ca707ecb455a8257d07631d5371970e0b1fb7"
+    ".agent/notes/post_observer_research_decision.json": "8fb6f70db3da5a1ecc32a5ff215ca707ecb455a8257d07631d5371970e0b1fb7",
+    ".agent/notes/observer_cr18/report.json": "127ef1c2a2b5b27e590a1d80ee7baead59bf6ec9375c59a4f5616dcbef84df49",
+    ".agent/notes/observer_cr18_independent.json": "7e7468d2e0a19910c1f55bfde7882189acc33a199c97160827cd11558664f217",
+    ".agent/notes/observer_cr18/witness_retention.json": "3448410981259c799edc1f813933f2b107ac0ad87e8d65e05001f1164c522307"
   },
-  "scope": "CR14 dev-control outcome; two tiny CPU observer audits,14tests; no pretrained observer outcome, novelty or SOTA claim; fresh64unused.",
-  "updated_utc": "2026-10-17T13:41:20.351787+00:00",
+  "scope": "Completed CR14 development controls, CR17 local response and CR18 synthetic-state observer audit; no natural-trajectory observer, quality, novelty or SOTA claim; fresh64 unused.",
+  "updated_utc": "2026-10-17T13:55:37.939916+00:00",
   "visually_checked_pages_this_update": [
-    3,
-    8
+    6,
+    7
   ],
-  "update": "Added verified DoPE prior-art boundary; eight pages, cached Tectonic build without warnings. No new GPU result."
+  "update": "Added accepted pretrained CR18 synthetic-state causal contrasts and residuals; clean cached Tectonic build, eight pages."
 }

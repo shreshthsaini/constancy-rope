@@ -1,0 +1,285 @@
+{
+  "created_utc": "2026-10-17T13:53:03.179363+00:00",
+  "job_id": "1077211",
+  "status": "both completed; independently verified saved tensor contrasts",
+  "purpose": "Independent descriptive causal interpretation, no quality, novelty, generalization or promotion claim",
+  "protocol_sha256": "b98de615bdb3c475b38f355f35b13fbce50240f614aaac9492ebf803a77374da",
+  "submission_sha256": "5c2c535b8a0039d36ebf12e24b9f12daaadb7b71d7196b3bb1baa15c0e6686b3",
+  "method": "Independent inline CPU PyTorch FP64 differences, vector norms and cosines; no worker/report contrast functions imported",
+  "torch": "2.11.0+cu128",
+  "threads": 2,
+  "results": [
+    {
+      "prompt_index": 0,
+      "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+      "input_hash_independently_reconstructed": "dfef990cda8d1da1c00e285abeb30b2f68413f7de485c67a58787c5645f4c3ee",
+      "completion_sha256": "f5338996ffd04551bbe2a05d9a136b90d9d718fc2dcd149a7adb8cc90a6036c4",
+      "manifest_sha256": "5cb808b565fbf17b4d079893c2b46cc0c65c1d54e54a702ee82b9ccf475d8880",
+      "verified_saved_tensor_hashes": {
+        "original_g0": {
+          "output_file_sha256": "de270158a71fa2ac79b6b1709431b887e87f316c72eea95095ba3e58457da025",
+          "output_tensor_sha256": "56020af8354f8932d7fc60077c5091ec70f6950e8f825ebe02f3ab5c342d0ffb",
+          "observer_file_sha256": "7de94cdb3972f93772a1f34ba5910eb9e4eeb3cedd478d8c252ad9deeba5145d",
+          "observer_tensor_sha256": "e53db0ad7b486fcbd016d9b037489ee1d335644099943a01c8cd2df30b33c33a",
+          "target_tensor_sha256": "a0a86b13606fe7d7804d4614aed67d494defaeb95620c0acfc1caba60675c2e7",
+          "float32_gain_sha256": "44ca3dd944c6eafa2556584bb4fda9c9de03672496f4e83181c4d62b327cda54",
+          "bf16_gain_sha256": "43162bb87aa8ec16464fc0c843282c9f2f72892adcb91572f7fedc70abbda80c"
+        },
+        "repeat_original_g0": {
+          "output_file_sha256": "9f43be4cfd4d72b9b8aee98f4be0535ca638da46f25e69a3ed152ea17680feda",
+          "output_tensor_sha256": "56020af8354f8932d7fc60077c5091ec70f6950e8f825ebe02f3ab5c342d0ffb",
+          "observer_file_sha256": "aaf72f5adf303c81ed999098b146bcb79f2d2864981db235b9178655a3c3e3ed",
+          "observer_tensor_sha256": "e53db0ad7b486fcbd016d9b037489ee1d335644099943a01c8cd2df30b33c33a",
+          "target_tensor_sha256": "a0a86b13606fe7d7804d4614aed67d494defaeb95620c0acfc1caba60675c2e7",
+          "float32_gain_sha256": "44ca3dd944c6eafa2556584bb4fda9c9de03672496f4e83181c4d62b327cda54",
+          "bf16_gain_sha256": "43162bb87aa8ec16464fc0c843282c9f2f72892adcb91572f7fedc70abbda80c"
+        },
+        "shifted_g1": {
+          "output_file_sha256": "72549afe6e8731e0204179f52825c7b401d48ddf4d14fe0e76b0867351db7142",
+          "output_tensor_sha256": "f6963149b585fe0df76b38a4c3f6ecf7c007bd300b2fea66119bb82ad4c80acb",
+          "observer_file_sha256": "516e31ea0e58adee01cdfed22bf33d3d1047dc9a6b664f61c3000d24d50a19f4",
+          "observer_tensor_sha256": "4974c8ae31c9cc526f1073210f68f68c0ae8f3e509c9e7ca76587bc6dd9e8670",
+          "target_tensor_sha256": "a0a86b13606fe7d7804d4614aed67d494defaeb95620c0acfc1caba60675c2e7",
+          "float32_gain_sha256": "2da9f528e107da743b3aa769157e1d3aec59a939c8753a2cf9745d0aeec79533",
+          "bf16_gain_sha256": "c4d2f71e70ebbd054fd9221527a5a113e13e7445e8a8403f498fb6efb9c9fca3"
+        },
+        "shifted_g0": {
+          "output_file_sha256": "5873730020cdee8eec11a5aa74148f084778fcd3058e365b44dbabeb6911dd58",
+          "output_tensor_sha256": "7c939decd67e9f56c735edfbdb29a2be21962f5ad8e7c824e3bf59fcbbc1e271",
+          "observer_file_sha256": "edb02ba58019ee23c2da69086891527897112fb3f48af2d9a59217e47ba7a331",
+          "observer_tensor_sha256": "4974c8ae31c9cc526f1073210f68f68c0ae8f3e509c9e7ca76587bc6dd9e8670",
+          "target_tensor_sha256": "a0a86b13606fe7d7804d4614aed67d494defaeb95620c0acfc1caba60675c2e7",
+          "float32_gain_sha256": "44ca3dd944c6eafa2556584bb4fda9c9de03672496f4e83181c4d62b327cda54",
+          "bf16_gain_sha256": "43162bb87aa8ec16464fc0c843282c9f2f72892adcb91572f7fedc70abbda80c"
+        },
+        "original_g1": {
+          "output_file_sha256": "f4ee2ce54ea5a80da537c676b1ded866759f660e3ad2d34af3aa82dbdab7c1f8",
+          "output_tensor_sha256": "3265a9fe1668569d296776d6b510756c807ca3db0911771bc280c0ccf6123068",
+          "observer_file_sha256": "00de86d743d385983f83cbdeb39d738bdbdcbf8ec00e4e423498249e617d99d5",
+          "observer_tensor_sha256": "e53db0ad7b486fcbd016d9b037489ee1d335644099943a01c8cd2df30b33c33a",
+          "target_tensor_sha256": "a0a86b13606fe7d7804d4614aed67d494defaeb95620c0acfc1caba60675c2e7",
+          "float32_gain_sha256": "2da9f528e107da743b3aa769157e1d3aec59a939c8753a2cf9745d0aeec79533",
+          "bf16_gain_sha256": "c4d2f71e70ebbd054fd9221527a5a113e13e7445e8a8403f498fb6efb9c9fca3"
+        }
+      },
+      "velocity_l2": 2210.1382110778377,
+      "contrasts": {
+        "exact_repeat": {
+          "l2": 0.0,
+          "max_abs": 0.0,
+          "relative_to_original_velocity_l2": 0.0
+        },
+        "fixed_gain_shift": {
+          "l2": 16.50462875487187,
+          "max_abs": 0.21875,
+          "relative_to_original_velocity_l2": 0.00746769078609926
+        },
+        "gain_only": {
+          "l2": 109.98634428891658,
+          "max_abs": 1.91796875,
+          "relative_to_original_velocity_l2": 0.049764464384007265
+        },
+        "adaptive_total": {
+          "l2": 110.05301141110553,
+          "max_abs": 1.85546875,
+          "relative_to_original_velocity_l2": 0.04979462861620541
+        },
+        "mediation_residual": {
+          "l2": 17.17791235653849,
+          "max_abs": 0.27734375,
+          "relative_to_original_velocity_l2": 0.0077723249480226774
+        },
+        "shift_gain_interaction": {
+          "l2": 23.624641638068418,
+          "max_abs": 0.3125,
+          "relative_to_original_velocity_l2": 0.010689214601899118
+        },
+        "gain_effect_at_shifted_features": {
+          "l2": 109.47569054962095,
+          "max_abs": 1.890625,
+          "relative_to_original_velocity_l2": 0.04953341379326317
+        }
+      },
+      "ratios": {
+        "gain_only_over_fixed_gain_residual": 6.663969600434096,
+        "adaptive_over_fixed_gain_residual": 6.668008898935086,
+        "mediation_over_gain_only": 0.15618222850843058,
+        "mediation_over_fixed_gain_residual": 1.0407936229082329,
+        "interaction_over_gain_only": 0.2147961348366144,
+        "interaction_over_fixed_gain_residual": 1.4313949128419412
+      },
+      "cosines": {
+        "adaptive_vs_gain_only": 0.9878111276149655,
+        "gain_only_vs_fixed_gain_residual": 0.10736104269251893,
+        "mediation_vs_fixed_gain_residual": 0.01650661967001857
+      },
+      "gains": {
+        "fp32_delta_l2": 0.7050035401213967,
+        "bf16_delta_l2": 0.7010385710679549,
+        "bf16_delta_max_abs": 0.1328125,
+        "bf16_changed_coordinates": 106,
+        "bf16_logit_multiplier_delta_l2": 1.549942140306853,
+        "quantization_dead": false
+      },
+      "feature_geometry_runtime_receipt": {
+        "max_abs": 0.031201170718607802,
+        "l2": 10.498225913140232,
+        "relative_l2": 0.0016413076830395622,
+        "realized_common_channel_delta_l2": 378.57339941024145,
+        "realized_transverse_delta_l2": 10.498225913140232,
+        "realized_full_delta_l2": 378.7189346842188,
+        "transverse_fraction_of_full_delta": 0.02772036186121457,
+        "interpretation": "Realized BF16 feature delta decomposed into common-channel and orthogonal components"
+      },
+      "worker_l2_and_max_abs_max_recomputation_difference": 0.0
+    },
+    {
+      "prompt_index": 1,
+      "prompt_id": "a4k_eval_4096_3614061571823823193",
+      "input_hash_independently_reconstructed": "ca153bd47ea82d02852de75fd376acc5ae53128a7cc216787e1c515254b993a1",
+      "completion_sha256": "18317250082c82656639cbeb0acd7d06d56e1bafaf0e8cd704adf51db9206d33",
+      "manifest_sha256": "8357a1fb269fcdb871d5daff1a37acc15b06d89f7a3f7fd9d932fa55608b6ee3",
+      "verified_saved_tensor_hashes": {
+        "original_g0": {
+          "output_file_sha256": "5999ad2f0cade5009c2d37bc33f4193b32def30cfad6eebee20d50f408a9617c",
+          "output_tensor_sha256": "d4481fc2facbb238f4361a8b9f823d41b4f2164c9360e22da11e58df26e3e22f",
+          "observer_file_sha256": "25807414ca6367882c3a9d6fa0bdc751c63cbe8002beba3086fc407688c8c569",
+          "observer_tensor_sha256": "bf62b27b1d753649da00f3b01bd772f3ff5e9b32d5d0fa9df7eab00b7b8a8ef7",
+          "target_tensor_sha256": "5c44658f1068d27acd47a66ab67c0f0a9005dfe22df5c67f6a640b5998ae2cb1",
+          "float32_gain_sha256": "3403433a3a72892c05617c4310d8833d5e0db1ace01fc05784c0dcb0a2304c12",
+          "bf16_gain_sha256": "5e8670a2721e2d6219c830b888e1b604fe2301e1009dfc71bd99081f35c7b140"
+        },
+        "repeat_original_g0": {
+          "output_file_sha256": "a853d49c797aef20898a31fbac3e4b261477618b8782e759b0d16b4bddac9a00",
+          "output_tensor_sha256": "d4481fc2facbb238f4361a8b9f823d41b4f2164c9360e22da11e58df26e3e22f",
+          "observer_file_sha256": "caffac5cf8cc8c9b4ed2f0af138880722869a994c5b28c53e621a8665d760a38",
+          "observer_tensor_sha256": "bf62b27b1d753649da00f3b01bd772f3ff5e9b32d5d0fa9df7eab00b7b8a8ef7",
+          "target_tensor_sha256": "5c44658f1068d27acd47a66ab67c0f0a9005dfe22df5c67f6a640b5998ae2cb1",
+          "float32_gain_sha256": "3403433a3a72892c05617c4310d8833d5e0db1ace01fc05784c0dcb0a2304c12",
+          "bf16_gain_sha256": "5e8670a2721e2d6219c830b888e1b604fe2301e1009dfc71bd99081f35c7b140"
+        },
+        "shifted_g1": {
+          "output_file_sha256": "082a008a2b134f44e2105f19368fd7e4a0e83cffda43b53ebc3a14f53b2e9d18",
+          "output_tensor_sha256": "2ac0d01789bc258b886d37b6ce4cbc6a0992c359e7c91344911605d9b9640cb4",
+          "observer_file_sha256": "94ae353d47b95920f2bf6c0a38a7fa2ada958b2b575396c1b38c08cca1b80a8b",
+          "observer_tensor_sha256": "d090a1d5d3688425512f32c8699b19b71efad97671ee2a14ffb5a0047fd2c53f",
+          "target_tensor_sha256": "5c44658f1068d27acd47a66ab67c0f0a9005dfe22df5c67f6a640b5998ae2cb1",
+          "float32_gain_sha256": "71f1fb3f7071f966476b71019f10d787a84caf110b000221278a38e145874b6a",
+          "bf16_gain_sha256": "942bbbda6c562044df95e91310e4d75eb9141edf211b47dde94af29594d66595"
+        },
+        "shifted_g0": {
+          "output_file_sha256": "2bba381f094695ceabde48026da7c8bc282cb505880c8649588a6360b4a83859",
+          "output_tensor_sha256": "ecaffe66b4fb8a56b295c699a6ede1254a31d369e685e38209d89eb225e494ed",
+          "observer_file_sha256": "de9de9ba3df1290c19dab5df2a7dec02288a2996c372d7cd4f3e821c82309e6b",
+          "observer_tensor_sha256": "d090a1d5d3688425512f32c8699b19b71efad97671ee2a14ffb5a0047fd2c53f",
+          "target_tensor_sha256": "5c44658f1068d27acd47a66ab67c0f0a9005dfe22df5c67f6a640b5998ae2cb1",
+          "float32_gain_sha256": "3403433a3a72892c05617c4310d8833d5e0db1ace01fc05784c0dcb0a2304c12",
+          "bf16_gain_sha256": "5e8670a2721e2d6219c830b888e1b604fe2301e1009dfc71bd99081f35c7b140"
+        },
+        "original_g1": {
+          "output_file_sha256": "de9489dbde4bef88239ca047ba51cbc68d57c2f473f77b35c680477181cf629e",
+          "output_tensor_sha256": "afc12194bec1a73ecfe73c6b0060b110713c31c023c8eb27e5c4e8fa8fcb0433",
+          "observer_file_sha256": "8a27ec724c4c5a3a7291642aad883e3eef45ee307c25b62e90f053cf2141a272",
+          "observer_tensor_sha256": "bf62b27b1d753649da00f3b01bd772f3ff5e9b32d5d0fa9df7eab00b7b8a8ef7",
+          "target_tensor_sha256": "5c44658f1068d27acd47a66ab67c0f0a9005dfe22df5c67f6a640b5998ae2cb1",
+          "float32_gain_sha256": "71f1fb3f7071f966476b71019f10d787a84caf110b000221278a38e145874b6a",
+          "bf16_gain_sha256": "942bbbda6c562044df95e91310e4d75eb9141edf211b47dde94af29594d66595"
+        }
+      },
+      "velocity_l2": 2764.670983195973,
+      "contrasts": {
+        "exact_repeat": {
+          "l2": 0.0,
+          "max_abs": 0.0,
+          "relative_to_original_velocity_l2": 0.0
+        },
+        "fixed_gain_shift": {
+          "l2": 16.447783315983045,
+          "max_abs": 0.4140625,
+          "relative_to_original_velocity_l2": 0.005949273318942758
+        },
+        "gain_only": {
+          "l2": 66.18136352049642,
+          "max_abs": 1.171875,
+          "relative_to_original_velocity_l2": 0.023938242171583992
+        },
+        "adaptive_total": {
+          "l2": 65.10674198328681,
+          "max_abs": 1.1875,
+          "relative_to_original_velocity_l2": 0.0235495443685755
+        },
+        "mediation_residual": {
+          "l2": 17.91604989922341,
+          "max_abs": 0.530029296875,
+          "relative_to_original_velocity_l2": 0.006480355169971209
+        },
+        "shift_gain_interaction": {
+          "l2": 24.247254893660127,
+          "max_abs": 0.53125,
+          "relative_to_original_velocity_l2": 0.008770394394500492
+        },
+        "gain_effect_at_shifted_features": {
+          "l2": 64.93543048056148,
+          "max_abs": 1.109375,
+          "relative_to_original_velocity_l2": 0.023487579851362933
+        }
+      },
+      "ratios": {
+        "gain_only_over_fixed_gain_residual": 4.023725401111348,
+        "adaptive_over_fixed_gain_residual": 3.958390059772959,
+        "mediation_over_gain_only": 0.2707114049361463,
+        "mediation_over_fixed_gain_residual": 1.089268356412112,
+        "interaction_over_gain_only": 0.366375873868944,
+        "interaction_over_fixed_gain_residual": 1.4741959100408373
+      },
+      "cosines": {
+        "adaptive_vs_gain_only": 0.9628868708680662,
+        "gain_only_vs_fixed_gain_residual": 0.13284909859445285,
+        "mediation_vs_fixed_gain_residual": 0.006082968912848755
+      },
+      "gains": {
+        "fp32_delta_l2": 0.4609775075025022,
+        "bf16_delta_l2": 0.4590134631740119,
+        "bf16_delta_max_abs": 0.1171875,
+        "bf16_changed_coordinates": 106,
+        "bf16_logit_multiplier_delta_l2": 0.9994813274315792,
+        "quantization_dead": false
+      },
+      "feature_geometry_runtime_receipt": {
+        "max_abs": 0.03120660209970083,
+        "l2": 14.758634245203414,
+        "relative_l2": 0.0016574150986641784,
+        "realized_common_channel_delta_l2": 344.0060018096268,
+        "realized_transverse_delta_l2": 14.758634245203414,
+        "realized_full_delta_l2": 344.3224456317488,
+        "transverse_fraction_of_full_delta": 0.04286282939854494,
+        "interpretation": "Realized BF16 feature delta decomposed into common-channel and orthogonal components"
+      },
+      "worker_l2_and_max_abs_max_recomputation_difference": 0.0
+    }
+  ],
+  "independently_verified": [
+    "both completion and validation receipts agree",
+    "frozen project sources and protocol/submission hashes",
+    "accepted CR17 endpoint file/tensor hashes",
+    "CPU seeded FP32 noise and endpoint mixture including BF16 cast/input hash",
+    "all ten saved velocity file/tensor hashes, BF16 dtype/shape/finiteness",
+    "original repeat raw output bytes identical",
+    "saved observer/target hashes and exact crossing equality",
+    "gain vector hashes, BF16 casts and crossed vector equality",
+    "all causal contrast L2/max-absolute values recomputed independently"
+  ],
+  "runtime_receipt_limits": [
+    "Full projected features and conditioning tensors were not saved: their identities/equality/geometry cannot be independently reconstructed here.",
+    "Actual attention gain consumption, Q/K dtype and 57 attention calls are frozen-worker runtime receipts; saved gain-vector consistency is independently checked.",
+    "Feature transverse geometry is retained as a runtime receipt, not presented as independent tensor analysis."
+  ],
+  "scientific_interpretation": [
+    "At these two artificial 4K sigma=.5 states, changing gains with original features changes velocity more than the measured fixed-gain feature shift does.",
+    "Adaptive differences are closely aligned with the gain-only differences, while finite fixed-gain and mediation residuals remain measurable. This supports a substantial gain-mediated contribution here, not exact pretrained BF16 shift invariance.",
+    "The interaction residual exceeds the fixed-gain residual norm in both states; an additive or exact-mediation model is not established.",
+    "These are two previously inspected development prompts with artificial endpoint/noise states, not natural trajectory states. No image quality, efficacy, novel method, or SOTA evidence follows."
+  ],
+  "automatic_promotion": false,
+  "gpu_used_for_this_analysis": false
+}

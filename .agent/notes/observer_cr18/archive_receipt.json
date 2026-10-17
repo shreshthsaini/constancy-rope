@@ -1,0 +1,25 @@
+{
+  "report_sha256": "127ef1c2a2b5b27e590a1d80ee7baead59bf6ec9375c59a4f5616dcbef84df49",
+  "reporter_source_sha256": "c3db28d3918783925d0d87d4ee7ffe82c4235221cd4518aebb69d12957796b2b",
+  "source_json_sha256": {
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/manifest.json": "5cb808b565fbf17b4d079893c2b46cc0c65c1d54e54a702ee82b9ccf475d8880",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/completion.json": "f5338996ffd04551bbe2a05d9a136b90d9d718fc2dcd149a7adb8cc90a6036c4",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/validation.json": "f5338996ffd04551bbe2a05d9a136b90d9d718fc2dcd149a7adb8cc90a6036c4",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/repeat_validation.json": "827e4a4ae5f957d3723ab9dd079c4a16bd6d13bed993b203a51f2da21183b537",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/original_g0.json": "da26d44578b022c5f47f603a072264bf33b397f0a062334ccbed1e5c031cb195",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/repeat_original_g0.json": "24b55125c34a354bdd6ee44868c1aa27abb21079d2f0efcb7e29cae76767db93",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/shifted_g1.json": "aa48e6c93d32c3878be9e1825f64acfb6d021616907538360dc7cb5bff5f1409",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/shifted_g0.json": "c472c6cd7cbb7eb5e4711a240b64befb9e00e8ec946011f58560d22c05c27db8",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/original_g1.json": "fefa0403e728f15cc63e40f0ed668c31f185d3a2a7f15a303c77cfc57f4393b7",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/manifest.json": "8357a1fb269fcdb871d5daff1a37acc15b06d89f7a3f7fd9d932fa55608b6ee3",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/completion.json": "18317250082c82656639cbeb0acd7d06d56e1bafaf0e8cd704adf51db9206d33",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/validation.json": "18317250082c82656639cbeb0acd7d06d56e1bafaf0e8cd704adf51db9206d33",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/repeat_validation.json": "ba167c84c7f9a1b3d8e3588e86b084cbbece37be4d24e8a5fe795889477ac8ea",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/original_g0.json": "04abec9d907fe12f5f502127885b386ada95be7b1a6a0fb0bf2864cb52c1c239",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/repeat_original_g0.json": "1fa4fc90ac283533912334a86832cbe6f45890b236d5f803fa8204df3c383e08",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/shifted_g1.json": "a894c0b04808c26ebdd395192e2278bbd93a81ff559c14918bf22125d705db63",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/shifted_g0.json": "9b5eb0bf52dd060724550560e9af17d21cc3e51a23563cf7598bc4f0847efcb0",
+    "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/original_g1.json": "ea0b9ad7b41369f324c44cda5171460eb6bd158510813ae878021de9aecbf0b7"
+  },
+  "bulk_tensors_copied": false
+}

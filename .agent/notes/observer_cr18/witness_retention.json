@@ -1,0 +1,157 @@
+{
+  "created_utc": "2026-10-17T13:52:08.621017+00:00",
+  "purpose": "Durable paper-critical witnesses for independent CR18 contrast/observer recomputation. Full conditioning and projected features were not saved by the worker and are not included.",
+  "archive_root": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211",
+  "files": [
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/input.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt0/input.pt",
+      "bytes": 8390171,
+      "sha256": "685def72a5626f44fd88d7b864f8661144a920c07fe0af4583ba5fce242a2358"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/original_g0_observer.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt0/original_g0_observer.pt",
+      "bytes": 526285,
+      "sha256": "7de94cdb3972f93772a1f34ba5910eb9e4eeb3cedd478d8c252ad9deeba5145d"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/original_g0_output.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt0/original_g0_output.pt",
+      "bytes": 8390326,
+      "sha256": "de270158a71fa2ac79b6b1709431b887e87f316c72eea95095ba3e58457da025"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/original_g1_observer.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt0/original_g1_observer.pt",
+      "bytes": 526285,
+      "sha256": "00de86d743d385983f83cbdeb39d738bdbdcbf8ec00e4e423498249e617d99d5"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/original_g1_output.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt0/original_g1_output.pt",
+      "bytes": 8390326,
+      "sha256": "f4ee2ce54ea5a80da537c676b1ded866759f660e3ad2d34af3aa82dbdab7c1f8"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/repeat_original_g0_observer.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt0/repeat_original_g0_observer.pt",
+      "bytes": 526405,
+      "sha256": "aaf72f5adf303c81ed999098b146bcb79f2d2864981db235b9178655a3c3e3ed"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/repeat_original_g0_output.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt0/repeat_original_g0_output.pt",
+      "bytes": 8390439,
+      "sha256": "9f43be4cfd4d72b9b8aee98f4be0535ca638da46f25e69a3ed152ea17680feda"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/shifted_g0_observer.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt0/shifted_g0_observer.pt",
+      "bytes": 526277,
+      "sha256": "edb02ba58019ee23c2da69086891527897112fb3f48af2d9a59217e47ba7a331"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/shifted_g0_output.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt0/shifted_g0_output.pt",
+      "bytes": 8390319,
+      "sha256": "5873730020cdee8eec11a5aa74148f084778fcd3058e365b44dbabeb6911dd58"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/shifted_g1_observer.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt0/shifted_g1_observer.pt",
+      "bytes": 526277,
+      "sha256": "516e31ea0e58adee01cdfed22bf33d3d1047dc9a6b664f61c3000d24d50a19f4"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt0/shifted_g1_output.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt0/shifted_g1_output.pt",
+      "bytes": 8390319,
+      "sha256": "72549afe6e8731e0204179f52825c7b401d48ddf4d14fe0e76b0867351db7142"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/input.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt1/input.pt",
+      "bytes": 8390171,
+      "sha256": "bbae790d132c0c5b7d8e9f2201f708a02157c99eac58922502cc2217f1e4f9b5"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/original_g0_observer.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt1/original_g0_observer.pt",
+      "bytes": 526285,
+      "sha256": "25807414ca6367882c3a9d6fa0bdc751c63cbe8002beba3086fc407688c8c569"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/original_g0_output.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt1/original_g0_output.pt",
+      "bytes": 8390326,
+      "sha256": "5999ad2f0cade5009c2d37bc33f4193b32def30cfad6eebee20d50f408a9617c"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/original_g1_observer.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt1/original_g1_observer.pt",
+      "bytes": 526285,
+      "sha256": "8a27ec724c4c5a3a7291642aad883e3eef45ee307c25b62e90f053cf2141a272"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/original_g1_output.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt1/original_g1_output.pt",
+      "bytes": 8390326,
+      "sha256": "de9489dbde4bef88239ca047ba51cbc68d57c2f473f77b35c680477181cf629e"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/repeat_original_g0_observer.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt1/repeat_original_g0_observer.pt",
+      "bytes": 526405,
+      "sha256": "caffac5cf8cc8c9b4ed2f0af138880722869a994c5b28c53e621a8665d760a38"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/repeat_original_g0_output.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt1/repeat_original_g0_output.pt",
+      "bytes": 8390439,
+      "sha256": "a853d49c797aef20898a31fbac3e4b261477618b8782e759b0d16b4bddac9a00"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/shifted_g0_observer.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt1/shifted_g0_observer.pt",
+      "bytes": 526277,
+      "sha256": "de9de9ba3df1290c19dab5df2a7dec02288a2996c372d7cd4f3e821c82309e6b"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/shifted_g0_output.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt1/shifted_g0_output.pt",
+      "bytes": 8390319,
+      "sha256": "2bba381f094695ceabde48026da7c8bc282cb505880c8649588a6360b4a83859"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/shifted_g1_observer.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt1/shifted_g1_observer.pt",
+      "bytes": 526277,
+      "sha256": "94ae353d47b95920f2bf6c0a38a7fa2ada958b2b575396c1b38c08cca1b80a8b"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211/prompt1/shifted_g1_output.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/prompt1/shifted_g1_output.pt",
+      "bytes": 8390319,
+      "sha256": "082a008a2b134f44e2105f19368fd7e4a0e83cffda43b53ebc3a14f53b2e9d18"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/4k/trajectory_endpoints.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/cr17_inputs/prompt0_trajectory_endpoints.pt",
+      "bytes": 16779213,
+      "sha256": "eb0d9a74a06884fb4724c438a863fa9781f587c88dfe14c658484a5338db4e75",
+      "purpose": "Accepted CR17 endpoint dependency for exact CPU input reconstruction"
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/4k/trajectory_endpoints.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/observer_cr18_job1077211/cr17_inputs/prompt1_trajectory_endpoints.pt",
+      "bytes": 16779213,
+      "sha256": "b34e345265be29be34c2279343044552ff4f9d150cdcf2713ebcbe51f253e64a",
+      "purpose": "Accepted CR17 endpoint dependency for exact CPU input reconstruction"
+    }
+  ],
+  "total_bytes": 139505284,
+  "report_sha256": "127ef1c2a2b5b27e590a1d80ee7baead59bf6ec9375c59a4f5616dcbef84df49",
+  "scratch_removed": false,
+  "restoration": "If scratch witnesses are purged, restore each file from preserved to source only when source is absent, then verify SHA256. Keep original frozen source commits and work JSON archives unchanged."
+}

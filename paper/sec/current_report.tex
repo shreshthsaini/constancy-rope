@@ -261,13 +261,39 @@ the shifted adaptive output to the same tolerance. Seven additional checks
 pass. This isolates gain mediation in the miniature; the intervention is on
 activations at one input, not a universal parameter reparameterization.
 
+A separately frozen pretrained BF16 audit evaluates two existing development
+prompts at $4096^2$. Each input is an artificial mixture of a validated sampling
+endpoint and fixed CPU-generated Gaussian noise at $\sigma=0.5$, rather than a
+recorded reverse-trajectory state. The intervention replaces the projected
+channel-mean map with a fixed spatial harmonic while matching its original
+mean and population standard deviation before BF16 rounding. The original and
+shifted features are crossed with their respective SEGA gains; one additional
+original-state repeat gives five forwards per prompt, ten in total. Saved
+original/repeat outputs match byte for byte, and provenance, gain crossings,
+saved tensors, and output contrasts pass independent CPU validation.
+
+Let $F_{ab}$ denote the velocity with original ($a=0$) or shifted ($a=1$)
+features and original ($b=0$) or shifted-observer ($b=1$) gains.
+The gain-only effect $\|F_{01}-F_{00}\|_2$ is 109.986 and 66.181 for the two
+prompts, compared with fixed-gain residuals $\|F_{10}-F_{00}\|_2$ of 16.505
+and 16.448. Their ratios are 6.664 and 4.024. The adaptive changes
+$F_{11}-F_{00}$ align with the gain-only changes with cosines 0.988 and 0.963.
+However, $\|F_{11}-F_{01}\|_2/\|F_{01}-F_{00}\|_2$ remains 0.156 and 0.271,
+and the interaction residual has relative magnitude 0.215 and 0.366 against
+the gain-only effect. Thus the pretrained intervention has a substantial
+gain-mediated component, with non-negligible finite-precision or architectural
+residuals; it does not reproduce exact mathematical invariance. Full projected
+features and conditioning were not saved, so their checks remain runtime
+receipts. These two synthetic-state measurements do not establish a defect on
+natural trajectories, an image-quality effect, or a new method.
+
 Changing the observer to channel-centered spectral energy would remove this
 particular dependence, but would not itself establish novelty or quality.
 AReA already rejects channel means because opposite-sign feature changes can
 cancel, and uses channel standard deviation before its wavelet detail
 measurement~\citep{area2026}. Its statistic is also invariant to a common-channel
-shift in real arithmetic. The narrower SEGA-specific observation motivates a
-causal audit, not a new-method claim.
+shift in real arithmetic. The SEGA-specific audit establishes sensitivity under
+the declared intervention, not a new-method claim.
 
 The second-campaign candidate has one held-out seed and one evaluated backbone
 at one resolution. No second-seed replication of this candidate, new backbone,
