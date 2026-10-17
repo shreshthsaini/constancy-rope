@@ -40,6 +40,11 @@
       "acknowledged_utc": "2026-10-17T13:12:25.633795+00:00",
       "event": "Delayed CR17 prompt0 done/completing/completion/not-in-queue event",
       "verified": "sacct COMPLETED13m49s; full campaign already validated and archived in90cc4c7. No rerun. CR14 active, watcher healthy, controller ends12:45CDT."
+    },
+    {
+      "acknowledged_utc": "2026-10-17T13:31:02.383681+00:00",
+      "event": "Live CR14 completion verified while processing delayed CR17 event",
+      "verified": "CR14 COMPLETED57m05s; independent32image/rawscore/source audit passed; paper updated; no fresh64 promotion. CR18job1077211 submitted and atomically registered."
     }
   ]
 }

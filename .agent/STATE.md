@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution method competitive with r
 User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 08:23 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+2026-10-17 08:31 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
 Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
 RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
 PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
@@ -17,18 +17,19 @@ CPU observer audit: common-channel shifts invisible to fixed-gain FLUX affect SE
 Seven fixed-gain tests and seven feedback tests pass on tiny random FLUX; no pretrained claim.
 Feedback test: gain change .11748, output change .00717; mediation residual <=1.34e-15.
 LayerNorm shift symmetry and invariant statistics are established; AReA already rejects mean cancellation.
-Preparing CR18 pretrained BF16 audit, NOT SUBMITTED; helper/tests and draft protocol under review.
+CR18 pretrained BF16 audit job1077211 is PENDING Priority;2GH200nodes/15min.
+Source061fa03, frozen protocol b98de615;23CPU tests pass, independent review no blockers.
 Two dev prompts, synthetic renoised CR17 endpoints at sigma .5, five forwards each including repeat.
 Four-arm mediation separates gain changes from BF16 shift rounding. No quality or novelty claim.
-NEXT: review/freeze CR18 code/protocol, check SU balance, submit packed2node/15min spool, register watcher.
+NEXT: inspect CR18 execution/strict repeat and four-arm causal contrasts when watcher wakes.
 Fresh64 and all completed frozen protocols remain untouched. No method sweep or confirmation authorized by diagnostics.
 Existing watcher PID1581602, tmux crope-watch-cr14, i618-051/controllerjob1073260.
-Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17.
+Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17/18; CR18 hot-read verified; scheduler observation pending.
 Direct autonomous wake verified; scheduler120s/files60s. Never duplicate watcher.
 Controller lease ends12:45:04 CDT, alert one hour before. Handoff not yet needed or verified.
-Last budget7946/40000SU remaining; refresh before every submission, no new nodes at96percent burn.
+Last budget7941/40000SU remaining (08:28 CDT); refresh before every submission, no new nodes at96percent burn.
 Paper rebuilt to8pages with CR14 and qualified observer audit; clean build, pages6/7 visually checked.
-No active project GPU job after CR14/CR17 completion. Existing completed jobs must not be repeated.
+CR14/CR17 completed; CR18 is the only pending project GPU job. Do not repeat completed campaigns.
 
 ## Map
 | File | Purpose |
@@ -43,7 +44,8 @@ No active project GPU job after CR14/CR17 completion. Existing completed jobs mu
 | notes/observer_feedback_cpu.json | Tiny gain-mediated output change |
 | notes/next_mechanism_derivation.json | Architecture proof, scope and recommendation |
 | notes/rotary_kernel_prior_art_20261017.md | AReA/LayerNorm and phase/covariance collisions |
-| notes/observer_pretrained_protocol.json | Draft CR18 protocol, not frozen/submitted yet |
+| notes/observer_pretrained_protocol.json | Frozen CR18 causal audit protocol |
+| notes/observer_pretrained_submission.json | Job1077211 and watcher registration |
 | notes/watcher_cr14.json | Watcher process, registration and lease instructions |
 | notes/watcher_ack.json | Actual wake receipts |
 | notes/continuation3/confirmation_plan.md | Frozen unused fresh64 |

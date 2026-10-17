@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-17",
+  "reviewer": "prior_art",
+  "scope": "Independent CPU/code/protocol review of a bounded two-prompt, ten-forward pretrained causal audit. No GPU model execution by reviewer.",
+  "verdict": "ready_for_source_freeze_and_bounded_audit",
+  "blocking_findings": [],
+  "reviewed_artifacts": {
+    "scripts/observer_pretrained_audit.py": "85b444d7c2d438c7231efc83f3946c087ed9d08b75b24042945a332b311817f0",
+    "tests/test_observer_pretrained_audit.py": "1c41be389fc1989d9b2cfd6e0cdba44bf281936d422a64b629ae2bcb0b6282ac",
+    ".agent/notes/observer_pretrained_protocol.json": "b0ffafcc7b9f45817d7836048444813547091823e897ce8a324866ed0df673cd"
+  },
+  "required_before_submission": [
+    "Parent must fill source_sha256 with the reviewed worker and dependencies, freeze the protocol status, and record its resulting hash. The protocol hash above identifies the reviewed draft, not the later frozen artifact.",
+    "Run the existing CPU accepted-input preflight against the final frozen protocol. Source changes after this review require hash reconciliation and targeted review."
+  ],
+  "checks": [
+    {
+      "topic": "Four-arm identification",
+      "finding": "The script crosses one cached original/shifted BF16 feature pair with one cached G0/G1 pair. The two shifted arms use exactly the same realized shifted tensor. Every incoming x_embedder output must equal the original. This identifies finite feature and gain effects plus their interaction for the selected state; it does not require a linear-response assumption."
+    },
+    {
+      "topic": "BF16 separation",
+      "finding": "The fixed-gain feature contrast measures the observed BF16/architecture residual. Common-channel and transverse components of the realized feature change are reported. The attention wrapper checks actual Q/K dtype, every consumed cast gain, and the expected attention-block count. A BF16 gain change can be zero despite a float32 change, and this is explicitly reported."
+    },
+    {
+      "topic": "Repeat control",
+      "finding": "The original arm is repeated exactly with replayed G0 before interventions. Output or gain mismatch fails immediately and preserves evidence. This is a sufficient bounded baseline control, but it tests this forward pair only; replayed gain equality does not independently test allocation recomputation and does not guarantee repeatability of every intervention."
+    },
+    {
+      "topic": "Intervention amplitude",
+      "finding": "The intervention replaces the channel-mean map with a fixed centered harmonic mixture scaled to the original spatial population standard deviation and restores its DC. FP32 addition followed by one BF16 cast is cached. Matching scalar amplitude is not matching the original spectrum or perceptual naturalness. No outcome-selected amplitude or sigma sweep is permitted."
+    },
+    {
+      "topic": "State, timestep and geometry",
+      "finding": "The accepted packed endpoint is mixed with separately seeded CPU FP32 Gaussian noise, then cast BF16. This is a legitimate artificial packed latent state, not a recorded reverse-trajectory state. The 256 by 256 packed image IDs match 4096 output resolution. Passing timestep 0.5 is consistent with FLUX's internal multiplication by 1000; FP32 guidance 4.5 is consistent with the installed pipeline."
+    },
+    {
+      "topic": "Provenance and budget",
+      "finding": "Both development endpoints, all four accepted smoke/4K stages, raw receipts, report/receipt hashes, prompts, model revisions/configs, source hashes and package versions are checked before model execution. Each worker has exactly five listed forward arms, with early termination on failure. No held-out prompt or quality metric is consumed."
+    },
+    {
+      "topic": "Runtime restoration",
+      "finding": "Hooks and gain instrumentation are restored in finally blocks. Deterministic allocation restores the prior deterministic-algorithms flags. Recorded wall time includes hook diagnostics and serialization and is correctly excluded from speed claims."
+    }
+  ],
+  "independent_cpu_evidence": {
+    "test_command": "/work/09032/saini_2/vista/library/uv-envs/crope/bin/python -m pytest -q tests/test_observer_pretrained_audit.py",
+    "result": "23 passed in 2.47s",
+    "accepted_artifacts": "Independently verified report/receipt hashes and actual accepted metadata. With source hashes filled only in memory, load_verified_inputs verified both actual endpoint archives; artificial_state for prompt 0 repeated bitwise with identical metadata.",
+    "prompt0_input_tensor_sha256": "dfef990cda8d1da1c00e285abeb30b2f68413f7de485c67a58787c5645f4c3ee",
+    "component_checks": "Synthetic harmonic target preserves DC and population standard deviation; known additive four-arm outputs yield zero interaction. These are CPU component checks, not pretrained causal results."
+  },
+  "interpretation_limits": [
+    "A nonzero adaptive contrast alone does not establish that gains mediate it; read it alongside both fixed-feature gain contrasts, both fixed-gain feature contrasts and interaction.",
+    "Exact real-arithmetic common-channel shift invariance is conditional on the full architecture audit. Epsilon does not break additive LayerNorm shift invariance, but floating-point arithmetic and nonnormalized branches can.",
+    "Even a clear gain-mediated response establishes sensitivity to this artificial representation intervention, not a natural-generation quality defect, semantic irrelevance of the checkpoint's channel mean, or superiority of an invariant replacement.",
+    "This review does not require another GPU control or a larger sweep. Assess the prescribed audit before proposing any natural-generation experiment."
+  ],
+  "prior_art_boundary": [
+    {
+      "source": "Layer Normalization",
+      "url": "https://arxiv.org/pdf/1607.06450",
+      "boundary": "Additive recentering invariance is established, not new."
+    },
+    {
+      "source": "AReA: Adaptive Receptive-Field Attention for Efficient High-Resolution Diffusion Transformers",
+      "url": "https://arxiv.org/html/2610.17227v1",
+      "code": "https://github.com/KooroshRH/AReA/blob/dcd4bcb114dbd9bac85e7178617c1c1f760ef760/area/tiling.py#L82",
+      "boundary": "Appendix C.1 already discusses channel-mean cancellation and uses a channel-standard-deviation sensor. Generic invariant feature statistics or a channel-energy replacement are not a novelty claim."
+    },
+    {
+      "source": "SEGA: Spectral-Energy Guided Attention for Resolution Extrapolation in Diffusion Transformers",
+      "url": "https://arxiv.org/html/2605.22668v1",
+      "code": "https://github.com/rajabi2001/sega/blob/ddaab08552c7b7ceba2ebd8f579a0f65dee90b5e/flux_sega/transformer_flux.py#L263",
+      "boundary": "The narrow diagnostic is whether this channel-mean feedback path converts a verified fixed-gain null perturbation into a measurable output change. The bounded literature check did not establish global absence of prior work."
+    }
+  ]
+}
