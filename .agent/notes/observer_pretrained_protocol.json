@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "purpose": "Development-only pretrained BF16 observer-shift mediation audit; no candidate efficacy or novelty claim",
+  "status": "frozen before first GPU execution",
+  "development_prompt_indices": [
+    0,
+    1
+  ],
+  "resolution": 4096,
+  "sigma": 0.5,
+  "guidance": 4.5,
+  "noise_seeds": {
+    "0": 1729,
+    "1": 1730
+  },
+  "noise_device": "cpu",
+  "noise_dtype": "float32",
+  "mixture_dtype": "float32",
+  "model_dtype": "bfloat16",
+  "forward_calls_per_prompt": 5,
+  "allocation_numerics": "deterministic_sega_update_only",
+  "observer_shift": {
+    "width_harmonic": 3,
+    "height_harmonic": 1,
+    "height_amplitude": 0.3,
+    "amplitude": "baseline_observer_population_std",
+    "unit_rms": true
+  },
+  "accepted_report": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/response_cr17/report.json",
+  "accepted_receipt": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/response_cr17/archive_receipt.json",
+  "accepted_report_sha256": "17101dbafa8fc31a8b2793c5228772b96ed5cb635efc89085dd31f9aca97dd5c",
+  "accepted_receipt_sha256": "e5871c103dafae088ca164958220040b4af98600f6f4a2d46b0f91fda36cd30d",
+  "endpoint_file_sha256": {
+    "0": "eb0d9a74a06884fb4724c438a863fa9781f587c88dfe14c658484a5338db4e75",
+    "1": "b34e345265be29be34c2279343044552ff4f9d150cdcf2713ebcbe51f253e64a"
+  },
+  "prompt_file_sha256": "ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1",
+  "prompt_ids": [
+    "a4k_eval_4096_minus6873203881450547484",
+    "a4k_eval_4096_3614061571823823193"
+  ],
+  "model": {
+    "transformer_revision": "8162a9c7b05a641be098422bf2fcf335615c2f28",
+    "base_revision": "3de623fc3c33e44ffbe2bad470d0f45bccf2eb21",
+    "transformer_config_sha256": "a8d4ca92dc64ca8116c370ab91339e18a723ab950c18de513d09c3922df7a2d1",
+    "base_model_index_sha256": "24946df21ff25e210486b5f6b14208983a90c9c73f8d48cfa724c0e4e03f7201"
+  },
+  "source_sha256": {
+    "crope/__init__.py": "61da3242d99ead9a95ff5e597982e5edbaba67040a8ca28b2d6b2580a35cdcf9",
+    "crope/_figure_style.py": "549a08bb0fe4e515852c96d39c928fd9288867e04fc6915c8653df6b3c3de68f",
+    "crope/deterministic_allocation.py": "bbb0670deee9c48d3fd13ddb1da6abdf587ef796c018eb68d8b9d29083072faf",
+    "crope/gain.py": "fc3008af7eb00fb344c41577b7e85fe2ab324b4767c44af3d33492c431efa66a",
+    "crope/response.py": "e46d5f287f97d58d4c903f12834dacda29c6d63ab244b99e0829a4c564ac1e13",
+    "crope/rope.py": "8d6b58593323815e3e98b3b52608bd93701fd25b28ecd829d7e68714df108485",
+    "crope/runtime.py": "6bfdb60f77a961409f66bf9cfe29e330516a6ac8b086c49cb7bc19a6c1082e9d",
+    "crope/schedule.py": "499d67705d3fad8d6305eb7b259eadb082253472f9156954a514d360e2476a91",
+    "crope/sega_official.py": "80edc67b2958c707822038d3758d985f53df88d222bb1625bc73799dacee79be",
+    "crope/spectral.py": "0db65ba2016b99d30916eb644c736d4018b3659fdf09f0c2e89363b45641be6f",
+    "crope/utils.py": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e",
+    "scripts/observer_pretrained_audit.py": "85b444d7c2d438c7231efc83f3946c087ed9d08b75b24042945a332b311817f0",
+    "tests/test_observer_pretrained_audit.py": "1c41be389fc1989d9b2cfd6e0cdba44bf281936d422a64b629ae2bcb0b6282ac",
+    "slurm/observer_pretrained_fleet.sh": "26e6c45fd543dfd1d8ed976dc218c9cf1cc8bcd3418e7d286ac51c2b39e51126",
+    "slurm/observer_pretrained_task.sh": "8e63b58c68b2fbc46fc3af78f94ef4e60c45a273de442dd0d4a42e89a813ce24",
+    "slurm/fleet_observer_pretrained_gh.sbatch": "f1397515ceabfcb4699b0a41b854a55576fe8ee54df22ab00859b770ba387ab5"
+  },
+  "state_construction": "Use validated CR17 baseline endpoint at sigma0, mix in CPU FP32 with fresh seeded Gaussian noise: x_sigma=(1-sigma)*endpoint+sigma*noise, then cast BF16. This is an artificial renoised state, not a state recorded on a sampling trajectory.",
+  "arms": [
+    "original_features_original_gains",
+    "repeat_original_features_original_gains",
+    "shifted_features_shifted_gains",
+    "shifted_features_original_gains",
+    "original_features_shifted_gains"
+  ],
+  "numerical_acceptance": "Require exact no-op repeated velocity and gain equality; all measured tensors finite. A non-small BF16 shift residual is a valid diagnostic outcome, not grounds to increase amplitude or rerun.",
+  "analysis": "Report output norms/errors and four-arm mediation, including interaction residual; compare gain-mediated effect to observed fixed-gain BF16/architecture residual without outcome-selected cutoffs. No image quality metrics, efficacy selection, or automatic promotion.",
+  "stopping": "Exactly one state for each of two existing development prompts; ten denoiser calls total. No sigma/amplitude/seed sweep and no fresh64. Evaluate this evidence before deciding on any natural-generation ablation.",
+  "cost": {
+    "nodes": 2,
+    "walltime_minutes": 15,
+    "maximum_reserved_node_hours": 0.5,
+    "expected_work": "Model/conditioning loading plus5same-state denoiser forwards per worker; preserve batch1 state-control semantics. No extra GPU work is runnable until causal results are assessed."
+  },
+  "prior_art_boundary": "LayerNorm shift symmetry and invariant channel statistics are established. AReA already rejects channel-mean cancellation. SEGA-specific mediated null-direction sensitivity is the narrow tested claim; fixing the observer alone is not a novelty or SOTA result.",
+  "intervention_equation": "Let m_i=mean_channels(FP32(h_i)), mu=mean_spatial(m), sd=population_std_spatial(m). Let p be sin(2*pi*3*w/W)+0.3*cos(2*pi*h/H), spatially centered and normalized to unit population RMS. target_i=mu+sd*p_i. Cache h_shift=BF16(FP32(h)+(target-m)[...,None]) once; this REPLACES the observer map, preserves its original spatial DC, and is not an additive harmonic on the original map.",
+  "replay_controls": "Cache one realized shifted BF16 feature tensor and replay it exactly in both shifted arms. Verify every original x_embedder output equals the captured original; cross gain tensors exactly after attention-dtype conversion. Report the transverse component of the realized BF16 feature shift.",
+  "interpretation_limits": "The fixed-gain shift residual is observed BF16/architecture residual, not automatically pure rounding. One exact original-arm repeat proves repeatability of that pair only, not all interventions or general numerical stability.",
+  "source_commit": "061fa036e2e6dc2a6dbc185ef05871adc8bc462b",
+  "frozen_utc": "2026-10-17T13:29:48.695110+00:00",
+  "task_sha256": {
+    "/scratch/09032/saini_2/constancy_rope/taskq_observer_pretrained/pending/prompt0.sh": "e53a5fe61063cd0a51fb1ff28f525de6e720a95bd9c807faf783f5fc143f8130",
+    "/scratch/09032/saini_2/constancy_rope/taskq_observer_pretrained/pending/prompt1.sh": "2d66eac20bd1180e5c71c1503b9571fd902a06a58bea2b5396c7c5908e329b07"
+  },
+  "budget_check": {
+    "available_su": 7941,
+    "allocation_su": 40000,
+    "burn_fraction": 0.8014749999999999,
+    "checked": "2026-10-17 08:28 CDT via login1 taccinfo"
+  }
+}

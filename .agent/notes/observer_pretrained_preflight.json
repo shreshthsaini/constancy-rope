@@ -1,0 +1,15 @@
+{
+  "created_utc": "2026-10-17T13:29:48.767072+00:00",
+  "protocol_sha256": "b98de615bdb3c475b38f355f35b13fbce50240f614aaac9492ebf803a77374da",
+  "source_commit": "061fa036e2e6dc2a6dbc185ef05871adc8bc462b",
+  "frozen_source_files": 16,
+  "both_prompts_metadata_and_endpoint_hashes_verified": true,
+  "selected_endpoint_shape": [
+    65536,
+    64
+  ],
+  "selected_endpoint_dtype": "torch.bfloat16",
+  "model_loaded": false,
+  "cpu_tests": 23,
+  "independent_review": "no blocker;23tests independently pass"
+}
