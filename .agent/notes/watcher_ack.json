@@ -90,6 +90,11 @@
       "acknowledged_utc": "2026-10-17T16:59:12.147540+00:00",
       "event": "Controller expires within one hour; migration verification requested",
       "verified": "No timely successor found: GG test-only1h/8h forecastOct19; generic1076903 forecastOct18. New self-starting CPUcontroller1077465 submitted and registered; actualhandoffnotverified. Watcherupdated/restarted as solePID2142630 afterverifiedoldPIDexit,107tests passed,15min/5min expiryalerts enabled. CR21job1077335 stillpending. Fresh64/frozenexperimentfiles unchanged."
+    },
+    {
+      "acknowledged_utc": "2026-10-17T17:32:08.521533+00:00",
+      "event": "Controller1073260 fifteen-minute expiry alert",
+      "verified": "No available destination; CPU1077465 and GPU1077335 pending. Sourcewatcher2142630 healthy. Bothprotocolsourcepins match, actualSlurmsubmittedCPUbatchmatches recordedSHA. Durablewatcherstate/registry snapshot /work/09032/saini_2/vista/results/constancy_rope/controller_blocked_20261017T173208Z. Blockedmigrationstate preserved; no migrationclaim orduplicatewatcher."
     }
   ]
 }

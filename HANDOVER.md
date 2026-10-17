@@ -4,8 +4,9 @@ Last takeover update: 2026-10-17 CDT. Live short state: `.agent/STATE.md`. Resul
 Design spec: `.agent/notes/design.md`. Codex briefs: `.agent/notes/codex_brief_{1,2,3}.md`. Review of the SEGA paper that
 started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact https://claude.ai/artifact/Phv2pGDvZDZwpmNM3Qh8GL).
 
-## Current takeover checkpoint (2026-10-17 11:58 CDT)
+## Current takeover checkpoint (2026-10-17 10:32 Pacific)
 
+- At10:32Pacific,15minexpiry alert: CPU1077465 andGPU1077335 still PENDING; no destinationREADY/release/agentreceipt. Actual submittedCPUbatchSHA and all controller/CR21pins match. Durablewatcherstate/registry snapshot and recovery instructions: `.agent/notes/controller_migration_blocked.json`. Source ends10:45:04Pacific; queued GPUworkers are self-contained, but monitoring/chat may pause until automaticCPUfallback starts. This is BLOCKED migration, not a verified handoff.
 - The user authorizes full unattended project ownership, experiments, evaluation, paper work, and parallel agents. The target is a genuinely novel method competitive with recent SOTA. Neither novelty nor competitive efficacy is established yet.
 - CR14 job **1076857 completed** at 08:18:51 CDT in57m05s. All four workflows succeeded. Finalizer archived scores, logged W&B, rebuilt the paper, and committed c056ce9. Independent review verified all32 images, raw scores, sidecars and26 frozen entries; recomputation differs by at most2.5e-16. Receipt: `.agent/notes/continuation3/independent_review.json`.
 - Only RMS-normalized allocation passes the frozen development gate: IR+0.036285, MUSIQ+0.388861, CLIP-0.065491, but PickScore-0.066567 and cropMUSIQ-0.214963. Uniform and lag-aligned controls fail. This modest control result does not overturn previous held-out negatives or establish a novel method. Fresh64 is unused. Preserve the completed CR14 source/spool/protocol; do not rerun it.
