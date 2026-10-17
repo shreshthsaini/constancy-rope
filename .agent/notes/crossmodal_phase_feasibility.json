@@ -1,5 +1,5 @@
 {
-  "status": "Local source/API feasibility review; no CUDA execution, new kernels, models or capture analysis",
+  "status": "Local source/API feasibility review and CPU-tested isolated implementation; no CUDA execution or performance result",
   "torch": "2.11.0+cu128",
   "cuda_build": "12.8",
   "source_sha256": {
@@ -29,11 +29,12 @@
     "fixed_mass": "y_new=y_old+m*(u_new_text-u_old_text). Equivalent in real arithmetic to shifting all new text logits by LSE_old_text-LSE_new_text, leaving image logits and total text probability unchanged.",
     "target_phase": "Native endpoint map p*63/(L-1), base theta10000, axis0 unchanged; all512 text keys including padding. Preserve pre-RoPE normalized image Q for alternate rotation, then apply the same BF16 pair gains. Inverting already-rounded captured Q is only a surrogate.",
     "scope": "Text-query rows copied from baseline within each attention call. This does not imply all later-layer text states remain unchanged after image states are modified.",
-    "mass_not_identifiable_from_output_alone": "General128-dimensional attention output does not identify the total probability on a512-key subset among66048keys. Recomputing text LSE alone does not supply the full normalizer."
+    "mass_not_identifiable_from_output_alone": "General128-dimensional attention output does not identify the total probability on a512-key subset among66048keys. Recomputing text LSE alone does not supply the full normalizer.",
+    "unnormalized_implemented": "Full joint baseline retains original text-query rows; separately evaluate image-query/image-key conditional attention uI,LSEI and alternate-image-query/text-key attention uTnew,LSETnew. Use logaddexp(LSEI,LSETnew) for a stable weighted mixture. No subtraction of rounded joint text contribution."
   },
   "viable_route": [
     "One explicit cuDNN output+LSE baseline over the full joint sequence, with the existing post-RoPE BF16 gain multiplication and layout. Keep all original outputs, including text-query rows.",
-    "Compute old and phase-altered image-query-to-text-only attention pools with the same gains/scale, obtaining old text LSE; new text LSE is needed for the unnormalized comparison arm.",
+    "Fixedmass computes old and phase-altered image-query/text-only pools. Unnormalized instead computes phase-altered text-only and original image-only conditional pools, with explicit additional image-attention cost.",
     "Use FP32 LSE differences and merge arithmetic, cast resulting image rows back to the original dtype. Text branches can be query-chunked while all512text keys remain present. No dense N-by-N score tensor.",
     "Require an unsupported-kernel error rather than a large math fallback. First future GPU use needs baseline/repeat/no-op and tiny dense-oracle comparisons; no GPU validation is claimed here."
   ],
@@ -80,15 +81,29 @@
     "At4K, straightforward alternate Q plus two BF16 conditional outputs and LSE buffers cost1.227GB beyond baseline tensors. An FP32 merge buffer adds805MB; kernel/phase temporaries are additional.",
     "With4096-query chunks, alternateQ and two outputs total75.50MB; full baseline LSE6.34MB, two chunk LSEs0.786MB, mass0.393MB, and one FP32 merge buffer50.33MB totalabout133.35MB. Retaining pre-RoPE Q for faithful alternate rotation addsabout405.8MB if kept for the entire joint sequence, or precompute full alternateQ and stream the pool branches.",
     "Existing text K/V can be views; optional contiguous copies add6.29MB. Unfused text logits alone cost3.22GB per matrix at4K, so fused or chunked computation is preferable.",
-    "At1024 native resolution there are4096image tokens, not65536; the same two-branch overhead is19.75percent of dense attention arithmetic. Identity phase should bypass interventions when scientifically allowed, but no such shortcut has been implemented."
+    "At1024 native resolution4096image tokens, both implemented phase arms explicitly bypass extra branches and use the identical baseline kernel. Without this identity path, fixedmass two-text-branch arithmetic overhead would be19.75percent.",
+    "Implementation default is65536queries per chunk: one call per conditional branch at4K. The4096chunk figure above is an optional accounting alternative, not the frozen worker choice. Full alternate Q and branch/merge buffers fit the prospective GH200 memory envelope but actual peak remains unmeasured."
   ],
   "numerical_obstacles": [
     "Real-arithmetic partition preservation does not guarantee BF16 byte equivalence. Separate softmax kernels and output subtraction have rounding error; establish no-op residual explicitly.",
     "LSE shapes/base convention and compute_log_sumexp inference behavior must be checked on the actual CUDA operator; local schemas are not execution proof.",
-    "Unnormalized phase uses log-domain partition reweighting. If original text mass rounds to1 and strong downweighting exposes an image contribution lost in BF16 output, stable exact recovery from baseline-minus-text is not guaranteed without separately evaluating image conditional attention.",
+    "An unnormalized formula recovering image contribution by baseline-minus-text could amplify BF16 error. The declared implementation avoids that formula by explicitly recomputing image-only conditional attention and stably merging partitions, at the additional cost above.",
     "Switching from automatic public SDPA to explicit cuDNN removes automatic backend fallback; unsupported shapes/layouts should fail explicitly. Returning LSE can change backend graph/kernel choice even for identical mathematical attention."
   ],
   "alternative_mass_channel": "Appending a text-indicator coordinate to V could return m with the baseline output in real arithmetic, avoiding LSE. It changes value head width and backend constraints; support, padding, numerical precision and cost are unverified. This is not a cleaner established route than the installed LSE-returning kernels.",
   "novelty_claim": false,
-  "gpu_benchmark": false
+  "gpu_benchmark": false,
+  "implementation_decision": {
+    "module": "crope/crossmodal_phase.py",
+    "tests": "tests/test_crossmodal_phase.py",
+    "cpu_tests_passed": 24,
+    "gpu_executed": false,
+    "query_chunk_size": 65536,
+    "native_identity": "At64x64 all arms explicitly use exactly the baseline kernel path; CPU target and deployed RoPE agreement separately tested.",
+    "unnormalized_extra_attention_flops_per_call": 53188874993664,
+    "unnormalized_extra_fraction_of_baseline_attention_flops": 0.9922480620155039,
+    "fixedmass_extra_fraction": 0.0153836908839613,
+    "cost_scope": "Unnormalized is deliberately an expensive numerical control, approximately one extra full image-attention pass. FLOP fractions are analytical, not latency measurements.",
+    "smoke_scope": "Tiny actual GPU FP64 oracle and a single production-shaped 24-head,65536-query,512-key text-only support probe before model load. No full-size image/image probe; that support is still first tested by generation."
+  }
 }

@@ -22,11 +22,14 @@
     "output": "Let u_T=softmax(a_i)V_T and u'_T=softmax(a'_i)V_T. Then y'_i=y_i+m*(u'_T-u_T). The image weighted-value contribution is unchanged, and the corrected output is still a convex combination of the unchanged values in exact arithmetic.",
     "information_and_size": "KL(p'_full||p_full)=m*KL(p'_text_conditional||p_text_conditional), and ||y'-y||<=m*diameter(V_T). Report the mass-weighted effect, not just a large conditional KL when m is tiny.",
     "native_identity": "When the deployed grid and RoPE are the native reference, the target and deployed phases coincide, so a'=a and the operator is exactly the baseline in real arithmetic. The floating-point implementation still requires a no-op check.",
-    "unnormalized_control": "For rho=Z'_T/Z_T, the same phase change without mass preservation gives y_uncorrected=[y+m*(rho*u'_T-u_T)]/[1-m+rho*m]. It uses the same original full output/LSE and two text branches, with no second full attention. Evaluate using stable log partitions and explicitly test extreme partition ratios; direct exp(logrho) can overflow. This control changes image probabilities and text mass, unlike the main operator.",
+    "unnormalized_control": "Use the original full joint attention for unchanged text-query rows. Independently compute image-only conditional output u_I and LSE l_I using the original image queries/keys/values, and new-text conditional output u_T_new and LSE l_T_new using the transported queries. Set l_total=logaddexp(l_I,l_T_new), then y_uncorrected=exp(l_I-l_total)*u_I+exp(l_T_new-l_total)*u_T_new. This changes image probabilities and total text mass. The separate image-only pass is a declared cost of this control, not a fallback; no rounded baseline-minus-text recovery is used.",
     "mathematics_status": "These are elementary softmax block identities and normalization constraints, not new theorems. The research contribution would have to be the specific controlled intervention and its demonstrated resolution benefit."
   },
   "fixed_coordinate_and_content_policy": {
-    "native_reference": [64, 64],
+    "native_reference": [
+      64,
+      64
+    ],
     "map": "For each spatial axis of target length L>1 and native length L0=64, phi_L(p)=p*(L0-1)/(L-1). At256 this maps endpoints0 and255 exactly to0 and63. At64 it is the identity. Axis0 is unchanged.",
     "rationale_and_alternative": "The map preserves normalized canvas location and the endpoints of the declared reference domain. It is an explicit modeling choice, not a unique physical law. p/4 and pixel-center maps have different boundary behavior; they are not silently substituted or tuned after observing outputs.",
     "frequencies": "Use the base native frequencies theta10000 with the existing(16,56,56) axis dimensions for the image-to-text target. Keep the deployed official-SEGA frequencies for image-image attention. This is cross-block positional interpolation plus a partition constraint, not a new positional primitive.",
@@ -39,8 +42,16 @@
   "non_equivalence_counterexample": {
     "status": "Evaluated with Python float64 math only in this unit; no model, external tensors or image quality labels.",
     "construction": "One rotary pair, D=2, pre-rotation q=(sqrt(2),0). Old phase pi/2 and new phase0 give old q=(0,sqrt(2)) and new q=(sqrt(2),0). Three text keys are(1,0),(0,1),(-1,0), with scalar values1,0,-1. One fixed image logit0 has value0. All logits include1/sqrt(2).",
-    "old_text_logits": [0, 1, 0],
-    "new_text_logits": [1, 0, -1],
+    "old_text_logits": [
+      0,
+      1,
+      0
+    ],
+    "new_text_logits": [
+      1,
+      0,
+      -1
+    ],
     "partition_log_correction": 0.1438387494876705,
     "old_and_new_text_mass": 0.8251222954728905,
     "old_output": 0.0,
@@ -51,13 +62,51 @@
     "limit": "This proves an actuator distinction only. Neither text key is labeled correct, so the changed output establishes no semantic or generative benefit."
   },
   "closest_collisions_and_remaining_difference": [
-    {"work": "Circle-RoPE,2505.16416v3", "source": "https://arxiv.org/html/2505.16416v3", "known": "Separates cross-modal positional geometry from intra-image geometry with annular coordinates and alternating geometry in trained VLMs.", "difference": "The current proposal keeps the deployed image-key probabilities exactly fixed and edits only image-to-text conditional phases in a frozen diffusion model. Separation of modality geometry itself is already known."},
-    {"work": "Phase-Aligned RoPE / PMA,2511.19778v2", "source": "https://arxiv.org/html/2511.19778v2", "known": "Uses query-key-specific native coordinate scales for mixed-resolution image/video attention.", "difference": "Block-specific or pair-specific phase maps are already known. The proposed text-only native-reference target plus fixed text mass is a narrower composition, not an invention of native-scale phases."},
-    {"work": "Untwisting RoPE,2602.05013v1", "source": "https://arxiv.org/html/2602.05013v1", "known": "Selectively changes rotary-frequency amplitudes on reference-image keys for shared-attention style transfer, preserving other token groups.", "difference": "This proposal changes image-to-text phase rather than reference-image amplitude and constrains the partition mass. Token-group-specific rotary intervention is already known."},
-    {"work": "TACA,2506.07986v3", "source": "https://arxiv.org/html/2506.07986v3", "known": "Modality-specific temperature changes image-to-text logits and their relative odds; timestep scheduling and LoRA mitigate resulting distribution changes.", "difference": "Rotation can break text-logit ties that any scalar temperature preserves. Fixed modality mass additionally removes aggregate cross-modal strength as the explanation. Merely changing relative text odds is not new."},
-    {"work": "TIDE,2603.08928v1", "source": "https://arxiv.org/html/2603.08928v1", "known": "Resolution-dependent text-logit bias and step/frequency temperature control address text/image imbalance.", "difference": "A common text bias alone preserves within-text odds. The present intervention deliberately leaves total text mass fixed and cannot repair pure text-mass dilution."},
-    {"work": "AReA,2610.17227v1; ResDiT,2512.01426v1", "sources": ["https://arxiv.org/html/2610.17227v1", "https://arxiv.org/html/2512.01426v1"], "known": "Native-like receptive fields, global context, local detail and positional correction are established resolution mechanisms.", "difference": "The proposed operator does not change support or fuse global/local image outputs. Its benefit would have to survive direct comparisons with those existing end-to-end approaches."},
-    {"work": "R-Bind,EMNLP2025", "source": "https://aclanthology.org/2025.emnlp-main.349/", "known": "Inference-time entity-attribute and entity-relation binding losses.", "difference": "No parsed relation, role loss or semantic attention-map target is used here. This distinction does not establish that the proposed coordinate target is useful."}
+    {
+      "work": "Circle-RoPE,2505.16416v3",
+      "source": "https://arxiv.org/html/2505.16416v3",
+      "known": "Separates cross-modal positional geometry from intra-image geometry with annular coordinates and alternating geometry in trained VLMs.",
+      "difference": "The current proposal keeps the deployed image-key probabilities exactly fixed and edits only image-to-text conditional phases in a frozen diffusion model. Separation of modality geometry itself is already known."
+    },
+    {
+      "work": "Phase-Aligned RoPE / PMA,2511.19778v2",
+      "source": "https://arxiv.org/html/2511.19778v2",
+      "known": "Uses query-key-specific native coordinate scales for mixed-resolution image/video attention.",
+      "difference": "Block-specific or pair-specific phase maps are already known. The proposed text-only native-reference target plus fixed text mass is a narrower composition, not an invention of native-scale phases."
+    },
+    {
+      "work": "Untwisting RoPE,2602.05013v1",
+      "source": "https://arxiv.org/html/2602.05013v1",
+      "known": "Selectively changes rotary-frequency amplitudes on reference-image keys for shared-attention style transfer, preserving other token groups.",
+      "difference": "This proposal changes image-to-text phase rather than reference-image amplitude and constrains the partition mass. Token-group-specific rotary intervention is already known."
+    },
+    {
+      "work": "TACA,2506.07986v3",
+      "source": "https://arxiv.org/html/2506.07986v3",
+      "known": "Modality-specific temperature changes image-to-text logits and their relative odds; timestep scheduling and LoRA mitigate resulting distribution changes.",
+      "difference": "Rotation can break text-logit ties that any scalar temperature preserves. Fixed modality mass additionally removes aggregate cross-modal strength as the explanation. Merely changing relative text odds is not new."
+    },
+    {
+      "work": "TIDE,2603.08928v1",
+      "source": "https://arxiv.org/html/2603.08928v1",
+      "known": "Resolution-dependent text-logit bias and step/frequency temperature control address text/image imbalance.",
+      "difference": "A common text bias alone preserves within-text odds. The present intervention deliberately leaves total text mass fixed and cannot repair pure text-mass dilution."
+    },
+    {
+      "work": "AReA,2610.17227v1; ResDiT,2512.01426v1",
+      "sources": [
+        "https://arxiv.org/html/2610.17227v1",
+        "https://arxiv.org/html/2512.01426v1"
+      ],
+      "known": "Native-like receptive fields, global context, local detail and positional correction are established resolution mechanisms.",
+      "difference": "The proposed operator does not change support or fuse global/local image outputs. Its benefit would have to survive direct comparisons with those existing end-to-end approaches."
+    },
+    {
+      "work": "R-Bind,EMNLP2025",
+      "source": "https://aclanthology.org/2025.emnlp-main.349/",
+      "known": "Inference-time entity-attribute and entity-relation binding losses.",
+      "difference": "No parsed relation, role loss or semantic attention-map target is used here. This distinction does not establish that the proposed coordinate target is useful."
+    }
   ],
   "novelty_assessment": {
     "established": "Positional interpolation, selective rotary edits, modality-specific attention, and softmax partition normalization are all established. The proposed design is a composition of these ingredients.",
@@ -76,18 +125,19 @@
       "Reject claims that a single common Q/K transform preserves the full image block while realizing the specified text-only correction; test the explicit split-block implementation against a materialized small attention oracle."
     ],
     "cost": "Tiny synthetic tensors only, CPU2threads, no model weights. The tests are correctness and non-equivalence checks, not another artifact-wide response study or an efficacy gate.",
-    "stop": "If the proposed implementation leaks into image probabilities, changes native behavior beyond its numerical no-op floor, depends on hidden text masking, or needs an impractical extra full attention pass, fix or reject that implementation before generation. Passing these checks establishes a defined actuator only."
+    "stop": "If the implementation changes the declared image probabilities or text partition beyond its numerical allowance, changes native behavior beyond its no-op policy, or depends on hidden text masking, correct or reject it before generation. The fixed-mass candidate must avoid another full image pass. The unnormalized control explicitly includes a separate image-only pass and must report that extra cost. Passing correctness tests establishes a defined actuator only."
   },
   "deployment_cost_and_feasibility": {
-    "required_quantities": "Original full attention output and row LSE, plus old and new text-only outputs/LSE. m=exp(LSE_text_old-LSE_full_old). Normalized SDPA output alone is insufficient to recover m.",
-    "additional_work": "Two text-only QK/AV branches plus target query rotations, O(N_image*T*D*H). For N_image65536,T512, their arithmetic ratio to full joint QK/AV is2*N_image*T/(N_image+T)^2, about1.538percent. Against image-image arithmetic alone the ratio is1.5625percent. Neither includes rotations, memory movement, kernel launches, log-partition combination or transfers; neither is a latency claim.",
+    "required_quantities": "Fixed-mass arm: original full attention output/LSE and old/new text conditional outputs/LSE, with m=exp(LSE_text_old-LSE_full_old). Unnormalized control: original full joint output for unchanged text-query rows, plus separately computed image-only and new-text conditional outputs/LSE. Normalized SDPA output alone does not expose m.",
+    "additional_work": "Fixed-mass arm adds two text-only QK/AV branches and target query rotations, O(N_image*T*D*H), giving 2*N_image*T/(N_image+T)^2=1.538369percent of full joint attention arithmetic at N_image65536,T512. The unnormalized control adds image-only and new-text attention, N_image/(N_image+T)=99.224806percent of baseline attention arithmetic. Both count QK and AV and exclude rotations, memory movement, reductions, launches, workspaces and wall time. Neither percentage is a latency claim.",
     "no_common_transform_shortcut": "A query rotation applied to the ordinary shared attention call also changes image-image logits. The exact block-specific correction requires separate text computation or a specialized fused kernel. The normalization correction is query dependent and also cannot be implemented by a common RoPE rotation.",
-    "memory": "Avoid materializing all heads' N_image-byT logits together. Process query/head chunks or use text-only fused attention. At this geometry a single FP32 text-logit tensor across24heads is about3GiB before a second branch or workspace.",
+    "memory": "Use fused cuDNN text attention with query_chunk_size65536, all image queries in one branch call. Alternate Q plus two BF16 conditional outputs and LSE buffers cost about1.227GB beyond baseline tensors at4K; a single FP32 merge buffer adds about805MB. Phase, arithmetic temporaries and kernel workspaces add more. No dense image-by-image logits are materialized. Production-shaped text-only CUDA support is tested prospectively before model loading; this is not proof of full-image branch memory or runtime.",
     "kernel_feasibility": "Evidence agent inspected local PyTorch2.11.0+cu128 schemas: public F.scaled_dot_product_attention returns output only; aten._scaled_dot_product_cudnn_attention with compute_log_sumexp=True returns output and FP32 LSE; the internal Flash op also returns LSE. Replacing the single full call with an LSE-returning backend can therefore avoid a repeated full image pass. Public varlen_attn has AuxRequest(lse=True), but the inspected backend selector forces Flash rather than preserving the current cuDNN preference; Flex attention also changes the compilation/kernel path. This is source/schema feasibility, not executed CUDA parity or latency evidence.",
     "kernel_risk": "Private ATen interfaces need pinned version, geometry, scale, mask, dropout and backend checks. If the intended LSE path fails numerical or throughput checks, do not silently fall back to an extra dense image reduction and call the intervention cheap. Record the actual backend and separately compare it with the current public-SDPA baseline.",
     "numerics": "Adding m*(u'_T-u_T) to a BF16 full output creates cancellation/cast questions. Accumulate the correction in FP32, define the final cast once, and compare no-op bytes and small-oracle error. Real-arithmetic preservation is not automatic BF16 bitwise preservation. No untested GPU-speed or exact-replay claim.",
-    "unnormalized_conditioning_risk": "The unnormalized control multiplies the saved full output by c_y=1/(1-m+rho*m). If m is near1 and rho is small, this can amplify the BF16 output's rounding error even when every coefficient is finite. When the original image contribution is numerically lost in y-m*u_T, algebraic subtraction cannot recover it. Record coefficient amplification and compare extreme representable cases with a direct FP64 oracle. Reject irrecoverable/ill-conditioned controls rather than silently clip. A separate image-attention fallback would add cost and change the declared implementation; do not add it implicitly.",
-    "prospective_backend_tolerance": "Parent proposes relativeL2<=1e-3 and cosine>=0.99999 for old public-SDPA versus LSE-returning-backend comparison, frozen before GPU execution. BF16 unit roundoff is2^-8, about0.003906, so1e-3 is a conservative engineering parity threshold, not a rigorous bound implied by dtype. Softmax/reduction errors and transformer/sampler propagation are additional. The cosine threshold is largely redundant at such small relative error for a nonzero reference; zero-norm cases need explicit absolute/exact handling. If the threshold fails, diagnose the backend instead of relaxing it after results. Same-backend native identity arms should be byte-equal to baseline, with formula correctness checked separately from the identity fast path."
+    "unnormalized_conditioning_risk": "The abandoned baseline-minus-text formula is ill-conditioned when a small image contribution was lost through BF16 rounding. The declared implementation avoids that recovery entirely by an extra image-only conditional attention call and stable logaddexp mixing. This is an intentionally more expensive control, not the fixed-mass candidate cost. Extreme partition-ratio tests use independent dense softmax references.",
+    "prospective_backend_tolerance": "Freeze deployed public-SDPA versus private cuDNN native endpoint relative L2<=1e-3 as the acceptance gate. Cosine is recorded diagnostically with nominal comparison level0.99999, not used as a second gate. BF16 unit roundoff is2^-8, about0.003906;1e-3 is an engineering parity threshold, not a rigorous dtype error theorem. Softmax, reduction and sampler propagation add error. Zero-reference norms use explicit exact/absolute handling. Diagnose a failed gate rather than relaxing it after results. Same-backend native phase arms must be byte-identical to baseline; independent non-bypassed CPU oracle checks validate the correction formula.",
+    "query_chunk_size": 65536
   },
   "public_resolution_observable_and_later_decision": {
     "observable": "Caption-grounded composition/attribute fidelity across the canvas at high resolution, together with preservation of local detail. AReA's public HRGen-1K qualitative composition/count comparisons and the cross-modal bias studies motivate this as a testable public task; they do not prove that the proposed phase policy causes or fixes those failures in Krea.",
@@ -104,8 +154,19 @@
     "source": "https://openaccess.thecvf.com/content/CVPR2023/html/Li_DropKey_for_Vision_Transformer_CVPR_2023_paper.html"
   },
   "provenance_and_limits": {
-    "local_inputs": [".agent/notes/post_cr19_research_decision.json", ".agent/notes/post_cr19_prior_art.json", ".agent/notes/post_cr20_prior_art.json", "crope/gain.py", "crope/rope.py"],
-    "primary_sources_reopened": ["https://arxiv.org/html/2505.16416v3", "https://arxiv.org/html/2511.19778v2", "https://arxiv.org/html/2602.05013v1", "https://arxiv.org/html/2506.07986v1"],
+    "local_inputs": [
+      ".agent/notes/post_cr19_research_decision.json",
+      ".agent/notes/post_cr19_prior_art.json",
+      ".agent/notes/post_cr20_prior_art.json",
+      "crope/gain.py",
+      "crope/rope.py"
+    ],
+    "primary_sources_reopened": [
+      "https://arxiv.org/html/2505.16416v3",
+      "https://arxiv.org/html/2511.19778v2",
+      "https://arxiv.org/html/2602.05013v1",
+      "https://arxiv.org/html/2506.07986v1"
+    ],
     "prior_art_review": ".agent/notes/post_cr20_prior_art.json; closer TACA v3 details independently checked there",
     "only_owned_write": ".agent/notes/post_cr20_mechanism_design.json",
     "no_GPU_source_paper_or_frozen_edits": true,

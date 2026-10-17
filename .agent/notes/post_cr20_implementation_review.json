@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "status": "completed_no_blocking_implementation_finding_before_prospective_gpu_checks",
+  "scope": "Independent read-only review of the isolated three-arm development pilot; no GPU, submission, model load, or frozen-source edit.",
+  "blocking_findings_in_current_source": [],
+  "corrected_during_review": [
+    "The score finisher now parses and validates completion records, binds image sidecars to those records and protocol/source pins, checks config digests and PNG hashes, and rejects failed or incomplete generation.",
+    "ImageReward cached checkpoint and configuration paths and SHA256 values are checked before generation and again during score acceptance. Other scorer model revisions match the archived reference.",
+    "Worker acceptance now verifies the exact 57 block names, per-block counts, per-step geometry checks, declared mode/grid/backend/text policy, native identity flag, numerical policy and expected old-text/new-text/image-only branch counts.",
+    "Saved initial and final tensor receipts are checked against the actual finite BF16 tensors and their byte hashes, not only file hashes.",
+    "Worker fixed-mass range validation now uses the processor FP32 exp(log_mass_upper_tolerance) ceiling rather than an inconsistent strict-one ceiling. No clipping was added.",
+    "Design and feasibility documents now declare the stable separate image-only unnormalized control, its approximately99.225percent extra attention arithmetic, fixed-mass approximately1.538percent extra arithmetic, query_chunk_size65536 and cosine diagnostic policy."
+  ],
+  "verified_by_source_inspection": [
+    "The alternate image query is formed from the actual normalized pre-RoPE query, with base rotary frequencies and endpoint coordinates p*63/(L-1); original BF16 rotary-pair gains are retained.",
+    "Only the image-query/text-key branch is replaced. All 512 text keys, including padding, are included. Zero text IDs and raster image IDs are checked explicitly.",
+    "The fixed-mass formula is joint_output + old_text_mass*(new_text_conditional_output-old_text_conditional_output), evaluated in FP32 before BF16 conversion.",
+    "The unnormalized control uses separate image-only and new-text conditional attention with a stable logaddexp mixture. It does not recover image contributions by subtracting rounded text output from the full baseline.",
+    "Native 64x64 grid arms use the same full joint backend path, bypassing correction. Full-model native smoke requires byte-identical phase-arm endpoints and measures deployed-public versus private-backend endpoint error.",
+    "The worker records actual initial packed input hashes and requires identical initial input and conditioning hashes across arms. It records gains, sigmas, final latent hashes, configuration and source provenance.",
+    "Per-arm teardown restores processors and the prior runtime hooks. New scorer roots are task-local images directories, with exactly three arms and two existing development prompt indices.",
+    "The fleet uses a two-node spool and exact recorded telemetry process-group cleanup. No broad process kill or scratch deletion appeared in reviewed scripts."
+  ],
+  "pending_before_final_review": [],
+  "limits": [
+    "No GPU behavior, full image-attention production geometry, image quality, or runtime has been verified by this review. The prospective smoke includes a24-head/65536-query/512-key text branch with production projection strides. The full65536-image-key branch is still first exercised during generation; its support is not established by the text-only probe.",
+    "The unnormalized control adds roughly another image attention pass and is not an equal-cost method arm. Sequential arm timings are not a warmup-matched performance benchmark.",
+    "Fixed-mass conservation is exact algebraically, but separate BF16 conditional outputs and FP32 LSE introduce finite-precision residuals. The implementation checks finite values and bounded log mass; it does not establish bitwise conservation at 4K.",
+    "The native deployed-versus-private relative-L2 tolerance is an engineering parity criterion, not a rigorous BF16 roundoff theorem. The current worker makes cosine diagnostic and must keep that distinction in the frozen protocol.",
+    "The phase hypothesis is provisional. Prior-art ingredients are known; this review establishes neither novelty nor efficacy, and CR20 did not reveal a primary native-success/4K-failure pair."
+  ],
+  "reviewed_utc": "2026-10-17T15:16:14.377084+00:00",
+  "validation": {
+    "host": "i618-051.vista.tacc.utexas.edu",
+    "cpu_threads": 2,
+    "command": "OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python -m pytest -q tests/test_crossmodal_phase.py tests/test_crossmodal_phase_pilot.py tests/test_crossmodal_phase_scores.py",
+    "result": "99 passed in11.64s",
+    "shell_syntax": "bash -n passed for the three new task/fleet/batch scripts",
+    "gpu_executed_by_reviewer": false,
+    "models_loaded_by_reviewer": false
+  },
+  "prospective_next_step": "Parent may freeze the reviewed sources and notes, then use the already designed fail-closed CUDA and native endpoint checks before the bounded two-prompt, three-arm generation screen. Passing CPU checks is not evidence that GPU checks or efficacy will pass.",
+  "source_status": "At review, git status showed only the isolated new implementation/tests/launch scripts, this review note, and the explicitly updated design/feasibility notes. Existing frozen runtime and protocols were not modified.",
+  "reviewed_sha256": {
+    "crope/crossmodal_phase.py": "ac0c755dabb336ce3a671fbb15dfb04e51e7becf9d9f2f8150057978a37ead59",
+    "scripts/crossmodal_phase_pilot.py": "42ae87dd2cd2606e83e311e436bdd3bffa78b13573f1ca3e19cf60af710746b9",
+    "scripts/crossmodal_phase_scores.py": "6ba7dbfd364ba89c2f4728a634635a3933fdf0a8fcae49da89afe56964e17725",
+    "scripts/freeze_crossmodal_phase.py": "45944ba6b52cc6d7f4567a31ae9e3f8774041cd35a314397bbbe5a9a36fedb48",
+    "tests/test_crossmodal_phase.py": "86d1fb3194c03eae54888dae14ca6f187adee19f2fbd8de86564656a865b6536",
+    "tests/test_crossmodal_phase_pilot.py": "e19e96b6a0e7d5101056c387a77d11c0c21d27abddc31c1f43cef9d865bd0165",
+    "tests/test_crossmodal_phase_scores.py": "34915711fb2a94de36fab7a039e6149432988118fc9d20051cb745043ba9e110",
+    "slurm/crossmodal_phase_task.sh": "1ca7309c85e485f3816c39602c7d58acc43bf79d08c728f0de9d007f177e7edd",
+    "slurm/crossmodal_phase_fleet.sh": "70757c07ba9508db3b482c4f19e50fe6a49b7dc7027ea6acc1f321c27aa6325f",
+    "slurm/fleet_crossmodal_phase_gh.sbatch": "33a7beb5fc01ab0a7ade7fb1e8313cc2cd26bff0fee89dc99532f91d7d7a5663",
+    ".agent/notes/post_cr20_mechanism_design.json": "21a9a4ade9fe089a501c882e591ee5e13dbf4b26c283ce8782ce5893535b5dc2",
+    ".agent/notes/crossmodal_phase_feasibility.json": "9e06e47ad35b94ca3ab019b9cb0a57b097010a018f38cd16555b5c22b706be83"
+  }
+}
