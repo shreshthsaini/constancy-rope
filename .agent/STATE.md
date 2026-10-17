@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution method competitive with r
 User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 08:43 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+2026-10-17 08:44 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
 Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
 RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
 PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
@@ -22,9 +22,11 @@ Source061fa03, frozen protocol b98de615;23CPU tests pass, independent review no 
 Two dev prompts, synthetic renoised CR17 endpoints at sigma .5, five forwards each including repeat.
 Four-arm mediation separates gain changes from BF16 shift rounding. No quality or novelty claim.
 NEXT: inspect CR18 execution/strict repeat and four-arm causal contrasts when watcher wakes.
-CPU validator/archiver is implemented and independently reviewed; integration test is in progress.
+CPU validator/archiver ready:28reporter+23worker tests pass; all16 frozen source hashes match.
+Includes two-prompt synthetic/archive integration, corruption and byte-replay checks.
+Run command in observer_pretrained_report_preflight.json after both completions; archive notes/observer_cr18.
 Covariance/gain proposal lacks justified target; DoPE adds a close prior-art collision.
-Stop promotion of that branch; resolution-focused pivot review continues without new GPU work.
+Stop promotion of that branch. Resolution pivot review lacks native comparators and a distinct intervention.
 Eight dev baseline previews show no obvious global duplication; garbled shop text has no proven resolution cause.
 If CR18 is cited, preserve modest-size saved tensor witnesses on work outside implementation repo.
 Fresh64 and all completed frozen protocols remain untouched. No method sweep or confirmation authorized by diagnostics.
@@ -49,6 +51,8 @@ CR14/CR17 completed; CR18 is the only pending project GPU job. Do not repeat com
 | notes/observer_feedback_cpu.json | Tiny gain-mediated output change |
 | notes/next_mechanism_derivation.json | Architecture proof, scope and recommendation |
 | notes/rotary_kernel_prior_art_20261017.md | AReA/LayerNorm and phase/covariance collisions |
+| notes/observer_pretrained_report_preflight.json | Validated CPU analysis command and source hashes |
+| notes/resolution_pivot_20261017.json | Prompt-grounded resolution failure target; missing comparators |
 | notes/post_observer_research_decision.json | Reject underidentified covariance/gain proposal |
 | notes/cr14_visual_review.json | Eight fixed-order baseline previews; no causal failure established |
 | notes/observer_pretrained_protocol.json | Frozen CR18 causal audit protocol |

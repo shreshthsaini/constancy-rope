@@ -1,0 +1,17 @@
+{
+  "created_utc": "2026-10-17T13:44:53.425152+00:00",
+  "tests": {
+    "command": "OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python -m pytest -q tests/test_observer_pretrained_report.py tests/test_observer_pretrained_audit.py",
+    "passed": 51,
+    "seconds": 3.19
+  },
+  "frozen_source_hashes_verified": 16,
+  "files_sha256": {
+    "scripts/observer_pretrained_report.py": "c3db28d3918783925d0d87d4ee7ffe82c4235221cd4518aebb69d12957796b2b",
+    "tests/test_observer_pretrained_report.py": "b6be9b1645e558df33a4606f52f71fb54ab0db7d0536a4009e94f2fe889bf4bd",
+    ".agent/notes/observer_pretrained_protocol.json": "b98de615bdb3c475b38f355f35b13fbce50240f614aaac9492ebf803a77374da"
+  },
+  "scope": "CPU validator readiness only; no CR18 GPU result accepted. Synthetic fixtures are not pretrained evidence. Saved tensor bytes are checked; unsaved conditioning and full-feature claims remain runtime receipts.",
+  "run_after_both_complete": "OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python scripts/observer_pretrained_report.py /scratch/09032/saini_2/constancy_rope/observer_pretrained/job1077211 --protocol .agent/notes/observer_pretrained_protocol.json --submission .agent/notes/observer_pretrained_submission.json --out .agent/notes/observer_cr18",
+  "retention": "If accepted CR18 is cited, copy input/output/observer/target witnesses to a fresh /work result directory outside this implementation repo, verify hashes, and archive path mapping. JSON alone cannot reproduce contrasts after scratch purge."
+}

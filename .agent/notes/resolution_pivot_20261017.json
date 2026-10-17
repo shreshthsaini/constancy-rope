@@ -1,0 +1,97 @@
+{
+  "date": "2026-10-17",
+  "research_goal": "A genuinely distinct method for general DiT resolution extrapolation with competitive quality and cost. This is not a scene-text repair project.",
+  "decision": "No distinct intervention survives this bounded review yet. Retain one concrete research target: prevent resolution-induced loss of prompt-grounded scene constraints while increasing detail. The immediate gap is evidence that a native-resolution success becomes a high-resolution failure under the current strong baseline. Do not infer that gap from a difficult 4K image alone.",
+  "new_gpu_work_recommended_now": false,
+  "authorization": "Bounded research is already authorized. The previous note now says separately frozen and reviewed, not separately approved. This decision requests no additional user permission.",
+  "one_failure_target": {
+    "failure": "A relation, attribute binding, or explicitly requested object that the native model renders correctly is lost, duplicated, or misbound at higher resolution, despite broadly coherent layout and additional texture.",
+    "why_this_is_more_specific_than_quality": "Global duplication and layout collapse are already direct targets of recent methods. A remaining failure could instead be semantic relations inside an otherwise plausible scene. Sharper texture or higher MUSIQ cannot establish that a woman is actually offering grapes to the bear, that two people hold hands, or that specified signs are present.",
+    "independently_justified_target": "Preserve prompt-entitled semantic predicates, not a native feature moment or exact low-resolution composition. The prompt supplies the desired relation or attribute; an observed native success establishes that the frozen backbone can realize it. The native image must not become ground truth for incidental placement, color, or texture absent from the caption.",
+    "formal_measure": "For a predeclared predicate p and prompt c, annotate S_p(I,c) in {satisfied, violated, unjudgeable}. Report native-satisfied/high-resolution-violated cases separately from native-violated/high-resolution-violated cases. The latter cannot establish a resolution-specific defect. Do not replace unjudgeable with failure. Report each predicate rather than optimizing a weighted composite selected after inspection.",
+    "important_limit": "A native/high-resolution pair alone is descriptive. Identical integer seeds do not give identical semantic noise across tensor sizes. Differences in noise coupling, sampler schedule, numerical policy, model or prompt preprocessing confound resolution attribution. A later causal test would need an explicit coupling and matched implementation; that test is not launched here.",
+    "novelty_status": "The target is a useful measurement, not a new method. Semantic consistency, object binding, and multi-scale structure preservation are established problems. No new corrective mechanism is inferred from defining this target."
+  },
+  "existing_development_evidence": {
+    "scope": "Eight existing Aesthetic-4K development captions and CR14 archived results inspected. Independently viewed the original official-SEGA planet and storefront outputs through the image viewer. The parent's separate review covered all eight downscaled official outputs.",
+    "planet_row4": "The large ringed planet has a coherent overall shape and ring arrangement at the displayed scale. Several smaller foreground/background objects are visible. An exact count assessment would need to define whether the foreground rocky object is included in celestial bodies; this is not scored here. No harmful rotary alias is established.",
+    "storefront_row5": "Prominent shop lettering is visibly garbled. The caption explicitly requests Kodak and Paradis, so the target strings are not arbitrary. This is a useful observable, but no complete native-pixel transcription or native-resolution comparator was performed. It does not establish resolution causation and does not justify pivoting the entire method toward OCR.",
+    "parent_review_boundary": "Parent reports no obvious global duplication or layout collapse across all eight official-SEGA development outputs at 768-pixel display size. This is not an exhaustive pixel-level audit and does not show that resolution has no effect.",
+    "CR14_boundary": "RMS-normalized passed the eight-prompt gate with IR +0.036285 and full MUSIQ +0.388861, but PickScore -0.066567 and crop MUSIQ -0.214963. Uniform and lag failed. None of those aggregates identify a lost semantic predicate or its causal stage.",
+    "native_artifact_search": "No filenames matching /1024x1024/ or native*.png were found in the bounded filename inspection of out_krea, calib, diagnostics and diag. Pilot method directories inspected were all 4096x4096. This is not a claim that native images cannot exist elsewhere or under different names. No models were loaded to create comparators.",
+    "reference_images": "Aesthetic-4K reference photographs are caption sources, not paired ground truth for a stochastic generated layout. They must not be used to penalize permissible composition changes or substitute for a native-model comparator."
+  },
+  "caption_grounded_audit_candidates_not_new_method_options": [
+    {"row": 0, "predicate": "Small boats at the water's edge with multiple colors; larger boats in the distant harbor.", "ambiguity": "No exact boat count or hull lettering is required."},
+    {"row": 1, "predicate": "Moai statue against a starry sky with sunset colors near the horizon.", "ambiguity": "Upward gaze and simultaneous sky conditions require a consistent annotation rubric."},
+    {"row": 2, "predicate": "A kneeling woman offers grapes to the brown bear beside her.", "ambiguity": "Grapes and the offering relation must be visibly judgeable; mere entity co-presence is insufficient."},
+    {"row": 3, "predicate": "Surfer, yellow board and coral within the explicitly requested underwater/wave composition.", "ambiguity": "Do not call the underwater scene a failure simply because it is physically unusual; the caption requests it."},
+    {"row": 4, "predicate": "Prominent ringed foreground planet and two smaller celestial bodies with the specified relations.", "ambiguity": "Define celestial-body and silhouette criteria before counting; stars and small debris complicate annotation."},
+    {"row": 5, "predicate": "Woman with black top and green striped skirt; man with newspaper and boy; shop signs Kodak and Paradis.", "ambiguity": "Quoted strings can be transcribed, but their absence is not by itself resolution-specific."},
+    {"row": 6, "predicate": "Seated man and woman holding hands on a teal couch.", "ambiguity": "Hand contact can be unjudgeable if occluded or malformed; avoid inferring it from proximity."},
+    {"row": 7, "predicate": "Ballerina in a yellow dress posing on one supporting leg.", "ambiguity": "Support and contact should be assessed explicitly; aesthetic pose preference is not the target."}
+  ],
+  "primary_source_boundaries": [
+    {
+      "paper": "AReA, 2610.17227v1",
+      "relevant_mechanism": "Coarse global attention followed by local attention is already a direct general-resolution mechanism. Appendix E explicitly attributes duplicate objects to windows lacking knowledge of objects elsewhere and supplies real global K/V registers in the same softmax. A proposed semantic ownership memory or object-existence bridge would need to distinguish this existing correction, not merely add global tokens.",
+      "source": "https://arxiv.org/html/2610.17227v1"
+    },
+    {
+      "paper": "HRDiT, 2608.07003v1",
+      "relevant_mechanism": "Bundle/slide positional alignment targets spatial disorder while head-adaptive pruning reduces attention cost. Its within-bundle discrimination limitation is addressed by sliding; that limitation should not be presented as an untouched gap. No new coordinate-remapping method is proposed here.",
+      "source": "https://arxiv.org/html/2608.07003v1"
+    },
+    {
+      "paper": "ResDiT, inspected arXiv 2512.01426v1; CVPR 2026 proceedings entry verified",
+      "relevant_mechanism": "Separates positional layout correction from local-detail attention, then uses overlapping local patches and spectral global/local fusion. A coarse semantic anchor plus local refinement would collide with this architecture unless a distinct failure and correction are demonstrated.",
+      "sources": ["https://arxiv.org/html/2512.01426v1", "https://openaccess.thecvf.com/content/CVPR2026/html/Ma_ResDiT_Evoking_the_Intrinsic_Resolution_Scalability_in_Diffusion_Transformers_CVPR_2026_paper.html"]
+    },
+    {
+      "paper": "SEGA, 2605.22668v1",
+      "relevant_mechanism": "Appendix D acknowledges declining perceptual quality at extreme scales and dependence on an underlying positional extrapolator. Its attribution to model capacity is an author interpretation, not proof that this project's remaining errors are intrinsic or unfixable. Spectral allocation does not provide a prompt-grounded predicate guarantee.",
+      "source": "https://arxiv.org/html/2605.22668v1"
+    },
+    {
+      "paper": "HiWave and DiffuseHigh",
+      "relevant_mechanism": "Low-resolution structure preservation with high-frequency refinement is established. HiWave uses inversion and wavelet guidance; DiffuseHigh uses progressive structure guidance. A target built simply from native low-frequency pixels is not a new direction.",
+      "sources": ["https://arxiv.org/html/2506.20452v1", "https://arxiv.org/html/2406.18459v1"]
+    },
+    {
+      "paper": "I-Max and HiFlow",
+      "relevant_mechanism": "Projected flow and a virtual reference flow already use native-resolution information to guide high-resolution rectified-flow generation. Generic commutation or trajectory alignment across resolutions would need a stronger distinction than replacing the distance metric.",
+      "verification": "Primary arXiv abstracts inspected, with mechanism cross-check in ResDiT's related work. Full implementations were not audited.",
+      "sources": ["https://arxiv.org/abs/2410.07536", "https://arxiv.org/abs/2504.06232"]
+    },
+    {
+      "paper": "FreeText, 2601.00535v1",
+      "relevant_mechanism": "Already localizes DiT text regions and injects noise-aligned, spectrally modulated glyph priors. This directly blocks presenting the observed shop-sign defect plus glyph injection as a novel resolution method. It is retained only as a boundary for the illustrative observable.",
+      "source": "https://arxiv.org/html/2601.00535v1"
+    }
+  ],
+  "single_candidate_mechanism_considered_and_not_promoted": {
+    "candidate": "Preserve a compact record of already-satisfied scene relations during high-resolution detail synthesis and expose that record only to regions at risk of violating those relations.",
+    "why_it_is_attractive": "The correction target could come from the caption and verified coarse semantics rather than an arbitrary spectrum. It might allow detail to change without preserving every native pixel.",
+    "why_it_does_not_yet_survive": "AReA already supplies global evidence to prevent local duplicate creation; existing layout, count and semantic guidance methods cover explicit constraints; native-reference flow methods preserve structure. No current artifact identifies a relation lost because the required global evidence was absent, nor an efficient reliable way to detect such loss during noisy DiT inference. Replacing global registers with a scene graph is presently an architectural combination, not an established distinct mechanism.",
+    "specific_missing_causal_chain": "Native capability -> resolution-induced loss of a named relation -> a localized information failure not already repaired by existing global/local or native-reference methods -> a minimal corrective intervention -> preserved detail and improved end-to-end quality at competitive cost.",
+    "not_an_impossibility_claim": "No step in this review proves such a mechanism cannot exist. The evidence and distinction needed to justify implementing it are currently missing."
+  },
+  "smallest_falsifiable_next_step": {
+    "type": "CPU/read-only failure localization, not method validation",
+    "question": "Do any of the existing eight development prompts exhibit a clear semantic predicate loss at high resolution despite verified native-model success?",
+    "bounded_design": "First locate any existing native outputs for exactly these eight captions and validate model, prompts, schedule, seed derivation and sidecars. Freeze the predicate rubric from captions before comparing variants. Use all available paired development prompts, mark absent comparators as missing, and score satisfied/violated/unjudgeable with blinded method labels at both common display scale and a pixel-detail view. Do not create substitute native samples by downsampling 4K outputs.",
+    "immediate_status": "The scoped filename inspection did not locate those comparators. Current artifacts therefore cannot answer the resolution-specific question. Continue only if additional registered native artifacts are located; otherwise report the missing evidence without inventing a resolution mechanism.",
+    "falsifier": "If the observed failures are already present at native resolution, are ambiguous, or no native-satisfied/high-resolution-violated case exists in the available development pairs, reject this failure hypothesis for the inspected sample. Do not generalize the negative result beyond those prompts or redirect the test toward hand-picked failures.",
+    "what_a_positive_result_would_and_would_not_do": "A positive descriptive case would justify investigating when a named relation is lost. It would not establish a novel intervention, causal resolution effect, broad prevalence or SOTA efficacy. A further frozen causal design would have to resolve seed/noise and schedule confounds before allocating a method campaign.",
+    "budget": "Zero denoiser calls, zero new scorer/model loads, no fresh64, no held-out reuse, no new implementation. At most the existing eight development prompt pairs for this question."
+  },
+  "bottom_line_without_overclaim": "The useful pivot is from proxy correction to a prompt-grounded, resolution-specific failure target. The literature supplies many ways to preserve structure, so the novel part cannot merely be another global/local merge, native anchor or semantic memory. Current images and records do not yet identify the causal gap. Preserve that exact uncertainty and keep research open without promoting an unsupported method.",
+  "provenance": {
+    "local_inputs": [".agent/notes/novelty_20261017.md", ".agent/notes/continuation3/dev/dev_per_prompt.csv", ".agent/notes/continuation3/independent_review.json", "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl"],
+    "independently_viewed_images": ["/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus5023570400257826529_b6561f2b88_seed0.png", "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus8041742109062037958_f5c747aef8_seed0.png"],
+    "search_limits": "Targeted primary-source review of high-resolution DiTs and close structure-preservation mechanisms. It is not exhaustive and does not reproduce author-reported rankings. No inspected paper proves all current semantic failures solved.",
+    "owned_writes": [".agent/notes/resolution_pivot_20261017.json", ".agent/notes/post_observer_research_decision.json wording correction only"],
+    "paper_runtime_protocols_unchanged": true,
+    "fresh64_untouched": true
+  }
+}

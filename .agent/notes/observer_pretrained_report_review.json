@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-17",
+  "reviewer": "prior_art",
+  "verdict": "ready_for_analysis_when_both_CR18_prompts_complete",
+  "blocking_findings": [],
+  "scope": "Independent report-helper/code review and bounded CPU tests on i618-051. No GPU job, model execution or live CR18 result analysis. This review does not certify campaign completion.",
+  "reviewed_sha256": {
+    "scripts/observer_pretrained_report.py": "c3db28d3918783925d0d87d4ee7ffe82c4235221cd4518aebb69d12957796b2b",
+    "tests/test_observer_pretrained_report.py": "b6be9b1645e558df33a4606f52f71fb54ab0db7d0536a4009e94f2fe889bf4bd",
+    "scripts/observer_pretrained_audit.py": "85b444d7c2d438c7231efc83f3946c087ed9d08b75b24042945a332b311817f0",
+    ".agent/notes/observer_pretrained_protocol.json": "b98de615bdb3c475b38f355f35b13fbce50240f614aaac9492ebf803a77374da"
+  },
+  "independent_checks": {
+    "test_command": "OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python -m pytest -q tests/test_observer_pretrained_report.py tests/test_observer_pretrained_audit.py",
+    "test_result": "51 passed in 3.15s: 28 report tests and 23 frozen-worker tests.",
+    "frozen_provenance": "Independently validated protocol schema, submission/protocol SHA256 agreement, and all 16 frozen source entries. Runtime and protocol hashes remain unchanged.",
+    "integration": "Reviewed and executed small-shape complete two-prompt report fixture. Only accepted-input and artificial-state construction boundaries are mocked; actual saved input/output/observer files, manifests, crossings, completion, submission/root linkage and archive round trip are exercised.",
+    "corruption_coverage": [
+      "Missing/incomplete campaign",
+      "Incorrect declared contrasts and false repeated-output claim",
+      "Gain/feature crossing, consumed cast, cast vector and feature geometry corruption",
+      "Saved tensor file hash, content hash, shape and nonfinite values",
+      "Observer hash corruption",
+      "Protocol/submission/source/model/state/conditioning/job provenance drift",
+      "Submitted root and saved input corruption",
+      "Signed-zero mismatch in a claimed bitwise repeated output",
+      "NaN and Boolean values supplied as numbers"
+    ]
+  },
+  "findings": [
+    {
+      "topic": "Worker compatibility",
+      "conclusion": "Required shape, dtype, arm order, 57 attention calls, 128 paired gains, model/software fields and receipts agree with the frozen worker. Both prompts must complete before analysis; failure receipts reject the campaign."
+    },
+    {
+      "topic": "Independent recomputation",
+      "conclusion": "The helper reconstructs CPU noise/input and verifies saved tensors before recomputing all four-arm contrasts, gain casts, observer spectra, harmonic target and descriptive ratios. Zero denominators are represented explicitly. CPU arithmetic reproduction thresholds are separate from scientific response thresholds."
+    },
+    {
+      "topic": "Receipt boundary",
+      "conclusion": "Full projected features and conditioning were not saved. Their hashes, transverse geometry, attention-consumption hashes and Q/K dtype remain explicitly labeled frozen-worker runtime receipts. The helper does not imply it independently reconstructs those tensors or reruns OfficialSEGA from them."
+    },
+    {
+      "topic": "Exact repeat correction",
+      "conclusion": "Review reproduced torch.equal(+0,-0)=True while tensor hashes differ. Evidence agent added raw output tensor-hash equality for the original repeat and observer/target crossing hashes. Other worker-compatible bitwise_equal fields are explicitly documented as numerical torch.equal semantics. The signed-zero rejection test passes."
+    },
+    {
+      "topic": "Archive",
+      "conclusion": "Fresh WORK-only JSON archive and its source/report hashes are tested. Bulk tensor retention remains a separate parent action; no extra archive feature or frozen runtime change is needed."
+    }
+  ],
+  "remaining_limits": [
+    "Actual CPU/CUDA observer-spectrum and harmonic-target agreement has not been tested by this review against completed CR18 artifacts. The explicit tolerances are reasonable numerical comparison rules, not empirical proof of cross-backend agreement. Investigate any failure and preserve it rather than silently widening tolerances or changing the frozen GPU protocol.",
+    "The synthetic integration test cannot replace validation of the real accepted campaign and its endpoint provenance.",
+    "One repeated original arm tests only that pair. No quality, natural-trajectory, novelty, generalization or automatic promotion claim follows from reporter success.",
+    "Current provenance validation is performed against the frozen local sources and declared submission. The report records its own source hash separately."
+  ],
+  "retention_recommendation": {
+    "action": "If accepted CR18 results are cited, preserve the saved velocity outputs, inputs and observer/target tensors outside the implementation repository on WORK, with a hash/path mapping receipt.",
+    "reason": "The approximately 80 MiB of velocity outputs are witnesses for independent contrast recomputation. JSON statistics and hashes alone cannot regenerate tensors after scratch purge.",
+    "parent_acknowledgment": "Parent agreed to preserve these paper-critical witnesses after accepted CR18; this is separate from the lean JSON reporter."
+  }
+}
