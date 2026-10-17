@@ -10,7 +10,7 @@ set -euo pipefail
 umask 077
 cd /work/09032/saini_2/vista/Projects/Exploration/constancy_rope
 export OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 NUMEXPR_NUM_THREADS=2
-export CUDA_VISIBLE_DEVICES=""
+unset CUDA_VISIBLE_DEVICES
 /work/09032/saini_2/vista/library/uv-envs/dcc-watch/bin/python - <<'CHECK'
 import json,hashlib
 from pathlib import Path
