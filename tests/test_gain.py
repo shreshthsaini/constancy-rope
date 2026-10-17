@@ -412,7 +412,8 @@ def test_native_low_frequency_extrapolation_is_log_linear():
 
 
 @pytest.mark.parametrize("method", ["base", "sega_official", "sega_official_static",
-                                    "constancy_tm", "constancy_tm_nogate", "alias_temp", "alias_temp_sref", "sega_ctm"])
+                                    "constancy_tm", "constancy_tm_nogate", "alias_temp", "alias_temp_sref", "sega_ctm",
+                                    "sega_ctm_lag", "sega_rms_uniform", "sega_rms_normalized"])
 def test_runtime_updates_once_and_uses_exact_scheduler_sigma(tiny_flux, monkeypatch, tmp_path, method):
     monkeypatch.setattr(runtime, "code_revision", lambda: "test")
     monkeypatch.setattr(runtime, "model_revision", lambda: "test")
@@ -425,7 +426,7 @@ def test_runtime_updates_once_and_uses_exact_scheduler_sigma(tiny_flux, monkeypa
         np.savez(static, mean_qk_scale=np.repeat([1, 1, 1.1, 1.2, 1.3, 1.2, 1.3, 1.4], 2),
                  grid=[2, 3], source_method="sega_official")
     profile = None
-    if method.startswith("constancy_tm") or method == "sega_ctm":
+    if method.startswith("constancy_tm") or method in ("sega_ctm", "sega_ctm_lag"):
         profile = tmp_path / "native_tm.npz"
         f = torch.tensor([1 / 64, 1 / 16, 1 / 4])
         NativeProfile((f, f), (f * 0, f * 0), torch.tensor([0.9, 0.1]),
@@ -438,9 +439,9 @@ def test_runtime_updates_once_and_uses_exact_scheduler_sigma(tiny_flux, monkeypa
     target = experiment.official if method == "sega_official" else experiment.controller
     original_update = target.update
 
-    def update(*args):
+    def update(*args, **kwargs):
         calls.append(tuple(value.clone() if isinstance(value, torch.Tensor) else value for value in args))
-        return original_update(*args)
+        return original_update(*args, **kwargs)
 
     monkeypatch.setattr(target, "update", update)
     experiment.reset(lambda step, sigma, xt, x0: observed.append((step, sigma, xt.clone(), x0.clone())))
@@ -458,6 +459,7 @@ def test_runtime_updates_once_and_uses_exact_scheduler_sigma(tiny_flux, monkeypa
                 expected = expected - float(sigmas[index]) * token_grid(output.float(), experiment.grid)
                 torch.testing.assert_close(experiment.previous_x0, expected, atol=0, rtol=0)
                 assert experiment.previous_x0.dtype == torch.float32
+                assert experiment.previous_x0_sigma == float(sigmas[index])
                 assert calls[index][1] == float(sigmas[index])
                 assert calls[index][1] != float(kwargs["timestep"][0])
         assert len(calls) == len(experiment.controller.history) == experiment.step == 2
@@ -467,6 +469,13 @@ def test_runtime_updates_once_and_uses_exact_scheduler_sigma(tiny_flux, monkeypa
             torch.testing.assert_close(calls[1][2], observed[0][3], atol=0, rtol=0)
         else:
             assert calls[0][0].shape == (1, 6, 32)
+        if method == "sega_ctm_lag":
+            assert experiment.controller.history[0]["target_sigma"] is None
+            assert experiment.controller.history[1]["target_sigma"] == float(sigmas[0])
+            assert experiment.config({"id": "test", "prompt": "test"}, 0, 2, 4.5)["method"] == method
+        experiment.reset()
+        assert experiment.previous_x0 is None and experiment.previous_x0_sigma is None
+        assert experiment.step == 0 and experiment.controller.history == []
     finally:
         experiment.close()
     assert tiny_flux.pos_embed is original_rope
@@ -547,3 +556,118 @@ def test_new_mode_defaults_and_required_inputs(time_profile):
     for mode in ("alias_temp", "alias_temp_sref", "sega_ctm"):
         with pytest.raises(ValueError, match="no extra temperature"):
             GainController(mode, profile=profile, temperature="sref")
+
+
+@pytest.mark.parametrize("grid", [(64, 64), (128, 256), (256, 256)])
+@pytest.mark.parametrize("mode", ["sega_rms_uniform", "sega_rms_normalized"])
+def test_sega_rms_controls_preserve_index_and_axis_energy_or_ratios(grid, mode):
+    # Distinct axis spectra detect accidental global rather than per-axis normalization.
+    base = torch.cat((torch.full((16,), 1.17), torch.linspace(1, 2, 28).repeat_interleave(2),
+                      torch.linspace(1.2, 3, 28).repeat_interleave(2)))
+    original = base.clone()
+    controller = GainController(mode, grid=grid)
+    actual = controller.update(torch.zeros(1, *grid), 0.6, official_qk_scale=base)
+    assert torch.equal(base, original)
+    assert torch.equal(actual[:16], base[:16])
+    assert torch.equal(actual[::2], actual[1::2])
+    reference = max(max(grid) / 64, 1) ** 0.08
+    for off in (16, 72):
+        before, after = base[off:off + 56], actual[off:off + 56]
+        if mode == "sega_rms_uniform":
+            torch.testing.assert_close(after, before.square().mean().sqrt().expand_as(after))
+            torch.testing.assert_close(after.square().mean(), before.square().mean())
+        else:
+            torch.testing.assert_close(after.square().mean().sqrt(), torch.tensor(reference))
+            torch.testing.assert_close(after / before, (after / before).mean().expand_as(after))
+            assert after.min() < reference  # No floor re-clipping after normalization.
+    torch.testing.assert_close(torch.tensor(controller.history[-1]["log_g"]).exp(), actual.square())
+    assert controller.history[-1]["mode"] == mode
+
+
+def test_sega_ctm_lag_removes_native_timing_bias_and_keeps_current_gate(time_profile):
+    profile, fields = time_profile
+    xt = 5 * fields[-1]
+    base = torch.linspace(1, 1.3, 64).repeat_interleave(2)
+    lag = GainController("sega_ctm_lag", profile=profile)
+    historical = GainController("sega_ctm", profile=profile, eta=1)
+    assert lag.eta == 1 and lag.temperature == "none"
+    assert torch.equal(lag.update(xt, 0.9, official_qk_scale=base), base)
+    assert lag.history[-1]["target_sigma"] is None
+    for i in range(1, len(fields)):
+        current, previous = float(profile.sigma_steps[i]), float(profile.sigma_steps[i - 1])
+        lag.update(xt, current, fields[i - 1], base, x0_sigma=previous)
+        historical.update(xt, current, fields[i - 1], base)
+        for aligned, old in zip(lag.history[-1]["bins"], historical.history[-1]["bins"]):
+            np.testing.assert_allclose(aligned["deficit"], 0, atol=1e-12)
+            np.testing.assert_allclose(aligned["correction"], 0, atol=1e-12)
+            np.testing.assert_array_equal(aligned["gate"], old["gate"])
+        assert max(abs(v) for b in historical.history[-1]["bins"] for v in b["deficit"]) > 0.01
+        assert lag.history[-1]["target_sigma"] == previous
+        assert lag.history[-1]["sigma"] == current
+        torch.testing.assert_close(lag.qk_scale, base)
+
+
+@pytest.mark.parametrize("x0_sigma", [None, -0.1, 1.1, float("nan")])
+def test_sega_ctm_lag_rejects_missing_or_invalid_estimate_time(time_profile, x0_sigma):
+    profile, fields = time_profile
+    controller = GainController("sega_ctm_lag", profile=profile)
+    with pytest.raises(ValueError, match="previous x0 sigma"):
+        controller.update(fields[0], 0.6, fields[0], torch.ones(128), x0_sigma=x0_sigma)
+    assert controller.history == []
+
+
+def test_sega_ctm_lag_eta_zero_reproduces_official_gain_exactly(time_profile):
+    profile, fields = time_profile
+    controller = GainController("sega_ctm_lag", profile=profile, eta=0)
+    base = torch.linspace(1, 1.3, 64).repeat_interleave(2)
+    actual = controller.update(5 * fields[-1], 0.3, fields[0], base, x0_sigma=0.9)
+    assert torch.equal(actual, base)
+
+
+def test_sega_ctm_lag_eta_zero_matches_official_transformer_and_resets(tiny_flux, monkeypatch, tmp_path):
+    monkeypatch.setattr(runtime, "code_revision", lambda: "test")
+    monkeypatch.setattr(runtime, "model_revision", lambda: "test")
+    sigmas = torch.tensor([0.777712345, 0.333312345, 0], dtype=torch.float64)
+    pipe = SimpleNamespace(transformer=tiny_flux, scheduler=SimpleNamespace(sigmas=sigmas, config={}))
+    f = torch.tensor([1 / 64, 1 / 16, 1 / 4])
+    profile = tmp_path / "lag.npz"
+    NativeProfile((f, f), (f, f), torch.tensor([0.9, 0.1]),
+                  (torch.stack((f, 2 * f)), torch.stack((f, 3 * f)))).save(profile)
+    kwargs = model_inputs()
+    kwargs["hidden_states"] = torch.randn(1, 16, 64)
+    yy, xx = torch.meshgrid(torch.arange(4), torch.arange(4), indexing="ij")
+    kwargs["img_ids"] = torch.stack((torch.zeros(16), yy.flatten(), xx.flatten()), dim=-1)
+    results = {}
+    for mode in ("sega_official", "sega_ctm_lag"):
+        experiment = runtime.FluxExperiment(pipe, mode, (64, 64),
+                                           profile=profile if mode == "sega_ctm_lag" else None, eta=0)
+        try:
+            passes = []
+            for repeat in range(2):
+                experiment.reset()
+                outputs = []
+                with torch.inference_mode():
+                    for step in range(2):
+                        kwargs["timestep"] = sigmas[step:step + 1].to(torch.bfloat16)
+                        outputs.append(tiny_flux(**kwargs)[0].clone())
+                passes.append(outputs)
+                if mode == "sega_ctm_lag":
+                    assert experiment.controller.history[0]["first_step_no_correction"]
+                    assert experiment.controller.history[0]["target_sigma"] is None
+                    assert experiment.controller.history[1]["target_sigma"] == float(sigmas[0])
+            results[mode] = passes
+        finally:
+            experiment.close()
+    for repeat in range(2):
+        for step in range(2):
+            assert torch.equal(results["sega_official"][repeat][step], results["sega_ctm_lag"][repeat][step])
+            assert torch.equal(results["sega_ctm_lag"][0][step], results["sega_ctm_lag"][repeat][step])
+
+
+@pytest.mark.parametrize("mode", ["sega_rms_uniform", "sega_rms_normalized", "sega_ctm_lag"])
+def test_diagnostic_modes_reject_extra_temperature_and_missing_official_gain(time_profile, mode):
+    profile, fields = time_profile
+    with pytest.raises(ValueError, match="no extra temperature"):
+        GainController(mode, profile=profile, temperature="sref")
+    with pytest.raises(ValueError, match="projected-feature"):
+        GainController(mode, profile=profile).update(fields[0], 0.6)

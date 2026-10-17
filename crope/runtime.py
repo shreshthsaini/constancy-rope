@@ -15,7 +15,8 @@ from .utils import HF_HOME, atomic_json, file_sha256, image_seed, image_stem
 
 METHODS = ("base", "pi", "ntk", "ntk2", "yarn", "dype", "yarn_temp", "sega", "sega_official",
            "sega_static", "sega_official_static", "constancy", "temp_only", "constancy_nogate", "constancy_sref",
-           "constancy_tm", "constancy_tm_nogate", "alias_temp", "alias_temp_sref", "sega_ctm")
+           "constancy_tm", "constancy_tm_nogate", "alias_temp", "alias_temp_sref", "sega_ctm",
+           "sega_rms_uniform", "sega_rms_normalized", "sega_ctm_lag")
 
 
 def load_pipeline(device="cuda", cpu_offload=False, allow_download=False):
@@ -95,7 +96,8 @@ class FluxExperiment:
             self.pipe.scheduler.register_to_config(max_image_seq_len=max(4096, self.grid[0] * self.grid[1]))
         self.axes_dims = tuple(pipe.transformer.config.axes_dims_rope)
         rope_method = method if method in ("base", "pi", "ntk", "ntk2", "yarn", "dype", "sega_official") else "ntk2"
-        if method in ("sega_official_static", "alias_temp", "alias_temp_sref", "sega_ctm"):
+        if method in ("sega_official_static", "alias_temp", "alias_temp_sref", "sega_ctm", "sega_ctm_lag",
+                      "sega_rms_uniform", "sega_rms_normalized"):
             rope_method = "sega_official"
         # Controlled comparison: run any gain controller on another method's RoPE base (recorded in config["rope"]).
         rope_method = os.environ.get("CROPE_ROPE", rope_method)
@@ -112,7 +114,7 @@ class FluxExperiment:
         self.handles = [pipe.transformer.register_forward_pre_hook(self._before, with_kwargs=True),
                         pipe.transformer.register_forward_hook(self._after, with_kwargs=True)]
         self.official = None
-        if method in ("sega_official", "sega_ctm"):
+        if method in ("sega_official", "sega_ctm", "sega_ctm_lag", "sega_rms_uniform", "sega_rms_normalized"):
             from .sega_official import OfficialSEGA
             self.official = OfficialSEGA(grid=self.grid, axes_dims=self.axes_dims, theta=10000)
             self.handles.append(pipe.transformer.x_embedder.register_forward_hook(self._projected))
@@ -126,6 +128,7 @@ class FluxExperiment:
     def reset(self, observer=None):
         self.step = 0
         self.previous_x0 = None
+        self.previous_x0_sigma = None
         self.current_xt = None
         self.observer = observer
         self.controller.reset()
@@ -153,6 +156,12 @@ class FluxExperiment:
 
     def _projected(self, module, args, projected):
         m = self.official.update(projected.detach(), self.sigma)
+        if self.method in ("sega_ctm_lag", "sega_rms_uniform", "sega_rms_normalized"):
+            self.controller.update(self.current_xt, self.sigma, self.previous_x0, m,
+                                   x0_sigma=self.previous_x0_sigma)
+            self.controller.history[-1].update(model_timestep=self.model_timestep,
+                                               official=self.official.diagnostics)
+            return
         if self.method == "sega_ctm":
             # SEGA supplies its complete q/k gain. update adds only the time-matched
             # logit correction eta*w*clip(e,-1,1), hence a half exponent on q and k.
@@ -170,6 +179,7 @@ class FluxExperiment:
     def _after(self, module, args, kwargs, output):
         v = output[0] if isinstance(output, tuple) else output.sample
         self.previous_x0 = self.current_xt.float() - self.sigma * token_grid(v.detach().float(), self.grid)
+        self.previous_x0_sigma = self.sigma
         if self.observer is not None:
             self.observer(self.step, self.sigma, self.current_xt, self.previous_x0)
         self.current_xt = None

@@ -1,6 +1,6 @@
 ## Goal
 Resume Constancy RoPE from verified evidence; maintain and share an honest working paper.
-User first wants confirmation of the project state and restart point before new experiments.
+User clarified full ownership: continue experiments, evaluation, and paper autonomously.
 
 ## Status and next action
 2026-10-17 CDT takeover: both campaigns COMPLETE; no demonstrated improvement over released SEGA.
@@ -16,10 +16,15 @@ Paper now compiles an empirical working report. Prior proposal sections retained
 All ten paired means/CIs independently recomputed exactly from archived per-prompt CSVs today.
 PDF: paper/constancy_rope_working_2026-10-17.pdf. Build directory on project scratch.
 No new GPU work, scorer reruns, installs, SSH, submissions, cancellations, or scratch deletion.
-NEXT: confirm takeover and restart point with user; then frame a revised development diagnostic.
+NEXT: finish CPU validation, freeze dev3 sources, submit packed four-GPU diagnostic, evaluate all variants.
+
+Third diagnostic in preparation: spatial RMS uniform/normalized controls and lag-aligned ctm, eta1.
+Fresh SEGA baseline prespecified; 32 dev images total. Source/test agents working.
+Account balance checked: 8212.919/40000 SUs remaining, burn 79.47%.
 
 ## Map
 | File | Read it when |
+| notes/continuation3/PROTOCOL.md | running the frozen third development diagnostic |
 | HANDOVER.md | resuming project ownership and checking operating constraints |
 | notes/main2/REPORT.md | reviewing development decision and full held-out results |
 | notes/main2/heldout_per_prompt.csv | re-deriving completed campaign statistics |
@@ -36,9 +41,9 @@ NEXT: confirm takeover and restart point with user; then frame a revised develop
 - New candidate has one held-out seed; no new replication or human study is claimed.
 - Keep paper crux on work and bulk images on scratch; delete nothing.
 - Retain old theory sources for audit, exclude stale settings from current PDF.
-- No SSH, sbatch, scancel, worker edits, or new experiments during takeover review.
+- Current user authorizes active project operations. Do not alter old campaign artifacts or other projects.
 - Repository has no remote; preserve changes in a local commit.
 
 ## Open questions
-- Which revised mechanism merits a new development-only diagnostic after user reviews this checkpoint?
+- Three frozen diagnostics in notes/continuation3/PROTOCOL.md; no new GPU results yet.
 - Earlier theoretical and literature claims need audit before a submission-ready manuscript.

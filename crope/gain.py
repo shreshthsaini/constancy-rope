@@ -63,7 +63,8 @@ class GainController:
 
     MODES = ("none", "yarn_temp", "sega", "sega_static", "constancy", "temp_only",
              "constancy_nogate", "constancy_sref", "sega_official", "sega_official_static",
-             "constancy_tm", "constancy_tm_nogate", "alias_temp", "alias_temp_sref", "sega_ctm")
+             "constancy_tm", "constancy_tm_nogate", "alias_temp", "alias_temp_sref", "sega_ctm",
+             "sega_rms_uniform", "sega_rms_normalized", "sega_ctm_lag")
 
     def __init__(self, mode="none", grid=(64, 64), axes_dims=(16, 56, 56), rope=None,
                  profile=None, static_profile=None, eta=None, target="profile", temperature=None,
@@ -83,7 +84,8 @@ class GainController:
         self.eta, self.target = float((0.5 if mode == "sega_ctm" else 1.0) if eta is None else eta), target
         if not math.isfinite(self.eta) or self.eta < 0 or target not in ("profile", "slope"):
             raise ValueError("eta must be finite and nonnegative; target must be profile or slope")
-        fixed_gain = mode in ("alias_temp", "alias_temp_sref", "sega_ctm")
+        fixed_gain = mode in ("alias_temp", "alias_temp_sref", "sega_ctm", "sega_ctm_lag",
+                              "sega_rms_uniform", "sega_rms_normalized")
         if fixed_gain and temperature not in (None, "none"):
             raise ValueError(f"{mode} defines its own gain; no extra temperature is allowed")
         self.temperature = temperature or ("none" if fixed_gain else
@@ -114,9 +116,9 @@ class GainController:
                     self.static = torch.from_numpy(data["mean_modulator"].copy())
                     if self.static.shape != (2, axes_dims[1] // 2) or axes_dims[1] != axes_dims[2]:
                         raise ValueError("SEGA-static profile dimensions do not match")
-        if (mode.startswith("constancy") or mode == "sega_ctm") and self.profile is None:
+        if (mode.startswith("constancy") or mode in ("sega_ctm", "sega_ctm_lag")) and self.profile is None:
             raise ValueError("Constancy requires --profile from native calibration")
-        self.time_matched = mode in ("constancy_tm", "constancy_tm_nogate", "sega_ctm")
+        self.time_matched = mode in ("constancy_tm", "constancy_tm_nogate", "sega_ctm", "sega_ctm_lag")
         if self.time_matched:
             self.profile.require_time_resolved()
             if target != "profile":
@@ -145,7 +147,7 @@ class GainController:
         return math.log(math.prod(self.grid)) / math.log(64 * 64)
 
     @torch.no_grad()
-    def update(self, xt, t, x0hat=None, official_qk_scale=None):
+    def update(self, xt, t, x0hat=None, official_qk_scale=None, *, x0_sigma=None):
         if xt.ndim != 3 or tuple(xt.shape[-2:]) != self.grid:
             raise ValueError("Controller expects C,H,W packed token-grid latents")
         t = float(t)
@@ -184,8 +186,26 @@ class GainController:
                 m = (self.grid[a] / 64) ** 0.08 * mod[a]
                 logg[off:off + self.axes_dims[a + 1]] = 2 * m.abs().clamp_min(1e-30).log().repeat_interleave(2)
             info["modulator"] = mod.cpu().tolist()
-        elif self.mode.startswith("constancy") or self.mode in ("temp_only", "sega_ctm"):
-            if self.mode == "sega_ctm":
+        elif self.mode in ("sega_rms_uniform", "sega_rms_normalized"):
+            if official_qk_scale is None:
+                raise ValueError(f"{self.mode} requires the released SEGA projected-feature gain")
+            m = official_qk_scale.to(device=device, dtype=torch.float32).clone()
+            reference = max(max(self.grid) / 64, 1.0) ** 0.08
+            axis_stats = []
+            for a, off in enumerate(offsets):
+                spatial = m[off:off + self.axes_dims[a + 1]]
+                rms = spatial.square().mean().sqrt()
+                if self.mode == "sega_rms_uniform":
+                    spatial.fill_(rms)
+                else:
+                    spatial.mul_(reference / rms)
+                axis_stats.append({"axis": "height" if a == 0 else "width", "official_rms": float(rms),
+                                   "realized_rms": float(spatial.square().mean().sqrt())})
+            logg.copy_(2 * m.log())
+            info.update(official_log_g=(2 * official_qk_scale.to(device).log()).cpu().tolist(),
+                        rms_axes=axis_stats, reference_qk_scale=reference)
+        elif self.mode.startswith("constancy") or self.mode in ("temp_only", "sega_ctm", "sega_ctm_lag"):
+            if self.mode in ("sega_ctm", "sega_ctm_lag"):
                 if official_qk_scale is None:
                     raise ValueError("sega_ctm requires the released SEGA projected-feature gain")
                 logg.copy_(2 * official_qk_scale.to(device).log())
@@ -194,6 +214,15 @@ class GainController:
                 logg.fill_(math.log(self._temperature()))
                 for a, off in enumerate(offsets):
                     logg[off:off + self.axes_dims[a + 1]] = math.log(self._temperature(a))
+            target_sigma = t
+            if self.mode == "sega_ctm_lag":
+                if x0hat is not None:
+                    if x0_sigma is None or not math.isfinite(float(x0_sigma)) or not 0 <= float(x0_sigma) <= 1:
+                        raise ValueError("sega_ctm_lag requires previous x0 sigma in [0,1] with its clean estimate")
+                    target_sigma = float(x0_sigma)
+                info.update(previous_x0_sigma=None if x0hat is None else target_sigma,
+                            target_sigma=None if x0hat is None else target_sigma,
+                            target_timing="previous_x0_sigma")
             if self.mode != "temp_only" and x0hat is not None:
                 xt_axes, x0_axes = axis_power(xt), axis_power(x0hat)
                 bins = []
@@ -202,7 +231,7 @@ class GainController:
                     measured_gate = rho / (1 + rho)
                     gate = (torch.ones_like(measured_gate)
                             if self.mode in ("constancy_nogate", "constancy_tm_nogate") else measured_gate)
-                    native = (self.profile.evaluate_time(a, e0.frequency, t) if self.time_matched
+                    native = (self.profile.evaluate_time(a, e0.frequency, target_sigma) if self.time_matched
                               else self.profile.evaluate(a, e0.frequency, self.target))
                     loge = e0.power.clamp_min(1e-30).log()
                     anchor = (e0.frequency >= 1 / 64) & (e0.frequency <= 1 / 16)
@@ -239,6 +268,11 @@ class GainController:
             info["probe_factor"] = self.probe_factor
         self.log_g = logg
         self.qk_scale = (logg / 2).exp()
+        if self.mode in ("sega_rms_uniform", "sega_rms_normalized"):
+            # Preserve the official index-axis multiplier exactly, including nonunit inputs in tests.
+            self.qk_scale[:self.axes_dims[0]] = official_qk_scale[:self.axes_dims[0]].to(self.qk_scale)
+        elif self.mode == "sega_ctm_lag" and self.probe_band is None and (x0hat is None or self.eta == 0):
+            self.qk_scale = official_qk_scale.to(device=device)
         self._log(info)
         return self.qk_scale
 

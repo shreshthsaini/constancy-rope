@@ -1,0 +1,47 @@
+"""Generate the frozen eight-prompt diagnostic with per-image W&B records."""
+import argparse
+import json
+import os
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from crope.utils import read_prompts, runtime_environment, image_stem
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--method', required=True, choices=(
+        'sega_official', 'sega_rms_uniform', 'sega_rms_normalized', 'sega_ctm_lag'))
+    a = p.parse_args()
+    runtime_environment()
+    import wandb
+    from crope.runtime import FluxExperiment, load_pipeline
+    root = Path('/scratch/09032/saini_2/constancy_rope')
+    prompts = read_prompts(root / 'prompts/aesthetic4k_eval.jsonl')[:8]
+    out = root / f'out_krea/dev3_{a.method}' / a.method / '4096x4096'
+    profile = root / 'calib/krea_profile_tm.npz' if a.method == 'sega_ctm_lag' else None
+    run = wandb.init(project='constancy-rope', group='dev3-diagnostics',
+                     name=f'dev3-{a.method}', job_type='generation',
+                     config={'method': a.method, 'prompt_ids': [r['id'] for r in prompts],
+                             'purpose': 'development diagnostic only', 'steps': 28,
+                             'guidance': 4.5, 'seed': 0, 'eta': 1.0,
+                             'slurm_job_id': os.environ.get('SLURM_JOB_ID')})
+    experiment = None
+    try:
+        pipe = load_pipeline('cuda', False, False)
+        experiment = FluxExperiment(pipe, a.method, (4096, 4096), profile=profile, eta=1.0)
+        for index, row in enumerate(prompts):
+            experiment.sample(row, out, seed=0, steps=28, guidance=4.5)
+            record = json.loads((out / f"{image_stem(row['id'], 0)}.json").read_text())
+            run.log({'images_complete': index + 1, 'prompt_id': row['id'],
+                     'seconds_per_image': record['seconds'],
+                     'image_sha256': record['png_sha256']})
+    finally:
+        if experiment is not None:
+            experiment.close()
+        run.finish()
+
+
+if __name__ == '__main__':
+    main()

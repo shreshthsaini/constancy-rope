@@ -46,7 +46,7 @@ def test_time_matched_cli_and_rebuild_selection(method):
     assert args.traces == Path("native_traces") and args.out == Path("tm.npz")
 
 
-@pytest.mark.parametrize("method", ["constancy_tm", "sega_ctm"])
+@pytest.mark.parametrize("method", ["constancy_tm", "sega_ctm", "sega_ctm_lag"])
 def test_time_matched_sample_rejects_late_only_profile_before_loading_model(tmp_path, monkeypatch, method):
     import torch
     from crope import runtime
@@ -60,3 +60,11 @@ def test_time_matched_sample_rejects_late_only_profile_before_loading_model(tmp_
     with pytest.raises(ValueError, match="time-resolved arrays"):
         sample.main(["--method", method, "--res", "4096x4096", "--prompts", "unused.jsonl",
                      "--out", str(tmp_path / "out"), "--profile", str(profile)])
+
+
+@pytest.mark.parametrize("method", ["sega_rms_uniform", "sega_rms_normalized", "sega_ctm_lag"])
+def test_diagnostic_mode_cli(method):
+    from scripts import sample
+    args = sample.parser().parse_args(["--method", method, "--res", "4096x4096",
+                                      "--prompts", "prompts.jsonl", "--out", "out"])
+    assert args.method == method

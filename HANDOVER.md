@@ -5,7 +5,10 @@ Design spec: `.agent/notes/design.md`. Codex briefs: `.agent/notes/codex_brief_{
 started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact https://claude.ai/artifact/Phv2pGDvZDZwpmNM3Qh8GL).
 
 ## Current takeover checkpoint (2026-10-17)
-- User requested a state review and confirmation before new experiments, plus paper updates and a PDF.
+- User first requested a state review, then explicitly assigned full project ownership and
+  authorized continuing experiments, evaluation, and paper work autonomously.
+- Third diagnostic is in preparation: see `.agent/notes/continuation3/PROTOCOL.md`.
+  Three parameter-free/timing controls plus fresh SEGA, 32 development images, no held-out tuning.
 - Live accounting confirms CR13 job 1076092 COMPLETED October 16 at 18:06:13 CDT.
   Spool: pending 0, running 0, done 255, failed 5, hold 25; STOP remains present.
   Failed/held files are older pilot, superseded original-constancy, or archived task files.
@@ -17,8 +20,8 @@ started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact ht
   PDF: `paper/constancy_rope_working_2026-10-17.pdf`. No positive efficacy claim is supported.
 - `paper/update_evidence.py` reproduced all ten selected-candidate paired means/CIs exactly
   from archived per-prompt CSVs. Receipt: `.agent/notes/paper_verification_20261017.json`.
-- Resume after the completed negative campaign. Next: agree on a revised mechanism and
-  development-only diagnostic before another GPU campaign. No experiments were queued here.
+- Resume after the completed negative campaign. Current step: finish tests and freeze dev3
+  sources before submitting a packed diagnostic. No new GPU result yet.
 
 ## 1. Goal and the user's rules
 - Training-free resolution extrapolation for FLUX at 4096^2. Beat released SEGA (arXiv 2605.22668, github rajabi2001/sega)

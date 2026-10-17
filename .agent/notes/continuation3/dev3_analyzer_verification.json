@@ -1,0 +1,33 @@
+{
+  "scope": "CPU-only dev analysis implementation, no generation or heldout tuning",
+  "tests": {
+    "command": "OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python -m pytest -q tests/test_dev3_analysis.py",
+    "passed": 17,
+    "seconds": 6.22
+  },
+  "real_archived_baseline_validation": {
+    "matched_dev_prompts": 8,
+    "result": "pass",
+    "checks": [
+      "CSV identity and finite five metrics",
+      "score-to-IR PNG path equality",
+      "registered generation root",
+      "sidecar method/settings",
+      "complete",
+      "PNG SHA256",
+      "model provenance present",
+      "28 finite monotonic executed sigmas agree with gain log"
+    ]
+  },
+  "files": [
+    {
+      "path": "scripts/dev3_analysis.py",
+      "sha256": "99e5ca33f03025ec0c0a0693c71b521ce0daacbf00673debdc4698f92e8eceb8"
+    },
+    {
+      "path": "tests/test_dev3_analysis.py",
+      "sha256": "2d74dafcf73b44bf8697ea5b33674ecfe6081c1143c93ab4f717a43edc318b7c"
+    }
+  ],
+  "commit": null
+}
