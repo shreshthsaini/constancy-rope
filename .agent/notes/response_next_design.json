@@ -1,0 +1,190 @@
+{
+  "created_utc": "2026-10-17T13:08:15.132389+00:00",
+  "decision": "Stop the scalar-as-new-method branch. Defer new GPU submission pending CR14. Preserve the response data as a diagnostic result.",
+  "recommended_new_gpu_forwards": 0,
+  "why_this_is_the_next_useful_decision": [
+    "The user goal requires a distinct useful mechanism. Present evidence supports a predictable late scalar attention actuator in two development prompts, but a fixed pulse or offline inverse in that one-dimensional space is an ordinary temperature schedule.",
+    "The earlier perturbation-scale recommendation would further characterize numerical response but does not currently lead to a concrete distinct mechanism. Its opportunity cost is not justified before the already-running CR14 controls finish.",
+    "A shared scalar response shape is visible, but amplitude differs by about a factor of two between the two calibration prompts. No robust reusable inverse, scene-valid target, or final-image benefit has been identified.",
+    "The tested octave responses provide little reliable prediction beyond the dominant scalar direction. This does not establish that the full attention actuator is rank one or that resolved-frequency controls fail."
+  ],
+  "exploratory_existing_data_analysis": {
+    "status": "Post hoc CPU analysis of existing development measurements. No new prespecified test, independent confirmation, or efficacy evaluation.",
+    "late_scalar_shape": {
+      "step": 22,
+      "sigma": 0.4627484083175659,
+      "prompts": [
+        0,
+        1
+      ],
+      "response_definition": "J=(S(+0.1)-S(-0.1))/0.2 for the same spatial-scalar nominal logit-gain coordinate; concatenate both axes log-power bins.",
+      "cross_prompt_cosine": 0.9899256566954564,
+      "response_l2_norms": [
+        1.6228487385902328,
+        3.3064546377578066
+      ],
+      "norm_ratio_prompt1_to_prompt0": 2.0374385850834877,
+      "rank1_energy_fraction_of_two_unit_normalized_response_columns": 0.9949628283477282,
+      "interpretation": "Similar output shape for one actuator at one step in two prompts; amplitude transfer is unresolved. The two-column fraction is not an estimate of the rank of the full actuator-to-output map."
+    },
+    "scalar_orthogonal_response": {
+      "formula": "At each state let q=J_scalar/||J_scalar|| and P=I-qq^T. Fit J_axis from full +/-0.1 only. Compare concatenated P[S(+/-0.05)-S(0)] with +/-0.05 P J_axis; zero-change is the denominator reference.",
+      "rows": [
+        {
+          "prompt_index": 0,
+          "step": 6,
+          "direction": "axis1_octave-11",
+          "nonscalar_half_response_squared_norm_fraction": 0.7879968055712316,
+          "nonscalar_relative_prediction_error": 0.9362680745487312
+        },
+        {
+          "prompt_index": 0,
+          "step": 6,
+          "direction": "axis2_octave-11",
+          "nonscalar_half_response_squared_norm_fraction": 0.6042893219194008,
+          "nonscalar_relative_prediction_error": 1.0541660694645094
+        },
+        {
+          "prompt_index": 0,
+          "step": 14,
+          "direction": "axis1_octave-11",
+          "nonscalar_half_response_squared_norm_fraction": 0.1750039735411579,
+          "nonscalar_relative_prediction_error": 0.9379057931362638
+        },
+        {
+          "prompt_index": 0,
+          "step": 14,
+          "direction": "axis2_octave-11",
+          "nonscalar_half_response_squared_norm_fraction": 0.34537719352424445,
+          "nonscalar_relative_prediction_error": 1.0497709579329597
+        },
+        {
+          "prompt_index": 0,
+          "step": 22,
+          "direction": "axis1_octave-11",
+          "nonscalar_half_response_squared_norm_fraction": 0.1713108626015021,
+          "nonscalar_relative_prediction_error": 0.9739284665731317
+        },
+        {
+          "prompt_index": 0,
+          "step": 22,
+          "direction": "axis2_octave-11",
+          "nonscalar_half_response_squared_norm_fraction": 0.193004240884533,
+          "nonscalar_relative_prediction_error": 0.76901220739735
+        },
+        {
+          "prompt_index": 1,
+          "step": 6,
+          "direction": "axis1_octave-11",
+          "nonscalar_half_response_squared_norm_fraction": 0.45118067073730295,
+          "nonscalar_relative_prediction_error": 1.0032463235889677
+        },
+        {
+          "prompt_index": 1,
+          "step": 6,
+          "direction": "axis2_octave-11",
+          "nonscalar_half_response_squared_norm_fraction": 0.7070223043876497,
+          "nonscalar_relative_prediction_error": 1.2901100380553054
+        },
+        {
+          "prompt_index": 1,
+          "step": 14,
+          "direction": "axis1_octave-11",
+          "nonscalar_half_response_squared_norm_fraction": 0.7503778477244278,
+          "nonscalar_relative_prediction_error": 0.8472362213983927
+        },
+        {
+          "prompt_index": 1,
+          "step": 14,
+          "direction": "axis2_octave-11",
+          "nonscalar_half_response_squared_norm_fraction": 0.19258188518258185,
+          "nonscalar_relative_prediction_error": 1.0327565793933886
+        },
+        {
+          "prompt_index": 1,
+          "step": 22,
+          "direction": "axis1_octave-11",
+          "nonscalar_half_response_squared_norm_fraction": 0.07016431488574638,
+          "nonscalar_relative_prediction_error": 0.8865531304010457
+        },
+        {
+          "prompt_index": 1,
+          "step": 22,
+          "direction": "axis2_octave-11",
+          "nonscalar_half_response_squared_norm_fraction": 0.0994237989890508,
+          "nonscalar_relative_prediction_error": 0.9517026096682308
+        }
+      ],
+      "late_error_range": [
+        0.76901220739735,
+        0.9739284665731317
+      ],
+      "interpretation": "Late residual prediction is weak. This is a descriptive projection in unweighted log-power space, not proof that a useful non-scalar mechanism cannot exist."
+    }
+  },
+  "actuator_and_precision_accounting": {
+    "normalization": "The octave path preserves the FP32 gain-vector squared norm on its spatial axis. Its tangent redistributes gains across that entire axis. It does not preserve actual q/k activation energy. Scalar and octave controls have unequal actuator norms at the same epsilon.",
+    "comparison_rule": "Any future actuator comparison must declare its actual logit-gain norm and report realized BF16 geometry. Do not interpret larger scalar response at equal epsilon as intrinsic efficiency.",
+    "tested_octave": {
+      "exponent": -11,
+      "actual_cycles_per_token": [
+        0.0009474010667092506,
+        0.0006181492512405375
+      ],
+      "pairs_per_axis": 2,
+      "cycles_across_256_token_grid": [
+        0.24253467307756815,
+        0.1582462083175776
+      ],
+      "grid_dft_floor_cycles_per_token": 0.00390625,
+      "pairs_per_axis_at_or_above_dft_floor": 9
+    },
+    "frequency_limit": "Both directly selected rotary frequencies are below the grid DFT floor and complete less than one quarter cycle across the grid. RMS redistribution also changes other frequencies. This test did not isolate directly resolved-frequency controls; those controls remain untested, not refuted. RoPE component frequency is not identical to generated-image Fourier frequency.",
+    "quantization": "Existing half-step BF16 actuator vectors depart from the full-step secant line by relative norms about 0.31-0.49 for octave controls versus 0.11-0.16 for scalar. One-coordinate correction only modestly changes most prediction errors. Quantization, normalization curvature and network nonlinearity are not causally separated.",
+    "numerical_policy": "Retain deterministic-allocation-only provenance and strict invariants for any future study. CR15 remains failed under its original frozen policy."
+  },
+  "concrete_pulse_experiment_considered_but_not_recommended": {
+    "question": "Does the calibrated late scalar effect survive the remaining denoising steps and improve final detail without damaging semantics?",
+    "development_only_design": "Freeze existing prompts 0-1 step 22 response predictions. On prompts 2-5, seed 0, generate three complete 28-step 4K trajectories: deterministic SEGA baseline, one spatial-scalar +0.05 logit-gain pulse at step 22, and a -0.05 pulse at the same step; ordinary SEGA elsewhere. Decode all 12 outputs, score paired quality/semantic metrics and compare final spectral changes.",
+    "actuation": "On the pulse call use m_spatial*exp(u/2), leave index-axis gains unchanged, record actual BF16 gains; no new octave selection, online fitting, or desired-spectrum tuning.",
+    "unoptimized_forward_budget": 336,
+    "budget_basis": "12 independent full trajectories times 28 forwards. Baseline generation timing in CR17 implies roughly 37-40 GPU-minutes before decode, model loading, scoring, and reserve. Plan approximately 1 GPU-node-hour with a broad 0.7-1.4 hour envelope; this is not a live SU quote.",
+    "decision_if_it_were_run": "A failure would reject reusable late scalar actuation under this pulse. A success would establish a transferable temperature-control effect and a development quality tradeoff, not a distinct feedback mechanism.",
+    "reason_not_to_run": "No concrete novel mechanism follows from a positive result. Twelve trajectories are poor opportunity cost while CR14 already tests simpler gain explanations and the central novelty requirement remains unresolved."
+  },
+  "resolved_band_branch_status": {
+    "status": "Untested and deferred, not scientifically refuted.",
+    "not_a_novelty_claim": "Replacing the octave mask with resolved-frequency bands is a better actuator coverage choice, not a new mechanism. Frequency-selective attention edits and nonmonotonic response already have close prior art.",
+    "reopening_requirement": "After CR14 completes, specify a concrete resolution failure, a justified target, and a causal intervention that could distinguish response-based correction from scalar temperature, prescribed gain allocation and direct spectral correction. Require a practical equal-cost comparison and an explanation of what a positive result adds beyond those existing mechanisms.",
+    "do_not_do": "Do not expand frequency masks, fit a broad inverse, consume the fresh 64-prompt set, or launch another response sweep simply because the first octave was too low."
+  },
+  "after_cr14": "Finish and preserve the existing four-control comparison. Revisit a response-based candidate only if that evidence supports a specific new causal hypothesis. Otherwise retire this branch for now and use the remaining research budget on a different mechanism.",
+  "prior_art_boundary": {
+    "notes_used": [
+      ".agent/notes/novelty_20261017.md",
+      ".agent/notes/response_prior_art_20261017.md",
+      ".agent/notes/response_actuator_prior_art_20261017.md"
+    ],
+    "scope": "Used existing locally reviewed method/code notes; no new literature search was conducted.",
+    "collisions": [
+      "SEGA already supplies content-adaptive rotary gains.",
+      "AFM already supplies frequency-selective attention edits and discusses nonmonotonic spectral response.",
+      "SCG already supplies reference-spectrum feedback.",
+      "Finite-difference correction, projection, low-rank approximation and trust regions are established tools."
+    ],
+    "required_future_contribution": "A demonstrated resolution-specific failure mechanism and an affordable intervention with competitive quality beyond these controls, not the act of calibrating or scheduling a scalar gain."
+  },
+  "artifact_sha256": {
+    ".agent/notes/response_cr17_interpretation.json": "771e885df850e18cd5054369eddb42634d227a5a966620235664e1ceb5b74da5",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/4k/step_006.json": "ffd961ca574452c5bb9c530e780bf5fef56e3ab41c3d0b2de03f24fd244acc15",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/4k/step_014.json": "1b2f3c613462a24c1bed29235ab4f77de4896611a2c35bc7ed0d4e3a1989c10c",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/4k/step_022.json": "e7c3b81a65c308b7faebd9170eba635de63e1253e38ccd02ad2377a2c935c22e",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/4k/step_006.json": "10cc2cce63b3bbf1ad9276cbb16dca7529d5dc5c0c5c47c63f9507792e59ec00",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/4k/step_014.json": "1f61dcdc57ef7eea1149c3f72b15cd10dc82c75804ab87850ea6052f86ace7b9",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/4k/step_022.json": "5418a7cd592bbed3357705748cfda22dfff85fa677dfc53751cc08662bc7095c",
+    ".agent/notes/novelty_20261017.md": "c800dd665916e9128bed3d4e1e1f1fc8db844f4156584396b761cb745a5cc76f",
+    ".agent/notes/response_prior_art_20261017.md": "9ecf020be7bbdc6341fd75a493fc7f316bba50301b834cd730711d1fbedf1ee6",
+    ".agent/notes/response_actuator_prior_art_20261017.md": "f6eb220f38ece6f8986ebd32dba56f95717a789386210712e61b3185cf09318d"
+  },
+  "actions_taken": "Read-only artifact analysis and this design JSON only. No implementation edit, job submission, or held-out/fresh 64-prompt access."
+}

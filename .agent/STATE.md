@@ -25,7 +25,9 @@ Axis-octave prediction error median .937 (range .709-1.354); scalar .426 (.050-3
 The octave map has limited predictive value; one early scalar case fails. No controller promotion.
 Secondary BF16-coordinate analysis complete: axial errors .688-1.339, scalar .029-3.004.
 Half-gain off-linearity remains substantial; no quantization-dead intervention. New helper: 12 tests passed.
-Next-experiment design under review; no new GPU job.
+Decision: stop scalar-as-new-method branch; fixed temperature scheduling is not a distinct mechanism.
+No new GPU job before CR14 completes; interpret its controls, then choose a distinct causal hypothesis.
+Resolved spatial-frequency rotary bands remain untested, not refuted by octave -11 results.
 Use scripts/response_report.py <scratch/response_probe_deterministic/job1077143> --out <freshworkdir>
 with --protocol .agent/notes/response_deterministic_protocol.json --submission .agent/notes/response_deterministic_submission.json.
 The helper rejects incomplete/failed campaigns; neither numerical repair nor diagnostic pass establishes novelty/SOTA.
