@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution method competitive with r
 User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 10:33 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+2026-10-17 11:58 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
 Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
 RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
 PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
@@ -51,6 +51,7 @@ Parentreporter config gap fixed:27tests,8supplemental checks pass; originalsourc
 CR21 job1077335 PENDING priority: 2 GH200nodes,40min maximum;99CPUtests pass twice, independentreview clear.
 Fixed endpointmap to64, nativebasefrequencies for image-to-text only; image logits/textmass preserved.
 Post-completion archive helper ready,37tests pass twice; invocation notes/crossmodal_phase_report_interface.json.
+CPUfallback pins watcher/bootstrap sources; preserve pins. Details notes/controller_bootstrap_submission.json.
 Next: monitor kernel/native gates, then both scored receipts; archive, two label-hidden reviews, update paper.
 Planned6images: dev0/1 x baseline/fixedmass/unnormalized,seed0,28steps,all57blocks; native4stepsmokes first.
 Unnormalized control uses extraimageonlypass forstablemixture; itscost differs. Protocol7a5d072b frozen; job1077335 registered with existing watcher, hot-read and scheduler observation verified.
@@ -58,11 +59,11 @@ Covariance/gain proposal lacks justified target; DoPE adds a close prior-art col
 Stop promotion of that branch. Native comparator screen is complete; no concrete primary semantic-loss target emerged.
 Eight dev baseline previews show no obvious global duplication; garbled shop text has no proven resolution cause.
 Fresh64 and all completed frozen protocols remain untouched. No method sweep or confirmation authorized by diagnostics.
-Existing watcher PID1581602, tmux crope-watch-cr14, i618-051/controllerjob1073260.
-Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17/18/19/20/21; CR21 hot-read and scheduler observation verified.
-Direct autonomous wake verified; scheduler120s/files60s. Never duplicate watcher.
-Controller lease ends12:45:04 CDT, alert one hour before. Handoff not yet needed or verified.
-Last budget7910/40000SU remaining (10:21 CDT); refresh before every submission, no new nodes at96percent burn.
+Existing watcher PID2142630, tmux crope-watch-cr14, i618-051/controllerjob1073260; oldPID1581602 exited.
+Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17/18/19/20/21 andCPU1077465; newCPU hot-read pending.
+Directwake verified; scheduler120s/files60s,leasealerts60/15/5min. Guardedbootstrap107tests pass. Never duplicate watcher.
+Controller ends10:45:04 Pacific. CPUfallback1077465 queued8h; no timelydestination orverifiedhandoff yet.
+Last budget7908/40000SU remaining (11:57 CDT); refresh before every submission, no new nodes at96percent burn.
 Paper rebuilt to11pages: CR20 table plus prospective CR21 equations/limits; newpages9/10 checked. Receipt crossmodal_phase_paper_receipt.json.
 CR14/CR17/CR18/CR19/CR20 completed; CR21job1077335 submitted. Do not repeat completed campaigns.
 

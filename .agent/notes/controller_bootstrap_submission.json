@@ -1,0 +1,31 @@
+{
+  "submitted_utc": "2026-10-17T16:59:12.145128+00:00",
+  "job_id": "1077465",
+  "partition": "gg",
+  "nodes": 1,
+  "walltime": "08:00:00",
+  "su_available": 7908,
+  "su_allocation": 40000,
+  "source_commit": "6f1f256",
+  "protocol_sha256": "c0081074293f5a2736c3f8fdb7d4e96197193ebe1b05321105875a663c1dc528",
+  "sbatch_sha256": "d4f59a6d0a2f2188b350ee07c38a1990401d8bd11b9c6f405fc85e520ec8c4db",
+  "source_controller": "1073260",
+  "source_end_utc": "2026-10-17T17:45:04Z",
+  "registration": {
+    "job_id": "1077465",
+    "queue_dir": "/scratch/09032/saini_2/constancy_rope/controller_jobs/job1077465/taskq",
+    "telemetry_dir": "/scratch/09032/saini_2/constancy_rope/telemetry",
+    "completion_files": [
+      "/scratch/09032/saini_2/constancy_rope/watcher_cr14/controller_job1077465/bootstrap_started.json",
+      "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/controller_handoff_verified.json"
+    ],
+    "progress_dirs": [
+      "/scratch/09032/saini_2/constancy_rope/watcher_cr14/controller_job1077465"
+    ]
+  },
+  "tests": "107 passed in1.80s",
+  "migration_verified": false,
+  "live_destination_available": false,
+  "limitation": "Pending resource; source lease may expire before destination runs. Autonomous bootstrap is staged, not a verified handoff. Original chat UI attachment on destination is unverified.",
+  "engine_note": "Launch-node engine generated GG8h header via --dry-run; changed body to source-pinned bootstrap and submitted directly to avoid engine3second scheduler polling that violates account10second minimum."
+}
