@@ -1,0 +1,7 @@
+{
+  "transformer_snapshot": "/scratch/09032/saini_2/tmp/hf/hub/models--black-forest-labs--FLUX.1-Krea-dev/snapshots/8162a9c7b05a641be098422bf2fcf335615c2f28",
+  "transformer_revision": "8162a9c7b05a641be098422bf2fcf335615c2f28",
+  "transformer_config_sha256": "a8d4ca92dc64ca8116c370ab91339e18a723ab950c18de513d09c3922df7a2d1",
+  "base_pipeline": "black-forest-labs/FLUX.1-dev",
+  "note": "Legacy image config model_revision describes the base pipeline, not the overridden transformer."
+}

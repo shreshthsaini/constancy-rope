@@ -1,0 +1,120 @@
+{
+  "purpose": "Exploratory development diagnostics only; not held-out efficacy evidence",
+  "reference_root": "dev3_sega_official",
+  "prompt_ids": [
+    "a4k_eval_4096_minus6873203881450547484",
+    "a4k_eval_4096_3614061571823823193",
+    "a4k_eval_4096_7354534197758042049",
+    "a4k_eval_4096_788875264758341041",
+    "a4k_eval_4096_minus5023570400257826529",
+    "a4k_eval_4096_minus8041742109062037958",
+    "a4k_eval_4096_5968998903196670637",
+    "a4k_eval_4096_minus8648158440845565467"
+  ],
+  "rule": "IR delta > 0 AND full-res MUSIQ delta > 0 AND CLIP delta >= -0.3",
+  "ranking": "IR descending, MUSIQ descending, variant name ascending; at most two",
+  "selected": [
+    "sega_rms_normalized"
+  ],
+  "automatic_heldout_authorized": false,
+  "rows": [
+    {
+      "variant": "sega_official",
+      "n": 8,
+      "imagereward": 1.3912745000000002,
+      "musiq": 43.28140211105347,
+      "clip": 30.147244930267334,
+      "pickscore": 23.375039100646973,
+      "musiq_crop1024": 58.590646862983704,
+      "delta_imagereward": 0.0,
+      "delta_musiq": 0.0,
+      "delta_clip": 0.0,
+      "delta_pickscore": 0.0,
+      "delta_musiq_crop1024": 0.0,
+      "eligible": false,
+      "selected": false
+    },
+    {
+      "variant": "sega_rms_uniform",
+      "n": 8,
+      "imagereward": 1.3738848750000001,
+      "musiq": 41.71468377113342,
+      "clip": 30.734049320220947,
+      "pickscore": 23.291831493377686,
+      "musiq_crop1024": 58.072897493839264,
+      "delta_imagereward": -0.017389625000000075,
+      "delta_musiq": -1.566718339920044,
+      "delta_clip": 0.5868043899536133,
+      "delta_pickscore": -0.08320760726928711,
+      "delta_musiq_crop1024": -0.5177493691444397,
+      "eligible": false,
+      "selected": false
+    },
+    {
+      "variant": "sega_rms_normalized",
+      "n": 8,
+      "imagereward": 1.4275595,
+      "musiq": 43.67026352882385,
+      "clip": 30.081754207611084,
+      "pickscore": 23.308472394943237,
+      "musiq_crop1024": 58.37568420171738,
+      "delta_imagereward": 0.0362849999999999,
+      "delta_musiq": 0.38886141777038574,
+      "delta_clip": -0.06549072265625,
+      "delta_pickscore": -0.06656670570373535,
+      "delta_musiq_crop1024": -0.2149626612663269,
+      "eligible": true,
+      "selected": true
+    },
+    {
+      "variant": "sega_ctm_lag",
+      "n": 8,
+      "imagereward": 1.41052925,
+      "musiq": 43.058090686798096,
+      "clip": 30.15639638900757,
+      "pickscore": 23.320427656173706,
+      "musiq_crop1024": 58.43766778707504,
+      "delta_imagereward": 0.019254749999999765,
+      "delta_musiq": -0.2233114242553711,
+      "delta_clip": 0.009151458740234375,
+      "delta_pickscore": -0.0546114444732666,
+      "delta_musiq_crop1024": -0.1529790759086609,
+      "eligible": false,
+      "selected": false
+    }
+  ],
+  "score_sources": [
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_official/per_image.csv",
+      "sha256": "036e0ce36836338505f526f90fa015b6be61acd0532b68091b6a11a0ac74665a"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/dev3_sega_official.csv",
+      "sha256": "ba0832c6ad213d79bc5f5bbf695bd4585fba82482ed076b753985c8cd6c2039b"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_rms_uniform/per_image.csv",
+      "sha256": "ef46d9b8b9eb21f656c6b9b8bcf60ad706597eb8bf1579c7968c78067120dc8f"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/dev3_sega_rms_uniform.csv",
+      "sha256": "0f0d4b95953fa7ee398cc62bbc4dd262ad214afc4fec466b63986e1220c51a9f"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_rms_normalized/per_image.csv",
+      "sha256": "4206e7da2c43ad2e0a1c2b0ea5c3516fc44eb6a46d7817df21273714ed7ace95"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/dev3_sega_rms_normalized.csv",
+      "sha256": "77e11a83ad69b30ebaeeef34a2c1507addc3599a62a56ab56fff35f7be0186e7"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/dev3_sega_ctm_lag/per_image.csv",
+      "sha256": "ec5c0d1193f23a996f82c9b6816167639a0d0bfe2b214b6893e46117262d2de5"
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/dev3_sega_ctm_lag.csv",
+      "sha256": "c522f3b6642e23dadc4113f6a3a06c6b0f45d144f97299b117039b79d2839319"
+    }
+  ]
+}

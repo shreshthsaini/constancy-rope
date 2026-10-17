@@ -1,0 +1,9 @@
+{
+  "status": "development diagnostic complete",
+  "selected": [
+    "sega_rms_normalized"
+  ],
+  "confirmation_run": false,
+  "paper": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/constancy_rope_working_2026-10-17.pdf",
+  "slurm_job_id": "1076857"
+}
