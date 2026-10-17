@@ -29,6 +29,7 @@ After all four task successes, dev3_launch invokes dev3_finalize to validate sco
 archive the dev decision, rebuild the working PDF, and commit only its own outputs/state.
 If the run fails, inspect taskq_dev3/failed and logs; no auto retry or hidden variant change.
 Paper figure and qualified algebra updated; all16 plotted intervals re-derived exactly.
+Fixed-order qualitative panel added from rows 8-10, six verified images; display assets archived on work.
 Account balance checked: 8212.919/40000 SUs remaining, burn 79.47%.
 
 ## Map

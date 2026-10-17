@@ -20,6 +20,7 @@ started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact ht
 - `paper/main.tex` now builds an empirical working report from `sec/current_report.tex` and
   `sec/current_table.tex`. Earlier proposal sections remain in source but are excluded until audited.
   PDF: `paper/constancy_rope_working_2026-10-17.pdf`. No positive efficacy claim is supported.
+- Added fixed-order qualitative examples from held-out rows 8-10, chosen before image viewing. Six source PNG hashes and sidecars verified; native center crops and display assets archived in `paper/figs/heldout_example_assets/`. PDF now six pages, clean build and visual inspection.
 - `paper/update_evidence.py` reproduced all ten selected-candidate paired means/CIs exactly
   from archived per-prompt CSVs. Receipt: `.agent/notes/paper_verification_20261017.json`.
 - Current step: monitor job1076857, verify telemetry and source/protocol invariants, then
