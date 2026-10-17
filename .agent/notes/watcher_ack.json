@@ -1,0 +1,18 @@
+{
+  "acknowledged_utc": "2026-10-17T08:25:52.976129+00:00",
+  "thread": "01a14899-2e69-7d71-93f8-b42aad182afd",
+  "received_message": "Constancy RoPE automatic watcher event: Direct wake-up verification",
+  "receipt": {
+    "time": 1792225515.6777167,
+    "events": {
+      "wake_test": "Direct wake-up verification: record receipt in .agent/notes/watcher_ack.json, then continue the response-probe implementation and prior-art work that do not need GPUs"
+    },
+    "receipt": {
+      "turn_id": "01a148f7-1905-7d01-ae55-c20f1f503548",
+      "turn_status": "inProgress"
+    }
+  },
+  "heartbeat_age_seconds": 37.298431158065796,
+  "result": "End-to-end verified: watcher started an idle operator turn; the operator received the event and resumed project work.",
+  "gpu_state_on_receipt": "PENDING Priority; no GPU outcome"
+}

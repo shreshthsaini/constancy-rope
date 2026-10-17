@@ -6,7 +6,8 @@ User clarified full ownership: continue experiments, evaluation, and paper auton
 Unattended CR14 watcher active: tmux crope-watch-cr14, PID1105783, i618-051 / host job1073260.
 See notes/watcher_cr14.json and scratch watcher_cr14/state.json for lease, heartbeat, stop, and delivery receipts.
 Direct idle-thread wake via local app-server; scheduler120s / files60s; nine tests passed; no model calls while waiting.
-Direct WAKE_TEST armed; acknowledge its actual automatic turn. Continue notes/response_probe_plan.json.
+Direct WAKE_TEST succeeded end to end; notes/watcher_ack.json records actual operator receipt.
+Implementing the same-state response diagnostic from notes/response_probe_plan.json.
 Register each next campaign before waiting; watcher persists after CR14; migrate controller before expiry.
 2026-10-17 CDT takeover: first two campaigns COMPLETE; no demonstrated improvement over released SEGA.
 Last research commit a1ede1a (October 16, 18:11:57 CDT); earlier uncommitted-state notes are stale.

@@ -14,14 +14,13 @@
   "stop": "Touch /scratch/09032/saini_2/constancy_rope/watcher_cr14/STOP; watcher exits within 60 seconds. Do not delete scratch files.",
   "checks": "9 targeted tests passed. Live socket returned the correct thread/cwd; active operator correctly deferred. Live PID and heartbeat verified.",
   "delivery_test": {
-    "status": "Old queue-only test removed. Direct WAKE_TEST armed; acknowledge the actual resulting model turn in .agent/notes/watcher_ack.json.",
+    "status": "End-to-end automatic turn received and acknowledged in .agent/notes/watcher_ack.json.",
     "marker": "/scratch/09032/saini_2/constancy_rope/watcher_cr14/WAKE_TEST"
   },
   "limits": [
     "Requires the controller compute allocation and Codex app server to remain alive.",
     "Continues monitoring controller lease after the CR14 report; resumed operator must register subsequent jobs before waiting.",
     "Events deduplicated; failed deliveries remain pending.",
-    "The first direct wake still requires model-side acknowledgment.",
     "No GPU result or novelty/SOTA claim from watcher activity."
   ],
   "version": 2,
