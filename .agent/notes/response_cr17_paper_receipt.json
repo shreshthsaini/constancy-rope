@@ -1,0 +1,11 @@
+{
+  "created_utc": "2026-10-17T13:06:17.384023+00:00",
+  "paper": "paper/constancy_rope_working_2026-10-17.pdf",
+  "paper_sha256": "e7f579b2127f120b93fd358002a4e4225f4f16dfeb064373eaa9a9369a07f9ec",
+  "pages": 7,
+  "response_page_visually_checked": 6,
+  "primary_report_sha256": "17101dbafa8fc31a8b2793c5228772b96ed5cb635efc89085dd31f9aca97dd5c",
+  "secondary_report_sha256": "4921bc6209577f20bb72f08bab295222322813b1f158a13a414953980f4cd3bb",
+  "verification": "Primary archival helper and independent reviewer reproduced all18 response rows; secondary helper matches independent computation; 12 targeted tests pass.",
+  "scope": "Two development prompts; no efficacy, novelty or SOTA claim; fresh64 unused."
+}

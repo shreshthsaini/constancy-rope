@@ -1,0 +1,29 @@
+{
+  "baseline_seconds": 7.284249803982675,
+  "probed_seconds": 14.166667526005767,
+  "baseline_peak_bytes": 35589908992,
+  "probed_peak_bytes": 35603831808,
+  "extra_forward_calls": 13,
+  "baseline_sha256": "cc4dd8103bf5cb732341c07a0da9ac2a7d6052b74419fe9f49c2a108e1ec0a95",
+  "probed_sha256": "cc4dd8103bf5cb732341c07a0da9ac2a7d6052b74419fe9f49c2a108e1ec0a95",
+  "trajectory_bitwise_equal": true,
+  "baseline_history_equal": true,
+  "observed_probe_steps": [
+    1
+  ],
+  "directions": [
+    "axis1_octave-10",
+    "axis2_octave-10",
+    "spatial_scalar"
+  ],
+  "gpu_probe_executed": true,
+  "sigmas": [
+    1.0,
+    0.9045307636260986,
+    0.7595109343528748,
+    0.5128441452980042,
+    0.0
+  ],
+  "timing_interpretation": "Diagnostic accounting only; first baseline and later probed run are not warmup-matched performance benchmarks.",
+  "efficacy_evaluated": false
+}

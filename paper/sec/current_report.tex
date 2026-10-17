@@ -155,7 +155,7 @@ competitiveness against this expanded set, and a development pass alone does not
 justify promoting a control to a new method. No near-SOTA or SOTA claim follows
 from the present evidence.
 
-\paragraph{Local response diagnostic under development.}
+\paragraph{Local response diagnostic.}
 The earlier octave interventions compare complete sampling trajectories, so they
 do not identify a local map from attention gain to spectral power. A new diagnostic
 replays a selected transformer state with identical latent, conditioning, and
@@ -179,10 +179,36 @@ with deterministic allocation matched for each prompt. This localizes a numerica
 repeatability issue to feature-to-gain arithmetic without identifying a unique
 kernel. A separately frozen diagnostic enables deterministic arithmetic only
 during allocation and records this numerical-policy change. Both 2048-resolution
-smoke tests now pass the original exact replay, gain-history, and endpoint checks;
-the 4K stage is running. These two smoke endpoints also match those from the
+smoke tests and both 4K runs now pass the original exact replay, gain-history,
+and endpoint checks. These two smoke endpoints also match those from the
 original numerical policy. This is a bounded numerical validation, not evidence
 of general quality equivalence with the original baseline.
+
+On two development prompts, we probe steps 6, 14, and 22 of 28 with full
+perturbation magnitude 0.10 and unfit half magnitude 0.05. For each spatial axis,
+the selected rotary octave is $-11$; it lies below the minimum nonzero spatial
+DFT frequency of the token grid. These measurements therefore do not characterize
+all rotary bands. Prediction error is the norm of the combined positive and
+negative half-step residuals divided by the corresponding observed response
+norm; a value of one matches a zero-response predictor.
+Across the 12 axis-octave cases, the median error is 0.937 (range 0.709--1.354),
+with nine cases below one. Across six spatial-scalar cases, the median is 0.426
+(range 0.050--3.039). The late scalar errors are 0.104 and 0.050, but the early
+failure on one prompt prevents a uniform predictability claim. Raw response
+magnitudes are not directly comparable because the actuator norms differ.
+These results do not support inverting the current octave response map.
+An unprespecified secondary analysis uses the actual BF16 log-gain changes as
+control coordinates. It fits only full-magnitude observations and predicts the
+untouched half-magnitude responses. Axial errors remain 0.688--1.339 and scalar
+errors 0.029--3.004. No intervention vanishes entirely through quantization.
+However, 31--49\% of each axial half-step gain-change norm lies outside the
+full-step secant direction (11--16\% for scalar controls). A one-dimensional
+coordinate correction therefore does not separate quantization from nonlinear
+response; it does not change the frozen diagnostic's acceptance rules.
+The diagnostic adds 39 transformer calls per 4K trajectory; recorded baseline
+and probed sampling times are 201/485 and 185/441 seconds for the two prompts.
+This is measurement overhead, not an efficient generation method.
+
 This is an instrument for testing the controller
 hypothesis, not a new validated generation method. SCG acts directly on latent
 Fourier magnitudes, whereas this diagnostic measures the response to internal

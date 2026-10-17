@@ -30,6 +30,11 @@
       "acknowledged_utc": "2026-10-17T12:50:31.413080+00:00",
       "event": "Batched alreadyhandledCR15failure/CR16completion plusCR17RUNNING",
       "action": "Confirmed CR17bothsmokespassed and4Kworkersprogressing; no duplicatewatcher orjob."
+    },
+    {
+      "acknowledged_utc": "2026-10-17T13:04:58.414321+00:00",
+      "event": "CR14 baseline/uniform done; CR17 prompt1 receipt, with prompt0 completion verified live",
+      "verified": "CR17 COMPLETED 08:00:25 CDT; full archive independently validates both smoke/4K trajectories and provenance. CR14 remaining GPUs active."
     }
   ]
 }

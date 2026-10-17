@@ -1,0 +1,1590 @@
+{
+  "created_utc": "2026-10-17T13:03:29.549682+00:00",
+  "job_id": "1077143",
+  "status": "Both development prompts independently checked; diagnostic only",
+  "protocol_sha256": "15b979336a23d1f3cd4f55ee9acbf29f96f1c2ab46af84b709cd2503c16bd03c",
+  "numerical_policy": "deterministic_sega_update_only",
+  "validation": [
+    {
+      "prompt": 0,
+      "phase": "smoke",
+      "endpoint_tensor_equality_independently_verified": true,
+      "history_json_equality_independently_verified": true,
+      "steps": [
+        1
+      ],
+      "extra_calls": 13,
+      "recorded_baseline_seconds": 7.284249803982675,
+      "recorded_probed_seconds": 14.166667526005767
+    },
+    {
+      "prompt": 0,
+      "phase": "4k",
+      "endpoint_tensor_equality_independently_verified": true,
+      "history_json_equality_independently_verified": true,
+      "steps": [
+        6,
+        14,
+        22
+      ],
+      "extra_calls": 39,
+      "recorded_baseline_seconds": 200.98208112292923,
+      "recorded_probed_seconds": 485.15050104202237
+    },
+    {
+      "prompt": 1,
+      "phase": "smoke",
+      "endpoint_tensor_equality_independently_verified": true,
+      "history_json_equality_independently_verified": true,
+      "steps": [
+        1
+      ],
+      "extra_calls": 13,
+      "recorded_baseline_seconds": 7.011320114950649,
+      "recorded_probed_seconds": 14.115298060933128
+    },
+    {
+      "prompt": 1,
+      "phase": "4k",
+      "endpoint_tensor_equality_independently_verified": true,
+      "history_json_equality_independently_verified": true,
+      "steps": [
+        6,
+        14,
+        22
+      ],
+      "extra_calls": 39,
+      "recorded_baseline_seconds": 184.75059450301342,
+      "recorded_probed_seconds": 440.53913978801575
+    }
+  ],
+  "maximum_absolute_difference_from_production_summary": 0.0,
+  "aggregates": {
+    "axis_octave": {
+      "rows": 12,
+      "nominal_error_range": [
+        0.708957064034007,
+        1.353510804330947
+      ],
+      "nominal_error_median": 0.9374072113299725,
+      "strictly_below_one_count": 9,
+      "half_log_power_rms_range": [
+        0.0006419484695548027,
+        0.011356101284948062
+      ],
+      "secondary_error_range": [
+        0.6880907302367633,
+        1.3390353596150855
+      ],
+      "half_bf16_off_linearity_range": [
+        0.3096658405131711,
+        0.4887398336934654
+      ],
+      "off_axis_response_fraction_range": [
+        0.3466193144518093,
+        0.9282825442035592
+      ]
+    },
+    "spatial_scalar": {
+      "rows": 6,
+      "nominal_error_range": [
+        0.04981556603407739,
+        3.038941803727438
+      ],
+      "nominal_error_median": 0.42576437397602007,
+      "strictly_below_one_count": 5,
+      "half_log_power_rms_range": [
+        0.015662596067938298,
+        0.20190448281464515
+      ],
+      "secondary_error_range": [
+        0.029264754942449258,
+        3.004250621984581
+      ],
+      "half_bf16_off_linearity_range": [
+        0.10635297265107986,
+        0.1583469451048366
+      ]
+    }
+  },
+  "rows": [
+    {
+      "prompt_index": 0,
+      "step": 6,
+      "sigma": 0.9205089807510376,
+      "direction": "axis1_octave-11",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.08189001094448546,
+      "half_log_power_change_rms": 0.011356101284948062,
+      "max_absolute_half_power_change_percent": 2.8128828275828424,
+      "linear_residual_l2": 0.08236413782071915,
+      "relative_prediction_error": 1.0057898011096262,
+      "predictor_observation_cosine": 0.1373558507522465,
+      "fraction_negative_directional_response": 0.6538461538461539,
+      "off_axis_response_norm_fraction": 0.9282825442035592,
+      "finite_difference_directional_response": [
+        -0.005106925964355469,
+        0.01481771469116211,
+        0.07522821426391602,
+        0.06508588790893555,
+        0.004489421844482422,
+        0.007572174072265625,
+        -0.006279945373535156,
+        -0.017960071563720703,
+        0.027164220809936523,
+        -0.0023221969604492188,
+        -0.037552714347839355,
+        -0.055631548166275024,
+        -0.04710733890533447,
+        0.062487125396728516,
+        0.08981466293334961,
+        0.06843805313110352,
+        -0.10304689407348633,
+        -0.0022232532501220703,
+        -0.06859183311462402,
+        -0.022073984146118164,
+        -0.03561258316040039,
+        -0.028166770935058594,
+        -0.06972551345825195,
+        -0.13693049550056458,
+        -0.18895894289016724,
+        -0.13641774654388428
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.5484269223365194,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 48,
+          "actual_logit_gain_l2": 0.19305099372165344,
+          "cast_path_discrepancy_relative_to_fp32": 0.21670147187279945
+        },
+        "minus": {
+          "changed_bf16_coordinates": 16,
+          "actual_logit_gain_l2": 0.18836202436310273,
+          "cast_path_discrepancy_relative_to_fp32": 0.2603212406993168
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 24,
+          "actual_logit_gain_l2": 0.11204989193434828,
+          "cast_path_discrepancy_relative_to_fp32": 0.5055661695891384
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 6,
+          "actual_logit_gain_l2": 0.09869491733677525,
+          "cast_path_discrepancy_relative_to_fp32": 0.31150501207262876
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 1.0113077717939236,
+        "half_coordinates": {
+          "half_plus": 0.5412525927390893,
+          "half_minus": -0.5058196057772738
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.4436808255683387,
+          "half_minus": 0.3096658405131711
+        }
+      }
+    },
+    {
+      "prompt_index": 0,
+      "step": 6,
+      "sigma": 0.9205089807510376,
+      "direction": "axis2_octave-11",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.05346598284651578,
+      "half_log_power_change_rms": 0.00741439779408426,
+      "max_absolute_half_power_change_percent": 2.1764647999907534,
+      "linear_residual_l2": 0.05262407122326273,
+      "relative_prediction_error": 0.9842533218613053,
+      "predictor_observation_cosine": 0.27188152380810515,
+      "fraction_negative_directional_response": 0.8461538461538461,
+      "off_axis_response_norm_fraction": 0.5167147685395449,
+      "finite_difference_directional_response": [
+        -0.03071308135986328,
+        -0.08048057556152344,
+        0.004050731658935547,
+        -0.07168769836425781,
+        0.053217411041259766,
+        -0.06236076354980469,
+        -0.04034876823425293,
+        -0.08022308349609375,
+        -0.04184603691101074,
+        -0.04513740539550781,
+        0.018017292022705078,
+        -0.032349228858947754,
+        -0.04923433065414429,
+        -0.07540225982666016,
+        0.019211769104003906,
+        -0.06464958190917969,
+        -0.10073423385620117,
+        -0.03805041313171387,
+        -0.10227441787719727,
+        -0.07842779159545898,
+        -0.05349278450012207,
+        -0.09895443916320801,
+        -0.10786682367324829,
+        -0.13593405485153198,
+        -0.10017514228820801,
+        -0.06851136684417725
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.3445014682297402,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 36,
+          "actual_logit_gain_l2": 0.19364436390024803,
+          "cast_path_discrepancy_relative_to_fp32": 0.2644808468983899
+        },
+        "minus": {
+          "changed_bf16_coordinates": 24,
+          "actual_logit_gain_l2": 0.1961717677604325,
+          "cast_path_discrepancy_relative_to_fp32": 0.27037308175732155
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 22,
+          "actual_logit_gain_l2": 0.11380003116206137,
+          "cast_path_discrepancy_relative_to_fp32": 0.5236602306283548
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 10,
+          "actual_logit_gain_l2": 0.10552730328076176,
+          "cast_path_discrepancy_relative_to_fp32": 0.39562181448005623
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.9955024718035688,
+        "half_coordinates": {
+          "half_plus": 0.5433787058083005,
+          "half_minus": -0.5241483709461137
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.4410882517162921,
+          "half_minus": 0.3583996625546008
+        }
+      }
+    },
+    {
+      "prompt_index": 0,
+      "step": 6,
+      "sigma": 0.9205089807510376,
+      "direction": "spatial_scalar",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.3989141345551814,
+      "half_log_power_change_rms": 0.05531943717869414,
+      "max_absolute_half_power_change_percent": 20.053762508581542,
+      "linear_residual_l2": 1.2122768395974928,
+      "relative_prediction_error": 3.038941803727438,
+      "predictor_observation_cosine": 0.12559493931437654,
+      "fraction_negative_directional_response": 0.038461538461538464,
+      "off_axis_response_norm_fraction": null,
+      "finite_difference_directional_response": [
+        0.36448001861572266,
+        0.25914907455444336,
+        0.9926342964172363,
+        0.7703590393066406,
+        1.1132001876831055,
+        1.1366045475006104,
+        1.456080675125122,
+        1.4269828796386719,
+        1.432863473892212,
+        1.8768835067749023,
+        2.1293312311172485,
+        4.081636965274811,
+        4.995146170258522,
+        0.2346968650817871,
+        0.3154563903808594,
+        -0.013365745544433594,
+        0.43170928955078125,
+        0.828930139541626,
+        1.0036647319793701,
+        1.1872422695159912,
+        1.5409958362579346,
+        2.2156864404678345,
+        3.571576476097107,
+        5.930006951093674,
+        9.380859434604645,
+        8.900909125804901
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.5310828167928896,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 1.059063517926808,
+          "cast_path_discrepancy_relative_to_fp32": 0.05602704976710146
+        },
+        "minus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 1.072155056618181,
+          "cast_path_discrepancy_relative_to_fp32": 0.051425868119615935
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 0.5184769597398535,
+          "cast_path_discrepancy_relative_to_fp32": 0.12740088963440807
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 0.5434917561677671,
+          "cast_path_discrepancy_relative_to_fp32": 0.1173156027331584
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 3.004250621984581,
+        "half_coordinates": {
+          "half_plus": 0.48300008511645776,
+          "half_minus": -0.5066561078863587
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.12918007028906583,
+          "half_minus": 0.12375933716177387
+        }
+      }
+    },
+    {
+      "prompt_index": 0,
+      "step": 14,
+      "sigma": 0.7595109343528748,
+      "direction": "axis1_octave-11",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.026633904974587834,
+      "half_log_power_change_rms": 0.0036934580789119943,
+      "max_absolute_half_power_change_percent": 1.1149695356590459,
+      "linear_residual_l2": 0.026136365737110846,
+      "relative_prediction_error": 0.9813193282039677,
+      "predictor_observation_cosine": 0.2115870130288957,
+      "fraction_negative_directional_response": 0.5384615384615384,
+      "off_axis_response_norm_fraction": 0.5083782942282962,
+      "finite_difference_directional_response": [
+        -0.0017833709716796875,
+        0.00225067138671875,
+        0.00331878662109375,
+        0.005016326904296875,
+        -0.02471446990966797,
+        0.016537904739379883,
+        0.01359105110168457,
+        0.014508962631225586,
+        0.0032567977905273438,
+        -0.006395578384399414,
+        -0.002421140670776367,
+        -0.001589655876159668,
+        -0.0148715078830719,
+        0.010111331939697266,
+        -0.0012564659118652344,
+        -0.011692047119140625,
+        -0.007262229919433594,
+        0.0032472610473632812,
+        0.00649571418762207,
+        -0.0007224082946777344,
+        -0.003262162208557129,
+        0.0004917383193969727,
+        -0.0007671117782592773,
+        -0.0054839253425598145,
+        -0.011218041181564331,
+        0.006743520498275757
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.1814287425223931,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 40,
+          "actual_logit_gain_l2": 0.19765532943691289,
+          "cast_path_discrepancy_relative_to_fp32": 0.2288634454936017
+        },
+        "minus": {
+          "changed_bf16_coordinates": 28,
+          "actual_logit_gain_l2": 0.1896565411865186,
+          "cast_path_discrepancy_relative_to_fp32": 0.2683485438009441
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 24,
+          "actual_logit_gain_l2": 0.10712072290978532,
+          "cast_path_discrepancy_relative_to_fp32": 0.4576378217053911
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 10,
+          "actual_logit_gain_l2": 0.10037758048575315,
+          "cast_path_discrepancy_relative_to_fp32": 0.37951067107564906
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.9735220208105416,
+        "half_coordinates": {
+          "half_plus": 0.5026301726905489,
+          "half_minus": -0.49079077737712967
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.46330283977504877,
+          "half_minus": 0.38370352426945115
+        }
+      }
+    },
+    {
+      "prompt_index": 0,
+      "step": 14,
+      "sigma": 0.7595109343528748,
+      "direction": "axis2_octave-11",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.013248281975978531,
+      "half_log_power_change_rms": 0.0018372061529306144,
+      "max_absolute_half_power_change_percent": 0.4909583132428185,
+      "linear_residual_l2": 0.012132499017802853,
+      "relative_prediction_error": 0.9157790451472282,
+      "predictor_observation_cosine": 0.46563496152095774,
+      "fraction_negative_directional_response": 0.6923076923076923,
+      "off_axis_response_norm_fraction": 0.5361933684853651,
+      "finite_difference_directional_response": [
+        -0.0013685226440429688,
+        -0.013463497161865234,
+        0.014960765838623047,
+        0.008707046508789062,
+        0.009527206420898438,
+        0.008056163787841797,
+        0.001004934310913086,
+        0.004082918167114258,
+        -0.010700225830078125,
+        -0.014914274215698242,
+        -0.016501545906066895,
+        -0.03164529800415039,
+        -0.051910728216171265,
+        -0.009541511535644531,
+        0.02575397491455078,
+        0.010488033294677734,
+        -0.010895729064941406,
+        -0.013693571090698242,
+        -0.005658864974975586,
+        -0.020574331283569336,
+        -0.032525062561035156,
+        -0.021713972091674805,
+        -0.028530359268188477,
+        -0.04563957452774048,
+        -0.057219862937927246,
+        -0.05449220538139343
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.09715016300167738,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 26,
+          "actual_logit_gain_l2": 0.19762631161847755,
+          "cast_path_discrepancy_relative_to_fp32": 0.2580483904593324
+        },
+        "minus": {
+          "changed_bf16_coordinates": 38,
+          "actual_logit_gain_l2": 0.21284915703872578,
+          "cast_path_discrepancy_relative_to_fp32": 0.26212982179981653
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 12,
+          "actual_logit_gain_l2": 0.09076685466504517,
+          "cast_path_discrepancy_relative_to_fp32": 0.4125732988937738
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 22,
+          "actual_logit_gain_l2": 0.10177383874404046,
+          "cast_path_discrepancy_relative_to_fp32": 0.5081005113048644
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.9065662316012796,
+        "half_coordinates": {
+          "half_plus": 0.4128124627273379,
+          "half_minus": -0.4439910964425095
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.41563478245221724,
+          "half_minus": 0.4887398336934654
+        }
+      }
+    },
+    {
+      "prompt_index": 0,
+      "step": 14,
+      "sigma": 0.7595109343528748,
+      "direction": "spatial_scalar",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.3351444084776082,
+      "half_log_power_change_rms": 0.0464761672865794,
+      "max_absolute_half_power_change_percent": 10.604991213426059,
+      "linear_residual_l2": 0.09965492497843755,
+      "relative_prediction_error": 0.2973492096470281,
+      "predictor_observation_cosine": 0.9549650672251272,
+      "fraction_negative_directional_response": 0.07692307692307693,
+      "off_axis_response_norm_fraction": null,
+      "finite_difference_directional_response": [
+        0.06195068359375,
+        0.06469011306762695,
+        0.26921987533569336,
+        0.06751537322998047,
+        -0.12402892112731934,
+        0.07743954658508301,
+        0.3732919692993164,
+        0.509486198425293,
+        0.6214678287506104,
+        0.8072900772094727,
+        0.9963762760162354,
+        1.5013253688812256,
+        1.576954871416092,
+        0.08656978607177734,
+        0.21057605743408203,
+        -0.02535104751586914,
+        0.29299020767211914,
+        0.41261911392211914,
+        0.5514025688171387,
+        0.6352949142456055,
+        0.9575009346008301,
+        0.9831386804580688,
+        1.0424953699111938,
+        1.3470900058746338,
+        1.712341159582138,
+        1.9116269424557686
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.44547947935977356,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 1.0729951886742264,
+          "cast_path_discrepancy_relative_to_fp32": 0.06452646916855581
+        },
+        "minus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 1.0573560896345033,
+          "cast_path_discrepancy_relative_to_fp32": 0.04721266204725286
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 0.5362039313167656,
+          "cast_path_discrepancy_relative_to_fp32": 0.10503251698715922
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 0.5277073733801608,
+          "cast_path_discrepancy_relative_to_fp32": 0.12705676475651348
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.29214682891221216,
+        "half_coordinates": {
+          "half_plus": 0.5011577770495953,
+          "half_minus": -0.49117823269839955
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.10635297265107986,
+          "half_minus": 0.13952057993501693
+        }
+      }
+    },
+    {
+      "prompt_index": 0,
+      "step": 22,
+      "sigma": 0.4627484083175659,
+      "direction": "axis1_octave-11",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.007804555915878191,
+      "half_log_power_change_rms": 0.0010822971744971013,
+      "max_absolute_half_power_change_percent": 0.2608348656530013,
+      "linear_residual_l2": 0.005623726169704299,
+      "relative_prediction_error": 0.720569655765161,
+      "predictor_observation_cosine": 0.7619765963240156,
+      "fraction_negative_directional_response": 1.0,
+      "off_axis_response_norm_fraction": 0.7711278086229356,
+      "finite_difference_directional_response": [
+        -0.0010085105895996094,
+        -0.001220703125,
+        -0.0005507469177246094,
+        -0.006625652313232422,
+        -0.003930330276489258,
+        -0.005443096160888672,
+        -0.00948190689086914,
+        -0.00841975212097168,
+        -0.008147954940795898,
+        -0.010767579078674316,
+        -0.012677311897277832,
+        -0.01336216926574707,
+        -0.014429092407226562,
+        -0.0007224082946777344,
+        -0.007491111755371094,
+        -0.010166168212890625,
+        -0.007083415985107422,
+        -0.00867605209350586,
+        -0.009257793426513672,
+        -0.01100301742553711,
+        -0.013660192489624023,
+        -0.014127492904663086,
+        -0.012224316596984863,
+        -0.011993050575256348,
+        -0.011584162712097168,
+        -0.011628270149230957
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.050795430719935725,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 44,
+          "actual_logit_gain_l2": 0.19572633630887667,
+          "cast_path_discrepancy_relative_to_fp32": 0.20920441739318016
+        },
+        "minus": {
+          "changed_bf16_coordinates": 22,
+          "actual_logit_gain_l2": 0.19708993493015486,
+          "cast_path_discrepancy_relative_to_fp32": 0.26349014982463853
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 36,
+          "actual_logit_gain_l2": 0.12294359993323899,
+          "cast_path_discrepancy_relative_to_fp32": 0.507893739155756
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 16,
+          "actual_logit_gain_l2": 0.09215320720890192,
+          "cast_path_discrepancy_relative_to_fp32": 0.4441583744242519
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.6880907302367633,
+        "half_coordinates": {
+          "half_plus": 0.5784281963021825,
+          "half_minus": -0.4278785803996309
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.42940121545503085,
+          "half_minus": 0.4534739623635951
+        }
+      }
+    },
+    {
+      "prompt_index": 0,
+      "step": 22,
+      "sigma": 0.4627484083175659,
+      "direction": "axis2_octave-11",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.00462915624637095,
+      "half_log_power_change_rms": 0.0006419484695548027,
+      "max_absolute_half_power_change_percent": 0.14375833919001824,
+      "linear_residual_l2": 0.004439524608303716,
+      "relative_prediction_error": 0.959035377512717,
+      "predictor_observation_cosine": 0.2853066243441602,
+      "fraction_negative_directional_response": 0.38461538461538464,
+      "off_axis_response_norm_fraction": 0.3466193144518093,
+      "finite_difference_directional_response": [
+        0.0027132034301757812,
+        0.0016355514526367188,
+        0.0018835067749023438,
+        0.003070831298828125,
+        -0.00164031982421875,
+        0.0008988380432128906,
+        0.00102996826171875,
+        -0.0004923343658447266,
+        0.0008904933929443359,
+        0.0006103515625,
+        0.0007581710815429688,
+        0.0010466575622558594,
+        0.0013768672943115234,
+        -0.0045680999755859375,
+        -0.007176399230957031,
+        -0.009737014770507812,
+        -0.005567073822021484,
+        -0.004265308380126953,
+        -0.0012874603271484375,
+        0.0016140937805175781,
+        0.0005662441253662109,
+        0.001277923583984375,
+        0.0020617246627807617,
+        0.00212252140045166,
+        -0.0005358457565307617,
+        -0.002594590187072754
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.029483320008990045,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 48,
+          "actual_logit_gain_l2": 0.20351346894851002,
+          "cast_path_discrepancy_relative_to_fp32": 0.21533520552543772
+        },
+        "minus": {
+          "changed_bf16_coordinates": 14,
+          "actual_logit_gain_l2": 0.18521012911934223,
+          "cast_path_discrepancy_relative_to_fp32": 0.27436112358840986
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 30,
+          "actual_logit_gain_l2": 0.11761921110949276,
+          "cast_path_discrepancy_relative_to_fp32": 0.5793554384163891
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 12,
+          "actual_logit_gain_l2": 0.10400793283420015,
+          "cast_path_discrepancy_relative_to_fp32": 0.41068127191920917
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.9536879254583196,
+        "half_coordinates": {
+          "half_plus": 0.5432538984182501,
+          "half_minus": -0.5117384872685485
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.487856406684618,
+          "half_minus": 0.3678278068076774
+        }
+      }
+    },
+    {
+      "prompt_index": 0,
+      "step": 22,
+      "sigma": 0.4627484083175659,
+      "direction": "spatial_scalar",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.11294458645966438,
+      "half_log_power_change_rms": 0.015662596067938298,
+      "max_absolute_half_power_change_percent": 2.9142797321382226,
+      "linear_residual_l2": 0.011771851299498998,
+      "relative_prediction_error": 0.10422678650209632,
+      "predictor_observation_cosine": 0.9947801013526563,
+      "fraction_negative_directional_response": 0.0,
+      "off_axis_response_norm_fraction": null,
+      "finite_difference_directional_response": [
+        0.01596212387084961,
+        0.030214786529541016,
+        0.013892650604248047,
+        0.04833221435546875,
+        0.07135391235351562,
+        0.11896729469299316,
+        0.14274120330810547,
+        0.24896025657653809,
+        0.3045213222503662,
+        0.35649776458740234,
+        0.40153563022613525,
+        0.5074584484100342,
+        0.5781310796737671,
+        0.06934642791748047,
+        0.1278066635131836,
+        0.12977123260498047,
+        0.14106988906860352,
+        0.16437172889709473,
+        0.20867109298706055,
+        0.2621448040008545,
+        0.34167051315307617,
+        0.384182333946228,
+        0.42200207710266113,
+        0.4855412244796753,
+        0.5349183082580566,
+        0.6277430057525635
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.15251020013073255,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 1.0587909454638353,
+          "cast_path_discrepancy_relative_to_fp32": 0.05659936032588608
+        },
+        "minus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 1.069308857053882,
+          "cast_path_discrepancy_relative_to_fp32": 0.06231248591289274
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 0.5036657263053784,
+          "cast_path_discrepancy_relative_to_fp32": 0.12004717322379198
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 0.5429233882718952,
+          "cast_path_discrepancy_relative_to_fp32": 0.11168555247991821
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.12478403512348073,
+        "half_coordinates": {
+          "half_plus": 0.4708177202063031,
+          "half_minus": -0.5078695201609121
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.11685311431558529,
+          "half_minus": 0.11079927221547238
+        }
+      }
+    },
+    {
+      "prompt_index": 1,
+      "step": 6,
+      "sigma": 0.9205089807510376,
+      "direction": "axis1_octave-11",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.069618215043583,
+      "half_log_power_change_rms": 0.009654309386381421,
+      "max_absolute_half_power_change_percent": 2.1531419959331277,
+      "linear_residual_l2": 0.04935632534058674,
+      "relative_prediction_error": 0.708957064034007,
+      "predictor_observation_cosine": 0.712165492258546,
+      "fraction_negative_directional_response": 0.7692307692307693,
+      "off_axis_response_norm_fraction": 0.8349839615952438,
+      "finite_difference_directional_response": [
+        -0.002727508544921875,
+        -0.041370391845703125,
+        -0.10508298873901367,
+        -0.027341842651367188,
+        0.0285494327545166,
+        0.04955649375915527,
+        -0.14586448669433594,
+        -0.15749573707580566,
+        -0.1198279857635498,
+        -0.12486696243286133,
+        -0.17157258465886116,
+        -0.1646941900253296,
+        -0.20917832851409912,
+        0.06123065948486328,
+        0.06415367126464844,
+        0.06594181060791016,
+        0.004684925079345703,
+        -0.11163830757141113,
+        -0.03090977668762207,
+        -0.2304089069366455,
+        -0.29881417751312256,
+        -0.24546146392822266,
+        -0.2416589856147766,
+        -0.13020211801631376,
+        -0.24657279253005981,
+        -0.28327345848083496
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.49027002525482655,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 38,
+          "actual_logit_gain_l2": 0.2107241683919454,
+          "cast_path_discrepancy_relative_to_fp32": 0.25799513419061754
+        },
+        "minus": {
+          "changed_bf16_coordinates": 22,
+          "actual_logit_gain_l2": 0.19928656865532676,
+          "cast_path_discrepancy_relative_to_fp32": 0.2631114754426174
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 22,
+          "actual_logit_gain_l2": 0.10336241116662315,
+          "cast_path_discrepancy_relative_to_fp32": 0.5124632484948206
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 14,
+          "actual_logit_gain_l2": 0.097365997641277,
+          "cast_path_discrepancy_relative_to_fp32": 0.4220511887264045
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.7023291731120616,
+        "half_coordinates": {
+          "half_plus": 0.4570280455305518,
+          "half_minus": -0.4467703648098406
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.4761854764957537,
+          "half_minus": 0.40896804976215456
+        }
+      }
+    },
+    {
+      "prompt_index": 1,
+      "step": 6,
+      "sigma": 0.9205089807510376,
+      "direction": "axis2_octave-11",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.07058022402569665,
+      "half_log_power_change_rms": 0.00978771602916864,
+      "max_absolute_half_power_change_percent": 2.161055872506802,
+      "linear_residual_l2": 0.0955310957908791,
+      "relative_prediction_error": 1.353510804330947,
+      "predictor_observation_cosine": -0.10166321632150573,
+      "fraction_negative_directional_response": 0.9230769230769231,
+      "off_axis_response_norm_fraction": 0.8250971560860242,
+      "finite_difference_directional_response": [
+        -0.030527114868164062,
+        -0.08802175521850586,
+        -0.11432409286499023,
+        -0.1112222671508789,
+        0.01721501350402832,
+        -0.09734272956848145,
+        -0.2697432041168213,
+        -0.2244400978088379,
+        -0.2589404582977295,
+        -0.27872443199157715,
+        -0.2941968385130167,
+        -0.18588244915008545,
+        -0.13747334480285645,
+        0.0217437744140625,
+        -0.032978057861328125,
+        -0.058252811431884766,
+        -0.07377386093139648,
+        -0.15763521194458008,
+        -0.17121434211730957,
+        -0.12874245643615723,
+        -0.09181857109069824,
+        -0.035390257835388184,
+        -0.08830070495605469,
+        -0.16565873404033482,
+        -0.20991891622543335,
+        -0.20422279834747314
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.46304365787952606,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 30,
+          "actual_logit_gain_l2": 0.17679233210727716,
+          "cast_path_discrepancy_relative_to_fp32": 0.28168365406060847
+        },
+        "minus": {
+          "changed_bf16_coordinates": 30,
+          "actual_logit_gain_l2": 0.21090883989661702,
+          "cast_path_discrepancy_relative_to_fp32": 0.2681487431057524
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 12,
+          "actual_logit_gain_l2": 0.09113518563642223,
+          "cast_path_discrepancy_relative_to_fp32": 0.4079081367776737
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 16,
+          "actual_logit_gain_l2": 0.12218134725670493,
+          "cast_path_discrepancy_relative_to_fp32": 0.48274294581574645
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 1.3390353596150855,
+        "half_coordinates": {
+          "half_plus": 0.44523144774609863,
+          "half_minus": -0.6111266328259202
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.4029269566092912,
+          "half_minus": 0.3492238805614903
+        }
+      }
+    },
+    {
+      "prompt_index": 1,
+      "step": 6,
+      "sigma": 0.9205089807510376,
+      "direction": "spatial_scalar",
+      "spectral_bins": 26,
+      "half_effect_l2": 1.4559539310684821,
+      "half_log_power_change_rms": 0.20190448281464515,
+      "max_absolute_half_power_change_percent": 120.60203539042114,
+      "linear_residual_l2": 0.8603867254425518,
+      "relative_prediction_error": 0.5909436466929548,
+      "predictor_observation_cosine": 0.8359396609740312,
+      "fraction_negative_directional_response": 0.038461538461538464,
+      "off_axis_response_norm_fraction": null,
+      "finite_difference_directional_response": [
+        0.8424568176269531,
+        0.8625268936157227,
+        0.6677412986755371,
+        0.32007932662963867,
+        0.052886009216308594,
+        0.8183753490447998,
+        1.6213464736938477,
+        2.713533043861389,
+        2.7653777599334717,
+        4.4783008098602295,
+        6.324219107627869,
+        9.696572422981262,
+        11.369160115718842,
+        0.4038882255554199,
+        0.3735804557800293,
+        0.3528714179992676,
+        0.6618356704711914,
+        0.2213001251220703,
+        0.7577908039093018,
+        -0.31252503395080566,
+        0.3242117166519165,
+        1.023591160774231,
+        1.9893383979797363,
+        4.609852638095617,
+        8.29571932554245,
+        8.456434607505798
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 1.9291602114637565,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 1.0592988189823236,
+          "cast_path_discrepancy_relative_to_fp32": 0.06010578937780935
+        },
+        "minus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 1.0634594914544993,
+          "cast_path_discrepancy_relative_to_fp32": 0.047371966668057784
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 0.5353582532928208,
+          "cast_path_discrepancy_relative_to_fp32": 0.12671736108808648
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 0.5319555547619692,
+          "cast_path_discrepancy_relative_to_fp32": 0.13678033039784213
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.584740127381547,
+        "half_coordinates": {
+          "half_plus": 0.5010557612014962,
+          "half_minus": -0.49605880534245067
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.12417414633918124,
+          "half_minus": 0.15024660581170723
+        }
+      }
+    },
+    {
+      "prompt_index": 1,
+      "step": 14,
+      "sigma": 0.7595109343528748,
+      "direction": "axis1_octave-11",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.018763028872706103,
+      "half_log_power_change_rms": 0.0026019639493674285,
+      "max_absolute_half_power_change_percent": 0.6232769967092289,
+      "linear_residual_l2": 0.0169639137275341,
+      "relative_prediction_error": 0.9041138209945884,
+      "predictor_observation_cosine": 0.43475748272931986,
+      "fraction_negative_directional_response": 0.5769230769230769,
+      "off_axis_response_norm_fraction": 0.8986328889130031,
+      "finite_difference_directional_response": [
+        -0.004155635833740234,
+        0.004289150238037109,
+        0.0018024444580078125,
+        0.02284526824951172,
+        -0.0009989738464355469,
+        0.012825727462768555,
+        -0.02024531364440918,
+        -0.010827183723449707,
+        -0.01846790313720703,
+        -0.00857621431350708,
+        0.0005824863910675049,
+        0.0012605451047420502,
+        0.005773082375526428,
+        0.01470327377319336,
+        -0.005252361297607422,
+        -0.015339851379394531,
+        -0.02410888671875,
+        -0.012708902359008789,
+        -0.012843608856201172,
+        -0.04593610763549805,
+        -0.043311119079589844,
+        -0.014222264289855957,
+        -0.0074675679206848145,
+        0.012196004390716553,
+        0.025774016976356506,
+        0.02651423215866089
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.1329262194723533,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 30,
+          "actual_logit_gain_l2": 0.20124135684230296,
+          "cast_path_discrepancy_relative_to_fp32": 0.2525571715660044
+        },
+        "minus": {
+          "changed_bf16_coordinates": 32,
+          "actual_logit_gain_l2": 0.18516209819934867,
+          "cast_path_discrepancy_relative_to_fp32": 0.2706542681995352
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 18,
+          "actual_logit_gain_l2": 0.10988709117141891,
+          "cast_path_discrepancy_relative_to_fp32": 0.4814886078609808
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 8,
+          "actual_logit_gain_l2": 0.08859569231289678,
+          "cast_path_discrepancy_relative_to_fp32": 0.3422110201222647
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.9305016042771159,
+        "half_coordinates": {
+          "half_plus": 0.5310919837796663,
+          "half_minus": -0.443527174092101
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.4259240744215158,
+          "half_minus": 0.3488785459161984
+        }
+      }
+    },
+    {
+      "prompt_index": 1,
+      "step": 14,
+      "sigma": 0.7595109343528748,
+      "direction": "axis2_octave-11",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.046514366691836145,
+      "half_log_power_change_rms": 0.006450382082813443,
+      "max_absolute_half_power_change_percent": 1.4549864997590496,
+      "linear_residual_l2": 0.039137781837762405,
+      "relative_prediction_error": 0.8414127638683206,
+      "predictor_observation_cosine": 0.7607886476404808,
+      "fraction_negative_directional_response": 0.19230769230769232,
+      "off_axis_response_norm_fraction": 0.7061678703161295,
+      "finite_difference_directional_response": [
+        -0.006058216094970703,
+        -0.002841949462890625,
+        -0.0012564659118652344,
+        0.0033855438232421875,
+        0.014084577560424805,
+        0.026886463165283203,
+        0.0077790021896362305,
+        0.040645599365234375,
+        0.00863492488861084,
+        0.04192709922790527,
+        0.05190342664718628,
+        0.03961347043514252,
+        0.04651367664337158,
+        0.009365081787109375,
+        -0.006699562072753906,
+        -0.01949310302734375,
+        0.009837150573730469,
+        0.04898667335510254,
+        0.015147924423217773,
+        0.023660659790039062,
+        0.005205273628234863,
+        0.03214001655578613,
+        0.031079649925231934,
+        0.03978252410888672,
+        0.04435889422893524,
+        0.040427595376968384
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.30328613871206866,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 38,
+          "actual_logit_gain_l2": 0.2032550759301744,
+          "cast_path_discrepancy_relative_to_fp32": 0.2438168692288715
+        },
+        "minus": {
+          "changed_bf16_coordinates": 24,
+          "actual_logit_gain_l2": 0.19343460533052997,
+          "cast_path_discrepancy_relative_to_fp32": 0.2694666898603615
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 16,
+          "actual_logit_gain_l2": 0.10742509855693312,
+          "cast_path_discrepancy_relative_to_fp32": 0.4624153493068388
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 16,
+          "actual_logit_gain_l2": 0.1094603560453066,
+          "cast_path_discrepancy_relative_to_fp32": 0.4635186134120408
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.8333825099558998,
+        "half_coordinates": {
+          "half_plus": 0.5045770750970903,
+          "half_minus": -0.5208576996363069
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.42742447866432254,
+          "half_minus": 0.40147686939561833
+        }
+      }
+    },
+    {
+      "prompt_index": 1,
+      "step": 14,
+      "sigma": 0.7595109343528748,
+      "direction": "spatial_scalar",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.9061664760287832,
+      "half_log_power_change_rms": 0.1256626805164726,
+      "max_absolute_half_power_change_percent": 44.87209264402574,
+      "linear_residual_l2": 0.5021789193131108,
+      "relative_prediction_error": 0.554179538305012,
+      "predictor_observation_cosine": 0.860269341936554,
+      "fraction_negative_directional_response": 0.0,
+      "off_axis_response_norm_fraction": null,
+      "finite_difference_directional_response": [
+        0.18159866333007812,
+        0.1288437843322754,
+        0.09451150894165039,
+        0.13631582260131836,
+        0.31820058822631836,
+        0.28500795364379883,
+        0.6028610467910767,
+        0.8959734439849854,
+        1.2537217140197754,
+        1.6296932101249695,
+        2.3872559517621994,
+        3.158964663743973,
+        3.523482233285904,
+        0.1922774314880371,
+        0.07450103759765625,
+        0.20148277282714844,
+        0.15059709548950195,
+        0.6793022155761719,
+        0.37906885147094727,
+        0.6134116649627686,
+        0.7649362087249756,
+        1.3596892356872559,
+        1.8065416812896729,
+        2.3343189153820276,
+        3.0117477476596832,
+        3.5864080488681793
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 1.2002673079568704,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 1.0671845743455892,
+          "cast_path_discrepancy_relative_to_fp32": 0.06580142948716065
+        },
+        "minus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 1.0546872544900265,
+          "cast_path_discrepancy_relative_to_fp32": 0.03359773514849114
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 0.5358531685826706,
+          "cast_path_discrepancy_relative_to_fp32": 0.1200394551499633
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 0.5318288457110479,
+          "cast_path_discrepancy_relative_to_fp32": 0.13341011866427968
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.5502730704920499,
+        "half_coordinates": {
+          "half_plus": 0.5023251711255013,
+          "half_minus": -0.4953589942059427
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.1116344091556792,
+          "half_minus": 0.1583469451048366
+        }
+      }
+    },
+    {
+      "prompt_index": 1,
+      "step": 22,
+      "sigma": 0.4627484083175659,
+      "direction": "axis1_octave-11",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.010546051298469656,
+      "half_log_power_change_rms": 0.0014624741811656125,
+      "max_absolute_half_power_change_percent": 0.3196603049139,
+      "linear_residual_l2": 0.01054763978264644,
+      "relative_prediction_error": 1.0001506235966267,
+      "predictor_observation_cosine": 0.05918371871192202,
+      "fraction_negative_directional_response": 0.9615384615384616,
+      "off_axis_response_norm_fraction": 0.7121720811368818,
+      "finite_difference_directional_response": [
+        -0.004675388336181641,
+        -0.003364086151123047,
+        0.0017976760864257812,
+        -0.0013303756713867188,
+        -0.005252361297607422,
+        -0.004038810729980469,
+        -0.0061511993408203125,
+        -0.002332925796508789,
+        -0.003796219825744629,
+        -0.0033086538314819336,
+        -0.0022721290588378906,
+        -0.0018155574798583984,
+        -0.0009745359420776367,
+        -0.0017309188842773438,
+        -0.004079341888427734,
+        -0.005507469177246094,
+        -0.003521442413330078,
+        -0.0034165382385253906,
+        -0.004076957702636719,
+        -0.006002187728881836,
+        -0.0035583972930908203,
+        -0.004284977912902832,
+        -0.0008511543273925781,
+        -0.00037789344787597656,
+        -0.001189112663269043,
+        -0.0021910667419433594
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.07365988893439389,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 36,
+          "actual_logit_gain_l2": 0.19945538910840455,
+          "cast_path_discrepancy_relative_to_fp32": 0.24267441450583022
+        },
+        "minus": {
+          "changed_bf16_coordinates": 26,
+          "actual_logit_gain_l2": 0.2046272410536177,
+          "cast_path_discrepancy_relative_to_fp32": 0.26012208902877065
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 18,
+          "actual_logit_gain_l2": 0.10760873911478237,
+          "cast_path_discrepancy_relative_to_fp32": 0.4741918118827952
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 16,
+          "actual_logit_gain_l2": 0.09443860216506442,
+          "cast_path_discrepancy_relative_to_fp32": 0.43901119946968464
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.9963365594443552,
+        "half_coordinates": {
+          "half_plus": 0.4946454419302563,
+          "half_minus": -0.43211317612731703
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.42844336144857165,
+          "half_minus": 0.437084998231995
+        }
+      }
+    },
+    {
+      "prompt_index": 1,
+      "step": 22,
+      "sigma": 0.4627484083175659,
+      "direction": "axis2_octave-11",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.008783828425261866,
+      "half_log_power_change_rms": 0.0012180978377753756,
+      "max_absolute_half_power_change_percent": 0.2790840926728269,
+      "linear_residual_l2": 0.007528444608639502,
+      "relative_prediction_error": 0.8570801072329759,
+      "predictor_observation_cosine": 0.540622650997259,
+      "fraction_negative_directional_response": 0.19230769230769232,
+      "off_axis_response_norm_fraction": 0.6619413323909337,
+      "finite_difference_directional_response": [
+        -2.86102294921875e-05,
+        0.0009965896606445312,
+        0.0009083747863769531,
+        0.0013422966003417969,
+        -0.0019407272338867188,
+        0.0020623207092285156,
+        0.0028085708618164062,
+        0.003997087478637695,
+        0.006879568099975586,
+        0.009089112281799316,
+        0.012804269790649414,
+        0.016924738883972168,
+        0.018541812896728516,
+        -0.005881786346435547,
+        -0.006256103515625,
+        -0.004432201385498047,
+        0.0007796287536621094,
+        0.0013959407806396484,
+        0.002688169479370117,
+        0.008846521377563477,
+        0.009683370590209961,
+        0.011907219886779785,
+        0.012151002883911133,
+        0.0144195556640625,
+        0.015108585357666016,
+        0.01515507698059082
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.05823503760688178,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 32,
+          "actual_logit_gain_l2": 0.1958278885698897,
+          "cast_path_discrepancy_relative_to_fp32": 0.24010977633460348
+        },
+        "minus": {
+          "changed_bf16_coordinates": 32,
+          "actual_logit_gain_l2": 0.20696250473567962,
+          "cast_path_discrepancy_relative_to_fp32": 0.2596593431117439
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 14,
+          "actual_logit_gain_l2": 0.10370991965758414,
+          "cast_path_discrepancy_relative_to_fp32": 0.4335482299374064
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 18,
+          "actual_logit_gain_l2": 0.10952247620067035,
+          "cast_path_discrepancy_relative_to_fp32": 0.47859082609725623
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.8483548069277791,
+        "half_coordinates": {
+          "half_plus": 0.48263049669780533,
+          "half_minus": -0.5040760236279554
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.405607861522637,
+          "half_minus": 0.42753901240121006
+        }
+      }
+    },
+    {
+      "prompt_index": 1,
+      "step": 22,
+      "sigma": 0.4627484083175659,
+      "direction": "spatial_scalar",
+      "spectral_bins": 26,
+      "half_effect_l2": 0.2242041364778556,
+      "half_log_power_change_rms": 0.03109151962469364,
+      "max_absolute_half_power_change_percent": 6.012232168082476,
+      "linear_residual_l2": 0.011168855965825914,
+      "relative_prediction_error": 0.04981556603407739,
+      "predictor_observation_cosine": 0.9996887493035469,
+      "fraction_negative_directional_response": 0.038461538461538464,
+      "off_axis_response_norm_fraction": null,
+      "finite_difference_directional_response": [
+        0.04699230194091797,
+        0.03455400466918945,
+        -0.03919363021850586,
+        0.0671529769897461,
+        0.14694452285766602,
+        0.21681904792785645,
+        0.411449670791626,
+        0.5572807788848877,
+        0.6787729263305664,
+        0.793500542640686,
+        0.9615182876586914,
+        1.0932201147079468,
+        1.2003058195114136,
+        0.0539398193359375,
+        0.06355047225952148,
+        0.0606083869934082,
+        0.1336503028869629,
+        0.2944791316986084,
+        0.33237576484680176,
+        0.4751121997833252,
+        0.6230854988098145,
+        0.766373872756958,
+        0.9243249893188477,
+        1.0156232118606567,
+        1.0835719108581543,
+        1.1122113466262817
+      ],
+      "effect_per_combined_realized_logit_gain_norm": 0.30256073464538225,
+      "realized_gain_quantization": {
+        "plus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 1.068041842291182,
+          "cast_path_discrepancy_relative_to_fp32": 0.06341340500159173
+        },
+        "minus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 1.0558428276040108,
+          "cast_path_discrepancy_relative_to_fp32": 0.053324233373986854
+        },
+        "half_plus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 0.528662069723731,
+          "cast_path_discrepancy_relative_to_fp32": 0.10995712169756658
+        },
+        "half_minus": {
+          "changed_bf16_coordinates": 112,
+          "actual_logit_gain_l2": 0.5192589930180673,
+          "cast_path_discrepancy_relative_to_fp32": 0.1267791866405239
+        }
+      },
+      "secondary_realized_coordinate_prediction": {
+        "status": "Post hoc exploratory secondary analysis, not prespecified acceptance",
+        "fit": "Through-origin least squares using only full plus/minus spectral changes and their projected realized BF16 logit-gain coordinates",
+        "relative_prediction_error": 0.029264754942449258,
+        "half_coordinates": {
+          "half_plus": 0.49522104460960786,
+          "half_minus": -0.4848613044810876
+        },
+        "half_vector_off_linearity": {
+          "half_plus": 0.11483440285381508,
+          "half_minus": 0.1395420586415203
+        }
+      }
+    }
+  ],
+  "readout": [
+    "All four smoke/4K runs satisfy exact saved endpoint and gain-history checks. Each 4K run has 39 extra forwards and all three no-op replays are exact. CR15 remains failed under its original policy.",
+    "Axial octave half-step responses are small and poorly predicted: most errors are near the zero-change predictor; some exceed it. Counts below one are descriptive and are not statistical evidence of reliable control.",
+    "The scalar control is better predicted at middle and late sampled steps, but prompt 0 step 6 fails strongly. Late scalar relative errors are 0.10423 and 0.04982. This is prompt/time dependent rather than a universal positive response law.",
+    "Scalar changes generally increase measured band powers; axial responses include many negative components and substantial responses on the other output axis. Weak prediction and coarse marginal spectra prevent interpreting this as a validated controllability map.",
+    "The same epsilon does not give the scalar and octave controls the same actuator norm. Effect magnitude alone cannot rank intrinsic actuator efficiency; row records include effect divided by realized BF16 logit-gain norm.",
+    "Exploratory realized-coordinate refitting changes most prediction errors only modestly. Half-step BF16 actuator vectors are substantially off the full-step secant line for octave controls. A one-coordinate amplitude correction cannot identify or explain their orthogonal response.",
+    "The derivative statistic concerns packed-latent marginal log power of x_t-sigma*v. It is neither final pixel frequency power nor perceptual quality. No perturbed trajectory was selected or decoded as efficacy evidence."
+  ],
+  "limits": [
+    "Two already used development prompts, one seed, one backbone and three directions; no confidence interval, generalization, fresh 64-prompt confirmation, or SOTA claim.",
+    "Three tested controls do not identify reachable and unreachable spectral-error subspaces. High cross-axis fraction does not establish that off-diagonal feedback helps.",
+    "Nominal finite differences traverse a normalized gain path, with BF16 gain and network arithmetic. They are local secants, not an exact infinitesimal Jacobian of a smooth FP32 model.",
+    "A negative directional derivative is not inherently wrong-sign control: that conclusion additionally requires a justified desired error direction, which this probe does not provide.",
+    "Quantization off-linearity is measured, but its causal share of prediction failure is not identified. Network nonlinearity, normalization curvature, and BF16 activation arithmetic remain confounded.",
+    "Baseline/probed runtime difference is diagnostic accounting with unmatched warmup and no image decoding, not production speed or equal-cost efficacy evidence.",
+    "Deterministic allocation changes numerical execution policy; CR16 evidence does not establish quality equivalence to the original released baseline at 4K."
+  ],
+  "next_bounded_experiment_recommendation": {
+    "status": "Recommendation only; no job or source change authorized by this report",
+    "immediate_action": "Keep the realized-coordinate calculation as a labeled secondary CPU analysis. Do not expand the response matrix or build a full spectral-feedback controller from these 18 rows.",
+    "if_further_gpu_diagnosis_is_chosen": "Freeze a small perturbation-scale test at step 14 on the same two development prompts, same checkpoint/schedule and three controls. Measure +/-0.20,+/-0.10,+/-0.05; fit at 0.20 and predict 0.10, then fit at 0.10 and predict 0.05 as separately declared comparisons. Repeat one half-positive intervention per control to check repeatability. Retain exact no-op/history/endpoint checks and save all realized FP32/BF16 gains.",
+    "max_forward_budget": "78 per prompt,156 total: two 28-step baseline/probed trajectories plus 18 perturbation calls,3 duplicated half-positive calls, and 1 unperturbed replay per prompt. This is a bounded diagnostic rather than a quality campaign.",
+    "decision_use": "Inspect whether a perturbation window produces consistent directional prediction beyond zero after accounting for actual actuator geometry. Preserve a negative result. A positive result would justify another response-control test, not held-out efficacy or a novelty claim.",
+    "prior_art_boundary": "Local novelty notes flag SEGA content-adaptive RoPE gains, spectral-reference guidance, and existing finite-difference/trust-region/control methods. Finite differences, scalar temperature control, or numerical determinism alone are not a new mechanism. A later proposal must show why a resolution-specific response mechanism adds value beyond scalar, sign-free and diagonal/equal-cost controls.",
+    "prior_art_sources_used": [
+      ".agent/notes/novelty_20261017.md",
+      ".agent/notes/response_deterministic_protocol.json"
+    ],
+    "prior_art_verification_scope": "Used existing project notes as boundaries; did not conduct a new literature search or establish novelty."
+  },
+  "artifact_sha256": {
+    ".agent/notes/response_deterministic_protocol.json": "15b979336a23d1f3cd4f55ee9acbf29f96f1c2ab46af84b709cd2503c16bd03c",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/smoke/manifest.json": "6042e601d617b7361b9af4cf5238aca484235bd97b660546551b2c1495f71fe6",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/smoke/completion.json": "923782213304f551f0d8ce8b99a3aa5544d73a8d636afd7176f011c244b9c622",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/smoke/baseline_history.json": "521feaf3a91e3a9f52cdf1532ce9c570cd7400d46aebe5938ae83d9728b8375a",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/smoke/probed_history.json": "521feaf3a91e3a9f52cdf1532ce9c570cd7400d46aebe5938ae83d9728b8375a",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/4k/manifest.json": "a8c5df1f12da08010eaa841a462c91be98a73dc86e013c844adf02cdf28d3a0f",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/4k/completion.json": "d757e3063dde7ab91d63e3d63ffb269cb9f40e0302eb23be138bff40d638a690",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/4k/baseline_history.json": "222f56bc6babf030f7a78c5809502a8845e516bb6ff554b57cf6dabb8718b3a9",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/4k/probed_history.json": "222f56bc6babf030f7a78c5809502a8845e516bb6ff554b57cf6dabb8718b3a9",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/4k/step_006.json": "ffd961ca574452c5bb9c530e780bf5fef56e3ab41c3d0b2de03f24fd244acc15",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/4k/step_014.json": "1b2f3c613462a24c1bed29235ab4f77de4896611a2c35bc7ed0d4e3a1989c10c",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt0/4k/step_022.json": "e7c3b81a65c308b7faebd9170eba635de63e1253e38ccd02ad2377a2c935c22e",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/smoke/manifest.json": "3ed4d5b2da885dafdcd6b2262fd3b46b60e91656078f45a9aee74e50350c0775",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/smoke/completion.json": "d276c7a4c317761473b831780b36c7fe061244258fb6811dd2b1d99d13567540",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/smoke/baseline_history.json": "b8a18efaf436536cd6c6cf132c7a1507cc7321ffaf34f9fff566457151036757",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/smoke/probed_history.json": "b8a18efaf436536cd6c6cf132c7a1507cc7321ffaf34f9fff566457151036757",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/4k/manifest.json": "77837fdfc84a40d05a74c5e780ba37805aee7b24e2e94323de40a69ba7dbaf34",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/4k/completion.json": "690b2d0e4bd37afbcda60591ab35a66803dd98be968793fc0ac0197fbfa2f8b0",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/4k/baseline_history.json": "6b534f8dae41df73a2ec919fc83e16dcdd4860fb369df914cb43aae9a743886d",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/4k/probed_history.json": "6b534f8dae41df73a2ec919fc83e16dcdd4860fb369df914cb43aae9a743886d",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/4k/step_006.json": "10cc2cce63b3bbf1ad9276cbb16dca7529d5dc5c0c5c47c63f9507792e59ec00",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/4k/step_014.json": "1f61dcdc57ef7eea1149c3f72b15cd10dc82c75804ab87850ea6052f86ace7b9",
+    "/scratch/09032/saini_2/constancy_rope/response_probe_deterministic/job1077143/prompt1/4k/step_022.json": "5418a7cd592bbed3357705748cfda22dfff85fa677dfc53751cc08662bc7095c"
+  }
+}
