@@ -1,0 +1,45 @@
+{
+  "created_utc": "2026-10-17T14:44:51.921431+00:00",
+  "job_id": "1077304",
+  "state": "COMPLETED",
+  "elapsed_seconds": 148,
+  "scheduler": "JobID|State|Elapsed|Start|End|ExitCode\n1077304|COMPLETED|00:02:28|2026-10-17T09:39:34|2026-10-17T09:42:02|0:0\n1077304.batch|COMPLETED|00:02:28|2026-10-17T09:39:34|2026-10-17T09:42:02|0:0\n1077304.0|COMPLETED|00:02:19|2026-10-17T09:39:43|2026-10-17T09:42:02|0:0\n",
+  "nodes": [
+    "c610-042",
+    "c610-051"
+  ],
+  "native_images": 8,
+  "new4k_images": 0,
+  "generation_seconds_perimage": [
+    8.872524202801287,
+    4.924024942331016,
+    4.932994586415589,
+    4.942950113676488,
+    9.089537212625146,
+    4.928652750328183,
+    4.942720916122198,
+    4.921647537499666
+  ],
+  "timing_scope": "Promptencoding,denoising,VAEdecode plusaudit hooks; excludesmodelloadingPNGIO. No speedbenchmarkclaim.",
+  "telemetry": {
+    "c610-042_job1077304_20261017093943.csv": {
+      "samples": 28,
+      "max_utilization_percent": 100.0,
+      "samples_at_least90percent": 4,
+      "scope": "Includesstartup; notanendtoend utilizationbenchmark"
+    },
+    "c610-051_job1077304_20261017093944.csv": {
+      "samples": 28,
+      "max_utilization_percent": 98.0,
+      "samples_at_least90percent": 3,
+      "scope": "Includesstartup; notanendtoend utilizationbenchmark"
+    }
+  },
+  "wandb_mode": "offline",
+  "wandb_run_ids": [
+    "5x7fh624",
+    "drwwbu60"
+  ],
+  "archive_bytes": 202873493,
+  "visual_review_status": "Completed: two independent model-based readings, common labels frozen before detail inspection, all16 views; no disagreements or label changes. Not human annotations."
+}

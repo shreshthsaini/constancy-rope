@@ -1,0 +1,84 @@
+{
+  "accepted": true,
+  "scope": "Read-only supplemental config validation, no new generation or image judgments",
+  "accepted_original_report_sha256": "c2f64514d3d38deaa8b74bf62da9b8190df07d76092a4ff531bfffbd98e2bc64",
+  "original_reporter_sha256": "6a21d167997f27e55dcc2307ef780aa65f5fed48858c8ef919b226f2f4c18bb1",
+  "new_reporter_sha256": "9ef949c258d0f6a93bfd9cfbfaf6988a5cc4d88d3f04d23a608a8542723e1e36",
+  "protocol_sha256": "ba80b1ddd2ca794a84e2607be6773acf5253f80402ece5ddf71d53b400775a18",
+  "archive_manifest_sha256": "c2f64514d3d38deaa8b74bf62da9b8190df07d76092a4ff531bfffbd98e2bc64",
+  "images": 8,
+  "rows": [
+    {
+      "row": 0,
+      "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+      "metadata_sha256": "55b039d9c134fc74405e399277d220ba92c1430ddc1c6d78dd135432cd85b2c6",
+      "runtime_code_revision": "06f0c87607f1750a16f8290e17e83bb71ff4ae61",
+      "independent_config_verified": true
+    },
+    {
+      "row": 1,
+      "prompt_id": "a4k_eval_4096_3614061571823823193",
+      "metadata_sha256": "63b3c3b98ce8adb22c28ade6225fbb1b1004da10ceebcfdc6f268349e993396f",
+      "runtime_code_revision": "06f0c87607f1750a16f8290e17e83bb71ff4ae61",
+      "independent_config_verified": true
+    },
+    {
+      "row": 2,
+      "prompt_id": "a4k_eval_4096_7354534197758042049",
+      "metadata_sha256": "3f6a14ba3945d704f98b6ae6a57121993b5de4b3af13cabbc43ebbabd31306cf",
+      "runtime_code_revision": "06f0c87607f1750a16f8290e17e83bb71ff4ae61",
+      "independent_config_verified": true
+    },
+    {
+      "row": 3,
+      "prompt_id": "a4k_eval_4096_788875264758341041",
+      "metadata_sha256": "f2667156306987449df8bd36603ae342c4c536cac29c8240037ee3003f4cfdca",
+      "runtime_code_revision": "06f0c87607f1750a16f8290e17e83bb71ff4ae61",
+      "independent_config_verified": true
+    },
+    {
+      "row": 4,
+      "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+      "metadata_sha256": "d69245d8b45db86ad6dcf42422566175f99c3af84921d1a4222f031b28ee21fc",
+      "runtime_code_revision": "06f0c87607f1750a16f8290e17e83bb71ff4ae61",
+      "independent_config_verified": true
+    },
+    {
+      "row": 5,
+      "prompt_id": "a4k_eval_4096_minus8041742109062037958",
+      "metadata_sha256": "7afe19d68610e0fee3f14df4fd14b1c7aa2e261eb261a98926760862daf2ccd9",
+      "runtime_code_revision": "06f0c87607f1750a16f8290e17e83bb71ff4ae61",
+      "independent_config_verified": true
+    },
+    {
+      "row": 6,
+      "prompt_id": "a4k_eval_4096_5968998903196670637",
+      "metadata_sha256": "c2529442ede0ad480b4433aa8d02060081d1cf0dde9515fad221015520bc7354",
+      "runtime_code_revision": "06f0c87607f1750a16f8290e17e83bb71ff4ae61",
+      "independent_config_verified": true
+    },
+    {
+      "row": 7,
+      "prompt_id": "a4k_eval_4096_minus8648158440845565467",
+      "metadata_sha256": "21ac9758a011efc25f521b706efcf18dd79ddfe4dc06eb4d2bb205aac2b79c07",
+      "runtime_code_revision": "06f0c87607f1750a16f8290e17e83bb71ff4ae61",
+      "independent_config_verified": true
+    }
+  ],
+  "original_report_and_archive_unchanged": true,
+  "limits": [
+    "This closes the expected-config coverage gap; earlier independent artifact audit remains separate.",
+    "Runtime model/conditioning/gain receipts are not independent model-weight or execution reconstruction.",
+    "Legacy attention config label is preserved; it is not observed backend telemetry."
+  ],
+  "tests": {
+    "command": "OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python -m pytest -q tests/test_native_comparator_report.py",
+    "test_source_sha256": "7e67174a4d7bbd26ae918dab5e2a231e3ed209d9878cc4d4c6e3d86e791f09ad",
+    "result": "27 passed in3.20s",
+    "stdout": "........................... [100%]\n27 passed in 3.20s\n"
+  },
+  "independent_prior_artifact_audit_sha256": "08ddfd76f30ea8bd56fd7e1a814968e4c83cfd9c9f3ce73d4463ec27dadce1e2",
+  "repair": "Model, rotary, controller, profile, seed, scheduler and source settings now come from pinned reference/native definitions. Candidate code revision is independently checked against all frozen source contents; scheduler default-key ordering is the only other accepted bookkeeping difference.",
+  "original_reporter_source": "\"\"\"Validate CR20 artifacts and prepare fixed, label-hidden review views.\"\"\"\nimport argparse\nimport hashlib\nimport json\nimport os\nfrom pathlib import Path\nimport shutil\nimport sys\n\nROOT = Path(__file__).resolve().parents[1]\nsys.path.insert(0, str(ROOT))\nfrom scripts.native_comparator import (\n    file_sha256, pinned_json, read_json, require, validate_dependencies, validate_output,\n)\n\n\ndef main():\n    p = argparse.ArgumentParser(description=__doc__)\n    p.add_argument('--protocol', type=Path, required=True)\n    p.add_argument('--protocol-sha256', required=True)\n    p.add_argument('--root', type=Path, required=True)\n    p.add_argument('--archive', type=Path, required=True)\n    p.add_argument('--notes', type=Path, required=True)\n    a = p.parse_args()\n    import torch\n    from PIL import Image\n    torch.set_num_threads(2)\n    require(file_sha256(a.protocol) == a.protocol_sha256, 'Protocol changed')\n    protocol = read_json(a.protocol)\n    rows, accepted = validate_dependencies(protocol, 0, 4)\n    rubric = pinned_json(protocol['rubric'])['predicate_rubric']\n    presentation = pinned_json(protocol['presentation'])\n    verified, raw = {}, {}\n    for chunk, (start, end) in enumerate(protocol['chunks']):\n        directory = a.root / f'chunk{chunk}'\n        require(not (directory/'failure.json').exists(), 'Failed workflow')\n        manifest, done = read_json(directory/'manifest.json'), read_json(directory/'completion.json')\n        require(manifest['protocol_sha256'] == done['protocol_sha256'] == a.protocol_sha256\n                and manifest['source_sha256'] == protocol['source_sha256'], 'Manifest provenance mismatch')\n        require(manifest['model'] == accepted['model'] and all(manifest[k] == accepted[k]\n                for k in ('torch', 'cuda', 'diffusers')), 'Model/software mismatch')\n        require((done['start'], done['end']) == (start, end) and done['completed_images'] == 4\n                and len(done['records']) == 4 and done['new_method'] is False, 'Incomplete chunk')\n        require(read_json(directory/'progress.json') == {'status': 'completed', 'completed_images': 4},\n                'Progress is not complete')\n        for index, record in zip(range(start, end), done['records']):\n            require(record['prompt_index'] == index, 'Row order mismatch')\n            png, metadata = Path(record['png']), Path(record['metadata'])\n            require(png.is_relative_to(directory) and metadata.is_relative_to(directory), 'Output escaped chunk')\n            result = validate_output(png, metadata, rows[index], protocol, read_json(metadata)['config'])\n            require(all(record[k] == value for k, value in result.items()), 'Completion image receipt mismatch')\n            gain = record['runtime_gain_audit']\n            require(len(gain) == 28 and all(x == {'step': i, 'sigma': protocol['expected_sigmas'][i],\n                'controller_float32_all_one': True, 'controller_bfloat16_all_one': True,\n                'rotary_gain_all_one': True} for i, x in enumerate(gain)), 'Runtime gain receipt mismatch')\n            initial = record['initial_transformer_input']\n            path = Path(initial['path'])\n            require(path.is_relative_to(directory) and file_sha256(path) == initial['file_sha256'],\n                    'Initial input file mismatch')\n            value = torch.load(path, map_location='cpu', weights_only=True)['initial_transformer_input']\n            require(value.shape == (1, 4096, 64) and value.dtype == torch.bfloat16\n                    and bool(torch.isfinite(value).all()) and hashlib.sha256(\n                    value.contiguous().view(torch.uint8).numpy().tobytes()).hexdigest() == initial['tensor_sha256'],\n                    'Initial input tensor mismatch')\n            verified[index] = record\n        raw[str(chunk)] = {'manifest': manifest, 'completion': done}\n    require(set(verified) == set(range(8)), 'Missing images')\n    require(not a.archive.exists(), 'Refuse to overwrite archive')\n    a.archive.mkdir(parents=True)\n    a.notes.mkdir(parents=True, exist_ok=True)\n    retained, paths = [], {}\n    for index, record in verified.items():\n        selected = protocol['selected_prompts'][index]\n        sources = {'native1024': Path(record['png']), 'archived4096': Path(selected['reference_png']['path']),\n                   'native_metadata': Path(record['metadata']),\n                   'reference_metadata': Path(selected['reference_metadata']['path']),\n                   'initial_input': Path(record['initial_transformer_input']['path'])}\n        for kind, source in sources.items():\n            target = a.archive/kind/f'row{index}{source.suffix}'\n            target.parent.mkdir(exist_ok=True)\n            digest = file_sha256(source)\n            shutil.copyfile(source, target)\n            require(file_sha256(target) == digest, 'Archive copy mismatch')\n            retained.append(dict(source=str(source), preserved=str(target), sha256=digest, bytes=target.stat().st_size))\n            paths[kind, index] = target\n    inputs, viewmap = [], []\n    for item in presentation['mapping']:\n        source = paths[item['condition'], item['row']]\n        view = a.archive/'views'/f\"{item['label']}.png\"\n        original = a.archive/'original_views'/view.name\n        view.parent.mkdir(exist_ok=True)\n        original.parent.mkdir(exist_ok=True)\n        with Image.open(source) as image:\n            image = image.convert('RGB')\n            image.thumbnail((1024, 1024), Image.Resampling.LANCZOS)\n            clean = Image.new('RGB', image.size)\n            clean.paste(image)\n            clean.save(view)\n        os.link(source, original)\n        rule = rubric['rows'][item['row']]\n        inputs.append({'label': item['label'], 'caption': rows[item['row']]['prompt'],\n                       'primary': rule['primary'], 'secondary': rule['secondary'],\n                       'auxiliary': rule.get('auxiliary', []), 'exclusions': rule['exclusions'],\n                       'common_view': str(view), 'detail_view': str(original)})\n        viewmap.append({**item, 'source_sha256': file_sha256(source), 'view_sha256': file_sha256(view)})\n    report = {'accepted': True, 'images': 8, 'protocol_sha256': a.protocol_sha256,\n              'reporter_sha256': file_sha256(__file__), 'raw': raw,\n              'retained': retained, 'retained_bytes': sum(x['bytes'] for x in retained),\n              'viewmap': viewmap, 'quality_scored': False,\n              'limits': ['Runtime conditioning/model/gain checks are receipts; initial inputs and PNGs are saved witnesses.',\n                         'Different-size noise is uncoupled. No causal resolution or method-quality conclusion.',\n                         'Common-view labels precede detail inspection. Label hiding is not guaranteed resolution blinding.']}\n    (a.notes/'report.json').write_text(json.dumps(report, indent=2, allow_nan=False)+'\\n')\n    (a.notes/'reviewer_inputs.json').write_text(json.dumps({'rules': rubric['rules'], 'labels': rubric['labels'],\n        'instruction': 'Record all common-view judgments before inspecting any detail views; keep both records.',\n        'images': inputs}, indent=2)+'\\n')\n    (a.archive/'manifest.json').write_text(json.dumps(report, indent=2)+'\\n')\n    print(json.dumps({'accepted': True, 'images': 8, 'retained_bytes': report['retained_bytes']}))\n\n\nif __name__ == '__main__':\n    main()\n",
+  "original_reporter_source_preserved_and_hash_verified": true
+}

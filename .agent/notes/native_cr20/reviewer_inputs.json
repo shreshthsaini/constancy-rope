@@ -1,0 +1,177 @@
+{
+  "rules": "Satisfied requires visible evidence of the whole stated predicate. Violated requires a visible incompatible result or a clearly absent required entity in an otherwise judgeable scene. Occlusion, inadequate detail, ambiguous identity or ambiguous contact is unjudgeable, not failure. Do not penalize incidental composition, unspecified counts or colors, photographic realism not requested by the caption, or differences from the caption-source photograph.",
+  "labels": [
+    "satisfied",
+    "violated",
+    "unjudgeable"
+  ],
+  "instruction": "Record all common-view judgments before inspecting any detail views; keep both records.",
+  "images": [
+    {
+      "label": "view01",
+      "caption": "A Moai statue gazes upward against a starry night sky, with a colorful sunset illuminating the horizon.",
+      "primary": "Warm sunset colors occur near the horizon beneath a visibly starry sky.",
+      "secondary": "A recognizable Moai statue stands against that sky.",
+      "auxiliary": [],
+      "exclusions": "Upward gaze is not a primary predicate because stone-statue pose is ambiguous.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view01.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view01.png"
+    },
+    {
+      "label": "view02",
+      "caption": "A man in 19th-century attire sits beside a woman dressed in a floral-patterned gown, both holding hands on an ornate teal couch, surrounded by rich dark-hued walls and vintage artwork.",
+      "primary": "The man and woman visibly hold each other's hands.",
+      "secondary": "The seated man and woman share a visibly teal couch.",
+      "auxiliary": [],
+      "exclusions": "Hand proximity alone is insufficient; occluded or anatomically ambiguous contact is unjudgeable.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view02.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view02.png"
+    },
+    {
+      "label": "view03",
+      "caption": "A large planet with prominent rings occupies the foreground against a backdrop of deep red space, while two smaller celestial bodies are silhouetted nearby, one near the planet's rings and another near a distant sun.",
+      "primary": "Two distinguishable smaller celestial bodies are visible, one near the planet's rings and another near a visible distant sun.",
+      "secondary": "A large ringed planet is a prominent foreground object.",
+      "auxiliary": [],
+      "exclusions": "Stars and tiny debris do not count as bodies. An uncertain sun/body identity makes the primary predicate unjudgeable; additional unrequested objects are not automatically a violation.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view03.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view03.png"
+    },
+    {
+      "label": "view04",
+      "caption": "A man in 19th-century attire sits beside a woman dressed in a floral-patterned gown, both holding hands on an ornate teal couch, surrounded by rich dark-hued walls and vintage artwork.",
+      "primary": "The man and woman visibly hold each other's hands.",
+      "secondary": "The seated man and woman share a visibly teal couch.",
+      "auxiliary": [],
+      "exclusions": "Hand proximity alone is insufficient; occluded or anatomically ambiguous contact is unjudgeable.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view04.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view04.png"
+    },
+    {
+      "label": "view05",
+      "caption": "A surfer rides a wave beneath the surface, showcasing skill and agility on a yellow board, with coral formations visible below.",
+      "primary": "A surfer is supported by a visibly yellow board.",
+      "secondary": "Coral is visible below the surfer within the requested underwater scene.",
+      "auxiliary": [],
+      "exclusions": "The underwater setting is explicitly prompted and is not an error by itself.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view05.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view05.png"
+    },
+    {
+      "label": "view06",
+      "caption": "A surfer rides a wave beneath the surface, showcasing skill and agility on a yellow board, with coral formations visible below.",
+      "primary": "A surfer is supported by a visibly yellow board.",
+      "secondary": "Coral is visible below the surfer within the requested underwater scene.",
+      "auxiliary": [],
+      "exclusions": "The underwater setting is explicitly prompted and is not an error by itself.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view06.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view06.png"
+    },
+    {
+      "label": "view07",
+      "caption": "A large planet with prominent rings occupies the foreground against a backdrop of deep red space, while two smaller celestial bodies are silhouetted nearby, one near the planet's rings and another near a distant sun.",
+      "primary": "Two distinguishable smaller celestial bodies are visible, one near the planet's rings and another near a visible distant sun.",
+      "secondary": "A large ringed planet is a prominent foreground object.",
+      "auxiliary": [],
+      "exclusions": "Stars and tiny debris do not count as bodies. An uncertain sun/body identity makes the primary predicate unjudgeable; additional unrequested objects are not automatically a violation.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view07.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view07.png"
+    },
+    {
+      "label": "view08",
+      "caption": "A woman in a black top and a green striped skirt stands against a storefront, looking over her shoulder. Pedestrians, including a man with a newspaper and a boy, pass by in the foreground. The street features various shop signs, including \"Kodak\" and \"Paradis.\"",
+      "primary": "A woman wears a black top and a visibly green striped skirt.",
+      "secondary": "A man with a newspaper and a boy appear in front of the storefront.",
+      "auxiliary": [
+        "The string Kodak is readable.",
+        "The string Paradis is readable."
+      ],
+      "exclusions": "Auxiliary text results cannot alone support a general-resolution method or an OCR pivot.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view08.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view08.png"
+    },
+    {
+      "label": "view09",
+      "caption": "A ballerina in a flowing yellow dress performs an elegant pose on one leg, showcasing her strength and grace against a backdrop of geometric wall art and soft natural light.",
+      "primary": "The ballerina poses with only one leg supporting her body and the other lifted.",
+      "secondary": "The ballerina wears a visibly yellow dress.",
+      "auxiliary": [],
+      "exclusions": "A cropped or occluded support point is unjudgeable; aesthetic pose preference is not scored.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view09.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view09.png"
+    },
+    {
+      "label": "view10",
+      "caption": "A woman in a black top and a green striped skirt stands against a storefront, looking over her shoulder. Pedestrians, including a man with a newspaper and a boy, pass by in the foreground. The street features various shop signs, including \"Kodak\" and \"Paradis.\"",
+      "primary": "A woman wears a black top and a visibly green striped skirt.",
+      "secondary": "A man with a newspaper and a boy appear in front of the storefront.",
+      "auxiliary": [
+        "The string Kodak is readable.",
+        "The string Paradis is readable."
+      ],
+      "exclusions": "Auxiliary text results cannot alone support a general-resolution method or an OCR pivot.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view10.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view10.png"
+    },
+    {
+      "label": "view11",
+      "caption": "A Moai statue gazes upward against a starry night sky, with a colorful sunset illuminating the horizon.",
+      "primary": "Warm sunset colors occur near the horizon beneath a visibly starry sky.",
+      "secondary": "A recognizable Moai statue stands against that sky.",
+      "auxiliary": [],
+      "exclusions": "Upward gaze is not a primary predicate because stone-statue pose is ambiguous.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view11.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view11.png"
+    },
+    {
+      "label": "view12",
+      "caption": "A woman kneels on the forest floor, smiling as she offers grapes to a large brown bear beside her, surrounded by tall birch trees.",
+      "primary": "The woman visibly extends grapes toward the bear.",
+      "secondary": "The woman kneels beside a recognizable brown bear.",
+      "auxiliary": [],
+      "exclusions": "Grapes too small to identify make the primary predicate unjudgeable; mere co-presence is not offering.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view12.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view12.png"
+    },
+    {
+      "label": "view13",
+      "caption": "A woman kneels on the forest floor, smiling as she offers grapes to a large brown bear beside her, surrounded by tall birch trees.",
+      "primary": "The woman visibly extends grapes toward the bear.",
+      "secondary": "The woman kneels beside a recognizable brown bear.",
+      "auxiliary": [],
+      "exclusions": "Grapes too small to identify make the primary predicate unjudgeable; mere co-presence is not offering.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view13.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view13.png"
+    },
+    {
+      "label": "view14",
+      "caption": "A ballerina in a flowing yellow dress performs an elegant pose on one leg, showcasing her strength and grace against a backdrop of geometric wall art and soft natural light.",
+      "primary": "The ballerina poses with only one leg supporting her body and the other lifted.",
+      "secondary": "The ballerina wears a visibly yellow dress.",
+      "auxiliary": [],
+      "exclusions": "A cropped or occluded support point is unjudgeable; aesthetic pose preference is not scored.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view14.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view14.png"
+    },
+    {
+      "label": "view15",
+      "caption": "A row of weathered small boats in various colors rests at the water's edge, reflecting the overcast sky and surrounded by a calm harbor filled with larger boats and sailboats in the distance.",
+      "primary": "Larger boats or sailboats appear farther into the harbor than the small boats at the water edge.",
+      "secondary": "Multiple small boats at the water edge differ visibly in color.",
+      "auxiliary": [],
+      "exclusions": "No exact boat count or hull lettering is required.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view15.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view15.png"
+    },
+    {
+      "label": "view16",
+      "caption": "A row of weathered small boats in various colors rests at the water's edge, reflecting the overcast sky and surrounded by a calm harbor filled with larger boats and sailboats in the distance.",
+      "primary": "Larger boats or sailboats appear farther into the harbor than the small boats at the water edge.",
+      "secondary": "Multiple small boats at the water edge differ visibly in color.",
+      "auxiliary": [],
+      "exclusions": "No exact boat count or hull lettering is required.",
+      "common_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view16.png",
+      "detail_view": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view16.png"
+    }
+  ]
+}

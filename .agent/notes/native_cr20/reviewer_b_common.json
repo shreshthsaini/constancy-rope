@@ -1,0 +1,358 @@
+{
+  "reviewer": "B",
+  "stage": "common",
+  "all_common_views_inspected_before_any_detail": true,
+  "condition_mapping_seen": false,
+  "presentation_seed_seen": false,
+  "other_reviewer_results_seen": false,
+  "rules_source": ".agent/notes/native_cr20/reviewer_inputs.json",
+  "label_set": [
+    "satisfied",
+    "violated",
+    "unjudgeable"
+  ],
+  "images": [
+    {
+      "label": "view01",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view01.png",
+      "sha256": "906dfacc5e7a6c088382733fa03255b34798fd112f638fba22db296b3f0f565e",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "Orange and pink sunset bands lie along the low ocean horizon, beneath many visible stars."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "The tall stone figure has the elongated nose, brow and body of a Moai."
+      },
+      "auxiliary": []
+    },
+    {
+      "label": "view02",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view02.png",
+      "sha256": "91d0e3c5b5fec9c423ca818ee56483705862b7e0a2c90bd56a92d51c18fa9ce7",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "Their hands overlap in a visible clasp on their laps, with fingers from the man's hand over the woman's extended hand."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "Both people sit on the same dark teal, gold-framed couch."
+      },
+      "auxiliary": []
+    },
+    {
+      "label": "view03",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view03.png",
+      "sha256": "c07a3859643d39be56a1855691ccc77fcbdabbe4a05b024789fc4c2ac74fa3ab",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "unjudgeable",
+        "evidence": "Several smaller bodies are visible, including a rocky object by the rings, but the fiery arc behind the planet does not identify a separate distant sun unambiguously."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "A large striped planet and its broad diagonal rings dominate the foreground."
+      },
+      "auxiliary": []
+    },
+    {
+      "label": "view04",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view04.png",
+      "sha256": "fdf4fff4e75c576486a525dec2597c633a27e3e62dcd134f628b75bb7b23a805",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "The man and woman visibly clasp hands together between their laps."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "Both people share a dark teal couch with a gold ornate frame."
+      },
+      "auxiliary": []
+    },
+    {
+      "label": "view05",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view05.png",
+      "sha256": "93c0140b9fa730b5446397443c3da912b271666d6ab984d38e4cabb4d74a20f5",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "The surfer's bare feet visibly stand on the long yellow board."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "Rounded coral colonies fill the underwater area below the surfer."
+      },
+      "auxiliary": []
+    },
+    {
+      "label": "view06",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view06.png",
+      "sha256": "8122d1bf126380003792f6f0a81a789679b99d88a31a580971a9255df705dfe6",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "The surfer stands with feet on the yellow board beneath the breaking wave."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "Branching coral is visible on the seafloor below the surfer."
+      },
+      "auxiliary": []
+    },
+    {
+      "label": "view07",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view07.png",
+      "sha256": "bda91d50111252affca84791f339265fa6bff69c9535e08dd4b8b1f57c6e7c2a",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "violated",
+        "evidence": "Two small dark round bodies sit together near the rings and foreground planet; neither is near the distinct bright sun in the upper right."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "The large cropped planet and broad rings dominate the foreground."
+      },
+      "auxiliary": []
+    },
+    {
+      "label": "view08",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view08.png",
+      "sha256": "2ea6436af3921a4f9cbb4681e3e18c7099a9f5c29cc058e7d61fad0b3ad382f3",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "The woman wears a black long-sleeved top and a dark green skirt with pale vertical stripes."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "A man holding an open newspaper and a boy stand on the sidewalk before the storefront."
+      },
+      "auxiliary": [
+        {
+          "predicate": "The string Kodak is readable.",
+          "label": "violated",
+          "evidence": "A red-and-yellow K-shaped logo appears, but the string Kodak is not readable anywhere."
+        },
+        {
+          "predicate": "The string Paradis is readable.",
+          "label": "satisfied",
+          "evidence": "The black sign behind the woman reads Paradis in pale letters."
+        }
+      ]
+    },
+    {
+      "label": "view09",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view09.png",
+      "sha256": "0b6b213d971a61a1e5716bdc8c3461603dd37e00cdb72d9836b963c7b7f5080e",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "One foot points down to the floor while the other leg extends high to the right with its foot off the floor."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "Her bodice and flowing skirt are visibly yellow."
+      },
+      "auxiliary": []
+    },
+    {
+      "label": "view10",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view10.png",
+      "sha256": "c72b35081b18e3a841f2101796abedb6355998626c16a11240f4165988729f12",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "The woman wears a black top and a green skirt with pale vertical stripes."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "The foreground man holds a newspaper and a boy walks beside the storefront."
+      },
+      "auxiliary": [
+        {
+          "predicate": "The string Kodak is readable.",
+          "label": "violated",
+          "evidence": "K-shaped logos appear, but visible lettering does not read Kodak."
+        },
+        {
+          "predicate": "The string Paradis is readable.",
+          "label": "violated",
+          "evidence": "The shop signs show other or malformed strings; none reads Paradis."
+        }
+      ]
+    },
+    {
+      "label": "view11",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view11.png",
+      "sha256": "8ceba502aac7b34eae8753510cebb0f1f4f7921a57418e9e005f0a1eb76e238b",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "Orange and pink colors lie near the horizon under a dense field of stars."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "A recognizable elongated Moai statue stands against the sky."
+      },
+      "auxiliary": []
+    },
+    {
+      "label": "view12",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view12.png",
+      "sha256": "b13811c507aaa2cb11a6dfe88581f6efc51f7616ef673036acb25225c024cbed",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "The woman extends identifiable purple and green grape bunches directly toward the bear's muzzle."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "The woman has a knee folded onto the ground beside the large brown bear."
+      },
+      "auxiliary": []
+    },
+    {
+      "label": "view13",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view13.png",
+      "sha256": "759417e4bb55b76d163ca565da87753f1072723b61844b9fd0c024c4032194c1",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "The woman holds a distinct bunch of round purple and red grapes toward the bear's muzzle."
+      },
+      "secondary": {
+        "label": "violated",
+        "evidence": "The woman is in a squat on her feet with knees bent above the ground, beside a recognizable brown bear."
+      },
+      "auxiliary": []
+    },
+    {
+      "label": "view14",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view14.png",
+      "sha256": "9205e86bcf5547dd7ae852a3279e92e24ee9381f73fd1f6a80eb5bcfed6bb29c",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "One pointed foot visibly supports her at the floor while the other leg extends left with the foot lifted."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "The dress is pale yellow."
+      },
+      "auxiliary": []
+    },
+    {
+      "label": "view15",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view15.png",
+      "sha256": "84cf8312153a85b6915c2a1e0cdc77da08070729648484091326bb6e944d979c",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "Tall-masted sailboats sit farther out across the water behind the foreground rowboats."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "The foreground rowboats include red-brown, blue/yellow and white hulls."
+      },
+      "auxiliary": []
+    },
+    {
+      "label": "view16",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view16.png",
+      "sha256": "ab4cf975ecb35083c40e4a0549f1113634229f8e67f8fd62083ba521efee9a62",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "high",
+        "whole_image": true,
+        "crops": []
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "Many sailboats and larger cabin boats sit across open water beyond the small boats at the near edge."
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "The small boats include red-brown, blue and white hulls."
+      },
+      "auxiliary": []
+    }
+  ]
+}

@@ -1,0 +1,1199 @@
+{
+  "scope": "Two independent model-based rubric readings of eight observational development pairs; no human study or causal resolution claim.",
+  "reviewer_models": {
+    "a": "GPT-6 Astra high",
+    "b": "GPT-6.1 Sol high"
+  },
+  "source_sha256": {
+    "reviewer_a_common.json": "da2ef7ee92d869fac80d8b73e90190bc1817987328c9ecb3d6b0548ca31e20c0",
+    "reviewer_a_detail.json": "f6a62e20868cfb1b5d7fab96dec0f5887e6fa89451f5025bcaab2521f6be85b8",
+    "reviewer_b_common.json": "cb0b8bed61b6f1220ee2f72255de5a95331ba1b184ce90703bacdb7c97ce14bc",
+    "reviewer_b_detail.json": "3b6724d26b00853d99a523d4e62ec7868c2051536c73baf89c7c6add7c398000",
+    "report.json": "c2f64514d3d38deaa8b74bf62da9b8190df07d76092a4ff531bfffbd98e2bc64",
+    "summary_script": "8836417c27c7fb03e75c0b062d4dc6e3074857cb04a18b624b6f44ba5cdf9453"
+  },
+  "reviews": {
+    "a_common": {
+      "rows": [
+        {
+          "row": 0,
+          "native1024": {
+            "view": "view15",
+            "primary": {
+              "predicate": "Larger boats or sailboats appear farther into the harbor than the small boats at the water edge.",
+              "label": "satisfied",
+              "evidence": "Masted sailboats sit across the water behind the foreground row of dinghies."
+            },
+            "secondary": {
+              "predicate": "Multiple small boats at the water edge differ visibly in color.",
+              "label": "satisfied",
+              "evidence": "Foreground small boats have visibly red, blue, yellow and white hull areas at the harbor edge."
+            },
+            "auxiliary": []
+          },
+          "archived4096": {
+            "view": "view16",
+            "primary": {
+              "predicate": "Larger boats or sailboats appear farther into the harbor than the small boats at the water edge.",
+              "label": "satisfied",
+              "evidence": "Multiple sailboats and larger cabin boats lie beyond the foreground dinghies across open harbor water."
+            },
+            "secondary": {
+              "predicate": "Multiple small boats at the water edge differ visibly in color.",
+              "label": "satisfied",
+              "evidence": "The small moored boats in front include a red hull, a blue hull and white hulls."
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 1,
+          "archived4096": {
+            "view": "view01",
+            "primary": {
+              "predicate": "Warm sunset colors occur near the horizon beneath a visibly starry sky.",
+              "label": "satisfied",
+              "evidence": "Orange, yellow and pink light lines the ocean horizon beneath numerous visible stars."
+            },
+            "secondary": {
+              "predicate": "A recognizable Moai statue stands against that sky.",
+              "label": "satisfied",
+              "evidence": "A tall stone head and torso with the long nose and facial structure of a Moai stands against the sky."
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view11",
+            "primary": {
+              "predicate": "Warm sunset colors occur near the horizon beneath a visibly starry sky.",
+              "label": "satisfied",
+              "evidence": "Orange and pink sunset bands sit along the horizon beneath a sky densely filled with stars."
+            },
+            "secondary": {
+              "predicate": "A recognizable Moai statue stands against that sky.",
+              "label": "satisfied",
+              "evidence": "A recognizable long-faced Moai statue stands on a stone platform against that sky."
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 2,
+          "archived4096": {
+            "view": "view12",
+            "primary": {
+              "predicate": "The woman visibly extends grapes toward the bear.",
+              "label": "satisfied",
+              "evidence": "The woman extends a cluster of green grapes toward the bear's mouth while supporting a purple cluster in her other hand."
+            },
+            "secondary": {
+              "predicate": "The woman kneels beside a recognizable brown bear.",
+              "label": "satisfied",
+              "evidence": "One lower leg and knee rest along the forest floor beside a large brown bear."
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view13",
+            "primary": {
+              "predicate": "The woman visibly extends grapes toward the bear.",
+              "label": "satisfied",
+              "evidence": "The woman holds a bunch of round purple and reddish grapes, with a visible stem and leaf, directly in front of the bear's muzzle."
+            },
+            "secondary": {
+              "predicate": "The woman kneels beside a recognizable brown bear.",
+              "label": "violated",
+              "evidence": "The woman is squatting on her feet with both knees raised, rather than kneeling; the brown bear is clearly visible beside her."
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 3,
+          "native1024": {
+            "view": "view05",
+            "primary": {
+              "predicate": "A surfer is supported by a visibly yellow board.",
+              "label": "satisfied",
+              "evidence": "Both visible feet rest on a bright yellow surfboard beneath the waterline."
+            },
+            "secondary": {
+              "predicate": "Coral is visible below the surfer within the requested underwater scene.",
+              "label": "satisfied",
+              "evidence": "Multiple coral heads occupy the underwater foreground below the surfer."
+            },
+            "auxiliary": []
+          },
+          "archived4096": {
+            "view": "view06",
+            "primary": {
+              "predicate": "A surfer is supported by a visibly yellow board.",
+              "label": "satisfied",
+              "evidence": "The crouching surfer has visible foot contact with a yellow board on the wave."
+            },
+            "secondary": {
+              "predicate": "Coral is visible below the surfer within the requested underwater scene.",
+              "label": "satisfied",
+              "evidence": "Coral formations are visible through the blue water below the surfer."
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 4,
+          "archived4096": {
+            "view": "view03",
+            "primary": {
+              "predicate": "Two distinguishable smaller celestial bodies are visible, one near the planet's rings and another near a visible distant sun.",
+              "label": "unjudgeable",
+              "evidence": "Several smaller bodies are visible, including a small planet at left and a rocky body at the lower-left ring. An orange glow above the large planet could be an occulted sun, but its identity and the required second body near it are not established."
+            },
+            "secondary": {
+              "predicate": "A large ringed planet is a prominent foreground object.",
+              "label": "satisfied",
+              "evidence": "A large banded planet with broad diagonal rings dominates the foreground."
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view07",
+            "primary": {
+              "predicate": "Two distinguishable smaller celestial bodies are visible, one near the planet's rings and another near a visible distant sun.",
+              "label": "violated",
+              "evidence": "Two small dark round bodies are both adjacent to the ring and foreground planet; neither is near the clearly visible sun in the upper-right sky."
+            },
+            "secondary": {
+              "predicate": "A large ringed planet is a prominent foreground object.",
+              "label": "satisfied",
+              "evidence": "A large cropped foreground planet and broad rings occupy most of the scene."
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 5,
+          "native1024": {
+            "view": "view08",
+            "primary": {
+              "predicate": "A woman wears a black top and a visibly green striped skirt.",
+              "label": "satisfied",
+              "evidence": "The foreground woman wears a black long-sleeved top and a green skirt with narrow light vertical stripes."
+            },
+            "secondary": {
+              "predicate": "A man with a newspaper and a boy appear in front of the storefront.",
+              "label": "satisfied",
+              "evidence": "A man holding an open newspaper and a boy are visible on the pavement in front of the shops."
+            },
+            "auxiliary": [
+              {
+                "predicate": "The string Kodak is readable.",
+                "label": "violated",
+                "evidence": "The prominent yellow and red sign contains a K-shaped logo, without the readable word Kodak."
+              },
+              {
+                "predicate": "The string Paradis is readable.",
+                "label": "satisfied",
+                "evidence": "A black sign beneath the logo visibly reads Paradis."
+              }
+            ]
+          },
+          "archived4096": {
+            "view": "view10",
+            "primary": {
+              "predicate": "A woman wears a black top and a visibly green striped skirt.",
+              "label": "satisfied",
+              "evidence": "The woman wears a black top and a green skirt with light vertical stripes."
+            },
+            "secondary": {
+              "predicate": "A man with a newspaper and a boy appear in front of the storefront.",
+              "label": "satisfied",
+              "evidence": "At left a man holds an open newspaper, and a boy walks along the pavement between him and the woman."
+            },
+            "auxiliary": [
+              {
+                "predicate": "The string Kodak is readable.",
+                "label": "violated",
+                "evidence": "Visible signs include K-shaped logos and distorted words, but no readable Kodak string."
+              },
+              {
+                "predicate": "The string Paradis is readable.",
+                "label": "violated",
+                "evidence": "The visible shop names are other or distorted strings; none reads Paradis."
+              }
+            ]
+          }
+        },
+        {
+          "row": 6,
+          "archived4096": {
+            "view": "view02",
+            "primary": {
+              "predicate": "The man and woman visibly hold each other's hands.",
+              "label": "satisfied",
+              "evidence": "The woman extends her hands onto the man's lap, where his hands visibly clasp and cover hers."
+            },
+            "secondary": {
+              "predicate": "The seated man and woman share a visibly teal couch.",
+              "label": "satisfied",
+              "evidence": "Both figures sit together on one ornate dark teal upholstered couch."
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view04",
+            "primary": {
+              "predicate": "The man and woman visibly hold each other's hands.",
+              "label": "satisfied",
+              "evidence": "The woman's hand and the man's extended hand visibly interlace in a clasp between their laps."
+            },
+            "secondary": {
+              "predicate": "The seated man and woman share a visibly teal couch.",
+              "label": "satisfied",
+              "evidence": "Both seated figures share the same teal couch with an ornate gold frame."
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 7,
+          "archived4096": {
+            "view": "view09",
+            "primary": {
+              "predicate": "The ballerina poses with only one leg supporting her body and the other lifted.",
+              "label": "satisfied",
+              "evidence": "One pointed foot reaches the floor while the other leg is raised high behind her with its shoe visible."
+            },
+            "secondary": {
+              "predicate": "The ballerina wears a visibly yellow dress.",
+              "label": "satisfied",
+              "evidence": "The dancer wears a yellow bodice and flowing yellow skirt."
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view14",
+            "primary": {
+              "predicate": "The ballerina poses with only one leg supporting her body and the other lifted.",
+              "label": "satisfied",
+              "evidence": "One toe supports the dancer on the floor and her other leg extends backward clear of the ground."
+            },
+            "secondary": {
+              "predicate": "The ballerina wears a visibly yellow dress.",
+              "label": "satisfied",
+              "evidence": "The dancer wears a pale yellow bodice and flowing yellow skirt."
+            },
+            "auxiliary": []
+          }
+        }
+      ],
+      "primary_native_by_4k": {
+        "satisfied": {
+          "satisfied": 7,
+          "violated": 0,
+          "unjudgeable": 0
+        },
+        "violated": {
+          "satisfied": 0,
+          "violated": 0,
+          "unjudgeable": 1
+        },
+        "unjudgeable": {
+          "satisfied": 0,
+          "violated": 0,
+          "unjudgeable": 0
+        }
+      }
+    },
+    "a_detail": {
+      "rows": [
+        {
+          "row": 0,
+          "native1024": {
+            "view": "view15",
+            "primary": {
+              "predicate": "Larger boats or sailboats appear farther into the harbor than the small boats at the water edge.",
+              "label": "satisfied",
+              "evidence": "Masted sailboats sit across the water behind the foreground row of dinghies.",
+              "reinspected": false
+            },
+            "secondary": {
+              "predicate": "Multiple small boats at the water edge differ visibly in color.",
+              "label": "satisfied",
+              "evidence": "Foreground small boats have visibly red, blue, yellow and white hull areas at the harbor edge.",
+              "reinspected": false
+            },
+            "auxiliary": []
+          },
+          "archived4096": {
+            "view": "view16",
+            "primary": {
+              "predicate": "Larger boats or sailboats appear farther into the harbor than the small boats at the water edge.",
+              "label": "satisfied",
+              "evidence": "Multiple sailboats and larger cabin boats lie beyond the foreground dinghies across open harbor water.",
+              "reinspected": false
+            },
+            "secondary": {
+              "predicate": "Multiple small boats at the water edge differ visibly in color.",
+              "label": "satisfied",
+              "evidence": "The small moored boats in front include a red hull, a blue hull and white hulls.",
+              "reinspected": false
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 1,
+          "archived4096": {
+            "view": "view01",
+            "primary": {
+              "predicate": "Warm sunset colors occur near the horizon beneath a visibly starry sky.",
+              "label": "satisfied",
+              "evidence": "Orange, yellow and pink light lines the ocean horizon beneath numerous visible stars.",
+              "reinspected": false
+            },
+            "secondary": {
+              "predicate": "A recognizable Moai statue stands against that sky.",
+              "label": "satisfied",
+              "evidence": "A tall stone head and torso with the long nose and facial structure of a Moai stands against the sky.",
+              "reinspected": false
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view11",
+            "primary": {
+              "predicate": "Warm sunset colors occur near the horizon beneath a visibly starry sky.",
+              "label": "satisfied",
+              "evidence": "Orange and pink sunset bands sit along the horizon beneath a sky densely filled with stars.",
+              "reinspected": false
+            },
+            "secondary": {
+              "predicate": "A recognizable Moai statue stands against that sky.",
+              "label": "satisfied",
+              "evidence": "A recognizable long-faced Moai statue stands on a stone platform against that sky.",
+              "reinspected": false
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 2,
+          "archived4096": {
+            "view": "view12",
+            "primary": {
+              "predicate": "The woman visibly extends grapes toward the bear.",
+              "label": "satisfied",
+              "evidence": "The woman extends a cluster of green grapes toward the bear's mouth while supporting a purple cluster in her other hand.",
+              "reinspected": false
+            },
+            "secondary": {
+              "predicate": "The woman kneels beside a recognizable brown bear.",
+              "label": "satisfied",
+              "evidence": "One lower leg and knee rest along the forest floor beside a large brown bear.",
+              "reinspected": false
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view13",
+            "primary": {
+              "predicate": "The woman visibly extends grapes toward the bear.",
+              "label": "satisfied",
+              "evidence": "The original shows the woman holding a rounded purple/red grape bunch with a stem and leaf close to the bear's muzzle.",
+              "reinspected": true
+            },
+            "secondary": {
+              "predicate": "The woman kneels beside a recognizable brown bear.",
+              "label": "violated",
+              "evidence": "The original and knee crop show a squat supported on boots, with both knees raised clear of the ground. A large brown bear is beside her.",
+              "reinspected": true
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 3,
+          "native1024": {
+            "view": "view05",
+            "primary": {
+              "predicate": "A surfer is supported by a visibly yellow board.",
+              "label": "satisfied",
+              "evidence": "Both visible feet rest on a bright yellow surfboard beneath the waterline.",
+              "reinspected": false
+            },
+            "secondary": {
+              "predicate": "Coral is visible below the surfer within the requested underwater scene.",
+              "label": "satisfied",
+              "evidence": "Multiple coral heads occupy the underwater foreground below the surfer.",
+              "reinspected": false
+            },
+            "auxiliary": []
+          },
+          "archived4096": {
+            "view": "view06",
+            "primary": {
+              "predicate": "A surfer is supported by a visibly yellow board.",
+              "label": "satisfied",
+              "evidence": "The crouching surfer has visible foot contact with a yellow board on the wave.",
+              "reinspected": false
+            },
+            "secondary": {
+              "predicate": "Coral is visible below the surfer within the requested underwater scene.",
+              "label": "satisfied",
+              "evidence": "Coral formations are visible through the blue water below the surfer.",
+              "reinspected": false
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 4,
+          "archived4096": {
+            "view": "view03",
+            "primary": {
+              "predicate": "Two distinguishable smaller celestial bodies are visible, one near the planet's rings and another near a visible distant sun.",
+              "label": "unjudgeable",
+              "evidence": "The original shows a rocky body beside the lower-left ring, a small planet at left and a small moon projected over the large planet. A fiery orange rim is visible above the large planet, but a distinct sun disk and a smaller body near that sun cannot be established because of occlusion. The primary remains unjudgeable.",
+              "reinspected": true
+            },
+            "secondary": {
+              "predicate": "A large ringed planet is a prominent foreground object.",
+              "label": "satisfied",
+              "evidence": "The original confirms the prominent large banded ringed planet.",
+              "reinspected": true
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view07",
+            "primary": {
+              "predicate": "Two distinguishable smaller celestial bodies are visible, one near the planet's rings and another near a visible distant sun.",
+              "label": "violated",
+              "evidence": "The original shows two dark round bodies at the ring and foreground planet, spatially separated from the sun at upper right. No second body appears near that sun; the small bright point at upper left is star-like, not a distinguishable planet or moon.",
+              "reinspected": true
+            },
+            "secondary": {
+              "predicate": "A large ringed planet is a prominent foreground object.",
+              "label": "satisfied",
+              "evidence": "The large cropped foreground planet and broad rings remain clearly visible.",
+              "reinspected": true
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 5,
+          "native1024": {
+            "view": "view08",
+            "primary": {
+              "predicate": "A woman wears a black top and a visibly green striped skirt.",
+              "label": "satisfied",
+              "evidence": "The original confirms a black top and a green skirt with light vertical stripes.",
+              "reinspected": true
+            },
+            "secondary": {
+              "predicate": "A man with a newspaper and a boy appear in front of the storefront.",
+              "label": "satisfied",
+              "evidence": "The original confirms a newspaper held by the man at left and a boy on the pavement.",
+              "reinspected": true
+            },
+            "auxiliary": [
+              {
+                "predicate": "The string Kodak is readable.",
+                "label": "violated",
+                "evidence": "The original and sign crop show a K-shaped logo on the prominent yellow/red sign, without a readable Kodak word.",
+                "reinspected": true
+              },
+              {
+                "predicate": "The string Paradis is readable.",
+                "label": "satisfied",
+                "evidence": "The native-pixel sign crop retains a readable Paradis on the black sign beneath the logo.",
+                "reinspected": true
+              }
+            ]
+          },
+          "archived4096": {
+            "view": "view10",
+            "primary": {
+              "predicate": "A woman wears a black top and a visibly green striped skirt.",
+              "label": "satisfied",
+              "evidence": "The original confirms the black top and green skirt with narrow light vertical stripes.",
+              "reinspected": true
+            },
+            "secondary": {
+              "predicate": "A man with a newspaper and a boy appear in front of the storefront.",
+              "label": "satisfied",
+              "evidence": "The original confirms the man holding a newspaper at left and the boy walking on the shopfront pavement.",
+              "reinspected": true
+            },
+            "auxiliary": [
+              {
+                "predicate": "The string Kodak is readable.",
+                "label": "violated",
+                "evidence": "The original and two sign crops show K-shaped logos and malformed words, including an incompatible red shop word. No sign inspected reads Kodak.",
+                "reinspected": true
+              },
+              {
+                "predicate": "The string Paradis is readable.",
+                "label": "violated",
+                "evidence": "The original and sign crops show incompatible strings on the nearest black, round and yellow-lettered signs; none reads Paradis.",
+                "reinspected": true
+              }
+            ]
+          }
+        },
+        {
+          "row": 6,
+          "archived4096": {
+            "view": "view02",
+            "primary": {
+              "predicate": "The man and woman visibly hold each other's hands.",
+              "label": "satisfied",
+              "evidence": "The woman extends her hands onto the man's lap, where his hands visibly clasp and cover hers.",
+              "reinspected": false
+            },
+            "secondary": {
+              "predicate": "The seated man and woman share a visibly teal couch.",
+              "label": "satisfied",
+              "evidence": "Both figures sit together on one ornate dark teal upholstered couch.",
+              "reinspected": false
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view04",
+            "primary": {
+              "predicate": "The man and woman visibly hold each other's hands.",
+              "label": "satisfied",
+              "evidence": "The woman's hand and the man's extended hand visibly interlace in a clasp between their laps.",
+              "reinspected": false
+            },
+            "secondary": {
+              "predicate": "The seated man and woman share a visibly teal couch.",
+              "label": "satisfied",
+              "evidence": "Both seated figures share the same teal couch with an ornate gold frame.",
+              "reinspected": false
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 7,
+          "archived4096": {
+            "view": "view09",
+            "primary": {
+              "predicate": "The ballerina poses with only one leg supporting her body and the other lifted.",
+              "label": "satisfied",
+              "evidence": "One pointed foot reaches the floor while the other leg is raised high behind her with its shoe visible.",
+              "reinspected": false
+            },
+            "secondary": {
+              "predicate": "The ballerina wears a visibly yellow dress.",
+              "label": "satisfied",
+              "evidence": "The dancer wears a yellow bodice and flowing yellow skirt.",
+              "reinspected": false
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view14",
+            "primary": {
+              "predicate": "The ballerina poses with only one leg supporting her body and the other lifted.",
+              "label": "satisfied",
+              "evidence": "One toe supports the dancer on the floor and her other leg extends backward clear of the ground.",
+              "reinspected": false
+            },
+            "secondary": {
+              "predicate": "The ballerina wears a visibly yellow dress.",
+              "label": "satisfied",
+              "evidence": "The dancer wears a pale yellow bodice and flowing yellow skirt.",
+              "reinspected": false
+            },
+            "auxiliary": []
+          }
+        }
+      ],
+      "primary_native_by_4k": {
+        "satisfied": {
+          "satisfied": 7,
+          "violated": 0,
+          "unjudgeable": 0
+        },
+        "violated": {
+          "satisfied": 0,
+          "violated": 0,
+          "unjudgeable": 1
+        },
+        "unjudgeable": {
+          "satisfied": 0,
+          "violated": 0,
+          "unjudgeable": 0
+        }
+      }
+    },
+    "b_common": {
+      "rows": [
+        {
+          "row": 0,
+          "native1024": {
+            "view": "view15",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "Tall-masted sailboats sit farther out across the water behind the foreground rowboats."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "The foreground rowboats include red-brown, blue/yellow and white hulls."
+            },
+            "auxiliary": []
+          },
+          "archived4096": {
+            "view": "view16",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "Many sailboats and larger cabin boats sit across open water beyond the small boats at the near edge."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "The small boats include red-brown, blue and white hulls."
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 1,
+          "archived4096": {
+            "view": "view01",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "Orange and pink sunset bands lie along the low ocean horizon, beneath many visible stars."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "The tall stone figure has the elongated nose, brow and body of a Moai."
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view11",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "Orange and pink colors lie near the horizon under a dense field of stars."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "A recognizable elongated Moai statue stands against the sky."
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 2,
+          "archived4096": {
+            "view": "view12",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "The woman extends identifiable purple and green grape bunches directly toward the bear's muzzle."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "The woman has a knee folded onto the ground beside the large brown bear."
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view13",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "The woman holds a distinct bunch of round purple and red grapes toward the bear's muzzle."
+            },
+            "secondary": {
+              "label": "violated",
+              "evidence": "The woman is in a squat on her feet with knees bent above the ground, beside a recognizable brown bear."
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 3,
+          "native1024": {
+            "view": "view05",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "The surfer's bare feet visibly stand on the long yellow board."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "Rounded coral colonies fill the underwater area below the surfer."
+            },
+            "auxiliary": []
+          },
+          "archived4096": {
+            "view": "view06",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "The surfer stands with feet on the yellow board beneath the breaking wave."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "Branching coral is visible on the seafloor below the surfer."
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 4,
+          "archived4096": {
+            "view": "view03",
+            "primary": {
+              "label": "unjudgeable",
+              "evidence": "Several smaller bodies are visible, including a rocky object by the rings, but the fiery arc behind the planet does not identify a separate distant sun unambiguously."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "A large striped planet and its broad diagonal rings dominate the foreground."
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view07",
+            "primary": {
+              "label": "violated",
+              "evidence": "Two small dark round bodies sit together near the rings and foreground planet; neither is near the distinct bright sun in the upper right."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "The large cropped planet and broad rings dominate the foreground."
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 5,
+          "native1024": {
+            "view": "view08",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "The woman wears a black long-sleeved top and a dark green skirt with pale vertical stripes."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "A man holding an open newspaper and a boy stand on the sidewalk before the storefront."
+            },
+            "auxiliary": [
+              {
+                "predicate": "The string Kodak is readable.",
+                "label": "violated",
+                "evidence": "A red-and-yellow K-shaped logo appears, but the string Kodak is not readable anywhere."
+              },
+              {
+                "predicate": "The string Paradis is readable.",
+                "label": "satisfied",
+                "evidence": "The black sign behind the woman reads Paradis in pale letters."
+              }
+            ]
+          },
+          "archived4096": {
+            "view": "view10",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "The woman wears a black top and a green skirt with pale vertical stripes."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "The foreground man holds a newspaper and a boy walks beside the storefront."
+            },
+            "auxiliary": [
+              {
+                "predicate": "The string Kodak is readable.",
+                "label": "violated",
+                "evidence": "K-shaped logos appear, but visible lettering does not read Kodak."
+              },
+              {
+                "predicate": "The string Paradis is readable.",
+                "label": "violated",
+                "evidence": "The shop signs show other or malformed strings; none reads Paradis."
+              }
+            ]
+          }
+        },
+        {
+          "row": 6,
+          "archived4096": {
+            "view": "view02",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "Their hands overlap in a visible clasp on their laps, with fingers from the man's hand over the woman's extended hand."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "Both people sit on the same dark teal, gold-framed couch."
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view04",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "The man and woman visibly clasp hands together between their laps."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "Both people share a dark teal couch with a gold ornate frame."
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 7,
+          "archived4096": {
+            "view": "view09",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "One foot points down to the floor while the other leg extends high to the right with its foot off the floor."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "Her bodice and flowing skirt are visibly yellow."
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view14",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "One pointed foot visibly supports her at the floor while the other leg extends left with the foot lifted."
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "The dress is pale yellow."
+            },
+            "auxiliary": []
+          }
+        }
+      ],
+      "primary_native_by_4k": {
+        "satisfied": {
+          "satisfied": 7,
+          "violated": 0,
+          "unjudgeable": 0
+        },
+        "violated": {
+          "satisfied": 0,
+          "violated": 0,
+          "unjudgeable": 1
+        },
+        "unjudgeable": {
+          "satisfied": 0,
+          "violated": 0,
+          "unjudgeable": 0
+        }
+      }
+    },
+    "b_detail": {
+      "rows": [
+        {
+          "row": 0,
+          "native1024": {
+            "view": "view15",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "Tall-masted sailboats sit farther out across the water behind the foreground rowboats.",
+              "detail_reinspected": false
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "The foreground rowboats include red-brown, blue/yellow and white hulls.",
+              "detail_reinspected": false
+            },
+            "auxiliary": []
+          },
+          "archived4096": {
+            "view": "view16",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "Many sailboats and larger cabin boats sit across open water beyond the small boats at the near edge.",
+              "detail_reinspected": false
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "The small boats include red-brown, blue and white hulls.",
+              "detail_reinspected": false
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 1,
+          "archived4096": {
+            "view": "view01",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "Orange and pink sunset bands lie along the low ocean horizon, beneath many visible stars.",
+              "detail_reinspected": false
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "The tall stone figure has the elongated nose, brow and body of a Moai.",
+              "detail_reinspected": false
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view11",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "Orange and pink colors lie near the horizon under a dense field of stars.",
+              "detail_reinspected": false
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "A recognizable elongated Moai statue stands against the sky.",
+              "detail_reinspected": false
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 2,
+          "archived4096": {
+            "view": "view12",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "The woman extends identifiable purple and green grape bunches directly toward the bear's muzzle.",
+              "detail_reinspected": false
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "The woman has a knee folded onto the ground beside the large brown bear.",
+              "detail_reinspected": false
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view13",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "The woman holds a distinct bunch of round purple and red grapes toward the bear's muzzle.",
+              "detail_reinspected": false
+            },
+            "secondary": {
+              "label": "violated",
+              "evidence": "The woman is in a squat on her feet with knees bent above the ground, beside a recognizable brown bear.",
+              "detail_reinspected": true
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 3,
+          "native1024": {
+            "view": "view05",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "The surfer's bare feet visibly stand on the long yellow board.",
+              "detail_reinspected": false
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "Rounded coral colonies fill the underwater area below the surfer.",
+              "detail_reinspected": false
+            },
+            "auxiliary": []
+          },
+          "archived4096": {
+            "view": "view06",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "The surfer stands with feet on the yellow board beneath the breaking wave.",
+              "detail_reinspected": false
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "Branching coral is visible on the seafloor below the surfer.",
+              "detail_reinspected": false
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 4,
+          "archived4096": {
+            "view": "view03",
+            "primary": {
+              "label": "unjudgeable",
+              "evidence": "Several smaller bodies are visible, including a rocky object by the rings, but the fiery arc behind the planet does not identify a separate distant sun unambiguously.",
+              "detail_reinspected": true
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "A large striped planet and its broad diagonal rings dominate the foreground.",
+              "detail_reinspected": false
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view07",
+            "primary": {
+              "label": "violated",
+              "evidence": "Two small dark round bodies sit together near the rings and foreground planet; neither is near the distinct bright sun in the upper right.",
+              "detail_reinspected": true
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "The large cropped planet and broad rings dominate the foreground.",
+              "detail_reinspected": false
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 5,
+          "native1024": {
+            "view": "view08",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "The woman wears a black long-sleeved top and a dark green skirt with pale vertical stripes.",
+              "detail_reinspected": false
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "A man holding an open newspaper and a boy stand on the sidewalk before the storefront.",
+              "detail_reinspected": false
+            },
+            "auxiliary": [
+              {
+                "predicate": "The string Kodak is readable.",
+                "label": "violated",
+                "evidence": "A red-and-yellow K-shaped logo appears, but the string Kodak is not readable anywhere.",
+                "detail_reinspected": true
+              },
+              {
+                "predicate": "The string Paradis is readable.",
+                "label": "satisfied",
+                "evidence": "The black sign behind the woman reads Paradis in pale letters.",
+                "detail_reinspected": true
+              }
+            ]
+          },
+          "archived4096": {
+            "view": "view10",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "The woman wears a black top and a green skirt with pale vertical stripes.",
+              "detail_reinspected": false
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "The foreground man holds a newspaper and a boy walks beside the storefront.",
+              "detail_reinspected": false
+            },
+            "auxiliary": [
+              {
+                "predicate": "The string Kodak is readable.",
+                "label": "violated",
+                "evidence": "K-shaped logos appear, but visible lettering does not read Kodak.",
+                "detail_reinspected": true
+              },
+              {
+                "predicate": "The string Paradis is readable.",
+                "label": "violated",
+                "evidence": "The shop signs show other or malformed strings; none reads Paradis.",
+                "detail_reinspected": true
+              }
+            ]
+          }
+        },
+        {
+          "row": 6,
+          "archived4096": {
+            "view": "view02",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "Their hands overlap in a visible clasp on their laps, with fingers from the man's hand over the woman's extended hand.",
+              "detail_reinspected": false
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "Both people sit on the same dark teal, gold-framed couch.",
+              "detail_reinspected": false
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view04",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "The man and woman visibly clasp hands together between their laps.",
+              "detail_reinspected": false
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "Both people share a dark teal couch with a gold ornate frame.",
+              "detail_reinspected": false
+            },
+            "auxiliary": []
+          }
+        },
+        {
+          "row": 7,
+          "archived4096": {
+            "view": "view09",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "One foot points down to the floor while the other leg extends high to the right with its foot off the floor.",
+              "detail_reinspected": false
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "Her bodice and flowing skirt are visibly yellow.",
+              "detail_reinspected": false
+            },
+            "auxiliary": []
+          },
+          "native1024": {
+            "view": "view14",
+            "primary": {
+              "label": "satisfied",
+              "evidence": "One pointed foot visibly supports her at the floor while the other leg extends left with the foot lifted.",
+              "detail_reinspected": false
+            },
+            "secondary": {
+              "label": "satisfied",
+              "evidence": "The dress is pale yellow.",
+              "detail_reinspected": false
+            },
+            "auxiliary": []
+          }
+        }
+      ],
+      "primary_native_by_4k": {
+        "satisfied": {
+          "satisfied": 7,
+          "violated": 0,
+          "unjudgeable": 0
+        },
+        "violated": {
+          "satisfied": 0,
+          "violated": 0,
+          "unjudgeable": 1
+        },
+        "unjudgeable": {
+          "satisfied": 0,
+          "violated": 0,
+          "unjudgeable": 0
+        }
+      }
+    }
+  },
+  "reviewer_label_disagreements": [],
+  "common_to_detail_changes": [],
+  "detail_policy": "Five originals per reviewer inspected for ambiguous/violated predicates and auxiliary text; eleven clear views carried forward explicitly. Detail is not a second full-image study.",
+  "decision": "No primary native-satisfied/4K-violated example. Close this particular semantic-loss rationale; no seed search, OCR pivot, fresh64 or method promotion follows.",
+  "limits": [
+    "One seed, eight previously inspected development captions; no failure-rate estimate.",
+    "Noise shapes are different and uncoupled; deployed RoPE and gains also change with resolution.",
+    "Label-hidden presentation does not guarantee resolution blinding or independent model errors.",
+    "No inference that other resolution failures are absent."
+  ]
+}

@@ -1,0 +1,452 @@
+{
+  "reviewer": "B",
+  "stage": "detail",
+  "common_stage_file": ".agent/notes/native_cr20/reviewer_b_common.json",
+  "common_stage_saved_before_any_detail_inspection": true,
+  "common_labels_unchanged": true,
+  "condition_mapping_seen": false,
+  "presentation_seed_seen": false,
+  "other_reviewer_results_seen": false,
+  "all_ambiguous_or_violated_common_predicates_reinspected": true,
+  "all_auxiliary_text_reinspected": true,
+  "notes": "All 16 common views were reviewed. Original views were opened only where a common predicate was ambiguous/violated or auxiliary text was listed. Other labels are retained explicitly as not reinspected. No crops were necessary; every original view opened was inspected whole using view_image with detail original.",
+  "images": [
+    {
+      "label": "view01",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view01.png",
+      "detail_inspected": false,
+      "inspected_image_path": null,
+      "sha256": null,
+      "inspection": {
+        "status": "not_reinspected",
+        "reason": "Common view clearly showed the primary and secondary predicates; no auxiliary text."
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "Orange and pink sunset bands lie along the low ocean horizon, beneath many visible stars.",
+        "detail_reinspected": false
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "The tall stone figure has the elongated nose, brow and body of a Moai.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [],
+      "detail_evidence": "No original-view inspection; common-view evidence retained.",
+      "label_changes": []
+    },
+    {
+      "label": "view02",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view02.png",
+      "detail_inspected": false,
+      "inspected_image_path": null,
+      "sha256": null,
+      "inspection": {
+        "status": "not_reinspected",
+        "reason": "Common view clearly showed the primary and secondary predicates; no auxiliary text."
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "Their hands overlap in a visible clasp on their laps, with fingers from the man's hand over the woman's extended hand.",
+        "detail_reinspected": false
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "Both people sit on the same dark teal, gold-framed couch.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [],
+      "detail_evidence": "No original-view inspection; common-view evidence retained.",
+      "label_changes": []
+    },
+    {
+      "label": "view03",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view03.png",
+      "detail_inspected": true,
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view03.png",
+      "sha256": "9bcad28aa572c51e2578f4282936abd070edb2f82eee7c60bb0126c5df5d6df9",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "original",
+        "whole_image": true,
+        "crops": [],
+        "predicates_reinspected": [
+          "primary"
+        ]
+      },
+      "primary": {
+        "label": "unjudgeable",
+        "evidence": "Several smaller bodies are visible, including a rocky object by the rings, but the fiery arc behind the planet does not identify a separate distant sun unambiguously.",
+        "detail_reinspected": true
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "A large striped planet and its broad diagonal rings dominate the foreground.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [],
+      "detail_evidence": "The original pixels show an orange, flame-like arc immediately behind the large planet. Its hidden source cannot be identified as a separate distant sun confidently. The moon at left, small moon projected on the planet and rocky body near the lower-left rings do not remove this sun-identity ambiguity.",
+      "label_changes": []
+    },
+    {
+      "label": "view04",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view04.png",
+      "detail_inspected": false,
+      "inspected_image_path": null,
+      "sha256": null,
+      "inspection": {
+        "status": "not_reinspected",
+        "reason": "Common view clearly showed the primary and secondary predicates; no auxiliary text."
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "The man and woman visibly clasp hands together between their laps.",
+        "detail_reinspected": false
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "Both people share a dark teal couch with a gold ornate frame.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [],
+      "detail_evidence": "No original-view inspection; common-view evidence retained.",
+      "label_changes": []
+    },
+    {
+      "label": "view05",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view05.png",
+      "detail_inspected": false,
+      "inspected_image_path": null,
+      "sha256": null,
+      "inspection": {
+        "status": "not_reinspected",
+        "reason": "Common view clearly showed the primary and secondary predicates; no auxiliary text."
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "The surfer's bare feet visibly stand on the long yellow board.",
+        "detail_reinspected": false
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "Rounded coral colonies fill the underwater area below the surfer.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [],
+      "detail_evidence": "No original-view inspection; common-view evidence retained.",
+      "label_changes": []
+    },
+    {
+      "label": "view06",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view06.png",
+      "detail_inspected": false,
+      "inspected_image_path": null,
+      "sha256": null,
+      "inspection": {
+        "status": "not_reinspected",
+        "reason": "Common view clearly showed the primary and secondary predicates; no auxiliary text."
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "The surfer stands with feet on the yellow board beneath the breaking wave.",
+        "detail_reinspected": false
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "Branching coral is visible on the seafloor below the surfer.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [],
+      "detail_evidence": "No original-view inspection; common-view evidence retained.",
+      "label_changes": []
+    },
+    {
+      "label": "view07",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view07.png",
+      "detail_inspected": true,
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view07.png",
+      "sha256": "bda91d50111252affca84791f339265fa6bff69c9535e08dd4b8b1f57c6e7c2a",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "original",
+        "whole_image": true,
+        "crops": [],
+        "predicates_reinspected": [
+          "primary"
+        ]
+      },
+      "primary": {
+        "label": "violated",
+        "evidence": "Two small dark round bodies sit together near the rings and foreground planet; neither is near the distinct bright sun in the upper right.",
+        "detail_reinspected": true
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "The large cropped planet and broad rings dominate the foreground.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [],
+      "detail_evidence": "The original image shows two dark spheres at approximately (0.38,0.60) and (0.53,0.56), both adjacent to the rings/foreground planet. The bright sun is at the upper right, approximately (0.75,0.10); neither small sphere lies near it.",
+      "label_changes": []
+    },
+    {
+      "label": "view08",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view08.png",
+      "detail_inspected": true,
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view08.png",
+      "sha256": "2ea6436af3921a4f9cbb4681e3e18c7099a9f5c29cc058e7d61fad0b3ad382f3",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "original",
+        "whole_image": true,
+        "crops": [],
+        "predicates_reinspected": [
+          "auxiliary[0]",
+          "auxiliary[1]"
+        ]
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "The woman wears a black long-sleeved top and a dark green skirt with pale vertical stripes.",
+        "detail_reinspected": false
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "A man holding an open newspaper and a boy stand on the sidewalk before the storefront.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [
+        {
+          "predicate": "The string Kodak is readable.",
+          "label": "violated",
+          "evidence": "A red-and-yellow K-shaped logo appears, but the string Kodak is not readable anywhere.",
+          "detail_reinspected": true
+        },
+        {
+          "predicate": "The string Paradis is readable.",
+          "label": "satisfied",
+          "evidence": "The black sign behind the woman reads Paradis in pale letters.",
+          "detail_reinspected": true
+        }
+      ],
+      "detail_evidence": "The original image retains a readable Paradis sign at upper left-center. The larger yellow-red sign is a K-shaped logo without the string Kodak; no readable Kodak string appears in the image.",
+      "label_changes": []
+    },
+    {
+      "label": "view09",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view09.png",
+      "detail_inspected": false,
+      "inspected_image_path": null,
+      "sha256": null,
+      "inspection": {
+        "status": "not_reinspected",
+        "reason": "Common view clearly showed the primary and secondary predicates; no auxiliary text."
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "One foot points down to the floor while the other leg extends high to the right with its foot off the floor.",
+        "detail_reinspected": false
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "Her bodice and flowing skirt are visibly yellow.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [],
+      "detail_evidence": "No original-view inspection; common-view evidence retained.",
+      "label_changes": []
+    },
+    {
+      "label": "view10",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view10.png",
+      "detail_inspected": true,
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view10.png",
+      "sha256": "ab3ba205baa563b4efb21adcd65a0ac976183f48833133250407d52db7bb82e2",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "original",
+        "whole_image": true,
+        "crops": [],
+        "predicates_reinspected": [
+          "auxiliary[0]",
+          "auxiliary[1]"
+        ]
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "The woman wears a black top and a green skirt with pale vertical stripes.",
+        "detail_reinspected": false
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "The foreground man holds a newspaper and a boy walks beside the storefront.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [
+        {
+          "predicate": "The string Kodak is readable.",
+          "label": "violated",
+          "evidence": "K-shaped logos appear, but visible lettering does not read Kodak.",
+          "detail_reinspected": true
+        },
+        {
+          "predicate": "The string Paradis is readable.",
+          "label": "violated",
+          "evidence": "The shop signs show other or malformed strings; none reads Paradis.",
+          "detail_reinspected": true
+        }
+      ],
+      "detail_evidence": "The original pixels make the malformed shop lettering clearer. The yellow-red signs contain K-shaped marks, not the string Kodak. The large yellow and red window strings, circular hanging sign and black awning do not read Paradis; no exact requested string is readable elsewhere.",
+      "label_changes": []
+    },
+    {
+      "label": "view11",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view11.png",
+      "detail_inspected": false,
+      "inspected_image_path": null,
+      "sha256": null,
+      "inspection": {
+        "status": "not_reinspected",
+        "reason": "Common view clearly showed the primary and secondary predicates; no auxiliary text."
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "Orange and pink colors lie near the horizon under a dense field of stars.",
+        "detail_reinspected": false
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "A recognizable elongated Moai statue stands against the sky.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [],
+      "detail_evidence": "No original-view inspection; common-view evidence retained.",
+      "label_changes": []
+    },
+    {
+      "label": "view12",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view12.png",
+      "detail_inspected": false,
+      "inspected_image_path": null,
+      "sha256": null,
+      "inspection": {
+        "status": "not_reinspected",
+        "reason": "Common view clearly showed the primary and secondary predicates; no auxiliary text."
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "The woman extends identifiable purple and green grape bunches directly toward the bear's muzzle.",
+        "detail_reinspected": false
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "The woman has a knee folded onto the ground beside the large brown bear.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [],
+      "detail_evidence": "No original-view inspection; common-view evidence retained.",
+      "label_changes": []
+    },
+    {
+      "label": "view13",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view13.png",
+      "detail_inspected": true,
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view13.png",
+      "sha256": "759417e4bb55b76d163ca565da87753f1072723b61844b9fd0c024c4032194c1",
+      "inspection": {
+        "tool": "view_image",
+        "detail": "original",
+        "whole_image": true,
+        "crops": [],
+        "predicates_reinspected": [
+          "secondary"
+        ]
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "The woman holds a distinct bunch of round purple and red grapes toward the bear's muzzle.",
+        "detail_reinspected": false
+      },
+      "secondary": {
+        "label": "violated",
+        "evidence": "The woman is in a squat on her feet with knees bent above the ground, beside a recognizable brown bear.",
+        "detail_reinspected": true
+      },
+      "auxiliary": [],
+      "detail_evidence": "The original image shows the woman crouching on her boots with both knees raised above the forest floor. Neither knee contacts the floor. The bear is clearly recognizable.",
+      "label_changes": []
+    },
+    {
+      "label": "view14",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view14.png",
+      "detail_inspected": false,
+      "inspected_image_path": null,
+      "sha256": null,
+      "inspection": {
+        "status": "not_reinspected",
+        "reason": "Common view clearly showed the primary and secondary predicates; no auxiliary text."
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "One pointed foot visibly supports her at the floor while the other leg extends left with the foot lifted.",
+        "detail_reinspected": false
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "The dress is pale yellow.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [],
+      "detail_evidence": "No original-view inspection; common-view evidence retained.",
+      "label_changes": []
+    },
+    {
+      "label": "view15",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view15.png",
+      "detail_inspected": false,
+      "inspected_image_path": null,
+      "sha256": null,
+      "inspection": {
+        "status": "not_reinspected",
+        "reason": "Common view clearly showed the primary and secondary predicates; no auxiliary text."
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "Tall-masted sailboats sit farther out across the water behind the foreground rowboats.",
+        "detail_reinspected": false
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "The foreground rowboats include red-brown, blue/yellow and white hulls.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [],
+      "detail_evidence": "No original-view inspection; common-view evidence retained.",
+      "label_changes": []
+    },
+    {
+      "label": "view16",
+      "detail_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view16.png",
+      "detail_inspected": false,
+      "inspected_image_path": null,
+      "sha256": null,
+      "inspection": {
+        "status": "not_reinspected",
+        "reason": "Common view clearly showed the primary and secondary predicates; no auxiliary text."
+      },
+      "primary": {
+        "label": "satisfied",
+        "evidence": "Many sailboats and larger cabin boats sit across open water beyond the small boats at the near edge.",
+        "detail_reinspected": false
+      },
+      "secondary": {
+        "label": "satisfied",
+        "evidence": "The small boats include red-brown, blue and white hulls.",
+        "detail_reinspected": false
+      },
+      "auxiliary": [],
+      "detail_evidence": "No original-view inspection; common-view evidence retained.",
+      "label_changes": []
+    }
+  ]
+}

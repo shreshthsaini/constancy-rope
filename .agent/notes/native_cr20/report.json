@@ -1,0 +1,2881 @@
+{
+  "accepted": true,
+  "images": 8,
+  "protocol_sha256": "ba80b1ddd2ca794a84e2607be6773acf5253f80402ece5ddf71d53b400775a18",
+  "reporter_sha256": "6a21d167997f27e55dcc2307ef780aa65f5fed48858c8ef919b226f2f4c18bb1",
+  "raw": {
+    "0": {
+      "manifest": {
+        "protocol_sha256": "ba80b1ddd2ca794a84e2607be6773acf5253f80402ece5ddf71d53b400775a18",
+        "source_sha256": {
+          "crope/gain.py": "fc3008af7eb00fb344c41577b7e85fe2ab324b4767c44af3d33492c431efa66a",
+          "crope/rope.py": "8d6b58593323815e3e98b3b52608bd93701fd25b28ecd829d7e68714df108485",
+          "crope/runtime.py": "6bfdb60f77a961409f66bf9cfe29e330516a6ac8b086c49cb7bc19a6c1082e9d",
+          "crope/sega_official.py": "80edc67b2958c707822038d3758d985f53df88d222bb1625bc73799dacee79be",
+          "crope/utils.py": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e",
+          "scripts/native_comparator.py": "334358f5753fa81c2d8e2c1766dec88518166b6a920eab8160c0a64c4e7d78e4",
+          "scripts/sample.py": "e105653257e8a9059465e0597499fd7c1cf76b7df1dde05e3d352f591cdaf797",
+          "tests/test_native_comparator.py": "dc1e1e9ffa0caf8c41ab9d28203ed04b4fef9dc08beb1cd375bdf4a1cbcf9b09",
+          "slurm/fleet_native_comparator_gh.sbatch": "cb87e8f3ba763342e7477a89183a3ca355f77f3c22f05655055cfbae132d5072",
+          "slurm/native_comparator_fleet.sh": "3ab86957c47eaa0bfe1d82bd837818927d0c244c42817eafbbe9e9d0022f16d6",
+          "slurm/native_comparator_task.sh": "ebdd5d10f9a97874a92ed0552c44a6ec8fc626df00d3d52091ed1a2a57fb02c5"
+        },
+        "start": 0,
+        "end": 4,
+        "prompt_ids": [
+          "a4k_eval_4096_minus6873203881450547484",
+          "a4k_eval_4096_3614061571823823193",
+          "a4k_eval_4096_7354534197758042049",
+          "a4k_eval_4096_788875264758341041"
+        ],
+        "model": {
+          "transformer_revision": "8162a9c7b05a641be098422bf2fcf335615c2f28",
+          "base_revision": "3de623fc3c33e44ffbe2bad470d0f45bccf2eb21",
+          "transformer_config_sha256": "a8d4ca92dc64ca8116c370ab91339e18a723ab950c18de513d09c3922df7a2d1",
+          "base_model_index_sha256": "24946df21ff25e210486b5f6b14208983a90c9c73f8d48cfa724c0e4e03f7201"
+        },
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "diffusers": "0.39.0",
+        "scope": "observational_native_vs_existing_4k",
+        "noise_coupling": "uncoupled_across_resolutions",
+        "new_method": false,
+        "seed_device": "cpu",
+        "seed_policy": "crope.utils.image_seed(prompt_id,0)",
+        "slurm_job_id": "1077304",
+        "hardware": "NVIDIA GH200 120GB, GPU-16a403d2-443a-cb36-b7dc-553f46a316f2, 590.48.01",
+        "model_loading_seconds": 90.86514712590724,
+        "native_rope": {
+          "method": "sega_official",
+          "axes_dims": [
+            16,
+            56,
+            56
+          ],
+          "theta": 10000.0,
+          "grid_tokens": [
+            64,
+            64
+          ],
+          "native_grid_tokens": [
+            64,
+            64
+          ],
+          "spatial_scales": [
+            1.0,
+            1.0
+          ],
+          "yarn_ramp": "r=wavelength/native_axis_length; alpha=1; beta=32",
+          "yarn_temperature": "controller logit gain=(1+0.1*ln(s))**2; per-side geometric-mean scale",
+          "dype_schedule": "kappa=sigma**2; beta=(1.25,.75); gamma=(16,2)",
+          "dype_amplitude": "spatial q/k scale=1+0.1*ln(axis_scale); axis0=1",
+          "embedded_qk_gain": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "completion": {
+        "protocol_sha256": "ba80b1ddd2ca794a84e2607be6773acf5253f80402ece5ddf71d53b400775a18",
+        "start": 0,
+        "end": 4,
+        "completed_images": 4,
+        "records": [
+          {
+            "prompt_index": 0,
+            "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+            "prompt": "A row of weathered small boats in various colors rests at the water's edge, reflecting the overcast sky and surrounded by a calm harbor filled with larger boats and sailboats in the distance.",
+            "seed": 0,
+            "derived_seed": 1572336724262170322,
+            "steps": 28,
+            "guidance": 4.5,
+            "shape": [
+              1024,
+              1024,
+              3
+            ],
+            "png": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_minus6873203881450547484_292264a271_seed0.png",
+            "png_sha256": "84cf8312153a85b6915c2a1e0cdc77da08070729648484091326bb6e944d979c",
+            "metadata": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_minus6873203881450547484_292264a271_seed0.json",
+            "metadata_sha256": "55b039d9c134fc74405e399277d220ba92c1430ddc1c6d78dd135432cd85b2c6",
+            "generation_seconds": 8.872524202801287,
+            "all_native_gains_one": true,
+            "executed_sigmas": [
+              1.0,
+              0.988408625125885,
+              0.9762224555015564,
+              0.9633944034576416,
+              0.9498725533485413,
+              0.9355989098548889,
+              0.9205089807510376,
+              0.9045307636260986,
+              0.8875834345817566,
+              0.8695759177207947,
+              0.8504056930541992,
+              0.8299564123153687,
+              0.8080955147743225,
+              0.7846716046333313,
+              0.7595109343528748,
+              0.7324128150939941,
+              0.7031447291374207,
+              0.6714348196983337,
+              0.6369644999504089,
+              0.5993567109107971,
+              0.5581628680229187,
+              0.5128441452980042,
+              0.4627484083175659,
+              0.40707841515541077,
+              0.3448489308357239,
+              0.2748279869556427,
+              0.19545459747314453,
+              0.10472089797258377
+            ],
+            "runtime_gain_audit": [
+              {
+                "step": 0,
+                "sigma": 1.0,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 1,
+                "sigma": 0.988408625125885,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 2,
+                "sigma": 0.9762224555015564,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 3,
+                "sigma": 0.9633944034576416,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 4,
+                "sigma": 0.9498725533485413,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 5,
+                "sigma": 0.9355989098548889,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 6,
+                "sigma": 0.9205089807510376,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 7,
+                "sigma": 0.9045307636260986,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 8,
+                "sigma": 0.8875834345817566,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 9,
+                "sigma": 0.8695759177207947,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 10,
+                "sigma": 0.8504056930541992,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 11,
+                "sigma": 0.8299564123153687,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 12,
+                "sigma": 0.8080955147743225,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 13,
+                "sigma": 0.7846716046333313,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 14,
+                "sigma": 0.7595109343528748,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 15,
+                "sigma": 0.7324128150939941,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 16,
+                "sigma": 0.7031447291374207,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 17,
+                "sigma": 0.6714348196983337,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 18,
+                "sigma": 0.6369644999504089,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 19,
+                "sigma": 0.5993567109107971,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 20,
+                "sigma": 0.5581628680229187,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 21,
+                "sigma": 0.5128441452980042,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 22,
+                "sigma": 0.4627484083175659,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 23,
+                "sigma": 0.40707841515541077,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 24,
+                "sigma": 0.3448489308357239,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 25,
+                "sigma": 0.2748279869556427,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 26,
+                "sigma": 0.19545459747314453,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 27,
+                "sigma": 0.10472089797258377,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              }
+            ],
+            "initial_transformer_input": {
+              "path": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_minus6873203881450547484_292264a271_seed0_initial_transformer_input.pt",
+              "file_sha256": "607d0775a29c922b9ba27b608ce62b11be6b5366932916bee415bb81ed205b61",
+              "tensor_sha256": "0e5dd03c4132efa6d5a77fae09e5fc4a3a3ae60f99372059eb0bfaa1f6a67ddd",
+              "shape": [
+                1,
+                4096,
+                64
+              ],
+              "dtype": "torch.bfloat16",
+              "label": "initial_transformer_input",
+              "scope": "Saved actual first packed transformer input; not a claim of raw RNG noise or cross-resolution coupling."
+            }
+          },
+          {
+            "prompt_index": 1,
+            "prompt_id": "a4k_eval_4096_3614061571823823193",
+            "prompt": "A Moai statue gazes upward against a starry night sky, with a colorful sunset illuminating the horizon.",
+            "seed": 0,
+            "derived_seed": 4141338643831228041,
+            "steps": 28,
+            "guidance": 4.5,
+            "shape": [
+              1024,
+              1024,
+              3
+            ],
+            "png": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_3614061571823823193_68ec961735_seed0.png",
+            "png_sha256": "8ceba502aac7b34eae8753510cebb0f1f4f7921a57418e9e005f0a1eb76e238b",
+            "metadata": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_3614061571823823193_68ec961735_seed0.json",
+            "metadata_sha256": "63b3c3b98ce8adb22c28ade6225fbb1b1004da10ceebcfdc6f268349e993396f",
+            "generation_seconds": 4.924024942331016,
+            "all_native_gains_one": true,
+            "executed_sigmas": [
+              1.0,
+              0.988408625125885,
+              0.9762224555015564,
+              0.9633944034576416,
+              0.9498725533485413,
+              0.9355989098548889,
+              0.9205089807510376,
+              0.9045307636260986,
+              0.8875834345817566,
+              0.8695759177207947,
+              0.8504056930541992,
+              0.8299564123153687,
+              0.8080955147743225,
+              0.7846716046333313,
+              0.7595109343528748,
+              0.7324128150939941,
+              0.7031447291374207,
+              0.6714348196983337,
+              0.6369644999504089,
+              0.5993567109107971,
+              0.5581628680229187,
+              0.5128441452980042,
+              0.4627484083175659,
+              0.40707841515541077,
+              0.3448489308357239,
+              0.2748279869556427,
+              0.19545459747314453,
+              0.10472089797258377
+            ],
+            "runtime_gain_audit": [
+              {
+                "step": 0,
+                "sigma": 1.0,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 1,
+                "sigma": 0.988408625125885,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 2,
+                "sigma": 0.9762224555015564,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 3,
+                "sigma": 0.9633944034576416,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 4,
+                "sigma": 0.9498725533485413,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 5,
+                "sigma": 0.9355989098548889,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 6,
+                "sigma": 0.9205089807510376,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 7,
+                "sigma": 0.9045307636260986,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 8,
+                "sigma": 0.8875834345817566,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 9,
+                "sigma": 0.8695759177207947,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 10,
+                "sigma": 0.8504056930541992,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 11,
+                "sigma": 0.8299564123153687,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 12,
+                "sigma": 0.8080955147743225,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 13,
+                "sigma": 0.7846716046333313,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 14,
+                "sigma": 0.7595109343528748,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 15,
+                "sigma": 0.7324128150939941,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 16,
+                "sigma": 0.7031447291374207,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 17,
+                "sigma": 0.6714348196983337,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 18,
+                "sigma": 0.6369644999504089,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 19,
+                "sigma": 0.5993567109107971,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 20,
+                "sigma": 0.5581628680229187,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 21,
+                "sigma": 0.5128441452980042,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 22,
+                "sigma": 0.4627484083175659,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 23,
+                "sigma": 0.40707841515541077,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 24,
+                "sigma": 0.3448489308357239,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 25,
+                "sigma": 0.2748279869556427,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 26,
+                "sigma": 0.19545459747314453,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 27,
+                "sigma": 0.10472089797258377,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              }
+            ],
+            "initial_transformer_input": {
+              "path": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_3614061571823823193_68ec961735_seed0_initial_transformer_input.pt",
+              "file_sha256": "18e25aff79c4138d1232d8e45976ce9f9b625ac56c6702f8abac2c6432c59c06",
+              "tensor_sha256": "b7b1bdd3de98129c86d50c25860844b6e9ba8ccac7c4095ecaea68cf0a586f9b",
+              "shape": [
+                1,
+                4096,
+                64
+              ],
+              "dtype": "torch.bfloat16",
+              "label": "initial_transformer_input",
+              "scope": "Saved actual first packed transformer input; not a claim of raw RNG noise or cross-resolution coupling."
+            }
+          },
+          {
+            "prompt_index": 2,
+            "prompt_id": "a4k_eval_4096_7354534197758042049",
+            "prompt": "A woman kneels on the forest floor, smiling as she offers grapes to a large brown bear beside her, surrounded by tall birch trees.",
+            "seed": 0,
+            "derived_seed": 8635351476202837105,
+            "steps": 28,
+            "guidance": 4.5,
+            "shape": [
+              1024,
+              1024,
+              3
+            ],
+            "png": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_7354534197758042049_20b08c89ad_seed0.png",
+            "png_sha256": "759417e4bb55b76d163ca565da87753f1072723b61844b9fd0c024c4032194c1",
+            "metadata": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_7354534197758042049_20b08c89ad_seed0.json",
+            "metadata_sha256": "3f6a14ba3945d704f98b6ae6a57121993b5de4b3af13cabbc43ebbabd31306cf",
+            "generation_seconds": 4.932994586415589,
+            "all_native_gains_one": true,
+            "executed_sigmas": [
+              1.0,
+              0.988408625125885,
+              0.9762224555015564,
+              0.9633944034576416,
+              0.9498725533485413,
+              0.9355989098548889,
+              0.9205089807510376,
+              0.9045307636260986,
+              0.8875834345817566,
+              0.8695759177207947,
+              0.8504056930541992,
+              0.8299564123153687,
+              0.8080955147743225,
+              0.7846716046333313,
+              0.7595109343528748,
+              0.7324128150939941,
+              0.7031447291374207,
+              0.6714348196983337,
+              0.6369644999504089,
+              0.5993567109107971,
+              0.5581628680229187,
+              0.5128441452980042,
+              0.4627484083175659,
+              0.40707841515541077,
+              0.3448489308357239,
+              0.2748279869556427,
+              0.19545459747314453,
+              0.10472089797258377
+            ],
+            "runtime_gain_audit": [
+              {
+                "step": 0,
+                "sigma": 1.0,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 1,
+                "sigma": 0.988408625125885,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 2,
+                "sigma": 0.9762224555015564,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 3,
+                "sigma": 0.9633944034576416,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 4,
+                "sigma": 0.9498725533485413,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 5,
+                "sigma": 0.9355989098548889,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 6,
+                "sigma": 0.9205089807510376,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 7,
+                "sigma": 0.9045307636260986,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 8,
+                "sigma": 0.8875834345817566,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 9,
+                "sigma": 0.8695759177207947,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 10,
+                "sigma": 0.8504056930541992,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 11,
+                "sigma": 0.8299564123153687,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 12,
+                "sigma": 0.8080955147743225,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 13,
+                "sigma": 0.7846716046333313,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 14,
+                "sigma": 0.7595109343528748,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 15,
+                "sigma": 0.7324128150939941,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 16,
+                "sigma": 0.7031447291374207,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 17,
+                "sigma": 0.6714348196983337,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 18,
+                "sigma": 0.6369644999504089,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 19,
+                "sigma": 0.5993567109107971,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 20,
+                "sigma": 0.5581628680229187,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 21,
+                "sigma": 0.5128441452980042,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 22,
+                "sigma": 0.4627484083175659,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 23,
+                "sigma": 0.40707841515541077,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 24,
+                "sigma": 0.3448489308357239,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 25,
+                "sigma": 0.2748279869556427,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 26,
+                "sigma": 0.19545459747314453,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 27,
+                "sigma": 0.10472089797258377,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              }
+            ],
+            "initial_transformer_input": {
+              "path": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_7354534197758042049_20b08c89ad_seed0_initial_transformer_input.pt",
+              "file_sha256": "3677fcbf9c127be1655cc435db3987980ae7b6cfaa5fa6270ba0b0541ddecbb8",
+              "tensor_sha256": "dea01c7bf685c85d5477a941cb50dc540ef309aeac8e99715bc618ca43076993",
+              "shape": [
+                1,
+                4096,
+                64
+              ],
+              "dtype": "torch.bfloat16",
+              "label": "initial_transformer_input",
+              "scope": "Saved actual first packed transformer input; not a claim of raw RNG noise or cross-resolution coupling."
+            }
+          },
+          {
+            "prompt_index": 3,
+            "prompt_id": "a4k_eval_4096_788875264758341041",
+            "prompt": "A surfer rides a wave beneath the surface, showcasing skill and agility on a yellow board, with coral formations visible below.",
+            "seed": 0,
+            "derived_seed": 8353560430846035327,
+            "steps": 28,
+            "guidance": 4.5,
+            "shape": [
+              1024,
+              1024,
+              3
+            ],
+            "png": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_788875264758341041_ecc1df74d6_seed0.png",
+            "png_sha256": "93c0140b9fa730b5446397443c3da912b271666d6ab984d38e4cabb4d74a20f5",
+            "metadata": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_788875264758341041_ecc1df74d6_seed0.json",
+            "metadata_sha256": "f2667156306987449df8bd36603ae342c4c536cac29c8240037ee3003f4cfdca",
+            "generation_seconds": 4.942950113676488,
+            "all_native_gains_one": true,
+            "executed_sigmas": [
+              1.0,
+              0.988408625125885,
+              0.9762224555015564,
+              0.9633944034576416,
+              0.9498725533485413,
+              0.9355989098548889,
+              0.9205089807510376,
+              0.9045307636260986,
+              0.8875834345817566,
+              0.8695759177207947,
+              0.8504056930541992,
+              0.8299564123153687,
+              0.8080955147743225,
+              0.7846716046333313,
+              0.7595109343528748,
+              0.7324128150939941,
+              0.7031447291374207,
+              0.6714348196983337,
+              0.6369644999504089,
+              0.5993567109107971,
+              0.5581628680229187,
+              0.5128441452980042,
+              0.4627484083175659,
+              0.40707841515541077,
+              0.3448489308357239,
+              0.2748279869556427,
+              0.19545459747314453,
+              0.10472089797258377
+            ],
+            "runtime_gain_audit": [
+              {
+                "step": 0,
+                "sigma": 1.0,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 1,
+                "sigma": 0.988408625125885,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 2,
+                "sigma": 0.9762224555015564,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 3,
+                "sigma": 0.9633944034576416,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 4,
+                "sigma": 0.9498725533485413,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 5,
+                "sigma": 0.9355989098548889,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 6,
+                "sigma": 0.9205089807510376,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 7,
+                "sigma": 0.9045307636260986,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 8,
+                "sigma": 0.8875834345817566,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 9,
+                "sigma": 0.8695759177207947,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 10,
+                "sigma": 0.8504056930541992,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 11,
+                "sigma": 0.8299564123153687,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 12,
+                "sigma": 0.8080955147743225,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 13,
+                "sigma": 0.7846716046333313,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 14,
+                "sigma": 0.7595109343528748,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 15,
+                "sigma": 0.7324128150939941,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 16,
+                "sigma": 0.7031447291374207,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 17,
+                "sigma": 0.6714348196983337,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 18,
+                "sigma": 0.6369644999504089,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 19,
+                "sigma": 0.5993567109107971,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 20,
+                "sigma": 0.5581628680229187,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 21,
+                "sigma": 0.5128441452980042,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 22,
+                "sigma": 0.4627484083175659,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 23,
+                "sigma": 0.40707841515541077,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 24,
+                "sigma": 0.3448489308357239,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 25,
+                "sigma": 0.2748279869556427,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 26,
+                "sigma": 0.19545459747314453,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 27,
+                "sigma": 0.10472089797258377,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              }
+            ],
+            "initial_transformer_input": {
+              "path": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_788875264758341041_ecc1df74d6_seed0_initial_transformer_input.pt",
+              "file_sha256": "827b167ccb03e351803bdeff9faa33b800e3cae28476423f2390d0e2fc3c2208",
+              "tensor_sha256": "5780def21e131668d159b146c221a2dd3f1ccea3abc42225b705dc329fa59ec6",
+              "shape": [
+                1,
+                4096,
+                64
+              ],
+              "dtype": "torch.bfloat16",
+              "label": "initial_transformer_input",
+              "scope": "Saved actual first packed transformer input; not a claim of raw RNG noise or cross-resolution coupling."
+            }
+          }
+        ],
+        "scope": "observational_native_vs_existing_4k",
+        "noise_coupling": "uncoupled_across_resolutions",
+        "new_method": false,
+        "quality_scored": false,
+        "interpretation": "Native comparator versus existing4K is observational. Equal seed labels do not couple differently shaped noise. No isolated causal resolution or method-gain claim."
+      }
+    },
+    "1": {
+      "manifest": {
+        "protocol_sha256": "ba80b1ddd2ca794a84e2607be6773acf5253f80402ece5ddf71d53b400775a18",
+        "source_sha256": {
+          "crope/gain.py": "fc3008af7eb00fb344c41577b7e85fe2ab324b4767c44af3d33492c431efa66a",
+          "crope/rope.py": "8d6b58593323815e3e98b3b52608bd93701fd25b28ecd829d7e68714df108485",
+          "crope/runtime.py": "6bfdb60f77a961409f66bf9cfe29e330516a6ac8b086c49cb7bc19a6c1082e9d",
+          "crope/sega_official.py": "80edc67b2958c707822038d3758d985f53df88d222bb1625bc73799dacee79be",
+          "crope/utils.py": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e",
+          "scripts/native_comparator.py": "334358f5753fa81c2d8e2c1766dec88518166b6a920eab8160c0a64c4e7d78e4",
+          "scripts/sample.py": "e105653257e8a9059465e0597499fd7c1cf76b7df1dde05e3d352f591cdaf797",
+          "tests/test_native_comparator.py": "dc1e1e9ffa0caf8c41ab9d28203ed04b4fef9dc08beb1cd375bdf4a1cbcf9b09",
+          "slurm/fleet_native_comparator_gh.sbatch": "cb87e8f3ba763342e7477a89183a3ca355f77f3c22f05655055cfbae132d5072",
+          "slurm/native_comparator_fleet.sh": "3ab86957c47eaa0bfe1d82bd837818927d0c244c42817eafbbe9e9d0022f16d6",
+          "slurm/native_comparator_task.sh": "ebdd5d10f9a97874a92ed0552c44a6ec8fc626df00d3d52091ed1a2a57fb02c5"
+        },
+        "start": 4,
+        "end": 8,
+        "prompt_ids": [
+          "a4k_eval_4096_minus5023570400257826529",
+          "a4k_eval_4096_minus8041742109062037958",
+          "a4k_eval_4096_5968998903196670637",
+          "a4k_eval_4096_minus8648158440845565467"
+        ],
+        "model": {
+          "transformer_revision": "8162a9c7b05a641be098422bf2fcf335615c2f28",
+          "base_revision": "3de623fc3c33e44ffbe2bad470d0f45bccf2eb21",
+          "transformer_config_sha256": "a8d4ca92dc64ca8116c370ab91339e18a723ab950c18de513d09c3922df7a2d1",
+          "base_model_index_sha256": "24946df21ff25e210486b5f6b14208983a90c9c73f8d48cfa724c0e4e03f7201"
+        },
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "diffusers": "0.39.0",
+        "scope": "observational_native_vs_existing_4k",
+        "noise_coupling": "uncoupled_across_resolutions",
+        "new_method": false,
+        "seed_device": "cpu",
+        "seed_policy": "crope.utils.image_seed(prompt_id,0)",
+        "slurm_job_id": "1077304",
+        "hardware": "NVIDIA GH200 120GB, GPU-b83c0df1-52d3-e7fb-07de-f645a2ce2661, 590.48.01",
+        "model_loading_seconds": 87.51342930831015,
+        "native_rope": {
+          "method": "sega_official",
+          "axes_dims": [
+            16,
+            56,
+            56
+          ],
+          "theta": 10000.0,
+          "grid_tokens": [
+            64,
+            64
+          ],
+          "native_grid_tokens": [
+            64,
+            64
+          ],
+          "spatial_scales": [
+            1.0,
+            1.0
+          ],
+          "yarn_ramp": "r=wavelength/native_axis_length; alpha=1; beta=32",
+          "yarn_temperature": "controller logit gain=(1+0.1*ln(s))**2; per-side geometric-mean scale",
+          "dype_schedule": "kappa=sigma**2; beta=(1.25,.75); gamma=(16,2)",
+          "dype_amplitude": "spatial q/k scale=1+0.1*ln(axis_scale); axis0=1",
+          "embedded_qk_gain": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "completion": {
+        "protocol_sha256": "ba80b1ddd2ca794a84e2607be6773acf5253f80402ece5ddf71d53b400775a18",
+        "start": 4,
+        "end": 8,
+        "completed_images": 4,
+        "records": [
+          {
+            "prompt_index": 4,
+            "prompt_id": "a4k_eval_4096_minus5023570400257826529",
+            "prompt": "A large planet with prominent rings occupies the foreground against a backdrop of deep red space, while two smaller celestial bodies are silhouetted nearby, one near the planet's rings and another near a distant sun.",
+            "seed": 0,
+            "derived_seed": 7387225582214151669,
+            "steps": 28,
+            "guidance": 4.5,
+            "shape": [
+              1024,
+              1024,
+              3
+            ],
+            "png": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus5023570400257826529_b6561f2b88_seed0.png",
+            "png_sha256": "bda91d50111252affca84791f339265fa6bff69c9535e08dd4b8b1f57c6e7c2a",
+            "metadata": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus5023570400257826529_b6561f2b88_seed0.json",
+            "metadata_sha256": "d69245d8b45db86ad6dcf42422566175f99c3af84921d1a4222f031b28ee21fc",
+            "generation_seconds": 9.089537212625146,
+            "all_native_gains_one": true,
+            "executed_sigmas": [
+              1.0,
+              0.988408625125885,
+              0.9762224555015564,
+              0.9633944034576416,
+              0.9498725533485413,
+              0.9355989098548889,
+              0.9205089807510376,
+              0.9045307636260986,
+              0.8875834345817566,
+              0.8695759177207947,
+              0.8504056930541992,
+              0.8299564123153687,
+              0.8080955147743225,
+              0.7846716046333313,
+              0.7595109343528748,
+              0.7324128150939941,
+              0.7031447291374207,
+              0.6714348196983337,
+              0.6369644999504089,
+              0.5993567109107971,
+              0.5581628680229187,
+              0.5128441452980042,
+              0.4627484083175659,
+              0.40707841515541077,
+              0.3448489308357239,
+              0.2748279869556427,
+              0.19545459747314453,
+              0.10472089797258377
+            ],
+            "runtime_gain_audit": [
+              {
+                "step": 0,
+                "sigma": 1.0,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 1,
+                "sigma": 0.988408625125885,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 2,
+                "sigma": 0.9762224555015564,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 3,
+                "sigma": 0.9633944034576416,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 4,
+                "sigma": 0.9498725533485413,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 5,
+                "sigma": 0.9355989098548889,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 6,
+                "sigma": 0.9205089807510376,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 7,
+                "sigma": 0.9045307636260986,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 8,
+                "sigma": 0.8875834345817566,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 9,
+                "sigma": 0.8695759177207947,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 10,
+                "sigma": 0.8504056930541992,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 11,
+                "sigma": 0.8299564123153687,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 12,
+                "sigma": 0.8080955147743225,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 13,
+                "sigma": 0.7846716046333313,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 14,
+                "sigma": 0.7595109343528748,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 15,
+                "sigma": 0.7324128150939941,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 16,
+                "sigma": 0.7031447291374207,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 17,
+                "sigma": 0.6714348196983337,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 18,
+                "sigma": 0.6369644999504089,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 19,
+                "sigma": 0.5993567109107971,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 20,
+                "sigma": 0.5581628680229187,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 21,
+                "sigma": 0.5128441452980042,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 22,
+                "sigma": 0.4627484083175659,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 23,
+                "sigma": 0.40707841515541077,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 24,
+                "sigma": 0.3448489308357239,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 25,
+                "sigma": 0.2748279869556427,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 26,
+                "sigma": 0.19545459747314453,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 27,
+                "sigma": 0.10472089797258377,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              }
+            ],
+            "initial_transformer_input": {
+              "path": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus5023570400257826529_b6561f2b88_seed0_initial_transformer_input.pt",
+              "file_sha256": "6e13350b32c45b43e4dc258880e5e0dc0dfe3ce9a47898e63599fd375b89fea7",
+              "tensor_sha256": "02acad0f978ced6025cb6020f9d4d60bbb35f72f9a1e7bafe1a980170b0b01a6",
+              "shape": [
+                1,
+                4096,
+                64
+              ],
+              "dtype": "torch.bfloat16",
+              "label": "initial_transformer_input",
+              "scope": "Saved actual first packed transformer input; not a claim of raw RNG noise or cross-resolution coupling."
+            }
+          },
+          {
+            "prompt_index": 5,
+            "prompt_id": "a4k_eval_4096_minus8041742109062037958",
+            "prompt": "A woman in a black top and a green striped skirt stands against a storefront, looking over her shoulder. Pedestrians, including a man with a newspaper and a boy, pass by in the foreground. The street features various shop signs, including \"Kodak\" and \"Paradis.\"",
+            "seed": 0,
+            "derived_seed": 321335833731652827,
+            "steps": 28,
+            "guidance": 4.5,
+            "shape": [
+              1024,
+              1024,
+              3
+            ],
+            "png": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus8041742109062037958_f5c747aef8_seed0.png",
+            "png_sha256": "2ea6436af3921a4f9cbb4681e3e18c7099a9f5c29cc058e7d61fad0b3ad382f3",
+            "metadata": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus8041742109062037958_f5c747aef8_seed0.json",
+            "metadata_sha256": "7afe19d68610e0fee3f14df4fd14b1c7aa2e261eb261a98926760862daf2ccd9",
+            "generation_seconds": 4.928652750328183,
+            "all_native_gains_one": true,
+            "executed_sigmas": [
+              1.0,
+              0.988408625125885,
+              0.9762224555015564,
+              0.9633944034576416,
+              0.9498725533485413,
+              0.9355989098548889,
+              0.9205089807510376,
+              0.9045307636260986,
+              0.8875834345817566,
+              0.8695759177207947,
+              0.8504056930541992,
+              0.8299564123153687,
+              0.8080955147743225,
+              0.7846716046333313,
+              0.7595109343528748,
+              0.7324128150939941,
+              0.7031447291374207,
+              0.6714348196983337,
+              0.6369644999504089,
+              0.5993567109107971,
+              0.5581628680229187,
+              0.5128441452980042,
+              0.4627484083175659,
+              0.40707841515541077,
+              0.3448489308357239,
+              0.2748279869556427,
+              0.19545459747314453,
+              0.10472089797258377
+            ],
+            "runtime_gain_audit": [
+              {
+                "step": 0,
+                "sigma": 1.0,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 1,
+                "sigma": 0.988408625125885,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 2,
+                "sigma": 0.9762224555015564,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 3,
+                "sigma": 0.9633944034576416,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 4,
+                "sigma": 0.9498725533485413,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 5,
+                "sigma": 0.9355989098548889,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 6,
+                "sigma": 0.9205089807510376,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 7,
+                "sigma": 0.9045307636260986,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 8,
+                "sigma": 0.8875834345817566,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 9,
+                "sigma": 0.8695759177207947,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 10,
+                "sigma": 0.8504056930541992,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 11,
+                "sigma": 0.8299564123153687,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 12,
+                "sigma": 0.8080955147743225,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 13,
+                "sigma": 0.7846716046333313,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 14,
+                "sigma": 0.7595109343528748,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 15,
+                "sigma": 0.7324128150939941,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 16,
+                "sigma": 0.7031447291374207,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 17,
+                "sigma": 0.6714348196983337,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 18,
+                "sigma": 0.6369644999504089,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 19,
+                "sigma": 0.5993567109107971,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 20,
+                "sigma": 0.5581628680229187,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 21,
+                "sigma": 0.5128441452980042,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 22,
+                "sigma": 0.4627484083175659,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 23,
+                "sigma": 0.40707841515541077,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 24,
+                "sigma": 0.3448489308357239,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 25,
+                "sigma": 0.2748279869556427,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 26,
+                "sigma": 0.19545459747314453,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 27,
+                "sigma": 0.10472089797258377,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              }
+            ],
+            "initial_transformer_input": {
+              "path": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus8041742109062037958_f5c747aef8_seed0_initial_transformer_input.pt",
+              "file_sha256": "1c5376c902e27c5e59a1b4b02ca07299100e4b331e29229c40161c134676f7e8",
+              "tensor_sha256": "f46c115ddd1dc75a0cc53049e8e702cd7d7fef801729bde7c5ac9a642f8ddbf5",
+              "shape": [
+                1,
+                4096,
+                64
+              ],
+              "dtype": "torch.bfloat16",
+              "label": "initial_transformer_input",
+              "scope": "Saved actual first packed transformer input; not a claim of raw RNG noise or cross-resolution coupling."
+            }
+          },
+          {
+            "prompt_index": 6,
+            "prompt_id": "a4k_eval_4096_5968998903196670637",
+            "prompt": "A man in 19th-century attire sits beside a woman dressed in a floral-patterned gown, both holding hands on an ornate teal couch, surrounded by rich dark-hued walls and vintage artwork.",
+            "seed": 0,
+            "derived_seed": 9089373273744328061,
+            "steps": 28,
+            "guidance": 4.5,
+            "shape": [
+              1024,
+              1024,
+              3
+            ],
+            "png": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_5968998903196670637_d418993014_seed0.png",
+            "png_sha256": "fdf4fff4e75c576486a525dec2597c633a27e3e62dcd134f628b75bb7b23a805",
+            "metadata": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_5968998903196670637_d418993014_seed0.json",
+            "metadata_sha256": "c2529442ede0ad480b4433aa8d02060081d1cf0dde9515fad221015520bc7354",
+            "generation_seconds": 4.942720916122198,
+            "all_native_gains_one": true,
+            "executed_sigmas": [
+              1.0,
+              0.988408625125885,
+              0.9762224555015564,
+              0.9633944034576416,
+              0.9498725533485413,
+              0.9355989098548889,
+              0.9205089807510376,
+              0.9045307636260986,
+              0.8875834345817566,
+              0.8695759177207947,
+              0.8504056930541992,
+              0.8299564123153687,
+              0.8080955147743225,
+              0.7846716046333313,
+              0.7595109343528748,
+              0.7324128150939941,
+              0.7031447291374207,
+              0.6714348196983337,
+              0.6369644999504089,
+              0.5993567109107971,
+              0.5581628680229187,
+              0.5128441452980042,
+              0.4627484083175659,
+              0.40707841515541077,
+              0.3448489308357239,
+              0.2748279869556427,
+              0.19545459747314453,
+              0.10472089797258377
+            ],
+            "runtime_gain_audit": [
+              {
+                "step": 0,
+                "sigma": 1.0,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 1,
+                "sigma": 0.988408625125885,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 2,
+                "sigma": 0.9762224555015564,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 3,
+                "sigma": 0.9633944034576416,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 4,
+                "sigma": 0.9498725533485413,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 5,
+                "sigma": 0.9355989098548889,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 6,
+                "sigma": 0.9205089807510376,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 7,
+                "sigma": 0.9045307636260986,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 8,
+                "sigma": 0.8875834345817566,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 9,
+                "sigma": 0.8695759177207947,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 10,
+                "sigma": 0.8504056930541992,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 11,
+                "sigma": 0.8299564123153687,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 12,
+                "sigma": 0.8080955147743225,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 13,
+                "sigma": 0.7846716046333313,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 14,
+                "sigma": 0.7595109343528748,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 15,
+                "sigma": 0.7324128150939941,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 16,
+                "sigma": 0.7031447291374207,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 17,
+                "sigma": 0.6714348196983337,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 18,
+                "sigma": 0.6369644999504089,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 19,
+                "sigma": 0.5993567109107971,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 20,
+                "sigma": 0.5581628680229187,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 21,
+                "sigma": 0.5128441452980042,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 22,
+                "sigma": 0.4627484083175659,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 23,
+                "sigma": 0.40707841515541077,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 24,
+                "sigma": 0.3448489308357239,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 25,
+                "sigma": 0.2748279869556427,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 26,
+                "sigma": 0.19545459747314453,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 27,
+                "sigma": 0.10472089797258377,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              }
+            ],
+            "initial_transformer_input": {
+              "path": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_5968998903196670637_d418993014_seed0_initial_transformer_input.pt",
+              "file_sha256": "5c6253b990c3d9f7f540ada0bc823fca83fc410ad12ccb3bc83ee945cb3edd56",
+              "tensor_sha256": "a4bf0e81503efb805b55116121bc4b44dd69ac458e0e7c71e3af5628e3b35964",
+              "shape": [
+                1,
+                4096,
+                64
+              ],
+              "dtype": "torch.bfloat16",
+              "label": "initial_transformer_input",
+              "scope": "Saved actual first packed transformer input; not a claim of raw RNG noise or cross-resolution coupling."
+            }
+          },
+          {
+            "prompt_index": 7,
+            "prompt_id": "a4k_eval_4096_minus8648158440845565467",
+            "prompt": "A ballerina in a flowing yellow dress performs an elegant pose on one leg, showcasing her strength and grace against a backdrop of geometric wall art and soft natural light.",
+            "seed": 0,
+            "derived_seed": 4271007880310061218,
+            "steps": 28,
+            "guidance": 4.5,
+            "shape": [
+              1024,
+              1024,
+              3
+            ],
+            "png": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus8648158440845565467_16f444f640_seed0.png",
+            "png_sha256": "9205e86bcf5547dd7ae852a3279e92e24ee9381f73fd1f6a80eb5bcfed6bb29c",
+            "metadata": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus8648158440845565467_16f444f640_seed0.json",
+            "metadata_sha256": "21ac9758a011efc25f521b706efcf18dd79ddfe4dc06eb4d2bb205aac2b79c07",
+            "generation_seconds": 4.921647537499666,
+            "all_native_gains_one": true,
+            "executed_sigmas": [
+              1.0,
+              0.988408625125885,
+              0.9762224555015564,
+              0.9633944034576416,
+              0.9498725533485413,
+              0.9355989098548889,
+              0.9205089807510376,
+              0.9045307636260986,
+              0.8875834345817566,
+              0.8695759177207947,
+              0.8504056930541992,
+              0.8299564123153687,
+              0.8080955147743225,
+              0.7846716046333313,
+              0.7595109343528748,
+              0.7324128150939941,
+              0.7031447291374207,
+              0.6714348196983337,
+              0.6369644999504089,
+              0.5993567109107971,
+              0.5581628680229187,
+              0.5128441452980042,
+              0.4627484083175659,
+              0.40707841515541077,
+              0.3448489308357239,
+              0.2748279869556427,
+              0.19545459747314453,
+              0.10472089797258377
+            ],
+            "runtime_gain_audit": [
+              {
+                "step": 0,
+                "sigma": 1.0,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 1,
+                "sigma": 0.988408625125885,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 2,
+                "sigma": 0.9762224555015564,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 3,
+                "sigma": 0.9633944034576416,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 4,
+                "sigma": 0.9498725533485413,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 5,
+                "sigma": 0.9355989098548889,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 6,
+                "sigma": 0.9205089807510376,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 7,
+                "sigma": 0.9045307636260986,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 8,
+                "sigma": 0.8875834345817566,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 9,
+                "sigma": 0.8695759177207947,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 10,
+                "sigma": 0.8504056930541992,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 11,
+                "sigma": 0.8299564123153687,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 12,
+                "sigma": 0.8080955147743225,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 13,
+                "sigma": 0.7846716046333313,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 14,
+                "sigma": 0.7595109343528748,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 15,
+                "sigma": 0.7324128150939941,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 16,
+                "sigma": 0.7031447291374207,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 17,
+                "sigma": 0.6714348196983337,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 18,
+                "sigma": 0.6369644999504089,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 19,
+                "sigma": 0.5993567109107971,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 20,
+                "sigma": 0.5581628680229187,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 21,
+                "sigma": 0.5128441452980042,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 22,
+                "sigma": 0.4627484083175659,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 23,
+                "sigma": 0.40707841515541077,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 24,
+                "sigma": 0.3448489308357239,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 25,
+                "sigma": 0.2748279869556427,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 26,
+                "sigma": 0.19545459747314453,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              },
+              {
+                "step": 27,
+                "sigma": 0.10472089797258377,
+                "controller_float32_all_one": true,
+                "controller_bfloat16_all_one": true,
+                "rotary_gain_all_one": true
+              }
+            ],
+            "initial_transformer_input": {
+              "path": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus8648158440845565467_16f444f640_seed0_initial_transformer_input.pt",
+              "file_sha256": "5e3f045e48ec4607e2c1d91961805c6d40a4b2896fd3dfff9c45b8581f36f6f1",
+              "tensor_sha256": "c71e0705e40ea070c0c45cde2a90828d7b1ca785503aba18c7af2cdecd4cf6b8",
+              "shape": [
+                1,
+                4096,
+                64
+              ],
+              "dtype": "torch.bfloat16",
+              "label": "initial_transformer_input",
+              "scope": "Saved actual first packed transformer input; not a claim of raw RNG noise or cross-resolution coupling."
+            }
+          }
+        ],
+        "scope": "observational_native_vs_existing_4k",
+        "noise_coupling": "uncoupled_across_resolutions",
+        "new_method": false,
+        "quality_scored": false,
+        "interpretation": "Native comparator versus existing4K is observational. Equal seed labels do not couple differently shaped noise. No isolated causal resolution or method-gain claim."
+      }
+    }
+  },
+  "retained": [
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_minus6873203881450547484_292264a271_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row0.png",
+      "sha256": "84cf8312153a85b6915c2a1e0cdc77da08070729648484091326bb6e944d979c",
+      "bytes": 1435421
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus6873203881450547484_292264a271_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row0.png",
+      "sha256": "d560aaeb6f14cd29e8e520da62c8be78860b8ad8be13f647c5fac3cffeb8f120",
+      "bytes": 21967751
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_minus6873203881450547484_292264a271_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native_metadata/row0.json",
+      "sha256": "55b039d9c134fc74405e399277d220ba92c1430ddc1c6d78dd135432cd85b2c6",
+      "bytes": 171230
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus6873203881450547484_292264a271_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/reference_metadata/row0.json",
+      "sha256": "2e0494f560a7b61bc485227b1dea9699d64267b506fd6ac4921d42bda8c94631",
+      "bytes": 301473
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_minus6873203881450547484_292264a271_seed0_initial_transformer_input.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/initial_input/row0.pt",
+      "sha256": "607d0775a29c922b9ba27b608ce62b11be6b5366932916bee415bb81ed205b61",
+      "bytes": 526895
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_3614061571823823193_68ec961735_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row1.png",
+      "sha256": "8ceba502aac7b34eae8753510cebb0f1f4f7921a57418e9e005f0a1eb76e238b",
+      "bytes": 1132088
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_3614061571823823193_68ec961735_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row1.png",
+      "sha256": "ac145940d8f696ff01075ae03a0ceb6d50c574caf61cf12aa4e5dd1aaee4e186",
+      "bytes": 19019772
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_3614061571823823193_68ec961735_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native_metadata/row1.json",
+      "sha256": "63b3c3b98ce8adb22c28ade6225fbb1b1004da10ceebcfdc6f268349e993396f",
+      "bytes": 171132
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_3614061571823823193_68ec961735_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/reference_metadata/row1.json",
+      "sha256": "5a5ebafe06da494172e8e893511b8b89952ed3f81456e0d69042cd44e8301125",
+      "bytes": 307526
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_3614061571823823193_68ec961735_seed0_initial_transformer_input.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/initial_input/row1.pt",
+      "sha256": "18e25aff79c4138d1232d8e45976ce9f9b625ac56c6702f8abac2c6432c59c06",
+      "bytes": 526860
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_7354534197758042049_20b08c89ad_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row2.png",
+      "sha256": "759417e4bb55b76d163ca565da87753f1072723b61844b9fd0c024c4032194c1",
+      "bytes": 1598586
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_7354534197758042049_20b08c89ad_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row2.png",
+      "sha256": "83ab85b2d56c9092e6ddd056ed523593a58323010c85b99162606f924cea1d58",
+      "bytes": 25997862
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_7354534197758042049_20b08c89ad_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native_metadata/row2.json",
+      "sha256": "3f6a14ba3945d704f98b6ae6a57121993b5de4b3af13cabbc43ebbabd31306cf",
+      "bytes": 171159
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_7354534197758042049_20b08c89ad_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/reference_metadata/row2.json",
+      "sha256": "f76c13c5499e8b313e958c10a1d436fdcae08d78b034f1de597cb297a421d5a1",
+      "bytes": 304925
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_7354534197758042049_20b08c89ad_seed0_initial_transformer_input.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/initial_input/row2.pt",
+      "sha256": "3677fcbf9c127be1655cc435db3987980ae7b6cfaa5fa6270ba0b0541ddecbb8",
+      "bytes": 526860
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_788875264758341041_ecc1df74d6_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row3.png",
+      "sha256": "93c0140b9fa730b5446397443c3da912b271666d6ab984d38e4cabb4d74a20f5",
+      "bytes": 1734317
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_788875264758341041_ecc1df74d6_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row3.png",
+      "sha256": "ed0848a142717364bb9c04d5e3b478542290a0a3b4343a1b8dda9031587fdccc",
+      "bytes": 26233048
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_788875264758341041_ecc1df74d6_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native_metadata/row3.json",
+      "sha256": "f2667156306987449df8bd36603ae342c4c536cac29c8240037ee3003f4cfdca",
+      "bytes": 171154
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_788875264758341041_ecc1df74d6_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/reference_metadata/row3.json",
+      "sha256": "2e5ff7c17be367d6ff3e34ffe10b9a06ddb45b557d2e4f4381d3da71f6c8e602",
+      "bytes": 304421
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/sega_official/1024x1024/a4k_eval_4096_788875264758341041_ecc1df74d6_seed0_initial_transformer_input.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/initial_input/row3.pt",
+      "sha256": "827b167ccb03e351803bdeff9faa33b800e3cae28476423f2390d0e2fc3c2208",
+      "bytes": 526853
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus5023570400257826529_b6561f2b88_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row4.png",
+      "sha256": "bda91d50111252affca84791f339265fa6bff69c9535e08dd4b8b1f57c6e7c2a",
+      "bytes": 1218402
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus5023570400257826529_b6561f2b88_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row4.png",
+      "sha256": "9bcad28aa572c51e2578f4282936abd070edb2f82eee7c60bb0126c5df5d6df9",
+      "bytes": 23708398
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus5023570400257826529_b6561f2b88_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native_metadata/row4.json",
+      "sha256": "d69245d8b45db86ad6dcf42422566175f99c3af84921d1a4222f031b28ee21fc",
+      "bytes": 171255
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus5023570400257826529_b6561f2b88_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/reference_metadata/row4.json",
+      "sha256": "832a271d05a76b6edeb9a7c6ae3691fb4b5945b2dd5a6a8b5d8a555803c8a90e",
+      "bytes": 305337
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus5023570400257826529_b6561f2b88_seed0_initial_transformer_input.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/initial_input/row4.pt",
+      "sha256": "6e13350b32c45b43e4dc258880e5e0dc0dfe3ce9a47898e63599fd375b89fea7",
+      "bytes": 526895
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus8041742109062037958_f5c747aef8_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row5.png",
+      "sha256": "2ea6436af3921a4f9cbb4681e3e18c7099a9f5c29cc058e7d61fad0b3ad382f3",
+      "bytes": 1347886
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus8041742109062037958_f5c747aef8_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row5.png",
+      "sha256": "ab3ba205baa563b4efb21adcd65a0ac976183f48833133250407d52db7bb82e2",
+      "bytes": 25623523
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus8041742109062037958_f5c747aef8_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native_metadata/row5.json",
+      "sha256": "7afe19d68610e0fee3f14df4fd14b1c7aa2e261eb261a98926760862daf2ccd9",
+      "bytes": 171303
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus8041742109062037958_f5c747aef8_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/reference_metadata/row5.json",
+      "sha256": "54db75e1657eba00986927d923965b60d91cfbc4dbaceacdfae759cc66d015cd",
+      "bytes": 302813
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus8041742109062037958_f5c747aef8_seed0_initial_transformer_input.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/initial_input/row5.pt",
+      "sha256": "1c5376c902e27c5e59a1b4b02ca07299100e4b331e29229c40161c134676f7e8",
+      "bytes": 526895
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_5968998903196670637_d418993014_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row6.png",
+      "sha256": "fdf4fff4e75c576486a525dec2597c633a27e3e62dcd134f628b75bb7b23a805",
+      "bytes": 1285882
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_5968998903196670637_d418993014_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row6.png",
+      "sha256": "26222588d9ec76d88dd494c4515006cdf28ca819b5cc1e9f4efabdc4c902381e",
+      "bytes": 20371480
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_5968998903196670637_d418993014_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native_metadata/row6.json",
+      "sha256": "c2529442ede0ad480b4433aa8d02060081d1cf0dde9515fad221015520bc7354",
+      "bytes": 171213
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_5968998903196670637_d418993014_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/reference_metadata/row6.json",
+      "sha256": "f4125898e51f4afefd1577168f3c0969aa1725af3feaa655b1496c3985f0f3c7",
+      "bytes": 301482
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_5968998903196670637_d418993014_seed0_initial_transformer_input.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/initial_input/row6.pt",
+      "sha256": "5c6253b990c3d9f7f540ada0bc823fca83fc410ad12ccb3bc83ee945cb3edd56",
+      "bytes": 526860
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus8648158440845565467_16f444f640_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row7.png",
+      "sha256": "9205e86bcf5547dd7ae852a3279e92e24ee9381f73fd1f6a80eb5bcfed6bb29c",
+      "bytes": 1177793
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus8648158440845565467_16f444f640_seed0.png",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row7.png",
+      "sha256": "d23875339c9747c50070ca2a867c6891127a3b8a894f3aab8c25c5204b818e70",
+      "bytes": 21001426
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus8648158440845565467_16f444f640_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native_metadata/row7.json",
+      "sha256": "21ac9758a011efc25f521b706efcf18dd79ddfe4dc06eb4d2bb205aac2b79c07",
+      "bytes": 171212
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/out_krea/dev3_sega_official/sega_official/4096x4096/a4k_eval_4096_minus8648158440845565467_16f444f640_seed0.json",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/reference_metadata/row7.json",
+      "sha256": "e917666d70fe6f7b48ea58efe25f086095aabcf3371c2a399fd6e6a4f48f9e75",
+      "bytes": 307210
+    },
+    {
+      "source": "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/sega_official/1024x1024/a4k_eval_4096_minus8648158440845565467_16f444f640_seed0_initial_transformer_input.pt",
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/initial_input/row7.pt",
+      "sha256": "5e3f045e48ec4607e2c1d91961805c6d40a4b2896fd3dfff9c45b8581f36f6f1",
+      "bytes": 526895
+    }
+  ],
+  "retained_bytes": 202873493,
+  "viewmap": [
+    {
+      "condition": "archived4096",
+      "row": 1,
+      "label": "view01",
+      "source_sha256": "ac145940d8f696ff01075ae03a0ceb6d50c574caf61cf12aa4e5dd1aaee4e186",
+      "view_sha256": "906dfacc5e7a6c088382733fa03255b34798fd112f638fba22db296b3f0f565e"
+    },
+    {
+      "condition": "archived4096",
+      "row": 6,
+      "label": "view02",
+      "source_sha256": "26222588d9ec76d88dd494c4515006cdf28ca819b5cc1e9f4efabdc4c902381e",
+      "view_sha256": "91d0e3c5b5fec9c423ca818ee56483705862b7e0a2c90bd56a92d51c18fa9ce7"
+    },
+    {
+      "condition": "archived4096",
+      "row": 4,
+      "label": "view03",
+      "source_sha256": "9bcad28aa572c51e2578f4282936abd070edb2f82eee7c60bb0126c5df5d6df9",
+      "view_sha256": "c07a3859643d39be56a1855691ccc77fcbdabbe4a05b024789fc4c2ac74fa3ab"
+    },
+    {
+      "condition": "native1024",
+      "row": 6,
+      "label": "view04",
+      "source_sha256": "fdf4fff4e75c576486a525dec2597c633a27e3e62dcd134f628b75bb7b23a805",
+      "view_sha256": "fdf4fff4e75c576486a525dec2597c633a27e3e62dcd134f628b75bb7b23a805"
+    },
+    {
+      "condition": "native1024",
+      "row": 3,
+      "label": "view05",
+      "source_sha256": "93c0140b9fa730b5446397443c3da912b271666d6ab984d38e4cabb4d74a20f5",
+      "view_sha256": "93c0140b9fa730b5446397443c3da912b271666d6ab984d38e4cabb4d74a20f5"
+    },
+    {
+      "condition": "archived4096",
+      "row": 3,
+      "label": "view06",
+      "source_sha256": "ed0848a142717364bb9c04d5e3b478542290a0a3b4343a1b8dda9031587fdccc",
+      "view_sha256": "8122d1bf126380003792f6f0a81a789679b99d88a31a580971a9255df705dfe6"
+    },
+    {
+      "condition": "native1024",
+      "row": 4,
+      "label": "view07",
+      "source_sha256": "bda91d50111252affca84791f339265fa6bff69c9535e08dd4b8b1f57c6e7c2a",
+      "view_sha256": "bda91d50111252affca84791f339265fa6bff69c9535e08dd4b8b1f57c6e7c2a"
+    },
+    {
+      "condition": "native1024",
+      "row": 5,
+      "label": "view08",
+      "source_sha256": "2ea6436af3921a4f9cbb4681e3e18c7099a9f5c29cc058e7d61fad0b3ad382f3",
+      "view_sha256": "2ea6436af3921a4f9cbb4681e3e18c7099a9f5c29cc058e7d61fad0b3ad382f3"
+    },
+    {
+      "condition": "archived4096",
+      "row": 7,
+      "label": "view09",
+      "source_sha256": "d23875339c9747c50070ca2a867c6891127a3b8a894f3aab8c25c5204b818e70",
+      "view_sha256": "0b6b213d971a61a1e5716bdc8c3461603dd37e00cdb72d9836b963c7b7f5080e"
+    },
+    {
+      "condition": "archived4096",
+      "row": 5,
+      "label": "view10",
+      "source_sha256": "ab3ba205baa563b4efb21adcd65a0ac976183f48833133250407d52db7bb82e2",
+      "view_sha256": "c72b35081b18e3a841f2101796abedb6355998626c16a11240f4165988729f12"
+    },
+    {
+      "condition": "native1024",
+      "row": 1,
+      "label": "view11",
+      "source_sha256": "8ceba502aac7b34eae8753510cebb0f1f4f7921a57418e9e005f0a1eb76e238b",
+      "view_sha256": "8ceba502aac7b34eae8753510cebb0f1f4f7921a57418e9e005f0a1eb76e238b"
+    },
+    {
+      "condition": "archived4096",
+      "row": 2,
+      "label": "view12",
+      "source_sha256": "83ab85b2d56c9092e6ddd056ed523593a58323010c85b99162606f924cea1d58",
+      "view_sha256": "b13811c507aaa2cb11a6dfe88581f6efc51f7616ef673036acb25225c024cbed"
+    },
+    {
+      "condition": "native1024",
+      "row": 2,
+      "label": "view13",
+      "source_sha256": "759417e4bb55b76d163ca565da87753f1072723b61844b9fd0c024c4032194c1",
+      "view_sha256": "759417e4bb55b76d163ca565da87753f1072723b61844b9fd0c024c4032194c1"
+    },
+    {
+      "condition": "native1024",
+      "row": 7,
+      "label": "view14",
+      "source_sha256": "9205e86bcf5547dd7ae852a3279e92e24ee9381f73fd1f6a80eb5bcfed6bb29c",
+      "view_sha256": "9205e86bcf5547dd7ae852a3279e92e24ee9381f73fd1f6a80eb5bcfed6bb29c"
+    },
+    {
+      "condition": "native1024",
+      "row": 0,
+      "label": "view15",
+      "source_sha256": "84cf8312153a85b6915c2a1e0cdc77da08070729648484091326bb6e944d979c",
+      "view_sha256": "84cf8312153a85b6915c2a1e0cdc77da08070729648484091326bb6e944d979c"
+    },
+    {
+      "condition": "archived4096",
+      "row": 0,
+      "label": "view16",
+      "source_sha256": "d560aaeb6f14cd29e8e520da62c8be78860b8ad8be13f647c5fac3cffeb8f120",
+      "view_sha256": "ab4cf975ecb35083c40e4a0549f1113634229f8e67f8fd62083ba521efee9a62"
+    }
+  ],
+  "quality_scored": false,
+  "limits": [
+    "Runtime conditioning/model/gain checks are receipts; initial inputs and PNGs are saved witnesses.",
+    "Different-size noise is uncoupled. No causal resolution or method-quality conclusion.",
+    "Common-view labels precede detail inspection. Label hiding is not guaranteed resolution blinding."
+  ]
+}

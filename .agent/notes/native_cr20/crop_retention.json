@@ -1,0 +1,89 @@
+{
+  "files": [
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/native_review_a/view08_signs.png",
+      "sha256": "130376d7e0005384f33ec88339035869eee2391c2d3879c72bdfe32a00f1cfb9",
+      "source_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view08.png",
+      "box_xyxy_absolute": [
+        256,
+        82,
+        461,
+        369
+      ],
+      "box_xyxy_normalized": [
+        0.25,
+        0.080078125,
+        0.4501953125,
+        0.3603515625
+      ],
+      "resampling": "none",
+      "visually_inspected": true,
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/reviewer_a_crops/view08_signs.png",
+      "bytes": 77933
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/native_review_a/view10_signs_left.png",
+      "sha256": "da0a4f8ef9b0eef7110df512d31bfd3b63645e1e3d6fe1c13097f8c8009f8c68",
+      "source_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view10.png",
+      "box_xyxy_absolute": [
+        410,
+        0,
+        2253,
+        1475
+      ],
+      "box_xyxy_normalized": [
+        0.10009765625,
+        0.0,
+        0.550048828125,
+        0.360107421875
+      ],
+      "resampling": "none",
+      "visually_inspected": true,
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/reviewer_a_crops/view10_signs_left.png",
+      "bytes": 4185542
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/native_review_a/view10_signs_right.png",
+      "sha256": "e729be25d66596f0007a6ed437e72f67bd9b9c0facec978ef74b6dac642efef7",
+      "source_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view10.png",
+      "box_xyxy_absolute": [
+        1884,
+        328,
+        3277,
+        901
+      ],
+      "box_xyxy_normalized": [
+        0.4599609375,
+        0.080078125,
+        0.800048828125,
+        0.219970703125
+      ],
+      "resampling": "none",
+      "visually_inspected": true,
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/reviewer_a_crops/view10_signs_right.png",
+      "bytes": 1187313
+    },
+    {
+      "path": "/scratch/09032/saini_2/constancy_rope/native_review_a/view13_knees.png",
+      "sha256": "8ec09bece39b62eb344e0fe1dd97b145f6a06dca29196bb2fe9c2b2c6511831b",
+      "source_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/original_views/view13.png",
+      "box_xyxy_absolute": [
+        532,
+        614,
+        1004,
+        1004
+      ],
+      "box_xyxy_normalized": [
+        0.51953125,
+        0.599609375,
+        0.98046875,
+        0.98046875
+      ],
+      "resampling": "none",
+      "visually_inspected": true,
+      "preserved": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/reviewer_a_crops/view13_knees.png",
+      "bytes": 302116
+    }
+  ],
+  "bytes": 5752904
+}

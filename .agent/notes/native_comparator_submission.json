@@ -1,0 +1,41 @@
+{
+  "submitted_utc": "2026-10-17T14:39:49.897637+00:00",
+  "job_id": "1077304",
+  "source_commit": "4a12688",
+  "protocol_sha256": "ba80b1ddd2ca794a84e2607be6773acf5253f80402ece5ddf71d53b400775a18",
+  "SU_available_before_submission": 7928,
+  "budget": {
+    "nodes": 2,
+    "minutes": 15,
+    "native_images": 8,
+    "new4k_images": 0
+  },
+  "watcher_registration": {
+    "job_id": "1077304",
+    "queue_dir": "/scratch/09032/saini_2/constancy_rope/taskq_native_comparator",
+    "completion_files": [
+      "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0/completion.json",
+      "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1/completion.json"
+    ],
+    "progress_dirs": [
+      "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk0",
+      "/scratch/09032/saini_2/constancy_rope/native_comparator/job1077304/chunk1"
+    ],
+    "telemetry_dir": "/scratch/09032/saini_2/constancy_rope/telemetry"
+  },
+  "watcher_hot_read_verified": true,
+  "next_actions": [
+    "Verify both4imagecompletions, protocol/source/model identities, PNGs/sidecars, exact28sigma schedule andunitgains, initialinputtensorhashes.",
+    "Archive8nativeimages/sidecars/initialinputs onwork outsidegit with hashes; keep bulkoriginals onscratch.",
+    "Create all16common1024views using the predeclared native_comparator_presentation.json mapping, and separate reviewer captions/rubric withoutconditionlabels.",
+    "Two independent readings of all fixed primary/secondary/auxiliary predicates; preserve each label/evidence anddisagreements.",
+    "Recordcommon-scale anddetail-view labels separately; no unjudgeable-to-failure conversion.",
+    "Reportall8primaryternarytransitions includingnativefail/4Ksuccess; no causalresolution, novelty orqualitymethodclaim.",
+    "Useobservedtarget plusprimarypriorart todecidenextmechanism; noautomaticmethod/seed sweep orfresh64."
+  ],
+  "watcher_snapshot_utc": "2026-10-17T14:40:00.637972+00:00",
+  "watcher_scheduler_observation": {
+    "state": "RUNNING",
+    "end": 1792248874.0
+  }
+}

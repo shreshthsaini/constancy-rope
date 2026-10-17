@@ -1,0 +1,18 @@
+{
+  "created_utc": "2026-10-17T14:53:04.971459+00:00",
+  "pages": 10,
+  "visually_checked_pages": [
+    7,
+    8
+  ],
+  "build": "Clean Tectonic build; pages7/8 inspected for table, text, overflow and clipping.",
+  "sha256": {
+    "paper/constancy_rope_working_2026-10-17.pdf": "7e12b0e0b93b3b576529afa265e4eb7c6c8b4a7212fd27ac46017d41ad8df588",
+    "paper/sec/current_report.tex": "48e914514fe96a8d664eba7d5c9e9286a53cff57e8e191e4e48951d74b9518fa",
+    "paper/sec/native_screen.tex": "8dc40ef74a294cadb3dfc928fcc74cb4799403d1801a8871af6541427721c3e4",
+    ".agent/notes/native_cr20/visual_summary.json": "bb0042a63d133fdb3a9eec601c237f3d6122bbcf9b7cb5a8df132b464e091db2",
+    ".agent/notes/native_cr20_independent.json": "08ddfd76f30ea8bd56fd7e1a814968e4c83cfd9c9f3ce73d4463ec27dadce1e2",
+    ".agent/notes/native_cr20/report.json": "c2f64514d3d38deaa8b74bf62da9b8190df07d76092a4ff531bfffbd98e2bc64"
+  },
+  "scope": "Eight observational development pairs, two model reviewers, full primary/secondary and separate auxiliary labels. No causal effect, efficacy or novelty claim."
+}

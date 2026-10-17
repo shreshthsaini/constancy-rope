@@ -1,0 +1,385 @@
+{
+  "reviewer": "A",
+  "stage": "common_view",
+  "completed_utc": "2026-10-17T14:45:45.313104+00:00",
+  "common_views_inspected": 16,
+  "detail_views_seen_before_this_record": false,
+  "rules": "Satisfied requires visible evidence of the whole stated predicate. Violated requires a visible incompatible result or a clearly absent required entity in an otherwise judgeable scene. Occlusion, inadequate detail, ambiguous identity or ambiguous contact is unjudgeable, not failure. Do not penalize incidental composition, unspecified counts or colors, photographic realism not requested by the caption, or differences from the caption-source photograph.",
+  "method": "All 16 common_view files were opened with view_image in manifest order before inspecting any detail_view. Judgments use only visible evidence and fixed predicates. No condition identities, mappings, other reviewer annotations or results were consulted.",
+  "images": [
+    {
+      "label": "view01",
+      "caption": "A Moai statue gazes upward against a starry night sky, with a colorful sunset illuminating the horizon.",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view01.png",
+      "sha256": "906dfacc5e7a6c088382733fa03255b34798fd112f638fba22db296b3f0f565e",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "Warm sunset colors occur near the horizon beneath a visibly starry sky.",
+        "label": "satisfied",
+        "evidence": "Orange, yellow and pink light lines the ocean horizon beneath numerous visible stars."
+      },
+      "secondary": {
+        "predicate": "A recognizable Moai statue stands against that sky.",
+        "label": "satisfied",
+        "evidence": "A tall stone head and torso with the long nose and facial structure of a Moai stands against the sky."
+      },
+      "auxiliary": [],
+      "crops": []
+    },
+    {
+      "label": "view02",
+      "caption": "A man in 19th-century attire sits beside a woman dressed in a floral-patterned gown, both holding hands on an ornate teal couch, surrounded by rich dark-hued walls and vintage artwork.",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view02.png",
+      "sha256": "91d0e3c5b5fec9c423ca818ee56483705862b7e0a2c90bd56a92d51c18fa9ce7",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "The man and woman visibly hold each other's hands.",
+        "label": "satisfied",
+        "evidence": "The woman extends her hands onto the man's lap, where his hands visibly clasp and cover hers."
+      },
+      "secondary": {
+        "predicate": "The seated man and woman share a visibly teal couch.",
+        "label": "satisfied",
+        "evidence": "Both figures sit together on one ornate dark teal upholstered couch."
+      },
+      "auxiliary": [],
+      "crops": []
+    },
+    {
+      "label": "view03",
+      "caption": "A large planet with prominent rings occupies the foreground against a backdrop of deep red space, while two smaller celestial bodies are silhouetted nearby, one near the planet's rings and another near a distant sun.",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view03.png",
+      "sha256": "c07a3859643d39be56a1855691ccc77fcbdabbe4a05b024789fc4c2ac74fa3ab",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "Two distinguishable smaller celestial bodies are visible, one near the planet's rings and another near a visible distant sun.",
+        "label": "unjudgeable",
+        "evidence": "Several smaller bodies are visible, including a small planet at left and a rocky body at the lower-left ring. An orange glow above the large planet could be an occulted sun, but its identity and the required second body near it are not established."
+      },
+      "secondary": {
+        "predicate": "A large ringed planet is a prominent foreground object.",
+        "label": "satisfied",
+        "evidence": "A large banded planet with broad diagonal rings dominates the foreground."
+      },
+      "auxiliary": [],
+      "crops": []
+    },
+    {
+      "label": "view04",
+      "caption": "A man in 19th-century attire sits beside a woman dressed in a floral-patterned gown, both holding hands on an ornate teal couch, surrounded by rich dark-hued walls and vintage artwork.",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view04.png",
+      "sha256": "fdf4fff4e75c576486a525dec2597c633a27e3e62dcd134f628b75bb7b23a805",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "The man and woman visibly hold each other's hands.",
+        "label": "satisfied",
+        "evidence": "The woman's hand and the man's extended hand visibly interlace in a clasp between their laps."
+      },
+      "secondary": {
+        "predicate": "The seated man and woman share a visibly teal couch.",
+        "label": "satisfied",
+        "evidence": "Both seated figures share the same teal couch with an ornate gold frame."
+      },
+      "auxiliary": [],
+      "crops": []
+    },
+    {
+      "label": "view05",
+      "caption": "A surfer rides a wave beneath the surface, showcasing skill and agility on a yellow board, with coral formations visible below.",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view05.png",
+      "sha256": "93c0140b9fa730b5446397443c3da912b271666d6ab984d38e4cabb4d74a20f5",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "A surfer is supported by a visibly yellow board.",
+        "label": "satisfied",
+        "evidence": "Both visible feet rest on a bright yellow surfboard beneath the waterline."
+      },
+      "secondary": {
+        "predicate": "Coral is visible below the surfer within the requested underwater scene.",
+        "label": "satisfied",
+        "evidence": "Multiple coral heads occupy the underwater foreground below the surfer."
+      },
+      "auxiliary": [],
+      "crops": []
+    },
+    {
+      "label": "view06",
+      "caption": "A surfer rides a wave beneath the surface, showcasing skill and agility on a yellow board, with coral formations visible below.",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view06.png",
+      "sha256": "8122d1bf126380003792f6f0a81a789679b99d88a31a580971a9255df705dfe6",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "A surfer is supported by a visibly yellow board.",
+        "label": "satisfied",
+        "evidence": "The crouching surfer has visible foot contact with a yellow board on the wave."
+      },
+      "secondary": {
+        "predicate": "Coral is visible below the surfer within the requested underwater scene.",
+        "label": "satisfied",
+        "evidence": "Coral formations are visible through the blue water below the surfer."
+      },
+      "auxiliary": [],
+      "crops": []
+    },
+    {
+      "label": "view07",
+      "caption": "A large planet with prominent rings occupies the foreground against a backdrop of deep red space, while two smaller celestial bodies are silhouetted nearby, one near the planet's rings and another near a distant sun.",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view07.png",
+      "sha256": "bda91d50111252affca84791f339265fa6bff69c9535e08dd4b8b1f57c6e7c2a",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "Two distinguishable smaller celestial bodies are visible, one near the planet's rings and another near a visible distant sun.",
+        "label": "violated",
+        "evidence": "Two small dark round bodies are both adjacent to the ring and foreground planet; neither is near the clearly visible sun in the upper-right sky."
+      },
+      "secondary": {
+        "predicate": "A large ringed planet is a prominent foreground object.",
+        "label": "satisfied",
+        "evidence": "A large cropped foreground planet and broad rings occupy most of the scene."
+      },
+      "auxiliary": [],
+      "crops": []
+    },
+    {
+      "label": "view08",
+      "caption": "A woman in a black top and a green striped skirt stands against a storefront, looking over her shoulder. Pedestrians, including a man with a newspaper and a boy, pass by in the foreground. The street features various shop signs, including \"Kodak\" and \"Paradis.\"",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view08.png",
+      "sha256": "2ea6436af3921a4f9cbb4681e3e18c7099a9f5c29cc058e7d61fad0b3ad382f3",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "A woman wears a black top and a visibly green striped skirt.",
+        "label": "satisfied",
+        "evidence": "The foreground woman wears a black long-sleeved top and a green skirt with narrow light vertical stripes."
+      },
+      "secondary": {
+        "predicate": "A man with a newspaper and a boy appear in front of the storefront.",
+        "label": "satisfied",
+        "evidence": "A man holding an open newspaper and a boy are visible on the pavement in front of the shops."
+      },
+      "auxiliary": [
+        {
+          "predicate": "The string Kodak is readable.",
+          "label": "violated",
+          "evidence": "The prominent yellow and red sign contains a K-shaped logo, without the readable word Kodak."
+        },
+        {
+          "predicate": "The string Paradis is readable.",
+          "label": "satisfied",
+          "evidence": "A black sign beneath the logo visibly reads Paradis."
+        }
+      ],
+      "crops": []
+    },
+    {
+      "label": "view09",
+      "caption": "A ballerina in a flowing yellow dress performs an elegant pose on one leg, showcasing her strength and grace against a backdrop of geometric wall art and soft natural light.",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view09.png",
+      "sha256": "0b6b213d971a61a1e5716bdc8c3461603dd37e00cdb72d9836b963c7b7f5080e",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "The ballerina poses with only one leg supporting her body and the other lifted.",
+        "label": "satisfied",
+        "evidence": "One pointed foot reaches the floor while the other leg is raised high behind her with its shoe visible."
+      },
+      "secondary": {
+        "predicate": "The ballerina wears a visibly yellow dress.",
+        "label": "satisfied",
+        "evidence": "The dancer wears a yellow bodice and flowing yellow skirt."
+      },
+      "auxiliary": [],
+      "crops": []
+    },
+    {
+      "label": "view10",
+      "caption": "A woman in a black top and a green striped skirt stands against a storefront, looking over her shoulder. Pedestrians, including a man with a newspaper and a boy, pass by in the foreground. The street features various shop signs, including \"Kodak\" and \"Paradis.\"",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view10.png",
+      "sha256": "c72b35081b18e3a841f2101796abedb6355998626c16a11240f4165988729f12",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "A woman wears a black top and a visibly green striped skirt.",
+        "label": "satisfied",
+        "evidence": "The woman wears a black top and a green skirt with light vertical stripes."
+      },
+      "secondary": {
+        "predicate": "A man with a newspaper and a boy appear in front of the storefront.",
+        "label": "satisfied",
+        "evidence": "At left a man holds an open newspaper, and a boy walks along the pavement between him and the woman."
+      },
+      "auxiliary": [
+        {
+          "predicate": "The string Kodak is readable.",
+          "label": "violated",
+          "evidence": "Visible signs include K-shaped logos and distorted words, but no readable Kodak string."
+        },
+        {
+          "predicate": "The string Paradis is readable.",
+          "label": "violated",
+          "evidence": "The visible shop names are other or distorted strings; none reads Paradis."
+        }
+      ],
+      "crops": []
+    },
+    {
+      "label": "view11",
+      "caption": "A Moai statue gazes upward against a starry night sky, with a colorful sunset illuminating the horizon.",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view11.png",
+      "sha256": "8ceba502aac7b34eae8753510cebb0f1f4f7921a57418e9e005f0a1eb76e238b",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "Warm sunset colors occur near the horizon beneath a visibly starry sky.",
+        "label": "satisfied",
+        "evidence": "Orange and pink sunset bands sit along the horizon beneath a sky densely filled with stars."
+      },
+      "secondary": {
+        "predicate": "A recognizable Moai statue stands against that sky.",
+        "label": "satisfied",
+        "evidence": "A recognizable long-faced Moai statue stands on a stone platform against that sky."
+      },
+      "auxiliary": [],
+      "crops": []
+    },
+    {
+      "label": "view12",
+      "caption": "A woman kneels on the forest floor, smiling as she offers grapes to a large brown bear beside her, surrounded by tall birch trees.",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view12.png",
+      "sha256": "b13811c507aaa2cb11a6dfe88581f6efc51f7616ef673036acb25225c024cbed",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "The woman visibly extends grapes toward the bear.",
+        "label": "satisfied",
+        "evidence": "The woman extends a cluster of green grapes toward the bear's mouth while supporting a purple cluster in her other hand."
+      },
+      "secondary": {
+        "predicate": "The woman kneels beside a recognizable brown bear.",
+        "label": "satisfied",
+        "evidence": "One lower leg and knee rest along the forest floor beside a large brown bear."
+      },
+      "auxiliary": [],
+      "crops": []
+    },
+    {
+      "label": "view13",
+      "caption": "A woman kneels on the forest floor, smiling as she offers grapes to a large brown bear beside her, surrounded by tall birch trees.",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view13.png",
+      "sha256": "759417e4bb55b76d163ca565da87753f1072723b61844b9fd0c024c4032194c1",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "The woman visibly extends grapes toward the bear.",
+        "label": "satisfied",
+        "evidence": "The woman holds a bunch of round purple and reddish grapes, with a visible stem and leaf, directly in front of the bear's muzzle."
+      },
+      "secondary": {
+        "predicate": "The woman kneels beside a recognizable brown bear.",
+        "label": "violated",
+        "evidence": "The woman is squatting on her feet with both knees raised, rather than kneeling; the brown bear is clearly visible beside her."
+      },
+      "auxiliary": [],
+      "crops": []
+    },
+    {
+      "label": "view14",
+      "caption": "A ballerina in a flowing yellow dress performs an elegant pose on one leg, showcasing her strength and grace against a backdrop of geometric wall art and soft natural light.",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view14.png",
+      "sha256": "9205e86bcf5547dd7ae852a3279e92e24ee9381f73fd1f6a80eb5bcfed6bb29c",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "The ballerina poses with only one leg supporting her body and the other lifted.",
+        "label": "satisfied",
+        "evidence": "One toe supports the dancer on the floor and her other leg extends backward clear of the ground."
+      },
+      "secondary": {
+        "predicate": "The ballerina wears a visibly yellow dress.",
+        "label": "satisfied",
+        "evidence": "The dancer wears a pale yellow bodice and flowing yellow skirt."
+      },
+      "auxiliary": [],
+      "crops": []
+    },
+    {
+      "label": "view15",
+      "caption": "A row of weathered small boats in various colors rests at the water's edge, reflecting the overcast sky and surrounded by a calm harbor filled with larger boats and sailboats in the distance.",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view15.png",
+      "sha256": "84cf8312153a85b6915c2a1e0cdc77da08070729648484091326bb6e944d979c",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "Larger boats or sailboats appear farther into the harbor than the small boats at the water edge.",
+        "label": "satisfied",
+        "evidence": "Masted sailboats sit across the water behind the foreground row of dinghies."
+      },
+      "secondary": {
+        "predicate": "Multiple small boats at the water edge differ visibly in color.",
+        "label": "satisfied",
+        "evidence": "Foreground small boats have visibly red, blue, yellow and white hull areas at the harbor edge."
+      },
+      "auxiliary": [],
+      "crops": []
+    },
+    {
+      "label": "view16",
+      "caption": "A row of weathered small boats in various colors rests at the water's edge, reflecting the overcast sky and surrounded by a calm harbor filled with larger boats and sailboats in the distance.",
+      "inspected_image_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/views/view16.png",
+      "sha256": "ab4cf975ecb35083c40e4a0549f1113634229f8e67f8fd62083ba521efee9a62",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "primary": {
+        "predicate": "Larger boats or sailboats appear farther into the harbor than the small boats at the water edge.",
+        "label": "satisfied",
+        "evidence": "Multiple sailboats and larger cabin boats lie beyond the foreground dinghies across open harbor water."
+      },
+      "secondary": {
+        "predicate": "Multiple small boats at the water edge differ visibly in color.",
+        "label": "satisfied",
+        "evidence": "The small moored boats in front include a red hull, a blue hull and white hulls."
+      },
+      "auxiliary": [],
+      "crops": []
+    }
+  ]
+}

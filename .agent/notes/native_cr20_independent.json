@@ -1,0 +1,374 @@
+{
+  "reviewer": "evidence_diagnostic",
+  "status": "Actual eight artifacts and archive verified; one reporter validation coverage gap identified",
+  "protocol_sha256": "ba80b1ddd2ca794a84e2607be6773acf5253f80402ece5ddf71d53b400775a18",
+  "submission_sha256": "ddb771a1e674a0461491b69e5cdc01fd157d4ea529d4cafd343c16d3f5bbbabe",
+  "report_sha256": "c2f64514d3d38deaa8b74bf62da9b8190df07d76092a4ff531bfffbd98e2bc64",
+  "reporter_sha256": "6a21d167997f27e55dcc2307ef780aa65f5fed48858c8ef919b226f2f4c18bb1",
+  "source_sha256": {
+    "crope/gain.py": "fc3008af7eb00fb344c41577b7e85fe2ab324b4767c44af3d33492c431efa66a",
+    "crope/rope.py": "8d6b58593323815e3e98b3b52608bd93701fd25b28ecd829d7e68714df108485",
+    "crope/runtime.py": "6bfdb60f77a961409f66bf9cfe29e330516a6ac8b086c49cb7bc19a6c1082e9d",
+    "crope/sega_official.py": "80edc67b2958c707822038d3758d985f53df88d222bb1625bc73799dacee79be",
+    "crope/utils.py": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e",
+    "scripts/native_comparator.py": "334358f5753fa81c2d8e2c1766dec88518166b6a920eab8160c0a64c4e7d78e4",
+    "scripts/sample.py": "e105653257e8a9059465e0597499fd7c1cf76b7df1dde05e3d352f591cdaf797",
+    "tests/test_native_comparator.py": "dc1e1e9ffa0caf8c41ab9d28203ed04b4fef9dc08beb1cd375bdf4a1cbcf9b09",
+    "slurm/fleet_native_comparator_gh.sbatch": "cb87e8f3ba763342e7477a89183a3ca355f77f3c22f05655055cfbae132d5072",
+    "slurm/native_comparator_fleet.sh": "3ab86957c47eaa0bfe1d82bd837818927d0c244c42817eafbbe9e9d0022f16d6",
+    "slurm/native_comparator_task.sh": "ebdd5d10f9a97874a92ed0552c44a6ec8fc626df00d3d52091ed1a2a57fb02c5"
+  },
+  "commit_bookkeeping": {
+    "submission_source_commit": "4a12688",
+    "runtime_code_revision": "06f0c87607f1750a16f8290e17e83bb71ff4ae61",
+    "verified_git_diff": [
+      "A .agent/notes/native_comparator_preflight.json",
+      "A .agent/notes/native_comparator_protocol.json"
+    ],
+    "interpretation": "Runtime HEAD includes only added preflight/protocol notes; frozen executable sources and implementation digest unchanged."
+  },
+  "job_id": "1077304",
+  "images": 8,
+  "rows": [
+    {
+      "row": 0,
+      "id": "a4k_eval_4096_minus6873203881450547484",
+      "derived_seed": 1572336724262170322,
+      "png_sha256": "84cf8312153a85b6915c2a1e0cdc77da08070729648484091326bb6e944d979c",
+      "metadata_sha256": "55b039d9c134fc74405e399277d220ba92c1430ddc1c6d78dd135432cd85b2c6",
+      "initial_input_sha256": "0e5dd03c4132efa6d5a77fae09e5fc4a3a3ae60f99372059eb0bfaa1f6a67ddd",
+      "initial_input_matches_cpu_bf16_packed_noise": true,
+      "all28_sigmas_verified": true,
+      "all28_gain_histories_and_runtime_receipts_unit": true,
+      "native_rope_and_full_model_config_verified": true,
+      "generation_seconds": 8.872524202801287,
+      "native_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row0.png",
+      "old4k_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row0.png"
+    },
+    {
+      "row": 1,
+      "id": "a4k_eval_4096_3614061571823823193",
+      "derived_seed": 4141338643831228041,
+      "png_sha256": "8ceba502aac7b34eae8753510cebb0f1f4f7921a57418e9e005f0a1eb76e238b",
+      "metadata_sha256": "63b3c3b98ce8adb22c28ade6225fbb1b1004da10ceebcfdc6f268349e993396f",
+      "initial_input_sha256": "b7b1bdd3de98129c86d50c25860844b6e9ba8ccac7c4095ecaea68cf0a586f9b",
+      "initial_input_matches_cpu_bf16_packed_noise": true,
+      "all28_sigmas_verified": true,
+      "all28_gain_histories_and_runtime_receipts_unit": true,
+      "native_rope_and_full_model_config_verified": true,
+      "generation_seconds": 4.924024942331016,
+      "native_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row1.png",
+      "old4k_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row1.png"
+    },
+    {
+      "row": 2,
+      "id": "a4k_eval_4096_7354534197758042049",
+      "derived_seed": 8635351476202837105,
+      "png_sha256": "759417e4bb55b76d163ca565da87753f1072723b61844b9fd0c024c4032194c1",
+      "metadata_sha256": "3f6a14ba3945d704f98b6ae6a57121993b5de4b3af13cabbc43ebbabd31306cf",
+      "initial_input_sha256": "dea01c7bf685c85d5477a941cb50dc540ef309aeac8e99715bc618ca43076993",
+      "initial_input_matches_cpu_bf16_packed_noise": true,
+      "all28_sigmas_verified": true,
+      "all28_gain_histories_and_runtime_receipts_unit": true,
+      "native_rope_and_full_model_config_verified": true,
+      "generation_seconds": 4.932994586415589,
+      "native_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row2.png",
+      "old4k_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row2.png"
+    },
+    {
+      "row": 3,
+      "id": "a4k_eval_4096_788875264758341041",
+      "derived_seed": 8353560430846035327,
+      "png_sha256": "93c0140b9fa730b5446397443c3da912b271666d6ab984d38e4cabb4d74a20f5",
+      "metadata_sha256": "f2667156306987449df8bd36603ae342c4c536cac29c8240037ee3003f4cfdca",
+      "initial_input_sha256": "5780def21e131668d159b146c221a2dd3f1ccea3abc42225b705dc329fa59ec6",
+      "initial_input_matches_cpu_bf16_packed_noise": true,
+      "all28_sigmas_verified": true,
+      "all28_gain_histories_and_runtime_receipts_unit": true,
+      "native_rope_and_full_model_config_verified": true,
+      "generation_seconds": 4.942950113676488,
+      "native_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row3.png",
+      "old4k_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row3.png"
+    },
+    {
+      "row": 4,
+      "id": "a4k_eval_4096_minus5023570400257826529",
+      "derived_seed": 7387225582214151669,
+      "png_sha256": "bda91d50111252affca84791f339265fa6bff69c9535e08dd4b8b1f57c6e7c2a",
+      "metadata_sha256": "d69245d8b45db86ad6dcf42422566175f99c3af84921d1a4222f031b28ee21fc",
+      "initial_input_sha256": "02acad0f978ced6025cb6020f9d4d60bbb35f72f9a1e7bafe1a980170b0b01a6",
+      "initial_input_matches_cpu_bf16_packed_noise": true,
+      "all28_sigmas_verified": true,
+      "all28_gain_histories_and_runtime_receipts_unit": true,
+      "native_rope_and_full_model_config_verified": true,
+      "generation_seconds": 9.089537212625146,
+      "native_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row4.png",
+      "old4k_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row4.png"
+    },
+    {
+      "row": 5,
+      "id": "a4k_eval_4096_minus8041742109062037958",
+      "derived_seed": 321335833731652827,
+      "png_sha256": "2ea6436af3921a4f9cbb4681e3e18c7099a9f5c29cc058e7d61fad0b3ad382f3",
+      "metadata_sha256": "7afe19d68610e0fee3f14df4fd14b1c7aa2e261eb261a98926760862daf2ccd9",
+      "initial_input_sha256": "f46c115ddd1dc75a0cc53049e8e702cd7d7fef801729bde7c5ac9a642f8ddbf5",
+      "initial_input_matches_cpu_bf16_packed_noise": true,
+      "all28_sigmas_verified": true,
+      "all28_gain_histories_and_runtime_receipts_unit": true,
+      "native_rope_and_full_model_config_verified": true,
+      "generation_seconds": 4.928652750328183,
+      "native_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row5.png",
+      "old4k_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row5.png"
+    },
+    {
+      "row": 6,
+      "id": "a4k_eval_4096_5968998903196670637",
+      "derived_seed": 9089373273744328061,
+      "png_sha256": "fdf4fff4e75c576486a525dec2597c633a27e3e62dcd134f628b75bb7b23a805",
+      "metadata_sha256": "c2529442ede0ad480b4433aa8d02060081d1cf0dde9515fad221015520bc7354",
+      "initial_input_sha256": "a4bf0e81503efb805b55116121bc4b44dd69ac458e0e7c71e3af5628e3b35964",
+      "initial_input_matches_cpu_bf16_packed_noise": true,
+      "all28_sigmas_verified": true,
+      "all28_gain_histories_and_runtime_receipts_unit": true,
+      "native_rope_and_full_model_config_verified": true,
+      "generation_seconds": 4.942720916122198,
+      "native_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row6.png",
+      "old4k_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row6.png"
+    },
+    {
+      "row": 7,
+      "id": "a4k_eval_4096_minus8648158440845565467",
+      "derived_seed": 4271007880310061218,
+      "png_sha256": "9205e86bcf5547dd7ae852a3279e92e24ee9381f73fd1f6a80eb5bcfed6bb29c",
+      "metadata_sha256": "21ac9758a011efc25f521b706efcf18dd79ddfe4dc06eb4d2bb205aac2b79c07",
+      "initial_input_sha256": "c71e0705e40ea070c0c45cde2a90828d7b1ca785503aba18c7af2cdecd4cf6b8",
+      "initial_input_matches_cpu_bf16_packed_noise": true,
+      "all28_sigmas_verified": true,
+      "all28_gain_histories_and_runtime_receipts_unit": true,
+      "native_rope_and_full_model_config_verified": true,
+      "generation_seconds": 4.921647537499666,
+      "native_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/native1024/row7.png",
+      "old4k_png_work_path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304/archived4096/row7.png"
+    }
+  ],
+  "chunks": [
+    {
+      "chunk": 0,
+      "hardware": "NVIDIA GH200 120GB, GPU-16a403d2-443a-cb36-b7dc-553f46a316f2, 590.48.01",
+      "model_loading_seconds": 90.86514712590724,
+      "model": {
+        "transformer_revision": "8162a9c7b05a641be098422bf2fcf335615c2f28",
+        "base_revision": "3de623fc3c33e44ffbe2bad470d0f45bccf2eb21",
+        "transformer_config_sha256": "a8d4ca92dc64ca8116c370ab91339e18a723ab950c18de513d09c3922df7a2d1",
+        "base_model_index_sha256": "24946df21ff25e210486b5f6b14208983a90c9c73f8d48cfa724c0e4e03f7201"
+      }
+    },
+    {
+      "chunk": 1,
+      "hardware": "NVIDIA GH200 120GB, GPU-b83c0df1-52d3-e7fb-07de-f645a2ce2661, 590.48.01",
+      "model_loading_seconds": 87.51342930831015,
+      "model": {
+        "transformer_revision": "8162a9c7b05a641be098422bf2fcf335615c2f28",
+        "base_revision": "3de623fc3c33e44ffbe2bad470d0f45bccf2eb21",
+        "transformer_config_sha256": "a8d4ca92dc64ca8116c370ab91339e18a723ab950c18de513d09c3922df7a2d1",
+        "base_model_index_sha256": "24946df21ff25e210486b5f6b14208983a90c9c73f8d48cfa724c0e4e03f7201"
+      }
+    }
+  ],
+  "archive": {
+    "path": "/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304",
+    "files_verified": 40,
+    "retained_bytes_verified": 202873493,
+    "real_work_files_no_symlinks": true,
+    "original_views_are_archive_hardlinks_not_scratch_links": true,
+    "manifest_matches_work_report": true
+  },
+  "viewer_manifest": {
+    "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/native_cr20/reviewer_inputs.json",
+    "images": 16,
+    "checks": [
+      {
+        "label": "view01",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view02",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view03",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view04",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view05",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view06",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view07",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view08",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view09",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view10",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view11",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view12",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view13",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view14",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view15",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      },
+      {
+        "label": "view16",
+        "neutral_paths": true,
+        "common_shape": [
+          1024,
+          1024
+        ],
+        "common_metadata_empty": true
+      }
+    ],
+    "condition_assignment_fields_absent": true,
+    "per_view_paths_label_only": true,
+    "scope": "Campaign root contains native_cr20 identically for all views; no per-condition path or file label leaks assignment. Original detail dimensions reveal resolution, so this is label hiding, not guaranteed blinding. No images displayed or annotated."
+  },
+  "reporter_coverage_gap": {
+    "confirmed": true,
+    "mechanism": "Reporter supplies sidecar config itself as expected_config to validate_output; fully recomputed wrong model_revision and rope fields pass that helper call. No files were changed; monkeypatch only.",
+    "actual_artifacts": "All eight actual sidecars independently match frozen base/Krea runtime provenance, native RoPE, seed and schedule fields. No artifact mismatch found.",
+    "recommendation": "Use independently reconstructed expected config or add explicit model/rope/source/config invariant checks when maintaining reporter; do not rerun generation."
+  },
+  "additional_independent_checks": [
+    "Submission job and source commit linkage; both chunk ranges/IDs/scope and model software receipts.",
+    "Native per-image rotary metadata, model revision, implementation hash and controller configuration checked independently rather than trusting own config.",
+    "All old4K reference pins and durable copies verified; initial tensor labels/metadata/bytes verified.",
+    "Viewer manifest inspected only; no reviewer annotation file was opened."
+  ],
+  "limits": [
+    "Saved initial tensors, PNG file integrity and hashes independently verified. Model weights, internal conditioning and gain execution remain frozen-runtime receipts.",
+    "No visual judgments, learned scores, causal resolution claims, image-quality method claims or novelty claims.",
+    "Recorded timings describe generation path, not an equal-resolution GPU speed benchmark."
+  ],
+  "cpu_threads": 2,
+  "old_reference_identity": {
+    "all8_sidecars_complete": true,
+    "all8_png_paths_hashes_caption_ids_texts_and_derived_seeds_match_pinned_rows": true,
+    "resolution": [
+      4096,
+      4096
+    ],
+    "steps": 28,
+    "guidance": 4.5,
+    "seed": 0
+  },
+  "initial_input_reconstruction": {
+    "all8_byte_hashes_equal": true,
+    "method": "CPU torch.randn shape(1,16,128,128), dtypeBF16, generator.manual_seed(image_seed(prompt_id,0)); view(1,16,64,2,64,2), permute(0,2,4,1,3,5), reshape(1,4096,64). This independently matches saved first-transformer inputs. Different-size4K noise is still uncoupled."
+  },
+  "audit_source": "import copy,hashlib,json,math,os,statistics\nfrom pathlib import Path\nfrom unittest.mock import patch\nimport torch\nfrom PIL import Image\nfrom scripts import native_comparator as worker\nfrom crope.rope import FluxRoPE\nfrom crope.runtime import fingerprint,implementation_hash\ntorch.set_num_threads(2)\nroot=Path.cwd();notes=root/'.agent/notes/native_cr20'\ndef read(p):return json.loads(Path(p).read_text())\ndef sha(p):\n with Path(p).open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()\ndef th(t):return hashlib.sha256(t.contiguous().view(torch.uint8).numpy().tobytes()).hexdigest()\nprotocol_path=root/'.agent/notes/native_comparator_protocol.json'\nprotocol=read(protocol_path)\nsubmission=read(root/'.agent/notes/native_comparator_submission.json')\nassert sha(protocol_path)==submission['protocol_sha256']\nassert submission['job_id']=='1077304'\nreport=read(notes/'report.json')\nassert report['protocol_sha256']==sha(protocol_path) and report['accepted'] and report['images']==8\nassert report['reporter_sha256']==sha(root/'scripts/native_comparator_report.py')\nfor p,h in protocol['source_sha256'].items():assert sha(root/p)==h,p\nfor name in (*worker.PINNED,'rubric','presentation','cr14_model_manifest'):\n assert sha(protocol[name]['path'])==protocol[name]['sha256']\nfor name,count in [('cr18_protocol',16),('cr19_protocol',15)]:\n old=read(protocol[name]['path'])\n assert len(old['source_sha256'])==count\n for p,h in old['source_sha256'].items():assert sha(root/p)==h,p\naccepted=read(protocol['accepted_cr18_report']['path'])['raw_json']['prompt0']['manifest.json']\ncaptions=worker.read_prompts(protocol['prompt_file']['path'])[:8]\narchive=Path('/work/09032/saini_2/vista/results/constancy_rope/native_cr20_job1077304')\nassert read(archive/'manifest.json')==report\nassert archive.resolve()==archive and not archive.is_symlink()\nretained={x['source']:x for x in report['retained']}\nassert len(retained)==40\ntotal=0\nfor source,entry in retained.items():\n p=Path(entry['preserved'])\n assert p.is_relative_to(archive) and not p.is_symlink() and p.resolve()==p\n assert sha(p)==entry['sha256']==sha(source)\n assert p.stat().st_size==entry['bytes']\n total+=p.stat().st_size\nassert total==report['retained_bytes']\noutcomes=[];manifests=[]\nnative_rope=FluxRoPE(method='sega_official',grid=(64,64)).metadata()\ncommon_config_keys=('model','model_revision','dtype','batch_size','attention','diffusers','torch','eta','target','temperature','profile_sha256','static_profile_sha256','probe_band','probe_factor','scale_choice')\nfor chunk,(start,end) in enumerate(protocol['chunks']):\n directory=Path(submission['watcher_registration']['progress_dirs'][chunk])\n manifest=read(directory/'manifest.json');done=read(directory/'completion.json')\n assert not (directory/'failure.json').exists()\n assert manifest==report['raw'][str(chunk)]['manifest'] and done==report['raw'][str(chunk)]['completion']\n assert manifest['start']==done['start']==start and manifest['end']==done['end']==end\n assert manifest['slurm_job_id']==submission['job_id']\n assert manifest['prompt_ids']==[r['id'] for r in captions[start:end]]\n assert manifest['scope']==done['scope']==worker.FIXED['scope']\n assert manifest['noise_coupling']==done['noise_coupling']==worker.FIXED['noise_coupling']\n assert manifest['new_method'] is done['new_method'] is False\n assert manifest['model']==accepted['model']\n assert manifest['native_rope']==native_rope\n assert manifest['seed_device']=='cpu' and manifest['seed_policy']=='crope.utils.image_seed(prompt_id,0)'\n for k in ('torch','cuda','diffusers'):assert manifest[k]==accepted[k]\n assert manifest['hardware'] and math.isfinite(manifest['model_loading_seconds'])\n assert done['completed_images']==len(done['records'])==4 and done['quality_scored'] is False\n assert read(directory/'progress.json')=={'status':'completed','completed_images':4}\n manifests.append({'chunk':chunk,'hardware':manifest['hardware'],'model_loading_seconds':manifest['model_loading_seconds'],'model':manifest['model']})\n for index,record in zip(range(start,end),done['records']):\n  row=captions[index];selected=protocol['selected_prompts'][index]\n  assert row['id']==selected['id']==worker.DEV_IDS[index] and row['prompt']==selected['prompt']\n  assert record['prompt_index']==index and record['prompt_id']==row['id'] and record['prompt']==row['prompt']\n  assert record['derived_seed']==selected['derived_seed']==worker.image_seed(row['id'],0)\n  png=Path(record['png']);meta=Path(record['metadata'])\n  assert png.is_relative_to(directory) and meta==png.with_suffix('.json')\n  assert sha(png)==record['png_sha256'] and sha(meta)==record['metadata_sha256']\n  saved=read(meta);cfg=saved['config'];old=read(selected['reference_metadata']['path'])['config']\n  assert saved['complete'] is True and saved['config_fingerprint']==fingerprint(cfg)\n  assert cfg['code_revision']=='06f0c87607f1750a16f8290e17e83bb71ff4ae61'\n  assert cfg['implementation_sha256']==implementation_hash()\n  for k in common_config_keys:assert cfg[k]==old[k],(index,k)\n  assert cfg['model_revision']==worker.BASE and cfg['rope']==native_rope\n  assert cfg['grid']==[64,64] and cfg['side_scale']==[1.,1.] and cfg['area_scale']==1.\n  assert cfg['sega_sref_area_alternative']==1. and cfg['res']=='1024x1024'\n  assert cfg['prompt_id']==row['id'] and cfg['prompt']==row['prompt']\n  assert cfg['seed']==record['seed']==0 and cfg['steps']==record['steps']==28 and cfg['guidance']==record['guidance']==4.5\n  assert cfg['derived_seed']==record['derived_seed']\n  for k,v in worker.SCHEDULER_EXPECTATION.items():assert cfg['scheduler'][k]==v,(index,k)\n  assert saved['sigmas']==record['executed_sigmas']==protocol['expected_sigmas']\n  assert len(saved['gains'])==len(record['runtime_gain_audit'])==28\n  for step,(hist,runtime) in enumerate(zip(saved['gains'],record['runtime_gain_audit'])):\n   sigma=protocol['expected_sigmas'][step]\n   assert hist['step']==step and hist['sigma']==sigma and hist['mode']=='sega_official'\n   assert hist['log_g']==hist['controller_log_g']==[0.]*128\n   assert hist['log_g_axes']=={'index':[0.]*16,'height':[0.]*56,'width':[0.]*56}\n   assert all(hist['official'][k]==v for k,v in {'reference_qk_gain':1.,'ntk_factor':1.,'spatial_scale':1.,'spectral_spread':0.,'sigma':sigma}.items())\n   assert runtime=={'step':step,'sigma':sigma,'controller_float32_all_one':True,'controller_bfloat16_all_one':True,'rotary_gain_all_one':True}\n  with Image.open(png) as image:\n   assert image.size==(1024,1024) and image.mode=='RGB' and image.format=='PNG'\n   image.verify()\n  # Re-read headers and integrity only, never display or annotate pixels.\n  reference=Path(selected['reference_png']['path'])\n  assert sha(reference)==selected['reference_png']['sha256']\n  assert sha(selected['reference_metadata']['path'])==selected['reference_metadata']['sha256']\n  with Image.open(reference) as image:\n   assert image.size==(4096,4096) and image.mode=='RGB' and image.format=='PNG'\n   image.verify()\n  witness=record['initial_transformer_input'];wpath=Path(witness['path'])\n  assert wpath.is_relative_to(directory) and sha(wpath)==witness['file_sha256']\n  x=torch.load(wpath,map_location='cpu',weights_only=True)\n  assert set(x)=={'initial_transformer_input'}\n  x=x['initial_transformer_input']\n  assert x.shape==(1,4096,64) and x.dtype==torch.bfloat16 and torch.isfinite(x).all()\n  assert th(x)==witness['tensor_sha256'] and witness['shape']==[1,4096,64] and witness['dtype']=='torch.bfloat16'\n  assert witness['label']=='initial_transformer_input'\n  # The runtime labels this witness conservatively; independently check whether\n  # it also equals the pinned CPU-seeded native FLUX packed Gaussian initialization.\n  z=torch.randn((1,16,128,128),generator=torch.Generator(device='cpu').manual_seed(record['derived_seed']),dtype=torch.bfloat16)\n  packed=z.view(1,16,64,2,64,2).permute(0,2,4,1,3,5).reshape(1,4096,64)\n  outcomes.append({'row':index,'id':row['id'],'derived_seed':record['derived_seed'],'png_sha256':sha(png),\n   'metadata_sha256':sha(meta),'initial_input_sha256':th(x),'initial_input_matches_cpu_bf16_packed_noise':th(x)==th(packed),\n   'all28_sigmas_verified':True,'all28_gain_histories_and_runtime_receipts_unit':True,'native_rope_and_full_model_config_verified':True,\n   'generation_seconds':record['generation_seconds'],'native_png_work_path':retained[str(png)]['preserved'],\n   'old4k_png_work_path':retained[str(reference)]['preserved']})\n# Only the parent-prepared input manifest is inspected, not reviewers' files.\nviewer=read(notes/'reviewer_inputs.json');presentation=read(protocol['presentation']['path'])\nassert len(viewer['images'])==16 and len({r['label'] for r in viewer['images']})==16\nallowed={'label','caption','primary','secondary','auxiliary','exclusions','common_view','detail_view'}\nview_checks=[]\nfor entry,mapping in zip(viewer['images'],presentation['mapping']):\n assert set(entry)==allowed and entry['label']==mapping['label']\n assert entry['caption']==captions[mapping['row']]['prompt']\n assert Path(entry['common_view'])==archive/'views'/(entry['label']+'.png')\n assert Path(entry['detail_view'])==archive/'original_views'/(entry['label']+'.png')\n assert not Path(entry['common_view']).is_symlink() and not Path(entry['detail_view']).is_symlink()\n assert Path(entry['common_view']).resolve()==Path(entry['common_view'])\n with Image.open(entry['common_view']) as image:\n  assert image.size==(1024,1024) and image.mode=='RGB' and image.info=={}\n  image.verify()\n source=archive/mapping['condition']/f\"row{mapping['row']}.png\"\n assert sha(entry['detail_view'])==sha(source)\n expected_map=next(v for v in report['viewmap'] if v['label']==entry['label'])\n assert sha(entry['common_view'])==expected_map['view_sha256']\n view_checks.append({'label':entry['label'],'neutral_paths':True,'common_shape':[1024,1024],'common_metadata_empty':True})\n# Demonstrate the concrete reporter coverage issue without changing any file.\nfirst=report['raw']['0']['completion']['records'][0]\nsidecar=read(first['metadata']);changed=copy.deepcopy(sidecar)\nchanged['config']['model_revision']='deliberately_wrong_revision'\nchanged['config']['rope']['method']='deliberately_wrong_rope'\nchanged['config_fingerprint']=fingerprint(changed['config'])\nwith patch.object(worker,'read_json',return_value=changed):\n worker.validate_output(Path(first['png']),Path(first['metadata']),captions[0],protocol,changed['config'])\ncoverage={'confirmed':True,'mechanism':'Reporter supplies sidecar config itself as expected_config to validate_output; fully recomputed wrong model_revision and rope fields pass that helper call. No files were changed; monkeypatch only.',\n 'actual_artifacts':'All eight actual sidecars independently match frozen base/Krea runtime provenance, native RoPE, seed and schedule fields. No artifact mismatch found.',\n 'recommendation':'Use independently reconstructed expected config or add explicit model/rope/source/config invariant checks when maintaining reporter; do not rerun generation.'}\nout={'reviewer':'evidence_diagnostic','status':'Actual eight artifacts and archive verified; one reporter validation coverage gap identified',\n 'protocol_sha256':sha(protocol_path),'submission_sha256':sha(root/'.agent/notes/native_comparator_submission.json'),\n 'report_sha256':sha(notes/'report.json'),'reporter_sha256':sha(root/'scripts/native_comparator_report.py'),\n 'source_sha256':protocol['source_sha256'],'commit_bookkeeping':{'submission_source_commit':'4a12688','runtime_code_revision':'06f0c87607f1750a16f8290e17e83bb71ff4ae61','verified_git_diff':['A .agent/notes/native_comparator_preflight.json','A .agent/notes/native_comparator_protocol.json'],'interpretation':'Runtime HEAD includes only added preflight/protocol notes; frozen executable sources and implementation digest unchanged.'},'job_id':'1077304','images':8,'rows':outcomes,'chunks':manifests,\n 'archive':{'path':str(archive),'files_verified':40,'retained_bytes_verified':total,'real_work_files_no_symlinks':True,\n            'original_views_are_archive_hardlinks_not_scratch_links':True,'manifest_matches_work_report':True},\n 'viewer_manifest':{'path':str(notes/'reviewer_inputs.json'),'images':16,'checks':view_checks,\n   'condition_assignment_fields_absent':True,'per_view_paths_label_only':True,\n   'scope':'Campaign root contains native_cr20 identically for all views; no per-condition path or file label leaks assignment. Original detail dimensions reveal resolution, so this is label hiding, not guaranteed blinding. No images displayed or annotated.'},\n 'reporter_coverage_gap':coverage,'additional_independent_checks':['Submission job and source commit linkage; both chunk ranges/IDs/scope and model software receipts.',\n 'Native per-image rotary metadata, model revision, implementation hash and controller configuration checked independently rather than trusting own config.',\n 'All old4K reference pins and durable copies verified; initial tensor labels/metadata/bytes verified.',\n 'Viewer manifest inspected only; no reviewer annotation file was opened.'],\n 'limits':['Saved initial tensors, PNG file integrity and hashes independently verified. Model weights, internal conditioning and gain execution remain frozen-runtime receipts.',\n 'No visual judgments, learned scores, causal resolution claims, image-quality method claims or novelty claims.',\n 'Recorded timings describe generation path, not an equal-resolution GPU speed benchmark.'],\n 'cpu_threads':torch.get_num_threads()}\ntarget=root/'.agent/notes/native_cr20_independent.json'\nwith target.open('x') as f:json.dump(out,f,indent=2,allow_nan=False);f.write('\\n')\nprint(json.dumps({'rows_verified':8,'archive_files':40,'bytes':total,'initial_noise_matches':[r['initial_input_matches_cpu_bf16_packed_noise'] for r in outcomes],'coverage_gap':coverage,'timings':[r['generation_seconds'] for r in outcomes]},indent=2))\n",
+  "audit_source_sha256": "77a5e389f1bd5768c4fab899d7c385333f3116e2aaeeb198c10bddde82df211f"
+}

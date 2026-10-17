@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution method competitive with r
 User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 09:38 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+2026-10-17 09:53 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
 Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
 RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
 PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
@@ -40,19 +40,27 @@ Complement improves138,worsens54; only33changes exceedBF16gap,26improve/7worsen.
 Stop fixed-window conditional-mean branch; no GPUkernel/qualitysweep. PISAEq8 alreadyformulatesit.
 10QKV/outputwitnesses442654958bytes archivedonwork; map notes/attention_cr19/witness_retention.json.
 W&Boffline7ppsy698/v41n6z5j.30stelemetrymissed14sforwards; no100percentutilizationclaim.
-NEXT: researchnative1024 comparators for8existingdevcaptions; captionpredicateplan fixed and nativeworker27CPUtests pass.
-No nativejob/protocol submittedyet; observationalcapabilityscreen, notcausal ornewmethod. Fresh64unused.
+CR20job1077304 COMPLETED09:42:02CDT,2m28s,twoGH200nodes;8native1024images,224forwards,0new4K.
+Frozen4a12688/protocolba80b1dd unchanged. Independent all8 config/PNG/input/sigma/gain checks pass.
+40files202873493bytes preserved onwork at results/constancy_rope/native_cr20_job1077304; fourreviewcrops also preserved.
+Two independent model reviewers agree allprimarypairs:7S/S,1V/U(native->4K); other7cells zero.
+Secondarykneeling V/S; auxiliaryKodak V/V,Paradis S/V. No disagreements ordetailchanges.
+All16commonviews recorded before5detailoriginals perreviewer. Not humanstudy orcausalresolutioneffect.
+Close this semantic-loss rationale; no seedsearch,OCRpivot orfresh64. Otherresolutionfailures notexcluded.
+Parentreporter config gap fixed:27tests,8supplemental checks pass; originalsource/report/archive preserved.
+NEXT: distinctmechanism/priorart review in post_cr20_mechanism_design.json and post_cr20_prior_art.json (pending).
+No new GPUprotocol; proposed cross-modal rotaryphase intervention is only a hypothesis.
 Covariance/gain proposal lacks justified target; DoPE adds a close prior-art collision.
-Stop promotion of that branch. Resolution pivot review lacks native comparators and a distinct intervention.
+Stop promotion of that branch. Native comparator screen is complete; no concrete primary semantic-loss target emerged.
 Eight dev baseline previews show no obvious global duplication; garbled shop text has no proven resolution cause.
 Fresh64 and all completed frozen protocols remain untouched. No method sweep or confirmation authorized by diagnostics.
 Existing watcher PID1581602, tmux crope-watch-cr14, i618-051/controllerjob1073260.
-Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17/18/19; CR18 hot-read verified; scheduler observation verified.
+Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17/18/19/20; CR20 hot-read and scheduler observation verified.
 Direct autonomous wake verified; scheduler120s/files60s. Never duplicate watcher.
 Controller lease ends12:45:04 CDT, alert one hour before. Handoff not yet needed or verified.
-Last budget7928/40000SU remaining (09:22 CDT); refresh before every submission, no new nodes at96percent burn.
-Paper rebuilt to9pages including acceptedCR19 and prior results; newpage7 visually checked.
-CR14/CR17/CR18/CR19 completed; no projectGPUactive. Do not repeat completed campaigns.
+Last budget7928/40000SU remaining (09:39 CDT); refresh before every submission, no new nodes at96percent burn.
+Paper rebuilt to10pages including CR20 full8pairtable; pages7/8 visually checked. Receipt native_cr20/paper_receipt.json.
+CR14/CR17/CR18/CR19/CR20 completed; no projectGPUactive. Do not repeat completed campaigns.
 
 ## Map
 | File | Purpose |
@@ -77,7 +85,9 @@ CR14/CR17/CR18/CR19 completed; no projectGPUactive. Do not repeat completed camp
 | notes/observer_cr18_independent.json | Independent exact saved-tensor recomputation |
 | notes/observer_cr18/witness_retention.json | Durable24file tensor archive on work |
 | notes/observer_pretrained_report_preflight.json | Validated CPU analysis command and source hashes |
-| notes/resolution_pivot_20261017.json | Prompt-grounded resolution failure target; missing comparators |
+| notes/native_cr20/visual_summary.json | Completed8pair primary/secondary/aux annotations and no-target decision |
+| notes/native_cr20_independent.json | Independent model/config/input/archive audit and validator gap |
+| notes/native_cr20/paper_receipt.json | Current10page paper with full paired screen |
 | notes/post_observer_research_decision.json | Reject underidentified covariance/gain proposal |
 | notes/cr14_visual_review.json | Eight fixed-order baseline previews; no causal failure established |
 | notes/observer_pretrained_protocol.json | Frozen CR18 causal audit protocol |

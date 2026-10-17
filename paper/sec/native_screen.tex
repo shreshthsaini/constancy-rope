@@ -1,0 +1,55 @@
+\paragraph{Native-resolution capability screen.}
+We generated one $1024^2$ comparator for each of the eight existing development
+captions, using the same model revisions, prompt-derived seed, 28-step sigma
+schedule and guidance as the archived $4096^2$ SEGA images. At native resolution,
+the deployed SEGA implementation has unit rotary gains and its base positional
+mapping. All eight images, sidecars, saved initial transformer inputs and archived
+4K references pass independent provenance checks. Different noise shapes are
+uncoupled, and the deployed positional mapping and gains change with resolution.
+These pairs therefore support an observational capability screen, not an isolated
+causal effect of resolution.
+
+Before seeing the native outputs, we fixed one primary caption predicate and
+one secondary observation per caption, with two separately reported shop-text
+checks. Two model reviewers, GPT-6 Astra and GPT-6.1 Sol, independently inspected
+all 16 images in a randomized, condition-label-hidden presentation at a common
+1024-pixel display size. Each saved its complete common-view record before
+opening original-resolution images. Both then inspected five originals covering
+every ambiguous or violated predicate and both text checks; clear observations
+for the other eleven views were carried forward explicitly. Reviewer A also
+inspected four recorded crops. This is model-based annotation, not a human
+study, and visible detail can reveal resolution despite hidden labels.
+
+\begin{center}
+\small
+\begin{tabular}{clcc}
+\toprule
+Row & Caption check & Primary native/4K & Secondary native/4K \\
+\midrule
+0 & Distant larger boats; small-boat colors & S/S & S/S \\
+1 & Sunset below stars; Moai & S/S & S/S \\
+2 & Offering grapes; kneeling by bear & S/S & V/S \\
+3 & Yellow board supports surfer; coral below & S/S & S/S \\
+4 & Bodies near rings and sun; foreground planet & V/U & S/S \\
+5 & Black top and green striped skirt; man and boy & S/S & S/S \\
+6 & Holding hands; shared teal couch & S/S & S/S \\
+7 & One supporting leg; yellow dress & S/S & S/S \\
+\bottomrule
+\end{tabular}
+\end{center}
+S denotes satisfied, V violated, and U unjudgeable. Both reviewers gave these
+same labels at common scale, and detail inspection changed none. The full
+primary native-by-4K transition matrix has seven S/S pairs and one V/U pair;
+all other seven cells are zero. In the celestial scene, the native image lacks
+the required smaller body near the sun, whereas the possible sun's identity is
+ambiguous in the 4K image. The secondary kneeling check improves from V to S:
+the native woman squats. Auxiliary text is separate: both reviewers label
+\emph{Kodak} V/V and \emph{Paradis} S/V, including after detail inspection.
+No annotation disagreement was resolved or suppressed.
+
+This screen provides no primary native-success/4K-failure example to motivate
+the proposed semantic-loss intervention. We close that particular rationale
+without a seed search or text-repair pivot. Eight selected development captions,
+one draw per condition and two model readings cannot estimate a population
+failure rate or exclude other resolution failures. No new method or quality
+improvement is established, and the fresh confirmation set remains unused.
