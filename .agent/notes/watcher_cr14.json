@@ -3,7 +3,7 @@
   "script": "scripts/watch_cr14.py",
   "thread": "01a14899-2e69-7d71-93f8-b42aad182afd",
   "tmux_session": "crope-watch-cr14",
-  "pid_at_launch": 1581602,
+  "pid_at_launch": 2142630,
   "host": "i618-051.vista.tacc.utexas.edu",
   "host_job": "1073260",
   "gpu_job": "1076857",
@@ -12,7 +12,7 @@
   "filesystem_interval_seconds": 60,
   "controller_end_utc": "2026-10-17T17:45:04+00:00",
   "stop": "Touch /scratch/09032/saini_2/constancy_rope/watcher_cr14/STOP; watcher exits within 60 seconds. Do not delete scratch files.",
-  "checks": "33 watcher tests passed; old watcher exited before replacement. Existing state/delivery dedup preserved. New PID and heartbeat verified.",
+  "checks": "60 migration/watcher tests passed in parent and agent; old PID1581602 exited via STOP, shared flock released, STOP retained under timestamp, replacement PID and heartbeat verified",
   "delivery_test": {
     "status": "End-to-end automatic turn received and acknowledged in .agent/notes/watcher_ack.json.",
     "marker": "/scratch/09032/saini_2/constancy_rope/watcher_cr14/WAKE_TEST"
@@ -23,9 +23,11 @@
     "Events deduplicated; failed deliveries remain pending.",
     "No GPU result or novelty/SOTA claim from watcher activity."
   ],
-  "version": 3,
+  "version": 4,
   "python": "/work/09032/saini_2/vista/library/uv-envs/dcc-watch/bin/python",
   "delivery": "Direct app-server turn/start over owned local Unix socket when the operator is idle; active turns retain the outbox. No model calls during polling.",
-  "updated_utc": "2026-10-17T12:30:02.637387+00:00",
-  "registry": "/scratch/09032/saini_2/constancy_rope/watcher_cr14/registrations.json"
+  "updated_utc": "2026-10-17T16:55:38.744713+00:00",
+  "registry": "/scratch/09032/saini_2/constancy_rope/watcher_cr14/registrations.json",
+  "controller_handoff": "Guarded destination-ready/source-idle handshake implemented; actual destination unavailable and migration unverified",
+  "controller_alerts": "60,15,5 minutes before lease expiry"
 }

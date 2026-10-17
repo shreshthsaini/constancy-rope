@@ -1,0 +1,57 @@
+{
+  "status": "implemented_model_free_tests_passed_actual_destination_execution_unverified",
+  "command": [
+    "/work/09032/saini_2/vista/library/uv-envs/dcc-watch/bin/python",
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/controller_bootstrap.py",
+    "--source-job",
+    "1073260",
+    "--codex",
+    "/home1/09032/saini_2/.local/bin/codex"
+  ],
+  "source_job_default": "1073260",
+  "thread": "01a14899-2e69-7d71-93f8-b42aad182afd",
+  "runtime": "/scratch/09032/saini_2/constancy_rope/watcher_cr14",
+  "destination_ready_schema": [
+    "source_job",
+    "thread",
+    "destination_job",
+    "destination_node",
+    "destination_socket",
+    "created"
+  ],
+  "cooperative_release_additional_fields": [
+    "source_node",
+    "source_socket",
+    "released"
+  ],
+  "expiry_release_evidence": "EXPIRY_RELEASE_<destination_job>.json, same release fields plus terminal_probes and source_heartbeat",
+  "ownership_requirements": [
+    "compute-only SLURM_JOB_ID and scheduler matching RUNNING allocation on current hostname",
+    "controller_bootstrap_source_<source_job>.lock excludes competing destinations for one source, while allowing the next controller hop to prepare",
+    "private local Unix app-server socket verifies exact thread and cwd without resume/start",
+    "cooperative exact release and old watcher flock free, or two exact sacct allocation terminal probes at least120 seconds apart with watcher heartbeat stale180 seconds and watcher flock free",
+    "shared state pending/sent/snapshots and registry/outbox preserved; STOP renamed only while owning watcher lock",
+    "existing watcher starts with explicit destination host job/socket/thread; resumed agent must write actual-host verification receipt"
+  ],
+  "startup_timeout_seconds": 300,
+  "scheduler_interval_seconds": 120,
+  "progress_heartbeat_seconds": 60,
+  "shutdown_margin_seconds": 60,
+  "python_websockets_verified": "dcc-watch websockets17.0.1 unix_connect imported",
+  "tests": {
+    "command": "crope/bin/python -m pytest -q tests/test_controller_bootstrap.py",
+    "passed": 47,
+    "seconds": 0.47
+  },
+  "sha256": {
+    "scripts/controller_bootstrap.py": "7e560a83fb981eb80244ce85637f5350ba9f40c2db5d825e70359536d628b861",
+    "tests/test_controller_bootstrap.py": "86664255606af7b077ba1636a36a304df99fc23f67760eb974bdcd7d00aa051c"
+  },
+  "limitations": [
+    "No real app-server or daemon launched by this implementation task",
+    "No actual migration, future allocation availability, future auth, or resumed model execution claimed",
+    "Parent must pin all bootstrap/watcher source hashes in submitted job wrapper",
+    "Cannot establish actual resumed turn before controller_handoff_verified.json is written by resumed agent"
+  ],
+  "onward_handoff": "Clean watcher exit0 accepted only with fresh exact release from own current job, hostname, socket and thread to a different canonical job and compute node; cleanup only own app-server/watcher children."
+}

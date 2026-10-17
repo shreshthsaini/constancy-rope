@@ -1,0 +1,16 @@
+{
+  "checked_utc": "2026-10-17T16:55:38.747561+00:00",
+  "source_job": "1073260",
+  "source_node": "i618-051",
+  "source_end_utc": "2026-10-17T17:45:04Z",
+  "available_su": 7908,
+  "allocation_total_su": 40000,
+  "generic_successor": "1076903 pending, estimated2026-10-18T18:10:00-05:00",
+  "engine_generated_script": "/work/09032/saini_2/vista/library/slurm/CR-operator.sbatch",
+  "test_only_8h": "hypothetical1077445, forecast2026-10-19T22:15:12-05:00",
+  "test_only_1h": "hypothetical1077451, forecast2026-10-19T22:19:26-05:00",
+  "test_only_ids_are_not_submitted_jobs": true,
+  "gg_snapshot": "228 allocated,21 reserved,1 planned,1 drained; no idle",
+  "existing_csd_node": "c641-081 job1075863 nominalend19:39CDT, batch exits when spooldrains; not a dependable controller. No project processes added or source/allocations changed.",
+  "status": "No timely destination verified. Preparing bounded self-starting CPU fallback; watcher continues on source."
+}
