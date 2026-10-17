@@ -60,6 +60,11 @@
       "acknowledged_utc": "2026-10-17T13:55:37.939916+00:00",
       "event": "CR18 completion verified live while processing running event",
       "verified": "Job1077211 COMPLETED2m36s, both5forward audits accepted; report+independentreview+139505284byte work witness archive+paper updated. No rerun. Watcher healthy; controller ends12:45CDT."
+    },
+    {
+      "acknowledged_utc": "2026-10-17T14:25:08.573945+00:00",
+      "event": "CR18 running event continuation completed; CR19 replacement registered",
+      "verified": "CR18 completed and archived without rerun; CPU method/cost/capture/report work completed. CR19job1077286 pending, frozena0fb07d23, existingwatcherPID1581602 hot-read and scheduler observation verified. Controllerlease12:45CDT. No duplicatewatcher."
     }
   ]
 }

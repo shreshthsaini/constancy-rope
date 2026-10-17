@@ -1,0 +1,37 @@
+{
+  "submitted_utc": "2026-10-17T14:23:19.017101+00:00",
+  "job_id": "1077286",
+  "source_commit": "28092ccff9d19c7f0f0a9b7d05bb956aacc370db",
+  "protocol_sha256": "a0fb07d23ad61224f275829741287d4a242e862418002f00f8e052bec1081dea",
+  "budget_available_SU": 7928,
+  "nodes": 2,
+  "minutes": 15,
+  "forwards_total": 4,
+  "watcher_registration": {
+    "job_id": "1077286",
+    "queue_dir": "/scratch/09032/saini_2/constancy_rope/taskq_attention_operator",
+    "completion_files": [
+      "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt0/completion.json",
+      "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1/completion.json"
+    ],
+    "progress_dirs": [
+      "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt0",
+      "/scratch/09032/saini_2/constancy_rope/attention_operator/job1077286/prompt1"
+    ],
+    "telemetry_dir": "/scratch/09032/saini_2/constancy_rope/telemetry"
+  },
+  "watcher_hot_read_verified": true,
+  "report_command": "env OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python scripts/attention_operator_report.py --protocol .agent/notes/attention_operator_protocol.json --protocol-sha256 a0fb07d23ad61224f275829741287d4a242e862418002f00f8e052bec1081dea --root /scratch/09032/saini_2/constancy_rope/attention_operator/job1077286 --output .agent/notes/attention_cr19/report.json",
+  "post_completion": [
+    "Validate both completions and byte replay with frozen CPU reporter.",
+    "Independently review all192 cases; preserve all negative findings.",
+    "Archive saved QKV/replay witnesses on work outside repo with hashes.",
+    "Update paper only with verified and qualified findings.",
+    "No automatic quality sweep or fresh64 use."
+  ],
+  "watcher_snapshot_utc": "2026-10-17T14:23:57.906920+00:00",
+  "watcher_scheduler_observation": {
+    "state": "PENDING",
+    "end": 1792247938.0
+  }
+}

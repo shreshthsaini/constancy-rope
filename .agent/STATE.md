@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution method competitive with r
 User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 09:21 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+2026-10-17 09:23 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
 Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
 RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
 PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
@@ -30,22 +30,25 @@ Attention-measure toy prototype complete:15tests pass; knownformulas, exactbookk
 Scatterbrain/PISA/SolAttn/MomentKV occupy core mechanism; conditionalspatial refinement remainshypothesis.
 Equal-cell PISA16tests and actual-SDPA collector30tests independently pass; all declared synthetic cases retained.
 Conditional moments help selected-H cases but do not fix attention-weight heterogeneity.
-Spatial prefix30tests and offline reporter13tests independently pass; review complete outputs before freezing.
+Spatial prefix30tests and offline reporter13tests independently pass; independent reviews found no blocker.
 Fullrank cellH+prefix857MB/24heads; grouped reuse plausible, no GPU performance claim.
-NEXT: finish independent integration/cost review, freeze bounded four-forward capture, refresh SU balance.
-Four-forward QKV capture design is prospective/unfrozen/unsubmitted; collector implementation inprogress.
-No new GPU before operator/cost/scientific review; distinguish within-cell from single-cloud covariance.
+CR19job1077286 PENDING(Priority),2nodes15min,4forwards total. Registered with existing watcher.
+Frozen source28092cc/protocola0fb07d23ad61224f275829741287d4a242e862418002f00f8e052bec1081dea.
+Watcher hot-read and scheduler PENDING coverage verified09:23:57CDT.
+NEXT on completion: validate via attention_operator_submission.json command; archive/review all192cases.
+CR19 uses original CR18 states and actual consumed QKV,3calls/2heads/16queries; output byte replay required.
+Report all192query cases/fivecontrols; distinguish within-cell from single-cloud covariance. No automatic promotion.
 Covariance/gain proposal lacks justified target; DoPE adds a close prior-art collision.
 Stop promotion of that branch. Resolution pivot review lacks native comparators and a distinct intervention.
 Eight dev baseline previews show no obvious global duplication; garbled shop text has no proven resolution cause.
 Fresh64 and all completed frozen protocols remain untouched. No method sweep or confirmation authorized by diagnostics.
 Existing watcher PID1581602, tmux crope-watch-cr14, i618-051/controllerjob1073260.
-Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17/18; CR18 hot-read verified; scheduler observation verified.
+Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17/18/19; CR18 hot-read verified; scheduler observation verified.
 Direct autonomous wake verified; scheduler120s/files60s. Never duplicate watcher.
 Controller lease ends12:45:04 CDT, alert one hour before. Handoff not yet needed or verified.
-Last budget7941/40000SU remaining (08:28 CDT); refresh before every submission, no new nodes at96percent burn.
+Last budget7928/40000SU remaining (09:22 CDT); refresh before every submission, no new nodes at96percent burn.
 Paper rebuilt to8pages including accepted CR18 and DoPE boundary; pages6/7 visually checked.
-CR14/CR17/CR18 completed; no pending or running project GPU job. Do not repeat completed campaigns.
+CR14/CR17/CR18 completed; CR19 pending. Do not repeat completed campaigns.
 
 ## Map
 | File | Purpose |
@@ -62,7 +65,8 @@ CR14/CR17/CR18 completed; no pending or running project GPU job. Do not repeat c
 | notes/rotary_kernel_prior_art_20261017.md | AReA/LayerNorm and phase/covariance collisions |
 | notes/attention_measure_cpu.json | Known-formula CPU counterexamples and covariance comparison |
 | notes/attention_measure_research.json | Exact target, primary collisions and pending tests |
-| notes/attention_operator_design.json | Prospective capture only; not frozen or submitted |
+| notes/attention_operator_protocol.json | Frozen CR19 collection and analysis |
+| notes/attention_operator_submission.json | Job1077286, watcher and exact analysis command |
 | notes/observer_cr18/report.json | Accepted pretrained synthetic-state contrasts |
 | notes/observer_cr18_independent.json | Independent exact saved-tensor recomputation |
 | notes/observer_cr18/witness_retention.json | Durable24file tensor archive on work |
