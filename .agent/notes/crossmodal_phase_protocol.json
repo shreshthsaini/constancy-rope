@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "status": "frozen",
+  "development_prompt_indices": [
+    0,
+    1
+  ],
+  "arms": [
+    "baseline",
+    "fixedmass",
+    "unnormalized"
+  ],
+  "resolution": [
+    4096,
+    4096
+  ],
+  "smoke_resolution": [
+    1024,
+    1024
+  ],
+  "steps": 28,
+  "smoke_steps": 4,
+  "guidance": 4.5,
+  "seed": 0,
+  "dtype": "bfloat16",
+  "text_tokens": 512,
+  "native_grid": [
+    64,
+    64
+  ],
+  "axes_dims": [
+    16,
+    56,
+    56
+  ],
+  "transformer_blocks": 57,
+  "query_chunk_size": 65536,
+  "backend": "aten._scaled_dot_product_cudnn_attention",
+  "coordinate_map": "endpoint_linear_0_to_63",
+  "text_ids": "all_zero",
+  "native_endpoint_identity": "byte_exact",
+  "deployed_smoke_max_relative_l2": 0.001,
+  "deployed_smoke_cosine_diagnostic_min": 0.99999,
+  "unnormalized_implementation": "image_only_and_new_text_lse_mixture",
+  "scope": "two_existing_satisfied_development_controls",
+  "quality_scored": false,
+  "native_protocol": {
+    "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/native_comparator_protocol.json",
+    "sha256": "ba80b1ddd2ca794a84e2607be6773acf5253f80402ece5ddf71d53b400775a18"
+  },
+  "source_sha256": {
+    "crope/crossmodal_phase.py": "ac0c755dabb336ce3a671fbb15dfb04e51e7becf9d9f2f8150057978a37ead59",
+    "scripts/crossmodal_phase_pilot.py": "42ae87dd2cd2606e83e311e436bdd3bffa78b13573f1ca3e19cf60af710746b9",
+    "tests/test_crossmodal_phase.py": "86d1fb3194c03eae54888dae14ca6f187adee19f2fbd8de86564656a865b6536",
+    "tests/test_crossmodal_phase_pilot.py": "e19e96b6a0e7d5101056c387a77d11c0c21d27abddc31c1f43cef9d865bd0165",
+    "scripts/freeze_crossmodal_phase.py": "45944ba6b52cc6d7f4567a31ae9e3f8774041cd35a314397bbbe5a9a36fedb48",
+    "scripts/crossmodal_phase_scores.py": "6ba7dbfd364ba89c2f4728a634635a3933fdf0a8fcae49da89afe56964e17725",
+    "tests/test_crossmodal_phase_scores.py": "34915711fb2a94de36fab7a039e6149432988118fc9d20051cb745043ba9e110",
+    "scripts/eval.py": "c59c4b3a71357aeeb884ea6536759f39a742d1ac00bcdbae04ea31c1fb9a9d8a",
+    "scripts/imagereward_score.py": "3c8967914fbc07d533377a2f7bff5d12e2528649611f61c5f40479a07e0c2d3c",
+    "slurm/crossmodal_phase_task.sh": "1ca7309c85e485f3816c39602c7d58acc43bf79d08c728f0de9d007f177e7edd",
+    "slurm/crossmodal_phase_fleet.sh": "70757c07ba9508db3b482c4f19e50fe6a49b7dc7027ea6acc1f321c27aa6325f",
+    "slurm/fleet_crossmodal_phase_gh.sbatch": "33a7beb5fc01ab0a7ade7fb1e8313cc2cd26bff0fee89dc99532f91d7d7a5663",
+    "crope/metrics/__init__.py": "e4353787de60d31867f05b797f557b3d7443317175d7ad4a4108cd6b209185b0",
+    "crope/metrics/evaluate.py": "42267f3a93de703f1b361d30ca0ad1c1f4692a49c7b7db1a7d0c794d71d30046",
+    "crope/metrics/image.py": "ee6423615cc805fb69dc0dcdf37231d5c94523fe801ff4f1a79c382748c7fda7",
+    "crope/metrics/io.py": "cc4a5009927b2067fea55eaf70d7089ddacd5196037587146f106f6bc5d6d65a",
+    "crope/metrics/models.py": "0fdc47e8433284a9b20b3ac6cac28357665493ad7c644a2fb7eeb6e3ee5d6f4d",
+    "crope/metrics/statistics.py": "75477a3b33930c921acec7f6952997e723242b5f040d61beba3bfe2f0a1afa4c"
+  },
+  "expected_sigmas": [
+    1.0,
+    0.988408625125885,
+    0.9762224555015564,
+    0.9633944034576416,
+    0.9498725533485413,
+    0.9355989098548889,
+    0.9205089807510376,
+    0.9045307636260986,
+    0.8875834345817566,
+    0.8695759177207947,
+    0.8504056930541992,
+    0.8299564123153687,
+    0.8080955147743225,
+    0.7846716046333313,
+    0.7595109343528748,
+    0.7324128150939941,
+    0.7031447291374207,
+    0.6714348196983337,
+    0.6369644999504089,
+    0.5993567109107971,
+    0.5581628680229187,
+    0.5128441452980042,
+    0.4627484083175659,
+    0.40707841515541077,
+    0.3448489308357239,
+    0.2748279869556427,
+    0.19545459747314453,
+    0.10472089797258377
+  ],
+  "expected_smoke_sigmas": [
+    1.0,
+    0.9045307636260986,
+    0.7595109343528748,
+    0.5128441452980042
+  ],
+  "created_utc": "2026-10-17T15:17:41.193465+00:00",
+  "source_commit": "0eb2161ced16395ea863956b01ebb6edbabe81f7",
+  "design": {
+    "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/post_cr20_mechanism_design.json",
+    "sha256": "21a9a4ade9fe089a501c882e591ee5e13dbf4b26c283ce8782ce5893535b5dc2"
+  },
+  "prior_art": {
+    "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/post_cr20_prior_art.json",
+    "sha256": "def216ab39554d3dcd4cb8cb764b157b8e982b3f948217fc00e5c9db85b3b4b7"
+  },
+  "review_plan": {
+    "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/crossmodal_phase_review_plan.json",
+    "sha256": "5225abf26a3b33c581d82377b6a5ca9d6ccdb3f090e7fb5bc57a30ede0ca9f13"
+  },
+  "scoring_reference": {
+    "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/crossmodal_phase_scoring_reference.json",
+    "sha256": "6450e934bc4a6f572692df65be627f40e07aa8b2902ec48a1f818cba974e0680"
+  },
+  "imagereward_files": {
+    "ImageReward.pt": {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/models--THUDM--ImageReward/snapshots/5736be03b2652728fb87788c9797b0570450ab72/ImageReward.pt",
+      "sha256": "d71dc8d4912bc633c06ab8ef1ef6a81e8199d4369f14b47b29baf1d19de561f6",
+      "bytes": 1786880927
+    },
+    "med_config.json": {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/models--THUDM--ImageReward/snapshots/5736be03b2652728fb87788c9797b0570450ab72/med_config.json",
+      "sha256": "d8b5029cc3c0124313d17009d043f0701bbe497f3721fa4ceb818720fe665326",
+      "bytes": 485
+    }
+  },
+  "total_full_images": 6,
+  "total_native_smoke_transformer_forwards": 32,
+  "total_full_resolution_transformer_forwards": 168,
+  "compute_envelope": {
+    "nodes": 2,
+    "maximum_minutes": 40,
+    "central_minutes": 20,
+    "range_minutes": [
+      15,
+      30
+    ],
+    "scope": "Includes loading, smoke, generation and scoring; unbenchmarked estimate."
+  },
+  "continuation": "No automatic promotion, parameter search, held-out access or fresh64 use. Validate and retain all six outputs before interpretation.",
+  "backend_limit": "Explicit cuDNN only. Actual GPU kernel and native checks must pass before any4K generation.",
+  "timing_limit": "Unnormalized control has an extra image-attention pass; sequential arms do not form a warmup-matched speed benchmark."
+}

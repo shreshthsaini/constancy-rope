@@ -1,0 +1,50 @@
+{
+  "status": "unfrozen_interface_example_only",
+  "worker": "scripts/crossmodal_phase_pilot.py",
+  "cli": "--prompt-index {0,1} --protocol ABSOLUTE_PATH --protocol-sha256 SHA256 --out FRESH_SCRATCH_DIRECTORY",
+  "protocol_template_callable": "scripts.crossmodal_phase_pilot.example_protocol(native_protocol_path)",
+  "cpu_preflight_callable": "validate_dependencies(protocol, prompt_index)",
+  "template_notes": [
+    "The parent must freeze the completed protocol and all source hashes after review.",
+    "FIXED and NEW_SOURCES are exported. Additional parent scoring/reference/review pins and source hashes are allowed.",
+    "The native_protocol pin must name the accepted CR20 protocol. All eight accepted references and previous frozen source sets are revalidated before model loading.",
+    "expected_sigmas and expected_smoke_sigmas must equal independent pinned-scheduler calculations for 28 and 4 steps respectively.",
+    "query_chunk_size is 65536. Baseline has one joint attention call per block; fixedmass adds old/new text calls; unnormalized adds new-text/image-only calls. No fallback is allowed."
+  ],
+  "execution_order": [
+    "Validate submitted protocol hash, source/dependency pins, model revision and software.",
+    "Execute GPU kernel_smoke before loading any model weights; save kernel_smoke.json and require passed true.",
+    "Load one model. Run native1024 deployed, baseline, fixedmass and unnormalized for four steps each without VAE decode.",
+    "Save each actual initial packed input and final scheduler endpoint. Require shared input and initial conditioning bytes. Record deployed versus baseline relative L2/cosine; require relative L2 at most 1e-3. Require fixedmass and unnormalized native endpoints byte-identical to baseline.",
+    "Run baseline, fixedmass and unnormalized at4096 for28steps each. Save PNGs, sidecars, actual initial packed inputs, final scheduler endpoints and runtime gain/geometry/phase receipts.",
+    "Independently reopen all published tensors, sidecars and PNGs before writing completion.json. Parent scoring occurs after worker exit."
+  ],
+  "completion_fields": [
+    "protocol_sha256", "prompt_index", "completed_images=3", "arms", "records", "smoke_passed=true", "quality_scored=false", "scope"
+  ],
+  "record_fields": [
+    "complete", "config", "config_fingerprint", "image", "png_sha256", "metadata", "metadata_sha256", "seconds", "seconds_scope", "peak_memory_bytes", "gains", "sigmas", "runtime_audit", "phase", "initial_transformer_input", "endpoint_latent"
+  ],
+  "sidecar_hash_note": "metadata and metadata_sha256 appear only in completion records. The PNG sidecar contains every other record field, avoiding recursive self hashing.",
+  "config_additions": [
+    "method=ARM", "phase_arm=ARM", "attention=explicit_backend", "phase_protocol_sha256", "phase_source_sha256", "pilot_source_sha256", "native_reference_grid", "phase_coordinate_map", "unnormalized_implementation"
+  ],
+  "implementation_hash_note": "The accepted runtime implementation_sha256 is retained. New worker/processor source hashes and the pilot protocol digest are separate config fields.",
+  "png_layout": "OUT/images/ARM/4096x4096/IMAGE_STEM.png",
+  "smoke_layout": "OUT/smoke/ARM/IMAGE_STEM.json and tensor files; no PNG and no VAE decode",
+  "tensor_receipt_fields": ["path", "file_sha256", "tensor_sha256", "shape", "dtype"],
+  "tensor_payloads": {
+    "initial_transformer_input": "{initial_transformer_input: BF16 tensor [1,N,64]}",
+    "endpoint_latent": "{endpoint_latent: BF16 tensor [N,64]}"
+  },
+  "runtime_audit_fields": ["geometry", "gains", "conditioning_sha256"],
+  "phase_validation": [
+    "mode/grid/text_tokens/backend/no-fallback/query-chunk size/all-padding/native-identity flags match settings",
+    "57 expected block names each execute exactly steps times",
+    "geometry ID validations equal steps",
+    "full/old-text/new-text/image-only kernel counts equal the declared arm and native bypass",
+    "mass ranges are finite and within the pinned processor numerical policy, including its log-mass roundoff allowance"
+  ],
+  "other_outputs": ["manifest.json", "progress.json", "kernel_smoke.json", "native_smoke.json", "completion.json", "failure.json on exception"],
+  "limits": "Two existing satisfied development captions only, seed0, no fresh64 or seed search, no scorers inside this worker, no efficacy or novelty conclusion. Unnormalized control has substantial extra image-attention cost."
+}

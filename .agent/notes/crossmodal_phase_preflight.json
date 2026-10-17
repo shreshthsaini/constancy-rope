@@ -1,0 +1,21 @@
+{
+  "created_at": "2026-10-17T10:21:45.868767-05:00",
+  "protocol_sha256": "7a5d072bbaeae9534dd01b0b26bab9da8326ccb01311ef276a0a7d22bb176be9",
+  "parent_cpu_tests": {
+    "passed": 99,
+    "seconds": 13.6
+  },
+  "independent_cpu_tests": {
+    "passed": 99,
+    "seconds": 11.64
+  },
+  "scorer_preflight": {
+    "exit_code": 0,
+    "actual_cached_imagereward_checkpoint_and_config_sha256": "verified",
+    "all_protocol_source_and_document_hashes": "verified"
+  },
+  "worker_dependency_preflight": "both fixed development prompts passed",
+  "cuda_validation": "pending allocated GPU execution",
+  "fresh64": "unused",
+  "source_commit": "0eb2161"
+}
