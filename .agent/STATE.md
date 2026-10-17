@@ -3,7 +3,7 @@ Develop a genuinely novel training-free DiT resolution method competitive with r
 User authorizes unattended project ownership, experiments, paper work and parallel agents.
 
 ## Status and next action
-2026-10-17 08:31 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
+2026-10-17 08:35 CDT. CR14 job1076857 COMPLETED at08:18:51, elapsed57m05s; all4 workflows succeeded.
 Independent review verified32 PNGs, identities, sidecars, raw scores and26 frozen entries.
 RMS-normalized alone passes dev gate: IR+.036285, MUSIQ+.388861, CLIP-.065491.
 PickScore-.066567 and cropMUSIQ-.214963 regress. Uniform and lag controls fail.
@@ -22,9 +22,10 @@ Source061fa03, frozen protocol b98de615;23CPU tests pass, independent review no 
 Two dev prompts, synthetic renoised CR17 endpoints at sigma .5, five forwards each including repeat.
 Four-arm mediation separates gain changes from BF16 shift rounding. No quality or novelty claim.
 NEXT: inspect CR18 execution/strict repeat and four-arm causal contrasts when watcher wakes.
+CPU validator/archiver and next-mechanism review are in progress, separate from frozen runtime.
 Fresh64 and all completed frozen protocols remain untouched. No method sweep or confirmation authorized by diagnostics.
 Existing watcher PID1581602, tmux crope-watch-cr14, i618-051/controllerjob1073260.
-Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17/18; CR18 hot-read verified; scheduler observation pending.
+Runtime /scratch/09032/saini_2/constancy_rope/watcher_cr14; hot registrations.json includes CR15/16/17/18; CR18 hot-read verified; scheduler observation verified.
 Direct autonomous wake verified; scheduler120s/files60s. Never duplicate watcher.
 Controller lease ends12:45:04 CDT, alert one hour before. Handoff not yet needed or verified.
 Last budget7941/40000SU remaining (08:28 CDT); refresh before every submission, no new nodes at96percent burn.

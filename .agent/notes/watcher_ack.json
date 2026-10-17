@@ -45,6 +45,11 @@
       "acknowledged_utc": "2026-10-17T13:31:02.383681+00:00",
       "event": "Live CR14 completion verified while processing delayed CR17 event",
       "verified": "CR14 COMPLETED57m05s; independent32image/rawscore/source audit passed; paper updated; no fresh64 promotion. CR18job1077211 submitted and atomically registered."
+    },
+    {
+      "acknowledged_utc": "2026-10-17T13:35:36.021925+00:00",
+      "event": "CR14 remaining workflows done, validated report, completed allocation",
+      "verified": "Already independently audited and paper updated in c5b3773. No rerun. CR18job1077211 pending; existing watcher now confirms scheduler and file coverage."
     }
   ]
 }

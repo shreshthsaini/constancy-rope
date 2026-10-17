@@ -20,6 +20,7 @@
     ],
     "telemetry_dir": "/scratch/09032/saini_2/constancy_rope/telemetry"
   },
-  "status": "PENDING Priority; watcher hot registry observation verified, initial scheduler observation pending",
-  "watcher_hot_registration_verified_utc": "2026-10-17T13:31:37.823647+00:00"
+  "status": "PENDING Priority; existing watcher scheduler and file coverage verified",
+  "watcher_hot_registration_verified_utc": "2026-10-17T13:31:37.823647+00:00",
+  "watcher_scheduler_verified_utc": "2026-10-17T13:35:36.021925+00:00"
 }
