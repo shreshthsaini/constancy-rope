@@ -1,0 +1,162 @@
+{
+  "created_utc": "2026-10-17T15:25:51.402522+00:00",
+  "scope": "Read-only analytical audit of frozen CR21; no CUDA call, GPU benchmark, scheduler poll, output inspection or source edit.",
+  "job_id": "1077335",
+  "protocol_sha256": "7a5d072bbaeae9534dd01b0b26bab9da8326ccb01311ef276a0a7d22bb176be9",
+  "submission_sha256": "c6953915431f4dc591a9814accdff1ff7b4f762755e622ffafc3a8d944659295",
+  "processor_sha256": "ac0c755dabb336ce3a671fbb15dfb04e51e7becf9d9f2f8150057978a37ead59",
+  "worker_sha256": "42ae87dd2cd2606e83e311e436bdd3bffa78b13573f1ca3e19cf60af710746b9",
+  "all_protocol_source_hashes_match": true,
+  "verdict": "No concrete memory-capacity blocker identified from accounted tensors and the parent-reported GH200 headroom. Exact arithmetic counts agree. Prior 1.227GB buffers plus0.805GB merge figure is a component estimate, not a complete peak bound.",
+  "geometry": {
+    "image_pixels": [
+      4096,
+      4096
+    ],
+    "packed_image_grid": [
+      256,
+      256
+    ],
+    "image_tokens": 65536,
+    "text_tokens": 512,
+    "joint_tokens": 66048,
+    "heads": 24,
+    "head_dim": 128,
+    "batch": 1,
+    "dtype": "bfloat16",
+    "query_chunk_size": 65536,
+    "chunks_per_conditional_branch": 1
+  },
+  "arithmetic_convention": "Matrix multiply-add counts as2FLOPs. Attention QK plus PV is4*H*Q*K*D. Excludes softmax, LSE, projections, rotary arithmetic, FFN, normalization, encoding, VAE, scoring, memory traffic, allocation and synchronization.",
+  "arms": {
+    "baseline": {
+      "full_joint_flops_per_block": 53604413079552,
+      "extra_flops_per_block": 0,
+      "total_flops_per_block": 53604413079552,
+      "extra_fraction_of_baseline_attention": 0.0,
+      "attention_matmul_flops_per_28step_image": 85552643274964992,
+      "private_attention_calls_per_block": 1,
+      "private_attention_calls_per_28step_image": 1596
+    },
+    "fixedmass": {
+      "full_joint_flops_per_block": 53604413079552,
+      "extra_flops_per_block": 824633720832,
+      "total_flops_per_block": 54429046800384,
+      "extra_fraction_of_baseline_attention": 0.0153836908839613,
+      "attention_matmul_flops_per_28step_image": 86868758693412864,
+      "private_attention_calls_per_block": 3,
+      "private_attention_calls_per_28step_image": 4788
+    },
+    "unnormalized": {
+      "full_joint_flops_per_block": 53604413079552,
+      "extra_flops_per_block": 53188874993664,
+      "total_flops_per_block": 106793288073216,
+      "extra_fraction_of_baseline_attention": 0.9922480620155039,
+      "attention_matmul_flops_per_28step_image": 170442087764852736,
+      "private_attention_calls_per_block": 3,
+      "private_attention_calls_per_28step_image": 4788
+    }
+  },
+  "campaign": {
+    "full_resolution_images": 6,
+    "full_resolution_transformer_forwards": 168,
+    "full_resolution_block_calls": 9576,
+    "full_resolution_private_attention_calls": 22344,
+    "full_resolution_attention_matmul_flops": 685726979466461184,
+    "relative_attention_arithmetic_vs_six_baseline_images": 1.3358772509664885,
+    "native_smoke_transformer_forwards": 32,
+    "native_smoke_attention_calls": 1824,
+    "native_smoke_attention_matmul_flops": 475916736135168,
+    "native_policy": "All four native arms use one full attention per block. Three new arms explicitly bypass conditional branches at64x64; deployed uses public SDPA. No additional transformer forward is caused by a conditional attention call."
+  },
+  "kernel_smoke": {
+    "runs": 2,
+    "tiny_geometry": {
+      "Q": [
+        1,
+        2,
+        40,
+        128
+      ],
+      "alternate_image_Q": [
+        1,
+        2,
+        32,
+        128
+      ],
+      "text_tokens": 8,
+      "query_chunk_size": 16
+    },
+    "private_cudnn_calls_per_worker": 14,
+    "public_cudnn_calls_per_worker": 1,
+    "production_text_probe_Q": [
+      1,
+      24,
+      65536,
+      128
+    ],
+    "production_text_probe_KV": [
+      1,
+      24,
+      512,
+      128
+    ],
+    "production_query_stride": [
+      201326592,
+      128,
+      3072,
+      1
+    ],
+    "production_key_stride": [
+      1572864,
+      128,
+      3072,
+      1
+    ],
+    "production_probe_matmul_flops": 412316860416,
+    "production_probe_Q_K_V_output_LSE_bytes": 817889280,
+    "production_output_finiteness_boolean_elements": 201326592,
+    "production_probe_scope": "Single text-only support call before model loading. It does not test production65536-key image-only support or full66048-key joint attention. Tiny FP64 oracles are separate. No quadratic full-resolution logits are materialized by Python."
+  },
+  "accounted_tensor_bytes": {
+    "one_image_BF16_query_or_pool": 402653184,
+    "one_image_FP32_merge_tensor": 805306368,
+    "one_image_row_FP32_statistic": 6291456,
+    "full_joint_FP32_LSE": 6340608,
+    "cached_target_cos_plus_sin_FP32": 67108864,
+    "alternate_query_plus_two_conditional_pools": 1207959552,
+    "hypothetical_unfused_image_text_logits_FP32": 3221225472,
+    "hypothetical_unfused_image_image_logits_FP32": 412316860416,
+    "actual_eager_fixedmass_extra_live_set_estimate": 4527800320,
+    "actual_eager_fixedmass_extra_live_set_estimate_GiB": 4.2168426513671875,
+    "actual_eager_unnormalized_extra_live_set_estimate": 3728785408,
+    "actual_eager_unnormalized_extra_live_set_estimate_GiB": 3.4727020263671875
+  },
+  "memory_derivation": [
+    "Fixedmass expression evaluates joint_output.float() while both new_text_output.float() and old_text_output.float() and their subtraction result can coexist. That is up to4 image-size FP32 tensors during subtraction, not one0.805GB merge buffer. Three BF16 extra tensors (alternate Q and two pools) remain live. Cached target cos/sin and LSE/mass vectors add smaller terms.",
+    "Unnormalized stable mixture can hold3 image-size FP32 tensors during multiplication/addition, plus the same three BF16 extra tensors. It has extra quadratic arithmetic but no explicit quadratic score storage in this implementation.",
+    "Values are operation-lifetime accounting estimates rather than formal allocator peak bounds. Rotary operations, currently retained projection tensors, finiteness masks, cast overlap, cuDNN workspace, graph caches, library allocation and fragmentation can increase actual peak. No autograd graph is retained.",
+    "Conditional buffers are reused/released between calls, so they are not multiplied by57blocks,28steps,3arms or2prompts. The arms execute sequentially on each GPU. Scoring runs after the generation process exits.",
+    "The earlier1.227GB plus0.805GB estimate lists useful buffers, but does not count all eager FP32 intermediates. Neither that estimate nor this live-set accounting is a measured torch.cuda.max_memory_allocated result."
+  ],
+  "headroom_assessment": {
+    "nominal_HBM_GB": 96,
+    "baseline_memory_reference": "Parent-reported approximate41GB model/trajectory footprint; not independently remeasured by this audit. Earlier telemetry figures are not substituted for a per-arm peak.",
+    "conservative_unit_interpretation_base_bytes": 44023414784,
+    "base_plus_larger_accounted_extra_bytes": 48551215104,
+    "unaccounted_nominal_headroom_bytes": 47448784896,
+    "conclusion": "Even treating41GB as41GiB leaves over47GB nominal headroom after the larger accounted operator increment. No evidence the explicit tensor estimate exceeds HBM. Kernel workspace and real allocator peak remain unmeasured, so this is not a capacity guarantee."
+  },
+  "latency_interpretation": [
+    "Fixedmass calls three fused attention operations per block: one joint and two text-only. Unnormalized also calls three, but one is the nearly full-cost image-only operation. Equal call count does not imply equal work.",
+    "Returning LSE, explicit cuDNN planning, noncontiguous BSHD-to-BHSD layout, bool checks and FP32 merges can dominate a small1.538percent arithmetic increment. No proportional runtime claim follows.",
+    "The frozen15-30minute central20minute estimate for a40minute two-node allocation includes loading, smokes, six total images and scoring. This audit cannot verify wall time from FLOPs alone.",
+    "Worker peak_memory_bytes is torch.cuda.max_memory_allocated over each encoding/denoising/optionalVAE trajectory, excluding model-loading peak, earlier kernel-smoke peak, later scoring and non-PyTorch device memory. Its seconds field similarly excludes loading/saving/scoring; report complete workflow timing separately."
+  ],
+  "claims": {
+    "GPU_benchmark": false,
+    "quality": false,
+    "novelty": false,
+    "automatic_promotion": false
+  }
+}

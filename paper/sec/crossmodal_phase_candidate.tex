@@ -1,0 +1,102 @@
+\section{Prospective image-to-text phase intervention}
+\label{sec:crossmodal-phase-candidate}
+
+We define a candidate that changes the conditional distribution over text keys
+while preserving the deployed image-key probabilities and total text probability
+at each image-query row, in real arithmetic. The hypothesis is that cross-modal
+routing may benefit from a different rotary geometry than image-to-image
+attention. The native capability screen supplies no primary semantic failure
+that this candidate is known to repair.
+
+For an image-token grid of height $H$ and width $W$, use the fixed reference map
+\begin{equation}
+ \Phi_{H,W}(p_0,p_h,p_w)
+ =\left(p_0,\frac{63p_h}{H-1},\frac{63p_w}{W-1}\right).
+ \label{eq:crossmodal-phase-map}
+\end{equation}
+Thus a $256\times256$ grid maps its spatial endpoints to $0$ and $63$;
+the map is the identity at $64\times64$. The reference denotes our nominal
+$1024^2$ setting, not a verified boundary of the model's training coordinates.
+At each block we rotate the same normalized pre-RoPE image query using base
+frequencies with $\theta=10000$ and axis dimensions $(16,56,56)$ at
+$\Phi_{H,W}(p)$. We retain the actual pair-equal amplitude gains, text keys and
+all values. Deployed SEGA geometry~\citep{sega2026} still determines image-key
+logits. The intervention covers all 24 heads, all 57 joint and single blocks,
+all 28 denoising steps and all 512 text slots, including padding. Runtime text
+IDs must be zero. Text-query outputs remain unchanged within that block;
+later text activations can change through earlier modified image states.
+
+For one image query, let $a_j$ and $b_k$ be the deployed, scaled logits for text
+keys $T$ and image keys $I$. Define $Z_T=\sum_{j\in T}e^{a_j}$,
+$Z_I=\sum_{k\in I}e^{b_k}$, and $m=Z_T/(Z_T+Z_I)$. If $a'_j$ are the
+transported-phase text logits, set
+\begin{equation}
+ \widetilde a_j=a'_j+\operatorname{LSE}(a)-\operatorname{LSE}(a'),
+ \qquad b'_k=b_k.
+ \label{eq:crossmodal-fixed-mass}
+\end{equation}
+The text partition remains $Z_T$, so every image-key probability and total text
+mass $m$ are unchanged. With $u_T=\operatorname{softmax}(a)V_T$ and
+$u'_T=\operatorname{softmax}(a')V_T$, the equivalent output correction is
+\begin{equation}
+ y'=y+m(u'_T-u_T).
+ \label{eq:crossmodal-output-correction}
+\end{equation}
+These are elementary softmax identities. They impose a local constraint and
+do not establish an improvement in the sampling trajectory.
+
+The unnormalized control uses the same phase map but permits text mass to
+change. It computes the original image-only conditional output $u_I$ and
+log-partition $\ell_I$, and the new text-only output $u'_T$ and
+log-partition $\ell'_T$. For $\ell=\operatorname{logaddexp}(\ell_I,\ell'_T)$,
+\begin{equation}
+ y_{\mathrm{unc}}=e^{\ell_I-\ell}u_I+e^{\ell'_T-\ell}u'_T.
+\end{equation}
+The original joint call supplies unchanged text-query outputs. This stable
+mixture avoids recovering a small image contribution by subtracting rounded
+text output from a BF16 joint output. Its extra image-only pass is a declared
+cost. At 65,536 image tokens and 512 text slots, the fixed-mass arm adds
+approximately $1.538\%$ of baseline joint-attention QK/AV arithmetic through
+two text branches; the unnormalized control adds approximately $99.225\%$
+through image-only and new-text branches. These counts exclude rotations,
+buffers and kernel overhead, and are not latency predictions.
+
+All three arms use a pinned private cuDNN output-and-log-sum-exp backend with
+no fallback. The protocol requires tiny BF16 kernel comparisons against FP64
+oracles and a production-shaped text-branch support probe before model loading.
+Every full-resolution call must satisfy the backend's output/LSE contract.
+A four-step $1024^2$ smoke compares the deployed attention path with the new
+baseline, accepting endpoint relative $L_2$ error at most $10^{-3}$ and recording
+cosine diagnostically. Both native phase arms must reproduce the matched
+baseline endpoint bytes. Native execution shares the baseline path; separate
+non-bypassed CPU oracles check the phase and partition formulas. The fixed-mass
+correction accumulates in FP32 before its BF16 output cast. Real-arithmetic
+conservation therefore remains distinct from floating-point equivalence.
+
+Positional interpolation~\citep{chen2023pi}, cross-modal geometry separation
+in Circle-RoPE,\footnote{Wang et al., \emph{Circle-RoPE: Cone-like Decoupled
+Rotary Positional Embedding for Vision-Language Models},
+\href{https://arxiv.org/abs/2505.16416v3}{arXiv:2505.16416v3}.}
+query-dependent phase scales in Phase-Aligned RoPE,\footnote{Wu et al.,
+\emph{Phase-Aligned RoPE for Mixed-Resolution Diffusion Transformer},
+\href{https://arxiv.org/abs/2511.19778v2}{arXiv:2511.19778v2}.}
+and token-group rotary edits in Untwisting RoPE\footnote{Mikaeili et al.,
+\emph{Untwisting RoPE: Frequency Control for Shared Attention in DiTs},
+\href{https://arxiv.org/abs/2602.05013v1}{arXiv:2602.05013v1}.}
+are established ingredients. TACA already changes relative text-token odds
+through modality-specific temperature,\footnote{Lv et al., \emph{Rethinking
+Cross-Modal Interaction in Multimodal Diffusion Transformers},
+\href{https://arxiv.org/abs/2506.07986v3}{arXiv:2506.07986v3}.}
+and TIDE studies text/image imbalance~\citep{tide2026}. The proposed composition
+isolates phase changes while holding text mass fixed; that constraint also
+prevents it from correcting pure text-mass dilution. Neither novelty nor a
+quality advantage has been established.
+
+The frozen development pilot specifies exactly six $4096^2$ images: two existing
+captions, seed 0, 28 steps and guidance 4.5 under the matched baseline,
+fixed-mass and unnormalized arms. All use the same Krea backbone in BF16 and
+must share exact actual initial transformer inputs within each prompt and
+resolution. Both captions already satisfy their primary predicates, so this
+pilot tests regression, detail and cost with little primary-semantic headroom.
+Its scope excludes a seed search and fresh confirmation data; any readout must
+retain all six images and report the unnormalized control's extra cost.

@@ -25,6 +25,13 @@
     ]
   },
   "watcher_pid": 1581602,
-  "watcher_hot_read": "pending",
+  "watcher_hot_read": {
+    "verified_at": "2026-10-17T10:24:36.475805-05:00",
+    "state": {
+      "state": "PENDING",
+      "end": 1792253048.0
+    },
+    "registration_matches": true
+  },
   "controller_end": "2026-10-17T12:45:04-05:00"
 }
