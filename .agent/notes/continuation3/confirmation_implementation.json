@@ -1,0 +1,27 @@
+{
+  "created_utc": "2026-10-17T07:19:24.903687+00:00",
+  "state": "CR14 pending Priority; no development GPU outcome; confirmation not submitted",
+  "cpu_tests": {
+    "full_suite_passed": 256,
+    "seconds": 45.93,
+    "threads": 2,
+    "targeted_confirmation_passed": 19,
+    "hardware_resume_followup": "11 analysis tests passed after rejecting mixed hardware in interrupted attempts"
+  },
+  "source_sha256": {
+    "scripts/confirmation_generate.py": "5e7819b16d1fba99fc8efa2a006c76b04f6291790d2a67fe8d10563f82bcfa5d",
+    "scripts/confirmation_analysis.py": "bc90dbd60811b44020b7aadb7153494d590468a17b9fa93cb38949f84f0b8899",
+    "slurm/confirmation_task.sh": "4f50725ab082553931a3fa5b95af2c7f3222494eca56c256fb5dac80269e0db7",
+    "tests/test_confirmation_analysis.py": "0065f652d598b5083d1a688823a2c2aedb888ebaf4ae2a3ff0ffb5b1e4034470",
+    "tests/test_confirmation_generate.py": "b4bd025907e289ec0417fdb58ed94d8ba4d4aa0fb93383459febe3ec48e4c4c4",
+    ".agent/notes/continuation3/confirmation_plan.md": "e7e6c1f42fbd1ec779d71706fc9071f9da58898606454082390b4921babaf7da"
+  },
+  "bootstrap": {
+    "draws": 10000,
+    "seed": 0,
+    "primary_family_size": "2 * selected candidate count",
+    "secondary_coverage": 0.95,
+    "primary_adjusted_coverage": "1 - 0.05 / primary_family_size",
+    "approximate_not_exact": true
+  }
+}

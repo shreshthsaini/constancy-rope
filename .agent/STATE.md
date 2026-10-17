@@ -19,10 +19,12 @@ New work is isolated in taskq_dev3; old campaign outputs and STOP remain unchang
 NEXT: monitor CR14 job1076857 (two GH200 nodes, 90min); verify live telemetry/output invariants, then run dev3_analysis with fresh reference.
 
 Third diagnostic submitted: spatial RMS uniform/normalized controls and lag-aligned ctm, eta1.
-Fresh SEGA baseline prespecified; 32 dev images total. Full CPU suite 237 passed in 27.96 seconds, two threads.
+Fresh SEGA baseline prespecified; 32 dev images total. Full CPU suite 256 passed in 45.93 seconds, two threads.
 CR14 job1076857 is PENDING Priority; no estimated start. Initial gb attempt rejected at qgb submit cap.
 Frozen source commit395ba85; spool taskq_dev3 has four ready workflows, old taskq unchanged.
 Fresh64 confirmation prompts frozen before outcomes; run only if a candidate passes dev.
+Confirmation generator/analyzer prepared and tested; no confirmation tasks or allocation submitted.
+The primary adjustment and complete-pair validation were fixed while CR14 remained pending.
 After all four task successes, dev3_launch invokes dev3_finalize to validate scores, log W&B,
 archive the dev decision, rebuild the working PDF, and commit only its own outputs/state.
 If the run fails, inspect taskq_dev3/failed and logs; no auto retry or hidden variant change.
@@ -52,7 +54,7 @@ Account balance checked: 8212.919/40000 SUs remaining, burn 79.47%.
 - Retain old theory sources for audit, exclude stale settings from current PDF.
 - Current user authorizes active project operations. Do not alter old campaign artifacts or other projects.
 - Repository has no remote; preserve changes in a local commit.
-- User authorizes background Codex/GPT-6.1 Sol agents; higher effort for critical work, within guard limits.
+- User authorizes background Codex/GPT-6 Astra/GPT-6.1 Sol agents; higher effort for critical work, within guard limits.
 
 ## Open questions
 - Three frozen diagnostics in notes/continuation3/PROTOCOL.md; no new GPU results yet.

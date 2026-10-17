@@ -144,10 +144,28 @@ uniform gains matched to the released allocation's realized RMS; and the
 $\eta=1$ constancy composition with its target evaluated at the delayed
 estimate's own scheduler noise level. A fresh released-SEGA run is the reference.
 These distinguish gain magnitude from frequency allocation and isolate target
-timing. The code passes 237 CPU tests, but no GPU outcome for these controls is
+timing. The code passes 256 CPU tests, but no GPU outcome for these controls is
 available in this snapshot. The planned job contains 32 images and was queued
 on October 17. A positive development result would require separate confirmation.
 }
+
+\paragraph{Conditional confirmation protocol.}
+Before the third development outcome, a separate set of 64 captions was frozen
+from Aesthetic-4K's 2048-source split after excluding normalized matches to all
+prior evaluation and calibration captions. Fixed hash ordering selected the
+captions without inspecting generation or scores. Any eligible candidate would
+use its unchanged settings at $4096^2$ with a fresh SEGA baseline. The captions
+are fresh to this project's evaluation, with no model-training disjointness or
+semantic-near-duplicate guarantee. They do not supply matched 4K reference images.
+The prespecified analysis uses 10,000 paired prompt-bootstrap draws, seed 0,
+and common resampling indices across metrics and candidates. Nominal 95\%
+intervals accompany all metrics. For the two primary metrics, ImageReward and
+full-image MUSIQ, Bonferroni-adjusted percentile intervals have coverage
+$1-0.05/(2K)$ for $K$ selected candidates. Joint primary support requires both
+adjusted lower bounds to exceed zero. These are approximate bootstrap intervals,
+not exact finite-sample guarantees. Secondary losses remain part of the report;
+confirmation cannot select further controller settings. No confirmation result
+is available in this snapshot.
 
 \paragraph{Evidence provenance.}
 The completed campaign is recorded at implementation commit

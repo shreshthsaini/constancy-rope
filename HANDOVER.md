@@ -7,9 +7,9 @@ started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact ht
 ## Current takeover checkpoint (2026-10-17)
 - User first requested a state review, then explicitly assigned full project ownership and
   authorized continuing experiments, evaluation, and paper work autonomously.
-- User explicitly authorizes background Codex agents and GPT-6.1 Sol with effort chosen by the main agent; use higher effort for critical work. Respect tool concurrency and login-guard limits.
+- User explicitly authorizes background Codex agents, GPT-6 Astra, and GPT-6.1 Sol with effort chosen by the main agent; use higher effort for critical work. Respect tool concurrency and login-guard limits.
 - Third diagnostic submitted as CR14 job1076857, currently PENDING Priority on two GH200 nodes.
-  See `.agent/notes/continuation3/PROTOCOL.md`; frozen source commit395ba85, 237 CPU tests passed.
+  See `.agent/notes/continuation3/PROTOCOL.md`; frozen source commit395ba85, 256 CPU tests passed, including 19 confirmation checks.
   Three parameter-free/timing controls plus fresh SEGA, 32 development images, no held-out tuning.
 - Live accounting confirms CR13 job 1076092 COMPLETED October 16 at 18:06:13 CDT.
   Spool: pending 0, running 0, done 255, failed 5, hold 25; STOP remains present.
@@ -28,6 +28,7 @@ started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact ht
   The last successful worker host runs `scripts/dev3_finalize.py`: validates all four outputs,
   archives the selection, logs W&B, rebuilds the PDF, and commits its own outputs/state.
   It never treats a dev pass as a held-out result or submits confirmation automatically.
+- Prepared confirmation generation and analysis with immutable prompt/controller checks, paired bootstrap rules, and hardware receipts. No confirmation tasks submitted. See `confirmation_plan.md` and `confirmation_implementation.json` under `.agent/notes/continuation3/`.
 
 ## 1. Goal and the user's rules
 - Training-free resolution extrapolation for FLUX at 4096^2. Beat released SEGA (arXiv 2605.22668, github rajabi2001/sega)

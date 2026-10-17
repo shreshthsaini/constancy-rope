@@ -53,6 +53,31 @@ Any bootstrap must use one fixed seed and identical resampled prompt indices
 across methods. If two candidates pass development, label their confirmation
 comparisons and account for multiple comparisons before an efficacy claim.
 
+### Analysis rule fixed before development outcomes
+
+The executable analysis is `scripts/confirmation_analysis.py`. Use 10,000 paired
+prompt-bootstrap draws, NumPy generator seed 0, and the same 64-column index matrix
+for every metric and candidate. Report nominal two-sided 95% percentile intervals
+for all five metrics. For the two primary metrics across K selected candidates,
+also report Bonferroni-adjusted percentile intervals at coverage 1 - 0.05/(2K):
+97.5% for one candidate or 98.75% for two. The primary support flag requires both
+adjusted lower bounds to exceed zero. These bootstrap intervals are approximate;
+they do not provide exact finite-sample familywise guarantees.
+
+Keep all secondary metric losses visible even when both primary bounds are
+positive. The primary flag alone does not establish an overall quality advantage,
+generalization beyond these 64 captions, or state of the art. An interval crossing
+zero is unresolved evidence, not a tie or an equivalence finding. Report each
+selected candidate separately and do not use confirmation scores to choose
+further methods, tune settings, or discard pairs.
+
+The analyzer re-derives the development selection and rejects any altered candidate
+list. It requires all 64 frozen captions, score/image/sidecar identity, correct
+derived seeds, matching model/software/controller settings from development,
+executed sigma trajectories matching the fresh baseline, and common GPU/CUDA
+hardware across confirmation methods. The checkpoint's actual transformer
+provenance must match development. Output is written only after all pairs validate.
+
 Do not compare 4096 outputs against these 2048 reference images with FID or
 spectral metrics and describe that as a matched 4K reference evaluation. The
 confirmation's primary measurements need captions and generated images only.
@@ -74,3 +99,36 @@ is roughly 1.25 to 2 hours after startup if all are available. Reuse baseline
 images across selected candidates. Read the live allocation rate and SU balance
 before any new submission. If no candidate passes development, run no
 confirmation generation and preserve this frozen manifest for provenance.
+
+## Prepared execution, not a submitted campaign
+
+`slurm/confirmation_task.sh METHOD START END` generates one half-open chunk of
+at most eight prompts through `scripts/confirmation_generate.py`. It refuses to
+load a model without a completed, eligible development selection, the original
+prompt manifest hash, frozen controller/profile hashes, and actual checkpoint
+provenance. Tasks use roots `out_krea/confirm64_METHOD` and write completed hardware
+receipts per chunk. Queue these chunks through one shared multi-node spool only
+after selection, a live balance check, and allocation planning. No confirmation
+tasks or allocation have been created.
+
+After all generation chunks for a method finish, score its root once with the
+existing `scripts/eval.py` metrics `clip,pickscore,musiq,clipiqa`, then score
+ImageReward with `scripts/imagereward_score.py` in the mend environment. Use the
+frozen confirmation prompt manifest for both scorers. Store results in
+`eval_krea/confirm64_METHOD/per_image.csv` and `eval_krea/ir/confirm64_METHOD.csv`.
+Do not run a method's scorer while its generation chunks are incomplete.
+
+Analyze using the crope environment:
+
+```bash
+python scripts/confirmation_analysis.py \
+  /scratch/09032/saini_2/constancy_rope/eval_krea \
+  .agent/notes/continuation3/confirmation64_prompts.jsonl \
+  .agent/notes/continuation3/dev \
+  .agent/notes/continuation3/confirmation
+```
+
+The generator and analyzer have 19 targeted CPU tests covering changed selection,
+incomplete pairs, changed controller source, hardware mismatch,
+incorrect derived seeds, fixed paired uncertainty, and retention of negative
+secondary metrics. These tests do not constitute GPU validation.
