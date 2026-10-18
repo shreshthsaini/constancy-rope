@@ -1,0 +1,71 @@
+% Page style: single column, NeurIPS-like geometry and typography (10pt Times, 5.5in x 9in text block).
+\usepackage[letterpaper,textwidth=5.5in,textheight=9in,top=1in,headheight=12pt,headsep=25pt,footskip=30pt]{geometry}
+\usepackage{newtxtext,newtxmath}
+\usepackage[final]{microtype}
+\usepackage{amsmath,mathtools,bm}
+\usepackage{booktabs,array,multirow,makecell,tabularx}
+\usepackage{graphicx,xcolor}
+\usepackage[font=small,labelfont=bf,labelsep=colon,skip=4pt]{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage[capitalise,noabbrev,nameinlink]{cleveref}
+
+\emergencystretch=1.5em
+% Paragraphs as in the NeurIPS style: no indent, small skip.
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3.5pt}
+\setlength{\abovedisplayskip}{6pt plus 2pt minus 3pt}
+\setlength{\belowdisplayskip}{6pt plus 2pt minus 3pt}
+
+% Headings.
+\titleformat{\section}{\large\bfseries}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.6em}{}
+\titleformat{\paragraph}[runin]{\normalsize\bfseries}{}{}{}[.]
+\titlespacing*{\section}{0pt}{9pt plus 2pt minus 2pt}{3pt plus 1pt}
+\titlespacing*{\subsection}{0pt}{7pt plus 2pt minus 2pt}{2pt plus 1pt}
+\titlespacing*{\paragraph}{0pt}{2pt plus 1pt minus 1pt}{0.6em}
+
+% Lists.
+\setlist{itemsep=1pt,topsep=2pt,parsep=1pt,leftmargin=1.4em}
+
+% Links: subtle colors.
+\definecolor{linkc}{RGB}{20,60,130}
+\definecolor{citec}{RGB}{20,95,70}
+\hypersetup{colorlinks=true,linkcolor=linkc,citecolor=citec,urlcolor=linkc,
+  pdftitle={Where Does the Gain Come From? A Controlled Study of Training-Free RoPE Extrapolation in Diffusion Transformers},
+  pdfauthor={Shreshth Saini}}
+
+% Floats.
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.6}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.8}
+\renewcommand{\dbltopfraction}{0.9}
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}
+
+% Tables.
+\setlength{\aboverulesep}{0.3ex}
+\setlength{\belowrulesep}{0.5ex}
+\setlength{\cmidrulewidth}{0.3pt}
+
+% Title block in the NeurIPS manner: title between rules, centred authors.
+\makeatletter
+\renewcommand{\@maketitle}{%
+  \vbox{\hsize\textwidth\linewidth\hsize\vskip 0.02in
+    \hrule height 4pt\vskip 0.14in
+    \centering{\LARGE\bfseries\@title\par}
+    \vskip 0.12in\hrule height 1pt\vskip 0.12in
+    {\normalsize\@author\par}
+    \vskip 0.12in}}
+\renewenvironment{abstract}{%
+  \centerline{\large\bfseries Abstract}\vspace{0.4ex}%
+  \list{}{\leftmargin=0.35in\rightmargin=0.35in\listparindent=0pt\itemindent=0pt\parsep=4pt}\item\relax}
+  {\endlist\vspace{2pt}}
+\makeatother
+\pagestyle{plain}

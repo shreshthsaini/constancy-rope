@@ -1,36 +1,33 @@
 \documentclass[10pt]{article}
+\input{style}
+\input{macros}
+\input{tables/num_results}
+\InputIfFileExists{tables/num_compute}{}{}
+\InputIfFileExists{tables/num_mechanism}{}{}
 
-\usepackage[letterpaper,margin=1in]{geometry}
-\usepackage[T1]{fontenc}
-\usepackage{times,amsmath,amssymb,booktabs,graphicx,xcolor}
-\usepackage[numbers,sort&compress]{natbib}
-\usepackage{hyperref}
-
-\hypersetup{colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black}
-
-\emergencystretch=2em
-\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
-
-% Notation
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\xhat}{\hat{x}_0}
-\newcommand{\clip}{\operatorname{clip}}
-\newcommand{\Pnat}{\bar{P}}
-
-\title{Constancy RoPE: An Empirical Study of\\
-Spectral Attention Gains at 4K}
-\author{Working research report}
-\date{October 17, 2026}
+\title{Where Does the Gain Come From?\\A Controlled Study of Training-Free RoPE\\Extrapolation in Diffusion Transformers}
+\author{\textbf{Shreshth Saini}\\The University of Texas at Austin}
 
 \begin{document}
 \maketitle
+\input{sec/abstract}
+\input{sec/hero}
+\input{sec/intro}
+\input{sec/background}
+\input{sec/methods}
+\input{sec/protocol}
+\input{sec/results_decomp}
+\input{sec/results_laws}
+\input{sec/results_more}
+\input{sec/discussion}
+\input{sec/related}
 
-% Earlier theory and proposal sections remain in sec/ for a separate audit.
-% They describe superseded settings and are not part of this evidence snapshot.
-\input{sec/current_report}
-\input{sec/crossmodal_phase_candidate}
+{\small
 \bibliographystyle{plainnat}
 \bibliography{refs}
+}
 
+\clearpage
+\appendix
+\input{sec/appendix}
 \end{document}

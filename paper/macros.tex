@@ -1,0 +1,89 @@
+% ---------------------------------------------------------------------------------------------
+% Method names: the only place they are spelled. Code names in comments.
+\newcommand{\methodname}[1]{\textsc{#1}}
+\newcommand{\sega}{SEGA}                                        % the method in general
+\newcommand{\segaofficial}{SEGA (released)}                                % sega_official: released code (reference)
+\newcommand{\segaofficialstatic}{SEGA (released, static)}                   % sega_official_static
+\newcommand{\segapaper}{SEGA (paper eqs.)}                             % sega: equations as printed
+\newcommand{\segapaperstatic}{SEGA (paper eqs., static)}                % sega_static
+\newcommand{\ntk}{NTK}                                          % ntk2: strengthened NTK base, s^{2D/(D-2)}
+\newcommand{\yarn}{YaRN}                                        % yarn
+\newcommand{\dype}{DyPE}                                        % dype (port of the official code)
+\newcommand{\tempsb}{SEGA base\,+\,temp.}                                 % temp_only on SEGA base with SEGA temperature
+\newcommand{\tempntk}{NTK\,+\,log-$N$ temp.}                                 % temp_only on NTK base with log-N temperature
+\newcommand{\constancy}{Constancy}                              % constancy: late-profile target, NTK base, log-N temp.
+\newcommand{\constancytm}{Constancy-TM}                         % constancy_tm on SEGA base + SEGA temperature
+\newcommand{\aliastemp}{Alias-T}                             % alias_temp
+\newcommand{\aliastemps}{Alias-T-s}                          % alias_temp_sref
+\newcommand{\segactm}{SEGA\,+\,TM}                                  % sega_ctm, eta = 1 unless stated
+\newcommand{\segarms}{SEGA-RMS}                                 % dev-only CR14 allocation control
+\newcommand{\segauniform}{SEGA-Uniform}                         % dev-only CR14 allocation control
+\newcommand{\segalag}{SEGA\,+\,TM-lag}                              % dev-only CR14 allocation control
+\newcommand{\krea}{FLUX.1-Krea-dev}
+\newcommand{\fluxdev}{FLUX.1-dev}
+\newcommand{\afk}{Aesthetic-4K}
+
+% ---------------------------------------------------------------------------------------------
+% Result cells (written by tables/make_tables.py). B = 95% interval excludes zero in the good
+% direction, W = excludes zero in the bad direction, T = interval covers zero.
+\definecolor{betterc}{RGB}{0,90,170}
+\definecolor{worsec}{RGB}{196,72,0}
+\definecolor{cigray}{gray}{0.42}
+\newcommand{\upm}{\makebox[0.62em][r]{\scalebox{0.55}{$\blacktriangle$}}}
+\newcommand{\dnm}{\makebox[0.62em][r]{\scalebox{0.55}{$\blacktriangledown$}}}
+\newcommand{\nom}{\makebox[0.62em][r]{}}
+\newcommand{\cistack}[3]{\begin{tabular}[t]{@{}r@{}}#1\\[-3.2pt]{\fontsize{5.6}{6}\selectfont\color{#3}#2}\nom\end{tabular}}
+\newcommand{\dcellT}[3]{\cistack{$#1$\nom}{$[#2,#3]$}{cigray}}
+\newcommand{\dcellB}[3]{\cistack{\textcolor{betterc}{$#1$\upm}}{$[#2,#3]$}{betterc!75}}
+\newcommand{\dcellW}[3]{\cistack{\textcolor{worsec}{$#1$\dnm}}{$[#2,#3]$}{worsec!75}}
+\newcommand{\refcell}[1]{$#1$\nom}
+\newcommand{\mcell}[3]{\cistack{$#1$\nom}{$[#2,#3]$}{cigray}}
+\newcommand{\mcellP}[2]{\ifx b#2\textcolor{betterc}{$#1$\upm}\else\ifx w#2\textcolor{worsec}{$#1$\dnm}\else$#1$\nom\fi\fi}
+\newcommand{\devcell}[2]{\cistack{$#1$\nom}{$#2$}{cigray}}
+\newcommand{\better}{\textcolor{betterc}{\scalebox{0.7}{$\blacktriangle$}}}
+\newcommand{\worse}{\textcolor{worsec}{\scalebox{0.7}{$\blacktriangledown$}}}
+
+% ---------------------------------------------------------------------------------------------
+% Number accessors. Every result number in the text comes from tables/*.tex via these.
+\makeatletter
+\newcommand{\N}[1]{\ifcsname N@#1\endcsname\csname N@#1\endcsname\else
+  \textcolor{red}{\textbf{??}}\PackageWarning{numbers}{Undefined number #1}\fi}
+\makeatother
+\newcommand{\hod}[2]{\N{ho@d@#1@#2}}      % held-out paired delta vs SEGA (or contrast key)
+\newcommand{\hoa}[2]{\N{ho@a@#1@#2}}      % its absolute value
+\newcommand{\hoci}[2]{\N{ho@ci@#1@#2}}    % its 95% interval
+\newcommand{\hodci}[2]{\hod{#1}{#2}~\hoci{#1}{#2}}
+\newcommand{\hmean}[2]{\N{hom@#1@#2}}       % held-out mean
+\newcommand{\hmeanci}[2]{\N{homci@#1@#2}}
+\newcommand{\hon}[1]{\N{ho@n@#1}}
+\newcommand{\sod}[2]{\N{so@d@#1@#2}}      % seed 1, n = 55
+\newcommand{\soci}[2]{\N{so@ci@#1@#2}}
+\newcommand{\soa}[2]{\N{so@a@#1@#2}}
+\newcommand{\hsd}[2]{\N{hs@d@#1@#2}}      % seed 0 on the same 55 prompts
+\newcommand{\pim}[2]{\N{pim@#1@#2}}       % dev pilot mean, n = 8
+\newcommand{\pid}[2]{\N{pi@d@#1@#2}}
+\newcommand{\pia}[2]{\N{pi@a@#1@#2}}
+\newcommand{\shp}[1]{\N{sh@p@#1}\%}       % share of SEGA's gain carried by base + temperature
+\newcommand{\shci}[1]{\N{sh@ci@#1}}
+
+% ---------------------------------------------------------------------------------------------
+% Figures: placeholder until the figure agent delivers the file.
+\newcommand{\figorplaceholder}[3][\linewidth]{%
+  \IfFileExists{#2}{\includegraphics[width=#1]{#2}}{%
+    \fbox{\parbox[c][#3][c]{\dimexpr#1-2\fboxsep-2\fboxrule\relax}{\centering\small\color{black!60}
+      Figure pending: \texttt{\detokenize{#2}}}}}}
+
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\newcommand{\eg}{e.g.,\ }
+\newcommand{\ie}{i.e.,\ }
+\newcommand{\vs}{vs.\ }
+
+% Stacked method names for narrow table headers.
+\newcommand{\hdr}[1]{\makecell[r]{#1}}
+\newcommand{\segaofficialH}{\hdr{SEGA\\(released)}}
+\newcommand{\tempsbH}{\hdr{SEGA base\\+\,temp.}}
+\newcommand{\constancytmH}{\hdr{Constancy-\\TM}}
+\newcommand{\segactmH}{\hdr{SEGA\\+\,TM}}
+\newcommand{\ntkH}{\hdr{NTK\\\phantom{x}}}
+\newcommand{\dypeH}{\hdr{DyPE\\\phantom{x}}}
+\newcommand{\constancyH}{\hdr{Constancy\\\phantom{x}}}

@@ -1,0 +1,54 @@
+\subsection{Results depend on the checkpoint}\label{sec:checkpoint}
+
+\begin{figure}[t]
+\centering
+\figorplaceholder[0.9\linewidth]{figs/f5_checkpoint.pdf}{2.4in}
+\caption{\textbf{\fluxdev{} breaks into a dot lattice at $4096^2$ even under the official \dype{} code, while \krea{} shows none; results on one checkpoint do not transfer.} (a)~Dev prompt 0 under the official \dype{} code (seed 42) and our \dype{} and \segaofficial{} pipelines (seed 0), at guidance 3.5 (\fluxdev) and 4.5 (\krea); A and B are native-resolution crops. (b)~Whitened radial power spectra of luminance: \fluxdev{} peaks at the lattice period and \krea{} does not; peak ratios are printed for this pair and over the eight dev prompts (descriptive).}
+\label{fig:checkpoint}
+\end{figure}
+
+Our first campaign used \fluxdev, on which \dype{} and \constancy{} produced a dense halftone lattice over the $4096^2$ frame and \ntk{} a featureless blur. To tell a bug in our port from a property of the model, we ran the official \dype{} code unchanged: it produces the same lattice on \fluxdev{} and a clean image on \krea{} (\cref{fig:checkpoint}), the checkpoint the official \dype{} and \sega{} scripts load. We moved every experiment to \krea{} and void the \fluxdev{} pilot.
+
+The checkpoint also changes mechanism measurements. With the same probe, dev prompt and gain step, raising the gain of the fastest octave sharply lowers that band's power on \fluxdev{} and slightly raises it on \krea{} (\cref{app:mech}). Guidance and code revision also differ between the two probes, and the comparison rests on one prompt, so we read it only as a warning: a mechanism measured on one checkpoint at 4K need not hold on another.
+
+\subsection{\sega: paper versus code}\label{sec:papercode}
+
+\begin{table}[t]
+\centering
+\caption{\textbf{\sega's printed equations and released code differ at every stage.} Condensed from the released code at the inspected revision and our reading of the paper; $s$ is the scale per side, $D=56$.}
+\label{tab:papercode}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}l l l@{}}
+\toprule
+Stage & Printed equations (\segapaper) & Released code (\segaofficial) \\
+\midrule
+Sensor input & channel mean of the latent & channel mean of the projected input features \\
+Pair-to-bin map & physical frequency, clipped & rank of log period \\
+Allocation & $m_{\mathrm{ref}}(1-\varsigma u)$, $u=\tanh z-\overline{\tanh z}$ & $\max\bigl(1,\,m_{\mathrm{ref}}(1-0.15\,\varsigma c)\bigr)$, $c=\tanh 1.5z-\overline{\tanh 1.5z}$ \\
+Bounds & none & gains clamped at 1 \\
+Index axis & $m_{\mathrm{ref}}$ & 1 \\
+Frequency base & $\theta s^{2D/(D-2)}$ per axis & $\theta s^{2D/(D-2)}/(1+0.1\ln s)$, longest side \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The differences in \cref{tab:papercode} change the sensor, the law and its range. With the printed law, the allocation is unbounded, and at $4096^2$ the physical bin map sends every pair with a wavelength above \N{c@tokside} tokens, \N{c@collapsedpairs} of the \N{c@pairsperaxis} per axis, to the same frequency bin. With the released law, the spread is scaled by 0.15, the result is clamped at 1, and the logit gain stays between $\NmechSegaGainMin$ and $\NmechSegaGainMax$ on our held-out runs.
+
+The differences matter in practice. In the eight-prompt dev pilot (\cref{app:pilot}; descriptive only), our implementation of the printed equations scores worse than the released code on every metric, freezing the printed allocation into a static tilt destroys the images, and freezing the released allocation costs much less (\cref{fig:papercode} in \cref{app:figs}). Readers who reimplement \sega{} from the paper will not reproduce the released method, and comparisons against \sega{} should state which one they ran.
+
+\subsection{Spectra, and what 224-pixel scorers cannot see}\label{sec:spectra}
+
+\Cref{fig:spectrum} in \cref{app:figs} and \cref{tab:octave} break the spectral error into octave bands. Every arm puts more power than the reference images into the two finest bands. The arms separate in bands 6 to 8: \ntk{} falls below the reference (log-power error \N{oct@ntk@b7} in band 7), the blur visible in \cref{fig:qual}; \segaofficial{} is closest to the references there (\N{oct@sega@b7} in band 7, against \N{oct@tsb@b7} for \tempsb). Bands \N{nyq@firstband} to 10 lie entirely above the Nyquist frequency of the 224-pixel view that CLIP, PickScore and ImageReward receive. This is why \tempsb{} can tie \segaofficial{} on all three reward models while trailing it on full-resolution MUSIQ.
+
+\subsection{Engineering pitfalls at 4K}\label{sec:pitfalls}
+
+Four details outside the position embedding changed our numbers, their cost or their records.
+
+\paragraph{Flow shift} The library default extrapolates the time shift to $\mu=\N{c@mudefault}$ at $4096^2$, so every model call sees almost pure noise (\cref{sec:background}). Every arm here uses the capped $\mu=\N{c@muofficial}$ of the official pipelines.
+
+\paragraph{224-pixel scorers} CLIP, PickScore and ImageReward cannot see the top \N{nyq@nbands} octave bands of a 4K image, where the arms differ most (\cref{sec:protocol,sec:spectra}). A 4K comparison that reports only these scorers cannot detect a change in fine detail.
+
+\paragraph{Attention kernel} On the same GH200 node and method, forcing FlashAttention-2 makes a $4096^2$ sample take \NcompFlashRatio{} times as long as cuDNN-first SDPA (medians \NcompGHflashSec\,s and \NcompGHcudnnSec\,s), while method families on one node differ by at most \NcompFamilySpreadPct\%. One GB200 GPU takes \NcompBWSec\,s, \NcompBWSpeedup{} times faster than a GH200, on one node and not method-matched (\cref{tab:compute}). Timings of different methods are comparable only with the kernel and the GPU fixed.
+
+\paragraph{Records} Our per-image records hard-coded the base model name and an attention label. The loaded transformer was recovered from the task scripts and output folders, and the attention policy from the code revision pinned by each record's implementation hash; the dispatched kernel was not logged (\cref{app:compute}). Logging the loaded weights' hash and the dispatched kernel would have avoided this.

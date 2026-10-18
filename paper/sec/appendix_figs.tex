@@ -1,0 +1,23 @@
+\section{Additional figures}\label{app:figs}
+
+\Cref{fig:qual} shows held-out samples, \cref{fig:papercode} the dev pilot of \sega's paper and code, and \cref{fig:spectrum} the octave-band spectra discussed in \cref{sec:spectra}.
+
+\begin{figure}[H]
+\centering
+\figorplaceholder[0.95\linewidth]{figs/f4_qualitative.pdf}{3.6in}
+\caption{\textbf{At $4096^2$ \ntk{} loses fine detail, while the other arms render comparable detail.} Held-out rows 8 to 10, the first three held-out rows, fixed before any output was viewed; seed 0, one sample per arm. Full frames are Lanczos-reduced; native-resolution crops sit at identical coordinates (A: highest-detail tile of the across-arm mean luminance; B: image centre) and are never resampled. Compositions differ between arms, so a crop can show different content. \dype{} shows faint speckle in flat sky on held-out row 8 (one crop checked).}
+\label{fig:qual}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\figorplaceholder[0.9\linewidth]{figs/f6_sega_code.pdf}{2.4in}
+\caption{\textbf{\sega{} as printed is not \sega{} as released: the printed equations swing the logit gain much more widely and degrade the images, and their static tilt destroys them.} Eight-prompt dev pilot (rows 0--7, seed 0), descriptive only. (a)~Median log logit gain per rotary pair and denoising step over the eight dev prompts, on one shared scale (ranges printed above the panels); static variants average each method's gains over prompts and steps. (b)~Dev prompt 0, seed 0: full frames and a native-resolution crop, above CLIP score and ImageReward means over the eight dev prompts with paired differences from \segaofficial{} and 95\% bootstrap intervals.}
+\label{fig:papercode}
+
+\vspace{5pt}
+\centering
+\figorplaceholder[0.9\linewidth]{figs/f8_spectrum.pdf}{2.2in}
+\caption{\textbf{Without \sega's per-band allocation, luminance power at 8 to 32 pixel wavelengths sits above released \sega's; \constancytm{} leaves a similar excess, and \ntk{} falls short from 8 to 1024 pixels.} (a)~Signed log-power error against the mean $\ln P$ of the 195 \afk{} references, per octave band of linear-sRGB luminance; (b)~paired difference from \segaofficial. Held-out rows 8--194 ($n=\N{ho@nprompts}$, seed 0); bands are 95\% bootstrap intervals over prompts. The shaded 8 to 32 pixel band lies above the Nyquist frequency of a 224-pixel view.}
+\label{fig:spectrum}
+\end{figure}

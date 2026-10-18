@@ -1,0 +1,41 @@
+\section{Implementation details}\label{app:impl}
+
+\paragraph{Pipeline}
+The \krea{} transformer, loaded through an environment override (\texttt{CROPE\_\allowbreak TRANSFORMER}), runs inside the \fluxdev{} pipeline (T5 and CLIP text encoders with 512 T5 tokens, autoencoder with tiled decoding at $4096^2$), diffusers 0.39~\citep{vonplaten2022diffusers}, PyTorch 2.11, bfloat16, batch size one, a per-prompt CPU seed, \N{c@steps} Euler steps and distilled guidance 4.5. The transformer has 19 double-stream and 38 single-stream blocks with 24 heads of dimension 128, and normalizes q and k before the rotation. Every arm multiplies q and k of every token in every block by one gain vector after the rotation; the vector is shared by blocks and heads and recomputed once per model call. The scheduler patch that holds $\mu=\N{c@muofficial}$ is applied before any configuration is recorded. The per-image JSON records hard-code the base model name and an attention label; the loaded transformer comes from the task scripts and the attention policy from the code revision (\cref{sec:pitfalls,app:compute}).
+
+\paragraph{\dype}
+For spatial axis $a$ with scale $s$ and $\kappa=\sigma^2$, let $b(r)=D\ln\bigl(64/(2\pi r)\bigr)/(2\ln\theta)$ be the pair index that completes $r$ rotations over 64 tokens and $\mu_{r_1,r_2}(j)=1-\operatorname{clip}\bigl((j-\ell)/(h-\ell),0,1\bigr)$ with $\ell=\max(\lfloor b(r_1)\rfloor,0)$ and $h=\min(\lceil b(r_2)\rceil,D/2)$. Then
+\[
+\omega^{\mathrm{mix}}_j=\tfrac{\omega_j}{s}\bigl(1-\mu_{1.25\kappa,0.75\kappa}(j)\bigr)+\omega^{\mathrm{ntk}}_j\,\mu_{1.25\kappa,0.75\kappa}(j),\qquad
+\omega'_j=\omega^{\mathrm{mix}}_j\bigl(1-\mu_{16\kappa,2\kappa}(j)\bigr)+\omega_j\,\mu_{16\kappa,2\kappa}(j),
+\]
+with $\omega^{\mathrm{ntk}}$ the NTK-aware frequencies, and the spatial cos/sin amplitude is $1+0.1\ln s$, as in the official code at the inspected revision.
+
+\paragraph{\segaofficial}
+The sensor takes the channel mean $Z$ of the projected input features on the token grid. The axis profile $E_a$ is the one-dimensional FFT power along axis $a$ averaged over the other axis and rebinned into $K_a=\max(\lfloor L_a/2\rfloor,8)$ bins. Pair $j$ reads $\ell_j=\ln E_a\bigl((1-\rho_j)(K_a-1)\bigr)$ by linear interpolation, with $\rho_j=j/(D/2-1)$ the normalized rank of its log period; $z_j$ standardizes $\ell_j$ with the sample standard deviation; and $m_{a,j}=\max\bigl(1,m_{\mathrm{ref}}[1-0.15\,\varsigma\,c_j]\bigr)$ with $c_j=\tanh(1.5z_j)-\operatorname{mean}_i\tanh(1.5z_i)$, $m_{\mathrm{ref}}=\max(s,1)^{0.08}$ and $\varsigma=1-\mathrm{SF}^{1.5}$ from the radially binned two-dimensional power. The index axis keeps gain 1.
+
+\paragraph{\constancy}
+Band energies are densities: with an orthonormal FFT, $P(k)=\sum_c|\mathcal F(x_c-\bar x_c)(k)|^2$, $E_a(k)$ averages $P$ over the other axis, and $E_a[b]$ averages over half-octave bands $b$ (13 bands at 256 tokens per side). Unit white noise gives $E_a[b]=C=64$ in expectation, so the noise floor at level $\sigma$ is $\sigma^2C$. The gate uses the current input; the error uses the clean estimate of the previous call, $\hat x=x_{n-1}-\sigma_{n-1}v_\theta(x_{n-1})$. Corrections are interpolated in $\log f$ between band centres and applied to pairs with frequency above one cycle per grid, which at $4096^2$ are pairs 0 to 8 of each axis. Step 0 has no clean estimate and uses the temperature alone, and $|\ln g-\ln\tau|\le\eta$ always. The native targets come from $1024^2$ samples of the same model on 16 Pick-a-Pic prompts~\citep{kirstain2023pickapic} disjoint from the evaluation set: the late target averages the three steps with $\sigma<0.3$, and the time-matched target keeps all 28 steps and is interpolated in $\sigma$.
+
+\paragraph{\aliastemp}
+\aliastemp{} applies the log-$N$ temperature of \cref{sec:background} pair by pair. A pair of wavelength $\lambda_{a,j}$ tokens under the released base, on a grid of $L$ tokens per side ($L=64$ at native size), gets the logit gain
+\[
+g_{a,j}=\frac{\ln\bigl(n(\lambda_{a,j},L)\,L\bigr)}{\ln\bigl(n(\lambda_{a,j},64)\cdot 64\bigr)},\qquad n(\lambda,L)=\min\bigl(L,\max(1,L/\lambda)\bigr),
+\]
+where $n(\lambda,L)$, the pair's alias count, is the number of its wavelengths across the grid, bounded by 1 and $L$; the index axis takes $\tau_N$. The gains are static and content-free, with no correction and no further temperature. \aliastemps{} shifts every $\ln g$ by one constant so that the mean over all 128 dimensions equals \sega's reference log gain, $0.16\ln s$.
+
+\input{sec/appendix_compute}
+
+\section{Mechanism diagnostics}\label{app:mech}
+
+\paragraph{CPU study of the printed \sega{} law}
+Before running any model we measured the printed allocation (\cref{eq:sega}) on forward-noised latents of the FLUX.2 autoencoder for \NmechCpuN{} DIV2K crops. A fixed tilt over pairs explained $\NmechCpuStaticPct\%$ of the variance of the modulation, tilt plus timestep $\NmechCpuStaticTimePct\%$, leaving at most $\NmechCpuContentPct\%$ for content; the flatness gate $\varsigma$ was explained to $R^2=\NmechCpuSigmaTimeRsq$ by the timestep alone and to $\NmechCpuSigmaGenericRsq$ by a generic $1/f$ field. On our held-out \krea{} runs the released gate $\varsigma$ is likewise explained to $R^2=\NmechSegaSpreadTimeRsq$ by the timestep. The channel mean that the printed sensor reads keeps $\NmechCpuChanMeanPct\%$ of the latent power. In a blur sweep at $\sigma=\NmechBlurLowSigma$ over \NmechBlurN{} test crops, the printed law's contrast between fine and coarse pairs changed by $\NmechBlurSegaChangePct\%$ between no blur and a blur of \NmechBlurMax{} tokens, while an oracle version of the constancy law changed \NmechBlurConstFold-fold. These measurements motivated the constancy design; they use the printed law, another autoencoder and forward-noised rather than sampled latents, so we use them only as context for \cref{sec:laws}.
+
+\paragraph{Probe protocol}
+The transfer probe of \cref{fig:mechanism} reruns a dev prompt with the gain of one input octave multiplied by \NmechProbeFactor{} on both spatial axes, with the same seed, and reports the finite-difference elasticity $\partial\log P_{\mathrm{out}}/\partial\log g_{\mathrm{in}}$ for six input and seven output octaves of the final latent and image. It used the \ntk{} base with the log-$N$ temperature, three dev prompts and one seed. The local-response experiment applied half-step perturbations at steps 6, 14 and 22 of two dev prompts and compared the observed change in band power with the prediction of a locally fitted linear response: the median error relative to predicting no change was $\NmechCrSeventeenErrMed$ (range $\NmechCrSeventeenErrMin$ to $\NmechCrSeventeenErrMax$; \NmechCrSeventeenBelowOne{} of \NmechCrSeventeenAxisRows{} cases below 1). It tested a single octave, below the resolution of the token grid, so it does not cover all rotary bands. On the width axis of \krea, the mean diagonal elasticity of the transfer probe is $\NmechProbeLatWDiagA$ for one prompt but $\NmechProbeLatWDiagB$ and $\NmechProbeLatWDiagC$ for the other two, against a mean off-diagonal response of $\NmechProbeLatWOffAvg$. Raising the gain of the fastest octave gives a width-axis elasticity of $\NmechProbeLatWTopA$ on \krea{} and $\NmechFdevLatWTop$ in the same probe on \fluxdev{} (one prompt; guidance and code revision also differ; \cref{sec:checkpoint}).
+
+\paragraph{Allocation controls on the dev set}
+A third dev campaign replaced \segaofficial's allocation by a uniform gain with the same root-mean-square value, or kept its shape and removed the rise in mean gain caused by the clamp. On the eight dev prompts the uniform control changed MUSIQ by $\NmechCrFourteenUniformMusiq$ and the shape-only control by $+\NmechCrFourteenNormMusiq$, while a rerun of \segaofficial{} itself moved MUSIQ by $+\NmechCrFourteenRepeatMusiq$. These differences are within run-to-run variation and were not taken to held-out prompts.
+
+\paragraph{Diagnostics not reported}
+The project also measured run-to-run repeatability of the gain histories, the sensitivity of \sega's sensor to channel-mean shifts at artificial states, attention-operator approximations and native-resolution semantic consistency. None bears on the claims of this paper, and we do not report them.

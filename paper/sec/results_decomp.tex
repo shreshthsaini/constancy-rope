@@ -1,0 +1,40 @@
+\section{Results}\label{sec:results}
+
+\begin{table}[t]
+\centering
+\caption{\textbf{Base and temperature carry most of \sega's gain, and no per-band law beats it.} Held-out paired differences against \segaofficial{} (rows 8--194, seed 0, $n=\N{ho@nprompts}$); the first row gives \sega's absolute means. Each cell shows the mean difference with its 95\% bootstrap interval below; \better{}/\worse{}: the interval excludes zero in the better or worse direction, uncoloured cells are ties. \Cref{tab:deltas_full} has all ten metrics.}
+\label{tab:main}
+\footnotesize
+\setlength{\tabcolsep}{3.4pt}
+\input{tables/tab_main.tex}
+\end{table}
+
+\subsection{Decomposing \segaofficial: base and temperature do most of the work}\label{sec:decomp}
+
+\Cref{tab:main} and \cref{fig:forest} compare every held-out arm with \segaofficial. Two rows carry the decomposition. \ntk{} keeps \sega's family of frequency base and drops both the temperature and the allocation; it is far worse on every metric (ImageReward \hod{ntk}{ir}, full-resolution MUSIQ \hod{ntk}{musiq}, crop MUSIQ \hod{ntk}{musiqc}). \tempsb{} keeps \sega's released base and global temperature and drops only the per-band allocation: it ties \segaofficial{} on ImageReward (\hodci{tsb}{ir}), PickScore, CLIP and crop MUSIQ, and falls behind on full-resolution MUSIQ (\hodci{tsb}{musiq}), CLIP-IQA and the spectral error.
+
+\begin{figure}[t]
+\centering
+\figorplaceholder[0.8\linewidth]{figs/f3_forest.pdf}{2.6in}
+\caption{\textbf{No per-band law improves on \segaofficial{} in any reward or full-frame quality metric.} Paired held-out differences from \segaofficial{} with 95\% bootstrap intervals (rows 8--194, seed 0, $n=\N{ho@nprompts}$). \constancy{} is a partial run on \hon{cons} of these prompts (\cref{app:partial}). Hollow markers: seed-1 replication on rows 8--62 ($n=\N{so@n@tsb}$) for \tempsb{} and \constancytm. Shaded half: better direction. Isolated gains, such as crop MUSIQ and CLIP-IQA for \dype, come with losses elsewhere.}
+\label{fig:forest}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\caption{\textbf{Where \sega's improvement over \ntk{} comes from.} Means on the same $\N{sh@n}$ held-out prompts, paired gains from base and temperature and from the allocation, and the share of the total gain carried by base and temperature, (\tempsb{} $-$ \ntk)/(\segaofficial{} $-$ \ntk), with its 95\% paired bootstrap interval. A share above 100\% means the allocation's point estimate is negative.}
+\label{tab:share}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\input{tables/tab_share.tex}
+\end{table}
+
+\Cref{tab:share} turns these rows into shares: of \sega's gain over \ntk, base and temperature carry \shp{ir} of the ImageReward gain (interval \shci{ir}), \shp{pick} of PickScore, \shp{clip} of CLIP and \shp{musiqc} of crop MUSIQ. The allocation's own contribution, \segaofficial{} minus \tempsb, is \hod{alloc}{musiq} \hoci{alloc}{musiq} on full-resolution MUSIQ and \hod{alloc}{iqa} \hoci{alloc}{iqa} on CLIP-IQA; its intervals cover zero on all three reward models and on crop MUSIQ. \sega's spectral allocation is therefore real but narrow: it sharpens the full frame as MUSIQ sees it and leaves alignment, preference and crop-level quality where the base and global temperature put them. A partial run of the original \constancy{} that separates the temperature from the base is reported in \cref{app:partial}.
+
+\dype{} makes a different trade. Against \segaofficial{} it is worse on all three reward models (ImageReward \hodci{dype}{ir}, PickScore \hod{dype}{pick}) and better on crop MUSIQ (\hodci{dype}{musiqc}) and CLIP-IQA (\hod{dype}{iqa}). No single metric orders the methods, so we report all of them.
+
+\paragraph{Replication at seed 1}
+On the \N{so@n@tsb} seed-1 prompts, \tempsb{} again ties \segaofficial{} on ImageReward, PickScore and CLIP and loses on full-resolution MUSIQ (\sod{tsb}{musiq} \soci{tsb}{musiq}). \N{so@agree} of the \N{so@cells} tie/better/worse verdicts for \tempsb{} and \constancytm{} agree with seed~0 on the same prompts, and those that change all move between tie and a one-sided verdict (\cref{tab:seed1}). The spectral log-RMSE differences are larger at seed 1 than at seed 0 on the same prompts (\tempsb: \sod{tsb}{spec} against \hsd{tsb}{spec}; \constancytm: \sod{ctm}{spec} against \hsd{ctm}{spec}).
+
+\paragraph{Qualitative}
+\Cref{fig:qual} in \cref{app:figs} shows three held-out prompts: \ntk{} loses fine detail, and the other arms render comparable detail at full frame, where 224-pixel scorers operate, and differ mainly in native-resolution crops, where full-resolution MUSIQ and spectral errors operate.
