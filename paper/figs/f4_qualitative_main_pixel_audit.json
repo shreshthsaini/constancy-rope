@@ -1,0 +1,80 @@
+{
+  "passed": true,
+  "pdf_sha256": "ee3b0fd0c4db4ddfd30a395646b633b148a4d8a4ebe6c8427f42964e285ee86d",
+  "native_crops_checked": 12,
+  "pdf_storage": "matplotlib PDF stores image rows bottom-to-top and restores orientation in its image transform",
+  "checks": [
+    {
+      "row": 8,
+      "method": "ntk2",
+      "native_rgb_sha256": "ac5f800b4e4c94d3a4c51005ac6f21d8ac21e94e50a93cf20123bc6875f80493",
+      "exact_pdf_pixel_match_after_storage_origin_flip": true
+    },
+    {
+      "row": 8,
+      "method": "dype",
+      "native_rgb_sha256": "1579ececd7a513dbab75587d42c5e8aa460017a92ba076dd4cd95ccd63d3fb6c",
+      "exact_pdf_pixel_match_after_storage_origin_flip": true
+    },
+    {
+      "row": 8,
+      "method": "sega_official",
+      "native_rgb_sha256": "ce43a22e217876e86eed4cb67f1ad5fcea84c1dc2f91be5e422cc59195c85652",
+      "exact_pdf_pixel_match_after_storage_origin_flip": true
+    },
+    {
+      "row": 8,
+      "method": "temp_only_sbase",
+      "native_rgb_sha256": "40628558c38e85dbac05ac60e7efbf2f02e10e3fceb6f1ce12a8348af1f767ab",
+      "exact_pdf_pixel_match_after_storage_origin_flip": true
+    },
+    {
+      "row": 8,
+      "method": "constancy_tm_sbase",
+      "native_rgb_sha256": "4dcd3ac2dc2f83049e9b5230e42b3d62b0c9ea459a393085222498844368c19d",
+      "exact_pdf_pixel_match_after_storage_origin_flip": true
+    },
+    {
+      "row": 8,
+      "method": "sega_ctm_v2",
+      "native_rgb_sha256": "01683ee697129ebfce902a4f43f165095a7614ddd8358628914ec12cf4ecb230",
+      "exact_pdf_pixel_match_after_storage_origin_flip": true
+    },
+    {
+      "row": 9,
+      "method": "ntk2",
+      "native_rgb_sha256": "d21a7eea39177409e7b481a8f59b383cbdae686606129f76bbf6b752d5c63903",
+      "exact_pdf_pixel_match_after_storage_origin_flip": true
+    },
+    {
+      "row": 9,
+      "method": "dype",
+      "native_rgb_sha256": "9e7c25e5ea1c434f910e463715714eb817130438198479cacf4b92c7dcec182c",
+      "exact_pdf_pixel_match_after_storage_origin_flip": true
+    },
+    {
+      "row": 9,
+      "method": "sega_official",
+      "native_rgb_sha256": "e78fa4ee983ef623bab586154b8941c86d96b839dbcbf01abe565d604518ac4a",
+      "exact_pdf_pixel_match_after_storage_origin_flip": true
+    },
+    {
+      "row": 9,
+      "method": "temp_only_sbase",
+      "native_rgb_sha256": "ad4fa33b71bab62d7e965386ef8cbcf5fe06b2959d54860fc076da128eed23fe",
+      "exact_pdf_pixel_match_after_storage_origin_flip": true
+    },
+    {
+      "row": 9,
+      "method": "constancy_tm_sbase",
+      "native_rgb_sha256": "0bd796d38c6877e5288ebda380639b0babd3345964217473f557f8b098a1db38",
+      "exact_pdf_pixel_match_after_storage_origin_flip": true
+    },
+    {
+      "row": 9,
+      "method": "sega_ctm_v2",
+      "native_rgb_sha256": "9dcc09e5679095322219216990f52667595d3cf462067457d28d788eece12ece",
+      "exact_pdf_pixel_match_after_storage_origin_flip": true
+    }
+  ]
+}

@@ -2,8 +2,8 @@
 
 \begin{figure}[t]
 \centering
-\figorplaceholder[0.86\linewidth]{figs/f2_method.pdf}{2.37in}
-\caption{\textbf{The RoPE base and one global temperature are the big levers on the attention logit; per-band gains fine-tune band weights.} (a)~Query, key and offset on the token grid of a $4096^2$ image; the inset shows band 8 under the native base $b$ (dashed) and \sega's released base $b'$. (b)~Four of the \N{c@pairsperaxis} width-axis bands with their log gains (sky: $\ln\tau$; circles: \segaofficial; diamonds: \constancytm) from one held-out sample at step 14; the curves on the right sum only these four bands. (c)~Each controller reads $x_t$ at every step and sets $g_j$.}
+\figorplaceholder[\linewidth]{figs/f2_method.pdf}{2.37in}
+\caption{\textbf{The RoPE base changes frequencies, a global temperature scales all terms, and per-band gains reweight individual terms.} (a)~Query, key and offset on the token grid of a $4096^2$ image; the inset shows band 8 under the native base $b$ (dashed) and \sega's released base $b'$. (b)~Four of the \N{c@pairsperaxis} width-axis bands with their total log gains (sky: $\ln\tau$; circles: \segaofficial; diamonds: \constancytm) from one held-out sample at step 14. The three separate traces sum these four bands with unit content amplitudes and zero phases on the same vertical scale; they illustrate the base and temperature changes, not measured query--key logits. (c)~Two alternative controllers set the total gain $g_j$, which already includes temperature, from their respective spectral measurements.}
 \label{fig:method}
 \end{figure}
 
@@ -15,24 +15,24 @@
 \setlength{\tabcolsep}{2.6pt}
 \begin{tabular}{@{}l l c c c l@{}}
 \toprule
-Arm & Frequency base & Temperature & Per-band gain & t/x & Evaluated \\
+Arm & Frequency base & Temperature & Per-band gain & t/x & $n$ \\
 \midrule
-\ntk & $\theta\,s^{2D/(D-2)}$ & none & none & no / no & held-out \\
-\dype & PI/NTK ramps in $\sigma$ & $\N{c@dypegain}$ (spatial) & none & yes / no & held-out \\
-\segaofficial & $\theta\,s^{2D/(D-2)}/(1{+}0.1\ln s)$ & $s^{0.16}=\N{c@segatemp}$ & sensor, $\ge1$ & yes / yes & held-out \\
-\segapaper & $\theta\,s^{2D/(D-2)}$ & $s^{0.16}$ & sensor, unbounded & yes / yes & pilot \\
-\tempsb & as \segaofficial & $s^{0.16}$ on all dims & none & no / no & held-out \\
-\constancy & as \ntk & $\tau_N=\N{c@taulogn}$ & gated, late target & yes / yes & partial (\cref{app:partial}) \\
-\constancytm & as \segaofficial & $s^{0.16}$ & gated, time-matched & yes / yes & held-out \\
-\aliastemp & as \segaofficial & none & alias count, static & no / no & dev \\
-\segactm & as \segaofficial & $s^{0.16}$ & \sega{} $\times$ time-matched & yes / yes & held-out \\
+\ntk & $\theta\,s^{2D/(D-2)}$ & none & none & no / no & \N{ho@nprompts} \\
+\dype & PI/NTK ramps in $\sigma$ & $\N{c@dypegain}$ (spatial) & none & yes / no & \N{ho@nprompts} \\
+\segaofficial & $\theta\,s^{2D/(D-2)}/(1{+}0.1\ln s)$ & $s^{0.16}=\N{c@segatemp}$ & sensor, $\ge1$ & yes / yes & \N{ho@nprompts} \\
+\segapaper & $\theta\,s^{2D/(D-2)}$ & $s^{0.16}$ & sensor, unbounded & yes / yes & 8 (pilot) \\
+\tempsb & as \segaofficial & $s^{0.16}$ on all dims & none & no / no & \N{ho@nprompts} \\
+\constancy & as \ntk & $\tau_N=\N{c@taulogn}$ & gated, late target & yes / yes & \hon{cons} (partial) \\
+\constancytm & as \segaofficial & $s^{0.16}$ & gated, time-matched & yes / yes & \N{ho@nprompts} \\
+\aliastemp & as \segaofficial & none & alias count, static & no / no & 8 (dev) \\
+\segactm & as \segaofficial & $s^{0.16}$ & \sega{} $\times$ time-matched & yes / yes & \N{ho@nprompts} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \begin{table}[t]
 \centering
-\caption{\textbf{\sega's printed equations and released code differ at every stage.} Condensed from the released code at the inspected revision and our reading of the paper; $s$ is the scale per side, $D=56$.}
+\caption{\textbf{Our reading of \sega's printed formulation differs from the release at each of the six stages compared.} Released revision \texttt{ddaab08552c7}; source locations, equation numbers and interpretation limits are in \cref{app:impl}. Here $s$ is the scale per side and $D=56$.}
 \label{tab:papercode}
 \footnotesize
 \setlength{\tabcolsep}{4pt}
@@ -61,10 +61,10 @@ All arms share the sampler and differ only in $\omega'$ and $g$ of \cref{eq:four
 m_{a,j}=m_{\mathrm{ref}}\bigl(1-\varsigma\,u_{a,j}\bigr),\qquad u_{a,j}=\tanh z_{a,j}-\operatorname{mean}_i\tanh z_{a,i},\qquad \varsigma=1-\mathrm{SF}(E_{\mathrm{iso}})^{1.5},
 \label{eq:sega}
 \end{equation}
-where $\mathrm{SF}$ is the flatness of the radial spectrum. Low-energy pairs, usually the fast ones, thus gain attention weight in proportion to how far the spectrum is from flat. The released code differs from \cref{eq:sega} in every stage (\cref{tab:papercode}). We call its parity-tested port \segaofficial{} and our implementation of the printed equations \segapaper; static variants use the mean allocation over pilot prompts and steps.
+where $\mathrm{SF}$ is the flatness of the radial spectrum. Low-energy pairs, usually the fast ones, thus gain attention weight in proportion to how far the spectrum is from flat. Our reading of the printed formulation differs from the release at each of the six stages in \cref{tab:papercode}. We call its parity-tested port \segaofficial{} and our implementation of the printed equations \segapaper; static variants use the mean allocation over pilot prompts and steps.
 
 \paragraph{\tempsb: the decomposition control}
-\tempsb{} keeps the frequency base of \segaofficial{} and applies its reference logit gain $s^{0.16}$ uniformly to every dimension, with no allocation. Relative to \segaofficial{} it removes the allocation's shape, the small lift in mean gain that the clamp at 1 produces, and the difference on the index axis (gain 1 in the released code).
+\tempsb{} keeps the frequency base of \segaofficial{} and applies its reference logit gain $s^{0.16}$ uniformly to every dimension. It differs from \segaofficial{} in three ways: no per-band shape, no lift in mean gain from the clamp at 1, and a gain of $s^{0.16}$ rather than 1 on the index axis.
 
 \subsection{Per-band laws from vision science}\label{sec:ours}
 

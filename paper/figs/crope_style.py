@@ -25,7 +25,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 NOTES = ROOT / ".agent" / "notes"
 SCR = Path("/scratch/09032/saini_2/constancy_rope")
-CACHE = Path("/scratch/09032/saini_2/tmp/figcache_crope")
+CACHE = SCR / "cache/figures"
 PROMPTS = NOTES / "main2" / "prompts.jsonl"
 HELDOUT = NOTES / "main2" / "heldout_per_prompt.csv"          # seed 0, rows 8-194, all roots
 PAIRED = SCR / "eval_krea" / "heldout" / "heldout_paired_vs_sega_official.csv"
@@ -220,7 +220,7 @@ print(f"jpeg-embedded {n} photo image(s) in {os.path.basename(src)}: {os.path.ge
 def jpegify(pdf_path, quality=94, min_pixels=20000):
     """Re-encode the photographic images inside a matplotlib PDF as JPEG (4:4:4).
     Vector text and plots are untouched; image placement is unchanged."""
-    env = dict(os.environ, PYTHONPATH=_PDFLIB, OMP_NUM_THREADS="4")
+    env = dict(os.environ, PYTHONPATH=_PDFLIB, OMP_NUM_THREADS="8")
     r = subprocess.run([_PDFPY, "-s", "-c", _JPEG_SNIPPET, str(pdf_path), str(quality), str(min_pixels)],
                        env=env, capture_output=True, text=True)
     sys.stderr.write(r.stdout + r.stderr)
@@ -233,5 +233,8 @@ def finish(fig, stem, photo=False, formats=None):
     stem = str(stem)
     formats = formats or (("pdf",) if photo else ("pdf", "svg"))
     save(fig, stem, formats=formats)
+    if "svg" in formats:
+        svg = Path(stem + ".svg")
+        svg.write_text("\n".join(line.rstrip() for line in svg.read_text().splitlines()) + "\n")
     if photo:
         jpegify(stem + ".pdf")

@@ -10,14 +10,16 @@ Extrapolation in Diffusion Transformers". Venue style: NeurIPS-like single colum
 1. Controlled decomposition of a strong training-free 4K method (released SEGA, arXiv 2605.22668) into RoPE base,
    global attention temperature, and per-band allocation. Held-out, paired, bootstrap CIs (187 prompts, seed 0; 55-prompt
    seed-1 replication). Finding: base + global temperature carry most of the gain; SEGA's spectral allocation adds a small
-   but real full-resolution sharpness gain (MUSIQ about +2) and nothing on reward metrics.
+   full-frame MUSIQ gain (about +2) and no detected reward gain. Reduced excess fine-scale power accompanies that
+   score change; neither observation establishes perceived sharpness or a causal mechanism for MUSIQ.
 2. Principled per-band laws do not help: four vision-science-derived controllers (Constancy RoPE from efficient coding and
    contrast constancy, its time-matched version, alias-count per-band temperature, SEGA plus time-matched correction)
-   tie or lose to released SEGA under a pre-registered dev to held-out gate. Report as a negative result with mechanism
-   analysis (why the gate stays shut, time-matched target, attention-gain transfer probe).
-3. Checkpoint dependence: FLUX.1-dev breaks into a dot/halftone lattice at 4096^2 even under the OFFICIAL DyPE code;
-   FLUX.1-Krea-dev (used by DyPE and SEGA) is clean. Results on one checkpoint do not transfer.
-4. Paper-versus-code gap in SEGA: the published equations differ from the released code; as written they perform much
+   tie or lose to released SEGA. The written dev-to-held-out gate began in campaign 2; the decomposition hypothesis
+   came from campaign-1 development observations. Diagnostics suggest explanations, not proven quality mediators.
+3. Checkpoint/guidance dependence: the original FLUX.1-dev versus Krea diagnostic changes guidance (3.5 versus 4.5).
+   Official-code evidence is one dev prompt per checkpoint. Do not claim an isolated checkpoint effect until the
+   complete matched-guidance matrix is verified; retain the older comparison's scope in captions.
+4. Paper-versus-code gap in SEGA: our reading differs at each of the six compared stages; as implemented it performs
    worse and their static tilt destroys images (CLIP 13).
 5. Evaluation and engineering pitfalls at 4K: 224-pixel reward models are blind to 4K detail; the diffusers default flow
    shift extrapolates mu to about 11.5 at 4096^2 and collapses the schedule (official repos use mu = 1.15); forced
@@ -48,7 +50,31 @@ F5 checkpoint dependence: FLUX.1-dev lattice vs Krea under official DyPE, full f
 F6 SEGA paper vs code: per-dimension gain over denoising time (heatmaps) + resulting images.
 F7 mechanism: Constancy gate activity (late-profile vs time-matched) and the attention-gain transfer probe matrix.
 F8 spectral error by octave per method (vs Aesthetic-4K references).
-Tables: main held-out table (means with CIs), ablation table, compute/timing table.
+Promote F8's paired spectrum panel as `f8_spectrum_main.pdf` in the decomposition section; retain full spectrum appendix.
+Tables: put the condensed paired table (`tab:main`, formerly Table 3) in the appendix alongside all-metric results.
+Nominal intervals/colours remain visible; stars identify approximate Holm-adjusted centered-bootstrap tests within
+each table's paired family. Main decomposition MUSIQ survives; weak CLIP/CLIP-IQA findings need the adjusted qualifier.
+
+## Senior-review revision, 2026-10-19 UTC
+- Finished paper prose must state measured evidence only. Commented STRENGTHEN insertion points mark the factorial,
+  temperature sweep, fresh150, multiseed, matched-guidance, default-shift and Qwen analyses until each is complete.
+- The dated preregistration amendment controls the new analysis. Do not infer equivalence from a zero-crossing CI.
+  Keep original held-out diagnostics separate from fresh confirmation and report failed or unresolved hypotheses.
+- MUSIQ audit: pyiqa 0.1.16 KonIQ10k, native RGB plus bicubic224/384 views,32x32 stride32 patches. Native4K has
+  all16,384 patches and no cap;16,577 total before CLS. Four1024 crops are scored separately and averaged.
+  Full-frame/crop differences also include context and scale weighting. This is quality scoring, not sharpness.
+- Hero revision uses row32 (cabin), selected by caption subject before viewing that row; shared384 crops were chosen
+  after viewing for common cabin/mountain content. Disclose this illustrative selection and crop centres in caption.
+  Figure1b uses signed absolute gains; stacked allocation CIs are shifted by the base-temperature point estimate,
+  not total-gain CIs. Ratios remain in the appendix table.
+- SEGA source pin is ddaab08552c7b7ceba2ebd8f579a0f65dee90b5e; printed-law references are Sections4.1/4.2,
+  equations3-7 and9. Record our latent/index-axis interpretation and that author confirmation was not obtained.
+- One-prompt cross-checkpoint gain-probe sign change belongs only in the mechanism appendix, with guidance/code
+  confounds explicit. Seed1 and partial Constancy rows are manifest prefixes, not random subsamples.
+- Completed figure revisions: F1 absolute gains and shared-object crops, F2 separate illustrative traces,
+  F3 direction shading and seed legend, F4 two-row main grid, A.2 gain scales and line profiles,
+  F7 individual-prompt matrices, and the promoted spectrum panel with a Nyquist marker.
+  Inspect the compiled pages at print size; update result-dependent figures only after verified new data.
 
 ## Quality bar
 Professional academic look, attractive, clearly better than the figures in the reference papers the user named

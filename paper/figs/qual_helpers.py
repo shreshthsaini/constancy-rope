@@ -1,12 +1,15 @@
-"""Helpers shared by f1_hero.py and f4_qualitative.py: verified image sources and the
-method-agnostic crop rule.
+"""Verified image sources and deterministic crop rules for photographic comparisons.
 
-Crop rule (fixed before any output was viewed): average the Rec. 709 luminance of every
+Legacy crop rule: average the Rec. 709 luminance of every
 method shown for a prompt at native 4096 px, take the 4-neighbour Laplacian of that mean,
 and pick the square tile of the requested size with the largest mean squared Laplacian
-(tiles on a stride of size/4, kept clear of the image border). Because the statistic is
-computed on the across-method mean, it favours structure that all methods share and never
-looks at any single method. The second location, where used, is the exact image center.
+(tiles on a stride of size/4, kept clear of the image border). This pooled statistic does
+not guarantee content in every arm. The full appendix retains that historical rule.
+
+The revised main-grid rule independently measures Laplacian energy in every arm,
+normalizes by that arm's 90th percentile over candidate tiles, then maximizes the minimum
+normalized energy across arms. It is a review-stage crop selection, not a pre-output rule.
+The second location, where used, is the exact image center.
 """
 from __future__ import annotations
 
@@ -86,3 +89,61 @@ def detail_box(mean_y, size, margin=64, exclude=None):
 def center_box(size, full=4096):
     c = full // 2
     return (c - size // 2, c - size // 2, c + size // 2, c + size // 2)
+
+
+def common_detail_box(paths, size, margin=64, exclude=None):
+    """Maximize the least per-arm normalized detail, returning the box and full audit.
+
+    Candidate order is top-to-bottom, then left-to-right; np.argmax retains the first
+    exact tie. Normalization uses NumPy's linear 90th percentile. No image metric,
+    method label, reward score or prompt search enters the criterion.
+    """
+    paths = list(paths)
+    if not paths or size <= 0 or size > 4096 - 2 * margin:
+        raise ValueError('Require images and a positive crop fitting inside the margins')
+    stride = max(size // 4, 1)
+    candidates = []
+    for y0 in range(margin, 4096 - margin - size + 1, stride):
+        for x0 in range(margin, 4096 - margin - size + 1, stride):
+            box = (x0, y0, x0 + size, y0 + size)
+            if exclude and any(not (box[2] <= q[0] or box[0] >= q[2] or box[3] <= q[1] or box[1] >= q[3])
+                               for q in exclude):
+                continue
+            candidates.append(box)
+    if not candidates:
+        raise ValueError('No eligible crop candidates')
+    boxes = np.asarray(candidates, dtype=np.int64)
+    x0, y0, x1, y1 = boxes.T
+    energies = []
+    for path in paths:
+        y = luma(path)
+        lap = np.zeros_like(y)
+        lap[1:-1, 1:-1] = y[:-2, 1:-1] + y[2:, 1:-1] + y[1:-1, :-2] + y[1:-1, 2:] - 4 * y[1:-1, 1:-1]
+        energy = lap.astype(np.float64) ** 2
+        integral = np.zeros((4097, 4097), dtype=np.float64)
+        integral[1:, 1:] = energy.cumsum(0).cumsum(1)
+        values = (integral[y1, x1] - integral[y0, x1] - integral[y1, x0] + integral[y0, x0]) / size**2
+        energies.append(np.maximum(values, 0.0))
+        del y, lap, energy, integral
+    energies = np.asarray(energies)
+    normalizers = np.percentile(energies, 90, axis=1, method='linear')
+    if not np.all(np.isfinite(energies)) or np.any(normalizers <= 0):
+        raise ValueError('Nonfinite or blank image cannot support a common-detail crop')
+    normalized = energies / normalizers[:, None]
+    scores = normalized.min(axis=0)
+    index = int(np.argmax(scores))
+    if scores[index] <= 0:
+        raise ValueError('No candidate has positive detail in every arm')
+    return candidates[index], {
+        'rule': 'maximum minimum across-arm mean-squared Laplacian, each arm divided by its candidate 90th percentile',
+        'selection_stage': 'senior review after historical outputs existed',
+        'crop_size': size, 'margin': margin, 'stride': stride,
+        'normalization_percentile': 90, 'percentile_method': 'linear',
+        'tie_break': 'first in top-to-bottom, left-to-right candidate order',
+        'candidate_count': len(candidates), 'selected_candidate_index': index,
+        'selected_box': list(candidates[index]), 'minimum_normalized_energy': float(scores[index]),
+        'per_arm_native_energy': energies[:, index].tolist(),
+        'per_arm_normalizer': normalizers.tolist(),
+        'per_arm_normalized_energy': normalized[:, index].tolist(),
+        'paths_in_arm_order': [str(path) for path in paths],
+    }

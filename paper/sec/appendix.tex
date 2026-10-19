@@ -3,6 +3,15 @@
 
 \section{Full held-out results}\label{app:full}
 
+\begin{table}[!htbp]
+\centering
+\caption{\textbf{Base and temperature carry most of \sega's gain, and no per-band law beats it.} Held-out paired differences against \segaofficial{} (rows 8--194, seed 0, $n=\N{ho@nprompts}$); the first row gives the absolute means of \segaofficial. Each cell shows the mean difference and its nominal 95\% bootstrap interval; \better{}/\worse{} and colour mark intervals that exclude zero in the better or worse direction, while uncoloured cells are ties. A star marks a Holm-adjusted $p\le0.05$ across this table's paired comparisons, using approximate centered-bootstrap tests. \Cref{tab:deltas_full} has all ten metrics and a separate Holm family.}
+\label{tab:main}
+\footnotesize
+\setlength{\tabcolsep}{3.1pt}
+\input{tables/tab_main.tex}
+\end{table}
+
 \Cref{tab:share} decomposes \sega's gain over \ntk{} with means and paired gains, \cref{tab:means_full} gives absolute means and \cref{tab:deltas_full} the paired differences for all ten metrics. The spectral rows use the mean octave profile of the 195 \afk{} reference images as the target; \cref{tab:octave} breaks the spectral error into its 11 octave bands. FID and KID are not tabulated: for the seed-1 images (\N{fid@n} prompts per arm, including one dev row), the paired FID difference of \tempsb{} against \segaofficial{} is \N{fid@tsb@fid} with interval \N{fid@tsb@fid@ci}, and that of \constancytm{} is \N{fid@ctm@fid} with interval \N{fid@ctm@fid@ci}.
 
 \begin{table}[!htbp]
@@ -19,16 +28,16 @@
 \caption{\textbf{Held-out means with 95\% bootstrap intervals} (rows 8--194, seed 0). \constancy{} is the partial run on \hon{cons} prompts (\cref{app:partial}).}
 \label{tab:means_full}
 \scriptsize
-\setlength{\tabcolsep}{3pt}
+\setlength{\tabcolsep}{1.3pt}
 \input{tables/tab_means_full.tex}
 \end{table}
 
 \begin{table}[!htbp]
 \centering
-\caption{\textbf{Held-out paired differences against \segaofficial{}, all metrics.} Format as in \cref{tab:main}. \constancy{} is the partial run on \hon{cons} prompts (\cref{app:partial}).}
+\caption{\textbf{Held-out paired differences against \segaofficial{}, all metrics.} Nominal 95\% intervals and colour as in \cref{tab:main}; stars mark approximate Holm-adjusted $p\le0.05$ across all paired comparisons in this table. \constancy{} is the partial run on \hon{cons} prompts (\cref{app:partial}).}
 \label{tab:deltas_full}
 \scriptsize
-\setlength{\tabcolsep}{3.5pt}
+\setlength{\tabcolsep}{1.8pt}
 \input{tables/tab_deltas_full.tex}
 \end{table}
 
@@ -41,13 +50,14 @@
 \input{tables/tab_octave.tex}
 \end{table}
 
+\FloatBarrier
 \section{Seed-1 replication}\label{app:seed1}
 
 \Cref{tab:seed1} repeats the comparison for \tempsb{} and \constancytm{} on held-out rows 8--62 with a second seed, next to seed~0 on the same \N{so@n@tsb} prompts. One of the verdicts that changes, crop CLIP-IQA for \tempsb{} at seed 1, rests on an interval that excludes zero by less than $10^{-4}$, so the agreement count can move by one under another bootstrap seed. Every verdict that changes moves between a tie and a one-sided verdict. Spectral log-RMSE differences grow at seed 1 (\tempsb: \sod{tsb}{spec} against \hsd{tsb}{spec} at seed 0 on the same prompts; \constancytm: \sod{ctm}{spec} against \hsd{ctm}{spec}).
 
 \begin{table}[!htbp]
 \centering
-\caption{\textbf{Seed 1 repeats the seed-0 verdicts.} Paired differences against \segaofficial{} on the same \N{so@n@tsb} held-out prompts (rows 8--62) at seed 0 and at seed 1. \N{so@agree} of \N{so@cells} verdicts agree. Format as in \cref{tab:main}.}
+\caption{\textbf{Seed 1 repeats most nominal seed-0 verdicts.} Paired differences against \segaofficial{} on the same \N{so@n@tsb} held-out prompts (rows 8--62) at seed 0 and at seed 1. \N{so@agree} of \N{so@cells} nominal verdicts agree. Intervals, colour and triangles use the nominal 95\% convention of \cref{tab:main}; this descriptive table has no Holm adjustment.}
 \label{tab:seed1}
 \scriptsize
 \setlength{\tabcolsep}{4pt}
@@ -64,7 +74,7 @@ The original \constancy{} was generated on \hon{cons} of the \N{ho@nprompts} hel
 
 The visibility gate of \cref{sec:laws} opens late on these prompts as on the dev prompts. On the \NmechConstN{} held-out prompts it opens only after the first $\NmechConstOnsetStepMed$ of $\NmechSteps$ steps (median; range $\NmechConstOnsetStepMin$ to $\NmechConstOnsetStepMax$), at $\sigma=\NmechConstOnsetSigmaMed$ (range $\NmechConstOnsetSigmaHi$ to $\NmechConstOnsetSigmaLo$), and the correction then acts in a median of $\NmechConstActiveStepsMed$ steps.
 
-The run also separates the temperature from the base. \ntk{} and \tempsb{} differ in both knobs, but \constancy{} adds to the \ntk{} base only the log-$N$ temperature ($\tau=\N{c@taulogn}$) and a per-band correction that, as the onset statistics above show, stays at zero for the first $\NmechConstOnsetStepMed$ of $\NmechSteps$ steps (median). On its \hon{cons} prompts it improves on \ntk{} by \hodci{consntk}{ir} ImageReward and \hodci{consntk}{musiqc} crop MUSIQ; on the same prompts, the entire \segaofficial{} minus \ntk{} gap is \hod{total41}{ir} ImageReward and \hod{total41}{musiqc} crop MUSIQ. On this partial run, most of the base-and-temperature share is therefore temperature.
+This partial run offers suggestive evidence about temperature. \ntk{} and \tempsb{} differ in both base and temperature, while \constancy{} adds to the \ntk{} base the log-$N$ temperature ($\tau=\N{c@taulogn}$) and a per-band correction that stays at zero for the first $\NmechConstOnsetStepMed$ of $\NmechSteps$ steps (median). On its \hon{cons} prompts it improves on \ntk{} by \hodci{consntk}{ir} ImageReward and \hodci{consntk}{musiqc} crop MUSIQ; on the same prompts, the entire \segaofficial{} minus \ntk{} gap is \hod{total41}{ir} ImageReward and \hod{total41}{musiqc} crop MUSIQ. The rows are a nonrandom manifest prefix, the temperature differs from \sega's, and the correction eventually acts. These observations do not identify the separate base and temperature contributions.
 
 \subsection{Dev selection}\label{app:dev}
 
@@ -100,7 +110,7 @@ In an eight-prompt pilot on the dev prompts, which is descriptive only, our impl
 \item \textbf{Numbers.} \texttt{paper/tables/make\_tables.py} recomputes every held-out paired difference from the archived per-prompt scores, checks it against the registered analysis output (largest absolute difference below $10^{-15}$), and writes every table and every number cited in the text. \texttt{compute\_table.py} and \texttt{mechanism\_numbers.py} do the same for timings and mechanism statistics. Scratch inputs are snapshotted next to the scripts.
 \item \textbf{Protocol.} Dev rows 0--7 and held-out rows 8--194 of the \afk{} evaluation captions; seed 0; seed-1 replication on rows 8--62; selection gate and its outcomes in \cref{app:dev}.
 \item \textbf{Generation.} Every image has a JSON sidecar with the full configuration, code revision, implementation hash, executed noise levels, per-step gains, wall time and peak memory.
-\item \textbf{Statistics.} Paired percentile bootstrap, 2,000 resamples, generator seed 0, per metric, no multiplicity correction.
+\item \textbf{Statistics.} Paired percentile bootstrap, 2,000 resamples, generator seed 0, with nominal per-metric intervals. Stars in \cref{tab:main,tab:deltas_full} mark approximate centered-bootstrap tests adjusted by Holm within each table; the other descriptive tables retain nominal intervals.
 \item \textbf{Third-party code.} \sega{} and \dype{} are re-implemented from their released code at pinned revisions with numerical parity tests; \dype{}'s official code was also run end to end for the checkpoint diagnosis.
 \item \textbf{Not done.} No human study; one model family; one resolution; one seed for most arms; FID and KID too noisy at these sample sizes to rank methods.
 \end{itemize}

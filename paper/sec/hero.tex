@@ -2,7 +2,7 @@
 \noindent\begin{minipage}{\linewidth}
 \centering
 \figorplaceholder[\linewidth]{figs/f1_hero.pdf}{1.92in}
-\captionof{figure}{\textbf{\sega's 4K gain over the \ntk{} base comes mostly from its RoPE base and global temperature; the per-band allocation adds little.} (a)~Held-out row 28, seed 0: full frame of \segaofficial{} and native 384-pixel crops at identical coordinates; each column adds a component of \sega, and compositions differ between arms. (b)~Share of the gain of \segaofficial{} over \ntk{} that \tempsb{} recovers, with 95\% paired bootstrap intervals over \N{ho@nprompts} held-out prompts; the dark segment is the allocation's part.}
+\captionof{figure}{\textbf{\sega's 4K gain over the \ntk{} base comes mostly from its RoPE base and global temperature.} (a)~Held-out row 32, seed 0, chosen by its cabin subject during revision before viewing that row's outputs. The illustrative example is not random. After viewing, we fixed shared native $384^2$ crops centred at $(2048,3200)$ and $(2048,1536)$ to show the cabin and mountain across arms. (b)~Signed absolute gains from base and temperature (\tempsb{} minus \ntk) and from the allocation (\segaofficial{} minus \tempsb), with a separate axis per metric and 95\% paired bootstrap intervals over \N{ho@nprompts} held-out prompts. Allocation intervals are translated by the base-and-temperature point estimate for stacking; they are not intervals for the total gain. Hatching marks negative allocation estimates.}
 \label{fig:hero}
 \end{minipage}
 \vspace{2pt}

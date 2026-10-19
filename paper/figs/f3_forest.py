@@ -33,6 +33,7 @@ NOT_DRAWN = {"constancy"}                # partial run (41 prompts): appendix on
 SEED1 = ["temp_only_sbase", "constancy_tm_sbase"]
 FAR = {"ntk2": 1.5}                      # row -> largest allowed widening of the core span before clipping
 GROUP_BREAK = {"temp_only_sbase", "constancy_tm_sbase"}   # extra space above these rows (baselines | SEGA ablation | laws)
+BETTER_BG = "#E5E9ED"                    # visible neutral direction shading at printed size
 FADE = 0.60                              # share of colour kept when the 95% CI includes zero
 
 # two figure rows of five panels; each entry is (group header, [(metric, panel title), ...])
@@ -57,7 +58,7 @@ PITCH = 0.125        # inches per method row
 TICKS = 0.13
 XLAB = 0.11
 GAP = 0.12
-KEY = 0.17
+KEY = 0.36
 SUB = 0.5            # seed-1 offset below the seed-0 row, in row units
 BREAK = 0.28         # extra space between method groups, in row units
 TICK_PT = 7.0
@@ -199,7 +200,7 @@ def draw_row(ax, y, est, color, marker, lim, lower, hollow=False):
         return
     left = d < x0
     side = x0 if left else x1
-    bg = cs.PANEL if (side < 0) == lower else "white"   # halo matches the half-plane the label starts in
+    bg = BETTER_BG if (side < 0) == lower else "white"   # halo matches the half-plane the label starts in
     ax.plot([side], [y], marker="<" if left else ">", ms=4.4, color=c, mec="white", mew=0.4,
             clip_on=False, zorder=5)
     partial = a < b   # part of the interval is visible: print the value above the row, clear of the line
@@ -215,10 +216,10 @@ def draw_panel(ax, res, k, title):
     ax.set_xlim(*lim)
     ax.set_ylim(*YLIM)
     # better half-plane, zero line (= released SEGA), row guides
-    ax.axvspan(lim[0] if lower else 0.0, 0.0 if lower else lim[1], color=cs.PANEL, lw=0, zorder=0)
+    ax.axvspan(lim[0] if lower else 0.0, 0.0 if lower else lim[1], color=BETTER_BG, lw=0, zorder=0)
     for m in ORDER:
         ax.axhline(POS[m], color=cs.GRIDC, lw=0.35, zorder=1)
-    ax.axvline(0.0, color=cs.RULE, lw=0.8, zorder=2)
+    ax.axvline(0.0, color=cs.INK2, lw=0.8, zorder=2)
     for m in ORDER:
         spec = cs.METHODS[m]
         draw_row(ax, POS[m], res[(m, k, 0)], spec["color"], spec["marker"], lim, lower)
@@ -236,11 +237,11 @@ def draw_panel(ax, res, k, title):
     ax.tick_params(axis="x", length=2.2, width=0.6, pad=1.6, labelsize=TICK_PT, color=cs.RULE)
     ax.tick_params(axis="x", which="minor", length=1.3, width=0.5, color=cs.RULE)
     ax.set_xlabel("← better" if lower else "better →", loc="left" if lower else "right",
-                  fontsize=6.5, color=cs.INK2, labelpad=1.2)
+                  fontsize=7.0, color=cs.INK, labelpad=1.2)
     ax.text(0.5, 1.0, title, transform=ax.transAxes, ha="center", va="bottom", fontsize=7, color=cs.INK)
 
 
-def label_text_width(fig, text, size=6.5):
+def label_text_width(fig, text, size=7.0):
     t = fig.text(0, 0, text, fontsize=size)
     w = t.get_window_extent(fig.canvas.get_renderer()).width / fig.dpi
     t.remove()
@@ -290,23 +291,25 @@ def main():
                  color=cs.INK2, ha="right", va="baseline")
 
     # key
-    ky = fy(H - KEY / 2 + 0.005)
     items = [
-        (dict(marker="|", mec=cs.RULE, mew=0.8, ms=6.0), "0 = SEGA (released)"),
+        (dict(marker="|", mec=cs.INK2, mew=0.8, ms=6.0), "0 = SEGA (released)"),
         (dict(marker="o", mfc=cs.INK2, mec="white", mew=0.45, ms=3.7), "95% CI excludes 0"),
         (dict(marker="o", mfc=tint(cs.INK2, FADE), mec="white", mew=0.45, ms=3.7), "95% CI includes 0"),
-        (dict(marker="o", mfc="white", mec=cs.INK2, mew=0.85, ms=3.3), "seed 1, n = 55"),
+        (dict(marker="o", mfc="white", mec=cs.INK2, mew=0.85, ms=3.3), "seed 1: base + temp. and Constancy-TM only, n = 55"),
         (dict(marker="<", mfc=cs.INK2, mec="white", mew=0.4, ms=4.4), "off-axis, value printed"),
     ]
     fig.canvas.draw()
-    widths = [label_text_width(fig, t) for _, t in items]
-    sep = 0.2
-    total = sum(widths) + len(items) * 0.09 + (len(items) - 1) * sep
-    x = (W - total) / 2
-    for (style, text), w in zip(items, widths):
-        fig.add_artist(Line2D([fx(x + 0.03)], [ky], ls="none", **style))
-        fig.text(fx(x + 0.09), ky, text, fontsize=6.5, color=cs.INK2, ha="left", va="center")
-        x += 0.09 + w + sep
+    for row, row_items in enumerate((items[:3], items[3:])):
+        ky = fy(H - KEY + 0.09 + row * 0.16)
+        widths = [label_text_width(fig, text) for _, text in row_items]
+        sep = 0.25
+        total = sum(widths) + len(row_items) * 0.10 + (len(row_items) - 1) * sep
+        assert total < W, ("legend width", total, W)
+        x = (W - total) / 2
+        for (style, text), width in zip(row_items, widths):
+            fig.add_artist(Line2D([fx(x + 0.03)], [ky], ls="none", **style))
+            fig.text(fx(x + 0.10), ky, text, fontsize=7.0, color=cs.INK, ha="left", va="center")
+            x += 0.10 + width + sep
     cs.finish(fig, cs.HERE / "f3_forest")
 
 

@@ -1,0 +1,171 @@
+{
+  "schema": "qualitative-common-detail-v1",
+  "rows": [
+    {
+      "rule": "maximum minimum across-arm mean-squared Laplacian, each arm divided by its candidate 90th percentile",
+      "selection_stage": "senior review after historical outputs existed",
+      "crop_size": 384,
+      "margin": 64,
+      "stride": 96,
+      "normalization_percentile": 90,
+      "percentile_method": "linear",
+      "tie_break": "first in top-to-bottom, left-to-right candidate order",
+      "candidate_count": 1444,
+      "selected_candidate_index": 306,
+      "selected_box": [
+        256,
+        832,
+        640,
+        1216
+      ],
+      "minimum_normalized_energy": 1.1190916719183284,
+      "per_arm_native_energy": [
+        0.021217090206736896,
+        0.03269605640997336,
+        0.02575654714754956,
+        0.03335564716234088,
+        0.028660161582418835,
+        0.022278012457577233
+      ],
+      "per_arm_normalizer": [
+        0.018959206595083416,
+        0.02545686220795245,
+        0.020849603390885506,
+        0.02965794812645633,
+        0.02553965909302122,
+        0.019077566471799097
+      ],
+      "per_arm_normalized_energy": [
+        1.1190916719183284,
+        1.2843710329609854,
+        1.2353495011233233,
+        1.1246781813805258,
+        1.1221826210769705,
+        1.167759655850714
+      ],
+      "paths_in_arm_order": [
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main/ntk2/4096x4096/a4k_eval_4096_880657115260655727_a6ae047101_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main/dype/4096x4096/a4k_eval_4096_880657115260655727_a6ae047101_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main/sega_official/4096x4096/a4k_eval_4096_880657115260655727_a6ae047101_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/mainsb/temp_only/4096x4096/a4k_eval_4096_880657115260655727_a6ae047101_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/mainsb/constancy_tm/4096x4096/a4k_eval_4096_880657115260655727_a6ae047101_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main2/sega_ctm/4096x4096/a4k_eval_4096_880657115260655727_a6ae047101_seed0.png"
+      ],
+      "row": 8,
+      "prompt_id": "a4k_eval_4096_880657115260655727",
+      "prompt": "A stone bridge with arched spans reflects golden light on the water, flanked by buildings and a leafy tree under a clear blue sky.",
+      "methods": [
+        "ntk2",
+        "dype",
+        "sega_official",
+        "temp_only_sbase",
+        "constancy_tm_sbase",
+        "sega_ctm_v2"
+      ],
+      "seed": 0,
+      "source_sha256": {
+        "ntk2": "0df71d580a65a40343be9eb5b6dfa8d5da6db77e8054ff5ef07fbe60dd7a7e8a",
+        "dype": "d0dee0dd9438a3679db3ee02e69f2404469cc341882b5645ff27b7957931ee82",
+        "sega_official": "2a2e08b7f086ededb06632276c86a45a649dcdbafc0653306e9ac8cc4dc8dae6",
+        "temp_only_sbase": "5e306d9a5f9c9659c781f161d4ce95abfe35f188f8ce67e185af3946226cb6c8",
+        "constancy_tm_sbase": "f996854fa931fd616815ee56c2b8855935ba33a0cae91235784c553bfc74f1b8",
+        "sega_ctm_v2": "63cb2c80776fd42a0cd7afa78f2603c566af1c8593e21a6cce3c33222e601d7c"
+      }
+    },
+    {
+      "rule": "maximum minimum across-arm mean-squared Laplacian, each arm divided by its candidate 90th percentile",
+      "selection_stage": "senior review after historical outputs existed",
+      "crop_size": 384,
+      "margin": 64,
+      "stride": 96,
+      "normalization_percentile": 90,
+      "percentile_method": "linear",
+      "tie_break": "first in top-to-bottom, left-to-right candidate order",
+      "candidate_count": 1444,
+      "selected_candidate_index": 1135,
+      "selected_box": [
+        3232,
+        2848,
+        3616,
+        3232
+      ],
+      "minimum_normalized_energy": 0.9524224064386406,
+      "per_arm_native_energy": [
+        0.020130256234223747,
+        0.04793324645803132,
+        0.04295599324718778,
+        0.050962895524844974,
+        0.05066024141927114,
+        0.04732092258987643
+      ],
+      "per_arm_normalizer": [
+        0.021135849070892925,
+        0.04660039296917136,
+        0.039121666866516934,
+        0.05239723178841119,
+        0.052338577627895365,
+        0.039662811251157795
+      ],
+      "per_arm_normalized_energy": [
+        0.9524224064386406,
+        1.0286017650053234,
+        1.098010301906449,
+        0.9726257244016572,
+        0.9679330947708119,
+        1.1930803969044197
+      ],
+      "paths_in_arm_order": [
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main/ntk2/4096x4096/a4k_eval_4096_minus2014927182109364975_81f6a4b6e1_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main/dype/4096x4096/a4k_eval_4096_minus2014927182109364975_81f6a4b6e1_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main/sega_official/4096x4096/a4k_eval_4096_minus2014927182109364975_81f6a4b6e1_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/mainsb/temp_only/4096x4096/a4k_eval_4096_minus2014927182109364975_81f6a4b6e1_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/mainsb/constancy_tm/4096x4096/a4k_eval_4096_minus2014927182109364975_81f6a4b6e1_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main2/sega_ctm/4096x4096/a4k_eval_4096_minus2014927182109364975_81f6a4b6e1_seed0.png"
+      ],
+      "row": 9,
+      "prompt_id": "a4k_eval_4096_minus2014927182109364975",
+      "prompt": "A panoramic view of Paris featuring the Eiffel Tower, the Seine River, and various ornate buildings with greenery and bustling activity, including boats on the water and crowds along walkways.",
+      "methods": [
+        "ntk2",
+        "dype",
+        "sega_official",
+        "temp_only_sbase",
+        "constancy_tm_sbase",
+        "sega_ctm_v2"
+      ],
+      "seed": 0,
+      "source_sha256": {
+        "ntk2": "930781f6990724bc8946892bcda52ad40cdbc471015f746b58d18e5a964b0869",
+        "dype": "91e8efc9e49a61be5f38f8f43b5769888d5401302e5c4dc2197b63de00724c13",
+        "sega_official": "e629f4f204921df2916b39fc167a19b277086634dedeb6c1c3971103fced1277",
+        "temp_only_sbase": "47fc27f6633065551fec5e0438ad382d713b1171e555c1cb885b4edaf3861517",
+        "constancy_tm_sbase": "73ce323e1949e3b50adb03d256d6263a19cd4d6a9f0f85b7b43cab4e898474d7",
+        "sega_ctm_v2": "517d61f8bab5feada43ae0c264dc094429ec4eadd67bb920451eb1e375843aec"
+      }
+    }
+  ],
+  "method_order": [
+    "ntk2",
+    "dype",
+    "sega_official",
+    "temp_only_sbase",
+    "constancy_tm_sbase",
+    "sega_ctm_v2"
+  ],
+  "printed_size_inches": [
+    5.5,
+    3.2555555555555564
+  ],
+  "crop_pixels": "unaltered RGB native pixels, lossless embedded images",
+  "full_frame_thumbnails": "384x384 Lanczos reduction of original full frame",
+  "legacy_appendix": {
+    "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/figs/f4_qualitative.pdf",
+    "sha256": "0a49346b797be25f709e064cabd6b6b92342395603fb3a9ca30bff0394ff25a8",
+    "original_generator_sha256": "87668e4884a955500ca3b604b5a1922a77b932d39b9dcbaa679065bda3e48a20",
+    "original_helper_sha256": "685413fa49ef123cacc08a964a15df2d3403ed95169de34aaef4d33eb2a9efa7",
+    "source_git_commit": "4bf534d16b821f45355b6e5354cfd1c6bdbe0448",
+    "regenerate": "python paper/figs/f4_qualitative.py --appendix"
+  },
+  "generator_sha256": "529c6454c833611a61a6396221bbab016914d9856bd8fe88391909f9c6278dc6",
+  "helper_sha256": "209f6afbb97f0fc623126d8eabbfb4905ec75a60993e34b18672a982ea3e20c5"
+}

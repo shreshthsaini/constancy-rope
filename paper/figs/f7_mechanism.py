@@ -1,4 +1,4 @@
-"""F7: why the per-band controllers barely move the image: when the correction acts, and how a gain transfers.
+"""F7: correction activity and prompt-specific gain responses.
 
 Regenerate:  OMP_NUM_THREADS=8 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python f7_mechanism.py
 
@@ -7,12 +7,13 @@ Regenerate:  OMP_NUM_THREADS=8 /work/09032/saini_2/vista/library/uv-envs/crope/b
     time-matched target  out_krea/devtm_eta1/constancy_tm/4096x4096/*.json  (same base and temperature, eta = 1)
     activity = mean over the 112 spatial head dims of |log g - log tau|, where log tau = ln(ln N / ln N_native)
     = ln(16/12) is the global log-N temperature; the script checks that the 16 text/time dims carry exactly log tau
-    at every step. Line = median over prompts, band = full range over the 8 prompts. Lower maps: median over
+    at every step. Line = median over prompts, band = interquartile range over the 8 prompts. Lower maps: median over
     prompts of log g - log tau per rotary pair, averaged over the height and width pairs.
 (b) Attention-gain transfer probe, probe_krea/4096x4096{,_p1,_p2}/mtf.csv (3 prompts, seed 0, NTK base): the
     logit gain of the rotary pairs in one octave is multiplied by 1.5 on both spatial axes for the whole sampling
-    run; response = d ln(final-latent band power) / d ln(gain) by same-seed forward difference, mean over the
-    3 prompts, for power measured along height and along width. Octave edges in cycles per latent token.
+    run; response = d ln(final-latent band power) / d ln(gain) by same-seed forward difference. Show one
+    width-axis matrix per prompt, on a common zero-centered scale. No averaging or sign-agreement overlay.
+    Octave edges are in cycles per latent token; height responses remain in the printed numeric summary.
 """
 import glob
 import json
@@ -70,17 +71,22 @@ def load_probe():
     d = pd.concat([pd.read_csv(S / "probe_krea" / p / "mtf.csv") for p in PROBES], ignore_index=True)
     assert d.prompt_id.nunique() == 3 and (d.seed == 0).all() and (d.gain_factor == 1.5).all()
     d = d[d.domain == "latent"]
+    order = cs.prompt_order()
+    ids = sorted(d.prompt_id.unique(), key=lambda pid: order[pid])
+    assert [order[pid] for pid in ids] == [0, 1, 2]
     edges = np.unique(np.r_[d.output_low.values, d.output_high.values])
     mats = {}
-    for ax in ("height", "width"):
-        e = d[d.axis == ax]
+    for axis in ("height", "width"):
+        e = d[d.axis == axis]
         assert len(e) == 3 * 6 * 7 and e.response.notna().all()
-        mean = e.groupby(["input_bin", "output_bin"]).response.mean().unstack().values      # (6, 7)
-        per = e.pivot_table(index=["prompt_id", "input_bin"], columns="output_bin", values="response")
-        per = per.values.reshape(3, 6, 7)
-        agree = (np.sign(per) == np.sign(mean)[None]).all(0)
-        mats[ax] = (mean, agree)
-    return edges, mats
+        assert not e.duplicated(["prompt_id", "input_bin", "output_bin"]).any()
+        per = []
+        for pid in ids:
+            matrix = e[e.prompt_id == pid].pivot(index="input_bin", columns="output_bin", values="response")
+            assert matrix.shape == (6, 7) and np.isfinite(matrix.values).all()
+            per.append(matrix.sort_index().sort_index(axis=1).values)
+        mats[axis] = np.asarray(per)
+    return edges, mats, [order[pid] for pid in ids]
 
 
 def add_ax(fig, x, top, w, h):
@@ -97,23 +103,22 @@ def frac(e):
 def main():
     cs.style()
     T = load_targets()
-    edges, P = load_probe()
+    edges, P, prompt_rows = load_probe()
     steps = np.arange(1, 29)
 
     # ---- geometry (inches)
     W = cs.TEXT
     top0 = 0.42                      # panel letters and the sigma axis above panel a
-    aL, aW = 0.44, 2.11              # panel a plot area
+    aL, aW = 0.56, 2.00              # panel a plot area
     lineH = 1.34
     NP = 12                          # pairs shown in the maps (pairs >= 9 are never corrected; asserted)
-    hmH, hmGap = 0.39, 0.06
-    hm_top = top0 + lineH + 0.08
-    cell = 0.20
-    bW, bH = 7 * cell, 6 * cell
-    bL = W - 0.62 - bW                # panel b matrix left; colorbar block on its right
-    b_top = top0 - 0.02
-    b_gap = 0.22
-    H = max(hm_top + 2 * hmH + hmGap + 0.36, b_top + 2 * bH + b_gap + 0.50)
+    hmL, hmW = 3.12, 1.74
+    hmH, hmGap = 0.52, 0.16
+    hm_top = top0 + 0.03
+    bL, bW, b_gap = 0.44, 1.28, 0.35
+    bH = bW * 6 / 7
+    b_top = 2.39
+    H = b_top + bH + 1.03
     fig = plt.figure(figsize=(W, H))
 
     # ---- (a) activity
@@ -157,7 +162,7 @@ def main():
     hn = Normalize(-vm, vm)
     hms = []
     for i, (key, _, _, col, name) in enumerate(TARGETS):
-        hx = add_ax(fig, aL, hm_top + i * (hmH + hmGap), aW, hmH)
+        hx = add_ax(fig, hmL, hm_top + i * (hmH + hmGap), hmW, hmH)
         hx.sharex(ax)
         if hms:
             hx.sharey(hms[0])
@@ -177,7 +182,7 @@ def main():
             hx.tick_params(labelbottom=False)
     hms[1].set_xlabel("Denoising step", fontsize=7.5)
     hms[0].set_ylabel("Pair", fontsize=7, labelpad=1)
-    hcb = add_ax(fig, aL + aW + 0.06, hm_top, 0.06, 2 * hmH + hmGap)
+    hcb = add_ax(fig, hmL + hmW + 0.08, hm_top, 0.06, 2 * hmH + hmGap)
     cb = fig.colorbar(plt.cm.ScalarMappable(norm=hn, cmap="RdBu_r"), cax=hcb)
     cb.set_ticks([-vm, 0, vm])
     cb.ax.tick_params(labelsize=6.5, length=2, width=0.4, pad=1.5)
@@ -186,64 +191,51 @@ def main():
     cb.solids.set_edgecolor("face")
     cb.set_label(r"$\log g-\log\tau$", fontsize=6.5, labelpad=1)
 
-    # ---- (b) transfer matrices
+    # ---- (b) prompt-specific width-axis transfer, no cross-prompt average
     lg = np.log2(edges)
-    vb = np.ceil(max(np.abs(P[k][0]).max() for k in P) * 10) / 10
+    vb = np.ceil(np.abs(P["width"]).max() * 10) / 10
     bn = Normalize(-vb, vb)
-    mxs = []
-    for i, axis in enumerate(("height", "width")):
-        mx = add_ax(fig, bL, b_top + i * (bH + b_gap), bW, bH)
-        if mxs:
-            mx.sharex(mxs[0])
-        mxs.append(mx)
-        mean, agree = P[axis]
-        mx.pcolormesh(lg, lg[:7], mean, cmap="RdBu_r", norm=bn, shading="flat", edgecolors="face", linewidth=0.25)
-        for r in range(6):
-            for c in range(7):
-                cx, cy = (lg[c] + lg[c + 1]) / 2, (lg[r] + lg[r + 1]) / 2
-                v = mean[r, c]
-                if r == c:
-                    mx.add_patch(Rectangle((lg[c], lg[r]), 1, 1, fill=False, lw=0.7, edgecolor=cs.INK, zorder=3))
-                    t = "0.00" if abs(v) < 0.005 else f"{v:.2f}".replace("-", "−")
-                    mx.text(cx, cy, t, fontsize=5.6, ha="center", va="center",
-                            color="white" if abs(v) > 0.6 * vb else cs.INK, zorder=4)
-                elif agree[r, c]:
-                    mx.plot(cx, cy, marker="o", ms=1.5, color=cs.INK, alpha=0.55, mew=0, zorder=4)
+    matrix_axes = []
+    for i, (prompt_row, matrix) in enumerate(zip(prompt_rows, P["width"])):
+        mx = add_ax(fig, bL + i * (bW + b_gap), b_top, bW, bH)
+        if matrix_axes:
+            mx.sharey(matrix_axes[0])
+        matrix_axes.append(mx)
+        mx.pcolormesh(lg, lg[:7], matrix, cmap="RdBu_r", norm=bn, shading="flat",
+                      edgecolors="face", linewidth=0.25, rasterized=False)
         mx.set_xlim(lg[0], lg[-1])
         mx.set_ylim(lg[0], lg[6])
-        mx.set_xticks(lg)
-        mx.set_xticklabels([frac(e) if j % 2 == 0 else "" for j, e in enumerate(edges)])   # every other edge
-        mx.set_yticks(lg[:7])
-        mx.set_yticklabels([frac(e) if k % 2 == 0 and (k or i == 0) else "" for k, e in enumerate(edges[:7])])  # corner clash
-        mx.tick_params(length=2, pad=1.5, labelsize=6.3)
+        mx.set_aspect("equal")
+        mx.set_xticks(lg[[0, 3, 6]])
+        mx.set_xticklabels([frac(edges[j]) for j in (0, 3, 6)])
+        mx.set_yticks(lg[[0, 3, 6]])
+        mx.set_yticklabels([frac(edges[j]) for j in (0, 3, 6)])
+        if i:
+            mx.tick_params(labelleft=False)
+        mx.tick_params(length=2, pad=2, labelsize=7)
         for sp in mx.spines.values():
             sp.set_linewidth(0.4)
             sp.set_color(cs.INK2)
-        mx.set_ylabel("Gained octave", fontsize=7, labelpad=1)
-        mx.text(0.0, 1.035, f"Power measured along {axis}", transform=mx.transAxes, fontsize=6.5, color=cs.INK,
-                ha="left", va="bottom")
         if i == 0:
-            mx.tick_params(labelbottom=False)
-    mxs[1].set_xlabel("Output octave (cycles per token)", fontsize=7, labelpad=2)
-    kx = bL - 0.36
-    ky = b_top + 2 * bH + b_gap + 0.43
-    fig.add_artist(Rectangle((kx / W, 1 - (ky + 0.005) / H), 0.075 / W, 0.075 / H, transform=fig.transFigure,
-                             fill=False, lw=0.7, edgecolor=cs.INK))
-    fig.text((kx + 0.11) / W, 1 - ky / H, "same octave", fontsize=6, color=cs.INK2, ha="left", va="baseline")
-    fig.add_artist(plt.Line2D([(kx + 0.86) / W], [1 - (ky - 0.03) / H], marker="o", ms=1.8, color=cs.INK,
-                              alpha=0.55, mew=0, transform=fig.transFigure))
-    fig.text((kx + 0.93) / W, 1 - ky / H, "same sign in all 3 prompts", fontsize=6, color=cs.INK2,
-             ha="left", va="baseline")
-    bcb = add_ax(fig, bL + bW + 0.07, b_top, 0.06, 2 * bH + b_gap)
-    cb2 = fig.colorbar(plt.cm.ScalarMappable(norm=bn, cmap="RdBu_r"), cax=bcb)
-    cb2.ax.tick_params(labelsize=6.5, length=2, width=0.4, pad=1.5)
+            mx.set_ylabel("Gained octave", fontsize=7.5, labelpad=2)
+        mx.text(0.5, 1.10, f"Dev prompt {prompt_row}", transform=mx.transAxes,
+                fontsize=7.5, color=cs.INK, ha="center", va="bottom")
+    block_w = 3 * bW + 2 * b_gap
+    fig.text((bL + block_w / 2) / W, 1 - 2.07 / H,
+             "Width-axis response: 3 prompts, single seed", fontsize=8, ha="center", color=cs.INK)
+    fig.text((bL + block_w / 2) / W, 1 - (b_top + bH + 0.34) / H,
+             "Output octave (cycles per token)", fontsize=7.5, ha="center", color=cs.INK)
+    bcb = add_ax(fig, bL + 0.13, b_top + bH + 0.61, block_w - 0.26, 0.10)
+    cb2 = fig.colorbar(plt.cm.ScalarMappable(norm=bn, cmap="RdBu_r"), cax=bcb, orientation="horizontal")
+    cb2.set_ticks([-vb, 0, vb])
+    cb2.ax.tick_params(labelsize=7, length=2, width=0.4, pad=2)
     cb2.outline.set_linewidth(0.4)
     cb2.solids.set_rasterized(False)
     cb2.solids.set_edgecolor("face")
-    cb2.set_label(r"Response, $\partial\ln P_{\mathrm{out}}/\partial\ln g$", fontsize=7, labelpad=1)
+    cb2.set_label(r"Response: $\Delta\ln P_{\mathrm{out}}/\ln(1.5)$", fontsize=7.5, labelpad=3)
 
     cs.panel_tag(fig, 0.0, 1 - 0.14 / H, "a")
-    cs.panel_tag(fig, (bL - 0.40) / W, 1 - 0.14 / H, "b")
+    cs.panel_tag(fig, 0.0, 1 - 2.07 / H, "b")
     cs.finish(fig, str(cs.HERE / "f7_mechanism"), photo=False)
 
     print(f"late-profile: zero through step {off} (sigma {sig[off - 1]:.3f}); first nonzero step {off + 1} "
@@ -253,7 +245,8 @@ def main():
     for k in ("late", "tm"):
         print(k, "median activity at steps 10/20/28:", np.round(np.median(T[k]["act"], 0)[[9, 19, 27]], 4))
     for axis in P:
-        print(axis, "diag", np.round(np.diag(P[axis][0][:, :6]), 2), "sign-agree cells", int(P[axis][1].sum()))
+        for prompt_row, matrix in zip(prompt_rows, P[axis]):
+            print(axis, "dev prompt", prompt_row, "diagonal", np.round(np.diag(matrix[:, :6]), 3))
 
 
 if __name__ == "__main__":

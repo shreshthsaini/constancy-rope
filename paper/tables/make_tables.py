@@ -16,7 +16,8 @@ Inputs.
 Statistics. Means and paired deltas use the percentile bootstrap of scripts/heldout_analysis.py:
 2,000 resamples of prompts, numpy default_rng(0), 2.5 and 97.5 percentiles, one fresh generator per
 (method, metric). A delta is marked better or worse only when its 95 percent interval excludes zero.
-Intervals are per metric and not adjusted for multiple comparisons.
+Intervals are per metric and not adjusted for multiple comparisons. Stars in the two held-out
+delta tables mark retrospective Holm-adjusted centered-bootstrap tests over that table.
 
 Outputs (paper/tables/): tab_main.tex, tab_share.tex, tab_means_full.tex, tab_deltas_full.tex,
 tab_seed1.tex, tab_pilot.tex, tab_dev.tex, tab_octave.tex, num_results.tex.
@@ -65,6 +66,7 @@ HOH = {"sega_official": r"\segaofficialH", "ntk2": r"\ntkH", "temp_only_sbase": 
 
 macros = []          # (name, value) for num_results.tex
 log = []             # stdout summary
+HOLM = {}
 
 
 def boot(x, n=2000, seed=0):
@@ -96,10 +98,40 @@ def verdict(metric, d, lo, hi):
     return "b" if ((d < 0) if metric in LOWER else (d > 0)) else "w"
 
 
-def dcell(metric, d, lo, hi, prec=None):
+def dcell(metric, d, lo, hi, prec=None, holm=False):
     p = PREC[metric] if prec is None else prec
     v = verdict(metric, d, lo, hi)
-    return r"\dcell%s{%s}{%s}{%s}" % (v.upper(), num(d, p, True), num(lo, p, True), num(hi, p, True))
+    point = num(d, p, True) + (r"^{*}" if holm else "")
+    return r"\dcell%s{%s}{%s}{%s}" % (v.upper(), point, num(lo, p, True), num(hi, p, True))
+
+
+def historical_marks(d):
+    """Retain the original archived row order, including the partial Constancy arm."""
+    full = [(m, k) for m in HO_ORDER for k in METRICS]
+    small = [(m, k) for m in HO_ORDER if m != "constancy" for k in
+             ["imagereward", "pickscore", "clip", "musiq", "musiq_crop1024", "clipiqa"]]
+    rows = []
+    for family, pairs in [("historical_full60", full), ("historical_condensed30", small)]:
+        ps = []
+        for method, metric in pairs:
+            a = d[d.method == method].set_index("prompt_id")[metric]
+            b = d[d.method == "sega_official"].set_index("prompt_id")[metric]
+            common = a.index.intersection(b.index)
+            x = (a.loc[common] - b.loc[common]).dropna().to_numpy(float)
+            draws = np.random.default_rng(0).choice(x, (2000, len(x)), replace=True).mean(1)
+            p = (1 + np.count_nonzero(np.abs(draws - x.mean()) >= abs(x.mean()))) / 2001
+            ps.append(p)
+        order = np.argsort(ps, kind="stable")
+        adjusted, previous = np.ones(len(ps)), 0.
+        for rank, idx in enumerate(order):
+            previous = max(previous, (len(ps) - rank) * ps[idx])
+            adjusted[idx] = min(1., previous)
+        for (method, metric), p, ph in zip(pairs, ps, adjusted):
+            HOLM[(family, method, metric)] = bool(ph <= .05)
+            rows.append(dict(family=family, family_size=len(pairs), method=method, metric=metric,
+                             p=p, p_holm=ph, holm_reject=bool(ph <= .05)))
+        log.append(f"{family}: {sum(adjusted <= .05)}/{len(ps)} Holm marks")
+    pd.DataFrame(rows).to_csv(SNAP / "historical_holm.csv", index=False)
 
 
 def register(prefix, key, metric, d, lo, hi, n, signed=True):
@@ -213,7 +245,7 @@ def table_main(res, means):
         for m in ms:
             n = res[(m, cols[0])][3]
             name = HO[m][1] + ("{}" if n == means[("sega_official", cols[0])][3] else r"{}$^{\dagger}$")
-            cells = [dcell(c, *res[(m, c)][:3]) for c in cols]
+            cells = [dcell(c, *res[(m, c)][:3], holm=HOLM[("historical_condensed30", m, c)]) for c in cols]
             L.append(name + " & " + " & ".join(cells) + r" \\")
         if gi < len(groups) - 1:
             L.append(r"\addlinespace[2pt]")
@@ -278,7 +310,8 @@ def table_full(res, means):
          r"Metric & " + " & ".join(HOH[m] for m in HO_ORDER) + r" \\",
          r" & " + " & ".join(r"\tiny $n=%d$" % res[(m, METRICS[0])][3] for m in HO_ORDER) + r" \\", r"\midrule"]
     for k in METRICS:
-        L.append(LABEL[k] + " & " + " & ".join(dcell(k, *res[(m, k)][:3]) for m in HO_ORDER) + r" \\")
+        L.append(LABEL[k] + " & " + " & ".join(
+            dcell(k, *res[(m, k)][:3], holm=HOLM[("historical_full60", m, k)]) for m in HO_ORDER) + r" \\")
     L += [r"\bottomrule", r"\end{tabular}"]
     (OUT / "tab_deltas_full.tex").write_text("\n".join(L) + "\n")
     mac("ho@ncomp", str(len(HO_ORDER) * len(METRICS)))
@@ -572,6 +605,7 @@ def write_macros():
 def main():
     order = prompt_order()
     d, res, means = heldout(order)
+    historical_marks(d)
     table_main(res, means)
     table_full(res, means)
     table_share(d)

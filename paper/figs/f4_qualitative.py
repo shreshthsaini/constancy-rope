@@ -1,15 +1,19 @@
-"""F4: qualitative 4K comparison, held-out manifest rows 8, 9, 10 (the first three held-out rows,
-fixed before any output was viewed), seed 0, six methods.
+"""F4: qualitative 4K comparisons from the original first held-out rows, seed 0.
 
-Per prompt: Lanczos-reduced full frames (small) and two native-pixel crops at the same location for
-every method. A = maximum Laplacian energy of the across-method mean luminance over all six methods
-(qual_helpers.detail_box, tiles overlapping B excluded); B = image center. Crops are 384 px and are
-never resampled or sharpened.
+Default main figure: rows 8 and 9, six methods, small full frames and one common
+384px crop per row. Crop selection maximizes minimum normalized per-arm detail;
+its exact rule, sources and boxes are saved beside the figure. This crop selection
+was introduced during review after historical outputs were available.
 
-Regenerate: OMP_NUM_THREADS=8 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python f4_qualitative.py
+The --appendix option retains the original three-row, two-crop layout and mean-image
+Laplacian rule. It regenerates f4_qualitative.pdf only when explicitly requested.
 """
 from __future__ import annotations
 
+import argparse
+import hashlib
+import json
+from pathlib import Path
 import matplotlib.patheffects as pe
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
@@ -69,7 +73,7 @@ def crop_box(ax, box, scale, letter=None):
                 path_effects=HALO)
 
 
-def main():
+def appendix():
     cs.style()
     table = cs.heldout()
     prompts = cs.prompts()
@@ -113,5 +117,72 @@ def main():
     cs.finish(fig, cs.HERE / "f4_qualitative", photo=True)
 
 
+def main():
+    cs.style()
+    table, prompts = cs.heldout(), cs.prompts()
+    main_rows = (8, 9)
+    header, full, vg, gap, foot = .22, .50, .04, .12, .18
+    block = full + vg + C
+    height = header + 2 * block + gap + foot
+    fig = plt.figure(figsize=(W, height))
+    def ax_at(x, y, width, h):
+        return fig.add_axes([x / W, y / height, width / W, h / height])
+    for j, method in enumerate(METHODS):
+        fig.text((col_x(j) + C / 2) / W, (height - .12) / height, cs.label(method),
+                 fontsize=6.5, fontweight='bold', ha='center', va='baseline', color=cs.text_color(method))
+        fig.add_artist(plt.Line2D([col_x(j)/W, (col_x(j)+C)/W], [(height-.16)/height]*2,
+                                 color=cs.color(method), lw=1.1, solid_capstyle='butt'))
+    receipts = []
+    for block_index, row in enumerate(main_rows):
+        src = qh.sources(row, METHODS, table=table)
+        box, audit = qh.common_detail_box([src[m] for m in METHODS], CROP)
+        audit.update(row=row, prompt_id=prompts[row]['id'], prompt=prompts[row]['prompt'],
+                     methods=METHODS, seed=0,
+                     source_sha256={m: hashlib.sha256(src[m].read_bytes()).hexdigest() for m in METHODS})
+        receipts.append(audit)
+        print(f"main row {row}: A {box}; minimum normalized energy {audit['minimum_normalized_energy']:.6f}")
+        top = height - header - block_index*(block+gap)
+        fig.add_artist(Rectangle((LC/W, (top-full-.025)/height), (W-LC)/W, (full+.05)/height,
+                                 transform=fig.transFigure, facecolor=cs.PANEL, edgecolor='none', zorder=-1))
+        for j, method in enumerate(METHODS):
+            x = col_x(j)
+            ax = ax_at(x+(C-full)/2, top-full, full, full)
+            photo(ax, cs.thumb(src[method], THUMB))
+            crop_box(ax, box, THUMB/4096, 'A' if j == 0 else None)
+            cropped = ax_at(x, top-full-vg-C, C, C)
+            photo(cropped, cs.crop(src[method], box), frame=True)
+            if j == 0:
+                cropped.text(.05,.95,'A',transform=cropped.transAxes,color='white',fontsize=7,
+                             fontweight='bold',ha='left',va='top',path_effects=HALO)
+        assert prompts[row]['prompt'].startswith(SHORT[row])
+        center = top-block/2
+        fig.text(.07/W, center/height, f'Row {row}', rotation=90, ha='center',va='center',
+                 fontsize=7,fontweight='bold',color=cs.INK)
+        fig.text(.19/W,center/height,SHORT[row]+'…',rotation=90,ha='center',va='center',
+                 fontsize=6.5,color=cs.INK2)
+    fig.text(1,.045/height,'A: highest minimum normalized detail across all arms; native 384 px, identical coordinates',
+             ha='right',va='baseline',fontsize=6.3,color=cs.INK2)
+    # Keep native crop pixels lossless. Full-frame thumbnail resize is the only resampling.
+    cs.finish(fig,cs.HERE/'f4_qualitative_main',formats=('pdf','svg'))
+    legacy = cs.HERE/'f4_qualitative.pdf'
+    manifest = {
+        'schema': 'qualitative-common-detail-v1', 'rows': receipts,
+        'method_order': METHODS, 'printed_size_inches': [W,height],
+        'crop_pixels': 'unaltered RGB native pixels, lossless embedded images',
+        'full_frame_thumbnails': '384x384 Lanczos reduction of original full frame',
+        'legacy_appendix': {'path': str(legacy), 'sha256': hashlib.sha256(legacy.read_bytes()).hexdigest(),
+            'original_generator_sha256': '87668e4884a955500ca3b604b5a1922a77b932d39b9dcbaa679065bda3e48a20',
+            'original_helper_sha256': '685413fa49ef123cacc08a964a15df2d3403ed95169de34aaef4d33eb2a9efa7',
+            'source_git_commit': '4bf534d16b821f45355b6e5354cfd1c6bdbe0448',
+            'regenerate': 'python paper/figs/f4_qualitative.py --appendix'},
+        'generator_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        'helper_sha256': hashlib.sha256(Path(qh.__file__).read_bytes()).hexdigest(),
+    }
+    (cs.HERE/'f4_qualitative_main_crops.json').write_text(json.dumps(manifest,indent=2)+'\n')
+
+
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--appendix',action='store_true',help='Regenerate historical full appendix figure instead')
+    args = parser.parse_args()
+    (appendix if args.appendix else main)()

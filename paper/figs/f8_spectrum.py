@@ -161,7 +161,34 @@ def main():
                 fontsize=6.5, color=cs.INK2)
     for ax, letter in ((ax_a, "a"), (ax_b, "b")):
         cs.panel_tag(ax, -0.60 / PWIDTH, 1.0 + 0.07 / ax.bbox.height * fig.dpi, letter)
+    nyquist = np.log2(0.5 * 224 / 4096)
+    for ax in (ax_a, ax_b):
+        ax.axvline(nyquist, color=cs.INK2, ls=":", lw=.8)
+    ax_b.text(nyquist + .12, -1.65, "224-view Nyquist", rotation=90,
+              fontsize=6.3, color=cs.INK2, va="bottom")
     cs.finish(fig, cs.HERE / "f8_spectrum")
+    main_panel(x, diff)
+
+
+
+def main_panel(x, diff):
+    fig, ax = plt.subplots(figsize=(cs.TEXT, 1.92))
+    fig.subplots_adjust(left=.095, right=.99, bottom=.23, top=.77)
+    for m in B:
+        series(ax, x, diff[m], m, emphasis=m == "temp_only_sbase")
+    style_axis(ax, (-1.85, .55), [-1.5, -1, -.5, 0, .5])
+    ax.set_xlabel("Wavelength (px)", fontsize=7.5, labelpad=2)
+    ax.set_ylabel(r"Paired $\Delta\ln P$ vs. SEGA", fontsize=7.5)
+    ax.axvspan(-5, -3, color=cs.PANEL, lw=0, zorder=0)
+    nyquist = np.log2(.5 * 224 / 4096)
+    ax.axvline(nyquist, color=cs.INK2, ls=":", lw=.8)
+    ax.text(nyquist - .12, -1.65, "224-view Nyquist", ha="right", fontsize=6.5, color=cs.INK2)
+    ax.text(-4, .43, "8 to 32 px", ha="center", fontsize=6.5, color=cs.INK2)
+    handles = [Line2D([], [], color=cs.color(m), marker=cs.METHODS[m]["marker"],
+                       lw=1.2, ms=3, label=cs.label(m)) for m in B]
+    fig.legend(handles=handles, loc="upper center", ncol=3, frameon=False,
+               fontsize=7, handlelength=1.5, columnspacing=1.4)
+    cs.finish(fig, cs.HERE / "f8_spectrum_main")
 
 
 if __name__ == "__main__":

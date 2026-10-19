@@ -1,20 +1,18 @@
 """F1 (page-1 hero): released SEGA's 4K gain over the NTK base comes mostly from its RoPE base and one
 global attention temperature; the per-band allocation adds little. Held-out results only.
 
-(a) One held-out prompt at 4096 px, seed 0: manifest row 28 (cathedral interior), chosen by subject
-    before any output was viewed, and outside rows 8-10 so it does not repeat F4. Full frame =
+(a) One held-out prompt at 4096 px, seed 0: manifest row 32 (isolated wooden cabin), chosen by subject
+    from captions during the senior-review revision before viewing this row; no metric-based selection. Full frame =
     released SEGA, Lanczos-reduced. Three arms in narrative order: NTK (RoPE base only), SEGA base +
     temp. (SEGA's released base and global temperature), SEGA (released) (adds the per-band allocation).
-    Crops are native pixels, never resampled, at the same two locations for every arm: A = tile with
-    the maximum Laplacian energy of the mean luminance of the three arms shown
-    (qual_helpers.detail_box), B = image centre. 384 px each, shown at 0.80 in (480 px per inch).
-(b) Share of SEGA's gain over NTK recovered by SEGA base + temp.:
-    100 * (mean_B - mean_NTK) / (mean_SEGA - mean_NTK) on held-out rows 8-194, seed 0 (n = 187), with
-    a 95% percentile interval from 2,000 joint bootstrap resamples of prompts (ratio recomputed per
-    resample, numpy default_rng(0)). Computed exactly as tables/make_tables.py table_share() and
-    checked against the N@sh@... macros in tables/num_results.tex at run time. Where the share is
-    below 100%, a cobalt segment fills the remainder up to 100%: the part of the gain that the
-    per-band allocation adds. The value column prints each share with its interval.
+    Crops are native pixels, never resampled, at the same two locations for every arm: A = cabin, centred at(2048,3200); B = mountain, centred at(2048,1536).
+    These shared coordinates were chosen to retain common subject matter after viewing the three frames. 384 px each, shown at 0.80 in (480 px per inch).
+(b) Absolute paired gains over NTK, decomposed into base + temperature and the released-allocation
+    residual, on187 held-out prompts,seed0. Bars stack signed gains in each metric's native units.
+    Whiskers show nominal95% paired bootstrap CIs for each component (2000 resamples,seed0).
+    The allocation interval is translated by the base-plus-temperature point estimate to align it
+    with its stacked segment; it is not an interval for the total gain. Separate axes have separate
+    metric units. Negative allocation segments are hatched. No ratio is plotted.
 
 Regenerate: OMP_NUM_THREADS=8 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python f1_hero.py
 """
@@ -30,7 +28,7 @@ from matplotlib.patches import Rectangle
 import crope_style as cs
 import qual_helpers as qh
 
-ROW = 28
+ROW = 32
 CROP = 384                     # native crop side in px (fixed before rendering; not tuned on content)
 THUMB = 768                    # Lanczos-reduced full frame, px
 SHOWN = ["ntk2", "temp_only_sbase", "sega_official"]          # narrative order
@@ -136,9 +134,9 @@ def header(fig, x, name, color, desc, ha="center", weight="bold"):
 # ==== figure
 def panel_a(fig):
     src = qh.sources(ROW, SHOWN)
-    mean_y = qh.mean_luma([src[m] for m in SHOWN])
-    box_a, box_b = qh.detail_box(mean_y, CROP), qh.center_box(CROP)
-    print("crop A (detail)", box_a, " crop B (centre)", box_b)
+    box_a = (1856, 3008, 2240, 3392)
+    box_b = (1856, 1344, 2240, 1728)
+    print("crop A (cabin)", box_a, " crop B (mountain)", box_b)
 
     cs.panel_tag(fig, 0, fy(NAME_Y), "a")
     header(fig, 0.15, "Full frame", cs.INK, "SEGA (released), 4096 px", ha="left", weight="normal")
@@ -149,7 +147,7 @@ def panel_a(fig):
     side_a = "right" if box_a[0] >= box_b[0] else "left"
     crop_box(ax, box_a, s, "A", side_a)
     crop_box(ax, box_b, s, "B", "left" if side_a == "right" else "right")
-    note = ["A: highest-detail tile", "B: image centre", f"native {CROP} px crops,", "identical coordinates"]
+    note = ["A: cabin", "B: mountain", f"native {CROP} px crops,", "identical coordinates"]
     for i, line in enumerate(note):
         fig.text(0, fy(IMG_TOP + F + 0.13 + 0.1 * i), line, fontsize=6.5, color=cs.INK2, va="baseline")
 
@@ -163,62 +161,64 @@ def panel_a(fig):
                  fontweight="bold", color=cs.INK, ha="center", va="center")
 
 
+def paired_gains():
+    d = cs.heldout()
+    return {m: (cs.paired(d, "temp_only_sbase", m, "ntk2"),
+                cs.paired(d, "sega_official", m, "temp_only_sbase")) for m in METRICS}
+
+
 def panel_b(fig, vals):
     cs.panel_tag(fig, X_B / W, fy(NAME_Y), "b")
-    x0 = X_B + 0.14
-    header(fig, x0, cs.label("temp_only_sbase"), cs.text_color("temp_only_sbase"),
-           "share of SEGA's gain over NTK", ha="left")
-    xmax, val_w = 115.0, 0.34
-    A = W - val_w - 0.04 - x0                                  # plot width; value column on the right
-    top, bottom = IMG_TOP + 0.02, GRID_BOTTOM - 0.14
-    ax = axes_at(fig, x0, top, A, bottom - top)
-    n = len(METRICS)
-    ax.set_xlim(0, xmax)
-    ax.set_ylim(n - 0.45, -0.75)
-    bar = 0.40
-    halo = [pe.withStroke(linewidth=1.5, foreground="white"), pe.Normal()]
+    x0 = X_B + .15
+    fig.text(x0 / W, fy(NAME_Y), "Paired gains over NTK", fontsize=7, color=cs.INK,
+             fontweight="bold")
+    fig.text(x0 / W, fy(DESC_Y), "Base + temp.", fontsize=6.4, color=cs.text_color("temp_only_sbase"))
+    fig.text((x0 + .92) / W, fy(DESC_Y), "+ allocation", fontsize=6.4, color=cs.COBALT)
+    pitch = (GRID_BOTTOM - IMG_TOP) / len(METRICS)
     for i, met in enumerate(METRICS):
-        pt, lo, hi, _ = vals[met]
-        ax.barh(i, pt, height=bar, left=0, color=cs.SKY, lw=0, zorder=2)
-        if pt < 100:   # remainder up to released SEGA: what the per-band allocation adds
-            ax.barh(i, 100 - pt, height=bar, left=pt, color=cs.COBALT, lw=0, zorder=2)
-        ax.plot([lo, hi], [i, i], color=cs.INK, lw=0.7, solid_capstyle="butt", zorder=4, path_effects=halo)
-        ax.plot([lo, hi], [i, i], ls="none", marker="|", ms=3.0, mew=0.7, color=cs.INK, zorder=4,
-                path_effects=halo)
-        ax.annotate(f"{round(pt)}%", (1.0, i), xycoords=("axes fraction", "data"),
-                    xytext=((val_w + 0.04) * 72, 0), textcoords="offset points",
-                    ha="right", va="baseline", fontsize=7.5, fontweight="bold", color=cs.INK, zorder=5)
-        ax.annotate(f"[{round(lo)}, {round(hi)}]", (1.0, i), xycoords=("axes fraction", "data"),
-                    xytext=((val_w + 0.04) * 72, -8.0), textcoords="offset points",
-                    ha="right", va="baseline", fontsize=6.5, color=cs.INK2, zorder=5)
-    # metric names are the categorical y ticks, set inside the plot above each bar
-    ax.set_yticks([i - bar / 2 - 0.12 for i in range(n)], [cs.METRICS[m]["label"] for m in METRICS])
-    ax.tick_params(axis="y", length=0, pad=-2.5, labelsize=7, labelcolor=cs.INK)
-    for t in ax.get_yticklabels():
-        t.set_horizontalalignment("left")
-        t.set_verticalalignment("baseline")
-        t.set_path_effects([pe.withStroke(linewidth=2.0, foreground="white")])
-    ax.axvline(100, color=cs.COBALT, lw=1.0, zorder=3)
-    ax.axvline(0, color=cs.STONE, lw=1.0, zorder=3)
-    ax.set_xticks([0, 50, 100], ["NTK", "", cs.label("sega_official")])
-    for t, col in zip(ax.get_xticklabels(), (cs.text_color("ntk2"), cs.INK2, cs.text_color("sega_official"))):
-        t.set_color(col)
-    ax.tick_params(axis="x", length=2.0, width=0.6, pad=1.8, labelsize=7, color=cs.RULE)
-    ax.grid(False)
-    for s in ("left", "right", "top"):
-        ax.spines[s].set_visible(False)
-    ax.spines["bottom"].set_color(cs.RULE)
+        bt, alloc = vals[met]
+        d, lo, hi, n = bt
+        a, alo, ahi, na = alloc
+        assert n == na == 187
+        top = IMG_TOP + i * pitch
+        ax = axes_at(fig, x0, top + .105, W - x0 - .06, pitch - .245)
+        ax.barh(.5, d, left=0, height=.30, color=cs.SKY, lw=0)
+        ax.barh(.5, a, left=d, height=.30, color=cs.COBALT,
+                edgecolor="white", linewidth=.4, hatch="////" if a < 0 else None)
+        # Independent component intervals, with the second translated for stacking.
+        for l, r, y, c in [(lo, hi, .84, cs.text_color("temp_only_sbase")),
+                            (d + alo, d + ahi, .16, cs.COBALT)]:
+            ax.plot([l, r], [y, y], color=c, lw=.75)
+            ax.plot([l, r], [y, y], ls="none", marker="|", ms=2.5, mew=.75, color=c)
+        xmax = max(hi, d + ahi, d + a) * 1.06
+        ax.set_xlim(min(0, d + alo) * 1.05, xmax)
+        ax.set_ylim(0, 1)
+        ax.set_yticks([])
+        ax.set_xticks([0, xmax])
+        ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda v, p: f"{v:.2g}"))
+        ax.tick_params(axis="x", labelsize=6, length=1.8, pad=1)
+        for side in ["left", "top", "right"]:
+            ax.spines[side].set_visible(False)
+        ax.spines["bottom"].set_color(cs.RULE)
+        ax.grid(False)
+        name = {"imagereward": "ImageReward", "pickscore": "PickScore",
+                "musiq": "MUSIQ, full", "musiq_crop1024": "MUSIQ, crops"}[met]
+        fig.text(x0 / W, fy(top + .07), name, fontsize=6.5, color=cs.INK)
+        precision = 3 if met == "imagereward" else 2
+        fig.text((W - .06) / W, fy(top + .07), f"{d:+.{precision}f}  {a:+.{precision}f}",
+                 fontsize=6.2, color=cs.INK, ha="right")
+        print(met, "base+temperature", bt, "allocation", alloc)
 
 
 def main():
     cs.style()
-    vals = shares()
-    check_macros(vals)
+    check_macros(shares())
+    vals = paired_gains()
     fig = plt.figure(figsize=(W, H))
     panel_a(fig)
     panel_b(fig, vals)
     print(f"figure size {W:.2f} x {H:.3f} in")
-    cs.finish(fig, cs.HERE / "f1_hero", photo=True)
+    cs.finish(fig, cs.HERE / "f1_hero", photo=True, formats=("pdf", "svg"))
 
 
 if __name__ == "__main__":
