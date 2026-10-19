@@ -1,4 +1,4 @@
-% ---------------------------------------------------------------------------------------------
+% =============================================================================================
 % Method names: the only place they are spelled. Code names in comments.
 \newcommand{\methodname}[1]{\textsc{#1}}
 \newcommand{\sega}{SEGA}                                        % the method in general
@@ -23,7 +23,7 @@
 \newcommand{\fluxdev}{FLUX.1-dev}
 \newcommand{\afk}{Aesthetic-4K}
 
-% ---------------------------------------------------------------------------------------------
+% =============================================================================================
 % Result cells (written by tables/make_tables.py). B = 95% interval excludes zero in the good
 % direction, W = excludes zero in the bad direction, T = interval covers zero.
 \definecolor{betterc}{RGB}{0,90,170}
@@ -43,7 +43,7 @@
 \newcommand{\better}{\textcolor{betterc}{\scalebox{0.7}{$\blacktriangle$}}}
 \newcommand{\worse}{\textcolor{worsec}{\scalebox{0.7}{$\blacktriangledown$}}}
 
-% ---------------------------------------------------------------------------------------------
+% =============================================================================================
 % Number accessors. Every result number in the text comes from tables/*.tex via these.
 \makeatletter
 \newcommand{\N}[1]{\ifcsname N@#1\endcsname\csname N@#1\endcsname\else
@@ -66,7 +66,7 @@
 \newcommand{\shp}[1]{\N{sh@p@#1}\%}       % share of SEGA's gain carried by base + temperature
 \newcommand{\shci}[1]{\N{sh@ci@#1}}
 
-% ---------------------------------------------------------------------------------------------
+% =============================================================================================
 % Figures: placeholder until the figure agent delivers the file.
 \newcommand{\figorplaceholder}[3][\linewidth]{%
   \IfFileExists{#2}{\includegraphics[width=#1]{#2}}{%

@@ -1,13 +1,15 @@
 """F3: held-out paired differences from released SEGA for every method and metric, with the seed-1 replication.
 
 Small multiples: one compact axis per metric (own x-scale, shared zero line = released SEGA), method rows in a
-fixed order. Seed 0: rows 8-194 (n = 187, Constancy n = 41); seed 1: rows 8-62 (n = 55). Intervals are 95%
-percentile intervals of 2,000 paired bootstrap resamples over prompts (crope_style.paired), and the seed-0 values
-are asserted equal to .agent/notes/main2/heldout_paired_vs_sega_official.csv within 1e-9.
+fixed order and three groups (baselines | SEGA ablation | per-band laws). Held-out results only: seed 0 on rows
+8-194 (n = 187) for every row; seed 1 on rows 8-62 (n = 55) for SEGA base + temp. and Constancy-TM. The partial
+Constancy run (NTK base, 41 prompts) is not drawn. Intervals are 95% percentile intervals of 2,000 paired bootstrap
+resamples over prompts (crope_style.paired), and the seed-0 values are asserted equal to
+.agent/notes/main2/heldout_paired_vs_sega_official.csv within 1e-9.
 
 Axis rule: limits cover every interval of DyPE, SEGA base + temp., Constancy-TM, SEGA + TM (both seeds) and zero.
-Constancy is added if that at most doubles the span, NTK if it at most multiplies it by 1.5; otherwise the row is
-clipped at the edge with an outward triangle and its value printed.
+NTK is added if that at most multiplies the span by 1.5; otherwise its row is clipped at the edge with an outward
+triangle and its value printed.
 
 Regenerate (from paper/figs):  OMP_NUM_THREADS=8 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python f3_forest.py
 """
@@ -26,11 +28,11 @@ from matplotlib.transforms import blended_transform_factory
 
 import crope_style as cs
 
-ORDER = ["ntk2", "dype", "temp_only_sbase", "constancy", "constancy_tm_sbase", "sega_ctm_v2"]
-ROW_LABEL = {"constancy": "Constancy (n = 41)"}
+ORDER = ["ntk2", "dype", "temp_only_sbase", "constancy_tm_sbase", "sega_ctm_v2"]
+NOT_DRAWN = {"constancy"}                # partial run (41 prompts): appendix only, never in a main-text figure
 SEED1 = ["temp_only_sbase", "constancy_tm_sbase"]
-FAR = {"constancy": 2.0, "ntk2": 1.5}    # row -> largest allowed widening of the core span before clipping
-GROUP_BREAK = {"temp_only_sbase", "constancy"}   # extra space above these rows (baselines | SEGA ablation | rules)
+FAR = {"ntk2": 1.5}                      # row -> largest allowed widening of the core span before clipping
+GROUP_BREAK = {"temp_only_sbase", "constancy_tm_sbase"}   # extra space above these rows (baselines | SEGA ablation | laws)
 FADE = 0.60                              # share of colour kept when the 95% CI includes zero
 
 # two figure rows of five panels; each entry is (group header, [(metric, panel title), ...])
@@ -85,7 +87,7 @@ def compute():
     assert h.idx.between(8, 194).all() and (h.seed == 0).all()
     ref = pd.read_csv(cs.PAIRED_V2)
     old = pd.read_csv(cs.PAIRED)
-    assert set(ref.method) == set(ORDER) and set(ref.metric) == set(cs.METRICS)
+    assert set(ref.method) == set(ORDER) | NOT_DRAWN and set(ref.metric) == set(cs.METRICS)
     s1 = cs.seed1()
     res, worst = {}, 0.0
     for m in ORDER:
@@ -275,7 +277,7 @@ def main():
         tr = blended_transform_factory(fig.transFigure, axes[0].transData)
         for m in ORDER:
             spec = cs.METHODS[m]
-            fig.text(fx(LABEL_W - 0.16), POS[m], ROW_LABEL.get(m, spec["label"]), transform=tr,
+            fig.text(fx(LABEL_W - 0.16), POS[m], spec["label"], transform=tr,
                      ha="right", va="center", fontsize=7, color=cs.INK)
             fig.add_artist(Line2D([fx(LABEL_W - 0.09)], [POS[m]], transform=tr, marker=spec["marker"],
                                   ms=msize(spec["marker"]), mfc=spec["color"], mec="white", mew=0.45, ls="none"))

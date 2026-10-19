@@ -89,7 +89,9 @@ def add_ax(fig, x, top, w, h):
 
 
 def frac(e):
-    return rf"$2^{{{int(round(np.log2(e)))}}}$"
+    """Octave edge 2^-k as the plain fraction 1/2^k: no superscript, so the label prints at the tick size."""
+    k = int(round(-np.log2(e)))
+    return f"1/{2 ** k}" if k > 0 else str(2 ** -k)
 
 
 def main():
@@ -210,9 +212,9 @@ def main():
         mx.set_xlim(lg[0], lg[-1])
         mx.set_ylim(lg[0], lg[6])
         mx.set_xticks(lg)
-        mx.set_xticklabels([frac(e) for e in edges])
+        mx.set_xticklabels([frac(e) if j % 2 == 0 else "" for j, e in enumerate(edges)])   # every other edge
         mx.set_yticks(lg[:7])
-        mx.set_yticklabels([frac(e) if (k or i == 0) else "" for k, e in enumerate(edges[:7])])  # corner clash
+        mx.set_yticklabels([frac(e) if k % 2 == 0 and (k or i == 0) else "" for k, e in enumerate(edges[:7])])  # corner clash
         mx.tick_params(length=2, pad=1.5, labelsize=6.3)
         for sp in mx.spines.values():
             sp.set_linewidth(0.4)

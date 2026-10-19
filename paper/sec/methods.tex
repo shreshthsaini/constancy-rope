@@ -2,31 +2,50 @@
 
 \begin{figure}[t]
 \centering
-\figorplaceholder[0.8\linewidth]{figs/f2_method.pdf}{2.2in}
-\caption{\textbf{The RoPE base and one global temperature are the big levers on the attention logit; per-band gains fine-tune band weights.} (a)~Query, key and offset on the token grid of a $4096^2$ image; the inset shows band 8 under the native base $b$ (dashed) and \sega's released base $b'$. (b)~Four of the \N{c@pairsperaxis} width-axis bands with their log gains (sky: $\ln\tau$; circles: \segaofficial; diamonds: \constancytm) from one held-out sample at step 14; the right-hand curves sum only these four bands. (c)~Each controller reads $x_t$ at every step and sets $g_j$.}
+\figorplaceholder[0.86\linewidth]{figs/f2_method.pdf}{2.37in}
+\caption{\textbf{The RoPE base and one global temperature are the big levers on the attention logit; per-band gains fine-tune band weights.} (a)~Query, key and offset on the token grid of a $4096^2$ image; the inset shows band 8 under the native base $b$ (dashed) and \sega's released base $b'$. (b)~Four of the \N{c@pairsperaxis} width-axis bands with their log gains (sky: $\ln\tau$; circles: \segaofficial; diamonds: \constancytm) from one held-out sample at step 14; the curves on the right sum only these four bands. (c)~Each controller reads $x_t$ at every step and sets $g_j$.}
 \label{fig:method}
 \end{figure}
 
 \begin{table}[t]
 \centering
-\caption{\textbf{Arms and the knobs they turn.} Temperature is the logit gain at $4096^2$; t/x: changes with the noise level / with the image. Held-out arms ran on rows 8--194, pilot and dev arms only on the eight dev prompts.}
+\caption{\textbf{Arms and the knobs they turn.} Temperature is the logit gain at $4096^2$; t/x: varies with the noise level / with the image. Held-out arms ran on rows 8--194, the pilot and dev arms only on the eight dev prompts.}
 \label{tab:methods}
 \footnotesize
-\setlength{\tabcolsep}{2.9pt}
+\setlength{\tabcolsep}{2.6pt}
 \begin{tabular}{@{}l l c c c l@{}}
 \toprule
 Arm & Frequency base & Temperature & Per-band gain & t/x & Evaluated \\
 \midrule
 \ntk & $\theta\,s^{2D/(D-2)}$ & none & none & no / no & held-out \\
-\yarn & ramp, slow pairs to PI & $\N{c@dypegain}$ & none & no / no & pilot \\
 \dype & PI/NTK ramps in $\sigma$ & $\N{c@dypegain}$ (spatial) & none & yes / no & held-out \\
 \segaofficial & $\theta\,s^{2D/(D-2)}/(1{+}0.1\ln s)$ & $s^{0.16}=\N{c@segatemp}$ & sensor, $\ge1$ & yes / yes & held-out \\
 \segapaper & $\theta\,s^{2D/(D-2)}$ & $s^{0.16}$ & sensor, unbounded & yes / yes & pilot \\
 \tempsb & as \segaofficial & $s^{0.16}$ on all dims & none & no / no & held-out \\
-\constancy & as \ntk & $\tau_N=\N{c@taulogn}$ & gated, late target & yes / yes & partial, \cref{app:partial} \\
+\constancy & as \ntk & $\tau_N=\N{c@taulogn}$ & gated, late target & yes / yes & partial (\cref{app:partial}) \\
 \constancytm & as \segaofficial & $s^{0.16}$ & gated, time-matched & yes / yes & held-out \\
 \aliastemp & as \segaofficial & none & alias count, static & no / no & dev \\
-\segactm & as \segaofficial & none & \sega{} $\times$ time-matched & yes / yes & held-out \\
+\segactm & as \segaofficial & $s^{0.16}$ & \sega{} $\times$ time-matched & yes / yes & held-out \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{\textbf{\sega's printed equations and released code differ at every stage.} Condensed from the released code at the inspected revision and our reading of the paper; $s$ is the scale per side, $D=56$.}
+\label{tab:papercode}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}l l l@{}}
+\toprule
+Stage & Printed equations & Released code \\
+\midrule
+Sensor input & channel mean of the latent & channel mean of the projected input features \\
+Pair-to-bin map & physical frequency, clipped & rank of log period \\
+Allocation & $m_{\mathrm{ref}}(1-\varsigma u)$, $u=\tanh z-\overline{\tanh z}$ & $\max\bigl(1,\,m_{\mathrm{ref}}(1-0.15\,\varsigma c)\bigr)$, $c=\tanh 1.5z-\overline{\tanh 1.5z}$ \\
+Bounds & none & gains clamped at 1 \\
+Index axis & $m_{\mathrm{ref}}$ & 1 \\
+Frequency base & $\theta s^{2D/(D-2)}$ per axis & $\theta s^{2D/(D-2)}/(1+0.1\ln s)$, longest side \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -34,7 +53,7 @@ Arm & Frequency base & Temperature & Per-band gain & t/x & Evaluated \\
 All arms share the sampler and differ only in $\omega'$ and $g$ of \cref{eq:fourier} (\cref{tab:methods}; exact formulas and code revisions in \cref{app:impl}).
 
 \paragraph{Frequency baselines}
-\ntk{} is the strengthened NTK base that \sega{} builds on, $\theta'=\theta s^{2D/(D-2)}$, which divides the slowest pair by $s^2$; without temperature or allocation it is the floor of the decomposition. \dype~\citep{issachar2025dype}, our port of the official code, blends position interpolation, NTK and native frequencies with two ramps in $\sigma^2$, so fine pairs return to native frequencies late in denoising; its cos/sin amplitude $1+0.1\ln s$ acts as a logit gain of $\N{c@dypegain}$ on spatial dimensions. Our \yarn{} follows a literal reading of a design note, not the usual rotation-count convention, and is pilot-only.
+\ntk{} is the strengthened NTK base that \sega{} builds on, $\theta'=\theta s^{2D/(D-2)}$, which divides the slowest pair's frequency by $s^2$. With no temperature and no allocation, it is the floor of the decomposition. \dype~\citep{issachar2025dype}, ported from the official code, blends position interpolation, NTK and native frequencies with two ramps in $\sigma^2$, so fine pairs return to their native frequencies late in denoising; its cos/sin amplitude $1+0.1\ln s$ acts as a logit gain of $\N{c@dypegain}$ on the spatial dimensions.
 
 \paragraph{\sega: paper equations and released code}
 \sega~\citep{sega2026} reads the spectrum of its input at every model call and sets per-pair gains around a reference gain $m_{\mathrm{ref}}=s^{0.08}$. In the printed equations, the energy $E_a$ of the channel-mean latent at pair $j$'s frequency bin is standardized across pairs, $z_{a,j}$, and
@@ -42,25 +61,25 @@ All arms share the sampler and differ only in $\omega'$ and $g$ of \cref{eq:four
 m_{a,j}=m_{\mathrm{ref}}\bigl(1-\varsigma\,u_{a,j}\bigr),\qquad u_{a,j}=\tanh z_{a,j}-\operatorname{mean}_i\tanh z_{a,i},\qquad \varsigma=1-\mathrm{SF}(E_{\mathrm{iso}})^{1.5},
 \label{eq:sega}
 \end{equation}
-where $\mathrm{SF}$ is the radial spectrum's flatness, so low-energy pairs, usually the fast ones, gain attention weight in proportion to how far the spectrum is from flat. The released code differs at almost every stage (\cref{tab:papercode}); we call its parity-tested port \segaofficial{} and our implementation of the printed equations \segapaper. Static variants use the mean allocation over pilot prompts and steps.
+where $\mathrm{SF}$ is the flatness of the radial spectrum. Low-energy pairs, usually the fast ones, thus gain attention weight in proportion to how far the spectrum is from flat. The released code differs from \cref{eq:sega} in every stage (\cref{tab:papercode}). We call its parity-tested port \segaofficial{} and our implementation of the printed equations \segapaper; static variants use the mean allocation over pilot prompts and steps.
 
 \paragraph{\tempsb: the decomposition control}
-\tempsb{} keeps \segaofficial's frequency base and applies its reference logit gain $s^{0.16}$ uniformly to every dimension, with no allocation. Relative to \segaofficial{} it therefore removes the allocation's shape, the small lift in mean gain that the clamp at 1 produces, and the difference on the index axis (gain 1 in the released code).
+\tempsb{} keeps the frequency base of \segaofficial{} and applies its reference logit gain $s^{0.16}$ uniformly to every dimension, with no allocation. Relative to \segaofficial{} it removes the allocation's shape, the small lift in mean gain that the clamp at 1 produces, and the difference on the index axis (gain 1 in the released code).
 
 \subsection{Per-band laws from vision science}\label{sec:ours}
 
-\sega's gain law is a heuristic; we asked whether laws from biological vision do better. Perceived contrast in each spatial-frequency band stays nearly constant above threshold across viewing distances, and so across sampling rates~\citep{georgeson1975contrast}. Efficient coding explains this by weighting each band by its visibility against noise, the Wiener factor $S/(S+N)$~\citep{atick1990towards,atick1992retina,vanhateren1992theory}, and by renormalizing band contrast above threshold toward natural-image statistics~\citep{field1987relations,webster2002neural,parraga2000human}. A diffusion sampler knows what the retina does not, the exact noise power in every band at each noise level. Each law sets $\ln g_{a,j}=\ln\tau+\Delta_{a,j}$, a temperature plus a bounded per-band correction.
+\sega's gain law is a heuristic; we asked whether laws from biological vision do better. Perceived contrast in each spatial-frequency band stays nearly constant above threshold across viewing distances, and so across sampling rates~\citep{georgeson1975contrast}. Efficient coding explains this by weighting each band by its visibility against noise, the Wiener factor $S/(S+N)$~\citep{atick1990towards,atick1992retina,vanhateren1992theory}, and by renormalizing band contrast above threshold toward natural-image statistics~\citep{field1987relations,webster2002neural,parraga2000human}. A diffusion sampler knows what the retina does not: the exact noise power in every band at every step. Each law sets $\ln g_{a,j}=\ln\tau+\Delta_{a,j}$, a temperature plus a bounded per-band correction.
 
 \paragraph{\constancy}
-For half-octave bands $b$, a gate compares the current input's band energy with the known noise floor, $\rho_{a,b}=\max\bigl(E^{x}_{a}[b]/(\sigma^2C)-1,0\bigr)$ and $w_{a,b}=\rho_{a,b}/(1+\rho_{a,b})$, and an error compares the previous clean estimate's band energy with a native-resolution target $P^{\mathrm{nat}}$, the mean log spectrum of the model's $1024^2$ samples on 16 calibration prompts outside the evaluation set:
+For half-octave bands $b$, a gate compares the current input's band energy with the known noise floor, $\rho_{a,b}=\max\bigl(E^{x}_{a}[b]/(\sigma^2C)-1,0\bigr)$ and $w_{a,b}=\rho_{a,b}/(1+\rho_{a,b})$, and an error compares the previous clean estimate's band energy $\hat E_a[b]$ with a native-resolution target $P^{\mathrm{nat}}$, the mean log spectrum of the model's own $1024^2$ samples on 16 calibration prompts outside the evaluation set:
 \begin{equation}
 e_{a,b}=\tfrac12\bigl(P^{\mathrm{nat}}_{a}(f_b)+c_a-\ln \hat E_{a}[b]\bigr),\qquad \delta_{a,b}=\eta\,w_{a,b}\operatorname{clip}(e_{a,b},-1,1),
 \label{eq:constancy}
 \end{equation}
-where $c_a$ anchors the target level on visible bands of 16 to 64 token wavelengths. The pair correction $\Delta_{a,j}$ interpolates $\delta$ in $\log f$, with $\tau=\tau_N$ and $\eta=1$; a natural spectrum gives $e=0$, reducing the law to the global temperature. The target is the native spectrum of the final, nearly clean steps.
+where $c_a$ anchors the target level on visible bands of 16 to 64 token wavelengths. The pair correction $\Delta_{a,j}$ interpolates $\delta$ in $\log f$, with $\tau=\tau_N$ and $\eta=1$. A natural spectrum gives $e=0$ and reduces the law to the global temperature. The target is the native spectrum of the final, nearly clean steps.
 
 \paragraph{\constancytm}
-The same law with a time-matched target: $P^{\mathrm{nat}}(f,\sigma)$ is the clean estimate's native spectrum at the same noise level, tabulated over all \N{c@steps} native steps; the anchor no longer needs the gate. On \segaofficial's base and temperature, it isolates the allocation against \tempsb.
+The same law with a time-matched target: $P^{\mathrm{nat}}(f,\sigma)$ is the clean estimate's native spectrum at the same noise level, tabulated over all \N{c@steps} native steps, so the anchor no longer needs the gate. Built on the base and temperature of \segaofficial, it isolates the allocation, with \tempsb{} as its control.
 
 \paragraph{\aliastemp{} and \segactm}
-\aliastemp{} statically applies the log-$N$ temperature pair by pair, taking as a pair's key pool the number of keys it can resolve on the grid (\cref{app:impl}); \aliastemps{} rescales it to \sega's geometric-mean gain. \segactm{} multiplies \segaofficial's allocation by the time-matched correction, $\ln g=\ln g^{\textsc{sega}}+\Delta$, with $\eta\in\{0.5,1\}$ on the dev set and $\eta=1$ held out.
+\aliastemp{} applies the log-$N$ temperature pair by pair, taking as a pair's key pool the number of keys it can resolve on the grid (\cref{app:impl}); \aliastemps{} shifts all its log gains by one constant to match \sega's reference gain in geometric mean. \segactm{} multiplies the allocation of \segaofficial{} by the time-matched correction, $\ln g=\ln g^{\textsc{sega}}+\Delta$, with $\eta\in\{0.5,1\}$ on the dev set and $\eta=1$ held out.

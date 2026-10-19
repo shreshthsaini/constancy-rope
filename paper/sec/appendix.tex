@@ -3,9 +3,18 @@
 
 \section{Full held-out results}\label{app:full}
 
-\Cref{tab:means_full} gives absolute means and \cref{tab:deltas_full} the paired differences for all ten metrics. The spectral rows use the mean octave profile of the 195 \afk{} reference images as the target; \cref{tab:octave} breaks the spectral error into its 11 octave bands. FID and KID are not tabulated: for the seed-1 images (\N{fid@n} prompts per arm, including one dev row), the paired FID difference of \tempsb{} against \segaofficial{} is \N{fid@tsb@fid} with interval \N{fid@tsb@fid@ci}, and that of \constancytm{} is \N{fid@ctm@fid} with interval \N{fid@ctm@fid@ci}.
+\Cref{tab:share} decomposes \sega's gain over \ntk{} with means and paired gains, \cref{tab:means_full} gives absolute means and \cref{tab:deltas_full} the paired differences for all ten metrics. The spectral rows use the mean octave profile of the 195 \afk{} reference images as the target; \cref{tab:octave} breaks the spectral error into its 11 octave bands. FID and KID are not tabulated: for the seed-1 images (\N{fid@n} prompts per arm, including one dev row), the paired FID difference of \tempsb{} against \segaofficial{} is \N{fid@tsb@fid} with interval \N{fid@tsb@fid@ci}, and that of \constancytm{} is \N{fid@ctm@fid} with interval \N{fid@ctm@fid@ci}.
 
-\begin{table}[H]
+\begin{table}[!htbp]
+\centering
+\caption{\textbf{Where \sega's improvement over \ntk{} comes from.} Means on the same \N{sh@n} held-out prompts, paired gains from base and temperature and from the allocation, and the share of the total gain carried by base and temperature, (\tempsb{} $-$ \ntk)/(\segaofficial{} $-$ \ntk), with its 95\% paired bootstrap interval. A share above 100\% means the allocation's point estimate is negative.}
+\label{tab:share}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\input{tables/tab_share.tex}
+\end{table}
+
+\begin{table}[!htbp]
 \centering
 \caption{\textbf{Held-out means with 95\% bootstrap intervals} (rows 8--194, seed 0). \constancy{} is the partial run on \hon{cons} prompts (\cref{app:partial}).}
 \label{tab:means_full}
@@ -14,7 +23,7 @@
 \input{tables/tab_means_full.tex}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
 \caption{\textbf{Held-out paired differences against \segaofficial{}, all metrics.} Format as in \cref{tab:main}. \constancy{} is the partial run on \hon{cons} prompts (\cref{app:partial}).}
 \label{tab:deltas_full}
@@ -23,7 +32,7 @@
 \input{tables/tab_deltas_full.tex}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
 \caption{\textbf{Spectral error by octave band.} Mean log-power difference from the \afk{} reference profile on held-out prompts; positive values mean excess power. Bands \N{nyq@firstband} to 10 lie above the Nyquist frequency of a 224-pixel view of a $4096^2$ image. \constancy{} is the partial run on \hon{cons} prompts (\cref{app:partial}).}
 \label{tab:octave}
@@ -34,9 +43,9 @@
 
 \section{Seed-1 replication}\label{app:seed1}
 
-\Cref{tab:seed1} repeats the comparison for \tempsb{} and \constancytm{} on held-out rows 8--62 with a second seed, next to seed~0 on the same \N{so@n@tsb} prompts.
+\Cref{tab:seed1} repeats the comparison for \tempsb{} and \constancytm{} on held-out rows 8--62 with a second seed, next to seed~0 on the same \N{so@n@tsb} prompts. One of the verdicts that changes, crop CLIP-IQA for \tempsb{} at seed 1, rests on an interval that excludes zero by less than $10^{-4}$, so the agreement count can move by one under another bootstrap seed. Every verdict that changes moves between a tie and a one-sided verdict. Spectral log-RMSE differences grow at seed 1 (\tempsb: \sod{tsb}{spec} against \hsd{tsb}{spec} at seed 0 on the same prompts; \constancytm: \sod{ctm}{spec} against \hsd{ctm}{spec}).
 
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
 \caption{\textbf{Seed 1 repeats the seed-0 verdicts.} Paired differences against \segaofficial{} on the same \N{so@n@tsb} held-out prompts (rows 8--62) at seed 0 and at seed 1. \N{so@agree} of \N{so@cells} verdicts agree. Format as in \cref{tab:main}.}
 \label{tab:seed1}
@@ -45,13 +54,13 @@
 \input{tables/tab_seed1.tex}
 \end{table}
 
-\section{Partial and dev-only runs}\label{app:partial}
+\section{Partial and dev-only runs (not held-out results)}\label{app:partial}
 
 Nothing in this appendix is a held-out result of the main protocol. The first subsection reports a held-out run that covers only part of the held-out set and started before the protocol was fixed; the other two report dev-prompt selection evidence and a descriptive pilot.
 
 \subsection{Partial held-out run of \constancy}
 
-The original \constancy{} was generated on \hon{cons} of the \N{ho@nprompts} held-out prompts (seed 0) before the protocol was fixed (\cref{app:dev}). Every number in this subsection comes from those \hon{cons} prompts only, and differences are paired on them. Against \segaofficial{} the run ties on the reward models, loses \hoa{cons}{musiq} full MUSIQ points, gains crop MUSIQ (\hod{cons}{musiqc}) and has the largest spectral error of any arm (\hod{cons}{spec}), with excess power in the top octaves and the largest excess of any arm in band 8 (log-power error \N{oct@cons@b8}; \cref{tab:octave}). Measured as a share of \segaofficial's gain over \ntk{} on the same prompts ($n=\N{shx@n@cons}$; \cref{fig:hero}b), it recovers \N{shx@p@cons@musiqc}\%~\N{shx@ci@cons@musiqc} on crop MUSIQ but \N{shx@p@cons@musiq}\%~\N{shx@ci@cons@musiq} on full-resolution MUSIQ.
+The original \constancy{} was generated on \hon{cons} of the \N{ho@nprompts} held-out prompts (seed 0) before the protocol was fixed (\cref{app:dev}). Every number in this subsection comes from those \hon{cons} prompts only, and differences are paired on them. Against \segaofficial{} the run ties on the reward models, loses \hoa{cons}{musiq} full-frame MUSIQ points, gains crop MUSIQ (\hod{cons}{musiqc}) and has a much larger spectral error (\hod{cons}{spec}), with excess power in the top octaves and the largest excess of any arm in band 8 (log-power error \N{oct@cons@b8}; \cref{tab:octave}). Measured as a share of the gain of \segaofficial{} over \ntk{} on the same prompts ($n=\N{shx@n@cons}$), it recovers \N{shx@p@cons@musiqc}\%~\N{shx@ci@cons@musiqc} on crop MUSIQ but \N{shx@p@cons@musiq}\%~\N{shx@ci@cons@musiq} on full-frame MUSIQ.
 
 The visibility gate of \cref{sec:laws} opens late on these prompts as on the dev prompts. On the \NmechConstN{} held-out prompts it opens only after the first $\NmechConstOnsetStepMed$ of $\NmechSteps$ steps (median; range $\NmechConstOnsetStepMin$ to $\NmechConstOnsetStepMax$), at $\sigma=\NmechConstOnsetSigmaMed$ (range $\NmechConstOnsetSigmaHi$ to $\NmechConstOnsetSigmaLo$), and the correction then acts in a median of $\NmechConstActiveStepsMed$ steps.
 
@@ -61,7 +70,7 @@ The run also separates the temperature from the base. \ntk{} and \tempsb{} diffe
 
 \Cref{tab:dev} lists every variant scored on the eight dev prompts, with its mean and its difference from the \segaofficial{} reference of the same campaign. These numbers chose what to run held-out; they are not results. Campaign 1 preceded the written gate: it sent \tempsb{} to the held-out set as a decomposition control and \constancytm{} as the candidate, and seven chunks of the original \constancy{} had already run on held-out rows when the protocol was fixed, which is why that arm has only \hon{cons} held-out prompts. Campaigns 2 and 3 applied the gate of \cref{sec:protocol}. In campaign 3 a fresh \segaofficial{} rerun served as the reference. It differs from the pilot run of the same prompts and seed by \N{dv@d@rerun@musiq} MUSIQ and \N{dv@d@rerun@ir} ImageReward, which is more than the MUSIQ margin by which the one passing variant cleared the gate (\N{dv@d@dev3segarmsnormalized@musiq}); we did not establish the source of the difference. That variant was not run on held-out prompts, and we make no claim about it. The dev set also misjudged the allocation itself: on the eight dev prompts \tempsb{} scored \N{dv@d@devsbtemponly@musiq} MUSIQ against \segaofficial, while held out it trails by \hoa{tsb}{musiq}.
 
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
 \caption{\textbf{Dev-set selection (rows 0--7, seed 0, $n=8$); selection evidence only.} Each cell: mean, and below it the difference from the campaign's \segaofficial{} reference. $^{a}$Partial held-out run (\hon{cons} prompts) started before the dev decision. $^{b}$Fresh rerun; the second line is its difference from the pilot run. $^{c}$Passed the dev gate; never evaluated on held-out prompts.}
 \label{tab:dev}
@@ -72,9 +81,9 @@ The run also separates the temperature from the base. \ntk{} and \tempsb{} diffe
 
 \subsection{SEGA paper versus code: pilot numbers}\label{app:pilot}
 
-In an eight-prompt pilot on the dev prompts, which is descriptive only, our implementation of the printed equations scores ImageReward \pim{segap}{ir}, CLIP \pim{segap}{clip} and full MUSIQ \pim{segap}{musiq}, against \pim{sega}{ir}, \pim{sega}{clip} and \pim{sega}{musiq} for the released code (\cref{tab:pilot}). Freezing the printed allocation into a static tilt, a natural ablation of content adaptivity, destroys the images: CLIP falls to \pim{segapst}{clip} and logit gains reach $\NmechSegaStaticGainMax$. Freezing the released allocation instead costs much less (CLIP \pim{segast}{clip}, ImageReward \pim{segast}{ir}). \Cref{fig:papercode} in \cref{app:figs} shows the two gain trajectories and the resulting images.
+In an eight-prompt pilot on the dev prompts, which is descriptive only, our implementation of the printed equations scores ImageReward \pim{segap}{ir}, CLIP \pim{segap}{clip} and full-frame MUSIQ \pim{segap}{musiq}, against \pim{sega}{ir}, \pim{sega}{clip} and \pim{sega}{musiq} for the released code (\cref{tab:pilot}). Freezing the printed allocation into a static tilt, a natural ablation of content adaptivity, destroys the images: CLIP falls to \pim{segapst}{clip} and logit gains reach $\NmechSegaStaticGainMax$. Freezing the released allocation instead costs much less (CLIP \pim{segast}{clip}, ImageReward \pim{segast}{ir}). \Cref{fig:papercode} in \cref{app:figs} shows the two gain trajectories and the resulting images. The pilot also ran \yarn{}, which follows a literal reading of a design note rather than the usual rotation-count convention.
 
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
 \caption{\textbf{Eight-prompt pilot on the dev prompts (rows 0--7, seed 0), descriptive only.} Means; colour marks a paired bootstrap interval against \segaofficial{} that excludes zero, which with $n=8$ is indicative at best. Static variants freeze the allocation instead of reading the current latent.}
 \label{tab:pilot}
@@ -85,6 +94,7 @@ In an eight-prompt pilot on the dev prompts, which is descriptive only, our impl
 
 \input{sec/appendix_impl}
 
+\FloatBarrier
 \section{Reproducibility checklist}\label{app:repro}
 \begin{itemize}
 \item \textbf{Numbers.} \texttt{paper/tables/make\_tables.py} recomputes every held-out paired difference from the archived per-prompt scores, checks it against the registered analysis output (largest absolute difference below $10^{-15}$), and writes every table and every number cited in the text. \texttt{compute\_table.py} and \texttt{mechanism\_numbers.py} do the same for timings and mechanism statistics. Scratch inputs are snapshotted next to the scripts.

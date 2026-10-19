@@ -77,8 +77,8 @@ def boot(x, n=2000, seed=0):
 
 def num(v, d, sign=False):
     s = f"{v:+.{d}f}" if sign else f"{v:.{d}f}"
-    if s.lstrip("+-").strip("0.") == "":           # avoid printing -0.000
-        s = ("+" if sign else "") + f"{0:.{d}f}"
+    if s.lstrip("+-").strip("0.") == "":           # rounds to zero: keep the true sign, never "-0" for 0
+        s = ("-" if v < 0 else ("+" if sign else "")) + f"{0:.{d}f}"
     return s.replace("-", "-")
 
 
@@ -515,7 +515,7 @@ def octave_table(d):
     freq = 2.0 ** (np.arange(-12, -1) + 0.5)
     L = [r"\begin{tabular}{@{}l" + "r" * len(BANDS) + r"@{}}", r"\toprule",
          r"Octave band & " + " & ".join(str(i) for i in range(len(BANDS))) + r" \\",
-         r"Centre (cyc/px) & " + " & ".join(r"\tiny $2^{%d.5}$" % e for e in range(-12, -1)) + r" \\", r"\midrule"]
+         r"Centre (cyc/px) & " + " & ".join(r"\tiny $2^{%.1f}$" % (e + 0.5) for e in range(-12, -1)) + r" \\", r"\midrule"]
     for m in order:
         g = d[d.method == m]
         vals = [g[b].mean() for b in BANDS]

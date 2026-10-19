@@ -31,7 +31,7 @@ HELDOUT = NOTES / "main2" / "heldout_per_prompt.csv"          # seed 0, rows 8-1
 PAIRED = SCR / "eval_krea" / "heldout" / "heldout_paired_vs_sega_official.csv"
 PAIRED_V2 = NOTES / "main2" / "heldout_paired_vs_sega_official.csv"  # same rows + sega_ctm_v2
 
-# ---------------------------------------------------------------- colors
+# ==== colors
 INK = "#1F2329"        # text and strong strokes
 INK2 = "#5B6270"       # secondary text
 RULE = "#C9CDD3"       # hairlines, zero lines
@@ -83,7 +83,7 @@ def label(key, short=False):
     return METHODS[key]["short" if short else "label"]
 
 
-# ---------------------------------------------------------------- metrics
+# ==== metrics
 METRICS = {
     "imagereward":          dict(label="ImageReward", group="Reward and alignment", lower=False),
     "pickscore":            dict(label="PickScore", group="Reward and alignment", lower=False),
@@ -117,7 +117,7 @@ def panel_tag(ax_or_fig, x, y, letter, transform=None, **kw):
                     ha="left", va="baseline", **kw)
 
 
-# ---------------------------------------------------------------- data
+# ==== data
 def prompt_order():
     return {json.loads(line)["id"]: i for i, line in enumerate(open(PROMPTS))}
 
@@ -162,7 +162,7 @@ def seed1():
     return d
 
 
-# ---------------------------------------------------------------- images
+# ==== images
 def _cached(tag, path, fn):
     from PIL import Image
     CACHE.mkdir(parents=True, exist_ok=True)
@@ -192,7 +192,7 @@ def gray_full(path, px=1024):
     return 0.2126 * a[..., 0] + 0.7152 * a[..., 1] + 0.0722 * a[..., 2]
 
 
-# ---------------------------------------------------------------- PDF post-processing
+# ==== PDF post-processing
 _PDFPY = "/home1/09032/saini_2/.local/share/uv/python/cpython-3.11.13-linux-aarch64-gnu/bin/python3.11"
 _PDFLIB = "/work/09032/saini_2/vista/library/uv-envs/pdfrender/lib/python3.11/site-packages"
 _JPEG_SNIPPET = r"""

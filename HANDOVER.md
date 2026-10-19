@@ -4,6 +4,18 @@ Last takeover update: 2026-10-17 CDT. Live short state: `.agent/STATE.md`. Resul
 Design spec: `.agent/notes/design.md`. Codex briefs: `.agent/notes/codex_brief_{1,2,3}.md`. Review of the SEGA paper that
 started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact https://claude.ai/artifact/Phv2pGDvZDZwpmNM3Qh8GL).
 
+## Paper status (2026-10-18, camera-ready pass)
+
+- Honest findings paper, `paper/main.tex` -> `paper/main.pdf` (22 pages: body Sections 1-7 = 9 pages, references from page 10,
+  appendix A-H). Build: `cd paper && ~/.local/bin/tectonic -X compile main.tex`. Framing rules: `paper/PLAN.md`.
+- Main-text figures show held-out results only; partial Constancy (n=41) and dev-only Alias-T numbers live in Appendix D.
+  Appendix floats are numbered per section (Figure A.1, Table B.1, ...).
+- Numbers: every result number is a macro from `paper/tables/make_tables.py` (and `compute_table.py`, `mechanism_numbers.py`);
+  an independent audit recomputed 600+ macros from the raw CSVs (scripts in `/scratch/09032/saini_2/tmp/finalcheck/audit/`).
+  Borderline verdicts: SEGA + TM CLIP (upper CI -0.0037) and seed-1 crop CLIP-IQA for SEGA base + temp. depend on bootstrap seed 0.
+- Deliverables (gitignored `paper/dist/`): `constancy_rope_paper.pdf` and `constancy_rope_paper_src.zip` (standalone, tested
+  with tectonic in a fresh directory; not tested with pdfLaTeX).
+
 ## Current takeover checkpoint (2026-10-17 10:44 Pacific)
 
 - At10:44Pacific,5minexpiry alert: replacementCPU1077574 andGPU1077335 still PENDING; no destinationREADY/release/agentreceipt. Actual submittedCPUbatchSHA and all controller/CR21pins match. Durablewatcherstate/registry snapshot and recovery instructions: `.agent/notes/controller_migration_blocked.json`. Source ends10:45:04Pacific; queued GPUworkers are self-contained, but monitoring/chat may pause until automaticCPUfallback starts. This is BLOCKED migration, not a verified handoff.

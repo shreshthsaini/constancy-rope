@@ -24,9 +24,15 @@ g_{a,j}=\frac{\ln\bigl(n(\lambda_{a,j},L)\,L\bigr)}{\ln\bigl(n(\lambda_{a,j},64)
 \]
 where $n(\lambda,L)$, the pair's alias count, is the number of its wavelengths across the grid, bounded by 1 and $L$; the index axis takes $\tau_N$. The gains are static and content-free, with no correction and no further temperature. \aliastemps{} shifts every $\ln g$ by one constant so that the mean over all 128 dimensions equals \sega's reference log gain, $0.16\ln s$.
 
-\input{sec/appendix_compute}
 
 \section{Mechanism diagnostics}\label{app:mech}
+
+\begin{figure}[!htbp]
+\centering
+\figorplaceholder[\linewidth]{figs/f7_mechanism.pdf}{2.3in}
+\caption{\textbf{The late-profile \constancy{} correction stays off for most of sampling while the time-matched target acts throughout, and attention-gain transfer is broad rather than band-selective.} (a)~Mean $|\ln g-\ln\tau|$ over spatial rotary pairs per step (median and interquartile band) on the eight dev prompts, seed 0, with both targets on the \ntk{} base; below, per-pair correction maps. (b)~Response of output-octave log power to a $\NmechProbeFactor\times$ logit gain on one octave, mean of \NmechProbeN{} dev prompts, with power measured along height and width.}
+\label{fig:mechanism}
+\end{figure}
 
 \paragraph{CPU study of the printed \sega{} law}
 Before running any model we measured the printed allocation (\cref{eq:sega}) on forward-noised latents of the FLUX.2 autoencoder for \NmechCpuN{} DIV2K crops. A fixed tilt over pairs explained $\NmechCpuStaticPct\%$ of the variance of the modulation, tilt plus timestep $\NmechCpuStaticTimePct\%$, leaving at most $\NmechCpuContentPct\%$ for content; the flatness gate $\varsigma$ was explained to $R^2=\NmechCpuSigmaTimeRsq$ by the timestep alone and to $\NmechCpuSigmaGenericRsq$ by a generic $1/f$ field. On our held-out \krea{} runs the released gate $\varsigma$ is likewise explained to $R^2=\NmechSegaSpreadTimeRsq$ by the timestep. The channel mean that the printed sensor reads keeps $\NmechCpuChanMeanPct\%$ of the latent power. In a blur sweep at $\sigma=\NmechBlurLowSigma$ over \NmechBlurN{} test crops, the printed law's contrast between fine and coarse pairs changed by $\NmechBlurSegaChangePct\%$ between no blur and a blur of \NmechBlurMax{} tokens, while an oracle version of the constancy law changed \NmechBlurConstFold-fold. These measurements motivated the constancy design; they use the printed law, another autoencoder and forward-noised rather than sampled latents, so we use them only as context for \cref{sec:laws}.
@@ -35,7 +41,9 @@ Before running any model we measured the printed allocation (\cref{eq:sega}) on 
 The transfer probe of \cref{fig:mechanism} reruns a dev prompt with the gain of one input octave multiplied by \NmechProbeFactor{} on both spatial axes, with the same seed, and reports the finite-difference elasticity $\partial\log P_{\mathrm{out}}/\partial\log g_{\mathrm{in}}$ for six input and seven output octaves of the final latent and image. It used the \ntk{} base with the log-$N$ temperature, three dev prompts and one seed. The local-response experiment applied half-step perturbations at steps 6, 14 and 22 of two dev prompts and compared the observed change in band power with the prediction of a locally fitted linear response: the median error relative to predicting no change was $\NmechCrSeventeenErrMed$ (range $\NmechCrSeventeenErrMin$ to $\NmechCrSeventeenErrMax$; \NmechCrSeventeenBelowOne{} of \NmechCrSeventeenAxisRows{} cases below 1). It tested a single octave, below the resolution of the token grid, so it does not cover all rotary bands. On the width axis of \krea, the mean diagonal elasticity of the transfer probe is $\NmechProbeLatWDiagA$ for one prompt but $\NmechProbeLatWDiagB$ and $\NmechProbeLatWDiagC$ for the other two, against a mean off-diagonal response of $\NmechProbeLatWOffAvg$. Raising the gain of the fastest octave gives a width-axis elasticity of $\NmechProbeLatWTopA$ on \krea{} and $\NmechFdevLatWTop$ in the same probe on \fluxdev{} (one prompt; guidance and code revision also differ; \cref{sec:checkpoint}).
 
 \paragraph{Allocation controls on the dev set}
-A third dev campaign replaced \segaofficial's allocation by a uniform gain with the same root-mean-square value, or kept its shape and removed the rise in mean gain caused by the clamp. On the eight dev prompts the uniform control changed MUSIQ by $\NmechCrFourteenUniformMusiq$ and the shape-only control by $+\NmechCrFourteenNormMusiq$, while a rerun of \segaofficial{} itself moved MUSIQ by $+\NmechCrFourteenRepeatMusiq$. These differences are within run-to-run variation and were not taken to held-out prompts.
+A third dev campaign replaced the allocation of \segaofficial{} by a uniform gain with the same root-mean-square value, or kept its shape and removed the rise in mean gain caused by the clamp. On the eight dev prompts the uniform control changed MUSIQ by $\NmechCrFourteenUniformMusiq$ and the shape-only control by $+\NmechCrFourteenNormMusiq$, while a rerun of \segaofficial{} itself moved MUSIQ by $+\NmechCrFourteenRepeatMusiq$. These differences are within run-to-run variation and were not taken to held-out prompts.
 
 \paragraph{Diagnostics not reported}
 The project also measured run-to-run repeatability of the gain histories, the sensitivity of \sega's sensor to channel-mean shifts at artificial states, attention-operator approximations and native-resolution semantic consistency. None bears on the claims of this paper, and we do not report them.
+
+\input{sec/appendix_compute}

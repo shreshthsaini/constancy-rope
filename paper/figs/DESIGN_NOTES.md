@@ -86,4 +86,5 @@ the better direction drawn as an arrow beside each metric.
 Held-out rows 8 to 194 (n = 187), seed 0, paired with released SEGA on the same prompt and seed.
 95% CIs are percentile intervals of 2,000 paired bootstrap resamples over prompts (seed 0), identical
 to `scripts/heldout_analysis.py`. The seed-1 replication uses rows 8 to 62 (n = 55) with the same
-bootstrap. Constancy (NTK base) has n = 41; Alias-T exists only on the eight dev prompts.
+bootstrap. Constancy (NTK base) has n = 41; Alias-T exists only on the eight dev prompts. Main-text
+result figures (F1, F3) show held-out results only, so neither partial arm appears in them.

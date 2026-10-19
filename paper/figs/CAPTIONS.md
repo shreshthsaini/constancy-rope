@@ -6,16 +6,18 @@ paired with released SEGA on the same prompt and seed; 95% CIs are percentile in
 bootstrap resamples over prompts (seed 0), not adjusted for multiple comparisons.
 
 ## F1 `f1_hero.pdf`
-\caption{\textbf{Most of released SEGA's 4K gain over the NTK base comes from its RoPE base and one global
-attention temperature; per-band rules, SEGA's own and four principled ones, add little.}
-(a) Held-out row 28, chosen by subject before any output was viewed, seed 0. Released SEGA's full frame
-(Lanczos-reduced) and native 512-pixel crops at identical coordinates for each method: A is the tile with the
-most detail in the across-method mean luminance, B is the image center.
-(b) Held-out means rescaled so that NTK is 0\% and released SEGA is 100\%; the SEGA minus NTK difference in
-native units is printed above each panel. $n = 187$ (Constancy: its own 41 prompts). Alias-T (hollow) exists
-only on the eight development prompts, where it failed the pre-registered gate; its interval is clipped at
-140\%. Bars are 95\% percentile intervals from 2,000 joint bootstrap resamples of prompts, ratio recomputed per
-resample. Constancy's 110\% on 1024-pixel crops comes with 68\% on the full frame.}
+\caption{\textbf{Released SEGA's 4K gain over the NTK base comes mostly from its RoPE base and one global
+attention temperature; the per-band allocation adds little.}
+(a) Held-out row 28 (chosen by subject before any output was viewed), seed 0, $4096^2$. Left: released SEGA's
+full frame, Lanczos-reduced. Right: native 384-pixel crops, never resampled, at identical coordinates in every
+arm (A: highest-detail tile of the across-arm mean luminance; B: image centre). Columns add one ingredient at a
+time: NTK (RoPE base only), SEGA base + temp. (SEGA's released base and global temperature), SEGA (released)
+(plus the per-band allocation). Compositions differ between arms, so a crop can show different content.
+(b) Share of released SEGA's gain over NTK recovered by SEGA base + temp.,
+$(\bar{x}_{\text{base+temp.}}-\bar{x}_{\text{NTK}})/(\bar{x}_{\text{SEGA}}-\bar{x}_{\text{NTK}})$, on held-out
+rows 8 to 194 ($n = 187$, seed 0); bracketed values and whiskers are 95\% percentile intervals from 2,000
+joint bootstrap resamples of prompts, ratio recomputed per resample. The dark segment is the remainder up to
+released SEGA, the part the per-band allocation adds.}
 
 ## F2 `f2_method.pdf`
 \caption{\textbf{The RoPE base and one global temperature are the big levers on the attention logit; per-band
@@ -31,10 +33,10 @@ a reference gain, Constancy-TM through an efficient-coding gate and a time-match
 \caption{\textbf{Removing SEGA's per-band allocation leaves every reward-metric difference with a 95\% CI that
 includes zero but costs about 2 full-frame MUSIQ points; no principled per-band rule improves on released SEGA
 in any reward or full-frame quality metric.} Paired differences, method minus released SEGA, on held-out rows
-8 to 194 ($n = 187$, seed 0; Constancy $n = 41$). Hollow markers: seed-1 replication on rows 8 to 62
+8 to 194 ($n = 187$, seed 0). Hollow markers: seed-1 replication on rows 8 to 62
 ($n = 55$) for SEGA base + temp. and Constancy-TM. Pale marks: the CI includes zero; the shaded half of each
 panel is the better direction. NTK values beyond the axis are printed at its edge. Isolated per-metric gains
-(DyPE and Constancy on crop MUSIQ, DyPE on CLIP-IQA, lower tiling for SEGA base + temp. and Constancy-TM)
+(DyPE on crop MUSIQ and CLIP-IQA, lower tiling for SEGA base + temp. and Constancy-TM)
 come with losses elsewhere. A CI that includes zero does not establish equivalence.}
 
 ## F4 `f4_qualitative.pdf`

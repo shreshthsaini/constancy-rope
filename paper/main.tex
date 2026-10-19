@@ -5,7 +5,7 @@
 \InputIfFileExists{tables/num_compute}{}{}
 \InputIfFileExists{tables/num_mechanism}{}{}
 
-\title{Where Does the Gain Come From?\\A Controlled Study of Training-Free RoPE\\Extrapolation in Diffusion Transformers}
+\title{Where Does the Gain Come From?\\A Controlled Study of Training-Free RoPE\\Extrapolation to 4K in Diffusion Transformers}
 \author{\textbf{Shreshth Saini}\\The University of Texas at Austin}
 
 \begin{document}
@@ -22,6 +22,7 @@
 \input{sec/discussion}
 \input{sec/related}
 
+\clearpage
 {\small
 \bibliographystyle{plainnat}
 \bibliography{refs}
@@ -29,5 +30,7 @@
 
 \clearpage
 \appendix
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
 \input{sec/appendix}
 \end{document}

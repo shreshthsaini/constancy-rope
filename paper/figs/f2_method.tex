@@ -8,9 +8,9 @@
 \usepackage{tgheros}
 \renewcommand\familydefault{\sfdefault}
 \usepackage{newtxsf}
-% keep every sub- and superscript at or above 5.5 pt at print size
-\DeclareMathSizes{6}{6}{5.5}{5.5}\DeclareMathSizes{6.5}{6.5}{5.5}{5.5}
-\DeclareMathSizes{7}{7}{5.6}{5.5}\DeclareMathSizes{8}{8}{5.9}{5.5}\DeclareMathSizes{9}{9}{6.3}{5.5}
+% keep every sub- and superscript at or above 6.4 pt (PDF points) at native size (the paper includes F2 at 0.86 linewidth)
+\DeclareMathSizes{6.5}{6.5}{6.45}{6.45}\DeclareMathSizes{7}{7}{6.45}{6.45}
+\DeclareMathSizes{8}{8}{6.45}{6.45}\DeclareMathSizes{9}{9}{6.45}{6.45}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta, calc, shapes.geometric}
 \input{f2_method_data.tex}
@@ -66,7 +66,7 @@
 % native 64^2 extent: one quarter per side
 \fill[panel] (\gx,\gy+\gs) rectangle ++(\gs/4,-\gs/4);
 \draw[ink2, line width=0.5pt, dash pattern=on 1.2pt off 0.9pt] (\gx,\gy+\gs) rectangle ++(\gs/4,-\gs/4);
-\node[sml, align=center, font=\fontsize{6}{6.6}\selectfont] at (\gx+\gs/8,\gy+\gs-\gs/8) {native\\$64^2$};
+\node[sml, align=center, font=\fontsize{6.5}{6.9}\selectfont] at (\gx+\gs/8,\gy+\gs-\gs/8) {native\\$64^2$};
 % key p' and query p (token coordinates on the 256 grid)
 \coordinate (k) at (\gx+72/256*\gs, \gy+150/256*\gs);
 \coordinate (q) at (\gx+200/256*\gs, \gy+52/256*\gs);

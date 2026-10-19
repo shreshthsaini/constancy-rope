@@ -9,8 +9,10 @@ Inputs (scratch, read only):
 Prompt 0 is the first row of prompts/aesthetic4k_eval.jsonl (the official script reads that row).
 Crop rule: two fixed 192 px windows, identical in every image, centred on the vertical midline at one quarter
 (A) and three quarters (B) of the frame height. Crops are native pixels; full frames are Lanczos reductions.
+Layout: one row per pipeline (official DyPE, our DyPE, our SEGA (released)); columns FLUX.1-dev, FLUX.1-Krea-dev,
+then that row's spectra (b). Every label is plain text: y ticks in dB (10 log10 of the a.u. power), x ticks decimal.
 Spectrum (b): radially averaged power of the full 4096^2 luminance (Hann window), times f^2, for the image pair
-shown above each plot. Peak ratio = dev / Krea whitened power at the dev peak (periods 8 to 64 px); for our pipeline
+in the same row. Peak ratio = dev / Krea whitened power at the dev peak (periods 8 to 64 px); for our pipeline
 it is the geometric mean over the 8 dev prompts (rows 0-7, seed 0) with a 95% bootstrap CI (2,000 resamples).
 """
 import glob
@@ -25,7 +27,7 @@ import matplotlib.patheffects as pe
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Rectangle
-from matplotlib.ticker import LogLocator, NullFormatter, NullLocator
+from matplotlib.ticker import FixedLocator, FuncFormatter, NullFormatter, NullLocator
 from PIL import Image
 
 import crope_style as cs
@@ -35,8 +37,6 @@ PID = "a4k_eval_4096_minus6873203881450547484"
 CROP_PX = 192
 CENTERS = {"A": (2048, 1024), "B": (2048, 3072)}
 CK_INK = {"dev": cs.INK, "krea": "#A3A9B1"}  # checkpoint lines: dark = FLUX.1-dev, light = Krea
-TAG_UP = 0.13         # panel-letter baseline above the top of panel b's plots (in)
-SPEC_IN = 0.15        # spectrum plots start this far inside their image column (room for log tick labels)
 
 
 def sources():
@@ -130,63 +130,75 @@ def main():
     cs.style()
     prompt, cols = sources()
 
-    # ---- geometry (inches)
+    # ==== geometry (inches). One row per pipeline: FLUX.1-dev cell, FLUX.1-Krea-dev cell, then that pair's spectra (b)
     W = cs.TEXT
-    lab_w = 0.24          # row-label strip
-    gut = 0.12            # column gutter
-    gap = 0.03            # frame-to-crop gap
-    F = (W - lab_w - 2 * gut - 1.5 * gap) / 4.5   # full-frame side: 3 * (F + gap + C) + gutters = W
+    NAME_Y, DESC_Y, IMG_TOP = 0.115, 0.225, 0.275   # header baselines (from the top) and the top of the first row
+    L = 0.62              # row-label strip
+    F = 0.85              # full-frame side
+    gap = 0.03            # frame to crops, and between the two crops
     C = (F - gap) / 2     # crop side
-    colw = F + gap + C
-    head = 0.40           # column headers
-    rowgap = 0.07
-    spec_top = head + 2 * F + rowgap + 0.42
-    spec_h = 0.84
-    H = spec_top + spec_h + 0.36
+    cell = F + gap + C
+    rowgap = 0.06
+    x_ck = {"dev": L, "krea": L + cell + 0.09}
+    x_b = x_ck["krea"] + cell + 0.15        # panel b letter; its y tick labels fill the strip up to spec_x
+    spec_x = x_b + 0.21
+    spec_w = W - spec_x - 0.02
+    H = IMG_TOP + 3 * F + 2 * rowgap + 0.31
     fig = plt.figure(figsize=(W, H))
 
-    rows = (("dev", "FLUX.1-dev", "guidance 3.5"), ("krea", "FLUX.1-Krea-dev", "guidance 4.5"))
-    for ci, col in enumerate(cols):
-        x0 = lab_w + ci * (colw + gut)
-        # header: method name in its color over a rule of the same color, provenance below in secondary ink
+    def fy(t):
+        return 1 - t / H
+
+    ckpts = (("dev", "FLUX.1-dev", "guidance 3.5"), ("krea", "FLUX.1-Krea-dev", "guidance 4.5"))
+    for ck, name, g in ckpts:
+        xc = (x_ck[ck] + cell / 2) / W
+        fig.text(xc, fy(NAME_Y), name, fontsize=7.5, color=cs.INK, ha="center", va="baseline", fontweight="bold")
+        fig.text(xc, fy(DESC_Y), g, fontsize=6.5, color=cs.INK2, ha="center", va="baseline")
+
+    s = 768 / 4096
+    for ri, col in enumerate(cols):
+        top = IMG_TOP + ri * (F + rowgap)
         m = col["method"]
-        xc = (x0 + colw / 2) / W
-        fig.text(xc, 1 - 0.14 / H, cs.label(m), fontsize=7.5, color=cs.text_color(m), ha="center", va="baseline",
-                 fontweight="bold")
-        fig.add_artist(plt.Line2D([x0 / W, (x0 + colw) / W], [1 - 0.185 / H] * 2, lw=0.8, color=cs.color(m),
-                                  transform=fig.transFigure, solid_capstyle="butt"))
-        fig.text(xc, 1 - 0.31 / H, col["line2"], fontsize=6.5, color=cs.INK2, ha="center", va="baseline")
-        for ri, (ck, name, g) in enumerate(rows):
-            top = head + ri * (F + rowgap)
+        # row label: the method in its colour (SEGA (released) on two lines, as in the paper's table headers),
+        # provenance below in secondary ink, and a rule in the method colour along the row
+        name = ["SEGA", "(released)"] if m == "sega_official" else [cs.label(m)]
+        where, seed = col["line2"].split(", ")
+        y = top + 0.10
+        for text in name:
+            fig.text(0, fy(y), text, fontsize=7.5, fontweight="bold", color=cs.text_color(m), ha="left", va="baseline")
+            y += 0.118
+        for text in (where + ",", seed):
+            fig.text(0, fy(y), text, fontsize=6.5, color=cs.INK2, ha="left", va="baseline")
+            y += 0.105
+        fig.add_artist(plt.Line2D([(L - 0.05) / W] * 2, [fy(top), fy(top + F)], lw=1.0, color=cs.color(m),
+                                  solid_capstyle="butt"))
+        for ck, _, _ in ckpts:
+            x0 = x_ck[ck]
             ax = add_ax(fig, x0, top, F, F)
             photo(ax, cs.thumb(col[ck], 768))
-            s = 768 / 4096
             for tag, c in CENTERS.items():
                 b = box(c)
                 r = Rectangle((b[0] * s, b[1] * s), CROP_PX * s, CROP_PX * s, fill=False, lw=0.6,
                               edgecolor="white")
                 r.set_path_effects(HALO)
                 ax.add_patch(r)
-                t = ax.text(b[2] * s + 10, b[1] * s + CROP_PX * s / 2, tag, color="white", fontsize=6,
+                t = ax.text(b[2] * s + 12, b[1] * s + CROP_PX * s / 2, tag, color="white", fontsize=6,
                             ha="left", va="center", fontweight="bold")
                 t.set_path_effects(TXT_HALO)
             for k, tag in enumerate(CENTERS):
                 cax = add_ax(fig, x0 + F + gap, top + k * (C + gap), C, C)
                 photo(cax, cs.crop(col[ck], box(CENTERS[tag])), hairline=True)
-                t = cax.text(0.06, 0.94, tag, transform=cax.transAxes, color="white", fontsize=6,
+                t = cax.text(0.07, 0.93, tag, transform=cax.transAxes, color="white", fontsize=6,
                              ha="left", va="top", fontweight="bold")
                 t.set_path_effects(TXT_HALO)
-            if ci == 0:
-                fig.text(0.07 / W, 1 - (top + F / 2) / H, name, rotation=90, fontsize=7.5, color=cs.INK,
-                         ha="center", va="center", fontweight="bold")
-                fig.text(0.19 / W, 1 - (top + F / 2) / H, g, rotation=90, fontsize=6.5, color=cs.INK2,
-                         ha="center", va="center")
+    fig.text(L / W, fy(H - 0.115), f"A, B: native {CROP_PX} px windows at the same place in every image",
+             fontsize=6.5, color=cs.INK2, ha="left", va="baseline")
 
-    # ---- spectra row, one plot per column, shared axes
+    # ==== spectra, one plot per row, shared axes; y in dB (10 log10 of the a.u. power), x in plain decimals
     axs = []
-    for ci, col in enumerate(cols):
-        x0 = lab_w + ci * (colw + gut)
-        ax = add_ax(fig, x0 + SPEC_IN, spec_top, colw - SPEC_IN, spec_h)
+    for ri, col in enumerate(cols):
+        top = IMG_TOP + ri * (F + rowgap)
+        ax = add_ax(fig, spec_x, top, spec_w, F)
         if axs:
             ax.sharex(axs[0])
             ax.sharey(axs[0])
@@ -204,39 +216,46 @@ def main():
         ax.set_xscale("log")
         ax.set_yscale("log")
         ax.plot([peak[0]], [peak[1]], marker="o", ms=2.6, color=cs.INK, zorder=4)
-        ax.annotate(f"period \u2248 {1 / peak[0]:.0f} px", xy=peak, xytext=(0, 4), textcoords="offset points",
+        ax.annotate(f"period ≈ {1 / peak[0]:.0f} px", xy=peak, xytext=(0, 3.5), textcoords="offset points",
                     fontsize=6.5, color=cs.INK, ha="center", va="bottom")
         if col["key"] == "official":
             r = peak_ratio(col["dev"], col["krea"])
-            txt = f"peak ratio {r:.0f}\u00d7 (this pair only)"
+            txt = f"peak ratio {r:.0f}× (this pair only)"
         else:
             r = np.log([peak_ratio(a, b) for a, b in zip(col["dev_all"], col["krea_all"])])
             gm, lo, hi = np.exp(cs.boot(r))
-            txt = f"8 prompts: peak ratio {gm:.0f}\u00d7 [{lo:.0f}, {hi:.0f}]"
+            txt = f"8 prompts: peak ratio {gm:.0f}× [{lo:.0f}, {hi:.0f}]"
             print(col["key"], "per-prompt peak ratios", np.round(np.exp(r), 1))
-        ax.text(0.03, 0.04, txt, transform=ax.transAxes, fontsize=6, color=cs.INK2, ha="left", va="bottom")
+        print(col["key"], txt, f"period {1 / peak[0]:.1f} px")
+        ax.text(0.03, 0.05, txt, transform=ax.transAxes, fontsize=6.5, color=cs.INK2, ha="left", va="bottom")
         ax.grid(True, which="major", axis="both", lw=0.4, color=cs.GRIDC)
-        ax.tick_params(labelsize=7)
-        if ci > 0:
-            ax.tick_params(labelleft=False)
+        ax.tick_params(labelsize=7, length=2.0, pad=1.5)
+        if ri < len(cols) - 1:
+            ax.tick_params(labelbottom=False)
     axs[0].set_xlim(2.5e-3, 0.5)
     axs[0].set_ylim(5e-8, 6e-3)
-    axs[0].yaxis.set_major_locator(LogLocator(base=10, numticks=6))
-    axs[0].yaxis.set_minor_formatter(NullFormatter())
-    # y label set horizontally above the first plot (tick labels fill the strip to its left)
-    axs[0].set_ylabel(r"Whitened power $f^{2}P(f)$, a.u.", fontsize=7, rotation=0, ha="left", va="baseline")
-    axs[0].yaxis.set_label_coords((0.16 - (lab_w + SPEC_IN)) / (colw - SPEC_IN), 1 + TAG_UP / spec_h)
+    axs[0].xaxis.set_major_locator(FixedLocator([0.01, 0.1]))
+    axs[0].xaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:g}"))
+    axs[0].xaxis.set_minor_formatter(NullFormatter())
+    axs[0].yaxis.set_major_locator(FixedLocator([1e-7, 1e-5, 1e-3]))
+    axs[0].yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{10 * np.log10(v):.0f}".replace("-", "−")))
     axs[0].yaxis.set_minor_locator(NullLocator())
-    axs[1].set_xlabel("Spatial frequency $f$ (cycles per pixel)", fontsize=7.5)
-    # checkpoint key on the label line above the plots (the curves cross, so a key reads cleaner)
-    from matplotlib.lines import Line2D
-    handles = [Line2D([], [], color=CK_INK[k], lw=1.1) for k in ("dev", "krea")]
-    fig.legend(handles, ["FLUX.1-dev", "FLUX.1-Krea-dev"], loc="lower right", ncol=2, frameon=False,
-               fontsize=6.5, handlelength=1.6, columnspacing=1.2, handletextpad=0.5, borderaxespad=0,
-               bbox_to_anchor=(1.0, 1 - (spec_top - TAG_UP + 0.035) / H))
+    # y label set horizontally as the panel b header (the tick labels fill the strip to the left of the plots)
+    axs[0].set_ylabel("Whitened power (dB, a.u.)", fontsize=7.5, rotation=0, ha="left", va="baseline")
+    axs[0].yaxis.set_label_coords((x_b + 0.14 - spec_x) / spec_w, 1 + (IMG_TOP - NAME_Y) / F)
+    axs[-1].set_xlabel("Spatial frequency $f$ (cycles per pixel)", fontsize=7, labelpad=2)
+    # checkpoint key on the header's second line (the curves cross, so a key reads cleaner than direct labels)
+    fig.canvas.draw()
+    lx = x_b + 0.14
+    for k, lab in (("dev", "FLUX.1-dev"), ("krea", "FLUX.1-Krea-dev")):
+        fig.add_artist(plt.Line2D([lx / W, (lx + 0.16) / W], [fy(DESC_Y - 0.024)] * 2, color=CK_INK[k], lw=1.1,
+                                  solid_capstyle="butt"))
+        t = fig.text((lx + 0.21) / W, fy(DESC_Y), lab, fontsize=6.5, color=cs.INK2, ha="left", va="baseline")
+        lx += 0.21 + t.get_window_extent(fig.canvas.get_renderer()).width / fig.dpi + 0.13
 
-    cs.panel_tag(fig, 0.0, 1 - 0.14 / H, "a")
-    cs.panel_tag(fig, 0.0, 1 - (spec_top - TAG_UP) / H, "b")
+    cs.panel_tag(fig, 0.0, fy(NAME_Y), "a")
+    cs.panel_tag(fig, x_b / W, fy(NAME_Y), "b")
+    print(f"figure size {W:.2f} x {H:.3f} in; frames {F:.2f} in, crops {C:.3f} in, spectra {spec_w:.2f} x {F:.2f} in")
     cs.finish(fig, str(cs.HERE / "f5_checkpoint"), photo=True)
     print("prompt:", prompt)
 
