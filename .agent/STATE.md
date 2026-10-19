@@ -5,7 +5,7 @@ User authorizes unattended project ownership, experiments, paper work and parall
 ## Status and next action
 2026-10-18. PAPER PHASE (user: finish + polish paper, professional figures). Results do NOT support SOTA; user told plainly;
 paper = honest findings paper (paper/PLAN.md is the source of truth: framing, contributions, data sources, figure names).
-Running (Claude Opus max agents): figures agent -> paper/figs/f1..f8 + DESIGN_NOTES.md + CAPTIONS.md;
+PAPER DONE: commit fdee66d; paper/dist/constancy_rope_paper.pdf + _src.zip (22 pp, 9-page body; zip builds with tectonic, untested on Overleaf pdfLaTeX). Sent to user 2026-10-18. Reviewer-attack list in final report (one model family, one seed mostly, no human study, 60 CIs uncorrected, mechanism on <=8 dev prompts).
 writer agent -> paper/main.tex, paper/sec/*, paper/tables/make_tables.py. Next: final polish/review agent, build PDF with
 ~/.local/bin/tectonic, render pages (paper/render_pages.sh), deliver PDF + standalone Overleaf zip.
 No GPU jobs held by this project. GPU method search (option 2) only if user asks; then ONE large multi-node job, held.
