@@ -26,8 +26,10 @@
 % =============================================================================================
 % Result cells (written by tables/make_tables.py). B = 95% interval excludes zero in the good
 % direction, W = excludes zero in the bad direction, T = interval covers zero.
-\definecolor{betterc}{RGB}{0,90,170}
-\definecolor{worsec}{RGB}{196,72,0}
+% Verdicts use neutral ink; method hues retain their meaning from crope_style.py.
+% Direction triangles and Holm stars carry the statistical annotation.
+\definecolor{betterc}{HTML}{1F2329}
+\definecolor{worsec}{HTML}{1F2329}
 \definecolor{cigray}{gray}{0.42}
 \newcommand{\upm}{\makebox[0.62em][r]{\scalebox{0.55}{$\blacktriangle$}}}
 \newcommand{\dnm}{\makebox[0.62em][r]{\scalebox{0.55}{$\blacktriangledown$}}}

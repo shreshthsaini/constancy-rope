@@ -1,0 +1,6 @@
+figure audit /work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/figs/f6_sega_code: clean
+jpeg-embedded 8 photo image(s) in f6_sega_code.pdf: 0.97 MB
+sega_official          median log g range [+0.00, +0.39]  CLIP 30.32  IR 1.423
+sega_official_static   median log g range [+0.03, +0.30]  CLIP 29.98  IR 1.255
+sega                   median log g range [-0.79, +1.74]  CLIP 28.14  IR 0.964
+sega_static            median log g range [-0.33, +1.25]  CLIP 13.06  IR -2.277

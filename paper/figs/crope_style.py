@@ -97,6 +97,14 @@ METRICS = {
     "tiling1024":           dict(label="Tiling index, 1024 px", group="Spectrum and structure", lower=True),
 }
 
+# Display precision of estimates, matching tables/make_tables.py. Axis ticks use
+# the precision needed by their step; estimates retain a fixed precision per metric.
+METRIC_PRECISION = {
+    "imagereward": 3, "pickscore": 2, "clip": 2, "musiq": 2, "musiq_crop1024": 2,
+    "clipiqa": 3, "clipiqa_crop1024": 3, "spectrum_log_rmse": 3,
+    "spectrum_slope_error": 3, "tiling1024": 4,
+}
+
 
 def style():
     """House rcParams on top of orx_figstyle.use_style()."""

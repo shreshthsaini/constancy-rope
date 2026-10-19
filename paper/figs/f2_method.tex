@@ -8,7 +8,8 @@
 \usepackage{tgheros}
 \renewcommand\familydefault{\sfdefault}
 \usepackage{newtxsf}
-% keep every sub- and superscript at or above 6.4 pt (PDF points) at native size (the paper includes F2 at 0.86 linewidth)
+% At full 5.5 in linewidth, every sub- and superscript is at least 6.4259 PDF pt.
+% Include at full linewidth: shrinking below 0.934 would break the 6 pt minimum.
 \DeclareMathSizes{6.5}{6.5}{6.45}{6.45}\DeclareMathSizes{7}{7}{6.45}{6.45}
 \DeclareMathSizes{8}{8}{6.45}{6.45}\DeclareMathSizes{9}{9}{6.45}{6.45}
 \usepackage{tikz}
@@ -136,10 +137,10 @@
   \fill[cobalt] ({\fz+\fk*\ls},\yy+0.7) circle (0.62);
   \node[diamond, fill=terra, minimum size=1.65mm] at ({\fz+\fk*\lc},\yy-0.7) {};
 }
-\draw[sky!55!black, line width=0.5pt, dash pattern=on 1.2pt off 0.9pt] (\ft,\yb) -- (\ft,57.4);
+\draw[sky!55!black, line width=0.5pt, dash pattern=on 1.2pt off 0.9pt] (\ft,\yb) -- (\ft,58.6);
 \node[sml, anchor=base] at (\fz,29.6) {0};
 \node[sml, anchor=base] at (\ft,29.6) {$\ln\tau$};
-\node[pill=sky!48, anchor=south] (temp) at (\ft,57.4) {global temperature $\tau$};
+\node[pill=sky!48, anchor=south] (temp) at (\ft,58.6) {global temperature $\tau$};
 \node[anchor=west] at ($(temp.east)+(1.6,0)$) {\fsSmall\color{ink2}equal gain on every band};
 
 % summing junction and output logit

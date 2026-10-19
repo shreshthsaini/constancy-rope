@@ -1,0 +1,23 @@
+{
+  "figure": "figs/f2_method.pdf",
+  "date": "2026-10-19",
+  "width_pdf_pt": 396.0,
+  "height_pdf_pt": 198.4199981689453,
+  "paper_width_pdf_pt": 396,
+  "inclusion": "full linewidth",
+  "minimum_text_pdf_pt": 6.425899982452393,
+  "number_of_text_spans": 157,
+  "minimum_allowed_fraction_of_linewidth": 0.9337213489759529,
+  "smallest_text_types": "math subscripts, superscripts, primes and exponent symbols",
+  "gap_global_note_to_logit_label_pdf_pt": 3.7615528106689453,
+  "visual_inspection": [
+    "qa/method_round1/page_01.png (160 dpi)",
+    "qa/method_round2/page_01.png (160 dpi)"
+  ],
+  "visual_findings": "All three knobs and both controllers legible. No text overlap or clipped labels. Global-temperature note moved 1.2 mm upward to separate it from logit-slice label. Native source remains 5.5 in wide.",
+  "data_file": "figs/f2_method_data.tex",
+  "data_sha256": "6f88ed937df02609975f36f0fa3086535595f732b3985b96cd9b9b43635c8478",
+  "data_changed": false,
+  "build": "OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 ~/.local/bin/tectonic -X compile f2_method.tex --keep-logs",
+  "svg_export": "PyMuPDF get_svg_image(text_as_path=False): editable text and vector paths"
+}

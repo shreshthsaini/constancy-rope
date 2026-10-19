@@ -164,9 +164,8 @@ def nice_ticks(lo, hi):
     raise ValueError(f"no tick step for [{lo}, {hi}]")
 
 
-def val_fmt(v):
-    a = abs(v)
-    s = f"{a:.1f}" if a >= 10 else (f"{a:.2f}" if a >= 0.095 else f"{a:.3f}")
+def val_fmt(v, metric):
+    s = f"{abs(v):.{cs.METRIC_PRECISION[metric]}f}"
     return ("−" if v < 0 else "+") + s
 
 
@@ -180,7 +179,7 @@ def msize(marker, hollow=False):
 
 
 # ------------------------------------------------------------------ drawing
-def draw_row(ax, y, est, color, marker, lim, lower, hollow=False):
+def draw_row(ax, y, est, color, marker, lim, lower, metric, hollow=False):
     d, lo, hi, _ = est
     x0, x1 = lim
     sig = lo > 0 or hi < 0
@@ -204,7 +203,7 @@ def draw_row(ax, y, est, color, marker, lim, lower, hollow=False):
     ax.plot([side], [y], marker="<" if left else ">", ms=4.4, color=c, mec="white", mew=0.4,
             clip_on=False, zorder=5)
     partial = a < b   # part of the interval is visible: print the value above the row, clear of the line
-    ax.annotate(val_fmt(d), (side, y), xytext=(4.0 if left else -4.0, 3.2 if partial else 0),
+    ax.annotate(val_fmt(d, metric), (side, y), xytext=(4.0 if left else -4.0, 3.2 if partial else 0),
                 textcoords="offset points", ha="left" if left else "right",
                 va="bottom" if partial else "center", fontsize=6.5, color=cs.INK2, zorder=6,
                 path_effects=[pe.withStroke(linewidth=1.6, foreground=bg)])
@@ -222,9 +221,9 @@ def draw_panel(ax, res, k, title):
     ax.axvline(0.0, color=cs.INK2, lw=0.8, zorder=2)
     for m in ORDER:
         spec = cs.METHODS[m]
-        draw_row(ax, POS[m], res[(m, k, 0)], spec["color"], spec["marker"], lim, lower)
+        draw_row(ax, POS[m], res[(m, k, 0)], spec["color"], spec["marker"], lim, lower, k)
         if m in SEED1:
-            draw_row(ax, SUBPOS[m], res[(m, k, 1)], spec["color"], spec["marker"], lim, lower, hollow=True)
+            draw_row(ax, SUBPOS[m], res[(m, k, 1)], spec["color"], spec["marker"], lim, lower, k, hollow=True)
     ticks, step = nice_ticks(*lim)
     ax.set_xticks(ticks)
     ax.xaxis.set_major_formatter(mpl.ticker.FuncFormatter(tick_fmt(step)))

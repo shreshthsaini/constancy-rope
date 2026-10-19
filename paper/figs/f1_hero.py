@@ -7,12 +7,10 @@ global attention temperature; the per-band allocation adds little. Held-out resu
     temp. (SEGA's released base and global temperature), SEGA (released) (adds the per-band allocation).
     Crops are native pixels, never resampled, at the same two locations for every arm: A = cabin, centred at(2048,3200); B = mountain, centred at(2048,1536).
     These shared coordinates were chosen to retain common subject matter after viewing the three frames. 384 px each, shown at 0.80 in (480 px per inch).
-(b) Absolute paired gains over NTK, decomposed into base + temperature and the released-allocation
-    residual, on187 held-out prompts,seed0. Bars stack signed gains in each metric's native units.
-    Whiskers show nominal95% paired bootstrap CIs for each component (2000 resamples,seed0).
-    The allocation interval is translated by the base-plus-temperature point estimate to align it
-    with its stacked segment; it is not an interval for the total gain. Separate axes have separate
-    metric units. Negative allocation segments are hatched. No ratio is plotted.
+(b) Two paired contrasts on 187 held-out prompts, seed 0: base + temperature minus NTK,
+    and released SEGA minus base + temperature (allocation). Each metric has two labelled
+    rows on one shared axis in its native units. Dots and unshifted whiskers show the mean
+    and nominal 95% paired bootstrap CI (2000 resamples, seed 0).
 
 Regenerate: OMP_NUM_THREADS=8 /work/09032/saini_2/vista/library/uv-envs/crope/bin/python f1_hero.py
 """
@@ -24,12 +22,13 @@ import matplotlib.patheffects as pe
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Rectangle
+from matplotlib.ticker import MaxNLocator
 
 import crope_style as cs
 import qual_helpers as qh
 
 ROW = 32
-CROP = 384                     # native crop side in px (fixed before rendering; not tuned on content)
+CROP = 384                     # crop coordinates were fixed after viewing, as disclosed in the caption
 THUMB = 768                    # Lanczos-reduced full frame, px
 SHOWN = ["ntk2", "temp_only_sbase", "sega_official"]          # narrative order
 DESC = {"ntk2": "base only", "temp_only_sbase": "+ base, temperature",
@@ -48,11 +47,11 @@ G = 0.13              # thumbnail to crop grid (holds the row letters A, B)
 C = 0.80              # crop side on the page
 GG = 0.09             # between method columns (keeps the bold headers 5 pt apart)
 GI = 2 / 72           # between rows A and B (2 pt)
-GAP_AB = 0.17         # panel a to panel b
-X_GRID = F + G
-X_B = X_GRID + 3 * C + 2 * GG + GAP_AB          # left edge of panel b
+X_A = (W - (F + G + 3 * C + 2 * GG)) / 2
+X_GRID = X_A + F + G
 GRID_BOTTOM = IMG_TOP + 2 * C + GI
-H = GRID_BOTTOM + 0.015
+B_TOP = GRID_BOTTOM + 0.13
+H = B_TOP + 1.54
 
 
 # ==== numbers
@@ -138,9 +137,9 @@ def panel_a(fig):
     box_b = (1856, 1344, 2240, 1728)
     print("crop A (cabin)", box_a, " crop B (mountain)", box_b)
 
-    cs.panel_tag(fig, 0, fy(NAME_Y), "a")
-    header(fig, 0.15, "Full frame", cs.INK, "SEGA (released), 4096 px", ha="left", weight="normal")
-    ax = axes_at(fig, 0, IMG_TOP, F, F)
+    cs.panel_tag(fig, X_A / W, fy(NAME_Y), "a")
+    header(fig, X_A + 0.15, "Full frame", cs.INK, "SEGA (released), 4096 px", ha="left", weight="normal")
+    ax = axes_at(fig, X_A, IMG_TOP, F, F)
     photo(ax, cs.thumb(src["sega_official"], THUMB))
     s = THUMB / 4096
     # the letter goes on the side of the box facing away from the other box
@@ -149,7 +148,7 @@ def panel_a(fig):
     crop_box(ax, box_b, s, "B", "left" if side_a == "right" else "right")
     note = ["A: cabin", "B: mountain", f"native {CROP} px crops,", "identical coordinates"]
     for i, line in enumerate(note):
-        fig.text(0, fy(IMG_TOP + F + 0.13 + 0.1 * i), line, fontsize=6.5, color=cs.INK2, va="baseline")
+        fig.text(X_A / W, fy(IMG_TOP + F + 0.13 + 0.1 * i), line, fontsize=6.5, color=cs.INK2, va="baseline")
 
     for j, m in enumerate(SHOWN):
         x = X_GRID + j * (C + GG)
@@ -163,51 +162,63 @@ def panel_a(fig):
 
 def paired_gains():
     d = cs.heldout()
-    return {m: (cs.paired(d, "temp_only_sbase", m, "ntk2"),
+    vals = {m: (cs.paired(d, "temp_only_sbase", m, "ntk2"),
                 cs.paired(d, "sega_official", m, "temp_only_sbase")) for m in METRICS}
+    # Verify every displayed mean and CI against the same generated macros used by the text.
+    source = MACROS.read_text()
+    for metric, contrasts in vals.items():
+        precision = cs.METRIC_PRECISION[metric]
+        for key, (mean, lo, hi, n) in zip(("basetemp", "alloc"), contrasts):
+            for suffix, expected in (("d", f"${mean:+.{precision}f}$"),
+                                     ("ci", f"[${lo:+.{precision}f}$, ${hi:+.{precision}f}$]")):
+                name = f"ho@{suffix}@{key}@{MACRO[metric]}"
+                actual = re.search(r"\\csname N@%s\\endcsname\{([^}]*)\}" % re.escape(name), source)
+                assert actual and actual[1] == expected, (name, expected, actual[1] if actual else None)
+            assert n == 187
+    return vals
 
 
 def panel_b(fig, vals):
-    cs.panel_tag(fig, X_B / W, fy(NAME_Y), "b")
-    x0 = X_B + .15
-    fig.text(x0 / W, fy(NAME_Y), "Paired gains over NTK", fontsize=7, color=cs.INK,
-             fontweight="bold")
-    fig.text(x0 / W, fy(DESC_Y), "Base + temp.", fontsize=6.4, color=cs.text_color("temp_only_sbase"))
-    fig.text((x0 + .92) / W, fy(DESC_Y), "+ allocation", fontsize=6.4, color=cs.COBALT)
-    pitch = (GRID_BOTTOM - IMG_TOP) / len(METRICS)
+    cs.panel_tag(fig, 0, fy(B_TOP + .03), "b")
+    fig.text(.16 / W, fy(B_TOP + .03), "Paired changes in score (95% CI)",
+             fontsize=7.5, color=cs.INK, fontweight="bold")
+    col_width, gutter, label_width = 2.65, .20, 1.13
+    names = {"imagereward": "ImageReward", "pickscore": "PickScore",
+             "musiq": "MUSIQ, full frame", "musiq_crop1024": "MUSIQ, 1024 crops"}
     for i, met in enumerate(METRICS):
-        bt, alloc = vals[met]
-        d, lo, hi, n = bt
-        a, alo, ahi, na = alloc
-        assert n == na == 187
-        top = IMG_TOP + i * pitch
-        ax = axes_at(fig, x0, top + .105, W - x0 - .06, pitch - .245)
-        ax.barh(.5, d, left=0, height=.30, color=cs.SKY, lw=0)
-        ax.barh(.5, a, left=d, height=.30, color=cs.COBALT,
-                edgecolor="white", linewidth=.4, hatch="////" if a < 0 else None)
-        # Independent component intervals, with the second translated for stacking.
-        for l, r, y, c in [(lo, hi, .84, cs.text_color("temp_only_sbase")),
-                            (d + alo, d + ahi, .16, cs.COBALT)]:
-            ax.plot([l, r], [y, y], color=c, lw=.75)
-            ax.plot([l, r], [y, y], ls="none", marker="|", ms=2.5, mew=.75, color=c)
-        xmax = max(hi, d + ahi, d + a) * 1.06
-        ax.set_xlim(min(0, d + alo) * 1.05, xmax)
-        ax.set_ylim(0, 1)
-        ax.set_yticks([])
-        ax.set_xticks([0, xmax])
+        top = B_TOP + .12 + (i // 2) * .70
+        x0 = (i % 2) * (col_width + gutter)
+        ax = axes_at(fig, x0 + label_width, top + .12, col_width - label_width - .04, .43)
+        ax.set_xlabel(names[met], fontsize=7.5, color=cs.INK, loc="left")
+        ax.xaxis.set_label_coords(x0 / W, fy(top + .07), transform=fig.transFigure)
+        low = min(0, *(v[1] for v in vals[met]))
+        high = max(v[2] for v in vals[met])
+        span = high - low
+        ax.set_xlim(low - .13 * span, high + .14 * span)
+        ax.set_ylim(-.35, 1.65)
+        ax.axvline(0, color=cs.INK2, alpha=.65, lw=.75, zorder=0)
+        precision = cs.METRIC_PRECISION[met]
+        for y, contrast, method, name in zip((1, 0), vals[met],
+                ("temp_only_sbase", "sega_official"), ("base + temperature", "allocation")):
+            mean, lo, hi, n = contrast
+            ax.errorbar(mean, y, xerr=[[mean - lo], [hi - mean]], fmt="o", markersize=3.5,
+                        color=cs.color(method), markeredgecolor=cs.text_color(method),
+                        markeredgewidth=.5, elinewidth=1.1, capsize=2.2, capthick=.8, zorder=2)
+            ax.annotate(f"{mean:+.{precision}f}", (mean, y), xytext=(0, 4),
+                        textcoords="offset points", ha="center", va="bottom", fontsize=7,
+                        color=cs.text_color(method))
+        ax.set_yticks([1, 0], ["base + temperature", "allocation"])
+        ax.tick_params(axis="y", length=0, pad=6, labelsize=7)
+        for tick, method in zip(ax.get_yticklabels(), ("temp_only_sbase", "sega_official")):
+            tick.set_color(cs.text_color(method))
+        ax.xaxis.set_major_locator(MaxNLocator(nbins=4, steps=[1, 2, 2.5, 5, 10]))
         ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda v, p: f"{v:.2g}"))
-        ax.tick_params(axis="x", labelsize=6, length=1.8, pad=1)
+        ax.tick_params(axis="x", labelsize=7, length=2, pad=2)
         for side in ["left", "top", "right"]:
             ax.spines[side].set_visible(False)
         ax.spines["bottom"].set_color(cs.RULE)
         ax.grid(False)
-        name = {"imagereward": "ImageReward", "pickscore": "PickScore",
-                "musiq": "MUSIQ, full", "musiq_crop1024": "MUSIQ, crops"}[met]
-        fig.text(x0 / W, fy(top + .07), name, fontsize=6.5, color=cs.INK)
-        precision = 3 if met == "imagereward" else 2
-        fig.text((W - .06) / W, fy(top + .07), f"{d:+.{precision}f}  {a:+.{precision}f}",
-                 fontsize=6.2, color=cs.INK, ha="right")
-        print(met, "base+temperature", bt, "allocation", alloc)
+        print(met, "base+temperature", vals[met][0], "allocation", vals[met][1])
 
 
 def main():

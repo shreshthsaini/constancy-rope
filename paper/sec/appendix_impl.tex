@@ -9,18 +9,70 @@ We use pyiqa 0.1.16's KonIQ10k MUSIQ model. The project passes RGB float32 value
 \paragraph{Source versions}
 Our \sega{} comparison uses \href{https://github.com/rajabi2001/sega/tree/ddaab08552c7b7ceba2ebd8f579a0f65dee90b5e}{released commit \texttt{ddaab08552c7}}. The allocation is in \texttt{flux\_sega/transformer\_flux.py}, lines 103--154; projected-feature sensing follows the input projection in the same file. Our printed-law implementation follows Section 4.1 and equations (3)--(7) of \citet{sega2026}, with the strengthened base from equation (9) in its Appendix A.2.2. The six-row comparison in \cref{tab:papercode} records our interpretation, including how the unspecified index axis and latent input are implemented. We did not obtain confirmation of that interpretation from the authors. Our \dype{} port and official-code diagnostic use \href{https://github.com/guyyariv/DyPE/tree/436fe612fb7695fa2d5dc32d63390c048ba6033c}{commit \texttt{436fe612fb76}}.
 
+\begin{table}[!htbp]
+\centering
+\caption{\textbf{Our reading of \sega's printed formulation differs from the release at each of the six stages compared.} Released revision \texttt{ddaab08552c7}; source locations, equation numbers and interpretation limits are in \cref{app:impl}. Here $s$ is the scale per side and $D=56$.}
+\label{tab:papercode}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\linewidth}{@{}l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
+\toprule
+Stage & Printed equations & Released code \\
+\midrule
+Sensor input & channel mean of the latent & channel mean of the projected input features \\
+Pair-to-bin map & physical frequency, clipped & rank of log period \\
+Allocation & $m_{\mathrm{ref}}(1-\varsigma u)$; \newline $u=\tanh z-\overline{\tanh z}$ & $m_{\mathrm{ref}}(1-0.15\,\varsigma c)$, clamped at 1; \newline $c=\tanh(1.5z)-\overline{\tanh(1.5z)}$ \\
+Bounds & none & gains clamped at 1 \\
+Index axis & $m_{\mathrm{ref}}$ & 1 \\
+Frequency base & $\theta s^{2D/(D-2)}$ per axis & $\theta s^{2D/(D-2)}/(1+0.1\ln s)$, \newline longest side \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Printed \sega{} equations}
+\sega~\citep{sega2026} reads the spectrum of its input at every model call and sets per-pair gains around a reference gain $m_{\mathrm{ref}}=s^{0.08}$. In the printed equations, the energy $E_a$ of the channel-mean latent at pair $j$'s frequency bin is standardized across pairs, $z_{a,j}$, and
+\begin{equation}
+\begin{aligned}
+m_{a,j}&=m_{\mathrm{ref}}\bigl(1-\varsigma\,u_{a,j}\bigr),
+&\varsigma&=1-\mathrm{SF}(E_{\mathrm{iso}})^{1.5},\\
+u_{a,j}&=\tanh z_{a,j}-\operatorname{mean}_i\tanh z_{a,i}.
+\end{aligned}
+\label{eq:sega}
+\end{equation}
+where $\mathrm{SF}$ is the flatness of the radial spectrum. Low-energy pairs, usually the fast ones, thus gain attention weight in proportion to how far the spectrum is from flat. Our reading of the printed formulation differs from the release at each of the six stages in \cref{tab:papercode}. We call its parity-tested port \segaofficial{} and our implementation of the printed equations \segapaper; static variants use the mean allocation over pilot prompts and steps.
+
 \paragraph{\dype}
 For spatial axis $a$ with scale $s$ and $\kappa=\sigma^2$, let $b(r)=D\ln\bigl(64/(2\pi r)\bigr)/(2\ln\theta)$ be the pair index that completes $r$ rotations over 64 tokens and $\mu_{r_1,r_2}(j)=1-\operatorname{clip}\bigl((j-\ell)/(h-\ell),0,1\bigr)$ with $\ell=\max(\lfloor b(r_1)\rfloor,0)$ and $h=\min(\lceil b(r_2)\rceil,D/2)$. Then
 \[
-\omega^{\mathrm{mix}}_j=\tfrac{\omega_j}{s}\bigl(1-\mu_{1.25\kappa,0.75\kappa}(j)\bigr)+\omega^{\mathrm{ntk}}_j\,\mu_{1.25\kappa,0.75\kappa}(j),\qquad
-\omega'_j=\omega^{\mathrm{mix}}_j\bigl(1-\mu_{16\kappa,2\kappa}(j)\bigr)+\omega_j\,\mu_{16\kappa,2\kappa}(j),
+\begin{aligned}
+\omega^{\mathrm{mix}}_j&=\tfrac{\omega_j}{s}\bigl(1-\mu_{1.25\kappa,0.75\kappa}(j)\bigr)+\omega^{\mathrm{ntk}}_j\,\mu_{1.25\kappa,0.75\kappa}(j),\\
+\omega'_j&=\omega^{\mathrm{mix}}_j\bigl(1-\mu_{16\kappa,2\kappa}(j)\bigr)+\omega_j\,\mu_{16\kappa,2\kappa}(j).
+\end{aligned}
 \]
 with $\omega^{\mathrm{ntk}}$ the NTK-aware frequencies, and the spatial cos/sin amplitude is $1+0.1\ln s$, as in the official code at the inspected revision.
 
 \paragraph{\segaofficial}
 The sensor takes the channel mean $Z$ of the projected input features on the token grid. The axis profile $E_a$ is the one-dimensional FFT power along axis $a$ averaged over the other axis and rebinned into $K_a=\max(\lfloor L_a/2\rfloor,8)$ bins. Pair $j$ reads $\ell_j=\ln E_a\bigl((1-\rho_j)(K_a-1)\bigr)$ by linear interpolation, with $\rho_j=j/(D/2-1)$ the normalized rank of its log period; $z_j$ standardizes $\ell_j$ with the sample standard deviation; and $m_{a,j}=\max\bigl(1,m_{\mathrm{ref}}[1-0.15\,\varsigma\,c_j]\bigr)$ with $c_j=\tanh(1.5z_j)-\operatorname{mean}_i\tanh(1.5z_i)$, $m_{\mathrm{ref}}=\max(s,1)^{0.08}$ and $\varsigma=1-\mathrm{SF}^{1.5}$ from the radially binned two-dimensional power. The index axis keeps gain 1.
 
+\subsection{Per-band control laws}\label{app:laws}
+
+Each law sets $\ln g_{a,j}=\ln\tau+\Delta_{a,j}$, a temperature plus a bounded per-band correction. The diffusion noise level supplies the bandwise noise floor.
+
 \paragraph{\constancy}
+For half-octave bands $b$, a gate compares the current input's band energy with the known noise floor, $\rho_{a,b}=\max\bigl(E^{x}_{a}[b]/(\sigma^2C)-1,0\bigr)$ and $w_{a,b}=\rho_{a,b}/(1+\rho_{a,b})$, and an error compares the previous clean estimate's band energy $\hat E_a[b]$ with a native-resolution target $P^{\mathrm{nat}}$, the mean log spectrum of the model's own $1024^2$ samples on 16 calibration prompts outside the evaluation set:
+\begin{equation}
+e_{a,b}=\tfrac12\bigl(P^{\mathrm{nat}}_{a}(f_b)+c_a-\ln \hat E_{a}[b]\bigr),\qquad \delta_{a,b}=\eta\,w_{a,b}\operatorname{clip}(e_{a,b},-1,1),
+\label{eq:constancy}
+\end{equation}
+where $c_a$ anchors the target level on visible bands of 16 to 64 token wavelengths. The pair correction $\Delta_{a,j}$ interpolates $\delta$ in $\log f$, with $\tau=\tau_N$ and $\eta=1$. A natural spectrum gives $e=0$ and reduces the law to the global temperature. The target is the native spectrum of the final, nearly clean steps.
+
+\paragraph{\constancytm}
+The same law with a time-matched target: $P^{\mathrm{nat}}(f,\sigma)$ is the clean estimate's native spectrum at the same noise level, tabulated over all \N{c@steps} native steps, so the anchor no longer needs the gate. Built on the base and temperature of \segaofficial, it isolates the allocation, with \tempsb{} as its control.
+
+\paragraph{\aliastemp{} and \segactm}
+\aliastemp{} applies the log-$N$ temperature pair by pair, taking as a pair's key pool the number of keys it can resolve on the grid (\cref{app:impl}); \aliastemps{} shifts all its log gains by one constant to match \sega's reference gain in geometric mean. \segactm{} multiplies the allocation of \segaofficial{} by the time-matched correction, $\ln g=\ln g^{\textsc{sega}}+\Delta$, with $\eta\in\{0.5,1\}$ on the dev set and $\eta=1$ held out.
+
+\paragraph{Band energies and calibration}
 Band energies are densities: with an orthonormal FFT, $P(k)=\sum_c|\mathcal F(x_c-\bar x_c)(k)|^2$, $E_a(k)$ averages $P$ over the other axis, and $E_a[b]$ averages over half-octave bands $b$ (13 bands at 256 tokens per side). Unit white noise gives $E_a[b]=C=64$ in expectation, so the noise floor at level $\sigma$ is $\sigma^2C$. The gate uses the current input; the error uses the clean estimate of the previous call, $\hat x=x_{n-1}-\sigma_{n-1}v_\theta(x_{n-1})$. Corrections are interpolated in $\log f$ between band centres and applied to pairs with frequency above one cycle per grid, which at $4096^2$ are pairs 0 to 8 of each axis. Step 0 has no clean estimate and uses the temperature alone, and $|\ln g-\ln\tau|\le\eta$ always. The native targets come from $1024^2$ samples of the same model on 16 Pick-a-Pic prompts~\citep{kirstain2023pickapic} disjoint from the evaluation set: the late target averages the three steps with $\sigma<0.3$, and the time-matched target keeps all 28 steps and is interpolated in $\sigma$.
 
 \paragraph{\aliastemp}
@@ -39,6 +91,20 @@ where $n(\lambda,L)$, the pair's alias count, is the number of its wavelengths a
 \caption{\textbf{The late-profile correction starts late, and the response to a band-gain change differs across prompts.} (a)~Mean $|\ln g-\ln\tau|$ over spatial rotary pairs per step, shown as the median and interquartile band over eight dev prompts, seed 0, with both targets on the \ntk{} base; right, median corrections for pairs 0--11; omitted pairs 12--27 are identically zero. (b)~Separate width-axis response matrices for dev prompts 0, 1 and 2, all at seed 0. Each cell is the same-seed finite-difference change in final-latent log power divided by $\ln(\NmechProbeFactor)$ when one input octave receives a $\NmechProbeFactor\times$ logit gain on both spatial axes throughout sampling. All three matrices share one zero-centred colour scale and show no averaging across prompts; there is no uncertainty estimate from repeated seeds.}
 \label{fig:mechanism}
 \end{figure}
+
+The following gate and transfer-probe measurements use development prompts; the time-matched and released-allocation summaries use logged held-out trajectories. These diagnostics do not identify causal mediators of image quality.
+
+\paragraph{The visibility gate opens too late}
+\constancy's correction is exactly zero until a band with a wavelength of 16 to 64 tokens holds more than twice the noise power ($w>\tfrac12$). On the eight dev prompts it first becomes nonzero at $\sigma=\NmechConstDevOnsetSigmaHi$ and is nonzero on all of them only by $\sigma=\NmechConstDevOnsetSigmaLo$ (\cref{fig:mechanism}a). For most of sampling, including the steps that fix the layout, \constancy{} is thus the \ntk{} base with a log-$N$ temperature: the gate is principled, but at $4096^2$ the bands it guards stay below the noise floor until late.
+
+\paragraph{A native-resolution target improves spectral match while lowering MUSIQ}
+The time-matched target opens the gate early. On the held-out \constancytm{} runs, corrections exceed $\NmechMaterialThreshold$ in log gain after the first $\NmechTmMaterialStepMed$ steps (median), and $\NmechTmNegPct\%$ of all nonzero corrections are negative: they lower the mid pairs 6 to 8 ($\NmechTmCoarseFinal$ at the last step) and, late, the finest pairs 0 to 2 ($\NmechTmFineFinal$). These corrections reduce the gains of the corresponding rotary bands. Against \tempsb, output spectral errors shrink slightly while both MUSIQ scores fall. Matching a native spectrum and maximizing a learned quality score are different objectives; the measurements do not show which individual gain changes cause the score losses.
+
+\paragraph{\sega's allocation is mostly a fixed tilt}
+Across the held-out prompts the released logit gain stays between $\NmechSegaGainMin$ and $\NmechSegaGainMax$. A fixed tilt over pairs explains $\NmechSegaStaticPct\%$ of its variance and a tilt plus a per-step profile $\NmechSegaStaticTimePct\%$. The prompt-dependent remainder, $\NmechSegaContentPct\%$ overall and $\NmechSegaLateContentPct\%$ from step $\NmechLateFirstStep$ on, is an upper bound on content dependence, because it also contains each prompt's noise draw. At the last step the finest pair has a logit gain of $\NmechSegaFinalFineGain$ and the $\NmechSegaFinalClampPairs$ slowest pairs per axis sit at the clamp of 1. A law that adapts more to content therefore has little to copy: \segactm{} raises the prompt-dependent share to $\NmechCtmContentPct\%$ and gains nothing held out. A CPU study of the printed equations finds the same structure on another latent space (\cref{app:mech}).
+
+\paragraph{The response to gain changes is weak and prompt-dependent}
+Every law assumes that raising a band's gain raises its output power. A probe on three dev prompts that scales one octave's gain by $\NmechProbeFactor$ (\cref{fig:mechanism}b) finds a clear same-octave width-axis response for one prompt and a near-zero one for the other two, off-diagonal responses spread across octaves, and a weak height-axis response. On two dev prompts, a local linear model predicts half-step band-power changes little better than no change (\cref{app:mech}). These probes question a simple band-local response model, but their small sample does not establish a universal limit on per-band control.
 
 \paragraph{CPU study of the printed \sega{} law}
 Before running any model we measured the printed allocation (\cref{eq:sega}) on forward-noised latents of the FLUX.2 autoencoder for \NmechCpuN{} DIV2K crops. A fixed tilt over pairs explained $\NmechCpuStaticPct\%$ of the variance of the modulation, tilt plus timestep $\NmechCpuStaticTimePct\%$, leaving at most $\NmechCpuContentPct\%$ for content; the flatness gate $\varsigma$ was explained to $R^2=\NmechCpuSigmaTimeRsq$ by the timestep alone and to $\NmechCpuSigmaGenericRsq$ by a generic $1/f$ field. On our held-out \krea{} runs the released gate $\varsigma$ is likewise explained to $R^2=\NmechSegaSpreadTimeRsq$ by the timestep. The channel mean that the printed sensor reads keeps $\NmechCpuChanMeanPct\%$ of the latent power. In a blur sweep at $\sigma=\NmechBlurLowSigma$ over \NmechBlurN{} test crops, the printed law's contrast between fine and coarse pairs changed by $\NmechBlurSegaChangePct\%$ between no blur and a blur of \NmechBlurMax{} tokens, while an oracle version of the constancy law changed \NmechBlurConstFold-fold. These measurements motivated the constancy design; they use the printed law, another autoencoder and forward-noised rather than sampled latents, so we use them only as context for \cref{sec:laws}.

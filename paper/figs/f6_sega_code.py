@@ -203,7 +203,8 @@ def main():
         cax2.set_axis_off()
         cax2.add_patch(Rectangle((0, 0), 1, 1, transform=cax2.transAxes, fill=False, lw=0.4, edgecolor=cs.RULE,
                                  clip_on=False))
-        for ri, (key, fmt) in enumerate((("clip", "{:.1f}"), ("imagereward", "{:.2f}"))):
+        for ri, key in enumerate(("clip", "imagereward")):
+            fmt = "{:.%df}" % cs.METRIC_PRECISION[key]
             mean, delta = M[m][key]
             y = met_top + 2 * ri * LINE
             fig.text((x0 + w / 2) / W, 1 - y / H, num(fmt, mean), fontsize=7, color=cs.INK, ha="center",

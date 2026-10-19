@@ -1,0 +1,155 @@
+{
+  "body_pages": 9,
+  "references_start_page": 10,
+  "total_pages": 25,
+  "main_pdf_sha256": "16962a4f8fb50f0a259b7f8db7e9922d5d1436e17b53972cd2b8dfe0e5f30401",
+  "source_rebuild_directory": "/scratch/09032/saini_2/tmp/tmp/cr7_source_check_v_7oo0yh/constancy_rope_paper_src",
+  "source_rebuild_clean": true,
+  "all_pages_text_and_pixels_identical": true,
+  "figure_2_minimum_printed_pt": 6.425899982452393,
+  "figure_1_160dpi_rounds": [
+    "/scratch/09032/saini_2/tmp/tmp/cr7_hero_r1/page_01.png",
+    "/scratch/09032/saini_2/tmp/tmp/cr7_hero_r2/page_01.png",
+    "/scratch/09032/saini_2/tmp/tmp/cr7_hero_r3/page_01.png"
+  ],
+  "final_110dpi_render_directory": "/scratch/09032/saini_2/tmp/tmp/cr7_final",
+  "forbidden_prose_or_missing_reference_matches": [],
+  "pages": [
+    {
+      "page": 1,
+      "render_sha256_110dpi": "09a4393413c805d4ea5acfac11925b11b339297124a16c8d52d635c89af0df12",
+      "visually_inspected": true
+    },
+    {
+      "page": 2,
+      "render_sha256_110dpi": "1a6158482325040296892d854eea787d2231fd739c7bf5b4cfebce5fd3a9b650",
+      "visually_inspected": true
+    },
+    {
+      "page": 3,
+      "render_sha256_110dpi": "91340b00a7aafa3f66506bf2a97254e19018da38561e8ea544553c96310248f3",
+      "visually_inspected": true
+    },
+    {
+      "page": 4,
+      "render_sha256_110dpi": "b61bc4373cefb15438482ea3d53b41497823e74774b9d6edb9f63f3bb55b1cc7",
+      "visually_inspected": true
+    },
+    {
+      "page": 5,
+      "render_sha256_110dpi": "12633f28238ef2699cd28bc75ed2ad45738c93d2ce99001bcdd5a83088a49099",
+      "visually_inspected": true
+    },
+    {
+      "page": 6,
+      "render_sha256_110dpi": "21c3ccaf69ef3ef689e05b0749b14904ee9eaf6448c3eb91ca035415ccb2abd0",
+      "visually_inspected": true
+    },
+    {
+      "page": 7,
+      "render_sha256_110dpi": "37accd66916f0a0877323b42f8f1802412517ce33297b0526eb8683289b2819f",
+      "visually_inspected": true
+    },
+    {
+      "page": 8,
+      "render_sha256_110dpi": "d2cceef83fbce24b254d77df9299c1a21dda06fb3a66211fe92f962984215aef",
+      "visually_inspected": true
+    },
+    {
+      "page": 9,
+      "render_sha256_110dpi": "7525226f5b095b56de451c538359c2de6119f8a584ffeed7d0b24011b20d31ae",
+      "visually_inspected": true
+    },
+    {
+      "page": 10,
+      "render_sha256_110dpi": "3ea94d51be50d6bb35325163829321f8c38426c7c83bfd7dbad77348d5c71c2a",
+      "visually_inspected": true
+    },
+    {
+      "page": 11,
+      "render_sha256_110dpi": "9e19c5d3657605118579ebcca0d372f28293d30119fa3050f9ae952e987d15fe",
+      "visually_inspected": true
+    },
+    {
+      "page": 12,
+      "render_sha256_110dpi": "d971ee17042a6258cca61c4f12a347dc1e212f6c0a177e94b90c3d46f4d73df3",
+      "visually_inspected": true
+    },
+    {
+      "page": 13,
+      "render_sha256_110dpi": "217112b63387c36c47e5071277ce9d2e51c07419de9e15718a8c0f61d409e022",
+      "visually_inspected": true
+    },
+    {
+      "page": 14,
+      "render_sha256_110dpi": "bf45803f0ab9d0700ae48f1e44a267c03858ad5e69a335506228399ce6266906",
+      "visually_inspected": true
+    },
+    {
+      "page": 15,
+      "render_sha256_110dpi": "221b9587a82b0af19c798ddcfec193f96171ad6aade56f6fdd07abedaa67f586",
+      "visually_inspected": true
+    },
+    {
+      "page": 16,
+      "render_sha256_110dpi": "d27499154fcb71683ebd40149ab10609eb67e49a2d4c17286e387719c07b5e24",
+      "visually_inspected": true
+    },
+    {
+      "page": 17,
+      "render_sha256_110dpi": "30a89fff039bfe450b3d639377e39f44f867d8a2d540186ee96f0e2da0e7af84",
+      "visually_inspected": true
+    },
+    {
+      "page": 18,
+      "render_sha256_110dpi": "9258d9b0d1f04a4157889f4f84e89d9fbfa28fa2588106499eb9affc94177b21",
+      "visually_inspected": true
+    },
+    {
+      "page": 19,
+      "render_sha256_110dpi": "5ea537d57bdcb9aedfec5aa565667b4d1c896625901a1beeb81b2220f7beec1a",
+      "visually_inspected": true
+    },
+    {
+      "page": 20,
+      "render_sha256_110dpi": "108986dc71fa616574647d6e352313fdff6090e705322bac9f837b881ce22494",
+      "visually_inspected": true
+    },
+    {
+      "page": 21,
+      "render_sha256_110dpi": "1cd84c81e4f3a626940b9cc70d1dc7252cae9d31e8912ed1e7334a7efe8b187d",
+      "visually_inspected": true
+    },
+    {
+      "page": 22,
+      "render_sha256_110dpi": "082f95d35d088c5fea76eb231afdbb54e02524a133aeabed2a0b8e5546a1fcd4",
+      "visually_inspected": true
+    },
+    {
+      "page": 23,
+      "render_sha256_110dpi": "a6332a7b35776028842a9f53f9cb5da08f81b7ae2aa8c2b13bf2b47346d21fe0",
+      "visually_inspected": true
+    },
+    {
+      "page": 24,
+      "render_sha256_110dpi": "db0cc6bd428321a9d52cf20fed5381f79c5792b692fb3de88d06253e2c2073fa",
+      "visually_inspected": true
+    },
+    {
+      "page": 25,
+      "render_sha256_110dpi": "e33781bd688b8f90c4d36d972cbd3a3ec1a6d1131371da364d9426504f39ab5e",
+      "visually_inspected": true
+    }
+  ],
+  "deliverables": {
+    "constancy_rope_paper.pdf": {
+      "sha256": "16962a4f8fb50f0a259b7f8db7e9922d5d1436e17b53972cd2b8dfe0e5f30401",
+      "bytes": 16141108
+    },
+    "constancy_rope_paper_src.zip": {
+      "sha256": "a58b022492964baadaf1fcfa57a706697677a41a65b58d6574a0b605d471f9df",
+      "bytes": 15975288
+    }
+  },
+  "previous_deliverables_backup": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/dist/before_cr7_9wazisev"
+}

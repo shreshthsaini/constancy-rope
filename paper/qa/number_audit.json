@@ -1,0 +1,923 @@
+{
+  "status": "pass",
+  "method": "Independent raw-CSV reconstruction; 2000 paired prompt resamples, NumPy default_rng(0), percentile 95% intervals.",
+  "effect_groups": 24,
+  "macro_checks": 63,
+  "scalar_numbers_checked": 92,
+  "scalar_numbers_with_current_main_text_use": 61,
+  "raw_vs_archived_max_abs_difference": 3.552713678800501e-15,
+  "raw_vs_registered_paired_max_abs_difference": 4.440892098500626e-16,
+  "checked_effects_in_older_scratch_summary": 13,
+  "failed_checks": [],
+  "provenance_note": "eval_krea/heldout/heldout_per_prompt.csv is absent, and its paired summary has 50 comparisons, predating SEGA + TM. Values were reconstructed from original main, mainsb and main2 per_image.csv files plus ImageReward CSVs, then compared with the retained work per-prompt archive, its complete 60-comparison summary, and the scratch summary where present.",
+  "checks": [
+    {
+      "macro": "ho@d@ntk@ir",
+      "reported": "$-0.594$",
+      "recomputed": "$-0.594$",
+      "unrounded": -0.5944409465240642,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:104",
+      "text_sources": [
+        "sec/results_decomp.tex:6"
+      ]
+    },
+    {
+      "macro": "ho@ci@ntk@ir",
+      "reported": "[$-0.701$, $-0.494$]",
+      "recomputed": "[$-0.701$, $-0.494$]",
+      "unrounded": [
+        -0.7013180336898395,
+        -0.4938734998663102
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:106",
+      "text_sources": []
+    },
+    {
+      "macro": "ho@d@ntk@musiq",
+      "reported": "$-15.74$",
+      "recomputed": "$-15.74$",
+      "unrounded": -15.739810984402418,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:119",
+      "text_sources": [
+        "sec/results_decomp.tex:6"
+      ]
+    },
+    {
+      "macro": "ho@ci@ntk@musiq",
+      "reported": "[$-17.50$, $-14.00$]",
+      "recomputed": "[$-17.50$, $-14.00$]",
+      "unrounded": [
+        -17.501030446373843,
+        -14.0033654608191
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:121",
+      "text_sources": []
+    },
+    {
+      "macro": "ho@d@ntk@musiqc",
+      "reported": "$-18.70$",
+      "recomputed": "$-18.70$",
+      "unrounded": -18.696889109790007,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:124",
+      "text_sources": [
+        "sec/results_decomp.tex:6"
+      ]
+    },
+    {
+      "macro": "ho@ci@ntk@musiqc",
+      "reported": "[$-20.68$, $-16.86$]",
+      "recomputed": "[$-20.68$, $-16.86$]",
+      "unrounded": [
+        -20.67962540486917,
+        -16.85743306958102
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:126",
+      "text_sources": []
+    },
+    {
+      "macro": "ho@d@tsb@ir",
+      "reported": "$+0.026$",
+      "recomputed": "$+0.026$",
+      "unrounded": 0.026047796791443843,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:204",
+      "text_sources": [
+        "sec/results_decomp.tex:6"
+      ]
+    },
+    {
+      "macro": "ho@ci@tsb@ir",
+      "reported": "[$-0.016$, $+0.070$]",
+      "recomputed": "[$-0.016$, $+0.070$]",
+      "unrounded": [
+        -0.015651459358288766,
+        0.07009566443850267
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:206",
+      "text_sources": [
+        "sec/results_decomp.tex:6"
+      ]
+    },
+    {
+      "macro": "ho@d@tsb@musiq",
+      "reported": "$-2.09$",
+      "recomputed": "$-2.09$",
+      "unrounded": -2.0854978306408234,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:219",
+      "text_sources": [
+        "sec/results_decomp.tex:6"
+      ]
+    },
+    {
+      "macro": "ho@ci@tsb@musiq",
+      "reported": "[$-3.25$, $-0.96$]",
+      "recomputed": "[$-3.25$, $-0.96$]",
+      "unrounded": [
+        -3.245264083433916,
+        -0.9640696719368506
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:221",
+      "text_sources": [
+        "sec/results_decomp.tex:6"
+      ]
+    },
+    {
+      "macro": "ho@d@alloc@musiq",
+      "reported": "$+2.09$",
+      "recomputed": "$+2.09$",
+      "unrounded": 2.0854978306408234,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:502",
+      "text_sources": [
+        "sec/abstract.tex:2",
+        "sec/intro.tex:7",
+        "sec/results_decomp.tex:19"
+      ]
+    },
+    {
+      "macro": "ho@ci@alloc@musiq",
+      "reported": "[$+0.96$, $+3.25$]",
+      "recomputed": "[$+0.96$, $+3.25$]",
+      "unrounded": [
+        0.9640696719368504,
+        3.245264083433915
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:504",
+      "text_sources": [
+        "sec/intro.tex:7",
+        "sec/results_decomp.tex:19"
+      ]
+    },
+    {
+      "macro": "ho@d@alloc@iqa",
+      "reported": "$+0.009$",
+      "recomputed": "$+0.009$",
+      "unrounded": 0.009292178931720754,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:536",
+      "text_sources": [
+        "sec/results_decomp.tex:19"
+      ]
+    },
+    {
+      "macro": "ho@ci@alloc@iqa",
+      "reported": "[$+0.001$, $+0.018$]",
+      "recomputed": "[$+0.001$, $+0.018$]",
+      "unrounded": [
+        0.0010841816504371328,
+        0.01773402649451065
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:538",
+      "text_sources": [
+        "sec/results_decomp.tex:19"
+      ]
+    },
+    {
+      "macro": "ho@d@dype@ir",
+      "reported": "$-0.164$",
+      "recomputed": "$-0.164$",
+      "unrounded": -0.16395427272727273,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:54",
+      "text_sources": [
+        "sec/results_decomp.tex:28"
+      ]
+    },
+    {
+      "macro": "ho@ci@dype@ir",
+      "reported": "[$-0.258$, $-0.087$]",
+      "recomputed": "[$-0.258$, $-0.087$]",
+      "unrounded": [
+        -0.2581692498663102,
+        -0.0867291221925134
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:56",
+      "text_sources": [
+        "sec/results_decomp.tex:28"
+      ]
+    },
+    {
+      "macro": "ho@d@dype@pick",
+      "reported": "$-0.49$",
+      "recomputed": "$-0.49$",
+      "unrounded": -0.4863007693367209,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:59",
+      "text_sources": [
+        "sec/results_decomp.tex:28"
+      ]
+    },
+    {
+      "macro": "ho@ci@dype@pick",
+      "reported": "[$-0.63$, $-0.36$]",
+      "recomputed": "[$-0.63$, $-0.36$]",
+      "unrounded": [
+        -0.6290650487583587,
+        -0.36124489345652566
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:61",
+      "text_sources": []
+    },
+    {
+      "macro": "ho@d@dype@musiqc",
+      "reported": "$+1.97$",
+      "recomputed": "$+1.97$",
+      "unrounded": 1.9704492104882225,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:74",
+      "text_sources": [
+        "sec/results_decomp.tex:28"
+      ]
+    },
+    {
+      "macro": "ho@ci@dype@musiqc",
+      "reported": "[$+1.16$, $+2.80$]",
+      "recomputed": "[$+1.16$, $+2.80$]",
+      "unrounded": [
+        1.1617114012572858,
+        2.7958387180126922
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:76",
+      "text_sources": [
+        "sec/results_decomp.tex:28"
+      ]
+    },
+    {
+      "macro": "ho@d@dype@iqa",
+      "reported": "$+0.029$",
+      "recomputed": "$+0.029$",
+      "unrounded": 0.028855701181340346,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:79",
+      "text_sources": [
+        "sec/results_decomp.tex:28"
+      ]
+    },
+    {
+      "macro": "ho@ci@dype@iqa",
+      "reported": "[$+0.020$, $+0.038$]",
+      "recomputed": "[$+0.020$, $+0.038$]",
+      "unrounded": [
+        0.019735273973827055,
+        0.0381354777969141
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:81",
+      "text_sources": []
+    },
+    {
+      "macro": "ho@d@sctm@ir",
+      "reported": "$+0.009$",
+      "recomputed": "$+0.009$",
+      "unrounded": 0.008574775401069518,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:254",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@ci@sctm@ir",
+      "reported": "[$-0.008$, $+0.027$]",
+      "recomputed": "[$-0.008$, $+0.027$]",
+      "unrounded": [
+        -0.008414276871657743,
+        0.02741993155080213
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:256",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@d@sctm@musiq",
+      "reported": "$-0.21$",
+      "recomputed": "$-0.21$",
+      "unrounded": -0.2085993455693044,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:269",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@ci@sctm@musiq",
+      "reported": "[$-0.71$, $+0.32$]",
+      "recomputed": "[$-0.71$, $+0.32$]",
+      "unrounded": [
+        -0.7088688878452074,
+        0.31511755627106836
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:271",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@d@sctm@pick",
+      "reported": "$-0.08$",
+      "recomputed": "$-0.08$",
+      "unrounded": -0.0752588567886761,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:259",
+      "text_sources": [
+        "sec/intro.tex:8",
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@ci@sctm@pick",
+      "reported": "[$-0.10$, $-0.05$]",
+      "recomputed": "[$-0.10$, $-0.05$]",
+      "unrounded": [
+        -0.1023353719456311,
+        -0.049139782961676946
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:261",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@d@sctm@musiqc",
+      "reported": "$-1.13$",
+      "recomputed": "$-1.13$",
+      "unrounded": -1.131656946345447,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:274",
+      "text_sources": [
+        "sec/intro.tex:8",
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@ci@sctm@musiqc",
+      "reported": "[$-1.39$, $-0.90$]",
+      "recomputed": "[$-1.39$, $-0.90$]",
+      "unrounded": [
+        -1.3875352662833615,
+        -0.9021926283517624
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:276",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@d@sctm@clip",
+      "reported": "$-0.09$",
+      "recomputed": "$-0.09$",
+      "unrounded": -0.09391564353902074,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:264",
+      "text_sources": []
+    },
+    {
+      "macro": "ho@ci@sctm@clip",
+      "reported": "[$-0.20$, $-0.00$]",
+      "recomputed": "[$-0.20$, $-0.00$]",
+      "unrounded": [
+        -0.19650621567180485,
+        -0.0036800560466750567
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:266",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@d@ctm@clip",
+      "reported": "$-0.27$",
+      "recomputed": "$-0.27$",
+      "unrounded": -0.26807076153270737,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:164",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@ci@ctm@clip",
+      "reported": "[$-0.49$, $-0.04$]",
+      "recomputed": "[$-0.49$, $-0.04$]",
+      "unrounded": [
+        -0.49117045657520003,
+        -0.038818509055969536
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:166",
+      "text_sources": []
+    },
+    {
+      "macro": "ho@d@ctm@musiq",
+      "reported": "$-3.04$",
+      "recomputed": "$-3.04$",
+      "unrounded": -3.0360150770707564,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:169",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@ci@ctm@musiq",
+      "reported": "[$-4.28$, $-1.81$]",
+      "recomputed": "[$-4.28$, $-1.81$]",
+      "unrounded": [
+        -4.281693673516339,
+        -1.8148817156725396
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:171",
+      "text_sources": []
+    },
+    {
+      "macro": "ho@d@ctm@musiqc",
+      "reported": "$-2.19$",
+      "recomputed": "$-2.19$",
+      "unrounded": -2.1926597936905643,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:174",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@ci@ctm@musiqc",
+      "reported": "[$-2.81$, $-1.57$]",
+      "recomputed": "[$-2.81$, $-1.57$]",
+      "unrounded": [
+        -2.812413177770727,
+        -1.5666630697760353
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:176",
+      "text_sources": []
+    },
+    {
+      "macro": "ho@d@ctm@tile",
+      "reported": "$-0.0068$",
+      "recomputed": "$-0.0068$",
+      "unrounded": -0.006790718348646824,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:199",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@ci@ctm@tile",
+      "reported": "[$-0.0107$, $-0.0026$]",
+      "recomputed": "[$-0.0107$, $-0.0026$]",
+      "unrounded": [
+        -0.01071842148693742,
+        -0.002640275832888898
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:201",
+      "text_sources": []
+    },
+    {
+      "macro": "ho@d@ctmtsb@musiqc",
+      "reported": "$-2.08$",
+      "recomputed": "$-2.08$",
+      "unrounded": -2.0823180280267235,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:662",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@ci@ctmtsb@musiqc",
+      "reported": "[$-2.43$, $-1.75$]",
+      "recomputed": "[$-2.43$, $-1.75$]",
+      "unrounded": [
+        -2.4284210676815423,
+        -1.7527947566725994
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:664",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@d@ctmtsb@musiq",
+      "reported": "$-0.95$",
+      "recomputed": "$-0.95$",
+      "unrounded": -0.950517246429933,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:657",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@ci@ctmtsb@musiq",
+      "reported": "[$-1.67$, $-0.22$]",
+      "recomputed": "[$-1.67$, $-0.22$]",
+      "unrounded": [
+        -1.667166499020582,
+        -0.2164727223748193
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:659",
+      "text_sources": []
+    },
+    {
+      "macro": "ho@d@ctmtsb@spec",
+      "reported": "$-0.015$",
+      "recomputed": "$-0.015$",
+      "unrounded": -0.014549766331684207,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:677",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@ci@ctmtsb@spec",
+      "reported": "[$-0.021$, $-0.008$]",
+      "recomputed": "[$-0.021$, $-0.008$]",
+      "unrounded": [
+        -0.020889404151356074,
+        -0.008398727747766496
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:679",
+      "text_sources": []
+    },
+    {
+      "macro": "ho@d@ctmtsb@slope",
+      "reported": "$-0.006$",
+      "recomputed": "$-0.006$",
+      "unrounded": -0.0057962428319131365,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:682",
+      "text_sources": [
+        "sec/results_laws.tex:4"
+      ]
+    },
+    {
+      "macro": "ho@ci@ctmtsb@slope",
+      "reported": "[$-0.010$, $-0.002$]",
+      "recomputed": "[$-0.010$, $-0.002$]",
+      "unrounded": [
+        -0.00961719172718437,
+        -0.001750977153618838
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:684",
+      "text_sources": []
+    },
+    {
+      "macro": "ho@a@alloc@musiq",
+      "reported": "2.09",
+      "recomputed": "2.09",
+      "unrounded": 2.0854978306408234,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:503",
+      "text_sources": [
+        "sec/abstract.tex:2"
+      ]
+    },
+    {
+      "macro": "sh@p@ir",
+      "reported": "104",
+      "recomputed": "104",
+      "unrounded": 104.38189814207044,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:444",
+      "text_sources": [
+        "sec/abstract.tex:2",
+        "sec/intro.tex:7",
+        "sec/results_decomp.tex:19"
+      ]
+    },
+    {
+      "macro": "sh@ci@ir",
+      "reported": "[97, 113]",
+      "recomputed": "[97, 113]",
+      "unrounded": [
+        97.43744853147744,
+        112.855010187661
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:445",
+      "text_sources": [
+        "sec/abstract.tex:2",
+        "sec/results_decomp.tex:19"
+      ]
+    },
+    {
+      "macro": "sh@p@pick",
+      "reported": "103",
+      "recomputed": "103",
+      "unrounded": 102.73602204135652,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:461",
+      "text_sources": [
+        "sec/intro.tex:7",
+        "sec/results_decomp.tex:19"
+      ]
+    },
+    {
+      "macro": "sh@ci@pick",
+      "reported": "[97, 109]",
+      "recomputed": "[97, 109]",
+      "unrounded": [
+        97.05211758638097,
+        109.13056520297147
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:462",
+      "text_sources": []
+    },
+    {
+      "macro": "sh@p@clip",
+      "reported": "101",
+      "recomputed": "101",
+      "unrounded": 100.93351556602855,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:478",
+      "text_sources": [
+        "sec/results_decomp.tex:19"
+      ]
+    },
+    {
+      "macro": "sh@ci@clip",
+      "reported": "[90, 112]",
+      "recomputed": "[90, 112]",
+      "unrounded": [
+        90.23480871156269,
+        112.42745731143651
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:479",
+      "text_sources": []
+    },
+    {
+      "macro": "sh@p@musiqc",
+      "reported": "99",
+      "recomputed": "99",
+      "unrounded": 99.40983890413051,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:512",
+      "text_sources": [
+        "sec/intro.tex:7",
+        "sec/results_decomp.tex:19"
+      ]
+    },
+    {
+      "macro": "sh@ci@musiqc",
+      "reported": "[96, 103]",
+      "recomputed": "[96, 103]",
+      "unrounded": [
+        96.24866873176371,
+        102.69729511661987
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:513",
+      "text_sources": []
+    },
+    {
+      "macro": "ho@nprompts",
+      "reported": "187",
+      "recomputed": "187",
+      "unrounded": 187,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:1605",
+      "text_sources": [
+        "sec/abstract.tex:2",
+        "sec/intro.tex:5",
+        "sec/results_decomp.tex:14",
+        "sec/results_decomp.tex:24"
+      ]
+    },
+    {
+      "macro": "so@n@tsb",
+      "reported": "55",
+      "recomputed": "55",
+      "unrounded": 55,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:985",
+      "text_sources": [
+        "sec/intro.tex:5",
+        "sec/results_decomp.tex:14",
+        "sec/results_decomp.tex:31"
+      ]
+    },
+    {
+      "macro": "so@d@tsb@musiq",
+      "reported": "$-2.79$",
+      "recomputed": "$-2.79$",
+      "unrounded": -2.7903505151922054,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:922",
+      "text_sources": [
+        "sec/results_decomp.tex:31"
+      ]
+    },
+    {
+      "macro": "so@ci@tsb@musiq",
+      "reported": "[$-4.58$, $-0.95$]",
+      "recomputed": "[$-4.58$, $-0.95$]",
+      "unrounded": [
+        -4.580755343003706,
+        -0.9549550741369068
+      ],
+      "pass_check": true,
+      "scalar_count": 2,
+      "macro_source": "tables/num_results.tex:924",
+      "text_sources": [
+        "sec/results_decomp.tex:31"
+      ]
+    },
+    {
+      "macro": "so@agree",
+      "reported": "17",
+      "recomputed": "17",
+      "unrounded": 17,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:1092",
+      "text_sources": [
+        "sec/results_decomp.tex:31"
+      ]
+    },
+    {
+      "macro": "so@cells",
+      "reported": "20",
+      "recomputed": "20",
+      "unrounded": 20,
+      "pass_check": true,
+      "scalar_count": 1,
+      "macro_source": "tables/num_results.tex:1093",
+      "text_sources": [
+        "sec/results_decomp.tex:31"
+      ]
+    }
+  ],
+  "sources": {
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/tables/num_results.tex": {
+      "sha256": "2ec9b938a3637f673fd16d03c7b4dc649e113e7d79d5618b9c56a0f38c983771",
+      "bytes": 97747
+    },
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/sec/abstract.tex": {
+      "sha256": "fe41f9258846e343b7f8d15cac95febcd5cc811e4927fb7c13e36ad0751e3a8e",
+      "bytes": 1080
+    },
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/sec/intro.tex": {
+      "sha256": "8c0cd04141b23943f27b75f949fcac815f21ff70e5829bbcf8c0e9ae4310bca3",
+      "bytes": 3957
+    },
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/sec/results_decomp.tex": {
+      "sha256": "bae2ea4a1c98b1dee32a52d48b8b89956eb27e935e107473e40394cc95147e3d",
+      "bytes": 5122
+    },
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/sec/results_laws.tex": {
+      "sha256": "fe25f4de55d9ceb75c9b545c24435350e55883483ff7ab729dc0b124a36e9981",
+      "bytes": 2222
+    },
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/sec/results_more.tex": {
+      "sha256": "efe54fc5fee4d1c3c0743f045e33a610d8ed85e38ce58d60f32e9c6f14f6f182",
+      "bytes": 3217
+    },
+    "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl": {
+      "sha256": "ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1",
+      "bytes": 159574
+    },
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/main/per_image.csv": {
+      "sha256": "0e1c29f3c0c3e4cdc5cac3f0141f00dcacc83e196b269ba9809b353ca49f959f",
+      "bytes": 549214
+    },
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/main.csv": {
+      "sha256": "625bf49101eb896667c1aef917124bcd7c8241f477d2d4976c5a5b78aaae30a7",
+      "bytes": 121868
+    },
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/mainsb/per_image.csv": {
+      "sha256": "c6e8b315138fa81ddfefff315186c403c6236ee99f7a429523dee38fc4d46c7f",
+      "bytes": 329274
+    },
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/mainsb.csv": {
+      "sha256": "6c36743b7f53195a83eea23dca5c425e92d6441405e28166274c0422ffc17b0a",
+      "bytes": 75545
+    },
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/main2/per_image.csv": {
+      "sha256": "91571a5dd3f6638bb16e920be183216edfd4097dd87c0d47b1e79f04581dd7c8",
+      "bytes": 164380
+    },
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/main2.csv": {
+      "sha256": "580334b9f38547c8919a6c2aece9a502e84dfc39d8f38fee883c93b7fc2739e6",
+      "bytes": 36661
+    },
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/main2/heldout_per_prompt.csv": {
+      "sha256": "1832f7b52358ce45e178d075b4e5cf77173b511affd4252dcf64e45b5a196ac6",
+      "bytes": 1160949
+    },
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/main2/heldout_paired_vs_sega_official.csv": {
+      "sha256": "d41a77fc6c881d68a57af9e6ec5be62a0d2b6e0605587ca3c56c05b712802ff3",
+      "bytes": 5725
+    },
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/heldout/heldout_paired_vs_sega_official.csv": {
+      "sha256": "36473b36340c015fbe8102803baf46cee5f8f5e13824a0685f0ae842972cb7b6",
+      "bytes": 4757
+    },
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/tables/tab_share.tex": {
+      "sha256": "e702c2ac086d18abeb891dee1e38afdae573f42ee8f1357fade0bcfa7721698b",
+      "bytes": 1165
+    },
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/seed1/per_image.csv": {
+      "sha256": "7ed9cc9bd80412c1f217acc4dc49e55f34c593bf212b9461a63ae3413f5a5fb5",
+      "bytes": 147326
+    },
+    "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/seed1.csv": {
+      "sha256": "ca716c695f7d4ed4426ff93d06fb8162595bd1da8890c2efd12de00706beeee6",
+      "bytes": 33852
+    },
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/tables/tab_main.tex": {
+      "sha256": "693f624494dadaeb704fffb21515eed43018434c4e8280bbf61381ac7da411aa",
+      "bytes": 1783
+    }
+  }
+}

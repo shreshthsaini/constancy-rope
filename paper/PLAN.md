@@ -65,8 +65,8 @@ each table's paired family. Main decomposition MUSIQ survives; weak CLIP/CLIP-IQ
   Full-frame/crop differences also include context and scale weighting. This is quality scoring, not sharpness.
 - Hero revision uses row32 (cabin), selected by caption subject before viewing that row; shared384 crops were chosen
   after viewing for common cabin/mountain content. Disclose this illustrative selection and crop centres in caption.
-  Figure1b uses signed absolute gains; stacked allocation CIs are shifted by the base-temperature point estimate,
-  not total-gain CIs. Ratios remain in the appendix table.
+  Figure 1b uses two labelled dot-and-interval rows per metric: base plus temperature minus NTK,
+  and released SEGA minus base plus temperature. Intervals are unshifted paired 95% CIs; ratios remain in the appendix.
 - SEGA source pin is ddaab08552c7b7ceba2ebd8f579a0f65dee90b5e; printed-law references are Sections4.1/4.2,
   equations3-7 and9. Record our latent/index-axis interpretation and that author confirmation was not obtained.
 - One-prompt cross-checkpoint gain-probe sign change belongs only in the mechanism appendix, with guidance/code
@@ -75,6 +75,15 @@ each table's paired family. Main decomposition MUSIQ survives; weak CLIP/CLIP-IQ
   F3 direction shading and seed legend, F4 two-row main grid, A.2 gain scales and line profiles,
   F7 individual-prompt matrices, and the promoted spectrum panel with a Nyquist marker.
   Inspect the compiled pages at print size; update result-dependent figures only after verified new data.
+
+## Camera-ready layout, 2026-10-19
+- Sections 1 to 7 occupy nine pages; references start on page 10. Keep the forest and spectrum as Figures 3 and 4.
+- The six-stage comparison and full controller equations are in Appendix E. Development diagnostic values,
+  checkpoint figure, spectral-band details and pilot timings are in the corresponding appendices.
+- Figure 2 is included at full text width so its smallest text remains above 6 pt.
+- Table direction triangles and Holm stars use neutral ink; method colours retain their figure meanings.
+- Camera-ready receipts and the independent raw-CSV number audit are in `paper/qa/`. Pending confirmation
+  results remain the other process's responsibility; none were added during this pass.
 
 ## Quality bar
 Professional academic look, attractive, clearly better than the figures in the reference papers the user named

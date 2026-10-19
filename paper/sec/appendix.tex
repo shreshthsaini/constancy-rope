@@ -5,7 +5,7 @@
 
 \begin{table}[!htbp]
 \centering
-\caption{\textbf{Base and temperature carry most of \sega's gain, and no per-band law beats it.} Held-out paired differences against \segaofficial{} (rows 8--194, seed 0, $n=\N{ho@nprompts}$); the first row gives the absolute means of \segaofficial. Each cell shows the mean difference and its nominal 95\% bootstrap interval; \better{}/\worse{} and colour mark intervals that exclude zero in the better or worse direction, while uncoloured cells are ties. A star marks a Holm-adjusted $p\le0.05$ across this table's paired comparisons, using approximate centered-bootstrap tests. \Cref{tab:deltas_full} has all ten metrics and a separate Holm family.}
+\caption{\textbf{Base and temperature carry most of \sega's gain, and no per-band law beats it.} Held-out paired differences against \segaofficial{} (rows 8--194, seed 0, $n=\N{ho@nprompts}$); the first row gives the absolute means of \segaofficial. Each cell shows the mean difference and its nominal 95\% bootstrap interval; \better{}/\worse{} mark intervals that exclude zero in the better or worse direction; unmarked cells are ties. A star marks a Holm-adjusted $p\le0.05$ across this table's paired comparisons, using approximate centered-bootstrap tests. \Cref{tab:deltas_full} has all ten metrics and a separate Holm family.}
 \label{tab:main}
 \footnotesize
 \setlength{\tabcolsep}{3.1pt}
@@ -13,6 +13,8 @@
 \end{table}
 
 \Cref{tab:share} decomposes \sega's gain over \ntk{} with means and paired gains, \cref{tab:means_full} gives absolute means and \cref{tab:deltas_full} the paired differences for all ten metrics. The spectral rows use the mean octave profile of the 195 \afk{} reference images as the target; \cref{tab:octave} breaks the spectral error into its 11 octave bands. FID and KID are not tabulated: for the seed-1 images (\N{fid@n} prompts per arm, including one dev row), the paired FID difference of \tempsb{} against \segaofficial{} is \N{fid@tsb@fid} with interval \N{fid@tsb@fid@ci}, and that of \constancytm{} is \N{fid@ctm@fid} with interval \N{fid@ctm@fid@ci}.
+
+In band 7, \ntk{} falls below the reference profile (log-power error \N{oct@ntk@b7}); the two arms with \sega's allocation stay closest to it (\segaofficial{} \N{oct@sega@b7}, \segactm{} \N{oct@sctm@b7}), and \tempsb{} carries excess power (\N{oct@tsb@b7}). These held-out spectral differences lie above the Nyquist limit of the 224-pixel reward-model view (\cref{sec:pitfalls}).
 
 \begin{table}[!htbp]
 \centering
@@ -34,7 +36,7 @@
 
 \begin{table}[!htbp]
 \centering
-\caption{\textbf{Held-out paired differences against \segaofficial{}, all metrics.} Nominal 95\% intervals and colour as in \cref{tab:main}; stars mark approximate Holm-adjusted $p\le0.05$ across all paired comparisons in this table. \constancy{} is the partial run on \hon{cons} prompts (\cref{app:partial}).}
+\caption{\textbf{Held-out paired differences against \segaofficial{}, all metrics.} Nominal 95\% intervals and direction triangles as in \cref{tab:main}; stars mark approximate Holm-adjusted $p\le0.05$ across all paired comparisons in this table. \constancy{} is the partial run on \hon{cons} prompts (\cref{app:partial}).}
 \label{tab:deltas_full}
 \scriptsize
 \setlength{\tabcolsep}{1.8pt}
@@ -57,7 +59,7 @@
 
 \begin{table}[!htbp]
 \centering
-\caption{\textbf{Seed 1 repeats most nominal seed-0 verdicts.} Paired differences against \segaofficial{} on the same \N{so@n@tsb} held-out prompts (rows 8--62) at seed 0 and at seed 1. \N{so@agree} of \N{so@cells} nominal verdicts agree. Intervals, colour and triangles use the nominal 95\% convention of \cref{tab:main}; this descriptive table has no Holm adjustment.}
+\caption{\textbf{Seed 1 repeats most nominal seed-0 verdicts.} Paired differences against \segaofficial{} on the same \N{so@n@tsb} held-out prompts (rows 8--62) at seed 0 and at seed 1. \N{so@agree} of \N{so@cells} nominal verdicts agree. Intervals and direction triangles use the nominal 95\% convention of \cref{tab:main}; this descriptive table has no Holm adjustment.}
 \label{tab:seed1}
 \scriptsize
 \setlength{\tabcolsep}{4pt}
@@ -95,7 +97,7 @@ In an eight-prompt pilot on the dev prompts, which is descriptive only, our impl
 
 \begin{table}[!htbp]
 \centering
-\caption{\textbf{Eight-prompt pilot on the dev prompts (rows 0--7, seed 0), descriptive only.} Means; colour marks a paired bootstrap interval against \segaofficial{} that excludes zero, which with $n=8$ is indicative at best. Static variants freeze the allocation instead of reading the current latent.}
+\caption{\textbf{Eight-prompt pilot on the dev prompts (rows 0--7, seed 0), descriptive only.} Means; triangles mark nominal paired bootstrap intervals against \segaofficial{} that exclude zero in the better or worse direction, which with $n=8$ is indicative at best. Static variants freeze the allocation instead of reading the current latent.}
 \label{tab:pilot}
 \scriptsize
 \setlength{\tabcolsep}{2.4pt}

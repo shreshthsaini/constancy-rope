@@ -1,0 +1,7 @@
+held-out paired deltas reproduce the registered CSV (max abs diff 5.0e-16)
+historical_full60: 28/60 Holm marks
+historical_condensed30: 16/30 Holm marks
+seed 1: n=55 per method; verdict agreement with seed 0 on same prompts 17/20
+dev2 selection.json present; gate recomputed here: dv@dev2aliastemp@gate=fails, dv@dev2aliastempsref@gate=fails, dv@dev2segactmeta05@gate=fails, dv@dev2segactmeta10@gate=passes
+224-px Nyquist = 0.0273 cyc/px (2^-5.19); bands 7-10 invisible
+1603 macros -> /work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/tables/num_results.tex

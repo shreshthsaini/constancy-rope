@@ -2,12 +2,7 @@
 % STRENGTHEN CHECKPOINT: Replace the confounded comparison only after the complete
 % official-code checkpoint x guidance matrix has been verified.
 
-\begin{figure}[t]
-\centering
-\figorplaceholder[\linewidth]{figs/f5_checkpoint.pdf}{3.26in}
-\caption{\textbf{The development comparison shows a lattice on \fluxdev{}, but checkpoint and guidance both change.} (a)~Dev prompt 0 under official \dype{} code (seed 42) and our \dype{} and \segaofficial{} pipelines (seed 0), at guidance 3.5 (\fluxdev) and 4.5 (\krea); A and B are native 192-pixel windows at the same place in every image. (b)~Whitened radial power spectra of luminance: \fluxdev{} peaks at the lattice period and \krea{} does not in these samples. Official-code evidence covers one prompt per checkpoint; the descriptive eight-prompt peak summaries use our pipeline. The figure does not isolate a checkpoint effect.}
-\label{fig:checkpoint}
-\end{figure}
+
 
 Our first campaign used \fluxdev, on which \dype{} and \constancy{} produced a dense halftone lattice over the $4096^2$ frame and \ntk{} a featureless blur. An official-code \dype{} check reproduced the lattice on dev prompt 0, seed 42, at guidance 3.5; the corresponding \krea{} run at guidance 4.5 had no visible lattice (\cref{fig:checkpoint}). This rules out our port as a necessary cause of that particular failure, but the guidance difference prevents isolating the checkpoint. \dype's main reported experiments use \krea{}~\citep{issachar2025dype}, as do the official scripts we inspected. We used \krea{} for all held-out comparisons and retain the \fluxdev{} pilot as descriptive evidence only.
 
@@ -17,13 +12,11 @@ With the printed law (\cref{eq:sega,tab:papercode}), the allocation is unbounded
 
 \subsection{Pitfalls in 4K evaluation}\label{sec:pitfalls}\label{sec:spectra}
 
-Two further details limit what 4K numbers can show, and what they cost.
-
 \paragraph{224-pixel scorers miss the finest octaves}
-CLIP, PickScore and ImageReward see a 224-pixel view, whose Nyquist frequency is \N{nyq@cpp} cycles per original pixel ($2^{\N{nyq@log}}$); bands \N{nyq@firstband} to 10 of our 11 octave bands lie entirely above it. These are bands where the arms differ (\cref{fig:spectrum_main,tab:octave}): in band 7, \ntk{} falls far below the reference profile (log-power error \N{oct@ntk@b7}), the two arms with \sega's allocation stay closest to it (\segaofficial{} \N{oct@sega@b7}, \segactm{} \N{oct@sctm@b7}), and \tempsb{} carries excess power (\N{oct@tsb@b7}). The limited view offers one possible explanation for the reward-model ties alongside a full-frame MUSIQ gap. Resizing can retain indirect effects or alias fine patterns, but these scorers cannot directly resolve the original fine detail. They are insufficient alone for a 4K quality comparison.
+CLIP, PickScore and ImageReward see a 224-pixel view, whose Nyquist frequency is \N{nyq@cpp} cycles per original pixel ($2^{\N{nyq@log}}$); bands \N{nyq@firstband} to 10 of our 11 octave bands lie entirely above it. The methods differ in these bands (\cref{fig:spectrum_main,tab:octave}), which may help explain the reward-model ties alongside a full-frame MUSIQ gap. Resizing can retain indirect effects or alias fine patterns, but these scorers cannot directly resolve the original fine detail and are insufficient alone for 4K quality comparisons. \Cref{app:full} gives the bandwise values.
 
 \paragraph{Attention kernel}
-On the same GH200 node and method, forcing FlashAttention-2 makes a $4096^2$ sample take \NcompFlashRatio{} times as long as cuDNN-first SDPA (medians \NcompGHflashSec\,s and \NcompGHcudnnSec\,s), while method families on one node differ by at most \NcompFamilySpreadPct\%; one GB200 GPU is \NcompBWSpeedup{} times faster than a GH200 (\cref{tab:compute}). Timings of different methods are comparable only with the kernel and the GPU fixed. Our records did not log the dispatched kernel or a hash of the loaded weights; we recovered both from code revisions and task scripts (\cref{app:compute}).
+Attention backend and GPU can dominate method-level timing differences (\cref{app:compute}); comparisons must fix both. Our records did not log the dispatched kernel or a hash of the loaded weights. We reconstructed the configured attention policy and transformer identity from code revisions and task scripts; neither is a direct runtime record.
 % STRENGTHEN QWEN: Insert complete within-family Qwen results here or in a dedicated
 % appendix, including every registered arm and metric; do not compare raw rewards
 % between families as checkpoint effects.

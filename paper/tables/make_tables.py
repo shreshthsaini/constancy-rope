@@ -280,7 +280,7 @@ def table_share(d):
         g_al = boot(c - b)
         sig_total = verdict(k, *boot(c - a))
         share_txt = (r"%d\%% \tiny[%d, %d]" % (round(100 * sh), round(100 * slo), round(100 * shi))
-                     if sig_total == "b" else r"\textemdash")
+                     if sig_total == "b" else "n/a")
         L.append(LABEL[k] + " & " + " & ".join(m_(num(x.mean(), p)) for x in (a, b, c)) + " & " +
                  dcell(k, *g_bt) + " & " + dcell(k, *g_al) + " & " + share_txt + r" \\")
         kk = KEY[k]
@@ -290,7 +290,7 @@ def table_share(d):
         register("ho", "alloc", k, *g_al, n)
         register("ho", "total", k, *boot(c - a), n)
     L += [r"\bottomrule", r"\end{tabular}"]
-    (OUT / "tab_share.tex").write_text("\n".join(L).replace(r"\textemdash", "n/a") + "\n")
+    (OUT / "tab_share.tex").write_text("\n".join(L) + "\n")
     mac("sh@n", str(n))
 
 
@@ -569,7 +569,7 @@ def octave_table(d):
 
 def shares_all(d):
     """Each held-out arm's gain over NTK as a share of released SEGA's gain over NTK (same prompts),
-    with a joint paired bootstrap interval; matches the quantity drawn in Figure 1b."""
+    with a joint paired bootstrap interval for the appendix. Figure 1b draws the two absolute gains."""
     cols = ["imagereward", "pickscore", "clip", "musiq", "musiq_crop1024", "clipiqa"]
     for m in ["temp_only_sbase", "dype", "constancy", "constancy_tm_sbase", "sega_ctm_v2"]:
         key = HO[m][0]
