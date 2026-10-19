@@ -4,6 +4,18 @@ Last takeover update: 2026-10-17 CDT. Live short state: `.agent/STATE.md`. Resul
 Design spec: `.agent/notes/design.md`. Codex briefs: `.agent/notes/codex_brief_{1,2,3}.md`. Review of the SEGA paper that
 started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact https://claude.ai/artifact/Phv2pGDvZDZwpmNM3Qh8GL).
 
+## Evidence strengthening (current, 2026-10-19 UTC)
+
+Last update: 2026-10-19T04:06:24+00:00. Active task confirms the finished findings paper.
+Read `.agent/STATE.md`, immutable `.agent/notes/prereg_strengthen.md` and
+`.agent/notes/strengthen/live.json` for current state and resume details.
+Preregistration frozen; E1 metadata/exclusions in progress. Generation queue code ready.
+165 existing seed1 outputs validated; no new generation queued yet.
+CR22 job1080046 last observed PENDING at04:00:51Z; next poll>=04:10:51Z.
+Next: Finalize fresh150 caption audit and refs, publish E1 then E2; begin Qwen only afterwards.
+Current session forbids SSH, submissions/cancellations, worker edits, scratch deletion and commits.
+All older entries below are historical and do not override the current task.
+
 ## Paper status (2026-10-18, camera-ready pass)
 
 - Honest findings paper, `paper/main.tex` -> `paper/main.pdf` (22 pages: body Sections 1-7 = 9 pages, references from page 10,

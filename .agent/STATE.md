@@ -1,63 +1,39 @@
 ## Goal
-Develop a genuinely novel training-free DiT resolution method competitive with recent SOTA.
-User authorizes unattended project ownership, experiments, paper work and parallel agents.
+Strengthen finished findings paper fdee66d with E1 fresh150, E2 seeds1/2 and E3 Qwen.
+Report all outcomes, revise claims, rebuild/inspect PDF and refresh standalone source zip.
 
 ## Status and next action
-2026-10-18. PAPER PHASE (user: finish + polish paper, professional figures). Results do NOT support SOTA; user told plainly;
-paper = honest findings paper (paper/PLAN.md is the source of truth: framing, contributions, data sources, figure names).
-PAPER DONE: commit fdee66d; paper/dist/constancy_rope_paper.pdf + _src.zip (22 pp, 9-page body; zip builds with tectonic, untested on Overleaf pdfLaTeX). Sent to user 2026-10-18. Reviewer-attack list in final report (one model family, one seed mostly, no human study, 60 CIs uncorrected, mechanism on <=8 dev prompts).
-writer agent -> paper/main.tex, paper/sec/*, paper/tables/make_tables.py. Next: final polish/review agent, build PDF with
-~/.local/bin/tectonic, render pages (paper/render_pages.sh), deliver PDF + standalone Overleaf zip.
-No GPU jobs held by this project. GPU method search (option 2) only if user asks; then ONE large multi-node job, held.
-Earlier detailed status (CR14-CR21, controller) archived in notes/state_archive_2026-10-17.md.
+Updated 2026-10-19T04:06:24+00:00.
+Preregistration frozen; E1 metadata/exclusions in progress. Generation queue code ready.
+165 existing seed1 outputs validated; no new generation queued yet.
+CR22 job1080046 last observed PENDING at04:00:51Z; next poll>=04:10:51Z.
+NEXT: Finalize fresh150 caption audit and refs, publish E1 then E2; begin Qwen only afterwards.
+Live machine-readable progress: .agent/notes/strengthen/live.json.
 
 ## Map
-| File | Purpose |
-| HANDOVER.md | Current context and historical campaign boundaries |
-| notes/continuation3/dev/selection.json | Completed CR14 four-control results |
-| notes/continuation3/independent_review.json | Independent32image/provenance/score audit |
-| notes/response_cr17/report.json | Accepted two-prompt response campaign |
-| notes/response_cr17_interpretation.json | Independent response interpretation |
-| notes/response_cr17_realized.json | Secondary BF16-coordinate analysis |
-| notes/response_next_design.json | Stop scalar method branch; no extra transfer sweep |
-| notes/observer_shift_cpu.json | Tiny fixed-gain invariance and negative control |
-| notes/observer_feedback_cpu.json | Tiny gain-mediated output change |
-| notes/next_mechanism_derivation.json | Architecture proof, scope and recommendation |
-| notes/rotary_kernel_prior_art_20261017.md | AReA/LayerNorm and phase/covariance collisions |
-| notes/post_cr20_mechanism_design.json | Exact provisional phase operator, limits and six-image pilot |
-| notes/post_cr20_prior_art.json | PMA/CircleRoPE/Untwisting/TACA collisions; narrow composition only |
-| notes/attention_operator_protocol.json | Frozen CR19 collection and analysis |
-| notes/attention_cr19/report.json | Accepted192case operator analysis |
-| notes/attention_cr19_independent.json | Independent exact replay, hashes and equations |
-| notes/attention_cr19/decision.json | Stop conditional-mean branch |
-| notes/observer_cr18/report.json | Accepted pretrained synthetic-state contrasts |
-| notes/observer_cr18_independent.json | Independent exact saved-tensor recomputation |
-| notes/observer_cr18/witness_retention.json | Durable24file tensor archive on work |
-| notes/observer_pretrained_report_preflight.json | Validated CPU analysis command and source hashes |
-| notes/native_cr20/visual_summary.json | Completed8pair primary/secondary/aux annotations and no-target decision |
-| notes/native_cr20_independent.json | Independent model/config/input/archive audit and validator gap |
-| notes/native_cr20/paper_receipt.json | Current10page paper with full paired screen |
-| notes/post_observer_research_decision.json | Reject underidentified covariance/gain proposal |
-| notes/cr14_visual_review.json | Eight fixed-order baseline previews; no causal failure established |
-| notes/observer_pretrained_protocol.json | Frozen CR18 causal audit protocol |
-| notes/observer_pretrained_submission.json | Job1077211 and watcher registration |
-| notes/watcher_cr14.json | Watcher process, registration and lease instructions |
-| notes/watcher_ack.json | Actual wake receipts |
-| notes/continuation3/confirmation_plan.md | Frozen unused fresh64 |
-| notes/main2/REPORT.md | Earlier187prompt negative campaign |
+| File | Read when |
+| .agent/notes/prereg_strengthen.md | Exact frozen hypotheses, selection, statistics and amendments |
+| .agent/notes/strengthen/live.json | Current queue counts, receipts, next steps and scheduler observation |
+| .agent/notes/strengthen/*_queue.json | Frozen task identities, scripts and source hashes |
+| .agent/notes/strengthen/seed1_reuse.json | Reused existing165 held-out seed1 images |
+| .agent/notes/strengthen/fresh_selection* | Dataset selection, exclusions and reference provenance |
+| .agent/notes/state_before_strengthen_20261019.md | Historical state before this task |
+| paper/PLAN.md | Paper honesty, formatting and evidence requirements |
+| .agent/notes/main2/REPORT.md | Existing negative results and raw evidence |
+| .agent/notes/results.md | Append-only campaign progress |
+| slurm/fleet_CR22.sbatch | Existing8-GH200/24h fleet; no submissions authorized here |
 
 ## Decisions
-- All prior frozen sources/protocols/results remain unchanged; no consumed pilot reruns.
-- CR14 is a completed diagnostic. A gate pass does not justify fresh64 or a novel-method claim.
-- Existing octave-11 response is weak; resolved-frequency controls remain untested, not refuted.
-- Observer-null sensitivity is a causal hypothesis; centering/energy replacement alone is not novel.
-- CR18 adds two no-op repeats to the suggested8forward design, making10 total for numerical validity.
-- No amplitude, sigma or seed sweep after seeing the observer outcome.
-- First two campaigns remain negative; do not tune on previously inspected held-out rows8-194.
-- Preserve scratch. Paper-critical evidence stays on work. W&B offline state is explicit.
-- Local-only repository has no remote. Commit meaningful changes; no push destination exists.
+- H1 joint IR/Pick equivalence; H2 full-MUSIQ superiority; H3 IR improvement ceiling0.03.
+- E2 averages seeds0/1/2 within prompt before bootstrap; n187, not561; seeds1/2 sensitivity.
+- No selection/tuning on new outputs. Incomplete blocks cannot establish hypotheses.
+- Preserve prior seed1 and all historical results; verify before reuse.
+- Shared CPU host: OMP8 and own processes<20. No local GPU work.
+- Never ssh,sbatch,scancel,pkill,killall; no scratch deletion; worker scripts unchanged.
+- .git read-only: leave edits, no commits. No em dashes or section symbol in prose.
+- CR22 pending: scheduler polls at least10minutes apart; sleep when no useful work.
 
 ## Open questions
-- Does the observed synthetic-state sensitivity have any natural-trajectory quality consequence?
-- Can a distinct mechanism improve natural generation beyond SEGA and strong recent methods including AReA?
-- How can any improvement satisfy novelty and matched-cost efficacy before using fresh64?
+- GPU completion and final hypothesis outcomes remain pending unless recorded above.
+- Qwen transfer needs official settings, tiny CPU tests and a successful GPU smoke first.
+- Metrics are surrogate evidence; no human-preference, universal-transfer or SOTA claims.

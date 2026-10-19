@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-10-19T04:02:37+00:00",
+  "prereg_initial_sha256": "06e1974c93fa8b7c344456b7dd2300d597a502f034ac476f5a685d6c6ccbde69",
+  "worker_sha256": {
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/worker_loop.sh": "adfb4a0de733334497a2320b2b3cf919da6a0a475e0a1cafc43a1e0ac718c48e",
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/slurm/node_launch.sh": "ccbe688b5f09595f346be975eefdc07c74f90abd2da09ffaad76dbaba0f497a9"
+  },
+  "job": "1080046",
+  "status": "PENDING",
+  "observed_at": "2026-10-19T04:00:51Z"
+}

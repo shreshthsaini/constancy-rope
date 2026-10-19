@@ -1,0 +1,910 @@
+{
+  "created_utc": "2026-10-19T04:06:14.455056+00:00",
+  "reviewer": "Codex assistant, caption-only manual review",
+  "candidate_manifest_sha256": "49f678079f12b8448d2a8d786a14bf0f2150339c76a324d76ba2738dc6b130a7",
+  "reviewed_count": 180,
+  "generation_outputs_seen": false,
+  "reference_images_seen": false,
+  "decisions": [
+    {
+      "source_file_name": "train/images/0008/75xPHEQBmvA.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0003/rso9ha32Nw8.jpg",
+      "decision": "reject",
+      "reason": "paraglider implies a human participant with unresolved identity"
+    },
+    {
+      "source_file_name": "train/images/0004/OvSzUICVcvg.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/04P38oaPUsU.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/O2fNaqTXa_Q.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0003/-fQb3wlNlUM.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0006/zz09PxCr5IA.jpg",
+      "decision": "reject",
+      "reason": "two individuals are explicitly requested"
+    },
+    {
+      "source_file_name": "train/images/0008/EMM7iHFt5oY.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/C02GqAYEY0w.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/Jt16Nz5wRJY.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/g4LWKt6ureY.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/VrNlOdHhWgs.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/ys_lIc80gRg.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/cIEpVluspZc.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0006/CAv9fX_pJfc.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/3lxrM5yvkcI.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0002/fkUhAQNNSZ0.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/mqQ0pLzaP88.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/MMs8oU7WPkk.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0007/w6BqiH2d7Cw.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/bHc5ccVSZGQ.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0003/FRcU0OROtzM.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/uA6SsagmA5A.jpg",
+      "decision": "reject",
+      "reason": "being eaten implies a diner with unresolved identity"
+    },
+    {
+      "source_file_name": "train/images/0009/xkFYbFLL9D4.jpg",
+      "decision": "reject",
+      "reason": "moving jet ski implies a human rider with unresolved identity"
+    },
+    {
+      "source_file_name": "train/images/0002/Wkkm_sIFtaw.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/M0sNGRhw5Ow.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0007/UU6UKXmtrpw.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/uU0Anw-8Vsg.jpg",
+      "decision": "reject",
+      "reason": "pizza being lifted implies a person with unresolved identity"
+    },
+    {
+      "source_file_name": "train/images/0010/1FHhMNosKCE.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/aSFZKeZiHPc.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/C5FSm68s6zc.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/vCikCpQOYaY.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0003/me-iNvR3jG8.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0003/QYaLgN49SIc.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0007/lo86D_ICrlw.jpg",
+      "decision": "reject",
+      "reason": "swimmer explicitly requested"
+    },
+    {
+      "source_file_name": "train/images/0006/kvMZ-xXFrA4.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/KpiIqKU0LPM.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/YBdFPom4ylM.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0003/H-riqP9H1vM.jpg",
+      "decision": "reject",
+      "reason": "two individuals explicitly requested"
+    },
+    {
+      "source_file_name": "train/images/0008/Ww1S5WVQSIs.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0002/0ZnXtl4UIT4.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/WKT3TE5AQu0.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/kNSREmtaGOE.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/ZdhAgfp4rog.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0002/QrZQaMeq8ps.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/_w8-mur2G24.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0000/34OTzkN-nuc.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0007/mvRWwtLpJYk.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/KG-9TUrAFsg.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0007/lnxKzJ9itvg.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/Tw8jZZkS5I0.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/3yEludFBkNg.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0007/v3VC8fmPDfw.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/zkVi57UYHIQ.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/jgJPDQVdaL8.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/tox-B3V70Hg.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/amUGMQt_RFk.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/0am-uUFC4fQ.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/KwAhV_isg-A.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/5Xemku63C_U.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/Gd436JT_Gyg.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/AdxDM5uN7pg.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/h4muAiMuevg.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0006/S_5wLF6KFdQ.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/9yvADFNcXOc.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/aqKgV2jVKVM.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/DW7yzawdLEU.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/46mSYsT046Q.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/zudO47PyDew.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/iIE7o__fhN4.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/d1gPZeB39uE.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/I1G6CEb86k0.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/XR3-QmUZ51Y.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/poly_hmhwJs.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/M3r8nHAt2DQ.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0006/lbuXprjhtc4.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/s-RZan_zEgs.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0000/KkPKXHI0L1U.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0006/svpLl7ByHRI.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/lms5LLItC2A.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/pZaZ95dBRIk.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0003/StLAXeyG8ZU.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/B9likKuXXuw.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/EB1mQFx94-c.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0006/Tpnu4wQ0puk.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/HXBDXA9Daxc.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/gULJzSnDuZU.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/rMNof7GivtE.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0007/dnC5Djut6n4.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/58uZCE8zrdk.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0003/RHAvWlraCTg.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0002/TubA1mC050s.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/gE1phX0Lbos.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0002/uUbEvoRfRdY.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0003/rwMR81OlFBo.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0006/R2OqwX73ojw.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/qmM6L-4f0eE.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/x-iM-wOy9Jg.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0003/Ro84po8u93o.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0000/9RGPG_ksS3Q.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/ck651aCE6LY.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/7iEoNsHBJQw.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0002/st_tKGanoDQ.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/ewSIo_Ke1VE.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/9JJYm8f_Nes.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/X109B5L9oZM.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0003/DlsBFdeiEvI.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/GKtf5t8xn7w.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/797pFBFMI5s.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/DEbUYV8I5dk.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/QQKuZglfbQk.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/C9Ay328wHgA.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/_-rlkKWljnI.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0007/cvv6GjD6rv0.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/L2dMFs4fdJg.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0006/YWRHrEuYDuU.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/84hcF7wUKYU.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/sI6MbZDxUas.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/HnbqHk755TE.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/1WMITsWH8o4.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/4UKIEqcvAUo.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/kCABKZBt4Gk.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0003/D91aZylTkU4.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0000/fTxee6q2gKw.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/TIKRCxR_4lI.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/7ArCWaprmKU.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0007/HmzEQ3UZyoo.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/verlb7KRbws.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0002/rTG8OXKFoGI.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/gJH8AqpiSEU.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0000/uA41B8qu4IY.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/MAfrgFrl6BE.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0002/UjktArUqzTo.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/d6wA0ZWhv74.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/buFfxl8EKYE.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/Nr-26SB4G4U.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0007/xgTMSz6kegE.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/ghmxetYsHBM.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/C2KvOHHi2vU.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/eeneWVHs8gA.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/z4ELCkNmnz0.jpg",
+      "decision": "reject",
+      "reason": "lone human figure explicitly requested"
+    },
+    {
+      "source_file_name": "train/images/0005/MdOyV8YumcU.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0006/h0Vxgz5tyXA.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/Fj_39H4NeOo.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0006/RWRTXsR5Isc.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/3cDlJS4qqq8.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/ZxNKxnR32Ng.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0000/bH_qwSE_qzA.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/010vLctpxnQ.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0006/t9pUxPOEjno.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/0Pyl44F7eDY.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0002/-u2-DdXRqIU.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/dMnrPsGn7J4.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/5uYxshfZzwc.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/1c33ba-uh_8.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/FBQcPsBL2Zo.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/XvmlzrEsruA.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0003/goTysha8g1s.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/miK3O9QWdXE.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/L_1gRYoldKI.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0010/1pJgja8u0S8.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/g3PyXO4A0yc.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0011/jJIarJD542U.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0002/H6t_UQnSc1w.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0007/KKuuOzxgKbk.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/pv7hY0HYPC4.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0007/K0P7h1iR36g.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0000/StkXQGczBTI.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0006/vy4Yg_d-3DI.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/1EM6lrWfqMA.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0001/uaSSx-dJ428.jpg",
+      "decision": "reject",
+      "reason": "small human figure explicitly requested"
+    },
+    {
+      "source_file_name": "train/images/0001/cxj-8PILRU4.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0004/saU6QzM-1d8.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0008/nKpgDEB4tRA.jpg",
+      "decision": "reject",
+      "reason": "solitary human figure explicitly requested"
+    },
+    {
+      "source_file_name": "train/images/0000/9TS45QctGMc.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0003/P2vi01BW8vE.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0005/ptW4sqymSl4.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0000/ErCuby1-O2c.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0006/YKQawNUINXA.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    },
+    {
+      "source_file_name": "train/images/0009/iQRKBNKyRpo.jpg",
+      "decision": "accept",
+      "reason": "Caption describes nonhuman objects, animals, scenery or architecture; no unsafe or identifiable person request."
+    }
+  ]
+}

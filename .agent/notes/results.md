@@ -143,3 +143,9 @@ Held-out paired result (n=187, 2,000 bootstrap draws, seed 0):
 All generation and scoring tasks succeeded. STOP touched 18:05:35 CDT only after the entire pending/running queues were empty. Final GPU evaluation logged offline W&B n8xhe6iy. Critical score tables, raw reports, and prompt manifest archived in `.agent/notes/main2`; full report `main2/REPORT.md`. No commit because .git is read-only. No new experiments queued.
 
 Final closure: independent read-only review reproduced every one of the ten held-out paired mean deltas and 2,000-draw seed-0 percentile CIs from raw CSVs within 1e-10. Exactly 187 matched seed-0 prompts 8-194; row 7 excluded; no discrepancies. All four fleet workers exited between 18:05:41 and 18:06:06 CDT after STOP. Entire pending/running queues empty, local CPU sessions reaped, git diff --check passed. Slurm allocation status was not queried. Campaign complete; no further experiments queued.
+
+### 2026-10-19T04:02:37+00:00: strengthening preregistration frozen
+Read requested files; CR22 job1080046 pending, queues empty, STOP absent. Wrote immutable prereg_strengthen.md before new generation/scoring, with exact margins and prompt-level multi-seed analysis. Corrected typed future timestamp by append-only amendment. Worker hashes preserved; no worker edits or scheduler mutations. Next: fresh150 and E1/E2 queues.
+
+### 2026-10-19T04:06:24+00:00: Krea task preparation and seed1 reuse audit
+Implemented scripts/strengthen_queue.py from archived50/52/53 task commands, with frozen-source checks and interleaved seven-prompt chunks. Three CPU tests pass. Validated165 existing held-out seed1 images across sega_official,temp_only,constancy_tm (55 each): exact prompts/seeds/configs, actual sigmas, PNG dimensions and hashes. They will be reused, leaving1331 new E2 images. Fresh-caption preparation and exact analysis code are delegated; no generation published yet.

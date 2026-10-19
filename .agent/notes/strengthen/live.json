@@ -1,0 +1,13 @@
+{
+  "seed1_reuse_validated": 165,
+  "e2_new_images_planned": 1331,
+  "scheduler": {
+    "job_id": "1080046",
+    "state": "PENDING",
+    "observed": "2026-10-19T04:00:51Z",
+    "next_poll_not_before": "2026-10-19T04:10:51Z"
+  },
+  "timestamp": "2026-10-19T04:06:24+00:00",
+  "status": "Preregistration frozen; E1 metadata/exclusions in progress. Generation queue code ready.\n165 existing seed1 outputs validated; no new generation queued yet.\nCR22 job1080046 last observed PENDING at04:00:51Z; next poll>=04:10:51Z.",
+  "next_action": "Finalize fresh150 caption audit and refs, publish E1 then E2; begin Qwen only afterwards."
+}
