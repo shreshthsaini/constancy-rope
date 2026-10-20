@@ -14,6 +14,10 @@ Regenerate:  OMP_NUM_THREADS=8 /work/09032/saini_2/vista/library/uv-envs/crope/b
     run; response = d ln(final-latent band power) / d ln(gain) by same-seed forward difference. Show one
     width-axis matrix per prompt, on a common zero-centered scale. No averaging or sign-agreement overlay.
     Octave edges are in cycles per latent token; height responses remain in the printed numeric summary.
+Palette: both targets are per-band laws (law orange), told apart by line style as in PALETTE.md (late-profile =
+Constancy, dotted with circles; time-matched = Constancy-TM, solid with diamonds). Signed maps run method blue,
+white, law orange. The grey region (steps with zero late-profile correction in every prompt) is explained in the
+caption, not in the artwork.
 """
 import glob
 import json
@@ -24,8 +28,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from matplotlib.colors import Normalize
-from matplotlib.patches import Rectangle
+from matplotlib.colors import LinearSegmentedColormap, Normalize
 
 import crope_style as cs
 
@@ -100,96 +103,126 @@ def frac(e):
     return f"1/{2 ** k}" if k > 0 else str(2 ** -k)
 
 
+SIGNED = LinearSegmentedColormap.from_list("signed", [cs.METHOD, "#FFFFFF", cs.LAW])   # paper-wide signed map
+LINE = {"late": dict(ls=":", marker="o", ms=2.4, name="Late-profile"),      # Constancy in PALETTE.md
+        "tm": dict(ls="-", marker="D", ms=2.2, name="Time-matched")}       # Constancy-TM in PALETTE.md
+
+
+def minus(v):
+    return f"{v:g}".replace("-", "−")
+
+
+def slim_colorbar(fig, cax, norm, lim, label):
+    """Vertical colorbar, 3 ticks (-lim, 0, lim) at 7 pt, math label at 8 pt."""
+    cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=SIGNED), cax=cax)
+    cb.set_ticks([-lim, 0, lim])
+    cb.set_ticklabels([minus(-lim), "0", minus(lim)])
+    cb.ax.tick_params(labelsize=cs.FS_TICK, length=2, width=0.5, pad=1.5, colors=cs.INK2, labelcolor=cs.INK)
+    cb.outline.set_linewidth(0.5)
+    cb.outline.set_edgecolor(cs.RULE)
+    cb.solids.set_rasterized(False)
+    cb.solids.set_edgecolor("face")
+    cb.set_label(label, fontsize=cs.FS_LABEL, labelpad=3)
+    return cb
+
+
+def frame(ax):
+    for sp in ax.spines.values():
+        sp.set_linewidth(0.5)
+        sp.set_color(cs.RULE)
+    ax.tick_params(length=2, width=0.5, pad=1.5, labelsize=cs.FS_TICK, colors=cs.INK2, labelcolor=cs.INK)
+
+
 def main():
     cs.style()
     T = load_targets()
     edges, P, prompt_rows = load_probe()
     steps = np.arange(1, 29)
 
-    # ---- geometry (inches)
+    # ---- geometry (inches from the top left)
     W = cs.TEXT
-    top0 = 0.42                      # panel letters and the sigma axis above panel a
-    aL, aW = 0.56, 2.00              # panel a plot area
-    lineH = 1.34
+    TAG_A = 0.13
+    aL, aW = 0.50, 2.10              # (a) line plot
+    a_top, a_h = 0.56, 1.28
     NP = 12                          # pairs shown in the maps (pairs >= 9 are never corrected; asserted)
-    hmL, hmW = 3.12, 1.74
-    hmH, hmGap = 0.52, 0.16
-    hm_top = top0 + 0.03
-    bL, bW, b_gap = 0.44, 1.28, 0.35
+    hmL, hmW, hmH = 3.08, 1.72, 0.46
+    hm_tops = (a_top, a_top + a_h - hmH)       # top map level with the line plot top, bottom map with its bottom
+    TAG_B = a_top + a_h + 0.50
+    bL, bW, b_gap = 0.62, 1.28, 0.14
     bH = bW * 6 / 7
-    b_top = 2.39
-    H = b_top + bH + 1.03
+    b_top = TAG_B + 0.22
+    H = b_top + bH + 0.36
     fig = plt.figure(figsize=(W, H))
 
-    # ---- (a) activity
-    ax = add_ax(fig, aL, top0, aW, lineH)
+    # ---- (a) correction size per step: median and interquartile band over the eight prompts
+    ax = add_ax(fig, aL, a_top, aW, a_h)
+    cs.clean_axes(ax, grid="y")
     late = T["late"]["act"]
     sig = T["late"]["sigma"]
     off = np.where(late.max(0) > 0)[0][0]           # steps 1..off have zero correction in every prompt
     on_all = np.where(late.min(0) > 0)[0][0]        # first step (0-based) nonzero in every prompt
     ax.axvspan(0.5, off + 0.5, color=cs.PANEL, zorder=0, lw=0)
-    for key, _, _, col, name in TARGETS:
+    med = {}
+    for key, _, _, _, _ in TARGETS:
         a = T[key]["act"]
         q1, q3 = np.percentile(a, [25, 75], axis=0)
-        ax.fill_between(steps, q1, q3, color=col, alpha=0.25, lw=0, zorder=1)
-        ax.plot(steps, np.median(a, 0), color=col, lw=1.4, zorder=3, solid_capstyle="round")
-    ax.text(1.3, 0.1, f"Late-profile correction is exactly 0 in all\n8 prompts for steps 1 to {off} "
-            rf"($\sigma\geq{sig[off - 1]:.2f}$)",
-            fontsize=6.5, color=cs.INK2, ha="left", va="top", linespacing=1.3)
+        med[key] = np.median(a, 0)
+        ax.fill_between(steps, q1, q3, color=cs.LAW, alpha=0.18, lw=0, zorder=1)
+        st = LINE[key]
+        ax.plot(steps, med[key], color=cs.LAW, lw=1.1, ls=st["ls"], marker=st["marker"], ms=st["ms"],
+                markevery=(1, 3), mec="none", zorder=3, solid_capstyle="round", dash_capstyle="round")
     ax.set_xlim(0.5, 28.5)
-    ax.set_ylim(0, 0.105)
+    ax.set_ylim(-0.004, 0.105)                     # lifts the zero-valued late-profile line off the spine
     ax.set_yticks([0, 0.05, 0.1])
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda v, _: f"{v:g}"))
     ax.set_xticks([1, 7, 14, 21, 28])
-    ax.tick_params(labelbottom=False)
-    ax.set_ylabel(r"Mean $|\log g-\log\tau|$", fontsize=7.5)
-    ax.grid(True, axis="y", lw=0.4, color=cs.GRIDC)
-    med_late, med_tm = np.median(late, 0), np.median(T["tm"]["act"], 0)
-    ax.text(9.0, med_tm[8] + 0.011, "Time-matched", color=cs.text_color("constancy_tm_sbase"), fontsize=6.8, ha="center",
-            va="bottom", fontweight="bold")
-    ax.annotate("Late-profile\n(Constancy)", xy=(on_all + 0.9, med_late[on_all] + 0.002), xytext=(21.2, 0.062),
-                color=cs.text_color("constancy"), fontsize=6.8, ha="right", va="center", fontweight="bold", linespacing=1.15,
-                arrowprops=dict(arrowstyle="-", lw=0.5, color=cs.text_color("constancy"), shrinkA=1, shrinkB=1))
+    ax.set_ylabel(r"Mean $|\ln g-\ln\tau|$", fontsize=cs.FS_LABEL, labelpad=3)
+    ax.set_xlabel("Denoising step", fontsize=cs.FS_LABEL, labelpad=2)
+    ax.xaxis.label.set_x(((aL + hmL + hmW) / 2 - aL) / aW)   # one step title, centred under the line plot and maps
+    # direct labels in ink: time-matched above and left of its rising line; late-profile just above its flat
+    # zero segment, ending where the grey region ends
+    assert med["tm"][10] < 0.012 and np.all(med["late"][:off] == 0)
+    ax.text(11.2, 0.019, LINE["tm"]["name"], fontsize=cs.FS_LABEL, color=cs.INK, ha="right", va="bottom")
+    ax.text(off + 0.2, 0.0022, LINE["late"]["name"], fontsize=cs.FS_LABEL, color=cs.INK, ha="right", va="bottom")
     sec = ax.secondary_xaxis("top", functions=(lambda x: np.interp(x, steps, sig),
                                                 lambda s_: np.interp(s_, sig[::-1], steps[::-1])))
-    sec.set_xticks([1.0, 0.8, 0.6, 0.4, 0.2])
-    sec.tick_params(labelsize=6.5, length=2, pad=1)
-    sec.set_xlabel(r"Noise level $\sigma$", fontsize=7, labelpad=2)
+    sec.set_xticks([1.0, 0.6, 0.2])
+    sec.xaxis.set_major_formatter(plt.FuncFormatter(lambda v, _: f"{v:.1f}"))
+    sec.tick_params(labelsize=cs.FS_TICK, length=2.5, width=0.6, pad=1.5, colors=cs.INK2, labelcolor=cs.INK)
+    sec.spines["top"].set_linewidth(0.6)
+    sec.spines["top"].set_color(cs.INK2)
+    sec.set_xlabel(r"Noise level $\sigma$", fontsize=cs.FS_LABEL, labelpad=3)
 
-    # per-pair maps (median over prompts, mean of height and width pairs)
+    # per-pair maps (median over prompts, mean of height and width pairs), titled by target
     for k in ("late", "tm"):
         assert np.all(T[k]["pair"][:, :, 9:] == 0), "a pair beyond 8 was corrected"
     vm = np.ceil(max(np.abs(np.median(T[k]["pair"], 0)).max() for k in ("late", "tm")) * 20) / 20
     hn = Normalize(-vm, vm)
     hms = []
-    for i, (key, _, _, col, name) in enumerate(TARGETS):
-        hx = add_ax(fig, hmL, hm_top + i * (hmH + hmGap), hmW, hmH)
+    for i, (key, _, _, _, _) in enumerate(TARGETS):
+        hx = add_ax(fig, hmL, hm_tops[i], hmW, hmH)
         hx.sharex(ax)
         if hms:
             hx.sharey(hms[0])
         hms.append(hx)
         m = np.median(T[key]["pair"], 0)[:, :NP]          # (28 steps, NP pairs)
-        hx.pcolormesh(np.arange(0.5, 29), np.arange(-0.5, NP), m.T, cmap="RdBu_r", norm=hn, shading="flat",
+        hx.pcolormesh(np.arange(0.5, 29), np.arange(-0.5, NP), m.T, cmap=SIGNED, norm=hn, shading="flat",
                       edgecolors="face", linewidth=0.25)
         hx.set_ylim(NP - 0.5, -0.5)
         hx.set_yticks([0, NP - 1])
-        hx.tick_params(length=2, pad=1.5, labelsize=6.5)
-        for sp in hx.spines.values():
-            sp.set_linewidth(0.4)
-            sp.set_color(cs.RULE)
-        hx.text(0.012, 0.5, "Late-profile" if key == "late" else "Time-matched", transform=hx.transAxes,
-                fontsize=6.5, color=cs.text_color("constancy") if key == "late" else cs.text_color("constancy_tm_sbase"), va="center", ha="left", fontweight="bold")
+        frame(hx)
+        hx.text(0.0, 1.0, LINE[key]["name"], transform=hx.transAxes, fontsize=cs.FS_LABEL, color=cs.INK,
+                ha="left", va="bottom")
+        hx.set_title("")
         if i == 0:
             hx.tick_params(labelbottom=False)
-    hms[1].set_xlabel("Denoising step", fontsize=7.5)
-    hms[0].set_ylabel("Pair", fontsize=7, labelpad=1)
-    hcb = add_ax(fig, hmL + hmW + 0.08, hm_top, 0.06, 2 * hmH + hmGap)
-    cb = fig.colorbar(plt.cm.ScalarMappable(norm=hn, cmap="RdBu_r"), cax=hcb)
-    cb.set_ticks([-vm, 0, vm])
-    cb.ax.tick_params(labelsize=6.5, length=2, width=0.4, pad=1.5)
-    cb.outline.set_linewidth(0.4)
-    cb.solids.set_rasterized(False)
-    cb.solids.set_edgecolor("face")
-    cb.set_label(r"$\log g-\log\tau$", fontsize=6.5, labelpad=1)
+    hms[0].set_ylabel("Pair", fontsize=cs.FS_LABEL, labelpad=2)
+    hms[0].yaxis.label.set_y(1 - a_h / (2 * hmH))    # centred on both maps
+    for t in hms[0].texts + hms[1].texts:            # titles sit 2 pt above their map
+        t.set_transform(t.get_transform() + plt.matplotlib.transforms.ScaledTranslation(0, 2 / 72,
+                                                                                       fig.dpi_scale_trans))
+    hcb = add_ax(fig, hmL + hmW + 0.07, hm_tops[0], 0.08, a_h)
+    slim_colorbar(fig, hcb, hn, vm, r"$\ln g-\ln\tau$")
 
     # ---- (b) prompt-specific width-axis transfer, no cross-prompt average
     lg = np.log2(edges)
@@ -200,8 +233,9 @@ def main():
         mx = add_ax(fig, bL + i * (bW + b_gap), b_top, bW, bH)
         if matrix_axes:
             mx.sharey(matrix_axes[0])
+            mx.sharex(matrix_axes[0])
         matrix_axes.append(mx)
-        mx.pcolormesh(lg, lg[:7], matrix, cmap="RdBu_r", norm=bn, shading="flat",
+        mx.pcolormesh(lg, lg[:7], matrix, cmap=SIGNED, norm=bn, shading="flat",
                       edgecolors="face", linewidth=0.25, rasterized=False)
         mx.set_xlim(lg[0], lg[-1])
         mx.set_ylim(lg[0], lg[6])
@@ -210,32 +244,24 @@ def main():
         mx.set_xticklabels([frac(edges[j]) for j in (0, 3, 6)])
         mx.set_yticks(lg[[0, 3, 6]])
         mx.set_yticklabels([frac(edges[j]) for j in (0, 3, 6)])
+        frame(mx)
+        mx.tick_params(axis="x", pad=3.5)              # keeps the corner 1/256 labels apart
         if i:
             mx.tick_params(labelleft=False)
-        mx.tick_params(length=2, pad=2, labelsize=7)
-        for sp in mx.spines.values():
-            sp.set_linewidth(0.4)
-            sp.set_color(cs.INK2)
-        if i == 0:
-            mx.set_ylabel("Gained octave", fontsize=7.5, labelpad=2)
-        mx.text(0.5, 1.10, f"Dev prompt {prompt_row}", transform=mx.transAxes,
-                fontsize=7.5, color=cs.INK, ha="center", va="bottom")
-    block_w = 3 * bW + 2 * b_gap
-    fig.text((bL + block_w / 2) / W, 1 - 2.07 / H,
-             "Width-axis response: 3 prompts, single seed", fontsize=8, ha="center", color=cs.INK)
-    fig.text((bL + block_w / 2) / W, 1 - (b_top + bH + 0.34) / H,
-             "Output octave (cycles per token)", fontsize=7.5, ha="center", color=cs.INK)
-    bcb = add_ax(fig, bL + 0.13, b_top + bH + 0.61, block_w - 0.26, 0.10)
-    cb2 = fig.colorbar(plt.cm.ScalarMappable(norm=bn, cmap="RdBu_r"), cax=bcb, orientation="horizontal")
-    cb2.set_ticks([-vb, 0, vb])
-    cb2.ax.tick_params(labelsize=7, length=2, width=0.4, pad=2)
-    cb2.outline.set_linewidth(0.4)
-    cb2.solids.set_rasterized(False)
-    cb2.solids.set_edgecolor("face")
-    cb2.set_label(r"Response: $\Delta\ln P_{\mathrm{out}}/\ln(1.5)$", fontsize=7.5, labelpad=3)
+        mx.text(0.5, 1.0, f"Prompt {prompt_row}", transform=mx.transAxes, fontsize=cs.FS_LABEL, color=cs.INK,
+                ha="center", va="bottom")
+    matrix_axes[0].set_ylabel("Gained octave", fontsize=cs.FS_LABEL, labelpad=2)
+    matrix_axes[1].set_xlabel("Output octave (cycles/token)", fontsize=cs.FS_LABEL, labelpad=2)
+    for mx in matrix_axes:
+        for t in mx.texts:
+            t.set_transform(t.get_transform() + plt.matplotlib.transforms.ScaledTranslation(0, 3 / 72,
+                                                                                           fig.dpi_scale_trans))
+    bcb = add_ax(fig, bL + 3 * bW + 2 * b_gap + 0.08, b_top, 0.08, bH)
+    slim_colorbar(fig, bcb, bn, vb, r"$\Delta\ln P_{\mathrm{out}}/\ln 1.5$")
 
-    cs.panel_tag(fig, 0.0, 1 - 0.14 / H, "a")
-    cs.panel_tag(fig, 0.0, 1 - 2.07 / H, "b")
+    cs.panel_tag(fig, 0.0, 1 - TAG_A / H, "a", "Correction size")
+    cs.panel_tag(fig, 0.0, 1 - TAG_B / H, "b", "Band response")
+    print(f"figure size {W:.2f} x {H:.3f} in")
     cs.finish(fig, str(cs.HERE / "f7_mechanism"), photo=False)
 
     print(f"late-profile: zero through step {off} (sigma {sig[off - 1]:.3f}); first nonzero step {off + 1} "
@@ -244,6 +270,7 @@ def main():
     print("time-matched: first step nonzero in all prompts", np.where(tm.min(0) > 0)[0][0] + 1)
     for k in ("late", "tm"):
         print(k, "median activity at steps 10/20/28:", np.round(np.median(T[k]["act"], 0)[[9, 19, 27]], 4))
+    print("map scale +-", vm, "; probe scale +-", vb)
     for axis in P:
         for prompt_row, matrix in zip(prompt_rows, P[axis]):
             print(axis, "dev prompt", prompt_row, "diagonal", np.round(np.diag(matrix[:, :6]), 3))

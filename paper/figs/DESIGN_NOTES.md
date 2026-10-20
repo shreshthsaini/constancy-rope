@@ -1,85 +1,73 @@
-# Figure design brief
+# Figure design brief (figv3, 2026-10-19)
 
 Source of truth for every figure in `paper/figs/`. The shared module `crope_style.py` implements
-this file (names, colors, data access, bootstrap, image helpers); every script imports it.
+this file (names, palette, markers, helpers, data access, bootstrap, image helpers); every script
+imports it. The binding bar is the `gold-standard-paper` skill (LILIE, arXiv 2610.23653, and
+MFlow, arXiv 2610.23854), sections 3, 4 and 6. `CRITIQUE_v2.md` holds the per-figure analysis that
+led to this version; where it disagrees with this file, this file wins.
 
-## Calibration against reference papers
+## The user's rule
 
-Surveyed (figures viewed): Nemotron 3 Ultra (arXiv 2606.15007), Sol Video Inference Engine (2606.23743)
-and Sol-Attn (2607.24027), Diagonal Distillation (2603.09488), LoT Level-of-Token Diffusion (2610.05816),
-DyPE (2510.20766), UltraImage (2512.04504).
+Minimal text inside figures and diagrams: labels of 1 to 3 words, names, symbols and values,
+never a sentence. Explanation goes in the caption. Counts of the text inside each figure are in the
+table at the end and are measured with `count_words.py`.
 
-What they do well:
-- Sol-Attn: disciplined palette (one accent for the method, one for the baseline, grey for the rest).
-- LoT: the strongest hero, a mechanism map beside the output with the numbers placed under each panel.
-- Nemotron: zoom insets linked to their source by thin boxes and leader lines.
-- DyPE: color-coded dashed crop boxes tied to a crop grid; Diagonal Distillation draws its method
-  with real intermediate data as nodes.
+## Palette (see PALETTE.md for tints and LaTeX names)
 
-Where they fall short, and what we do instead:
-- Text at 3.5 to 5.5 pt next to an 11 pt body, and mixed font families (Nemotron, LoT, Sol-Engine).
-  Ours: one Helvetica-design face, 6.5 to 8 pt at print size, nothing below 5.5 pt.
-- Numbers hidden in subcaptions or translucent overlays (Sol, Diagonal Distillation). Ours: every
-  qualitative claim sits next to a measured number with its 95% CI, outside the image.
-- Teasers with no crops (DyPE) or no baselines (UltraImage), heavy trapezoid connectors. Ours: native
-  1:1 crops at identical locations for every method, hairline boxes, crop size stated.
-- Default tab10 plots, no uncertainty, method not emphasized (DyPE). Ours: fixed semantic palette below,
-  paired bootstrap CIs everywhere, filled marker when the CI excludes zero, direction of "better" drawn.
-- Near-gutterless image grids without zooms (Diagonal Distillation). Ours: 2 pt gutters inside a method
-  group, wider gaps between groups, method names once as column headers, no numbers painted on photos.
-- Method diagrams with clip art. Ours: real data glyphs (RoPE wavelengths, band weights, the logit curve)
-  in paper notation, 0.6 to 0.8 pt strokes.
+| Role | Arms | Color | Marker, line |
+| :-- | :-- | :-- | :-- |
+| Method hue | SEGA (released) | `#0068A8` | circle, solid |
+| Component: base and temperature | SEGA base + temp. | `#009870` | triangle, solid |
+| Component: per-band laws | Constancy-TM, SEGA + TM, Constancy, Alias-T | `#D06008` | diamond solid, down-triangle dash-dot, circle dotted, square dotted |
+| Neutral gray | DyPE | `#8C8C8C` | square, dashed |
+| Black | NTK baseline, all text | `#1A1A1A` | circle, dashed |
+| Appendix only | SEGA (paper eqs.) | `#C878A0` | square, dashed |
+
+Color logic: black is the baseline the gain is measured from, the method hue marks the released
+method, green marks the component that carries most of its gain (base and global temperature),
+orange marks the per-band laws we tested. In the method diagram the same hues name the knobs:
+RoPE base neutral, temperature green, per-band gain and SEGA's sensor blue, the Constancy-TM
+controller orange. At most four hues in any one figure. Method names are set in black; only marks
+carry the hue. Diagram fills are 20% tints and table row shading 10% tints of the same hex values.
+Heatmaps use white to the method hue; signed maps use method blue, white, law orange.
 
 ## Typography
 
-- One face everywhere: Nimbus Sans (Helvetica metrics), resolved by `orx_figstyle.use_style()`.
-  The TikZ method diagram uses TeX Gyre Heros, the same Helvetica design, so diagram and plots match.
-- Sizes at final print size: tick labels 7 pt, axis labels 7.5 to 8 pt, annotations and direct labels
-  6.5 to 7 pt, panel letters 9 pt bold lower case (a, b, c). Nothing below 5.5 pt.
-- Math in figures uses stixsans so symbols sit with the sans text. No titles on axes: captions carry the claim.
-- Sentence case for labels; units in labels; arrows in labels state direction ("higher is better").
+- One sans face: Nimbus Sans (Helvetica metrics) in matplotlib, TeX Gyre Heros in TikZ. Math in
+  math font.
+- Sizes at final print size: tick labels 7 pt, axis titles and row labels 8 pt, panel tags 9 pt
+  as "(a) Name" at the upper left, printed values 7 pt. Nothing below 6.6 pt anywhere.
+- Panel tags only on multi-panel figures; plots carry no titles beyond a one-line metric name
+  with its better-direction arrow.
 
-## Size and layout grid
+## Plots
 
-- The paper is NeurIPS-like single column: every figure is built at `TEXT = 5.5 in` wide and included
-  with `width=\linewidth` (scale 1.0 at 5.5 in; scales up cleanly if the class keeps 6.5 in).
-- Outer margin 0; gutter between panels 0.10 to 0.14 in; panel letters sit above the top-left corner
-  of their panel on a shared baseline.
-- Photo panels: no frames except a 0.4 pt hairline in `RULE` grey around 1:1 crops; crop boxes on full
-  frames drawn in white with a 1.2 pt dark halo so they read on any content; crop numbers in small caps
-  style labels ("A", "B") instead of colored boxes, so box colors never collide with method colors.
-- Photos are embedded as JPEG (quality 94, 4:4:4) inside the vector PDF by `crope_style.jpegify`.
-  Full frames are reduced with Lanczos only; 1:1 crops are native pixels, never resampled or sharpened.
+No top or right spines; light gray gridlines (`#E6E6E6`, 0.5 pt) behind the data; one shared
+legend above the panel or row, no frame; gray band (`#F2F2F2`) for regions of interest; dashed
+verticals for reference values (zero line of a paired difference against SEGA (released) is a
+dashed line in the method hue); thin lines (about 1 pt) and small markers; paired 95% bootstrap
+intervals as whiskers or bands.
 
-## Method names and colors (fixed across all figures and tables)
+## Photo panels
 
-| key | display name | color | role |
-|---|---|---|---|
-| `ntk2` | NTK | stone `#9A9A9A` | RoPE base only (NTK rule SEGA builds on), no temperature |
-| `dype` | DyPE | teal `#2E9C85` | external baseline, official recipe |
-| `sega_official` | SEGA (released) | cobalt `#1F4E8C` | reference for every paired delta |
-| `temp_only_sbase` | SEGA base + temp. | sky `#7EA9D9` | SEGA's RoPE base and global temperature, no per-band allocation |
-| `constancy` | Constancy | saffron `#E1A21B` | efficient-coding gate, late-profile target, NTK base |
-| `constancy_tm_sbase` | Constancy-TM | terracotta `#D35F3A` | time-matched target on SEGA base + temp. |
-| `sega_ctm_v2` | SEGA + TM | plum `#A2467F` | released SEGA allocation times time-matched correction |
-| `alias_temp` | Alias-T | sienna `#8A5A33` | alias-count per-band temperature (dev only, failed gate) |
-| `sega` | SEGA (paper eqs.) | oxblood `#9E2A2B` | SEGA as written in the paper equations |
+- Methods as rows with labels at the left (8 pt, SEGA (released) bold); same prompt and seed in
+  every column.
+- Zoom: 1 pt red (`#FF0000`) square box on the full frame and a 1 pt red frame on the enlarged crop;
+  a second crop on the same frame uses cyan (`#00B0F0`). No halos, no letters.
+- Photos embedded as JPEG (quality 94, 4:4:4) inside the vector PDF by `crope_style.jpegify`.
+  Full frames reduced with Lanczos only; crops are native pixels, never resampled or sharpened.
 
-Color logic: blues are the SEGA lineage (darker = more of SEGA), warm hues are the four principled
-per-band rules, grey and teal are baselines. Reference lines and zero lines are `RULE` grey.
-Direct labels are preferred over legends; markers: circles for baselines and SEGA, diamonds for the
-principled rules, so the grouping survives greyscale.
+## Size and layout
 
-Neutral ink: text `#1F2329`, secondary text `#5B6270`, hairlines `#C9CDD3`, panel fill `#F3F4F6`.
-Sequential maps: `cividis`-like light-to-cobalt for gains; diverging `RdBu_r` centered at zero for
-signed responses (elasticities, deltas).
+Every figure is built at its final print width (text width 5.50 in) and included so LaTeX scales
+it by 1.0; the include width of each figure is listed below.
 
 ## Metric names and directions
 
-ImageReward, PickScore, CLIP score (reward and alignment); MUSIQ and CLIP-IQA on the full frame and on
-1024-pixel crops (image quality); spectral log-RMSE, spectral slope error, tiling index at 1024 px
-(spectrum and structure; lower is better). Paired deltas are always method minus released SEGA, with
-the better direction drawn as an arrow beside each metric.
+ImageReward, PickScore, CLIP score (reward and alignment); MUSIQ and CLIP-IQA on the full frame and
+on 1024-pixel crops (image quality); spectral log-RMSE, spectral slope error, tiling index at
+1024 px (spectrum and structure; lower is better). Paired deltas are method minus released SEGA
+unless a figure states otherwise.
 
 ## Statistics shown
 
@@ -87,4 +75,26 @@ Held-out rows 8 to 194 (n = 187), seed 0, paired with released SEGA on the same 
 95% CIs are percentile intervals of 2,000 paired bootstrap resamples over prompts (seed 0), identical
 to `scripts/heldout_analysis.py`. The seed-1 replication uses rows 8 to 62 (n = 55) with the same
 bootstrap. Constancy (NTK base) has n = 41; Alias-T exists only on the eight dev prompts. Main-text
-result figures (F1, F3) show held-out results only, so neither partial arm appears in them.
+result figures show held-out results only.
+
+## Text inside each figure (figv3)
+
+Counted with `count_words.py` (PyMuPDF words). English words: two or more letters; math labels such
+as ln P are counted apart; numerals are tick labels and printed values. Before: CRITIQUE_v2 counts.
+
+| Figure | File | Print size (in) | Include | English words before | English words now | Numerals now | Main change |
+| :-- | :-- | :-- | :-- | --: | --: | --: | :-- |
+| F1 hero | f1_hero.pdf | 5.50 x 3.12 | \linewidth | 48 | 17 | 9 | LILIE-style hero: (a) paired-gain bars with CIs and printed values, (b) three-arm mosaic with red and cyan zoom boxes and native crops below |
+| F2 method | f2_method.pdf | 5.50 x 2.17 | \linewidth | 77 | 17 | 0 | gold recipe: tinted rounded blocks, 0.6 pt orthogonal arrows, held-out photo with the key-query offset, measured step-14 gains; knobs colored as the arms that add them |
+| F3 forest | f3_forest.pdf | 5.50 x 2.90 | \linewidth | 76 | 29 | 24 | legend, shading, group headers and printed values removed; neutral row labels; dashed blue SEGA (released) line; arrows in metric names |
+| F4 spectrum | f8_spectrum_main.pdf | 2.75 x 2.00 | wrapfigure 0.5\linewidth | 17 | 11 | 12 | wrapfigure size; frameless two-row legend; gray 8 to 32 px band; dashed Nyquist line; dashed blue reference |
+| F5 qualitative | f4_qualitative_main.pdf | 5.50 x 4.30 | \linewidth | 32 | 16 | 0 | methods as rows with labels at left; 2-word prompt tags in gray bands; red zoom box with its native crop beside each frame |
+| A.1 qualitative | f4_qualitative.pdf | 5.50 x 3.10 | \linewidth | 39 | 16 | 0 | same design as F5 with red and cyan crops per frame |
+| A.2 checkpoint | f5_checkpoint.pdf | 5.50 x 3.26 | \linewidth | 54 | 16 | 17 | panel tags; rotated row labels; column labels under images; red and cyan windows; peak ratios moved to the caption |
+| A.3 spectrum | f8_spectrum.pdf | 5.50 x 2.45 | \linewidth | 45 | 20 | 25 | side-by-side panels; math-only y labels; one legend row; direction sentences removed |
+| A.4 paper vs release | f6_sega_code.pdf | 5.50 x 4.73 | \linewidth | 64 | 33 | 34 | score table moved to f6_sega_code_table.tex; range labels removed; direct labels; red crop boxes |
+| A zoom (controllers) | fA_method_zoom.pdf | 5.50 x 3.53 | \linewidth | new | 30 + equations | eq. | new LILIE A.1-style zoom: each controller as a box chain from x_t to g with its equations inside the panel |
+| F.1 mechanism | f7_mechanism.pdf | 5.50 x 4.02 | \linewidth | 40 | 22 | 42 | in-figure sentence and title removed; slim vertical colorbar; panel tags |
+
+Every figure went through at least three render-view-revise rounds at 160 dpi against the gold crops;
+renders are in /scratch/09032/saini_2/tmp/figv3/. Caption text and the LaTeX handoff are in CAPTIONS.md.

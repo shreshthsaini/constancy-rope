@@ -1,204 +1,133 @@
-% F2 method diagram: the attention logit as a Fourier series over the offset, and the three knobs.
-% Build: ~/.local/bin/tectonic -X compile f2_method.tex   -> f2_method.pdf, 5.5 in wide (final print size).
-% Every number drawn here (wavelengths, band gains, ln tau, summed curves) comes from
-% f2_method_data.tex, written by f2_method_data.py from the run sidecars.
-% Colors and names follow DESIGN_NOTES.md and crope_style.py; notation follows sec/background.tex.
+% F2 method diagram: the attention logit of Eq. (1) as a sum over rotary bands, the three knobs
+% that act on it, and the two per-band gain controllers.
+% Build: ~/.local/bin/tectonic -X compile f2_method.tex  -> f2_method.pdf, 5.50 in wide at final
+% print size; include at \linewidth. Numbers and the photo come from f2_method_data.py.
+% Layout on an 8 pt grid; coordinates in bp, so 396 units = 5.50 in. Palette: PALETTE.md. Notation: sec/background.tex.
 \documentclass[border=0pt]{standalone}
-\usepackage[T1]{fontenc}
-\usepackage{tgheros}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\setsansfont{texgyreheros}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold,
+  ItalicFont=*-italic, BoldItalicFont=*-bolditalic]
 \renewcommand\familydefault{\sfdefault}
-\usepackage{newtxsf}
-% At full 5.5 in linewidth, every sub- and superscript is at least 6.4259 PDF pt.
-% Include at full linewidth: shrinking below 0.934 would break the 6 pt minimum.
-\DeclareMathSizes{6.5}{6.5}{6.45}{6.45}\DeclareMathSizes{7}{7}{6.45}{6.45}
-\DeclareMathSizes{8}{8}{6.45}{6.45}\DeclareMathSizes{9}{9}{6.45}{6.45}
+% Sub- and superscripts stay at 6 pt or more at print size.
+\DeclareMathSizes{7}{7}{6.1}{6.1}\DeclareMathSizes{8}{8}{6.1}{6.1}\DeclareMathSizes{9}{9}{6.6}{6.1}
+\usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta, calc, shapes.geometric}
 \input{f2_method_data.tex}
 
 % ---------------------------------------------------------------- palette (crope_style.py)
-\definecolor{ink}{HTML}{1F2329}
-\definecolor{ink2}{HTML}{5B6270}
-\definecolor{rule}{HTML}{C9CDD3}
-\definecolor{panel}{HTML}{F3F4F6}
-\definecolor{gridc}{HTML}{E3E5E8}
-\definecolor{cobalt}{HTML}{1F4E8C}
-\definecolor{sky}{HTML}{7EA9D9}
-\definecolor{stone}{HTML}{9A9A9A}
-\definecolor{terra}{HTML}{D35F3A}
+\definecolor{ink}{HTML}{1A1A1A}
+\definecolor{ink2}{HTML}{595959}
+\definecolor{rule}{HTML}{BFBFBF}
+\definecolor{panel}{HTML}{F2F2F2}
+\definecolor{cGray}{HTML}{8C8C8C}   \definecolor{cGrayFill}{HTML}{E8E8E8}
+\definecolor{cMethod}{HTML}{0068A8} \definecolor{cMethodFill}{HTML}{CCE1EE}
+\definecolor{cTemp}{HTML}{009870}   \definecolor{cTempFill}{HTML}{CCEAE2}
+\definecolor{cLaw}{HTML}{D06008}    \definecolor{cLawFill}{HTML}{F6DFCE}
 
 % ---------------------------------------------------------------- type scale (print size)
-\newcommand\fsLetter{\fontsize{9}{10}\selectfont\bfseries}
-\newcommand\fsEq{\fontsize{8}{9.6}\selectfont}
-\newcommand\fsMain{\fontsize{7}{8.4}\selectfont}
-\newcommand\fsSmall{\fontsize{6.5}{7.6}\selectfont}
-% g_j is the TOTAL logit gain, including temperature, as in paper Eq. (1).
-% The previous outer tau factor double-counted temperature and has been removed.
-% equation highlights: same height for every symbol
-\newcommand\hl[2]{{\setlength\fboxsep{0.6pt}\colorbox{#1}{$#2\vphantom{bg}$}}}
-\newcommand\hlg[1]{\tikz[baseline=(h.base)]\node[fill=cobalt!14!terra!10,
-  inner xsep=0.6pt, inner ysep=0.6pt] (h) {$#1\vphantom{bg}$};}
-% knob note: hierarchy (italic) over role
-\newcommand\knobnote[2]{{\fsSmall\color{ink2}\begin{tabular}{@{}l@{}}\textit{#1}\\[-0.4mm]#2\end{tabular}}}
+\newcommand\fsTag{\fontsize{9}{10.8}\selectfont\bfseries}
+\newcommand\fsLab{\fontsize{8}{9.6}\selectfont}
+% marker glyphs that tie each controller box to its marks in the gain column
+\newcommand\glyphSega{\tikz[baseline=-2.6pt]\fill[cMethod] (0,0) circle (2.1pt);}
+\newcommand\glyphCtm{\tikz[baseline=-2.6pt]\fill[cLaw, sharp corners] (0,2.6pt) -- (2.6pt,0) -- (0,-2.6pt) -- (-2.6pt,0) -- cycle;}
 
 \begin{document}
-\begin{tikzpicture}[x=1mm, y=1mm, line cap=round, line join=round,
-  >={Stealth[length=3.2pt, width=2.6pt]},
-  every node/.style={inner sep=0pt, text=ink},
-  lbl/.style={font=\fsMain},
-  sml/.style={font=\fsSmall, text=ink2},
-  halo/.style={fill=white, inner sep=0.5pt},
-  pill/.style={fill=#1, rounded corners=1.3pt, inner xsep=2.0pt, inner ysep=1.45pt,
-    font=\fsMain\bfseries},
-  ctrl/.style={draw=#1!85, fill=#1!4, rounded corners=1.5pt, line width=0.6pt},
-  wave/.style={ink, line width=0.6pt},
-  flow/.style={->, ink2, line width=0.6pt},
-  edgelbl/.style={font=\fsSmall, text=ink2, inner sep=0.6pt},
+\begin{tikzpicture}[x=1bp, y=1bp, line cap=round, line join=round,
+  every node/.style={inner sep=0pt, text=ink, font=\fsLab},
+  blk/.style={draw=#1, rounded corners=2pt, line width=0.8pt, minimum height=16pt,
+    inner xsep=5pt, anchor=center},
+  flow/.style={-{Stealth[length=3.4pt, width=2.8pt]}, line width=0.6pt, draw=ink},
+  knob/.style={-{Stealth[length=3.4pt, width=2.8pt]}, line width=0.6pt, draw=#1},
+  tag/.style={font=\fsTag, anchor=base west},
+  halo/.style={fill=white, fill opacity=0.85, text opacity=1, rounded corners=1pt, inner sep=0.8pt},
 ]
-\path[use as bounding box] (0,0) rectangle (139.7,70);
+\path[use as bounding box] (0,0) rectangle (396,156);
 
-% ================================================================= a: offset on the token grid
-\node[anchor=base west, font=\fsLetter] at (0,65.4) {a};
-\node[anchor=base west, lbl, text=ink2] at (4.2,65.4) {$4096^2$ image, $256^2$ tokens};
-\def\gx{1.5}\def\gy{32.4}\def\gs{30}
-\foreach \i in {1,...,15} {
-  \draw[gridc, line width=0.25pt] (\gx+\i*\gs/16,\gy) -- ++(0,\gs);
-  \draw[gridc, line width=0.25pt] (\gx,\gy+\i*\gs/16) -- ++(\gs,0);
-}
-\draw[rule, line width=0.5pt] (\gx,\gy) rectangle ++(\gs,\gs);
-% native 64^2 extent: one quarter per side
-\fill[panel] (\gx,\gy+\gs) rectangle ++(\gs/4,-\gs/4);
-\draw[ink2, line width=0.5pt, dash pattern=on 1.2pt off 0.9pt] (\gx,\gy+\gs) rectangle ++(\gs/4,-\gs/4);
-\node[sml, align=center, font=\fontsize{6.5}{6.9}\selectfont] at (\gx+\gs/8,\gy+\gs-\gs/8) {native\\$64^2$};
-% key p' and query p (token coordinates on the 256 grid)
-\coordinate (k) at (\gx+72/256*\gs, \gy+150/256*\gs);
-\coordinate (q) at (\gx+200/256*\gs, \gy+52/256*\gs);
-\draw[ink2, line width=0.4pt, dash pattern=on 0.8pt off 0.7pt] (k) -- (k-|q) -- (q);
-\draw[->, ink, line width=0.7pt, shorten <=1.1mm, shorten >=1.1mm] (k) -- (q);
-\fill[ink] (q) circle (0.85);
-\draw[ink, fill=white, line width=0.6pt] (k) circle (0.85);
-\node[lbl, halo, anchor=south east] at ($(k)+(-0.5,0.7)$) {key $p'$};
-\node[lbl, halo, anchor=north] at ($(q)+(0,-1.4)$) {query $p$};
-\node[sml, halo, anchor=south] at ($(k)!0.5!(k-|q)+(0,0.5)$) {$\Delta_w$};
-\node[sml, halo, anchor=west] at ($(k-|q)!0.5!(q)+(0.6,0)$) {$\Delta_h$};
-\node[lbl, halo, anchor=north east] at ($(k)!0.5!(q)+(-0.7,-0.7)$) {$\Delta=p-p'$};
+% ================================================================= (a) attention logit
+\node[tag] at (0,147) {(a) Attention logit};
 
-% base knob: band j along one axis under the native base b and SEGA's base b'
-\node[pill=stone!34, anchor=north west] (base) at (\gx,29.6) {RoPE base $b\to b'$};
-\node[anchor=north west, halo] at (\gx,24.5) {\fsSmall\color{ink2}sets rotary frequencies};
-\def\my{13.2}\def\ma{3.2}
-\fill[panel] (\gx,9.0) rectangle (\gx+\gs/4,\my+\ma+0.8);
-\draw[rule, line width=0.4pt] (\gx,9.0) -- ++(\gs,0);
-\draw[ink2, line width=0.5pt, dash pattern=on 1.5pt off 1pt]
-  plot[domain=0:256, samples=181] ({\gx+\gs*\x/256},{\my+\ma*cos(\x*(360/\FtwoBaseTold))});
-\draw[stone!80!black, line width=0.8pt]
-  plot[domain=0:256, samples=121] ({\gx+\gs*\x/256},{\my+\ma*cos(\x*(360/\FtwoBaseTnew))});
-\node[sml, anchor=west] at (\gx+\gs+0.5,{\my+\ma*cos(256*(360/\FtwoBaseTold))}) {$b$};
-\node[sml, anchor=west, text=ink] at (\gx+\gs+0.5,{\my+\ma*cos(256*(360/\FtwoBaseTnew))}) {$b'$};
-\node[sml, anchor=base] at (\gx,6.2) {0};
-\node[sml, anchor=base] at (\gx+\gs/4,6.2) {64};
-\node[sml, anchor=base] at (\gx+\gs,6.2) {256};
-\node[sml, anchor=base] at (\gx+\gs*0.6,6.2) {offset (tokens)};
-\node[sml, anchor=base west] at (\gx,2.9) {band $j=\FtwoBaseBand$, one axis};
+% sample photo; a key v and a query u on one token row, 128 of 256 tokens apart (offset Delta)
+\node[anchor=south west] (img) at (0,68) {\includegraphics[width=72bp, height=72bp]{f2_method_sample.jpg}};
+\coordinate (kv) at (18,77);
+\coordinate (qu) at (54,77);
+\draw[white, line width=0.8pt, -{Stealth[length=3.4pt, width=2.8pt]}, shorten <=2.6pt, shorten >=2.6pt,
+  preaction={draw=ink, draw opacity=0.5, line width=2.0pt}] (kv) -- (qu);
+\draw[ink, fill=white, line width=0.6pt] (kv) circle (2.1);
+\draw[white, fill=ink, line width=0.6pt] (qu) circle (2.1);
+\node[halo, anchor=south] at (36,80.5) {$\Delta$};
+\node[anchor=base] at (18,59) {key $v$};
+\node[anchor=base] at (54,59) {query $u$};
+\draw[flow] (76,104) -- (92,104);
 
-% ================================================================= b: logit as a Fourier series in the offset
-\node[anchor=base west, font=\fsLetter] at (35.5,65.4) {b};
-\node[anchor=base west, font=\fsEq] at (39.7,65.4)
-  {$\ell(\Delta)\;\propto\;\sum_j \hlg{g_j}\,|\tilde q_j|\,|\tilde k_j|\cos(\theta_j\Delta+\phi_j)$,\qquad
-    $\theta_j=\hl{stone!38}{b}^{-2j/D}$};
-
-\def\wx{43}\def\ww{30}\def\wc{58}\def\amp{1.75}
-\def\ya{50.4}\def\ysp{5.2}\def\yb{32.4}\def\yt{52.6}
-\node[sml, anchor=base west] at (\wx,54.5) {4 of 28 bands, width axis};
-\node[sml, anchor=base east] at (87,54.5) {log gain $\ln g_j$};
-\fill[panel] (\wc-\ww/8,\yb) rectangle (\wc+\ww/8,\yt);
+\fill[panel, rounded corners=2pt] (92,78) rectangle (240,130);
+\fill[panel, rounded corners=2pt] (248,78) rectangle (320,130);
+% rotary bands j = 6, 8, 10, 12 over the offset: native base theta (dashed gray), theta' (black)
+\def\sx{166}\def\sw{70}   % stack centre and half width; Delta in [-255, 255] tokens
+\pgfmathsetmacro\xD{\sx+\sw*128/255}
 \foreach \k/\j/\Tn/\To/\ls/\lc in \FtwoStack {
-  \pgfmathsetmacro\yy{\ya-\k*\ysp}
-  \draw[rule, line width=0.3pt] (\wx,\yy) -- ++(\ww,0);
-  \draw[wave] plot[domain=-255:255, samples=241] ({\wc+\ww/2*\x/255},{\yy+\amp*cos(\x*(360/\Tn))});
-  \node[lbl, anchor=east] at (\wx-1.2,\yy) {$\theta_{\j}$};
+  \pgfmathsetmacro\yr{122-12*\k}
+  \draw[cGray, line width=0.45pt, dash pattern=on 1.2pt off 0.8pt]
+    plot[domain=-255:255, samples=301] ({\sx+\x/255*\sw},{\yr+3.6*cos(\x/\To*360)});
+  \draw[ink, line width=0.6pt]
+    plot[domain=-255:255, samples=241] ({\sx+\x/255*\sw},{\yr+3.6*cos(\x/\Tn*360)});
 }
-\draw[rule, line width=0.4pt] (\wx,\yb) -- ++(\ww,0);
-\node[sml, anchor=base] at (\wx,29.6) {$-255$};
-\node[sml, anchor=base] at (\wc,29.6) {0};
-\node[sml, anchor=base] at (\wx+\ww,29.6) {255};
-\node[sml, anchor=base] at (\wc,26.6) {offset $\Delta$ (tokens)};
-
-% band log gains lambda_j = ln(g_j): sky bar = ln tau (identical for every band);
-% lollipops = real per-band values (circle SEGA, diamond Constancy-TM)
-\def\fz{80}\def\fk{36}
-\pgfmathsetmacro\ft{\fz+\fk*\FtwoLnTau}
-\draw[ink2, line width=0.4pt] (\fz,\yb) -- (\fz,\yt);
+% the logit reads every band at the same offset Delta
+\draw[ink2, line width=0.4pt, dash pattern=on 1pt off 1pt] (\xD,78) -- (\xD,128);
+\node[anchor=base] at (\xD,68) {$\Delta$};
+\node[anchor=base west] at (92,68) {rotary bands};
 \foreach \k/\j/\Tn/\To/\ls/\lc in \FtwoStack {
-  \pgfmathsetmacro\yy{\ya-\k*\ysp}
-  \fill[sky!42] (\fz,\yy-1.6) rectangle (\ft,\yy+1.6);
-  \draw[cobalt, line width=0.6pt] (\fz,\yy+0.7) -- ({\fz+\fk*\ls},\yy+0.7);
-  \draw[terra, line width=0.6pt] (\fz,\yy-0.7) -- ({\fz+\fk*\lc},\yy-0.7);
-  \fill[cobalt] ({\fz+\fk*\ls},\yy+0.7) circle (0.62);
-  \node[diamond, fill=terra, minimum size=1.65mm] at ({\fz+\fk*\lc},\yy-0.7) {};
+  \pgfmathsetmacro\yr{122-12*\k}
+  \fill[ink] (\xD,{\yr+3.6*cos(128/\Tn*360)}) circle (1.15);
 }
-\draw[sky!55!black, line width=0.5pt, dash pattern=on 1.2pt off 0.9pt] (\ft,\yb) -- (\ft,58.6);
-\node[sml, anchor=base] at (\fz,29.6) {0};
-\node[sml, anchor=base] at (\ft,29.6) {$\ln\tau$};
-\node[pill=sky!48, anchor=south] (temp) at (\ft,58.6) {global temperature $\tau$};
-\node[anchor=west] at ($(temp.east)+(1.6,0)$) {\fsSmall\color{ink2}equal gain on every band};
 
-% summing junction and output logit
-\coordinate (sig) at (97.4,{\ya-1.5*\ysp});
-\foreach \k in {0,...,3} {
-  \pgfmathsetmacro\yy{\ya-\k*\ysp}
-  \draw[ink2, line width=0.4pt] (91.8,\yy) -- ($(sig)!1.9mm!(91.8,\yy)$);
+% knob 1: RoPE base, sets the band frequencies
+\node[blk=cGray, fill=cGrayFill] (base) at (\sx,144) {RoPE base $\theta\to\theta'$};
+\draw[knob=cGray] (base.south) -- ++(0,-8);
+
+% gain column: ln g_{a,j} per band, zero at \xz; temperature tau (green), released SEGA (blue
+% circles), Constancy-TM (orange diamonds), all from the held-out sample at step 14
+\def\xz{268}\def\gk{150}
+\pgfmathsetmacro\xt{\xz+\gk*\FtwoLnTau}
+\foreach \k/\j/\Tn/\To/\ls/\lc in \FtwoStack {
+  \pgfmathsetmacro\yr{122-12*\k}
+  \draw[rule, line width=0.4pt] (236,\yr) -- (320,\yr) -- (337.5,104);
+  \fill[cTempFill] (\xz,\yr-3.2) rectangle (\xt,\yr+3.2);
 }
-\draw[ink, line width=0.6pt, fill=white] (sig) circle (1.9);
-\node[font=\fsMain] at (sig) {$\Sigma$};
-\draw[flow] ($(sig)+(2.1,0)$) -- ($(sig)+(5.3,0)$);
-% Three separate traces retain their common vertical scale without overlapping.
-% These are illustrative four-band slices: unit content amplitudes and zero phases.
-\def\lx{100}\def\lw{39.5}\def\lc{119.75}\def\lu{0.69}
-\fill[panel] (\lc-\lw/8,30.4) rectangle (\lc+\lw/8,54.5);
-\node[lbl, anchor=base west] at (\lx,56.0) {four-band logit slice};
-\foreach \yy in {50.7,42.3,33.9} {
-  \draw[rule, line width=0.35pt] (\lx,\yy) -- ++(\lw,0);
+\draw[ink2, line width=0.5pt] (\xz,80) -- (\xz,128);
+\draw[cTemp, line width=0.6pt, dash pattern=on 1.2pt off 0.9pt] (\xt,80) -- (\xt,128);
+\node[anchor=base] at (262,68) {$\ln g_{a,j}$};
+\foreach \k/\j/\Tn/\To/\ls/\lc in \FtwoStack {
+  \pgfmathsetmacro\yr{122-12*\k}
+  \fill[cMethod] ({\xz+\gk*\ls},\yr+1.8) circle (2.0);
+  \node[diamond, fill=cLaw, minimum size=4.8pt] at ({\xz+\gk*\lc},\yr-1.8) {};
 }
-\draw[ink2, line width=0.75pt, dash pattern=on 1.5pt off 1pt] plot[domain=-255:255, samples=401]
-  ({\lc+\lw/2*\x/255},{50.7+\lu*(cos(\x*(360/\FtwoToA))+cos(\x*(360/\FtwoToB))+cos(\x*(360/\FtwoToC))+cos(\x*(360/\FtwoToD)))});
-\draw[stone!80!black, line width=0.9pt] plot[domain=-255:255, samples=301]
-  ({\lc+\lw/2*\x/255},{42.3+\lu*(cos(\x*(360/\FtwoTnA))+cos(\x*(360/\FtwoTnB))+cos(\x*(360/\FtwoTnC))+cos(\x*(360/\FtwoTnD)))});
-\draw[sky!60!black, line width=0.9pt] plot[domain=-255:255, samples=301]
-  ({\lc+\lw/2*\x/255},{33.9+\lu*exp(\FtwoLnTau)*(cos(\x*(360/\FtwoTnA))+cos(\x*(360/\FtwoTnB))+cos(\x*(360/\FtwoTnC))+cos(\x*(360/\FtwoTnD)))});
-\node[sml, halo, anchor=west] at (\lx,53.1) {native base $b$};
-\node[sml, halo, anchor=west] at (\lx,44.7) {released base $b'$};
-\node[sml, halo, anchor=west] at (\lx,36.3) {base $b'$ + temperature $\tau$};
-\node[sml, anchor=base] at (\lx,27.7) {$-255$};
-\node[sml, anchor=base] at (\lc,27.7) {0};
-\node[sml, anchor=base east] at (\lx+\lw,27.7) {255};
-\node[sml, anchor=base] at (\lc,24.7) {offset $\Delta$ (tokens)};
+% knob 2: global temperature, equal on every band
+\node[blk=cTemp, fill=cTempFill] (temp) at (\xt,144) {temperature $\tau$};
+\draw[knob=cTemp] (temp.south) -- ++(0,-8);
 
-% ================================================================= c: per-band controllers
-\node[anchor=base west, font=\fsLetter] at (35.5,18.6) {c};
-\node[anchor=base west, lbl, text=ink2] at (39.7,18.6) {two alternative controllers};
-\def\cy{1.2}\def\ch{15.4}
-\node[anchor=north, fill=cobalt!14!terra!10, rounded corners=1.3pt,
-      inner xsep=2.0pt, inner ysep=1.45pt, font=\fsMain\bfseries]
-  (alloc) at (\ft,\cy+\ch) {per-band gain $g_j$};
-\draw[->, ink, line width=0.6pt] (alloc.north -| 84.2,0) -- (84.2,\yb-0.6);
-\node[anchor=west] at (85.6,22.4) {\fsSmall\color{ink2}weights each band};
+% sum over bands and the logit
+\draw[ink, line width=0.6pt, fill=white] (344,104) circle (6.5);
+\node at (344,104) {$\Sigma$};
+\draw[flow] (350.5,104) -- (364,104);
+\node[anchor=west, font=\fontsize{9}{10.8}\selectfont] at (366,104) {$\ell_{uv}$};
 
-% Common input symbol; the controller definitions remain in the paper text.
-\node[lbl, anchor=center] at (\ft,\cy+3.2) {$x_t$};
-
-\draw[ctrl=cobalt] (36,\cy) rectangle (74,\cy+\ch);
-\node[anchor=north west, font=\fsMain\bfseries, text=cobalt] at (37.5,\cy+\ch-1.5) {\tikz\fill[cobalt] (0,0) circle (0.62mm);\, SEGA spectral sensor};
-\node[anchor=north west, sml, text=ink, align=left] at (37.5,\cy+\ch-5.3)
-  {spectrum of embedded $x_t$\\[0.6mm] standardized band energies};
-\draw[ctrl=terra] (102,\cy) rectangle (139.5,\cy+\ch);
-\node[anchor=north west, font=\fsMain\bfseries, text=terra!80!black] at (103.5,\cy+\ch-1.5) {\tikz\node[diamond, fill=terra, minimum size=1.7mm]{};\, Constancy-TM controller};
-\node[anchor=north west, sml, text=ink, align=left] at (103.5,\cy+\ch-5.3)
-  {native target, matched noise\\[0.6mm] gated spectral error};
-% wiring: x_t out to both controllers (bottom), g_j back in to the chip (top)
-\draw[flow] (\ft-4,\cy+3.2) --  (74,\cy+3.2);
-\draw[flow] (\ft+4,\cy+3.2) --  (102,\cy+3.2);
-\draw[->, cobalt, line width=0.6pt] (74,0 |- alloc.west) -- (alloc.west);
-\draw[->, terra, line width=0.6pt] (102,0 |- alloc.east) -- (alloc.east);
+% ================================================================= (b) gain controllers
+\node[tag] at (0,42) {(b) Gain controllers};
+\node[blk=ink, fill=white, minimum width=24pt, minimum height=14pt, inner xsep=0pt] (xt) at (52,18) {$x_t$};
+\node[blk=cMethod, fill=cMethodFill, minimum width=100pt, minimum height=14pt] (sega) at (162,29)
+  {\glyphSega\hspace{3.5pt}SEGA spectral sensor};
+\node[blk=cLaw, fill=cLawFill, minimum width=100pt, minimum height=14pt] (ctm) at (162,7)
+  {\glyphCtm\hspace{3.5pt}Constancy-TM};
+\draw[line width=0.6pt, ink] (xt.east) -- (92,18);
+\draw[flow] (92,18) |- (sega.west);
+\draw[flow] (92,18) |- (ctm.west);
+\node[blk=cMethod, fill=cMethodFill, minimum height=14pt] (gain) at (284,18) {per-band gain $g_{a,j}$};
+\draw[line width=0.6pt, ink] (sega.east) -| (232,18);
+\draw[line width=0.6pt, ink] (ctm.east) -| (232,18);
+\draw[flow] (232,18) -- (gain.west);
+% knob 3: per-band gain, set by either controller
+\draw[knob=cMethod] (gain.north) -- (284,78);
 \end{tikzpicture}
 \end{document}

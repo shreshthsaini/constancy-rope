@@ -1,80 +1,1088 @@
 {
-  "passed": true,
-  "pdf_sha256": "ee3b0fd0c4db4ddfd30a395646b633b148a4d8a4ebe6c8427f42964e285ee86d",
-  "native_crops_checked": 12,
-  "pdf_storage": "matplotlib PDF stores image rows bottom-to-top and restores orientation in its image transform",
-  "checks": [
-    {
-      "row": 8,
-      "method": "ntk2",
-      "native_rgb_sha256": "ac5f800b4e4c94d3a4c51005ac6f21d8ac21e94e50a93cf20123bc6875f80493",
-      "exact_pdf_pixel_match_after_storage_origin_flip": true
-    },
-    {
-      "row": 8,
-      "method": "dype",
-      "native_rgb_sha256": "1579ececd7a513dbab75587d42c5e8aa460017a92ba076dd4cd95ccd63d3fb6c",
-      "exact_pdf_pixel_match_after_storage_origin_flip": true
-    },
-    {
-      "row": 8,
-      "method": "sega_official",
-      "native_rgb_sha256": "ce43a22e217876e86eed4cb67f1ad5fcea84c1dc2f91be5e422cc59195c85652",
-      "exact_pdf_pixel_match_after_storage_origin_flip": true
-    },
-    {
-      "row": 8,
-      "method": "temp_only_sbase",
-      "native_rgb_sha256": "40628558c38e85dbac05ac60e7efbf2f02e10e3fceb6f1ce12a8348af1f767ab",
-      "exact_pdf_pixel_match_after_storage_origin_flip": true
-    },
-    {
-      "row": 8,
-      "method": "constancy_tm_sbase",
-      "native_rgb_sha256": "4dcd3ac2dc2f83049e9b5230e42b3d62b0c9ea459a393085222498844368c19d",
-      "exact_pdf_pixel_match_after_storage_origin_flip": true
-    },
-    {
-      "row": 8,
-      "method": "sega_ctm_v2",
-      "native_rgb_sha256": "01683ee697129ebfce902a4f43f165095a7614ddd8358628914ec12cf4ecb230",
-      "exact_pdf_pixel_match_after_storage_origin_flip": true
-    },
-    {
-      "row": 9,
-      "method": "ntk2",
-      "native_rgb_sha256": "d21a7eea39177409e7b481a8f59b383cbdae686606129f76bbf6b752d5c63903",
-      "exact_pdf_pixel_match_after_storage_origin_flip": true
-    },
-    {
-      "row": 9,
-      "method": "dype",
-      "native_rgb_sha256": "9e7c25e5ea1c434f910e463715714eb817130438198479cacf4b92c7dcec182c",
-      "exact_pdf_pixel_match_after_storage_origin_flip": true
-    },
-    {
-      "row": 9,
-      "method": "sega_official",
-      "native_rgb_sha256": "e78fa4ee983ef623bab586154b8941c86d96b839dbcbf01abe565d604518ac4a",
-      "exact_pdf_pixel_match_after_storage_origin_flip": true
-    },
-    {
-      "row": 9,
-      "method": "temp_only_sbase",
-      "native_rgb_sha256": "ad4fa33b71bab62d7e965386ef8cbcf5fe06b2959d54860fc076da128eed23fe",
-      "exact_pdf_pixel_match_after_storage_origin_flip": true
-    },
-    {
-      "row": 9,
-      "method": "constancy_tm_sbase",
-      "native_rgb_sha256": "0bd796d38c6877e5288ebda380639b0babd3345964217473f557f8b098a1db38",
-      "exact_pdf_pixel_match_after_storage_origin_flip": true
-    },
-    {
-      "row": 9,
-      "method": "sega_ctm_v2",
-      "native_rgb_sha256": "9dcc09e5679095322219216990f52667595d3cf462067457d28d788eece12ece",
-      "exact_pdf_pixel_match_after_storage_origin_flip": true
-    }
-  ]
+  "schema": "qualitative-pixel-audit-v3",
+  "main": {
+    "passed": true,
+    "criterion": "every native crop is byte-exact and Flate (lossless) in the final PDF",
+    "pdf": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/figs/f4_qualitative_main.pdf",
+    "pdf_sha256": "1c60dd5669116336e654e5b46baba25b7eb90de247e7dd602ba8c9fc920d6e09",
+    "native_crops_checked": 18,
+    "reference": "each crop cut fresh from its source PNG (no cache) and hashed as RGB bytes",
+    "checks": [
+      {
+        "figure": "main",
+        "row": 8,
+        "method": "ntk2",
+        "crop": "red",
+        "box": [
+          256,
+          832,
+          640,
+          1216
+        ],
+        "native_rgb_sha256": "ac5f800b4e4c94d3a4c51005ac6f21d8ac21e94e50a93cf20123bc6875f80493",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 8,
+        "method": "dype",
+        "crop": "red",
+        "box": [
+          256,
+          832,
+          640,
+          1216
+        ],
+        "native_rgb_sha256": "1579ececd7a513dbab75587d42c5e8aa460017a92ba076dd4cd95ccd63d3fb6c",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 8,
+        "method": "sega_official",
+        "crop": "red",
+        "box": [
+          256,
+          832,
+          640,
+          1216
+        ],
+        "native_rgb_sha256": "ce43a22e217876e86eed4cb67f1ad5fcea84c1dc2f91be5e422cc59195c85652",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 8,
+        "method": "temp_only_sbase",
+        "crop": "red",
+        "box": [
+          256,
+          832,
+          640,
+          1216
+        ],
+        "native_rgb_sha256": "40628558c38e85dbac05ac60e7efbf2f02e10e3fceb6f1ce12a8348af1f767ab",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 8,
+        "method": "constancy_tm_sbase",
+        "crop": "red",
+        "box": [
+          256,
+          832,
+          640,
+          1216
+        ],
+        "native_rgb_sha256": "4dcd3ac2dc2f83049e9b5230e42b3d62b0c9ea459a393085222498844368c19d",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 8,
+        "method": "sega_ctm_v2",
+        "crop": "red",
+        "box": [
+          256,
+          832,
+          640,
+          1216
+        ],
+        "native_rgb_sha256": "01683ee697129ebfce902a4f43f165095a7614ddd8358628914ec12cf4ecb230",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 9,
+        "method": "ntk2",
+        "crop": "red",
+        "box": [
+          3232,
+          2848,
+          3616,
+          3232
+        ],
+        "native_rgb_sha256": "d21a7eea39177409e7b481a8f59b383cbdae686606129f76bbf6b752d5c63903",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 9,
+        "method": "dype",
+        "crop": "red",
+        "box": [
+          3232,
+          2848,
+          3616,
+          3232
+        ],
+        "native_rgb_sha256": "9e7c25e5ea1c434f910e463715714eb817130438198479cacf4b92c7dcec182c",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 9,
+        "method": "sega_official",
+        "crop": "red",
+        "box": [
+          3232,
+          2848,
+          3616,
+          3232
+        ],
+        "native_rgb_sha256": "e78fa4ee983ef623bab586154b8941c86d96b839dbcbf01abe565d604518ac4a",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 9,
+        "method": "temp_only_sbase",
+        "crop": "red",
+        "box": [
+          3232,
+          2848,
+          3616,
+          3232
+        ],
+        "native_rgb_sha256": "ad4fa33b71bab62d7e965386ef8cbcf5fe06b2959d54860fc076da128eed23fe",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 9,
+        "method": "constancy_tm_sbase",
+        "crop": "red",
+        "box": [
+          3232,
+          2848,
+          3616,
+          3232
+        ],
+        "native_rgb_sha256": "0bd796d38c6877e5288ebda380639b0babd3345964217473f557f8b098a1db38",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 9,
+        "method": "sega_ctm_v2",
+        "crop": "red",
+        "box": [
+          3232,
+          2848,
+          3616,
+          3232
+        ],
+        "native_rgb_sha256": "9dcc09e5679095322219216990f52667595d3cf462067457d28d788eece12ece",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 10,
+        "method": "ntk2",
+        "crop": "red",
+        "box": [
+          352,
+          3520,
+          736,
+          3904
+        ],
+        "native_rgb_sha256": "fd0acee27f345d3ae2e08538d039f170caeac60e4c0a850a76b507a28875abca",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 10,
+        "method": "dype",
+        "crop": "red",
+        "box": [
+          352,
+          3520,
+          736,
+          3904
+        ],
+        "native_rgb_sha256": "f084562fa886a7d5d6c45ee61ea10a7092930accb393edb9a63c1bf0a3b14fab",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 10,
+        "method": "sega_official",
+        "crop": "red",
+        "box": [
+          352,
+          3520,
+          736,
+          3904
+        ],
+        "native_rgb_sha256": "70474e396c9bad362be6f0ff4daea170cfff5e8819fc35a5a58d5535adc7d289",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 10,
+        "method": "temp_only_sbase",
+        "crop": "red",
+        "box": [
+          352,
+          3520,
+          736,
+          3904
+        ],
+        "native_rgb_sha256": "b37476662005844875b746349d995d6209958f040c7cf3fbb484dafea9753703",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 10,
+        "method": "constancy_tm_sbase",
+        "crop": "red",
+        "box": [
+          352,
+          3520,
+          736,
+          3904
+        ],
+        "native_rgb_sha256": "d548b9c8c6e4041cf92cc0311c812bb1c29f61ec6c40f4dda14f387fac346a45",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      },
+      {
+        "figure": "main",
+        "row": 10,
+        "method": "sega_ctm_v2",
+        "crop": "red",
+        "box": [
+          352,
+          3520,
+          736,
+          3904
+        ],
+        "native_rgb_sha256": "a8ba933a1fcc3e2caa1aa81c834dc3241cf35ea8b45b09f1de203d1ad6c50ea1",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "exact_in_final_pdf": true,
+        "final_filter": "FlateDecode"
+      }
+    ]
+  },
+  "appendix": {
+    "passed": true,
+    "criterion": "every native crop is placed unresampled (byte-exact before JPEG embedding); JPEG fidelity against the native pixels is recorded per crop",
+    "jpeg_psnr_db_min": 39.17,
+    "jpeg_psnr_db_median": 40.71,
+    "pdf": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/figs/f4_qualitative.pdf",
+    "pdf_sha256": "6724b0ad10367a370feb8d88b97cfef8ad50d3b3b5be49048c3d2d9ef479ac97",
+    "native_crops_checked": 36,
+    "reference": "each crop cut fresh from its source PNG (no cache) and hashed as RGB bytes",
+    "checks": [
+      {
+        "figure": "appendix",
+        "row": 8,
+        "method": "ntk2",
+        "crop": "red",
+        "box": [
+          3328,
+          928,
+          3712,
+          1312
+        ],
+        "native_rgb_sha256": "503249536d20d10686507afcc742df0c40bb5c6be8b2c29909a374e9a9188a70",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 40.88,
+        "jpeg_max_abs_error": 15,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 8,
+        "method": "ntk2",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "1b0b72cd0092987754c7ea3230cd232b22fa3592de08796305642a57e66c5081",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 41.14,
+        "jpeg_max_abs_error": 14,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 8,
+        "method": "dype",
+        "crop": "red",
+        "box": [
+          3328,
+          928,
+          3712,
+          1312
+        ],
+        "native_rgb_sha256": "5e878f3967a0fb98ea43a557f90bd354a9315b58aee6b39e7c5d215b68d498fa",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 44.74,
+        "jpeg_max_abs_error": 15,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 8,
+        "method": "dype",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "027cab528a8626d23d90ad05ddacb61b0690165a7d01c9654e6244dd10cbf5cb",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 40.46,
+        "jpeg_max_abs_error": 16,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 8,
+        "method": "sega_official",
+        "crop": "red",
+        "box": [
+          3328,
+          928,
+          3712,
+          1312
+        ],
+        "native_rgb_sha256": "2499df55de140b5ff4787226b3dca2189c7657124d1160f2b2ee3d75a78a972f",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 39.17,
+        "jpeg_max_abs_error": 15,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 8,
+        "method": "sega_official",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "ebce9d818b3f5e4c90132a5e893705b59c8646003b3944a0bca3875274eeee9d",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 41.04,
+        "jpeg_max_abs_error": 15,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 8,
+        "method": "temp_only_sbase",
+        "crop": "red",
+        "box": [
+          3328,
+          928,
+          3712,
+          1312
+        ],
+        "native_rgb_sha256": "30a96251c79184e5956c4dabb63d13c6c30dfb102bf7ccf6e6375ba3410e5c4e",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 39.48,
+        "jpeg_max_abs_error": 14,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 8,
+        "method": "temp_only_sbase",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "cdd28325e9d52c3fb36f7dc82e7f427a9063d9d193a26a7a01521479f3984d83",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 41.93,
+        "jpeg_max_abs_error": 15,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 8,
+        "method": "constancy_tm_sbase",
+        "crop": "red",
+        "box": [
+          3328,
+          928,
+          3712,
+          1312
+        ],
+        "native_rgb_sha256": "226f2cfa3679dfc95a9018080561f21e3df70b019fb7d22d516a68919e4d7996",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 39.33,
+        "jpeg_max_abs_error": 14,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 8,
+        "method": "constancy_tm_sbase",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "f32fc717c9707cc332e51bcdcb88154167f7d539d60d4827417847943a15a28a",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 41.94,
+        "jpeg_max_abs_error": 16,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 8,
+        "method": "sega_ctm_v2",
+        "crop": "red",
+        "box": [
+          3328,
+          928,
+          3712,
+          1312
+        ],
+        "native_rgb_sha256": "07f19d4ba3dbd8f966a8a641d9aa9991f333a42c8fd2ff9d241f18248fd14cfa",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 39.24,
+        "jpeg_max_abs_error": 16,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 8,
+        "method": "sega_ctm_v2",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "14bb281a098778baf4ed643fef8ca6d3316a500109f9c25e2f0b2201ee418041",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 41.15,
+        "jpeg_max_abs_error": 15,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 9,
+        "method": "ntk2",
+        "crop": "red",
+        "box": [
+          832,
+          1600,
+          1216,
+          1984
+        ],
+        "native_rgb_sha256": "def8ee336e55c8efd2c847c16b21455ab4676130b0a8839008ed7db719429877",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 40.17,
+        "jpeg_max_abs_error": 14,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 9,
+        "method": "ntk2",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "352dff1dffcd055d67972327174ee8d75c2eb05896ffe0ab58063b0a543c219d",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 39.83,
+        "jpeg_max_abs_error": 16,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 9,
+        "method": "dype",
+        "crop": "red",
+        "box": [
+          832,
+          1600,
+          1216,
+          1984
+        ],
+        "native_rgb_sha256": "e014f25bb887473b8b71681488a94f13f4e90ca1098e92a1c97f516619d275ff",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 39.48,
+        "jpeg_max_abs_error": 14,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 9,
+        "method": "dype",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "8dd03c20d55900f0822099a81bf0ab743266e51720bc9eff49843ac2752fd835",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 39.7,
+        "jpeg_max_abs_error": 16,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 9,
+        "method": "sega_official",
+        "crop": "red",
+        "box": [
+          832,
+          1600,
+          1216,
+          1984
+        ],
+        "native_rgb_sha256": "c133bae232977350aa85566ac6499b65341a3ef4dbf5ea6bb7dc05e2993f9521",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 39.36,
+        "jpeg_max_abs_error": 16,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 9,
+        "method": "sega_official",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "cc45b988fabde894d99883d0dbec2e33a0a6603ea66eb59c38cee8379db686e9",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 39.64,
+        "jpeg_max_abs_error": 17,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 9,
+        "method": "temp_only_sbase",
+        "crop": "red",
+        "box": [
+          832,
+          1600,
+          1216,
+          1984
+        ],
+        "native_rgb_sha256": "618466fea488f21a4e3aaa6545266757a0f544d5fe91976666495784ce85a3fa",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 39.53,
+        "jpeg_max_abs_error": 16,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 9,
+        "method": "temp_only_sbase",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "c85235bd785bb8256ca1ed8e7ebd9cda67819785985d5ebb7ee0ab0adf03b98c",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 40.04,
+        "jpeg_max_abs_error": 14,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 9,
+        "method": "constancy_tm_sbase",
+        "crop": "red",
+        "box": [
+          832,
+          1600,
+          1216,
+          1984
+        ],
+        "native_rgb_sha256": "752ca7709bdb8cab352c6f02482524c600d81e6ab9667804f26e58d2e4f1dfd1",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 39.41,
+        "jpeg_max_abs_error": 18,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 9,
+        "method": "constancy_tm_sbase",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "6bfd80c2704eb12e95a87c252206d820c1add531fe31361fdfa6cd128e878c27",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 40.09,
+        "jpeg_max_abs_error": 16,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 9,
+        "method": "sega_ctm_v2",
+        "crop": "red",
+        "box": [
+          832,
+          1600,
+          1216,
+          1984
+        ],
+        "native_rgb_sha256": "59d6767d0928e6e96bc39b8eea726d105de7e47cf6d8ff4e79db548a00ee3b24",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 39.38,
+        "jpeg_max_abs_error": 17,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 9,
+        "method": "sega_ctm_v2",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "6bba12ee47abb50ddec6a89e9f9d6127b181fccdb747f722cff8e3f4ffa5d5ee",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 39.74,
+        "jpeg_max_abs_error": 18,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 10,
+        "method": "ntk2",
+        "crop": "red",
+        "box": [
+          3040,
+          928,
+          3424,
+          1312
+        ],
+        "native_rgb_sha256": "36b1287de3fc2ff265c509a6caa489c655e580410bd04479e172d20d38009181",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 41.97,
+        "jpeg_max_abs_error": 11,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 10,
+        "method": "ntk2",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "b3bfb6aa402957db34b36d3cbb7131e228726867709bef8b616c5d2591c754e9",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 42.75,
+        "jpeg_max_abs_error": 12,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 10,
+        "method": "dype",
+        "crop": "red",
+        "box": [
+          3040,
+          928,
+          3424,
+          1312
+        ],
+        "native_rgb_sha256": "c0622542d8de7ab882c6494791c14bd00aaee5efb4b83410cea6ce7857a5d0eb",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 41.28,
+        "jpeg_max_abs_error": 19,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 10,
+        "method": "dype",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "4b1da7a2f45f796c52cc6fd73b32d7608127e0639493c4e472e39c3962c61653",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 43.59,
+        "jpeg_max_abs_error": 16,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 10,
+        "method": "sega_official",
+        "crop": "red",
+        "box": [
+          3040,
+          928,
+          3424,
+          1312
+        ],
+        "native_rgb_sha256": "31fde7ddda78b83acd70e2fc4986ab3f71fc54f88dd6e00ad88bb23dca3b843e",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 40.63,
+        "jpeg_max_abs_error": 15,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 10,
+        "method": "sega_official",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "eb340bf3dcf8e329291209763066de8bb48659ebf4b5a64d1d7d5ad9225e62b1",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 43.32,
+        "jpeg_max_abs_error": 13,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 10,
+        "method": "temp_only_sbase",
+        "crop": "red",
+        "box": [
+          3040,
+          928,
+          3424,
+          1312
+        ],
+        "native_rgb_sha256": "6636bffb6ebc057cc55612863a69afcbfc1164249c3ef46af224bff46ed9c221",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 40.79,
+        "jpeg_max_abs_error": 15,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 10,
+        "method": "temp_only_sbase",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "7e65a4bdce04bdcf278d8bd0f492203df43eef8741fbfe3e273c06425a211746",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 45.08,
+        "jpeg_max_abs_error": 11,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 10,
+        "method": "constancy_tm_sbase",
+        "crop": "red",
+        "box": [
+          3040,
+          928,
+          3424,
+          1312
+        ],
+        "native_rgb_sha256": "1bbb52f3d9e354050fcb7bd68f493e64582f3697aad82083d101ebbbd12140ef",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 40.86,
+        "jpeg_max_abs_error": 17,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 10,
+        "method": "constancy_tm_sbase",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "0d4cdf1ed41645468c29a86f35ba3a17057430901684ab5dbbe8e3155e3c82a4",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 45.0,
+        "jpeg_max_abs_error": 12,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 10,
+        "method": "sega_ctm_v2",
+        "crop": "red",
+        "box": [
+          3040,
+          928,
+          3424,
+          1312
+        ],
+        "native_rgb_sha256": "8a84293b08fcd4d60f559bac4d968136252037947a6fce2ce4b60f16141d2eb0",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 40.85,
+        "jpeg_max_abs_error": 19,
+        "exact_in_final_pdf": false
+      },
+      {
+        "figure": "appendix",
+        "row": 10,
+        "method": "sega_ctm_v2",
+        "crop": "cyan",
+        "box": [
+          1856,
+          1856,
+          2240,
+          2240
+        ],
+        "native_rgb_sha256": "41777f6a7d8b2955aed70fe696836b790698da9a51677c3d0266e787f436fa36",
+        "native_pixels_embedded_unresampled": true,
+        "width": 384,
+        "height": 384,
+        "storage_order": "rows flipped",
+        "jpeg_psnr_db": 43.41,
+        "jpeg_max_abs_error": 14,
+        "exact_in_final_pdf": false
+      }
+    ]
+  },
+  "passed": true
 }

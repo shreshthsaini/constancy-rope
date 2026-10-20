@@ -31,43 +31,61 @@ HELDOUT = NOTES / "main2" / "heldout_per_prompt.csv"          # seed 0, rows 8-1
 PAIRED = SCR / "eval_krea" / "heldout" / "heldout_paired_vs_sega_official.csv"
 PAIRED_V2 = NOTES / "main2" / "heldout_paired_vs_sega_official.csv"  # same rows + sega_ctm_v2
 
-# ==== colors
-INK = "#1F2329"        # text and strong strokes
-INK2 = "#5B6270"       # secondary text
-RULE = "#C9CDD3"       # hairlines, zero lines
-PANEL = "#F3F4F6"      # light panel fill
-GRIDC = "#E3E5E8"
+# ==== paper palette (figv3). PALETTE.md mirrors these hex values for the tables.
+# One method hue (SEGA released), two component hues, one neutral gray, black. At most four
+# hues in any one figure; the paper-equations pink appears only in the appendix comparison.
+INK = "#1A1A1A"        # black: all text, strong strokes, the NTK baseline
+INK2 = "#595959"       # secondary text (tick labels may use INK)
+GRAY = "#8C8C8C"       # neutral gray: DyPE, secondary marks
+RULE = "#BFBFBF"       # hairlines, reference lines
+GRIDC = "#E6E6E6"      # light gray gridlines
+PANEL = "#F2F2F2"      # gray band (regions of interest, prompt bands, panel fill)
 
-COBALT = "#1F4E8C"     # released SEGA (the reference everywhere)
-SKY = "#7EA9D9"        # SEGA base + global temperature, no allocation
-STONE = "#9A9A9A"      # NTK base (baseline grey)
-TEAL = "#2E9C85"       # DyPE
-SAFFRON = "#E1A21B"    # Constancy (NTK base)
-TERRA = "#D35F3A"      # Constancy-TM (SEGA base + temperature)
-PLUM = "#A2467F"       # SEGA + TM correction
-SIENNA = "#8A5A33"     # alias-count temperature (dev only)
-OXBLOOD = "#9E2A2B"    # SEGA as written in the paper equations
+METHOD = "#0068A8"     # SEGA (released): the method hue
+TEMP = "#009870"       # component: SEGA base + global temperature (no allocation)
+LAW = "#D06008"        # component: per-band laws (Constancy, Constancy-TM, SEGA + TM, Alias-T)
+PAPER = "#C878A0"      # SEGA as written in the paper equations (appendix only)
 
-# key -> label, short label, color, marker, group
+ZOOM = "#FF0000"       # zoom boxes on photos (1 pt) and the frame of the enlarged crop
+ZOOM2 = "#00B0F0"      # second zoom box when one frame carries two
+
+
+def tint(hex_color, t):
+    """Mix a hex color with white: t = 1 keeps the color, t = 0.2 is a 20 percent tint."""
+    c = np.array([int(hex_color[i:i + 2], 16) for i in (1, 3, 5)], float)
+    m = np.round(255.0 * (1 - t) + c * t).astype(int)
+    return "#" + "".join(f"{v:02X}" for v in m)
+
+
+FILL = {k: tint(v, 0.20) for k, v in dict(METHOD=METHOD, TEMP=TEMP, LAW=LAW, GRAY=GRAY, PAPER=PAPER).items()}
+SHADE = {k: tint(v, 0.10) for k, v in dict(METHOD=METHOD, TEMP=TEMP, LAW=LAW, GRAY=GRAY, PAPER=PAPER).items()}
+
+# Legacy names kept so older scripts still run; they now resolve to the paper palette.
+COBALT, SKY, STONE, TEAL = METHOD, TEMP, INK, GRAY
+SAFFRON = TERRA = PLUM = SIENNA = LAW
+OXBLOOD = PAPER
+
+# key -> label, short label, color, marker, line style, group
 METHODS = {
-    "ntk2":               dict(label="NTK", short="NTK", color=STONE, marker="o", group="baseline"),
-    "dype":               dict(label="DyPE", short="DyPE", color=TEAL, marker="o", group="baseline"),
-    "sega_official":      dict(label="SEGA (released)", short="SEGA", color=COBALT, marker="o", group="sega"),
-    "temp_only_sbase":    dict(label="SEGA base + temp.", short="Base + temp.", color=SKY, marker="o", group="sega"),
-    "constancy":          dict(label="Constancy", short="Constancy", color=SAFFRON, marker="D", group="ours"),
-    "constancy_tm_sbase": dict(label="Constancy-TM", short="Constancy-TM", color=TERRA, marker="D", group="ours"),
-    "sega_ctm_v2":        dict(label="SEGA + TM", short="SEGA + TM", color=PLUM, marker="D", group="ours"),
-    "alias_temp":         dict(label="Alias-T", short="Alias-T", color=SIENNA, marker="D", group="ours"),
-    "sega":               dict(label="SEGA (paper eqs.)", short="SEGA eqs.", color=OXBLOOD, marker="s", group="sega"),
+    "ntk2":               dict(label="NTK", short="NTK", color=INK, marker="o", ls="--", group="baseline"),
+    "dype":               dict(label="DyPE", short="DyPE", color=GRAY, marker="s", ls="--", group="baseline"),
+    "sega_official":      dict(label="SEGA (released)", short="SEGA", color=METHOD, marker="o", ls="-", group="sega"),
+    "temp_only_sbase":    dict(label="SEGA base + temp.", short="Base + temp.", color=TEMP, marker="^", ls="-", group="sega"),
+    "constancy":          dict(label="Constancy", short="Constancy", color=LAW, marker="o", ls=":", group="ours"),
+    "constancy_tm_sbase": dict(label="Constancy-TM", short="Constancy-TM", color=LAW, marker="D", ls="-", group="ours"),
+    "sega_ctm_v2":        dict(label="SEGA + TM", short="SEGA + TM", color=LAW, marker="v", ls="-.", group="ours"),
+    "alias_temp":         dict(label="Alias-T", short="Alias-T", color=LAW, marker="s", ls=":", group="ours"),
+    "sega":               dict(label="SEGA (paper eqs.)", short="SEGA eqs.", color=PAPER, marker="s", ls="--", group="sega"),
 }
 # aliases used by raw roots (mainsb rows have no suffix inside their own per_image.csv)
 RAW_TO_KEY = {"temp_only": "temp_only_sbase", "constancy_tm": "constancy_tm_sbase", "sega_ctm": "sega_ctm_v2"}
 
-
-# Darker tints for TEXT set in a method color (headers, direct labels); light hues fail contrast on white.
-TEXT_TINT = {SKY: "#3F73B0", SAFFRON: "#A8770C", STONE: "#767676"}
+# Text stays in INK; a method name is never set in its hue (labels are neutral, marks carry color).
 for _m in METHODS.values():
-    _m["text"] = TEXT_TINT.get(_m["color"], _m["color"])
+    _m["text"] = INK
+
+# Type sizes at final print size (points).
+FS_TICK, FS_LABEL, FS_PANEL, FS_VALUE = 7, 8, 9, 7
 
 
 def color(key):
@@ -117,12 +135,66 @@ def style():
     })
 
 
-def panel_tag(ax_or_fig, x, y, letter, transform=None, **kw):
-    """Bold lower-case panel letter (a, b, ...) in the house style."""
+def panel_tag(ax_or_fig, x, y, letter, name=None, transform=None, **kw):
+    """Panel tag "(a) Name" at 9 pt, upper left, as in the gold-standard papers.
+    `letter` may be "a" or "(a)"; `name` is 1 to 3 words or None."""
     tgt = ax_or_fig
     tr = transform if transform is not None else (tgt.transAxes if hasattr(tgt, "transAxes") else tgt.transFigure)
-    return tgt.text(x, y, letter, transform=tr, fontsize=9, fontweight="bold", color=INK,
-                    ha="left", va="baseline", **kw)
+    tag = letter if letter.startswith("(") else f"({letter})"
+    if name:
+        tag = f"{tag} {name}"
+    kw.setdefault("fontsize", FS_PANEL)
+    return tgt.text(x, y, tag, transform=tr, color=INK, ha="left", va="baseline", **kw)
+
+
+def clean_axes(ax, grid="y", spines=("left", "bottom")):
+    """Gold plot axes: no top/right spines, light gray gridlines behind the data, small ticks."""
+    for side in ("top", "right", "left", "bottom"):
+        ax.spines[side].set_visible(side in spines)
+        ax.spines[side].set_linewidth(0.6)
+        ax.spines[side].set_color(INK2)
+    ax.tick_params(length=2.5, width=0.6, labelsize=FS_TICK, colors=INK2, labelcolor=INK)
+    ax.set_axisbelow(True)
+    ax.grid(False)
+    if grid in ("x", "y", "both"):
+        ax.grid(True, axis=grid, color=GRIDC, lw=0.5)
+    return ax
+
+
+def top_legend(target, handles, labels=None, ncol=None, y=1.02, **kw):
+    """One shared legend above a panel or a row of panels, no frame."""
+    labels = labels if labels is not None else [h.get_label() for h in handles]
+    kw = dict(dict(loc="lower center", bbox_to_anchor=(0.5, y), frameon=False, fontsize=FS_LABEL,
+                   handlelength=1.6, handletextpad=0.4, columnspacing=1.2, borderaxespad=0.0), **kw)
+    return target.legend(handles, labels, ncol=ncol or len(handles), **kw)
+
+
+def crop_box(ax, xywh, color=ZOOM, lw=1.0):
+    """Zoom box on a full frame: 1 pt square outline at (x, y, w, h) in data (pixel) coordinates."""
+    from matplotlib.patches import Rectangle
+    x, y, w, h = xywh
+    return ax.add_patch(Rectangle((x, y), w, h, fill=False, ec=color, lw=lw, joinstyle="miter", zorder=5))
+
+
+def crop_frame(ax, color=ZOOM, lw=1.0):
+    """Frame of the enlarged crop: a 1 pt outline drawn just inside the image edge."""
+    from matplotlib.patches import Rectangle
+    return ax.add_patch(Rectangle((0, 0), 1, 1, transform=ax.transAxes, fill=False, ec=color,
+                                  lw=lw, joinstyle="miter", clip_on=False, zorder=5))
+
+
+METRIC_ARROW = {"imagereward": "↑", "pickscore": "↑", "clip": "↑", "musiq": "↑",
+                "musiq_crop1024": "↑", "clipiqa": "↑", "clipiqa_crop1024": "↑",
+                "spectrum_log_rmse": "↓", "spectrum_slope_error": "↓", "tiling1024": "↓"}
+METRIC_SHORT = {"imagereward": "ImageReward", "pickscore": "PickScore", "clip": "CLIP",
+                "musiq": "MUSIQ", "musiq_crop1024": "MUSIQ crops", "clipiqa": "CLIP-IQA",
+                "clipiqa_crop1024": "CLIP-IQA crops", "spectrum_log_rmse": "Log-RMSE",
+                "spectrum_slope_error": "Slope error", "tiling1024": "Tiling"}
+
+
+def metric_label(key, arrow=True):
+    """Short metric name with its better direction, e.g. "MUSIQ crops ↑"."""
+    return METRIC_SHORT[key] + (f" {METRIC_ARROW[key]}" if arrow else "")
 
 
 # ==== data
