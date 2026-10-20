@@ -1,54 +1,75 @@
 \section{Methods under study}\label{sec:methods}
 
-\begin{figure}[t]
-\centering
-\figorplaceholder[\linewidth]{figs/f2_method.pdf}{2.37in}
-\caption{\textbf{The RoPE base changes frequencies, a global temperature scales all terms, and per-band gains reweight individual terms.} (a)~Query, key and offset on the token grid of a $4096^2$ image; the inset shows band 8 under the native base $b$ (dashed) and \sega's released base $b'$. (b)~Four of the \N{c@pairsperaxis} width-axis bands with their total log gains (sky: $\ln\tau$; circles: \segaofficial; diamonds: \constancytm) from one held-out sample at step 14. The three separate traces sum these four bands with unit content amplitudes and zero phases on the same vertical scale; they illustrate the base and temperature changes, not measured query--key logits. (c)~Two alternative controllers set the total gain $g_j$, which already includes temperature, from their respective spectral measurements.}
-\label{fig:method}
-\end{figure}
-
-\begin{table}[t]
-\centering
-\caption{\textbf{Arms and the knobs they turn.} Temperature is the logit gain at $4096^2$; t/x: varies with the noise level / with the image. Held-out arms ran on rows 8--194, the pilot and dev arms only on the eight dev prompts.}
-\label{tab:methods}
-\footnotesize
-\setlength{\tabcolsep}{2.6pt}
-\begin{tabular}{@{}l l c c c l@{}}
-\toprule
-Arm & Frequency base & Temperature & Per-band gain & t/x & $n$ \\
-\midrule
-\ntk & $\theta\,s^{2D/(D-2)}$ & none & none & no / no & \N{ho@nprompts} \\
-\dype & PI/NTK ramps in $\sigma$ & $\N{c@dypegain}$ (spatial) & none & yes / no & \N{ho@nprompts} \\
-\segaofficial & $\theta\,s^{2D/(D-2)}/(1{+}0.1\ln s)$ & $s^{0.16}=\N{c@segatemp}$ & sensor, $\ge1$ & yes / yes & \N{ho@nprompts} \\
-\segapaper & $\theta\,s^{2D/(D-2)}$ & $s^{0.16}$ & sensor, unbounded & yes / yes & 8 (pilot) \\
-\tempsb & as \segaofficial & $s^{0.16}$ on all dims & none & no / no & \N{ho@nprompts} \\
-\constancy & as \ntk & $\tau_N=\N{c@taulogn}$ & gated, late target & yes / yes & \hon{cons} (partial) \\
-\constancytm & as \segaofficial & $s^{0.16}$ & gated, time-matched & yes / yes & \N{ho@nprompts} \\
-\aliastemp & as \segaofficial & none & alias count, static & no / no & 8 (dev) \\
-\segactm & as \segaofficial & $s^{0.16}$ & \sega{} $\times$ time-matched & yes / yes & \N{ho@nprompts} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-
-
-All arms share the sampler and differ only in $\omega'$ and $g$ of \cref{eq:fourier} (\cref{tab:methods}; exact formulas and code revisions in \cref{app:impl}).
+All arms share the sampler and differ only in $\omega'$ and $g$ of \cref{eq:fourier}. \Cref{tab:knobs} summarizes the knobs, and \cref{tab:methods} in \cref{app:impl} gives formulas, code revisions and sample sizes.
 
 \paragraph{Frequency baselines}
-\ntk{} is the strengthened NTK base that \sega{} builds on, $\theta'=\theta s^{2D/(D-2)}$, which divides the slowest pair's frequency by $s^2$. With no temperature and no allocation, it is the floor of the decomposition. \dype~\citep{issachar2025dype}, ported from the official code, blends position interpolation, NTK and native frequencies with two ramps in $\sigma^2$, so fine pairs return to their native frequencies late in denoising; its cos/sin amplitude $1+0.1\ln s$ acts as a logit gain of $\N{c@dypegain}$ on the spatial dimensions.
+\ntk{} is the strengthened NTK base that \sega{} builds on, $\theta'=\theta s^{2D/(D-2)}$, which divides the slowest pair's frequency by $s^2$; with no temperature and no allocation, it is the floor of the decomposition. \dype~\citep{issachar2025dype}, ported from the official code, blends position interpolation, NTK and native frequencies with two ramps in $\sigma^2$, so fine pairs regain their native frequencies late in denoising. Its cos/sin amplitude $1+0.1\ln s$ acts as a logit gain of $\N{c@dypegain}$ on the spatial dimensions.
 
 \paragraph{\sega: paper equations and released code}
-\sega~\citep{sega2026} sets per-pair gains from its input spectrum around $m_{\mathrm{ref}}=s^{0.08}$, assigning more weight to low-energy pairs. Our reading of the printed formulation differs from the release at each of six compared stages (\cref{tab:papercode,app:impl}); we call the parity-tested released port \segaofficial{} and the printed-law implementation \segapaper.
+\sega~\citep{sega2026} sets per-pair gains from its input spectrum around $m_{\mathrm{ref}}=s^{0.08}$, giving more weight to low-energy pairs; \cref{alg:sega} gives the released update as we ported it. We call this parity-tested released port \segaofficial{} and our implementation of the printed equations \segapaper; the two differ at each of six compared stages (\cref{sec:papercode}).
 
 \paragraph{\tempsb: the decomposition control}
-\tempsb{} keeps the frequency base of \segaofficial{} and applies its reference logit gain $s^{0.16}$ uniformly to every dimension. It differs from \segaofficial{} in three ways: no per-band shape, no lift in mean gain from the clamp at 1, and a gain of $s^{0.16}$ rather than 1 on the index axis.
+\tempsb{} keeps the frequency base of \segaofficial{} and applies its reference logit gain $s^{0.16}=\N{c@segatemp}$ uniformly to every dimension. It differs from \segaofficial{} in three ways: no per-band shape, no lift in mean gain from the clamp at 1, and a gain of $s^{0.16}$ rather than 1 on the index axis.
+
+\begin{algorithm}[t]
+\begin{minipage}[t]{0.487\linewidth}
+\algrule
+\caption{\segaofficial, one gain update}\label{alg:sega}
+\vspace{-3pt}\algrule[0.4pt]
+{\footnotesize\textbf{Input:} projected input features $h$ on the $L_h\times L_w$ grid; frequencies $\omega_a$ of the released base; scale $s$.\\
+\textbf{Output:} query/key gains $m$, one per rotary pair.}
+\begin{lstlisting}[style=gold,emph={mean,flatness,radial_power,ones,axis_power,rank,log,interp,std,tanh,max}]
+m_ref = s ** 0.08           # logit gain s^0.16
+Z = mean(h, axis=channels)  # sensor, App. (*@\ref{app:impl}@*)
+Z = Z - mean(Z)
+spread = 1 - flatness(radial_power(Z)) ** 1.5
+m = ones(64)                # index axis keeps 1
+for a in (height, width):
+    E = axis_power(Z, a)  # max(L_a//2, 8) bins
+    r = rank(log(2*pi / w[a]))  # 0: fastest
+    e = interp(log(E), (1 - r) * (K - 1))
+    z = (e - mean(e)) / std(e)
+    c = tanh(1.5 * z)
+    c = c - mean(c)    # Sec. (*@\ref{sec:papercode}@*): 0.15, clamp
+    m[a] = max(1, m_ref*(1 - 0.15*spread*c))
+return m              # logits scale by m**2
+\end{lstlisting}
+\vspace{-2pt}\algrule
+\end{minipage}\hfill
+\begin{minipage}[t]{0.487\linewidth}
+\algrule
+\caption{\constancytm, one gain update}\label{alg:ctm}
+\vspace{-3pt}\algrule[0.4pt]
+{\footnotesize\textbf{Input:} latent $x_t$ at noise level $\sigma$; previous clean estimate $\hat x_0$; native target $P(f,\sigma)$; $\eta=1$.\\
+\textbf{Output:} query/key gains, one per rotary pair.}
+\begin{lstlisting}[style=gold,emph={full,log,exp,band_energy,relu,P_native,mean,clip,interp_logf}]
+log_g = full(64, 0.16*log(s))  # SEGA temp.
+if x0_hat is None:             # step 0
+    return exp(log_g / 2)
+for a in (height, width):
+    Et = band_energy(x_t, a)  # half octaves
+    E0 = band_energy(x0_hat, a)  # App. (*@\ref{app:laws}@*)
+    rho = relu(Et / (sigma**2 * C) - 1)
+    w = rho / (1 + rho)    # visibility gate
+    P = P_native(a, f_b, sigma)  # matched
+    A = (f_b >= 1/64) & (f_b <= 1/16)
+    c = mean(log(E0[A]) - P[A])  # anchor level
+    e = 0.5 * (P + c - log(E0))  # Eq. ((*@\ref{eq:constancy}@*))
+    d = eta * w * clip(e, -1, 1)
+    # zero for pair wavelengths above L_a
+    log_g[a] += interp_logf(d, f_pairs[a])
+return exp(log_g / 2)          # q/k gains
+\end{lstlisting}
+\vspace{-2pt}\algrule
+\end{minipage}
+\end{algorithm}
 
 \subsection{Per-band laws from vision science}\label{sec:ours}
 
-Contrast constancy describes nearly stable perceived band contrast above threshold across viewing distances~\citep{georgeson1975contrast}. Efficient coding combines visibility against noise, $S/(S+N)$, with contrast normalization toward natural-image statistics~\citep{atick1990towards,atick1992retina,vanhateren1992theory,field1987relations,webster2002neural,parraga2000human}. We test four controllers inspired by these ideas; full equations and calibration details are in \cref{app:laws}.
+Contrast constancy describes nearly stable perceived band contrast above threshold across viewing distances~\citep{georgeson1975contrast}. Efficient coding combines visibility against noise, $S/(S+N)$, with contrast normalization toward natural-image statistics~\citep{atick1990towards,atick1992retina,vanhateren1992theory,field1987relations,dong1995statistics,knill1990human,parraga2000human} and divisive gain control~\citep{webster2002neural,heeger1992normalization,schwartz2001natural,carandini2012normalization}. We test four controllers inspired by these ideas; \cref{app:laws} gives their equations and calibration.
 \begin{itemize}
-\item \textbf{\constancy.} A noise-visibility gate weights a bounded log-power correction toward a native-resolution target from the final clean steps. The law uses the \ntk{} base and log-$N$ temperature.
-\item \textbf{\constancytm.} The same correction uses a target matched to the current noise level and the base and temperature of \segaofficial{}, with \tempsb{} as its control.
-\item \textbf{\aliastemp.} A pair's resolvable key count sets its log-$N$ temperature; \aliastemps{} shifts the log gains to match \sega's reference geometric mean.
+\item \textbf{\constancy.} A noise-visibility gate weights a bounded log-power correction toward a native-resolution target from the final clean steps, on the \ntk{} base with log-$N$ temperature.
+\item \textbf{\constancytm} (\cref{alg:ctm}). The same correction uses a target matched to the current noise level and the base and temperature of \segaofficial, with \tempsb{} as its control.
+\item \textbf{\aliastemp.} A pair's resolvable key count sets its log-$N$ temperature; \aliastemps{} matches \sega's reference geometric mean.
 \item \textbf{\segactm.} The time-matched correction multiplies \sega's released allocation, $\ln g=\ln g^{\textsc{sega}}+\Delta$. Development selection chose $\eta=1$ for the held-out run.
 \end{itemize}

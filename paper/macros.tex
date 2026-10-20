@@ -89,3 +89,18 @@
 \newcommand{\ntkH}{\hdr{NTK\\\phantom{x}}}
 \newcommand{\dypeH}{\hdr{DyPE\\\phantom{x}}}
 \newcommand{\constancyH}{\hdr{Constancy\\\phantom{x}}}
+
+% =============================================================================================
+% Main-text table styling (text agent, 2026-10-19). Shading: the 10% table tint of the method
+% hue #0068A8 from figs/PALETTE.md (cMethodShade), shared with the figures.
+\definecolor{papertint}{HTML}{E6F0F6}
+\definecolor{ctxgray}{HTML}{595959}
+\newcommand{\rcellB}[1]{$#1$\upm}
+\newcommand{\rcellW}[1]{$#1$\dnm}
+\newcommand{\rcellT}[1]{$#1$\nom}
+\newcommand{\ctxrow}[1]{\textcolor{ctxgray}{#1}}
+\newcommand{\ctxcell}[1]{{\color{ctxgray}#1}}
+\definecolor{okc}{HTML}{009870}
+\definecolor{noc}{HTML}{D06008}
+\newcommand{\yes}{\textcolor{okc}{\ding{51}}}
+\newcommand{\no}{\textcolor{noc}{\ding{55}}}

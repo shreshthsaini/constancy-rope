@@ -1,31 +1,31 @@
 \section{Additional figures}\label{app:figs}
 
-\Cref{fig:qual} shows held-out samples, \cref{fig:checkpoint} the development checkpoint diagnostic, \cref{fig:spectrum} the octave-band spectra, and \cref{fig:papercode} the development paper-versus-code comparison.
+This appendix expands \cref{fig:qual_main,fig:spectrum_main} and holds the development figures behind \cref{sec:checkpoint,sec:papercode}. \Cref{fig:qual} shows held-out samples, \cref{fig:checkpoint} the development checkpoint diagnostic, \cref{fig:spectrum} the octave-band spectra, and \cref{fig:papercode} the development paper-versus-code comparison.
 
 \begin{figure}[H]
 \centering
-\figorplaceholder[0.95\linewidth]{figs/f4_qualitative.pdf}{3.6in}
-\caption{\textbf{At $4096^2$ \ntk{} loses fine detail, while the other arms render comparable detail.} Held-out rows 8 to 10, the first three held-out rows, fixed before any output was viewed; seed 0, one sample per arm. Full frames are Lanczos-reduced; native-resolution crops sit at identical coordinates (A: highest-detail tile of the across-arm mean luminance; B: image centre) and are never resampled. Compositions differ between arms, so a crop can show different content. \dype{} shows faint speckle in flat sky on held-out row 8 (one crop checked).}
+\figorplaceholder[\linewidth]{figs/f4_qualitative.pdf}{3.1in}
+\caption{\textbf{\ntk{} loses fine detail at $4096^2$.} The other arms render comparable detail, and \dype{} shows faint speckle in flat sky on held-out row 8 (one crop checked); compositions differ between arms, so a crop can show different content. Held-out rows 8, 9 and 10 (left to right), the first three held-out rows, were fixed before any output was viewed; seed 0, one sample per arm. Full frames are Lanczos-reduced; native-resolution crops sit at identical coordinates and are never resampled (red: highest-detail tile of the across-arm mean luminance; cyan: image center). Prompts, left to right: ``A stone bridge with arched spans reflects golden light on the water, flanked by buildings and a leafy tree under a clear blue sky.'' ``A panoramic view of Paris featuring the Eiffel Tower, the Seine River, and various ornate buildings with greenery and bustling activity, including boats on the water and crowds along walkways.'' ``A cluttered artist's corner features an ornate gold frame, a painting of a man with glasses, several empty picture frames, a vintage suitcase, and various brushes in a tin can, all set against a textured gray wall and draped with patterned fabric.''}
 \label{fig:qual}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \figorplaceholder[\linewidth]{figs/f5_checkpoint.pdf}{3.26in}
-\caption{\textbf{The development comparison shows a lattice on \fluxdev{}, but checkpoint and guidance both change.} (a)~Dev prompt 0 under official \dype{} code (seed 42) and our \dype{} and \segaofficial{} pipelines (seed 0), at guidance 3.5 (\fluxdev) and 4.5 (\krea); A and B are native 192-pixel windows at the same place in every image. (b)~Whitened radial power spectra of luminance: \fluxdev{} peaks at the lattice period and \krea{} does not in these samples. Official-code evidence covers one prompt per checkpoint; the descriptive eight-prompt peak summaries use our pipeline. The figure does not isolate a checkpoint effect.}
+\caption{\textbf{Lattice and checkpoint check.} The development comparison shows a lattice on \fluxdev{}, but checkpoint and guidance both change. (a)~Dev prompt 0 under official \dype{} code (seed 42) and our \dype{} and \segaofficial{} pipelines (seed 0), at guidance 3.5 (\fluxdev) and 4.5 (\krea). Red and cyan boxes mark native 192-pixel windows at the same place in every image. (b)~Whitened radial power spectra of luminance: \fluxdev{} (black) peaks at the lattice period (dot) and \krea{} (gray) does not in these samples. Peak ratios: 36$\times$ for the official-code pair; over eight prompts in our pipeline, 12$\times$ [7, 20] for \dype{} and 5$\times$ [2, 11] for \segaofficial{} (geometric means, 95\% bootstrap intervals). Official-code evidence covers one prompt per checkpoint, and the figure does not isolate a checkpoint effect.}
 \label{fig:checkpoint}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\figorplaceholder[0.88\linewidth]{figs/f8_spectrum.pdf}{2.2in}
-\caption{\textbf{Without \sega's per-band allocation, luminance power at 8 to 32 pixel wavelengths sits above released \sega's; \constancytm{} leaves a similar excess, and \ntk{} falls short from 8 to 1024 pixels.} (a)~Signed log-power error against the mean $\ln P$ of the 195 \afk{} references, per octave band of linear-sRGB luminance; (b)~paired difference from \segaofficial. Held-out rows 8--194 ($n=\N{ho@nprompts}$, seed 0); bands are 95\% bootstrap intervals over prompts. The shaded 8 to 32 pixel band lies above the Nyquist frequency of a 224-pixel view.}
+\figorplaceholder[\linewidth]{figs/f8_spectrum.pdf}{2.2in}
+\caption{\textbf{Spectra against references and \sega.} Without \sega's per-band allocation, luminance power at 8 to 32 pixel wavelengths (gray band) sits above released \sega's; \constancytm{} leaves a similar excess, and \ntk{} falls short from 8 to 1024 pixels. (a)~Log-power error against the mean $\ln P$ of the 195 \afk{} references, per octave band of linear-sRGB luminance; (b)~paired difference from \segaofficial, the dashed blue zero line; positive means more power. Held-out rows 8--194 ($n=\N{ho@nprompts}$, seed 0) with 95\% bootstrap intervals over prompts; the dashed vertical marks the Nyquist frequency of a 224-pixel view.}
 \label{fig:spectrum}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \figorplaceholder[\linewidth]{figs/f6_sega_code.pdf}{2.4in}
-\caption{\textbf{The printed-law implementation produces larger gain changes than the release and degrades this development pilot.} Eight dev prompts (rows 0--7, seed 0), descriptive only. (a)~Median log logit gain per rotary pair and denoising step. Released and printed-law heatmaps have separate, explicitly labelled symmetric colour scales, so equal colours across those groups do not mean equal magnitudes. The line panel below uses one shared axis for mean log gain over prompts, steps and the two spatial axes for all four variants; static variants average each method's gains over prompts and steps. (b)~Dev prompt 0, seed 0: full frames and a native-resolution crop, above CLIP score and ImageReward means over the eight dev prompts with paired differences from \segaofficial{} and 95\% bootstrap intervals.}
+\caption{\textbf{Printed equations against the release.} The printed-law implementation produces larger gain changes than the release and degrades this development pilot. Eight dev prompts (rows 0--7, seed 0), descriptive only. (a)~Median log logit gain per rotary pair (pair 0 has the highest frequency) and denoising step. Released and printed-law heatmaps have separate symmetric color scales, so equal colors across the groups do not mean equal magnitudes. The line panel uses one shared axis for mean log gain over prompts, steps and both spatial axes; static variants (dashed) average each method's gains over prompts and steps. (b)~Dev prompt 0, seed 0: full frames and a native-resolution crop (red box). \Cref{tab:papercode_scores} gives CLIP score and ImageReward means over the eight dev prompts, with paired differences from \segaofficial{} and 95\% bootstrap intervals.}
 \label{fig:papercode}
 \end{figure}

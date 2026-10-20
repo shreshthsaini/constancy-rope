@@ -1,0 +1,14 @@
+\section{Limitations}\label{sec:limitations}
+
+\begin{itemize}
+\item \textbf{One model and size.} Only \krea{} at $4096^2$; other shapes, backbones and video are untested.
+\item \textbf{Bundled knobs.} No held-out arm separates the base and temperature changes of \tempsb{} relative to \ntk.
+\item \textbf{Seeds and prompts.} Most arms have one seed; the seed-1 replication covers two arms on the first \N{so@n@tsb} held-out prompts, and all prompts come from one caption set.
+\item \textbf{Automatic metrics.} The reward models see 224 pixels, MUSIQ and CLIP-IQA are learned proxies, the spectral error uses a mean reference profile, and we ran no human study.
+\item \textbf{Multiplicity.} Holm adjustment covers the main paired tables only; intervals are nominal, and \cref{tab:deltas_full} alone holds \N{ho@ncomp} comparisons.
+\item \textbf{Small diagnostic samples.} \constancy{} ran on part of the held-out set, paper-versus-code numbers come from an eight-prompt dev pilot, mechanism probes use at most three dev prompts, and the \sega{} CPU study uses another latent space.
+\item \textbf{Confounded checkpoint diagnostic.} \Cref{sec:checkpoint} changes both checkpoint and guidance, with official-code evidence on one prompt per checkpoint.
+\item \textbf{Ports.} We port \sega{} and \dype{} with parity tests against released code, ran official \dype{} code only in \cref{sec:checkpoint}, and lack the \sega{} authors' confirmation of our reading of their paper.
+\end{itemize}
+% STRENGTHEN: Revise scope, seed counts, and multiplicity language only after complete
+% campaign analyses are verified. Retain any failed or unresolved hypotheses.

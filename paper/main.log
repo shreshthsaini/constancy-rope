@@ -618,8 +618,74 @@ e 7852.
 Package cleveref Info: sorting and compressing references on input line 7852.
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 45.
+
+(colortbl.sty
+Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
+\everycr=\toks36
+\minrowclearance=\skip66
+) (wrapfig.sty
+\wrapoverhang=\dimen269
+\WF@size=\dimen270
+\c@WF@wrappedlines=\count330
+\WF@box=\box62
+\WF@everypar=\toks37
+Package: wrapfig 2003/01/31  v 3.6
+) (pifont.sty
+Package: pifont 2020/03/25 PSNFSS-v9.3 Pi font support (SPQR) 
+LaTeX Font Info:    Trying to load font information for U+pzd on input line 63.
+
+ (upzd.fd
+File: upzd.fd 2001/06/04 font definitions for U/pzd.
 )
-(macros) (tables/num_results) (tables/num_compute) (tables/num_mechanism)
+Requested font "pzdr" at 10.0pt
+ -> pzdr
+LaTeX Font Info:    Trying to load font information for U+psy on input line 64.
+
+ (upsy.fd
+File: upsy.fd 2001/06/04 font definitions for U/psy.
+)
+Requested font "psyr" at 10.0pt
+ -> psyr
+) (listings.sty
+\lst@mode=\count331
+\lst@gtempboxa=\box63
+\lst@token=\toks38
+\lst@length=\count332
+\lst@currlwidth=\dimen271
+\lst@column=\count333
+\lst@pos=\count334
+\lst@lostspace=\dimen272
+\lst@width=\dimen273
+\lst@newlines=\count335
+\lst@lineno=\count336
+\lst@maxwidth=\dimen274
+
+(lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count337
+\lst@skipnumbers=\count338
+\lst@framebox=\box64
+) (listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+ (titletoc.sty
+Package: titletoc 2021/07/05 v2.14 TOC entries
+\ttl@leftsep=\dimen275
+)
+Package caption Info: Option `declare type' requires the `newfloat' package on 
+input line 88.
+ (newfloat.sty
+Package: newfloat 2019/09/02 v1.1l Defining new floating environments (AR)
+Package newfloat Info: `wrapfig' package detected.
+)
+Package newfloat Info: New float `algorithm' with options `fileext=loa,placemen
+t={!t}' on input line 88.
+\c@algorithm=\count339
+Package newfloat Info: float type `algorithm'=4 on input line 88.
+\c@subalgorithm=\count340
+) (macros)
+(tables/num_results) (tables/num_compute) (tables/num_mechanism)
 (TeXGyreTermesX.fontspec)
 Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 9.99997pt
  -> TeXGyreTermesX-Regular.otf
@@ -780,7 +846,7 @@ LaTeX Font Info:    ... okay on input line 11.
 * \footskip=30.0pt
 * \marginparwidth=65.0pt
 * \marginparsep=11.0pt
-* \columnsep=10.0pt
+* \columnsep=12.0pt
 * \skip\footins=9.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
@@ -808,6 +874,8 @@ Package microtype Info: Loading generic protrusion settings for font family
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
 Package hyperref Info: Link coloring ON on input line 11.
 (nameref.sty
@@ -817,7 +885,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count330
+\c@section@level=\count341
 )
 LaTeX Info: Redefining \ref on input line 11.
 LaTeX Info: Redefining \pageref on input line 11.
@@ -826,6 +894,8 @@ LaTeX Info: Redefining \nameref on input line 11.
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
+\c@lstlisting=\count342
+Package newfloat Info: `float' package detected.
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
 (Font)              scaled to size 17.28pt on input line 13.
 Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05
@@ -994,20 +1064,35 @@ Requested font "ntxbexx" at 9.0pt
  -> ntxbexx
 ) (sec/intro [1
 
-]) (sec/background [2]
+]
+LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
+(Font)              scaled to size 7.0pt on input line 9.
+Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05
+;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+ -> TeXGyreTermesX-Regular.otf
+Requested font "pzdr" at 7.0pt
+ -> pzdr
+ [2]) (sec/background
+File: figs/f2_method.pdf Graphic file (type pdf)
+<use figs/f2_method.pdf>
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/it' will be
-(Font)              scaled to size 10.0pt on input line 15.
+(Font)              scaled to size 10.0pt on input line 22.
 Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;
 +tnum;+lnum;mapping=tex-text;" at 10.0pt
  -> TeXGyreTermesX-Italic.otf
-) (sec/methods
-File: figs/f2_method.pdf Graphic file (type pdf)
-<use figs/f2_method.pdf>
+) (sec/methods [3]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 17.
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 14.
+(Font)              scaled to size 8.0pt on input line 19.
 Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05
 ;+tnum;+lnum;mapping=tex-text;" at 8.0pt
  -> TeXGyreTermesX-Regular.otf
+LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/b/n' will be
+(Font)              scaled to size 8.0pt on input line 19.
+Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+t
+num;+lnum;mapping=tex-text;" at 8.0pt
+ -> TeXGyreTermesX-Bold.otf
 Requested font "ntx-Regular-tlf-ot1" at 8.0pt
  -> ntx-Regular-tlf-ot1
 Requested font "ntx-Regular-tlf-ot1" at 6.2pt
@@ -1056,14 +1141,31 @@ Requested font "ntxbexx" at 8.0pt
  -> ntxbexx
 Requested font "ntxbexx" at 6.2pt
  -> ntxbexx
- [3]
+ (lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+Requested font "[lmmono10-regular]:" at 10.0pt
+ -> lmmono10-regular
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmtt' (encoding: TU).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+Requested font "[lmmono8-regular]:" at 6.9pt
+ -> lmmono8-regular
+Requested font "[lmmono10-italic]:" at 6.9pt
+ -> lmmono10-italic
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <6.9> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 27.
+Requested font "[lmmonolt10-bold]:" at 6.9pt
+ -> lmmonolt10-bold
+ [4]
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/sc' will be
-(Font)              scaled to size 10.0pt on input line 53.
+(Font)              scaled to size 10.0pt on input line 74.
 Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05
 ;+tnum;+lnum;+smcp;+pcap;mapping=tex-text;" at 10.0pt
  -> TeXGyreTermesX-Regular.otf
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
-(Font)              scaled to size 7.3pt on input line 53.
+(Font)              scaled to size 7.3pt on input line 74.
 Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05
 ;+tnum;+lnum;mapping=tex-text;" at 7.3pt
  -> TeXGyreTermesX-Regular.otf
@@ -1071,58 +1173,22 @@ Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05
 ;+tnum;+lnum;+smcp;+pcap;mapping=tex-text;" at 7.3pt
  -> TeXGyreTermesX-Regular.otf
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
-(Font)              scaled to size 5.5pt on input line 53.
+(Font)              scaled to size 5.5pt on input line 74.
 Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05
 ;+tnum;+lnum;mapping=tex-text;" at 5.5pt
  -> TeXGyreTermesX-Regular.otf
 Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05
 ;+tnum;+lnum;+smcp;+pcap;mapping=tex-text;" at 5.5pt
  -> TeXGyreTermesX-Regular.otf
-) (sec/protocol [4])
-(sec/results_decomp
-File: figs/f3_forest.pdf Graphic file (type pdf)
-<use figs/f3_forest.pdf>
-File: figs/f8_spectrum_main.pdf Graphic file (type pdf)
-<use figs/f8_spectrum_main.pdf>
- [5]
-File: figs/f4_qualitative_main.pdf Graphic file (type pdf)
-<use figs/f4_qualitative_main.pdf>
-) (sec/results_laws [6]) (sec/results_more [7])
-(sec/discussion) (sec/related [8]) [9] (main.bbl
+)
+(sec/protocol) (sec/results_decomp (tables/tab_results.tex
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/it' will be
-(Font)              scaled to size 9.0pt on input line 11.
-Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;
-+tnum;+lnum;mapping=tex-text;" at 9.0pt
- -> TeXGyreTermesX-Italic.otf
-Requested font "[lmmono9-regular]:" at 9.0pt
- -> lmmono9-regular
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `lmtt' (encoding: TU).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
- [10
-
-] [11]) [12] (sec/appendix
-(sec/appendix_figs
-File: figs/f4_qualitative.pdf Graphic file (type pdf)
-<use figs/f4_qualitative.pdf>
-File: figs/f5_checkpoint.pdf Graphic file (type pdf)
-<use figs/f5_checkpoint.pdf>
- [13
-
-]
-File: figs/f8_spectrum.pdf Graphic file (type pdf)
-<use figs/f8_spectrum.pdf>
-File: figs/f6_sega_code.pdf Graphic file (type pdf)
-<use figs/f6_sega_code.pdf>
-) [14] [15] (tables/tab_main.tex
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/it' will be
-(Font)              scaled to size 8.0pt on input line 7.
+(Font)              scaled to size 8.0pt on input line 5.
 Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;
 +tnum;+lnum;mapping=tex-text;" at 8.0pt
  -> TeXGyreTermesX-Italic.otf
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 8.
+(Font)              scaled to size 6.0pt on input line 18.
 Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05
 ;+tnum;+lnum;mapping=tex-text;" at 6.0pt
  -> TeXGyreTermesX-Regular.otf
@@ -1150,18 +1216,38 @@ Requested font "ntxbsy7" at 6.5pt
  -> ntxbsy7
 Requested font "ntxbexx" at 6.5pt
  -> ntxbexx
-) (tables/tab_share.tex
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 7.
+(Font)              scaled to size 5.0pt on input line 20.
 Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05
 ;+tnum;+lnum;mapping=tex-text;" at 5.0pt
  -> TeXGyreTermesX-Regular.otf
-Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 7.99997pt
+) [5]
+File: figs/f3_forest.pdf Graphic file (type pdf)
+<use figs/f3_forest.pdf>
+File: figs/f8_spectrum_main.pdf Graphic file (type pdf)
+<use figs/f8_spectrum_main.pdf>
+
+Underfull \hbox (badness 5316) in paragraph at lines 36--37
+\TU/TeXGyreTermesX(0)/b/n/10 model gain.[] \TU/TeXGyreTermesX(0)/m/n/10 Of SEGA
+’s gain over NTK,
+ []
+
+
+Underfull \hbox (badness 4217) in paragraph at lines 39--40
+\LMS/ntxsy/m/n/10 Ï\OT1/minntx/m/n/10 3\OML/ntxmi/m/it/10 :\OT1/minntx/m/n/10 2
+5$\TU/TeXGyreTermesX(0)/m/n/10 ] on full-frame MUSIQ and $\LMS/ntxsy/m/n/10 Ï\O
+T1/minntx/m/n/10 0\OML/ntxmi/m/it/10 :\OT1/minntx/m/n/10 009$
+ []
+
+File: figs/f4_qualitative_main.pdf Graphic file (type pdf)
+<use figs/f4_qualitative_main.pdf>
+[6]) (sec/results_laws (tables/tab_alloc.tex
+Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 6.99997pt
  -> TeXGyreTermesX-Regular.otf
 Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;" at 
-8.00003pt
+7.00003pt
  -> TeXGyreTermesX-Regular.otf
-Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;" at 8.0
+Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;" at 7.0
 0003pt
  -> TeXGyreTermesX-Bold.otf
 
@@ -1175,11 +1261,11 @@ Package fontspec Warning: OpenType feature 'VerticalPosition=Inferior' (subs)
 (fontspec)                not available for font 'TeXGyreTermesX-Bold' with
 (fontspec)                script 'CustomDefault' and language 'Default'.
 
-Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;" at 8
+Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;" at 7
 .00003pt
  -> TeXGyreTermesX-Italic.otf
 Requested font "[TeXGyreTermesX-Slanted.otf]/OT:script=latn;language=dflt;" at 
-8.00003pt
+7.00003pt
  -> TeXGyreTermesX-Slanted.otf
 
 Package fontspec Warning: OpenType feature 'VerticalPosition=Inferior' (subs)
@@ -1192,10 +1278,10 @@ Package fontspec Warning: OpenType feature 'VerticalPosition=Inferior' (subs)
 (fontspec)                script 'CustomDefault' and language 'Default'.
 
 Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;" 
-at 8.00003pt
+at 7.00003pt
  -> TeXGyreTermesX-BoldItalic.otf
 Requested font "[TeXGyreTermesX-BoldSlanted.otf]/OT:script=latn;language=dflt;"
- at 8.00003pt
+ at 7.00003pt
  -> TeXGyreTermesX-BoldSlanted.otf
 
 Package fontspec Info: Font family 'TeXGyreTermesX(1)' created for font
@@ -1253,47 +1339,88 @@ language=dflt;-ss05;+tnum;+lnum;+subs;+smcp;+pcap;mapping=tex-text;"
 ;language=dflt;-ss05;+tnum;+lnum;+subs;+smcp;+pcap;mapping=tex-text;"
 
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(1)/m/n' will be
+(Font)              scaled to size 7.0pt on input line 8.
+Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05
+;+tnum;+lnum;+subs;mapping=tex-text;" at 7.0pt
+ -> TeXGyreTermesX-Regular.otf
+)
+Underfull \hbox (badness 1430) in paragraph at lines 12--12
+\TU/TeXGyreTermesX(0)/m/n/9 including the full-frame MUSIQ loss of SEGA
+ []
+
+(tables/tab_seed1_small.tex)) (sec/results_more [7]
+Requested font "[lmmono9-regular]:" at 9.0pt
+ -> lmmono9-regular
+
+Underfull \hbox (badness 2126) in paragraph at lines 5--5
+[]\TU/TeXGyreTermesX(0)/b/n/9 Table 5: |SEGA paper versus code. \TU/TeXGyreTerm
+esX(0)/m/n/9 Our read-
+ []
+
+
+Underfull \hbox (badness 1584) in paragraph at lines 24--25
+[][] []\TU/TeXGyreTermesX(0)/b/n/10 The printed law is unbounded.[] \TU/TeXGyre
+TermesX(0)/m/n/10 With the
+ []
+
+[8]) (sec/related [9]) (sec/discussion) (sec/limitations) (sec/repro) [10]
+(main.bbl
+LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/it' will be
+(Font)              scaled to size 9.0pt on input line 11.
+Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;
++tnum;+lnum;mapping=tex-text;" at 9.0pt
+ -> TeXGyreTermesX-Italic.otf
+ [11
+
+] [12]) [13]
+\c@ttl@toc@app=\count343
+ (main.ptc) (sec/appendix (sec/appendix_figs
+File: figs/f4_qualitative.pdf Graphic file (type pdf)
+<use figs/f4_qualitative.pdf>
+ [14
+
+]
+File: figs/f5_checkpoint.pdf Graphic file (type pdf)
+<use figs/f5_checkpoint.pdf>
+
+[15]
+File: figs/f8_spectrum.pdf Graphic file (type pdf)
+<use figs/f8_spectrum.pdf>
+File: figs/f6_sega_code.pdf Graphic file (type pdf)
+<use figs/f6_sega_code.pdf>
+) [16] [17] (tables/tab_main.tex) (tables/tab_share.tex
+Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 7.99997pt
+ -> TeXGyreTermesX-Regular.otf
+Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;" at 
+8.00003pt
+ -> TeXGyreTermesX-Regular.otf
+LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(1)/m/n' will be
 (Font)              scaled to size 8.0pt on input line 11.
 Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05
 ;+tnum;+lnum;+subs;mapping=tex-text;" at 8.0pt
  -> TeXGyreTermesX-Regular.otf
 )
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 32.
-Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05
-;+tnum;+lnum;mapping=tex-text;" at 7.0pt
- -> TeXGyreTermesX-Regular.otf
- (tables/tab_means_full.tex
-Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 6.99997pt
- -> TeXGyreTermesX-Regular.otf
-Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;" at 
-7.00003pt
- -> TeXGyreTermesX-Regular.otf
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(1)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 10.
-Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05
-;+tnum;+lnum;+subs;mapping=tex-text;" at 7.0pt
- -> TeXGyreTermesX-Regular.otf
-) (tables/tab_deltas_full.tex)
-(tables/tab_octave.tex) [16
+(tables/tab_means_full.tex) (tables/tab_deltas_full.tex) (tables/tab_octave.tex
+) [18
 
-] [17] (tables/tab_seed1.tex) [18]
-(tables/tab_dev.tex
+] [19] (tables/tab_seed1.tex) [20] (tables/tab_dev.tex
 LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/it' will be
 (Font)              scaled to size 7.0pt on input line 5.
 Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;
 +tnum;+lnum;mapping=tex-text;" at 7.0pt
  -> TeXGyreTermesX-Italic.otf
-) (tables/tab_pilot.tex) (sec/appendix_impl
-Requested font "[lmmono10-regular]:" at 10.0pt
- -> lmmono10-regular
- [19] [20]
-[21]
+)
+(tables/tab_pilot.tex) (sec/appendix_impl [21] [22] [23]
 File: figs/f7_mechanism.pdf Graphic file (type pdf)
 <use figs/f7_mechanism.pdf>
- [22] [23] (sec/appendix_compute (tables/compute_notes)
-(tables/tab_compute.tex))) [24]) [25] (main.aux)
+ [24] [25]
+(sec/appendix_compute (tables/compute_notes) (tables/tab_compute.tex)))
+[26])
+\tf@ptc=\write4
+\openout4 = `main.ptc'.
+
+ [27] (main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: AE7D1E1D1217B0EA626F8B7227E46E8C;4693.
+(rerunfilecheck)             Checksum: 95E8935C078EA1435C92959FDB5F64D5;3449.
  )
-Output written on main.xdv (25 pages, 822444 bytes).
+Output written on main.xdv (27 pages, 943484 bytes).

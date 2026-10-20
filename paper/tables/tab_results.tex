@@ -1,0 +1,22 @@
+\begin{tabular}{@{}l rrrrrr@{}}
+\toprule
+Arm & \makecell[r]{Image-\\Reward$\uparrow$} & \makecell[r]{Pick-\\Score$\uparrow$} & \makecell[r]{CLIP\\score$\uparrow$} & \makecell[r]{MUSIQ\\full$\uparrow$} & \makecell[r]{MUSIQ\\crop$\uparrow$} & \makecell[r]{CLIP-IQA\\full$\uparrow$} \\
+\midrule
+\multicolumn{7}{@{}l}{\emph{Frequency baselines}} \\
+\ntk{} & \rcellW{0.596^{*}} & \rcellW{22.03^{*}} & \rcellW{27.15^{*}} & \rcellW{29.49^{*}} & \rcellW{39.63^{*}} & \rcellW{0.557^{*}} \\
+\ctxrow{\dype{}} & \ctxcell{\rcellW{1.026^{*}}} & \ctxcell{\rcellW{22.57^{*}}} & \ctxcell{\rcellW{28.76}} & \ctxcell{\rcellW{43.35}} & \ctxcell{\rcellB{\mathbf{60.30}^{*}}} & \ctxcell{\rcellB{\mathbf{0.632}^{*}}} \\
+\midrule
+\multicolumn{7}{@{}l}{\emph{\segaofficial{} and its decomposition control}} \\
+\rowcolor{papertint}\segaofficial{} & \refcell{1.190} & \refcell{\underline{23.05}} & \refcell{\underline{29.14}} & \refcell{\mathbf{45.23}} & \refcell{\underline{58.33}} & \refcell{0.603} \\
+\tempsb{} & \rcellT{\mathbf{1.216}} & \rcellT{\mathbf{23.08}} & \rcellT{\mathbf{29.15}} & \rcellW{43.14^{*}} & \rcellT{58.22} & \rcellW{0.594} \\
+\midrule
+\multicolumn{7}{@{}l}{\emph{Per-band laws (ours)}} \\
+\constancytm{} & \rcellT{\underline{1.208}} & \rcellT{23.01} & \rcellW{28.87} & \rcellW{42.19^{*}} & \rcellW{56.14^{*}} & \rcellW{0.578^{*}} \\
+\segactm{} & \rcellT{1.199} & \rcellW{22.98^{*}} & \rcellW{29.04} & \rcellT{\underline{45.02}} & \rcellW{57.20^{*}} & \rcellT{\underline{0.606}} \\
+\midrule
+\multicolumn{7}{@{}l}{\emph{Decomposition of \segaofficial's gain over \ntk{} (paired, $n=187$)}} \\
+Base\,+\,temp.\ gain & \dcellB{+0.620}{+0.525}{+0.724} & \dcellB{+1.05}{+0.92}{+1.18} & \dcellB{+2.01}{+1.57}{+2.48} & \dcellB{+13.65}{+12.05}{+15.28} & \dcellB{+18.59}{+16.72}{+20.63} & \dcellB{+0.037}{+0.021}{+0.053} \\
+Allocation gain & \dcellT{-0.026}{-0.070}{+0.016} & \dcellT{-0.03}{-0.09}{+0.03} & \dcellT{-0.02}{-0.23}{+0.19} & \dcellB{+2.09^{*}}{+0.96}{+3.25} & \dcellT{+0.11}{-0.51}{+0.71} & \dcellB{+0.009}{+0.001}{+0.018} \\
+Share of base\,+\,temp.\ & 104\% \tiny[97, 113] & 103\% \tiny[97, 109] & 101\% \tiny[90, 112] & 87\% \tiny[80, 94] & 99\% \tiny[96, 103] & 80\% \tiny[59, 98] \\
+\bottomrule
+\end{tabular}

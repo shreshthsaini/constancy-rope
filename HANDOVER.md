@@ -6,15 +6,51 @@ started this: `../research_reviews/sega_2605.22668_2026-10-14.md` (+ artifact ht
 
 ## Evidence strengthening (current, 2026-10-19 UTC)
 
-Last update: 2026-10-19T04:06:24+00:00. Active task confirms the finished findings paper.
+Last update: 2026-10-20T01:51:38+00:00. Active task confirms the finished findings paper.
 Read `.agent/STATE.md`, immutable `.agent/notes/prereg_strengthen.md` and
 `.agent/notes/strengthen/live.json` for current state and resume details.
-Preregistration frozen; E1 metadata/exclusions in progress. Generation queue code ready.
-165 existing seed1 outputs validated; no new generation queued yet.
-CR22 job1080046 last observed PENDING at04:00:51Z; next poll>=04:10:51Z.
-Next: Finalize fresh150 caption audit and refs, publish E1 then E2; begin Qwen only afterwards.
+CR22 PENDING at 2026-10-20T01:51:38+00:00. 315 pending, 0 running, 0 done, 0 failed, 0 missing. Preparation and the 82-test integration checks are complete. See queue_status.json and live.json for the current observation; final results and paper release depend on complete verified outputs.
+Next: Next scheduler query no earlier than 2026-10-20T02:01:38+00:00. Inspect new smoke/output/failure receipts. Release full Qwen only after a valid pass; evaluate complete blocks, merge shards and run the registered analyses. Sleep while the fleet is pending.
 Current session forbids SSH, submissions/cancellations, worker edits, scratch deletion and commits.
 All older entries below are historical and do not override the current task.
+
+## Gold rubric self-score (text agent)
+
+2026-10-19, build `paper/main.pdf` (not `paper/dist/`): 27 pages; Sections 1 to 8 and the Reproducibility
+statement on pages 1 to 10, references from page 11, appendix contents page 14. Clean build: no overfull boxes,
+no undefined references. Intro 721 words, 33 sentences, median 21, mean 21.8, max 32 (none over 35). Abstract
+200 words. 22 of 22 spot-checked macro values (shares, deltas, CIs, compute) match the compiled main text.
+Figure captions follow figs/CAPTIONS.md (figv3); table shading follows figs/PALETTE.md (only the SEGA (released)
+row or an ablation default, #E6F0F6). Scores: 0 below, 1 meets, 2 above. Figure-content items rely on the figure agent.
+
+| Item | Score | Note |
+| :-- | :-: | :-- |
+| Abstract 130-200 words, headline number, URL | 0 | 200 words and numbers; no public URL yet (release sentence instead) |
+| Hero under abstract, full width, panel-walking caption | 1 | |
+| Footnotes (at most two, administrative) | 1 | none |
+| Question by end of para 1; motivating float beside para 2 | 1 | Table 1 wraptable |
+| "We introduce" para, numbers in para 4, three "We" bullets | 1 | last bullet carries 104% [97, 113] |
+| Median sentence under 22, none over 35 | 1 | median 21, max 32 |
+| Method diagram with lettered panels and appendix zoom | 1 | Fig. 2 and Fig. E.1 |
+| Equations introduced by a clause, "where" line | 1 | |
+| Boxed side-by-side algorithms with Input/Output, appendix pointers | 1 | Algorithms 1-2, top of page 4 |
+| Setup run-ins with counts, steps, compute hours | 2 | adds a main-text cost table (Table 6) |
+| Main table: booktabs, arrows, shading, bold best, Key result | 2 | adds paired-verdict triangles and Holm stars |
+| Finding paragraphs with bold claims and numbers | 1 | quotes paired deltas with CIs rather than before/after pairs |
+| Ablation tables side by side, default shaded, appendix versions | 1 | Tables 3-4 |
+| Plots: palette, markers, value labels, shared legends, >= 6 pt | 1 | figure agent; not re-measured at print size here |
+| Qualitative grid, same prompt and seed, labeled rows | 1 | Fig. 5 |
+| Confounds named; limitations with concrete scope | 2 | eight-item main-text Limitations section |
+| Reproducibility statement mapping details to appendices | 2 | plus script-generated numbers and checklist (App. H) |
+| Appendix: contents, zoom, banded config table, expansions, prompts | 1 | samples are the first rows, labeled as such, not random |
+| Floats within one page, >= 3 wraps, <= 60% float pages | 1 | four wraps; page 6 is near the 60% limit |
+| Captions above tables, below figures, bold leads | 1 | |
+| Same colors across hero, plots, tables | 1 | |
+| No em dashes, no section symbol, no figure text under 6 pt | 1 | |
+
+Mean 25/22 = 1.14, below the 1.2 ship bar, with one 0 (no public URL until release). Below the bar or open:
+the URL; main-table finding paragraphs quote deltas rather than before/after values; page 6 float share
+(Table 2 plus the Figure 4 wrap) sits near 60%; Figure 4 prints before Figure 3 because the wrap is in-text.
 
 ## Paper status (2026-10-18, camera-ready pass)
 
@@ -174,3 +210,29 @@ Vista: compute only on compute nodes; login node only for sbatch/squeue/short ss
 Never pkill/killall; kill only exact PIDs you created. uv only. Never delete scratch data (move aside instead).
 No em dashes or section symbol in prose. Commits: author shreshthsaini, no Co-Authored-By/Claude trailers.
 Update `.agent/STATE.md` and this file after every meaningful step.
+
+## Operator log (Claude/Fable; Codex6 owns .agent/STATE.md during the campaign, so paper-side status lives here)
+- 2026-10-19 03:35: paper v2 camera-ready committed (3211453), paper/dist PDF + zip sent to user. Body 9 pages, 25 total.
+- 2026-10-19 04:00: user instruction: figures/diagrams/plots must follow the reference papers we cite (Toronto SEGA/AReA,
+  looped diffusion transformer paper, the "budget" paper, ByteDance, DeepMind), with minimal text inside figures. In progress:
+  Opus max design agent writes paper/figs/STYLE_REFERENCE.md and paper/figs/CRITIQUE_v2.md; then Codex implements the figure
+  changes; then Claude reviews every rendered page and sends v3. Memory rule saved: paper-figures-professional-bar.
+- Strengthening campaign: 315 tasks queued; fleets CR22/CR23/CR24 pending; Codex6 polls and will score + draft the paper
+  update; Claude verifies before any new dist is sent.
+- 2026-10-19 18:50: session model Opus 5.5. User: no idle GPUs/nodes, parallelize, finish fast; Opus and Fable in background.
+  Fleets: CR22 1080046 (gh 8n 24h, est 18:50), CR25 1082718 (gh 8n 12h), CR23 1080434 (gb 1n 12h), CR24 1080435 (gh 2n 8h),
+  all draining taskq (315 tasks). Event monitor: slurm/utilization_watch.sh (FLEET/FAILED/UNDERUSED/QUEUE_EMPTY/IDLE_OTHER).
+  Gold-standard bar: ~/.claude/skills/gold-standard-paper/SKILL.md (binding). Two Opus max agents running: figures agent owns
+  paper/figs (redesign to gold recipe, minimal text, PALETTE.md); text agent owns main.tex/sec/tables (abstract, intro,
+  algorithm pair, tables with Key result, wrapfigures, appendix TOC, rubric self-score here). Next: Fable rubric review, then
+  refresh paper/dist and send v3. Codex6 later adds confirmation results to the paper.
+- 2026-10-19 23:40: CR22 RUNNING since 21:26 (8 GH200): factorial 75_ nearly done (about 140 images per arm, configs verified:
+  ntk2_sref = ntk2 base + sref temp; sega_base_none = SEGA base, no temp; guidance 4.5, seed 0). Codex6 DIED: OpenAI Codex usage
+  quota exhausted until 2026-10-25 04:01; it never published the 90_ eval/IR tasks or the 70_/82_ Qwen tasks (queue holds only
+  generation). Opus max analyst agent now owns: publishing evals per block, analysis (scripts/strengthen_analysis.py,
+  eval_krea/strengthen/, .agent/notes/strengthen/RESULTS.md, STATUS.md), and drop-in paper files (sec/results_confirmation.tex,
+  tables/strengthen_tables.py, figs/strengthen/, paper/INTEGRATION.md). Figure and text Opus agents resumed after rate limits.
+- 2026-10-19 23:45: figures v3 committed (gold recipe; words inside figures: F1 17, F2 17, F3 29, F4 11, F5 16; palette in
+  figs/PALETTE.md; captions + LaTeX handoff in figs/CAPTIONS.md). Reviewed by Claude: pass. Text agent integrating the handoff.
+  10 idle GPU nodes in the user's other jobs; guest launch blocked by permission classifier; user can run
+  `bash slurm/launch_guests.sh` to use them.

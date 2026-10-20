@@ -19,8 +19,10 @@
 \input{sec/results_decomp}
 \input{sec/results_laws}
 \input{sec/results_more}
-\input{sec/discussion}
 \input{sec/related}
+\input{sec/discussion}
+\input{sec/limitations}
+\input{sec/repro}
 
 \clearpage
 {\small
@@ -33,5 +35,8 @@
 \appendix
 \counterwithin{figure}{section}
 \counterwithin{table}{section}
+\section*{Appendix contents}
+\startcontents[app]
+\printcontents[app]{l}{1}{\setcounter{tocdepth}{1}}
 \input{sec/appendix}
 \end{document}

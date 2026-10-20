@@ -1,10 +1,43 @@
 \subsection{Principled per-band laws do not beat \segaofficial}\label{sec:laws}
 
-\paragraph{Outcome}
-Neither law evaluated on the full held-out set improves on \segaofficial{} in any reward or image-quality metric (\cref{tab:main}, bottom block). \constancytm{} ties it on ImageReward and PickScore and is worse on CLIP (\hod{ctm}{clip}), full-frame MUSIQ (\hod{ctm}{musiq}), crop MUSIQ (\hod{ctm}{musiqc}), CLIP-IQA and the spectral error; its one gain is a lower tiling index (\hod{ctm}{tile}). It also loses to \tempsb, which shares its base and temperature and has no allocation: crop MUSIQ \hodci{ctmtsb}{musiqc} and full-frame MUSIQ \hod{ctmtsb}{musiq}, against small gains in both spectral errors (\hod{ctmtsb}{spec} and \hod{ctmtsb}{slope}). \segactm{} at $\eta=1$, the only variant to pass the campaign-2 dev gate, ties \segaofficial{} on ImageReward (\hodci{sctm}{ir}) and full-frame MUSIQ (\hodci{sctm}{musiq}) and loses on PickScore (\hodci{sctm}{pick}) and crop MUSIQ (\hodci{sctm}{musiqc}); its CLIP interval, \hoci{sctm}{clip}, ends just below zero. \aliastemp{} and \aliastemps{} failed the gate on ImageReward and were never run held out (\cref{tab:dev}); the original \constancy{} has only a partial held-out run (\cref{app:partial}). Four diagnostics, on dev prompts and on the logged gains of held-out runs, suggest possible explanations (\cref{fig:mechanism} in \cref{app:mech}). They do not identify causal mediators of image quality.
+\begin{table}[t]
+\begin{minipage}[t]{0.51\linewidth}
+\caption{\textbf{Per-band allocation ablation.} Paired held-out differences from \tempsb{} ($n=\N{ho@nprompts}$, seed 0) after adding \sega's allocation (shaded, the released default), the time-matched correction (\constancytm) or both (\segactm). Nominal 95\% intervals and triangles as in \cref{tab:results}; no Holm adjustment. Key result: only \sega's allocation raises full-frame MUSIQ without a crop MUSIQ loss.}
+\label{tab:alloc}
+\centering\scriptsize
+\setlength{\tabcolsep}{1.5pt}
+\input{tables/tab_alloc.tex}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.465\linewidth}
+\caption{\textbf{Seed-1 replication.} Paired differences from \segaofficial{} on held-out rows 8--62 ($n=\N{so@n@tsb}$) at seed 0 and seed 1, with nominal triangles. \Cref{tab:seed1} in \cref{app:seed1} expands the table to ten metrics with intervals; \N{so@agree} of its \N{so@cells} verdicts agree. Key result: every verdict shown agrees across seeds, including the full-frame MUSIQ loss of \tempsb.}
+\label{tab:seed1small}
+\centering\scriptsize
+\setlength{\tabcolsep}{2.6pt}
+\input{tables/tab_seed1_small.tex}
+\end{minipage}
+\end{table}
 
+\paragraph{Neither held-out law improves on \segaofficial}
+Neither law that ran on the full held-out set improves on \segaofficial{} in any reward or image-quality metric (\cref{tab:results}, middle block). \constancytm{} ties it on ImageReward and PickScore and is worse on CLIP (\hod{ctm}{clip}), full-frame MUSIQ (\hod{ctm}{musiq}), crop MUSIQ (\hod{ctm}{musiqc}), CLIP-IQA and the spectral error; its one gain is a lower tiling index (\hod{ctm}{tile}). \segactm{} at $\eta=1$, the only variant to pass the campaign-2 dev gate, ties \segaofficial{} on ImageReward (\hodci{sctm}{ir}) and full-frame MUSIQ (\hodci{sctm}{musiq}). It loses on PickScore (\hodci{sctm}{pick}) and crop MUSIQ (\hodci{sctm}{musiqc}), and its CLIP interval, \hoci{sctm}{clip}, ends just below zero. \aliastemp{} and \aliastemps{} failed the dev gate on ImageReward (\cref{tab:dev}).
 
-\paragraph{Diagnostic evidence}
-The late-profile visibility gate stays closed through most of sampling on the development prompts. A time-matched target activates the correction earlier, but its better spectral match accompanies lower MUSIQ against the matched \tempsb{} control. The released allocation is mostly a fixed tilt; its prompt-dependent remainder also contains each prompt's noise draw and only bounds content dependence. \segactm{} increases that remainder without a held-out quality gain.
+\paragraph{Against their own controls the corrections cost crop quality}
+\Cref{tab:alloc} adds each allocation to the same base and temperature. \constancytm{} loses to \tempsb{} on crop MUSIQ (\hodci{ctmtsb}{musiqc}) and full-frame MUSIQ (\hod{ctmtsb}{musiq}) while slightly improving both spectral errors (\hod{ctmtsb}{spec} and \hod{ctmtsb}{slope}). Adding the correction on top of \sega's allocation keeps most of its full-frame MUSIQ gain but still loses crop MUSIQ (\hod{sctmtsb}{musiqc}).
 
-Three development probes find weak, prompt-dependent, cross-band responses. A two-prompt local linear model barely improves on no change. These probes question band-local responses without establishing a universal limit on per-band control (\cref{app:mech}).
+\paragraph{Seed 1 repeats most verdicts}
+On the \N{so@n@tsb} seed-1 prompts, \tempsb{} again ties \segaofficial{} on ImageReward, PickScore and CLIP and loses on full-frame MUSIQ (\sod{tsb}{musiq} \soci{tsb}{musiq}). Of the \N{so@cells} nominal verdicts for \tempsb{} and \constancytm, \N{so@agree} agree with seed~0 on the same prompts (\cref{tab:seed1small}).
+% STRENGTHEN SEEDS: Insert complete seeds0/1/2 prompt-mean replication and seeds1/2
+% sensitivity; keep prompts, not prompt-seed images, as the bootstrap unit.
+% STRENGTHEN FRESH: Insert complete fresh150 confirmation and registered Holm outcomes.
+
+\paragraph{Diagnostics suggest explanations}
+Four diagnostics on dev prompts and on logged held-out gains suggest explanations but identify no causal mediator of image quality (\cref{fig:mechanism}, \cref{app:mech}). The late-profile visibility gate stays closed through most of sampling; a time-matched target activates the correction earlier, but its better spectral match accompanies lower MUSIQ against \tempsb. The released allocation is mostly a fixed tilt whose prompt-dependent remainder, which includes each prompt's noise draw, only bounds content dependence; \segactm{} enlarges that remainder without a held-out quality gain. Three dev probes find weak, prompt-dependent, cross-band responses, and a two-prompt local linear model barely improves on no change; these probes question band-local control without establishing a universal limit on it.
+
+\paragraph{Native crops show the differences}
+\Cref{fig:qual_main} shows native crops of all six arms on three held-out prompts. The crops are illustrative, because compositions differ between arms.
+
+\begin{figure}[t]
+\centering
+\figorplaceholder[\linewidth]{figs/f4_qualitative_main.pdf}{3.26in}
+\caption{\textbf{Native crops show what thumbnails hide.} Held-out rows 8, 9 and 10 (left to right), the first three held-out prompts, were fixed before any output was viewed; seed 0, each Lanczos-reduced full frame beside its unaltered 384-pixel crop (red box). During review, we chose one shared crop location per row on a fixed grid by maximizing the minimum Laplacian energy across all six arms, each normalized by its 90th percentile over candidate locations. This output-dependent rule favors detail present in every arm and selects no winning method; differing compositions remain a limitation. Full prompts are in \cref{fig:qual}.}
+\label{fig:qual_main}
+\end{figure}

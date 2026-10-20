@@ -19,7 +19,7 @@ Statistics. Means and paired deltas use the percentile bootstrap of scripts/held
 Intervals are per metric and not adjusted for multiple comparisons. Stars in the two held-out
 delta tables mark retrospective Holm-adjusted centered-bootstrap tests over that table.
 
-Outputs (paper/tables/): tab_main.tex, tab_share.tex, tab_means_full.tex, tab_deltas_full.tex,
+Outputs (paper/tables/): tab_results.tex, tab_alloc.tex, tab_seed1_small.tex (main text), tab_main.tex, tab_share.tex, tab_means_full.tex, tab_deltas_full.tex,
 tab_seed1.tex, tab_pilot.tex, tab_dev.tex, tab_octave.tex, num_results.tex.
 """
 import json
@@ -67,6 +67,7 @@ HOH = {"sega_official": r"\segaofficialH", "ntk2": r"\ntkH", "temp_only_sbase": 
 macros = []          # (name, value) for num_results.tex
 log = []             # stdout summary
 HOLM = {}
+STORE = {}          # computed intervals reused by the main-text tables
 
 
 def boot(x, n=2000, seed=0):
@@ -289,6 +290,8 @@ def table_share(d):
         register("ho", "basetemp", k, *g_bt, n)
         register("ho", "alloc", k, *g_al, n)
         register("ho", "total", k, *boot(c - a), n)
+        STORE[("basetemp", k)], STORE[("alloc", k)] = g_bt, g_al
+        STORE[("share", k)] = share_txt
     L += [r"\bottomrule", r"\end{tabular}"]
     (OUT / "tab_share.tex").write_text("\n".join(L) + "\n")
     mac("sh@n", str(n))
@@ -332,6 +335,7 @@ def contrasts(d):
         for k in METRICS:
             mu, lo, hi, n = paired(d, a, b, k)
             register("ho", key, k, mu, lo, hi, n)
+            STORE[(key, k)] = (mu, lo, hi)
     # SEGA minus NTK on exactly the prompts where Constancy exists (n = 41)
     sub = d[d.prompt_id.isin(set(d[d.method == "constancy"].prompt_id))]
     for k in METRICS:
@@ -409,6 +413,7 @@ def seed1_tables(order, d0):
             out[("s0", m, k)] = paired(s0, m, "sega_official", k)
             register("so", names[m], k, *out[("s1", m, k)])
             register("hs", names[m], k, *out[("s0", m, k)])
+            STORE[("so", names[m], k)], STORE[("hs", names[m], k)] = out[("s1", m, k)], out[("s0", m, k)]
     L = [r"\begin{tabular}{@{}l rr rr@{}}", r"\toprule",
          r" & \multicolumn{2}{c}{\tempsb{} $-$ \segaofficial} & \multicolumn{2}{c}{\constancytm{} $-$ \segaofficial} \\",
          r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}",
@@ -593,6 +598,94 @@ def shares_all(d):
         mac(f"shx@n@{key}", str(n))
 
 
+
+# ----------------------------------------------------------------------------------------------
+# Main-text tables (gold layout): shaded study arms, bold best, underlined second, gray context rows.
+MAIN_COLS = ["imagereward", "pickscore", "clip", "musiq", "musiq_crop1024", "clipiqa"]
+
+
+def _rank_marks(vals, metric):
+    """Bold for the best displayed mean, underline for the second (ties share a mark)."""
+    shown = {m: float(num(v, PREC[metric])) for m, v in vals.items()}
+    order = sorted(set(shown.values()), reverse=metric not in LOWER)
+    return {m: ("b" if v == order[0] else "u" if len(order) > 1 and v == order[1] else "")
+            for m, v in shown.items()}
+
+
+def table_results(res, means):
+    """Table 2: held-out means of every full-n arm plus the decomposition of SEGA's gain over NTK."""
+    groups = [("Frequency baselines", ["ntk2", "dype"]),
+              ("\\segaofficial{} and its decomposition control", ["sega_official", "temp_only_sbase"]),
+              ("Per-band laws (ours)", ["constancy_tm_sbase", "sega_ctm_v2"])]
+    shaded, context = {"sega_official"}, {"dype"}   # figs/PALETTE.md: shade only the reference row
+    arms = [m for _, ms in groups for m in ms]
+    marks = {c: _rank_marks({m: means[(m, c)][0] for m in arms}, c) for c in MAIN_COLS}
+    nc = len(MAIN_COLS) + 1
+    L = [r"\begin{tabular}{@{}l " + "r" * len(MAIN_COLS) + r"@{}}", r"\toprule",
+         r"Arm & " + " & ".join(HEAD[c] for c in MAIN_COLS) + r" \\", r"\midrule"]
+    for gi, (title, ms) in enumerate(groups):
+        L.append(r"\multicolumn{%d}{@{}l}{\emph{%s}} \\" % (nc, title))
+        for m in ms:
+            cells = []
+            for c in MAIN_COLS:
+                v = num(means[(m, c)][0], PREC[c])
+                v = {"b": r"\mathbf{%s}" % v, "u": r"\underline{%s}" % v, "": v}[marks[c][m]]
+                if m == "sega_official":
+                    cells.append(r"\refcell{%s}" % v)
+                    continue
+                mu, lo, hi, _ = res[(m, c)]
+                star = r"^{*}" if HOLM[("historical_condensed30", m, c)] else ""
+                cells.append(r"\rcell%s{%s%s}" % (verdict(c, mu, lo, hi).upper(), v, star))
+            row = HO[m][1] + "{} & " + " & ".join(cells) + r" \\"
+            if m in context:
+                row = r"\ctxrow{" + HO[m][1] + "{}} & " + " & ".join(r"\ctxcell{%s}" % x for x in cells) + r" \\"
+            L.append((r"\rowcolor{papertint}" if m in shaded else "") + row)
+        L.append(r"\midrule")
+    L.append(r"\multicolumn{%d}{@{}l}{\emph{Decomposition of \segaofficial's gain over \ntk{} (paired, $n=%d$)}} \\"
+             % (nc, means[("sega_official", MAIN_COLS[0])][3]))
+    for key, lab in [("basetemp", r"Base\,+\,temp.\ gain"), ("alloc", r"Allocation gain")]:
+        cells = []
+        for c in MAIN_COLS:
+            star = key == "alloc" and HOLM[("historical_condensed30", "temp_only_sbase", c)]
+            cells.append(dcell(c, *STORE[(key, c)], holm=star))
+        L.append(lab + " & " + " & ".join(cells) + r" \\")
+    L.append(r"Share of base\,+\,temp.\ & " + " & ".join(STORE[("share", c)] for c in MAIN_COLS) + r" \\")
+    L += [r"\bottomrule", r"\end{tabular}"]
+    (OUT / "tab_results.tex").write_text("\n".join(L) + "\n")
+
+
+ABL_ROWS = ["imagereward", "pickscore", "musiq", "musiq_crop1024", "spectrum_log_rmse"]
+
+
+def table_alloc(res):
+    """Table 3: three per-band allocations added to the same released base and temperature.
+    SEGA's allocation is the negated held-out contrast tsb - SEGA (same resamples, exact negation)."""
+    L = [r"\begin{tabular}{@{}l >{\columncolor{papertint}}r rr@{}}", r"\toprule",
+         r"Metric & \hdr{\sega\\alloc.} & \hdr{TM\\corr.} & \hdr{\sega\\+\,TM} \\", r"\midrule"]
+    for k in ABL_ROWS:
+        mu, lo, hi, _ = res[("temp_only_sbase", k)]
+        cells = [dcell(k, -mu, -hi, -lo)] + [dcell(k, *STORE[(key, k)]) for key in ("ctmtsb", "sctmtsb")]
+        L.append(LABEL[k] + " & " + " & ".join(cells) + r" \\")
+    L += [r"\bottomrule", r"\end{tabular}"]
+    (OUT / "tab_alloc.tex").write_text("\n".join(L) + "\n")
+
+
+def table_seed1_small():
+    """Table 4: seed-1 replication, point estimates with nominal verdict triangles."""
+    L = [r"\begin{tabular}{@{}l rr rr@{}}", r"\toprule",
+         r" & \multicolumn{2}{c}{\tempsb} & \multicolumn{2}{c}{\constancytm} \\",
+         r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}", r"Metric & seed 0 & seed 1 & seed 0 & seed 1 \\", r"\midrule"]
+    for k in ABL_ROWS:
+        cells = []
+        for m in ("tsb", "ctm"):
+            for s in ("hs", "so"):
+                mu, lo, hi = STORE[(s, m, k)][:3]
+                cells.append(r"\rcell%s{%s}" % (verdict(k, mu, lo, hi).upper(), num(mu, PREC[k], True)))
+        L.append(LABEL[k] + " & " + " & ".join(cells) + r" \\")
+    L += [r"\bottomrule", r"\end{tabular}"]
+    (OUT / "tab_seed1_small.tex").write_text("\n".join(L) + "\n")
+
+
 def write_macros():
     L = ["% Generated by paper/tables/make_tables.py. Do not edit by hand.",
          r"\makeatletter"]
@@ -612,6 +705,9 @@ def main():
     shares_all(d)
     contrasts(d)
     seed1_tables(order, d)
+    table_results(res, means)
+    table_alloc(res)
+    table_seed1_small()
     pilot_table(order)
     dev_table(order)
     octave_table(d)

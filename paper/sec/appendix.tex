@@ -3,9 +3,11 @@
 
 \section{Full held-out results}\label{app:full}
 
+This appendix expands \cref{tab:results}: \cref{tab:main} gives its paired differences with intervals, \cref{tab:share} the decomposition with means, \cref{tab:means_full,tab:deltas_full} all ten metrics and \cref{tab:octave} the spectral bands.
+
 \begin{table}[!htbp]
 \centering
-\caption{\textbf{Base and temperature carry most of \sega's gain, and no per-band law beats it.} Held-out paired differences against \segaofficial{} (rows 8--194, seed 0, $n=\N{ho@nprompts}$); the first row gives the absolute means of \segaofficial. Each cell shows the mean difference and its nominal 95\% bootstrap interval; \better{}/\worse{} mark intervals that exclude zero in the better or worse direction; unmarked cells are ties. A star marks a Holm-adjusted $p\le0.05$ across this table's paired comparisons, using approximate centered-bootstrap tests. \Cref{tab:deltas_full} has all ten metrics and a separate Holm family.}
+\caption{\textbf{Paired held-out differences (expands \cref{tab:results}).} Held-out paired differences against \segaofficial{} (rows 8--194, seed 0, $n=\N{ho@nprompts}$); the first row gives the absolute means of \segaofficial. Each cell shows the mean difference and its nominal 95\% bootstrap interval; \better{}/\worse{} mark intervals that exclude zero in the better or worse direction; unmarked cells are ties. A star marks a Holm-adjusted $p\le0.05$ across this table's paired comparisons, using approximate centered-bootstrap tests. \Cref{tab:deltas_full} has all ten metrics and a separate Holm family. Key result: base and temperature carry most of \sega's gain, and no per-band law beats it.}
 \label{tab:main}
 \footnotesize
 \setlength{\tabcolsep}{3.1pt}
@@ -55,7 +57,7 @@ In band 7, \ntk{} falls below the reference profile (log-power error \N{oct@ntk@
 \FloatBarrier
 \section{Seed-1 replication}\label{app:seed1}
 
-\Cref{tab:seed1} repeats the comparison for \tempsb{} and \constancytm{} on held-out rows 8--62 with a second seed, next to seed~0 on the same \N{so@n@tsb} prompts. One of the verdicts that changes, crop CLIP-IQA for \tempsb{} at seed 1, rests on an interval that excludes zero by less than $10^{-4}$, so the agreement count can move by one under another bootstrap seed. Every verdict that changes moves between a tie and a one-sided verdict. Spectral log-RMSE differences grow at seed 1 (\tempsb: \sod{tsb}{spec} against \hsd{tsb}{spec} at seed 0 on the same prompts; \constancytm: \sod{ctm}{spec} against \hsd{ctm}{spec}).
+This appendix expands \cref{tab:seed1small} to all ten metrics with intervals. \Cref{tab:seed1} repeats the comparison for \tempsb{} and \constancytm{} on held-out rows 8--62 with a second seed, next to seed~0 on the same \N{so@n@tsb} prompts. One of the verdicts that changes, crop CLIP-IQA for \tempsb{} at seed 1, rests on an interval that excludes zero by less than $10^{-4}$, so the agreement count can move by one under another bootstrap seed. Every verdict that changes moves between a tie and a one-sided verdict. Spectral log-RMSE differences grow at seed 1 (\tempsb: \sod{tsb}{spec} against \hsd{tsb}{spec} at seed 0 on the same prompts; \constancytm: \sod{ctm}{spec} against \hsd{ctm}{spec}).
 
 \begin{table}[!htbp]
 \centering
@@ -68,7 +70,7 @@ In band 7, \ntk{} falls below the reference profile (log-power error \N{oct@ntk@
 
 \section{Partial and dev-only runs (not held-out results)}\label{app:partial}
 
-Nothing in this appendix is a held-out result of the main protocol. The first subsection reports a held-out run that covers only part of the held-out set and started before the protocol was fixed; the other two report dev-prompt selection evidence and a descriptive pilot.
+This appendix expands \cref{sec:protocol,sec:papercode} with the runs behind the dev gate and the pilot. Nothing in it is a held-out result of the main protocol. The first subsection reports a held-out run that covers only part of the held-out set and started before the protocol was fixed; the other two report dev-prompt selection evidence and a descriptive pilot.
 
 \subsection{Partial held-out run of \constancy}
 
@@ -108,6 +110,8 @@ In an eight-prompt pilot on the dev prompts, which is descriptive only, our impl
 
 \FloatBarrier
 \section{Reproducibility checklist}\label{app:repro}
+
+This appendix expands the reproducibility statement of the main text.
 \begin{itemize}
 \item \textbf{Numbers.} \texttt{paper/tables/make\_tables.py} recomputes every held-out paired difference from the archived per-prompt scores, checks it against the registered analysis output (largest absolute difference below $10^{-15}$), and writes every table and every number cited in the text. \texttt{compute\_table.py} and \texttt{mechanism\_numbers.py} do the same for timings and mechanism statistics. Scratch inputs are snapshotted next to the scripts.
 \item \textbf{Protocol.} Dev rows 0--7 and held-out rows 8--194 of the \afk{} evaluation captions; seed 0; seed-1 replication on rows 8--62; selection gate and its outcomes in \cref{app:dev}.

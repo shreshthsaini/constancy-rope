@@ -45,7 +45,7 @@
   pdfauthor={Shreshth Saini}}
 
 % Floats.
-\renewcommand{\topfraction}{0.9}
+\renewcommand{\topfraction}{0.62}
 \renewcommand{\bottomfraction}{0.6}
 \renewcommand{\textfraction}{0.1}
 \renewcommand{\floatpagefraction}{0.8}
@@ -74,3 +74,26 @@
   {\endlist\vspace{2pt}}
 \makeatother
 \pagestyle{plain}
+
+% ---------------------------------------------------------------------------------------------
+% Gold-standard layout additions (text agent, 2026-10-19): wrapped floats, shaded table rows,
+% boxed side-by-side algorithms with syntax colours, appendix table of contents.
+\usepackage{colortbl}
+\usepackage{wrapfig}
+\usepackage{pifont}
+\usepackage{listings}
+\usepackage{titletoc}
+\setlength{\columnsep}{12pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\DeclareCaptionType[fileext=loa,placement={!t}]{algorithm}[Algorithm][List of Algorithms]
+\captionsetup[algorithm]{font=small,labelfont=bf,labelsep=colon,skip=3pt,justification=raggedright,singlelinecheck=false}
+\captionsetup[table]{position=top,skip=4pt}
+\definecolor{codekw}{HTML}{0068A8}   % keywords: method hue (figs/PALETTE.md)
+\definecolor{codefn}{HTML}{C878A0}   % functions (figs/PALETTE.md handoff)
+\definecolor{codecm}{HTML}{009870}   % comments
+\lstdefinestyle{gold}{language=Python,basicstyle=\ttfamily\fontsize{6.9}{8.3}\selectfont,
+  keywordstyle=\color{codekw}\bfseries,commentstyle=\color{codecm}\itshape,
+  emphstyle=\color{codefn},columns=fullflexible,keepspaces=true,showstringspaces=false,
+  aboveskip=1pt,belowskip=0pt,xleftmargin=0pt,escapeinside={(*@}{@*)},
+  morekeywords={None,in,for,if,return},upquote=true,literate={-}{-}1 {**}{{**}}2}
+\newcommand{\algrule}[1][0.8pt]{\par\noindent\rule{\linewidth}{#1}\par}

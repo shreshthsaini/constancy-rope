@@ -1,5 +1,55 @@
 \section{Implementation details}\label{app:impl}
 
+This appendix expands \cref{sec:methods,sec:protocol}: \cref{tab:methods} expands \cref{tab:knobs}, the paragraphs below give the pipeline, the MUSIQ input, source versions and every arm's formula behind \cref{alg:sega,alg:ctm}, and \cref{app:laws} gives the per-band laws.
+
+\begin{table}[!htbp]
+\centering
+\caption{\textbf{Arms, their knobs and sample sizes (expands \cref{tab:knobs}).} Temperature is the logit gain at $4096^2$; t/x: varies with the noise level / with the image. Held-out arms ran on rows 8--194, the pilot and dev arms only on the eight dev prompts. The shaded row is the reference, \segaofficial. Key result: \tempsb{} matches \segaofficial{} in base and temperature and drops only the per-band gain.}
+\label{tab:methods}
+\footnotesize
+\setlength{\tabcolsep}{2.6pt}
+\begin{tabular}{@{}l l c c c l@{}}
+\toprule
+Arm & Frequency base & Temperature & Per-band gain & t/x & $n$ \\
+\midrule
+\ntk & $\theta\,s^{2D/(D-2)}$ & none & none & no / no & \N{ho@nprompts} \\
+\dype & PI/NTK ramps in $\sigma$ & $\N{c@dypegain}$ (spatial) & none & yes / no & \N{ho@nprompts} \\
+\rowcolor{papertint}\segaofficial & $\theta\,s^{2D/(D-2)}/(1{+}0.1\ln s)$ & $s^{0.16}=\N{c@segatemp}$ & sensor, $\ge1$ & yes / yes & \N{ho@nprompts} \\
+\segapaper & $\theta\,s^{2D/(D-2)}$ & $s^{0.16}$ & sensor, unbounded & yes / yes & 8 (pilot) \\
+\tempsb & as \segaofficial & $s^{0.16}$ on all dims & none & no / no & \N{ho@nprompts} \\
+\constancy & as \ntk & $\tau_N=\N{c@taulogn}$ & gated, late target & yes / yes & \hon{cons} (partial) \\
+\constancytm & as \segaofficial & $s^{0.16}$ & gated, time-matched & yes / yes & \N{ho@nprompts} \\
+\aliastemp & as \segaofficial & none & alias count, static & no / no & 8 (dev) \\
+\segactm & as \segaofficial & $s^{0.16}$ & \sega{} $\times$ time-matched & yes / yes & \N{ho@nprompts} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{\textbf{Configuration shared by every arm.} Gray bands group model, sampling and evaluation settings from the pipeline description below; \cref{tab:methods} lists what differs between arms. Key result: the arms differ only in rotary frequencies and gains.}
+\label{tab:config}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}l l@{}}
+\toprule
+\rowcolor{black!7}\multicolumn{2}{@{}l}{\textit{Model}} \\
+Transformer & \krea{}, 19 double-stream and 38 single-stream blocks \\
+Attention & 24 heads of dimension 128; rotary blocks of 16, 56 and 56 dimensions \\
+Text encoders and autoencoder & T5 (512 tokens) and CLIP; \fluxdev{} autoencoder with tiled decoding \\
+\rowcolor{black!7}\multicolumn{2}{@{}l}{\textit{Sampling}} \\
+Resolution & $4096\times4096$, a $\N{c@tokside}^2$ token grid \\
+Sampler & \N{c@steps} Euler flow-matching steps, flow shift $\mu=\N{c@muofficial}$, distilled guidance 4.5 \\
+Precision and batch & bfloat16, batch size one, per-prompt CPU seed \\
+\rowcolor{black!7}\multicolumn{2}{@{}l}{\textit{Evaluation}} \\
+Prompts & \afk{} rows 0--7 (dev) and 8--194 (held-out, $n=\N{ho@nprompts}$) \\
+Seeds & 0 for every arm; 1 on rows 8--62 for three arms \\
+Statistics & paired percentile bootstrap, 2,000 resamples, generator seed 0 \\
+Software & diffusers 0.39, PyTorch 2.11, pyiqa 0.1.16 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \paragraph{Pipeline}
 The \krea{} transformer, loaded through an environment override (\texttt{CROPE\_\allowbreak TRANSFORMER}), runs inside the \fluxdev{} pipeline (T5 and CLIP text encoders with 512 T5 tokens, autoencoder with tiled decoding at $4096^2$), diffusers 0.39~\citep{vonplaten2022diffusers}, PyTorch 2.11, bfloat16, batch size one, a per-prompt CPU seed, \N{c@steps} Euler steps and distilled guidance 4.5. The transformer has 19 double-stream and 38 single-stream blocks with 24 heads of dimension 128, and normalizes q and k before the rotation. Every arm multiplies q and k of every token in every block by one gain vector after the rotation; the vector is shared by blocks and heads and recomputed once per model call. The scheduler patch that holds $\mu=\N{c@muofficial}$ is applied before any configuration is recorded. The per-image JSON records hard-code the base model name and an attention label; the loaded transformer comes from the task scripts and the attention policy from the code revision (\cref{sec:pitfalls,app:compute}).
 
@@ -7,27 +57,8 @@ The \krea{} transformer, loaded through an environment override (\texttt{CROPE\_
 We use pyiqa 0.1.16's KonIQ10k MUSIQ model. The project passes RGB float32 values in $[0,1]$ without resizing; MUSIQ normalizes to $[-1,1]$ and combines the native image with aspect-preserving 224- and 384-pixel views, resized by bicubic interpolation with \texttt{align\_corners=False} and \texttt{antialias=False}. Each scale is split into $32\times32$ patches at stride 32, with SAME padding where needed. The native setting \texttt{max\_seq\_len\_from\_original\_res=-1} retains all patches: a $4096^2$ frame contributes 16,384 native patches, plus 49 and 144 resized-view patches, for 16,577 before the class token. A $1024^2$ crop contributes 1,217. Neither native square grid needs padding. The spatial embedding's $10\times10$ hash grid does not downsample the image. We verified these counts by executing the installed preprocessor without loading model weights. Crop MUSIQ averages four separately scored, fixed random $1024^2$ crops shared across methods. Full-frame MUSIQ is thus a multiscale quality score that includes every native pixel, not a direct sharpness measurement.
 
 \paragraph{Source versions}
-Our \sega{} comparison uses \href{https://github.com/rajabi2001/sega/tree/ddaab08552c7b7ceba2ebd8f579a0f65dee90b5e}{released commit \texttt{ddaab08552c7}}. The allocation is in \texttt{flux\_sega/transformer\_flux.py}, lines 103--154; projected-feature sensing follows the input projection in the same file. Our printed-law implementation follows Section 4.1 and equations (3)--(7) of \citet{sega2026}, with the strengthened base from equation (9) in its Appendix A.2.2. The six-row comparison in \cref{tab:papercode} records our interpretation, including how the unspecified index axis and latent input are implemented. We did not obtain confirmation of that interpretation from the authors. Our \dype{} port and official-code diagnostic use \href{https://github.com/guyyariv/DyPE/tree/436fe612fb7695fa2d5dc32d63390c048ba6033c}{commit \texttt{436fe612fb76}}.
+Our \sega{} comparison uses \href{https://github.com/rajabi2001/sega/tree/ddaab08552c7b7ceba2ebd8f579a0f65dee90b5e}{released commit \texttt{ddaab08552c7}}. The allocation is in \texttt{flux\_sega/transformer\_flux.py}, lines 103--154; projected-feature sensing follows the input projection in the same file. Our printed-law implementation follows Section 4.1 and equations (3)--(7) of \citet{sega2026}, with the strengthened base from equation (9) in its Appendix A.2.2. The six-row comparison in \cref{tab:papercode} (\cref{sec:papercode}) records our interpretation, including how the unspecified index axis and latent input are implemented. We did not obtain confirmation of that interpretation from the authors. Our \dype{} port and official-code diagnostic use \href{https://github.com/guyyariv/DyPE/tree/436fe612fb7695fa2d5dc32d63390c048ba6033c}{commit \texttt{436fe612fb76}}.
 
-\begin{table}[!htbp]
-\centering
-\caption{\textbf{Our reading of \sega's printed formulation differs from the release at each of the six stages compared.} Released revision \texttt{ddaab08552c7}; source locations, equation numbers and interpretation limits are in \cref{app:impl}. Here $s$ is the scale per side and $D=56$.}
-\label{tab:papercode}
-\footnotesize
-\setlength{\tabcolsep}{4pt}
-\begin{tabularx}{\linewidth}{@{}l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
-\toprule
-Stage & Printed equations & Released code \\
-\midrule
-Sensor input & channel mean of the latent & channel mean of the projected input features \\
-Pair-to-bin map & physical frequency, clipped & rank of log period \\
-Allocation & $m_{\mathrm{ref}}(1-\varsigma u)$; \newline $u=\tanh z-\overline{\tanh z}$ & $m_{\mathrm{ref}}(1-0.15\,\varsigma c)$, clamped at 1; \newline $c=\tanh(1.5z)-\overline{\tanh(1.5z)}$ \\
-Bounds & none & gains clamped at 1 \\
-Index axis & $m_{\mathrm{ref}}$ & 1 \\
-Frequency base & $\theta s^{2D/(D-2)}$ per axis & $\theta s^{2D/(D-2)}/(1+0.1\ln s)$, \newline longest side \\
-\bottomrule
-\end{tabularx}
-\end{table}
 
 \paragraph{Printed \sega{} equations}
 \sega~\citep{sega2026} reads the spectrum of its input at every model call and sets per-pair gains around a reference gain $m_{\mathrm{ref}}=s^{0.08}$. In the printed equations, the energy $E_a$ of the channel-mean latent at pair $j$'s frequency bin is standardized across pairs, $z_{a,j}$, and
@@ -35,7 +66,7 @@ Frequency base & $\theta s^{2D/(D-2)}$ per axis & $\theta s^{2D/(D-2)}/(1+0.1\ln
 \begin{aligned}
 m_{a,j}&=m_{\mathrm{ref}}\bigl(1-\varsigma\,u_{a,j}\bigr),
 &\varsigma&=1-\mathrm{SF}(E_{\mathrm{iso}})^{1.5},\\
-u_{a,j}&=\tanh z_{a,j}-\operatorname{mean}_i\tanh z_{a,i}.
+u_{a,j}&=\tanh z_{a,j}-\operatorname{mean}_i\tanh z_{a,i},
 \end{aligned}
 \label{eq:sega}
 \end{equation}
@@ -46,13 +77,20 @@ For spatial axis $a$ with scale $s$ and $\kappa=\sigma^2$, let $b(r)=D\ln\bigl(6
 \[
 \begin{aligned}
 \omega^{\mathrm{mix}}_j&=\tfrac{\omega_j}{s}\bigl(1-\mu_{1.25\kappa,0.75\kappa}(j)\bigr)+\omega^{\mathrm{ntk}}_j\,\mu_{1.25\kappa,0.75\kappa}(j),\\
-\omega'_j&=\omega^{\mathrm{mix}}_j\bigl(1-\mu_{16\kappa,2\kappa}(j)\bigr)+\omega_j\,\mu_{16\kappa,2\kappa}(j).
+\omega'_j&=\omega^{\mathrm{mix}}_j\bigl(1-\mu_{16\kappa,2\kappa}(j)\bigr)+\omega_j\,\mu_{16\kappa,2\kappa}(j),
 \end{aligned}
 \]
-with $\omega^{\mathrm{ntk}}$ the NTK-aware frequencies, and the spatial cos/sin amplitude is $1+0.1\ln s$, as in the official code at the inspected revision.
+where $\omega^{\mathrm{ntk}}$ are the NTK-aware frequencies; the spatial cos/sin amplitude is $1+0.1\ln s$, as in the official code at the inspected revision.
 
 \paragraph{\segaofficial}
 The sensor takes the channel mean $Z$ of the projected input features on the token grid. The axis profile $E_a$ is the one-dimensional FFT power along axis $a$ averaged over the other axis and rebinned into $K_a=\max(\lfloor L_a/2\rfloor,8)$ bins. Pair $j$ reads $\ell_j=\ln E_a\bigl((1-\rho_j)(K_a-1)\bigr)$ by linear interpolation, with $\rho_j=j/(D/2-1)$ the normalized rank of its log period; $z_j$ standardizes $\ell_j$ with the sample standard deviation; and $m_{a,j}=\max\bigl(1,m_{\mathrm{ref}}[1-0.15\,\varsigma\,c_j]\bigr)$ with $c_j=\tanh(1.5z_j)-\operatorname{mean}_i\tanh(1.5z_i)$, $m_{\mathrm{ref}}=\max(s,1)^{0.08}$ and $\varsigma=1-\mathrm{SF}^{1.5}$ from the radially binned two-dimensional power. The index axis keeps gain 1.
+
+\begin{figure}[!htbp]
+\centering
+\figorplaceholder[\linewidth]{figs/fA_method_zoom.pdf}{3.5in}
+\caption{\textbf{Both gain controllers at component level.} (a)~The released \sega{} sensor of \cref{fig:method}b reads the channel mean of the projected input features, maps the axis profile to rotary pairs by rank and scales its tilt by the radial flatness. (b)~\constancytm{} gates a bounded log-power correction toward the time-matched native target and adds it to the \sega{} temperature. White boxes are inputs and outputs; the equations repeat \cref{alg:sega,alg:ctm} and \cref{app:impl}.}
+\label{fig:method_zoom}
+\end{figure}
 
 \subsection{Per-band control laws}\label{app:laws}
 
@@ -73,7 +111,7 @@ The same law with a time-matched target: $P^{\mathrm{nat}}(f,\sigma)$ is the cle
 \aliastemp{} applies the log-$N$ temperature pair by pair, taking as a pair's key pool the number of keys it can resolve on the grid (\cref{app:impl}); \aliastemps{} shifts all its log gains by one constant to match \sega's reference gain in geometric mean. \segactm{} multiplies the allocation of \segaofficial{} by the time-matched correction, $\ln g=\ln g^{\textsc{sega}}+\Delta$, with $\eta\in\{0.5,1\}$ on the dev set and $\eta=1$ held out.
 
 \paragraph{Band energies and calibration}
-Band energies are densities: with an orthonormal FFT, $P(k)=\sum_c|\mathcal F(x_c-\bar x_c)(k)|^2$, $E_a(k)$ averages $P$ over the other axis, and $E_a[b]$ averages over half-octave bands $b$ (13 bands at 256 tokens per side). Unit white noise gives $E_a[b]=C=64$ in expectation, so the noise floor at level $\sigma$ is $\sigma^2C$. The gate uses the current input; the error uses the clean estimate of the previous call, $\hat x=x_{n-1}-\sigma_{n-1}v_\theta(x_{n-1})$. Corrections are interpolated in $\log f$ between band centres and applied to pairs with frequency above one cycle per grid, which at $4096^2$ are pairs 0 to 8 of each axis. Step 0 has no clean estimate and uses the temperature alone, and $|\ln g-\ln\tau|\le\eta$ always. The native targets come from $1024^2$ samples of the same model on 16 Pick-a-Pic prompts~\citep{kirstain2023pickapic} disjoint from the evaluation set: the late target averages the three steps with $\sigma<0.3$, and the time-matched target keeps all 28 steps and is interpolated in $\sigma$.
+Band energies are densities: with an orthonormal FFT, $P(k)=\sum_c|\mathcal F(x_c-\bar x_c)(k)|^2$, $E_a(k)$ averages $P$ over the other axis, and $E_a[b]$ averages over half-octave bands $b$ (13 bands at 256 tokens per side). Unit white noise gives $E_a[b]=C=64$ in expectation, so the noise floor at level $\sigma$ is $\sigma^2C$. The gate uses the current input; the error uses the clean estimate of the previous call, $\hat x_0=x_{n-1}-\sigma_{n-1}v_\theta(x_{n-1})$. Corrections are interpolated in $\log f$ between band centers and applied to pairs with frequency above one cycle per grid, which at $4096^2$ are pairs 0 to 8 of each axis. Step 0 has no clean estimate and uses the temperature alone, and $|\ln g-\ln\tau|\le\eta$ always. The native targets come from $1024^2$ samples of the same model on 16 Pick-a-Pic prompts~\citep{kirstain2023pickapic} disjoint from the evaluation set: the late target averages the three steps with $\sigma<0.3$, and the time-matched target keeps all 28 steps and is interpolated in $\sigma$.
 
 \paragraph{\aliastemp}
 \aliastemp{} applies the log-$N$ temperature of \cref{sec:background} pair by pair. A pair of wavelength $\lambda_{a,j}$ tokens under the released base, on a grid of $L$ tokens per side ($L=64$ at native size), gets the logit gain
@@ -85,10 +123,12 @@ where $n(\lambda,L)$, the pair's alias count, is the number of its wavelengths a
 
 \section{Mechanism diagnostics}\label{app:mech}
 
+This appendix expands the diagnostic paragraph of \cref{sec:laws} with the figure, numbers and protocols behind it.
+
 \begin{figure}[!htbp]
 \centering
 \figorplaceholder[\linewidth]{figs/f7_mechanism.pdf}{2.3in}
-\caption{\textbf{The late-profile correction starts late, and the response to a band-gain change differs across prompts.} (a)~Mean $|\ln g-\ln\tau|$ over spatial rotary pairs per step, shown as the median and interquartile band over eight dev prompts, seed 0, with both targets on the \ntk{} base; right, median corrections for pairs 0--11; omitted pairs 12--27 are identically zero. (b)~Separate width-axis response matrices for dev prompts 0, 1 and 2, all at seed 0. Each cell is the same-seed finite-difference change in final-latent log power divided by $\ln(\NmechProbeFactor)$ when one input octave receives a $\NmechProbeFactor\times$ logit gain on both spatial axes throughout sampling. All three matrices share one zero-centred colour scale and show no averaging across prompts; there is no uncertainty estimate from repeated seeds.}
+\caption{\textbf{Dev-prompt mechanism diagnostics.} The late-profile correction starts late, and the response to a band-gain change differs across prompts. (a)~Mean $|\ln g-\ln\tau|$ over spatial rotary pairs per step: median and interquartile band over eight dev prompts, seed 0, with both targets on the \ntk{} base. In the gray region the late-profile correction is exactly zero in all eight prompts (steps 1 to 19, $\sigma\geq 0.64$). \emph{Right:} median corrections for pairs 0--11; pairs 12--27 are identically zero. (b)~Width-axis response matrices for dev prompts 0 to 2, seed 0. Each cell is the same-seed finite-difference change in final-latent log power divided by $\ln(\NmechProbeFactor)$ when one input octave receives a $\NmechProbeFactor\times$ logit gain on both spatial axes throughout sampling. The matrices share one zero-centerd color scale and are not averaged across prompts; no seed-to-seed uncertainty is estimated.}
 \label{fig:mechanism}
 \end{figure}
 

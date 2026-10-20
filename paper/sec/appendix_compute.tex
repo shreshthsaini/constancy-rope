@@ -1,5 +1,7 @@
 \section{Compute and timing}\label{app:compute}
 
+This appendix expands \cref{tab:cost} with the cost of every retained image.
+
 On the same GH200 node and method, forcing FlashAttention-2 makes a $4096^2$ sample take \NcompFlashRatio{} times as long as cuDNN-first SDPA (medians \NcompGHflashSec\,s and \NcompGHcudnnSec\,s), while method families on one node differ by at most \NcompFamilySpreadPct\%; one GB200 GPU is \NcompBWSpeedup{} times faster than a GH200 (\cref{tab:compute}). The forced-FlashAttention-2 comparison uses development-pilot runs and is descriptive. Timings of different methods are comparable only with the kernel and the GPU fixed.
 
 \Cref{tab:compute} gives the sampling cost of the \NcompNimgs{} retained $4096^2$ images, \NcompGPUhours{} GPU-hours in total (\NcompGPUhoursGH{} on GH200, \NcompGPUhoursBW{} on GB200), with a median peak allocation of \NcompPeakGB\,GB. The second campaign's dev runs and the held-out \segactm{} run used one GB200 node; every other run used GH200 nodes, and every forced-FlashAttention-2 timing at $4096^2$ comes from the eight-prompt pilot. The GPU of each image was recovered from task and fleet logs, and its attention policy from the code revision pinned by its implementation hash, because the records carry a constant attention label (\cref{sec:pitfalls}). \input{tables/compute_notes} Timings exclude model loading (\NcompModelLoadSec\,s per worker process) and PNG writing, except the single official \dype{} run.

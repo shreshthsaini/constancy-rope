@@ -1,9 +1,18 @@
 \section{Results}\label{sec:results}
 
+\begin{table}[t]
+\centering
+\caption{\textbf{Held-out results and decomposition.} Means over rows 8--194 (seed 0, $n=\N{ho@nprompts}$); bold marks the best mean and underline the second, which alone imply no significant difference. \better/\worse{} mark paired 95\% intervals against \segaofficial{} (shaded) that exclude zero, and a star marks a Holm-adjusted $p\le0.05$; \dype{} (gray) is context. The bottom block gives paired gains with nominal intervals (base\,+\,temp.: \tempsb{} $-$ \ntk; allocation: \segaofficial{} $-$ \tempsb) and the share of \sega's gain over \ntk{} carried by base and temperature. \Cref{tab:main,tab:share,tab:means_full,tab:deltas_full} expand this table. Key result: \tempsb{} ties \segaofficial{} on all three reward models and crop MUSIQ, and the allocation adds only full-frame MUSIQ and CLIP-IQA.}
+\label{tab:results}
+\footnotesize
+\setlength{\tabcolsep}{3.4pt}
+\input{tables/tab_results.tex}
+\end{table}
 
-\subsection{Decomposing \segaofficial: base and temperature do most of the work}\label{sec:decomp}
+\subsection{Base and temperature do most of the work}\label{sec:decomp}
 
-\Cref{fig:forest} compares every held-out arm with \segaofficial; \cref{tab:main} in \cref{app:full} gives the numerical intervals. Two rows carry the decomposition. \ntk{} keeps \sega's family of frequency base and drops both the temperature and the allocation; it is far worse on every reward and image-quality metric (ImageReward \hod{ntk}{ir}, full-frame MUSIQ \hod{ntk}{musiq}, crop MUSIQ \hod{ntk}{musiqc}). \tempsb{} keeps \sega's released base and global temperature and drops the allocation, with the index-axis difference specified in \cref{sec:methods}. It ties \segaofficial{} on ImageReward (\hodci{tsb}{ir}), PickScore, CLIP and crop MUSIQ, and falls behind on full-frame MUSIQ (\hodci{tsb}{musiq}), CLIP-IQA and the spectral error.
+\paragraph{The floor and the control}
+\Cref{tab:results} lists every held-out arm. \ntk{} keeps \sega's family of frequency base and drops both temperature and allocation; it is far worse on every reward and image-quality metric (ImageReward \hod{ntk}{ir}, full-frame MUSIQ \hod{ntk}{musiq}, crop MUSIQ \hod{ntk}{musiqc}). \tempsb{} keeps \sega's released base and global temperature and drops only the allocation. It ties \segaofficial{} on ImageReward (\hodci{tsb}{ir}), PickScore, CLIP and crop MUSIQ, and falls behind on full-frame MUSIQ (\hodci{tsb}{musiq}), CLIP-IQA and the spectral error.
 % STRENGTHEN FACTORIAL: Insert the complete held-out 2x2 base-temperature analysis here,
 % followed by the allocation contrast; revise the bundle-only interpretation above.
 % STRENGTHEN SWEEP: Add the fixed temperature sweep with all tested values and uncertainty.
@@ -11,34 +20,26 @@
 \begin{figure}[t]
 \centering
 \figorplaceholder[\linewidth]{figs/f3_forest.pdf}{2.6in}
-\caption{\textbf{No per-band law improves on \segaofficial{} in any reward or image-quality metric.} Paired held-out differences from \segaofficial{} with 95\% bootstrap intervals (rows 8--194, seed 0, $n=\N{ho@nprompts}$). Hollow markers: seed-1 replication on rows 8--62 ($n=\N{so@n@tsb}$) for \tempsb{} and \constancytm; \segactm{} has no seed-1 replication. Shaded half: better direction. Isolated gains, such as crop MUSIQ and CLIP-IQA for \dype, come with losses elsewhere.}
+\caption{\textbf{Paired differences from \segaofficial.} No per-band law improves on \segaofficial{} in any reward or image-quality metric, and \dype's isolated gains in crop MUSIQ and CLIP-IQA come with losses elsewhere. The dashed blue line is \segaofficial; marks show held-out paired differences with 95\% bootstrap intervals (rows 8--194, seed 0, $n=\N{ho@nprompts}$), pale where the interval includes 0, and \cref{tab:main} lists them. Hollow marks: seed-1 replication on rows 8--62 ($n=\N{so@n@tsb}$) for \tempsb{} and \constancytm{} (none for \segactm); triangles: \ntk{} beyond the axis limit; arrows: better direction.}
 \label{fig:forest}
 \end{figure}
 
-
-\Cref{fig:hero}b shows the paired absolute gains, and \cref{tab:share} (\cref{app:full}) expresses them as shares. Of \sega's gain over \ntk, base and temperature carry \shp{ir} of the ImageReward gain (interval \shci{ir}), \shp{pick} of PickScore, \shp{clip} of CLIP and \shp{musiqc} of crop MUSIQ. The allocation's own contribution, \segaofficial{} minus \tempsb, is \hod{alloc}{musiq} \hoci{alloc}{musiq} on full-frame MUSIQ and \hod{alloc}{iqa} \hoci{alloc}{iqa} on CLIP-IQA; its intervals cover zero on all three reward models and on crop MUSIQ. Its higher full-frame MUSIQ accompanies lower excess luminance power at 8 to 32 pixel wavelengths (\cref{fig:spectrum_main}). This spectral change is consistent with suppressing fine-scale artefacts, but it does not establish what caused MUSIQ to rise. Neither spectral power nor MUSIQ alone measures perceived sharpness.
-
-\begin{figure}[t]
+\begin{wrapfigure}[26]{r}{0.5\linewidth}
+\vspace{-12pt}
 \centering
 \figorplaceholder[\linewidth]{figs/f8_spectrum_main.pdf}{2.0in}
-\caption{\textbf{Removing the allocation leaves more fine-scale power than released \sega.} Paired differences in octave-band log luminance power from \segaofficial{}, over held-out rows 8--194 ($n=\N{ho@nprompts}$, seed 0), with 95\% prompt-bootstrap intervals. The excess at 8 to 32 pixel wavelengths lies above the marked Nyquist frequency of a 224-pixel view. This spectral contrast accompanies the full-frame MUSIQ gap; it does not isolate its cause. \Cref{fig:spectrum} also shows errors against the reference profile.}
+\caption{\textbf{Paired luminance spectra.} Removing the allocation (\tempsb) leaves more octave-band luminance power at 8 to 32 pixel wavelengths (gray band) than \segaofficial, the dashed blue zero line. The band lies above the Nyquist frequency of a 224-pixel view (dashed vertical); intervals are 95\% prompt-bootstrap over held-out rows 8--194 ($n=\N{ho@nprompts}$, seed 0). This contrast accompanies the full-frame MUSIQ gap but does not isolate its cause; \cref{fig:spectrum} in \cref{app:figs} adds errors against the reference profile.}
 \label{fig:spectrum_main}
-\end{figure}
+\vspace{-10pt}
+\end{wrapfigure}
+\paragraph{Base and temperature carry the reward-model gain}
+Of \sega's gain over \ntk, base and temperature carry \shp{ir} of the ImageReward gain (interval \shci{ir}), \shp{pick} of PickScore, \shp{clip} of CLIP and \shp{musiqc} of crop MUSIQ (\cref{tab:results}, bottom; \cref{fig:hero}a). A share above 100\% means the allocation's point estimate is negative.
 
-\dype{} makes a different trade. Against \segaofficial{} it is worse on all three reward models (ImageReward \hodci{dype}{ir}, PickScore \hod{dype}{pick}) and better on crop MUSIQ (\hodci{dype}{musiqc}) and CLIP-IQA (\hod{dype}{iqa}). No single metric orders the methods, so we report all of them.
+\paragraph{The allocation adds full-frame MUSIQ}
+The allocation's own contribution, \segaofficial{} minus \tempsb, is \hod{alloc}{musiq} \hoci{alloc}{musiq} on full-frame MUSIQ and \hod{alloc}{iqa} \hoci{alloc}{iqa} on CLIP-IQA. Its intervals cover zero on all three reward models and on crop MUSIQ. The higher full-frame MUSIQ accompanies lower excess luminance power at 8 to 32 pixel wavelengths (\cref{fig:spectrum_main}). This spectral change is consistent with suppressing fine-scale artefacts, but it does not establish what caused MUSIQ to rise, and neither spectral power nor MUSIQ alone measures perceived sharpness.
 
-\paragraph{Replication at seed 1}
-On the \N{so@n@tsb} seed-1 prompts, \tempsb{} again ties \segaofficial{} on ImageReward, PickScore and CLIP and loses on full-frame MUSIQ (\sod{tsb}{musiq} \soci{tsb}{musiq}). \N{so@agree} of the \N{so@cells} tie/better/worse verdicts for \tempsb{} and \constancytm{} agree with seed~0 on the same prompts (\cref{tab:seed1}).
-% STRENGTHEN SEEDS: Insert complete seeds0/1/2 prompt-mean replication and seeds1/2
-% sensitivity; keep prompts, not prompt-seed images, as the bootstrap unit.
-% STRENGTHEN FRESH: Insert complete fresh150 confirmation and registered Holm outcomes.
+\paragraph{\dype{} trades reward for crop quality}
+Against \segaofficial{} (\cref{fig:forest}), \dype{} is worse on all three reward models (ImageReward \hodci{dype}{ir}, PickScore \hod{dype}{pick}) and better on crop MUSIQ (\hodci{dype}{musiqc}) and CLIP-IQA (\hod{dype}{iqa}). No single metric orders the methods, so we report all of them.
 
-\paragraph{Qualitative}
-Compositions differ in \cref{fig:qual_main}, so its crops are illustrative; \cref{fig:qual} retains the original three-prompt grid.
 
-\begin{figure}[t]
-\centering
-\figorplaceholder[\linewidth]{figs/f4_qualitative_main.pdf}{3.26in}
-\caption{\textbf{Native-resolution crops expose differences hidden by a small overview.} The first two held-out prompts (rows 8 and 9), seed 0, with a full-frame thumbnail and an unaltered 384-pixel crop for each arm. During review, we selected one shared crop location per row by maximizing the minimum normalized Laplacian energy across all six arms on a fixed grid. Each arm's energies are normalized by its 90th percentile over candidate locations. This output-dependent rule favors locations containing detail in every arm; it does not select a winning method. Prompts were unchanged, and differing compositions remain a limitation.}
-\label{fig:qual_main}
-\end{figure}
+
