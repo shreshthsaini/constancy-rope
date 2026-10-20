@@ -1,8 +1,12 @@
+
+build/
+dist/
+*.egg-info/
+paper/dist/
+paper/figs/heldout_*
+paper/main.pdf
+paper/*.pdf
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .ruff_cache/
-*.egg-info/
-build/
-dist/
-
