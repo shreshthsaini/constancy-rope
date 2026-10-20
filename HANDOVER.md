@@ -236,3 +236,6 @@ Update `.agent/STATE.md` and this file after every meaningful step.
   figs/PALETTE.md; captions + LaTeX handoff in figs/CAPTIONS.md). Reviewed by Claude: pass. Text agent integrating the handoff.
   10 idle GPU nodes in the user's other jobs; guest launch blocked by permission classifier; user can run
   `bash slurm/launch_guests.sh` to use them.
+- 2026-10-20 00:05: PUBLIC REPO https://github.com/shreshthsaini/constancy-rope (origin, branch main; user asked to upload
+  everything). Push after every meaningful commit (`git push`). Build PDFs, paper/dist and superseded heldout_* figures are
+  untracked (.gitignore). Results stay on scratch; paper crux lives in paper/tables and paper/figs scripts + data pointers.
