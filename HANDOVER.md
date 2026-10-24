@@ -284,3 +284,8 @@ Update `.agent/STATE.md` and this file after every meaningful step.
   amendment disclosed in Sections 4 and 5.2, body qualitative grid p9, layout fixes); rubric 1.27, 35 numbers verified.
   paper/dist/constancy_rope_paper.pdf + constancy_rope_paper_src.zip (standalone build verified, includes style.tex and
   macros.tex). Remaining nit: 5.6 pt axis subscripts in Figures 3, A.3, G.1 (figure pass running).
+- 2026-10-24 night: PAPER v3.1 FINAL (commit dd73b68): all figure text >= 6.5 pt; dist PDF + standalone zip refreshed and
+  build-tested. PROJECT COMPLETE: no GPU jobs, taskq/STOP present, SU balance 2,382. Public repo holds everything except
+  build PDFs and paper/dist (zip 36 MB, over the 30 MB chat upload limit; release creation needs the user: `gh release
+  create v3 paper/dist/*.pdf paper/dist/*.zip`). Open items, all optional: Qwen-Image second family (not run, ~75 GPU-h),
+  human 2AFC study, a second resolution. Any restart: read this file, then paper/PLAN.md and .agent/notes/strengthen/DIGEST.md.
