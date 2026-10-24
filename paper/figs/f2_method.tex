@@ -9,8 +9,8 @@
 \setsansfont{texgyreheros}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold,
   ItalicFont=*-italic, BoldItalicFont=*-bolditalic]
 \renewcommand\familydefault{\sfdefault}
-% Sub- and superscripts stay at 6 pt or more at print size.
-\DeclareMathSizes{7}{7}{6.1}{6.1}\DeclareMathSizes{8}{8}{6.1}{6.1}\DeclareMathSizes{9}{9}{6.6}{6.1}
+% Sub- and superscripts stay at 6.5 pt or more at print size.
+\DeclareMathSizes{7}{7}{6.5}{6.5}\DeclareMathSizes{8}{8}{6.5}{6.5}\DeclareMathSizes{9}{9}{6.6}{6.5}
 \usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta, calc, shapes.geometric}
@@ -29,9 +29,13 @@
 % ---------------------------------------------------------------- type scale (print size)
 \newcommand\fsTag{\fontsize{9}{10.8}\selectfont\bfseries}
 \newcommand\fsLab{\fontsize{8}{9.6}\selectfont}
+\newcommand\fsLeg{\fontsize{7}{8.4}\selectfont}
 % marker glyphs that tie each controller box to its marks in the gain column
 \newcommand\glyphSega{\tikz[baseline=-2.6pt]\fill[cMethod] (0,0) circle (2.1pt);}
 \newcommand\glyphCtm{\tikz[baseline=-2.6pt]\fill[cLaw, sharp corners] (0,2.6pt) -- (2.6pt,0) -- (0,-2.6pt) -- (-2.6pt,0) -- cycle;}
+% the temperature bar as drawn in the ln g panel (legend only)
+\newcommand\glyphTemp{\tikz[baseline=-2.6pt]\draw[cTemp, fill=cTempFill, line width=0.5pt, sharp corners]
+  (0,-2.4pt) rectangle (7pt,2.4pt);}
 
 \begin{document}
 \begin{tikzpicture}[x=1bp, y=1bp, line cap=round, line join=round,
@@ -61,10 +65,10 @@
 \node[anchor=base] at (54,59) {query $u$};
 \draw[flow] (76,104) -- (92,104);
 
-\fill[panel, rounded corners=2pt] (92,78) rectangle (240,130);
-\fill[panel, rounded corners=2pt] (248,78) rectangle (320,130);
+\fill[panel, rounded corners=2pt] (92,78) rectangle (214,130);
+\fill[panel, rounded corners=2pt] (222,78) rectangle (320,130);
 % rotary bands j = 6, 8, 10, 12 over the offset: native base theta (dashed gray), theta' (black)
-\def\sx{166}\def\sw{70}   % stack centre and half width; Delta in [-255, 255] tokens
+\def\sx{153}\def\sw{57}   % stack centre and half width; Delta in [-255, 255] tokens
 \pgfmathsetmacro\xD{\sx+\sw*128/255}
 \foreach \k/\j/\Tn/\To/\ls/\lc in \FtwoStack {
   \pgfmathsetmacro\yr{122-12*\k}
@@ -88,20 +92,23 @@
 
 % gain column: ln g_{a,j} per band, zero at \xz; temperature tau (green), released SEGA (blue
 % circles), Constancy-TM (orange diamonds), all from the held-out sample at step 14
-\def\xz{268}\def\gk{150}
+\def\xz{258}\def\gk{200}
 \pgfmathsetmacro\xt{\xz+\gk*\FtwoLnTau}
 \foreach \k/\j/\Tn/\To/\ls/\lc in \FtwoStack {
   \pgfmathsetmacro\yr{122-12*\k}
-  \draw[rule, line width=0.4pt] (236,\yr) -- (320,\yr) -- (337.5,104);
-  \fill[cTempFill] (\xz,\yr-3.2) rectangle (\xt,\yr+3.2);
+  \draw[rule, line width=0.4pt] (210,\yr) -- (320,\yr) -- (337.5,104);
+  \draw[cTemp, fill=cTempFill, line width=0.5pt, sharp corners] (\xz,\yr-3.6) rectangle (\xt,\yr+3.6);
 }
 \draw[ink2, line width=0.5pt] (\xz,80) -- (\xz,128);
 \draw[cTemp, line width=0.6pt, dash pattern=on 1.2pt off 0.9pt] (\xt,80) -- (\xt,128);
-\node[anchor=base] at (262,68) {$\ln g_{a,j}$};
+\node[anchor=base west] at (222,68) {$\ln g_{a,j}$};
+% three-glyph legend for the gain column: marks as drawn
+\node[anchor=base west, font=\fsLeg] at (255,68) {\glyphSega\hspace{2.5pt}SEGA\hspace{7pt}%
+  \glyphCtm\hspace{2.5pt}Constancy-TM\hspace{7pt}\glyphTemp\hspace{2.5pt}$\tau$};
 \foreach \k/\j/\Tn/\To/\ls/\lc in \FtwoStack {
   \pgfmathsetmacro\yr{122-12*\k}
-  \fill[cMethod] ({\xz+\gk*\ls},\yr+1.8) circle (2.0);
-  \node[diamond, fill=cLaw, minimum size=4.8pt] at ({\xz+\gk*\lc},\yr-1.8) {};
+  \fill[cMethod] ({\xz+\gk*\ls},\yr+2.0) circle (2.3);
+  \node[diamond, fill=cLaw, minimum size=5.4pt] at ({\xz+\gk*\lc},\yr-2.0) {};
 }
 % knob 2: global temperature, equal on every band
 \node[blk=cTemp, fill=cTempFill] (temp) at (\xt,144) {temperature $\tau$};
@@ -127,7 +134,7 @@
 \draw[line width=0.6pt, ink] (sega.east) -| (232,18);
 \draw[line width=0.6pt, ink] (ctm.east) -| (232,18);
 \draw[flow] (232,18) -- (gain.west);
-% knob 3: per-band gain, set by either controller
-\draw[knob=cMethod] (gain.north) -- (284,78);
+% knob 3: per-band gain, set by either controller; it rises between the ln g label and the legend
+\draw[knob=cMethod] (gain.north -| 249,0) -- (249,78);
 \end{tikzpicture}
 \end{document}

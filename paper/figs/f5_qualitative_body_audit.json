@@ -1,0 +1,398 @@
+{
+  "schema": "qualitative-body-v1",
+  "selection_rule": "first two held-out manifest rows (8, 9), fixed before any output was viewed",
+  "crop_rule": "common detail (review stage), identical boxes to Figure A.2 (f4_qualitative_main_crops.json)",
+  "layout": "prompts as rows, arms as columns in palette pairs; full frame above its native crop",
+  "full_frame_thumbnails": "384x384 Lanczos reduction, embedded as JPEG quality 94, 4:4:4",
+  "crop_pixels": "unaltered RGB native pixels, embedded losslessly (Flate)",
+  "size_in": [
+    5.5,
+    3.398
+  ],
+  "tile_in": 0.74,
+  "grid_left_in": 0.455,
+  "side_margin_in": 0.26,
+  "include_width": "\\linewidth",
+  "rows": [
+    {
+      "rule": "maximum minimum across-arm mean-squared Laplacian, each arm divided by its candidate 90th percentile",
+      "selection_stage": "senior review after historical outputs existed",
+      "crop_size": 384,
+      "margin": 64,
+      "stride": 96,
+      "normalization_percentile": 90,
+      "percentile_method": "linear",
+      "tie_break": "first in top-to-bottom, left-to-right candidate order",
+      "candidate_count": 1444,
+      "selected_candidate_index": 306,
+      "selected_box": [
+        256,
+        832,
+        640,
+        1216
+      ],
+      "minimum_normalized_energy": 1.1190916719183284,
+      "per_arm_native_energy": [
+        0.021217090206736896,
+        0.03269605640997336,
+        0.02575654714754956,
+        0.03335564716234088,
+        0.028660161582418835,
+        0.022278012457577233
+      ],
+      "per_arm_normalizer": [
+        0.018959206595083416,
+        0.02545686220795245,
+        0.020849603390885506,
+        0.02965794812645633,
+        0.02553965909302122,
+        0.019077566471799097
+      ],
+      "per_arm_normalized_energy": [
+        1.1190916719183284,
+        1.2843710329609854,
+        1.2353495011233233,
+        1.1246781813805258,
+        1.1221826210769705,
+        1.167759655850714
+      ],
+      "paths_in_arm_order": [
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main/ntk2/4096x4096/a4k_eval_4096_880657115260655727_a6ae047101_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main/dype/4096x4096/a4k_eval_4096_880657115260655727_a6ae047101_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main/sega_official/4096x4096/a4k_eval_4096_880657115260655727_a6ae047101_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/mainsb/temp_only/4096x4096/a4k_eval_4096_880657115260655727_a6ae047101_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/mainsb/constancy_tm/4096x4096/a4k_eval_4096_880657115260655727_a6ae047101_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main2/sega_ctm/4096x4096/a4k_eval_4096_880657115260655727_a6ae047101_seed0.png"
+      ],
+      "row": 8,
+      "prompt_id": "a4k_eval_4096_880657115260655727",
+      "prompt": "A stone bridge with arched spans reflects golden light on the water, flanked by buildings and a leafy tree under a clear blue sky.",
+      "tag": "Stone bridge",
+      "methods": [
+        "ntk2",
+        "dype",
+        "sega_official",
+        "temp_only_sbase",
+        "constancy_tm_sbase",
+        "sega_ctm_v2"
+      ],
+      "seed": 0,
+      "source_sha256": {
+        "ntk2": "0df71d580a65a40343be9eb5b6dfa8d5da6db77e8054ff5ef07fbe60dd7a7e8a",
+        "dype": "d0dee0dd9438a3679db3ee02e69f2404469cc341882b5645ff27b7957931ee82",
+        "sega_official": "2a2e08b7f086ededb06632276c86a45a649dcdbafc0653306e9ac8cc4dc8dae6",
+        "temp_only_sbase": "5e306d9a5f9c9659c781f161d4ce95abfe35f188f8ce67e185af3946226cb6c8",
+        "constancy_tm_sbase": "f996854fa931fd616815ee56c2b8855935ba33a0cae91235784c553bfc74f1b8",
+        "sega_ctm_v2": "63cb2c80776fd42a0cd7afa78f2603c566af1c8593e21a6cce3c33222e601d7c"
+      }
+    },
+    {
+      "rule": "maximum minimum across-arm mean-squared Laplacian, each arm divided by its candidate 90th percentile",
+      "selection_stage": "senior review after historical outputs existed",
+      "crop_size": 384,
+      "margin": 64,
+      "stride": 96,
+      "normalization_percentile": 90,
+      "percentile_method": "linear",
+      "tie_break": "first in top-to-bottom, left-to-right candidate order",
+      "candidate_count": 1444,
+      "selected_candidate_index": 1135,
+      "selected_box": [
+        3232,
+        2848,
+        3616,
+        3232
+      ],
+      "minimum_normalized_energy": 0.9524224064386406,
+      "per_arm_native_energy": [
+        0.020130256234223747,
+        0.04793324645803132,
+        0.04295599324718778,
+        0.050962895524844974,
+        0.05066024141927114,
+        0.04732092258987643
+      ],
+      "per_arm_normalizer": [
+        0.021135849070892925,
+        0.04660039296917136,
+        0.039121666866516934,
+        0.05239723178841119,
+        0.052338577627895365,
+        0.039662811251157795
+      ],
+      "per_arm_normalized_energy": [
+        0.9524224064386406,
+        1.0286017650053234,
+        1.098010301906449,
+        0.9726257244016572,
+        0.9679330947708119,
+        1.1930803969044197
+      ],
+      "paths_in_arm_order": [
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main/ntk2/4096x4096/a4k_eval_4096_minus2014927182109364975_81f6a4b6e1_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main/dype/4096x4096/a4k_eval_4096_minus2014927182109364975_81f6a4b6e1_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main/sega_official/4096x4096/a4k_eval_4096_minus2014927182109364975_81f6a4b6e1_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/mainsb/temp_only/4096x4096/a4k_eval_4096_minus2014927182109364975_81f6a4b6e1_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/mainsb/constancy_tm/4096x4096/a4k_eval_4096_minus2014927182109364975_81f6a4b6e1_seed0.png",
+        "/scratch/09032/saini_2/constancy_rope/out_krea/main2/sega_ctm/4096x4096/a4k_eval_4096_minus2014927182109364975_81f6a4b6e1_seed0.png"
+      ],
+      "row": 9,
+      "prompt_id": "a4k_eval_4096_minus2014927182109364975",
+      "prompt": "A panoramic view of Paris featuring the Eiffel Tower, the Seine River, and various ornate buildings with greenery and bustling activity, including boats on the water and crowds along walkways.",
+      "tag": "Paris panorama",
+      "methods": [
+        "ntk2",
+        "dype",
+        "sega_official",
+        "temp_only_sbase",
+        "constancy_tm_sbase",
+        "sega_ctm_v2"
+      ],
+      "seed": 0,
+      "source_sha256": {
+        "ntk2": "930781f6990724bc8946892bcda52ad40cdbc471015f746b58d18e5a964b0869",
+        "dype": "91e8efc9e49a61be5f38f8f43b5769888d5401302e5c4dc2197b63de00724c13",
+        "sega_official": "e629f4f204921df2916b39fc167a19b277086634dedeb6c1c3971103fced1277",
+        "temp_only_sbase": "47fc27f6633065551fec5e0438ad382d713b1171e555c1cb885b4edaf3861517",
+        "constancy_tm_sbase": "73ce323e1949e3b50adb03d256d6263a19cd4d6a9f0f85b7b43cab4e898474d7",
+        "sega_ctm_v2": "517d61f8bab5feada43ae0c264dc094429ec4eadd67bb920451eb1e375843aec"
+      }
+    }
+  ],
+  "passed": true,
+  "criterion": "every native crop is byte-exact and Flate (lossless) in the final PDF",
+  "pdf": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/paper/figs/f5_qualitative_body.pdf",
+  "pdf_sha256": "6139036eb9dbcf1ea5cc059373784aeeba8fe493daf8df22c9b8b401b9907bd6",
+  "native_crops_checked": 12,
+  "checks": [
+    {
+      "figure": "body",
+      "row": 8,
+      "method": "ntk2",
+      "crop": "red",
+      "box": [
+        256,
+        832,
+        640,
+        1216
+      ],
+      "native_rgb_sha256": "ac5f800b4e4c94d3a4c51005ac6f21d8ac21e94e50a93cf20123bc6875f80493",
+      "native_pixels_embedded_unresampled": true,
+      "width": 384,
+      "height": 384,
+      "storage_order": "rows flipped",
+      "exact_in_final_pdf": true,
+      "final_filter": "FlateDecode"
+    },
+    {
+      "figure": "body",
+      "row": 8,
+      "method": "dype",
+      "crop": "red",
+      "box": [
+        256,
+        832,
+        640,
+        1216
+      ],
+      "native_rgb_sha256": "1579ececd7a513dbab75587d42c5e8aa460017a92ba076dd4cd95ccd63d3fb6c",
+      "native_pixels_embedded_unresampled": true,
+      "width": 384,
+      "height": 384,
+      "storage_order": "rows flipped",
+      "exact_in_final_pdf": true,
+      "final_filter": "FlateDecode"
+    },
+    {
+      "figure": "body",
+      "row": 8,
+      "method": "sega_official",
+      "crop": "red",
+      "box": [
+        256,
+        832,
+        640,
+        1216
+      ],
+      "native_rgb_sha256": "ce43a22e217876e86eed4cb67f1ad5fcea84c1dc2f91be5e422cc59195c85652",
+      "native_pixels_embedded_unresampled": true,
+      "width": 384,
+      "height": 384,
+      "storage_order": "rows flipped",
+      "exact_in_final_pdf": true,
+      "final_filter": "FlateDecode"
+    },
+    {
+      "figure": "body",
+      "row": 8,
+      "method": "temp_only_sbase",
+      "crop": "red",
+      "box": [
+        256,
+        832,
+        640,
+        1216
+      ],
+      "native_rgb_sha256": "40628558c38e85dbac05ac60e7efbf2f02e10e3fceb6f1ce12a8348af1f767ab",
+      "native_pixels_embedded_unresampled": true,
+      "width": 384,
+      "height": 384,
+      "storage_order": "rows flipped",
+      "exact_in_final_pdf": true,
+      "final_filter": "FlateDecode"
+    },
+    {
+      "figure": "body",
+      "row": 8,
+      "method": "constancy_tm_sbase",
+      "crop": "red",
+      "box": [
+        256,
+        832,
+        640,
+        1216
+      ],
+      "native_rgb_sha256": "4dcd3ac2dc2f83049e9b5230e42b3d62b0c9ea459a393085222498844368c19d",
+      "native_pixels_embedded_unresampled": true,
+      "width": 384,
+      "height": 384,
+      "storage_order": "rows flipped",
+      "exact_in_final_pdf": true,
+      "final_filter": "FlateDecode"
+    },
+    {
+      "figure": "body",
+      "row": 8,
+      "method": "sega_ctm_v2",
+      "crop": "red",
+      "box": [
+        256,
+        832,
+        640,
+        1216
+      ],
+      "native_rgb_sha256": "01683ee697129ebfce902a4f43f165095a7614ddd8358628914ec12cf4ecb230",
+      "native_pixels_embedded_unresampled": true,
+      "width": 384,
+      "height": 384,
+      "storage_order": "rows flipped",
+      "exact_in_final_pdf": true,
+      "final_filter": "FlateDecode"
+    },
+    {
+      "figure": "body",
+      "row": 9,
+      "method": "ntk2",
+      "crop": "red",
+      "box": [
+        3232,
+        2848,
+        3616,
+        3232
+      ],
+      "native_rgb_sha256": "d21a7eea39177409e7b481a8f59b383cbdae686606129f76bbf6b752d5c63903",
+      "native_pixels_embedded_unresampled": true,
+      "width": 384,
+      "height": 384,
+      "storage_order": "rows flipped",
+      "exact_in_final_pdf": true,
+      "final_filter": "FlateDecode"
+    },
+    {
+      "figure": "body",
+      "row": 9,
+      "method": "dype",
+      "crop": "red",
+      "box": [
+        3232,
+        2848,
+        3616,
+        3232
+      ],
+      "native_rgb_sha256": "9e7c25e5ea1c434f910e463715714eb817130438198479cacf4b92c7dcec182c",
+      "native_pixels_embedded_unresampled": true,
+      "width": 384,
+      "height": 384,
+      "storage_order": "rows flipped",
+      "exact_in_final_pdf": true,
+      "final_filter": "FlateDecode"
+    },
+    {
+      "figure": "body",
+      "row": 9,
+      "method": "sega_official",
+      "crop": "red",
+      "box": [
+        3232,
+        2848,
+        3616,
+        3232
+      ],
+      "native_rgb_sha256": "e78fa4ee983ef623bab586154b8941c86d96b839dbcbf01abe565d604518ac4a",
+      "native_pixels_embedded_unresampled": true,
+      "width": 384,
+      "height": 384,
+      "storage_order": "rows flipped",
+      "exact_in_final_pdf": true,
+      "final_filter": "FlateDecode"
+    },
+    {
+      "figure": "body",
+      "row": 9,
+      "method": "temp_only_sbase",
+      "crop": "red",
+      "box": [
+        3232,
+        2848,
+        3616,
+        3232
+      ],
+      "native_rgb_sha256": "ad4fa33b71bab62d7e965386ef8cbcf5fe06b2959d54860fc076da128eed23fe",
+      "native_pixels_embedded_unresampled": true,
+      "width": 384,
+      "height": 384,
+      "storage_order": "rows flipped",
+      "exact_in_final_pdf": true,
+      "final_filter": "FlateDecode"
+    },
+    {
+      "figure": "body",
+      "row": 9,
+      "method": "constancy_tm_sbase",
+      "crop": "red",
+      "box": [
+        3232,
+        2848,
+        3616,
+        3232
+      ],
+      "native_rgb_sha256": "0bd796d38c6877e5288ebda380639b0babd3345964217473f557f8b098a1db38",
+      "native_pixels_embedded_unresampled": true,
+      "width": 384,
+      "height": 384,
+      "storage_order": "rows flipped",
+      "exact_in_final_pdf": true,
+      "final_filter": "FlateDecode"
+    },
+    {
+      "figure": "body",
+      "row": 9,
+      "method": "sega_ctm_v2",
+      "crop": "red",
+      "box": [
+        3232,
+        2848,
+        3616,
+        3232
+      ],
+      "native_rgb_sha256": "9dcc09e5679095322219216990f52667595d3cf462067457d28d788eece12ece",
+      "native_pixels_embedded_unresampled": true,
+      "width": 384,
+      "height": 384,
+      "storage_order": "rows flipped",
+      "exact_in_final_pdf": true,
+      "final_filter": "FlateDecode"
+    }
+  ],
+  "generator_sha256": "5750e66c126d43e76cf043d65eeccd6e7f4bea0faf9d90a434474db3a933c2fd"
+}

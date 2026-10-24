@@ -5,7 +5,8 @@ RoPE base adds nothing detectable and the per-band allocation adds full-frame MU
     PickScore, MUSIQ, MUSIQ crops), each on its own scale. Bars in this order: temperature main effect (s^0.16 minus
     none, averaged over the two bases; green), base main effect (SEGA base minus NTK base, averaged over the two
     temperatures; gray) and allocation (SEGA (released) minus SEGA base + temp.; blue). By construction the three
-    add up to the paired gain of SEGA (released) over NTK, drawn as the black zero line. The base x temperature
+    add up to the paired gain of SEGA (released) over NTK: the dashed black line is zero (NTK) and the solid black
+    line, labelled "Total" once, is that gain (SEGA (released) minus NTK). The base x temperature
     interaction is not drawn: it survives Holm on no metric, as the caption says. Bars are paired means, whiskers
     nominal 95% paired prompt-bootstrap intervals (2,000 draws, RNG seed 0), values printed in table precision; an
     asterisk marks Holm-adjusted p <= 0.05 over the 80 registered factorial tests (8 contrasts by 10 metrics).
@@ -128,7 +129,7 @@ def factorial():
     assert int(macro(tex, "st@f@n")) == 187 and int(macro(tex, "st@f@nholm@inter")) == n_inter == 0
     paired = pd.read_csv(PAIRED_CSV)
     paired = paired[paired.analysis == "seed0"].set_index(["method", "reference", "metric"])
-    vals = {}
+    vals, totals = {}, {}
     for met in METRICS:
         prec, key = cs.METRIC_PRECISION[met], MACRO[met]
         rows = [c.loc[(name, met)] for name, *_ in EFFECTS]
@@ -141,11 +142,12 @@ def factorial():
             assert macro(tex, f"st@f@ci@{short}@{key}") == f"[${r.lo:+.{prec}f}$, ${r.hi:+.{prec}f}$]"
             assert macro(tex, f"st@f@holm@{short}@{key}") == ("yes" if r.holm_reject else "no")
         vals[met] = [(float(r.delta), float(r.lo), float(r.hi), bool(r.holm_reject)) for r in rows]
+        totals[met] = total
         print(f"{met:15s}", "  ".join(f"{s} {d:+.4f} [{lo:+.4f}, {hi:+.4f}]{'*' if h else ''}"
                                       for (_, s, *_), (d, lo, hi, h) in zip(EFFECTS, vals[met])), f" sum {total:+.4f}")
     print(f"Holm family of {len(c)} tests; the interaction survives on {n_inter} of "
           f"{len(c.loc['interaction'])} metrics; n = {int(c.n.iloc[0])}")
-    return vals
+    return vals, totals
 
 
 def signed(v, precision):
@@ -169,7 +171,7 @@ def photo(ax, img):
 
 
 # ==== figure
-def panel_a(fig, vals):
+def panel_a(fig, vals, totals):
     cs.panel_tag(fig, 0, fy(TAG_Y), "a", "Factorial effects")
     handles = [Rectangle((0, 0), 1, 1, fc=hue, ec="none") for *_, hue in EFFECTS]
     fig.legend(handles, [name for _, _, name, _ in EFFECTS], loc="center", bbox_to_anchor=(A_W / 2 / W, fy(LEG_Y)),
@@ -185,27 +187,37 @@ def panel_a(fig, vals):
         ax.set_axis_off()
         # Own scale per metric: the zero line sits at the same height in every panel and the
         # highest whisker leaves HEADROOM for its printed value.
-        top = max(0.0, *(hi for _, _, hi, _ in vals[met]))
+        total = totals[met]
+        top = max(0.0, total, *(hi for _, _, hi, _ in vals[met]))
         per_inch = top / (PH * (1 - ZERO_AT) - HEADROOM)
+        label_h = (2.0 + 1.25 * cs.FS_VALUE) / 72 * per_inch       # offset plus printed-value height
         ax.set_ylim(-ZERO_AT * PH * per_inch, (1 - ZERO_AT) * PH * per_inch)
         ax.set_xlim(0, PW)
         assert min(lo for _, lo, _, _ in vals[met]) > -ZERO_AT * PH * per_inch, met
         precision = cs.METRIC_PRECISION[met]
         for (*_, hue), (mean, lo, hi, star), x in zip(EFFECTS, vals[met], xs):
+            anchor = max(hi, 0.0)
+            if anchor <= total < anchor + label_h:   # the printed value would sit on the total line: lift it
+                anchor = total
             ax.bar(x, mean, width=BW, color=hue, lw=0, zorder=2)
             ax.errorbar(x, mean, yerr=[[mean - lo], [hi - mean]], fmt="none", ecolor=cs.INK,
                         elinewidth=0.7, capsize=2.2, capthick=0.7, zorder=4)
-            value = ax.annotate(signed(mean, precision), (x, max(hi, 0.0)), xytext=(0, 2.0),
+            value = ax.annotate(signed(mean, precision), (x, anchor), xytext=(0, 2.0),
                                 textcoords="offset points", ha="center", va="bottom", fontsize=cs.FS_VALUE,
                                 color=cs.INK)
             if star:   # Holm-adjusted p <= 0.05: a small star hangs right of the centred value
                 half = value.get_window_extent(renderer).width * 36 / fig.dpi
                 at = offset_copy(ax.transData, fig=fig, x=half + STAR["dx"], y=STAR["dy"], units="points")
-                ax.plot([x], [max(hi, 0.0)], ls="none", marker="*", ms=STAR["ms"], mfc=cs.INK, mec="none",
+                ax.plot([x], [anchor], ls="none", marker="*", ms=STAR["ms"], mfc=cs.INK, mec="none",
                         transform=at, clip_on=False, zorder=5)
         # Zero line: the NTK baseline in its own style (black, dashed), as reference lines are drawn paper-wide.
-        ax.plot([xs[0] - BW / 2 - 0.07, xs[-1] + BW / 2 + 0.07], [0, 0], color=cs.INK, lw=0.8,
-                ls=(0, (3.0, 1.8)), dash_capstyle="butt", zorder=1)   # behind the bars
+        span = [xs[0] - BW / 2 - 0.07, xs[-1] + BW / 2 + 0.07]
+        ax.plot(span, [0, 0], color=cs.INK, lw=0.8, ls=(0, (3.0, 1.8)), dash_capstyle="butt", zorder=1)
+        # Total line: SEGA (released) minus NTK, the sum of the three bars, solid black over the bars.
+        ax.plot(span, [total, total], color=cs.INK, lw=0.8, solid_capstyle="butt", zorder=3)
+        if i == 0:   # named once; the caption gives the rule
+            ax.annotate("Total", (span[1], total), xytext=(0, 1.5), textcoords="offset points", ha="right",
+                        va="bottom", fontsize=cs.FS_VALUE, color=cs.INK)
         fig.text((x0 + PW / 2) / W, fy(bottom + LOFF), cs.metric_label(met), fontsize=cs.FS_LABEL,
                  color=cs.INK, ha="center", va="baseline")
 
@@ -232,9 +244,9 @@ def panel_b(fig):
 
 def main():
     cs.style()
-    vals = factorial()
+    vals, totals = factorial()
     fig = plt.figure(figsize=(W, H))
-    panel_a(fig, vals)
+    panel_a(fig, vals, totals)
     panel_b(fig)
     print(f"figure size {W:.2f} x {H:.3f} in")
     cs.finish(fig, cs.HERE / "f1_hero", photo=True)
