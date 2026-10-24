@@ -21,7 +21,7 @@ and walks multi-panel figures by letter. Spelling follows American usage (gray, 
 ## F1: f1_hero.pdf (`fig:hero`)
 
 ```latex
-\textbf{Where \sega's gain comes from.} (a)~\tempsb{} minus \ntk{} (base\,+\,temp.) carries most of the gain; \segaofficial{} minus \tempsb{} (allocation) adds full-frame MUSIQ. Bars and whiskers are means and nominal 95\% paired bootstrap intervals over \N{ho@nprompts} held-out prompts, seed 0, one scale per metric. (b)~Illustrative held-out row 32 was chosen by its cabin caption before viewing; native $384^2$ crops (cabin red, mountain cyan) were fixed after viewing at $(2048,3200)$ and $(2048,1536)$, identical for every arm.
+\textbf{Temperature does the work; allocation adds full-frame MUSIQ.} (a)~On \N{st@f@n} held-out prompts (seed 0), bars split the gain of \segaofficial{} over \ntk{} (dashed zero line) into the global temperature and RoPE base main effects of the 2$\times$2 factorial and the allocation (\segaofficial{} minus \tempsb), one scale per metric; the base-by-temperature interaction survives Holm on no metric and is not drawn. Bars are paired mean differences and whiskers nominal 95\% prompt-bootstrap intervals (2{,}000 draws); $\star$ marks a Holm-adjusted $p\le0.05$ over the 80 registered factorial tests. (b)~Illustrative held-out row 32 was chosen by its cabin caption before viewing; native $384^2$ crops (cabin red, mountain cyan) were fixed after viewing at $(2048,3200)$ and $(2048,1536)$, identical for every arm.
 ```
 
 ## F2: f2_method.pdf (`fig:method`)
