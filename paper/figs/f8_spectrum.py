@@ -243,6 +243,7 @@ def main_figure(x, diff, e0, e1):
 
 def main():
     cs.style()
+    cs.script_floor(LABEL_PT)      # the ref and SEGA subscripts of the 8 pt y labels print at 6.5 pt, not 5.6
     x, n_ref = band_axis()
     assert n_ref == 195
     mean, diff = compute()

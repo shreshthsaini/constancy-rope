@@ -135,6 +135,7 @@ def frame(ax):
 
 def main():
     cs.style()
+    cs.script_floor(cs.FS_LABEL)    # the out subscript of the 8 pt colorbar label prints at 6.5 pt, not 5.6
     T = load_targets()
     edges, P, prompt_rows = load_probe()
     steps = np.arange(1, 29)
@@ -240,12 +241,14 @@ def main():
         mx.set_xlim(lg[0], lg[-1])
         mx.set_ylim(lg[0], lg[6])
         mx.set_aspect("equal")
-        mx.set_xticks(lg[[0, 3, 6]])
-        mx.set_xticklabels([frac(edges[j]) for j in (0, 3, 6)])
+        # two output labels per matrix, six along the shared axis: a 1/256 at every left edge ran into the
+        # previous matrix's 1/4; the left edge is the y axis's 1/256 (both axes start at the same octave edge)
+        mx.set_xticks(lg[[3, 6]])
+        mx.set_xticklabels([frac(edges[j]) for j in (3, 6)])
         mx.set_yticks(lg[[0, 3, 6]])
         mx.set_yticklabels([frac(edges[j]) for j in (0, 3, 6)])
         frame(mx)
-        mx.tick_params(axis="x", pad=3.5)              # keeps the corner 1/256 labels apart
+        mx.tick_params(axis="x", pad=3.5)              # unchanged, so the output-axis title keeps its place
         if i:
             mx.tick_params(labelleft=False)
         mx.text(0.5, 1.0, f"Prompt {prompt_row}", transform=mx.transAxes, fontsize=cs.FS_LABEL, color=cs.INK,

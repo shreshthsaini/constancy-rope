@@ -86,6 +86,37 @@ for _m in METHODS.values():
 
 # Type sizes at final print size (points).
 FS_TICK, FS_LABEL, FS_PANEL, FS_VALUE = 7, 8, 9, 7
+FS_MIN = 6.5     # smallest glyph in any figure at print size, mathtext sub- and superscripts included
+
+
+def script_floor(base_pt=FS_LABEL, floor_pt=FS_MIN):
+    """Print first-level mathtext sub- and superscripts of `base_pt` text at `floor_pt` or larger.
+
+    Mathtext sets scripts at 0.7 of the base size, so an 8 pt label such as $\\ln P_{\\mathrm{SEGA}}$ prints a
+    5.6 pt subscript, and matplotlib has no public switch for that ratio. This raises its module constant for
+    the whole process: call it once, right after style() and before anything is drawn (layouts are cached)."""
+    from matplotlib import _mathtext
+    assert isinstance(_mathtext.SHRINK_FACTOR, float), "matplotlib moved mathtext's SHRINK_FACTOR"
+    _mathtext.SHRINK_FACTOR = max(_mathtext.SHRINK_FACTOR, floor_pt / base_pt)
+
+
+def min_text_pt(fig):
+    """Smallest glyph size (points, at the figure's own size) over all visible text. Unlike the orx_figstyle
+    audit, which reads each Text's nominal size, this lays out mathtext, so scripts count at their real size."""
+    from matplotlib.cbook import is_math_text
+    from matplotlib.mathtext import MathTextParser
+    parser = MathTextParser("path")
+    sizes = []
+    for t in fig.findobj(mpl.text.Text):
+        s = t.get_text()
+        if not s.strip() or not t.get_visible():
+            continue
+        if t.get_parse_math() and not t.get_usetex() and is_math_text(s):
+            glyphs = parser.parse(s, dpi=72, prop=t.get_fontproperties()).glyphs
+            sizes.append(min((g[1] for g in glyphs), default=t.get_fontsize()))
+        else:
+            sizes.append(t.get_fontsize())
+    return min(sizes)
 
 
 def color(key):
@@ -312,7 +343,13 @@ def finish(fig, stem, photo=False, formats=None):
     """save() with the audit, then JPEG-embed photo panels. Photo figures skip SVG (base64 PNG bloat)."""
     stem = str(stem)
     formats = formats or (("pdf",) if photo else ("pdf", "svg"))
+    smallest = min_text_pt(fig)
     save(fig, stem, formats=formats)
+    if smallest < FS_MIN - 1e-6:
+        print(f"FIGURE AUDIT {stem}: smallest text {smallest:.2f} pt is under the {FS_MIN} pt floor "
+              "(mathtext scripts included; cs.script_floor raises them)", file=sys.stderr)
+    else:
+        print(f"figure audit {stem}: smallest text {smallest:.2f} pt (mathtext scripts included)", file=sys.stderr)
     if "svg" in formats:
         svg = Path(stem + ".svg")
         svg.write_text("\n".join(line.rstrip() for line in svg.read_text().splitlines()) + "\n")
