@@ -289,3 +289,7 @@ Update `.agent/STATE.md` and this file after every meaningful step.
   build PDFs and paper/dist (zip 36 MB, over the 30 MB chat upload limit; release creation needs the user: `gh release
   create v3 paper/dist/*.pdf paper/dist/*.zip`). Open items, all optional: Qwen-Image second family (not run, ~75 GPU-h),
   human 2AFC study, a second resolution. Any restart: read this file, then paper/PLAN.md and .agent/notes/strengthen/DIGEST.md.
+- 2026-10-24 SU FREEZE (user directive, relayed by session vista-6a): do NOT submit, resubmit or release any Slurm job for
+  this project (no sbatch, scontrol release, spool watchers or fleet auto-resubmit) until the user lifts the freeze.
+  Allocation about 2,800 SU and other users need it. This project holds no jobs; taskq/STOP is present. CPU-only and
+  paper work may continue.
