@@ -248,3 +248,8 @@ Update `.agent/STATE.md` and this file after every meaningful step.
   paper/tables/strengthen_tables.py`, then the fs_*.py scripts in paper/figs/strengthen/; the drop-in section
   paper/sec/results_confirmation.tex prints each paragraph once its block is analysed; paper/INTEGRATION.md says where to
   \input it. Text fix pass (before/after numbers, float order, rubric 1.2) was stopped on 10-20; relaunch when results land.
+- 2026-10-24 ~14:00: ALL 22 scoring tasks done (Blackwell CR28 + CR29), no failures. All GPU jobs released (CR26 cancelled
+  unused; CR28/CR29 cancelled after the queue drained; taskq/STOP present). SU balance 2,382. Opus max analyst running the
+  post-fleet chain (strengthen_confirm.py run -> strengthen_tables.py -> figs/strengthen/fs_*.py), finalizing
+  sec/results_confirmation.tex, INTEGRATION.md and .agent/notes/strengthen/DIGEST.md. Next: text pass integrates the
+  section + rubric fixes; Claude/Fable review; dist refresh; send; push.
