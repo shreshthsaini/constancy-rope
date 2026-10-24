@@ -1,11 +1,8 @@
 \subsection{\sega: paper versus code}\label{sec:papercode}
 
-\paragraph{The printed law is unbounded}
-With the printed law (\cref{eq:sega,tab:papercode}) the allocation is unbounded. At $4096^2$ the physical bin map sends every pair with a wavelength above \N{c@tokside} tokens, \N{c@collapsedpairs} of the \N{c@pairsperaxis} per axis, to the same frequency bin. The released law scales the spread by 0.15 and clamps the result at 1, so its logit gain stays between $\NmechSegaGainMin$ and $\NmechSegaGainMax$ on our held-out runs; the printed law, frozen as a static tilt in the dev pilot, spans $\NmechSegaStaticGainMin$ to $\NmechSegaStaticGainMax$.
-
 \begin{wraptable}{r}{0.5\linewidth}
 \vspace{-12pt}
-\caption{\textbf{\sega{} paper versus code.} Our reading of the printed equations against released commit \texttt{ddaab08552c7}; \cref{app:impl} gives the formulas. Key result: the release shrinks and bounds an allocation that the paper leaves unbounded.}
+\caption{\textbf{\sega{} paper versus code.} Our reading of the printed equations against released commit \texttt{ddaab08552c7}. \Cref{app:impl} expands the table with formulas, and \cref{tab:pilot} gives the pilot scores. Key result: the release shrinks and bounds an allocation that the paper leaves unbounded.}
 \label{tab:papercode}
 \centering\scriptsize
 \setlength{\tabcolsep}{2.4pt}
@@ -23,39 +20,13 @@ Frequency base & $\theta s^{2D/(D-2)}$, per axis & $\div(1{+}0.1\ln s)$, longest
 \end{tabular}
 \vspace{-6pt}
 \end{wraptable}
-\paragraph{The printed law scores worse in a dev pilot}
-In the eight-prompt dev pilot (descriptive only; \cref{app:pilot}), our implementation of the printed equations scores worse than the released code on every metric, with ImageReward \pim{segap}{ir} against \pim{sega}{ir} (\pid{segap}{ir} \N{pi@ci@segap@ir}). Freezing the printed allocation into a static tilt destroys images (CLIP \pim{segapst}{clip} against \pim{sega}{clip}), while freezing the released allocation costs much less (CLIP \pim{segast}{clip}; \cref{fig:papercode}). Readers who reimplement \sega{} from the paper will not reproduce the released method, so comparisons against \sega{} should state which version they ran.
+\paragraph{The printed law is unbounded and scores worse}
+Nothing bounds the allocation under the printed law (\cref{eq:sega,tab:papercode}). At $4096^2$ its physical bin map sends every pair with a wavelength above \N{c@tokside} tokens, \N{c@collapsedpairs} of the \N{c@pairsperaxis} per axis, to one frequency bin. The released law scales the spread by 0.15 and clamps the result at 1, so its logit gain stays between $\NmechSegaGainMin$ and $\NmechSegaGainMax$ on our held-out runs. In the eight-prompt dev pilot (descriptive only; \cref{app:pilot}), our implementation of the printed equations scores worse than the released code on every metric, with ImageReward \pim{segap}{ir} against \pim{sega}{ir} (\pid{segap}{ir} \N{pi@ci@segap@ir}). Frozen as a static tilt, the printed allocation spans gains of $\NmechSegaStaticGainMin$ to $\NmechSegaStaticGainMax$ and destroys images (CLIP \pim{segapst}{clip} against \pim{sega}{clip}), while the frozen release costs much less (CLIP \pim{segast}{clip}; \cref{fig:papercode}). Comparisons against \sega{} should therefore state which version they ran.
 
 \subsection{Pitfalls in 4K evaluation}\label{sec:pitfalls}\label{sec:spectra}\label{sec:checkpoint}
 
 \paragraph{224-pixel scorers miss the finest octaves}
-CLIP, PickScore and ImageReward see a 224-pixel view with Nyquist frequency \N{nyq@cpp} cycles per original pixel ($2^{\N{nyq@log}}$). Bands \N{nyq@firstband} to 10 of our 11 octaves lie entirely above it, and the methods differ there: band 8's log-power error against the references is \N{oct@tsb@b8} for \tempsb{} and \N{oct@sega@b8} for \segaofficial{} (\cref{fig:spectrum_main,tab:octave}). This may help explain reward-model ties next to a full-frame MUSIQ gap. Resizing can keep indirect effects or alias fine patterns, but these scorers cannot directly resolve original detail and do not suffice alone at 4K.
+CLIP, PickScore and ImageReward see a 224-pixel view with Nyquist frequency \N{nyq@cpp} cycles per original pixel ($2^{\N{nyq@log}}$). Bands \N{nyq@firstband} to 10 of our 11 octaves lie entirely above it, and the methods differ there. Band 8's log-power error against the references is \N{oct@tsb@b8} for \tempsb{} and \N{oct@sega@b8} for \segaofficial{} (\cref{fig:spectrum_main,tab:octave}), which may help explain reward-model ties next to a full-frame MUSIQ gap. Resizing can keep indirect effects, but these scorers cannot resolve original detail and do not suffice alone at 4K.
 
-% STRENGTHEN CHECKPOINT: Replace the confounded comparison only after the complete
-% official-code checkpoint x guidance matrix has been verified.
-
-\paragraph{Checkpoint comparisons need matched guidance}
-Our first campaign used \fluxdev, on which \dype{} and \constancy{} produced a dense halftone lattice over the $4096^2$ frame and \ntk{} a featureless blur. Official \dype{} code reproduced the lattice on dev prompt 0, seed 42, at guidance 3.5, while the matching \krea{} run at guidance 4.5 had no visible lattice (\cref{fig:checkpoint}). Our port is therefore not a necessary cause of that failure, but the guidance difference prevents isolating the checkpoint. Like \dype's main experiments~\citep{issachar2025dype}, all our held-out comparisons use \krea; the \fluxdev{} pilot is descriptive evidence only.
-
-\begin{wraptable}{r}{0.43\linewidth}
-\vspace{-12pt}
-\caption{\textbf{Kernel and GPU set cost.} Median seconds per $4096^2$ sample; the FlashAttention-2 timings come from the dev pilot. \Cref{tab:compute} expands this table. Key result: the kernel changes cost far more than the method does.}
-\label{tab:cost}
-\centering\scriptsize
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}l r r@{}}
-\toprule
-Setting & s/image$\downarrow$ & relative \\
-\midrule
-\rowcolor{papertint}GH200, cuDNN SDPA & \NcompGHcudnnSec & 1.00 \\
-GH200, FlashAttention-2 & \NcompGHflashSec & \NcompFlashRatio \\
-GB200, same code & \NcompBWSec & $1/\NcompBWSpeedup$ \\
-\bottomrule
-\end{tabular}
-\vspace{-8pt}
-\end{wraptable}
-\paragraph{The attention kernel costs more than the method}
-On one GH200 node, forcing FlashAttention-2 raises the median time per sample from \NcompGHcudnnSec\,s with cuDNN-first SDPA to \NcompGHflashSec\,s, \NcompFlashRatio{} times as long, while method families on one node differ by at most \NcompFamilySpreadPct\% (\cref{tab:cost}); one GB200 GPU takes \NcompBWSec\,s, \NcompBWSpeedup{} times faster than a GH200. Timing comparisons between methods must therefore fix both kernel and GPU. Our records did not log the dispatched kernel or a hash of the loaded weights, so we reconstructed attention policy and transformer identity from code revisions and task scripts, which are not direct runtime records.
-% STRENGTHEN QWEN: Insert complete within-family Qwen results here or in a dedicated
-% appendix, including every registered arm and metric; do not compare raw rewards
-% between families as checkpoint effects.
+\paragraph{The lattice is a checkpoint effect}
+Our first campaign used \fluxdev, on which \dype{} and \constancy{} produced a dense halftone lattice over the $4096^2$ frame (\cref{fig:checkpoint}), but that comparison also changed guidance. With the official \dype{} code at matched guidance, \fluxdev{} carries \N{st@k@ratio@g3p5}$\times$ \N{st@k@ci@g3p5} the \krea{} lattice power at guidance 3.5 and \N{st@k@ratio@g4p5}$\times$ \N{st@k@ci@g4p5} at 4.5 (8 dev prompts; \cref{tab:strengthen-ckpt}). Raising guidance scales the \fluxdev{} lattice by \N{st@k@two@gdev}$\times$ \N{st@k@twoci@gdev}, so guidance modulates the lattice, but the checkpoint gap remains at both values.

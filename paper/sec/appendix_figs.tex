@@ -1,19 +1,19 @@
 \section{Additional figures}\label{app:figs}
 
-This appendix expands \cref{fig:qual_main,fig:spectrum_main} and holds the development figures behind \cref{sec:checkpoint,sec:papercode}. \Cref{fig:qual} shows held-out samples, \cref{fig:checkpoint} the development checkpoint diagnostic, \cref{fig:spectrum} the octave-band spectra, and \cref{fig:papercode} the development paper-versus-code comparison.
+This appendix expands \cref{tab:results,fig:spectrum_main} and holds the development figures behind \cref{sec:checkpoint,sec:papercode}. \Cref{fig:forest} plots every held-out paired difference, \cref{fig:qual_main,fig:qual} show held-out samples, \cref{fig:spectrum} the octave-band spectra, \cref{fig:papercode,tab:papercode_scores} the development paper-versus-code comparison and \cref{fig:checkpoint} the development checkpoint diagnostic.
 
 \begin{figure}[H]
 \centering
-\figorplaceholder[\linewidth]{figs/f4_qualitative.pdf}{3.1in}
-\caption{\textbf{\ntk{} loses fine detail at $4096^2$.} The other arms render comparable detail, and \dype{} shows faint speckle in flat sky on held-out row 8 (one crop checked); compositions differ between arms, so a crop can show different content. Held-out rows 8, 9 and 10 (left to right), the first three held-out rows, were fixed before any output was viewed; seed 0, one sample per arm. Full frames are Lanczos-reduced; native-resolution crops sit at identical coordinates and are never resampled (red: highest-detail tile of the across-arm mean luminance; cyan: image center). Prompts, left to right: ``A stone bridge with arched spans reflects golden light on the water, flanked by buildings and a leafy tree under a clear blue sky.'' ``A panoramic view of Paris featuring the Eiffel Tower, the Seine River, and various ornate buildings with greenery and bustling activity, including boats on the water and crowds along walkways.'' ``A cluttered artist's corner features an ornate gold frame, a painting of a man with glasses, several empty picture frames, a vintage suitcase, and various brushes in a tin can, all set against a textured gray wall and draped with patterned fabric.''}
-\label{fig:qual}
+\figorplaceholder[\linewidth]{figs/f3_forest.pdf}{2.6in}
+\caption{\textbf{Paired differences from \segaofficial.} No per-band law improves on \segaofficial{} in any reward or image-quality metric, and \dype's isolated gains in crop MUSIQ and CLIP-IQA come with losses elsewhere. The dashed blue line is \segaofficial; marks show held-out paired differences with 95\% bootstrap intervals (rows 8--194, seed 0, $n=\N{ho@nprompts}$), pale where the interval includes 0, and \cref{tab:main} lists them. Hollow marks: seed-1 replication on rows 8--62 ($n=\N{so@n@tsb}$) for \tempsb{} and \constancytm{} (none for \segactm); triangles: \ntk{} beyond the axis limit; arrows: better direction.}
+\label{fig:forest}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\figorplaceholder[\linewidth]{figs/f5_checkpoint.pdf}{3.26in}
-\caption{\textbf{Lattice and checkpoint check.} The development comparison shows a lattice on \fluxdev{}, but checkpoint and guidance both change. (a)~Dev prompt 0 under official \dype{} code (seed 42) and our \dype{} and \segaofficial{} pipelines (seed 0), at guidance 3.5 (\fluxdev) and 4.5 (\krea). Red and cyan boxes mark native 192-pixel windows at the same place in every image. (b)~Whitened radial power spectra of luminance: \fluxdev{} (black) peaks at the lattice period (dot) and \krea{} (gray) does not in these samples. Peak ratios: 36$\times$ for the official-code pair; over eight prompts in our pipeline, 12$\times$ [7, 20] for \dype{} and 5$\times$ [2, 11] for \segaofficial{} (geometric means, 95\% bootstrap intervals). Official-code evidence covers one prompt per checkpoint, and the figure does not isolate a checkpoint effect.}
-\label{fig:checkpoint}
+\figorplaceholder[\linewidth]{figs/f4_qualitative_main.pdf}{3.26in}
+\caption{\textbf{Native crops show what thumbnails hide.} Held-out rows 8, 9 and 10 (left to right), the first three held-out prompts, were fixed before any output was viewed; seed 0, each Lanczos-reduced full frame beside its unaltered 384-pixel crop (red box). During review, we chose one shared crop location per row on a fixed grid by maximizing the minimum Laplacian energy across all six arms, each normalized by its 90th percentile over candidate locations. This output-dependent rule favors detail present in every arm and selects no winning method; differing compositions remain a limitation. Full prompts are in \cref{fig:qual}.}
+\label{fig:qual_main}
 \end{figure}
 
 \begin{figure}[H]
@@ -25,7 +25,30 @@ This appendix expands \cref{fig:qual_main,fig:spectrum_main} and holds the devel
 
 \begin{figure}[H]
 \centering
+\figorplaceholder[\linewidth]{figs/f4_qualitative.pdf}{3.1in}
+\caption{\textbf{\ntk{} loses fine detail at $4096^2$.} The other arms render comparable detail, and \dype{} shows faint speckle in flat sky on held-out row 8 (one crop checked); compositions differ between arms, so a crop can show different content. Held-out rows 8, 9 and 10 (left to right), the first three held-out rows, were fixed before any output was viewed; seed 0, one sample per arm. Full frames are Lanczos-reduced; native-resolution crops sit at identical coordinates and are never resampled (red: highest-detail tile of the across-arm mean luminance; cyan: image center). Prompts, left to right: ``A stone bridge with arched spans reflects golden light on the water, flanked by buildings and a leafy tree under a clear blue sky.'' ``A panoramic view of Paris featuring the Eiffel Tower, the Seine River, and various ornate buildings with greenery and bustling activity, including boats on the water and crowds along walkways.'' ``A cluttered artist's corner features an ornate gold frame, a painting of a man with glasses, several empty picture frames, a vintage suitcase, and various brushes in a tin can, all set against a textured gray wall and draped with patterned fabric.''}
+\label{fig:qual}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Printed-law scores in the dev pilot.} CLIP score and ImageReward means over the eight dev prompts (rows 0--7, seed 0), with paired differences from \segaofficial{} and 95\% bootstrap intervals (2,000 resamples); descriptive only. Static variants freeze the allocation instead of reading the current latent. \Cref{tab:pilot} gives the other metrics. Key result: freezing the printed allocation collapses both scores, while freezing the released allocation costs far less.}
+\label{tab:papercode_scores}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\input{figs/f6_sega_code_table.tex}
+\end{table}
+
+\begin{figure}[H]
+\centering
 \figorplaceholder[\linewidth]{figs/f6_sega_code.pdf}{2.4in}
 \caption{\textbf{Printed equations against the release.} The printed-law implementation produces larger gain changes than the release and degrades this development pilot. Eight dev prompts (rows 0--7, seed 0), descriptive only. (a)~Median log logit gain per rotary pair (pair 0 has the highest frequency) and denoising step. Released and printed-law heatmaps have separate symmetric color scales, so equal colors across the groups do not mean equal magnitudes. The line panel uses one shared axis for mean log gain over prompts, steps and both spatial axes; static variants (dashed) average each method's gains over prompts and steps. (b)~Dev prompt 0, seed 0: full frames and a native-resolution crop (red box). \Cref{tab:papercode_scores} gives CLIP score and ImageReward means over the eight dev prompts, with paired differences from \segaofficial{} and 95\% bootstrap intervals.}
 \label{fig:papercode}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\figorplaceholder[\linewidth]{figs/f5_checkpoint.pdf}{3.26in}
+\caption{\textbf{Lattice and checkpoint check.} The development comparison shows a lattice on \fluxdev{}, but checkpoint and guidance both change. (a)~Dev prompt 0 under official \dype{} code (seed 42) and our \dype{} and \segaofficial{} pipelines (seed 0), at guidance 3.5 (\fluxdev) and 4.5 (\krea). Red and cyan boxes mark native 192-pixel windows at the same place in every image. (b)~Whitened radial power spectra of luminance: \fluxdev{} (black) peaks at the lattice period (dot) and \krea{} (gray) does not in these samples. Peak ratios: 36$\times$ for the official-code pair; over eight prompts in our pipeline, 12$\times$ [7, 20] for \dype{} and 5$\times$ [2, 11] for \segaofficial{} (geometric means, 95\% bootstrap intervals). This figure alone does not isolate the checkpoint; the matched-guidance control of \cref{tab:strengthen-ckpt} does.}
+\label{fig:checkpoint}
 \end{figure}

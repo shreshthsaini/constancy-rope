@@ -280,7 +280,7 @@ def table_share(d):
         g_bt = boot(b - a)
         g_al = boot(c - b)
         sig_total = verdict(k, *boot(c - a))
-        share_txt = (r"%d\%% \tiny[%d, %d]" % (round(100 * sh), round(100 * slo), round(100 * shi))
+        share_txt = (r"%d\%% {\fontsize{6.5}{7}\selectfont[%d, %d]}" % (round(100 * sh), round(100 * slo), round(100 * shi))
                      if sig_total == "b" else "n/a")
         L.append(LABEL[k] + " & " + " & ".join(m_(num(x.mean(), p)) for x in (a, b, c)) + " & " +
                  dcell(k, *g_bt) + " & " + dcell(k, *g_al) + " & " + share_txt + r" \\")
@@ -301,7 +301,7 @@ def table_full(res, means):
     order = ["sega_official"] + HO_ORDER
     head = r"Metric & " + " & ".join(HOH[m] for m in order) + r" \\"
     L = [r"\begin{tabular}{@{}l" + "r" * len(order) + r"@{}}", r"\toprule", head,
-         r" & " + " & ".join(r"\tiny $n=%d$" % means[(m, METRICS[0])][3] for m in order) + r" \\", r"\midrule"]
+         r" & " + " & ".join(r"{\fontsize{6.5}{7}\selectfont $n=%d$}" % means[(m, METRICS[0])][3] for m in order) + r" \\", r"\midrule"]
     for k in METRICS:
         p = PREC[k]
         cells = [r"\mcell{%s}{%s}{%s}" % (num(means[(m, k)][0], p), num(means[(m, k)][1], p), num(means[(m, k)][2], p))
@@ -311,7 +311,7 @@ def table_full(res, means):
     (OUT / "tab_means_full.tex").write_text("\n".join(L) + "\n")
     L = [r"\begin{tabular}{@{}l" + "r" * len(HO_ORDER) + r"@{}}", r"\toprule",
          r"Metric & " + " & ".join(HOH[m] for m in HO_ORDER) + r" \\",
-         r" & " + " & ".join(r"\tiny $n=%d$" % res[(m, METRICS[0])][3] for m in HO_ORDER) + r" \\", r"\midrule"]
+         r" & " + " & ".join(r"{\fontsize{6.5}{7}\selectfont $n=%d$}" % res[(m, METRICS[0])][3] for m in HO_ORDER) + r" \\", r"\midrule"]
     for k in METRICS:
         L.append(LABEL[k] + " & " + " & ".join(
             dcell(k, *res[(m, k)][:3], holm=HOLM[("historical_full60", m, k)]) for m in HO_ORDER) + r" \\")

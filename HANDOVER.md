@@ -16,41 +16,54 @@ All older entries below are historical and do not override the current task.
 
 ## Gold rubric self-score (text agent)
 
-2026-10-19, build `paper/main.pdf` (not `paper/dist/`): 27 pages; Sections 1 to 8 and the Reproducibility
-statement on pages 1 to 10, references from page 11, appendix contents page 14. Clean build: no overfull boxes,
-no undefined references. Intro 721 words, 33 sentences, median 21, mean 21.8, max 32 (none over 35). Abstract
-200 words. 22 of 22 spot-checked macro values (shares, deltas, CIs, compute) match the compiled main text.
-Figure captions follow figs/CAPTIONS.md (figv3); table shading follows figs/PALETTE.md (only the SEGA (released)
-row or an ablation default, #E6F0F6). Scores: 0 below, 1 meets, 2 above. Figure-content items rely on the figure agent.
+2026-10-24, build `paper/main.pdf` (not `paper/dist/`, which was not refreshed): 34 pages. Sections 1 to 8 and the
+Reproducibility statement on pages 1 to 10, references pages 11 to 13, appendix contents and appendices A to I on
+pages 14 to 34. Clean tectonic build: no overfull boxes, no undefined references (the missing
+`tab:papercode_scores` is now Table A.1, the dev-pilot score table from `figs/f6_sega_code_table.tex`).
+Title: "Where Does the Gain Come From? The Attention Temperature Does the Work in Training-Free RoPE Extrapolation
+to 4K". Abstract 168 words, 9 sentences, headline factorial number and the public code URL. Introduction 696 words,
+37 sentences, median 20, mean 18.8, max 32. Sections 2 to 8: 194 sentences, median 19, mean 18.5; none over 35 words
+except the one that holds equation (1).
+Spot-check: 29 of 29 numbers recomputed from `.agent/notes/strengthen/analysis/` (per-image CSVs for factorial cell
+means, simple and main effects, the SEGA-over-NTK totals and fresh means; analysis outputs for intervals and Holm p)
+match the compiled main text (script: `paper/tables/spotcheck_text.py`, rerun before release).
+Structure: the factorial is the core of Section 5.1 (two-arm lead-in, then base x temperature), 5.2 holds the
+registered confirmation, 5.3 the per-band laws, 5.4 paper versus code, 5.5 pitfalls (224-pixel scorers, checkpoint
+control). Moved to the appendix for space: forest plot (Figure A.1), main qualitative grid (Figure A.2), factorial
+figure (Figure C.1), registered-test table (Table C.4), seed-1 small table, kernel-cost table (Table H.1).
+Visual QA (independent agent, all 34 page renders at 110 dpi in /scratch/09032/saini_2/tmp/text5, which predates the
+last fixes) found no ??, overlaps, margin hits or orphaned headings; its defects were fixed: stacked value/interval
+cells got 1 pt more leading and raised triangles (main.tex), sub-6 pt share intervals and n labels now 6.5 pt
+(make_tables.py), float pages fill from the top, appendix A figures reordered, typo and stale Section 5.5 pointers fixed,
+URL unbroken, US spelling, lower-case Key results. Left for the figure agent: crowded 1/4 and 1/256 ticks in Figure G.1.
 
 | Item | Score | Note |
 | :-- | :-: | :-- |
-| Abstract 130-200 words, headline number, URL | 0 | 200 words and numbers; no public URL yet (release sentence instead) |
-| Hero under abstract, full width, panel-walking caption | 1 | |
+| Abstract 130-200 words, headline number, URL | 1 | 168 words; +0.594 [+0.506, +0.686]; public GitHub URL |
+| Hero under abstract, full width, panel-walking caption | 2 | 0.98 width; factorial bars with CIs and Holm marks plus fixed native crops |
 | Footnotes (at most two, administrative) | 1 | none |
 | Question by end of para 1; motivating float beside para 2 | 1 | Table 1 wraptable |
-| "We introduce" para, numbers in para 4, three "We" bullets | 1 | last bullet carries 104% [97, 113] |
-| Median sentence under 22, none over 35 | 1 | median 21, max 32 |
-| Method diagram with lettered panels and appendix zoom | 1 | Fig. 2 and Fig. E.1 |
+| "We introduce" para, numbers in para 4, three "We" bullets | 1 | last bullet carries 0.594 [+0.506, +0.686] |
+| Median sentence under 22, none over 35 | 1 | median 20, max 32 |
+| Method diagram with lettered panels and appendix zoom | 1 | Fig. 2 and Fig. F.1 (figure agent) |
 | Equations introduced by a clause, "where" line | 1 | |
-| Boxed side-by-side algorithms with Input/Output, appendix pointers | 1 | Algorithms 1-2, top of page 4 |
-| Setup run-ins with counts, steps, compute hours | 2 | adds a main-text cost table (Table 6) |
-| Main table: booktabs, arrows, shading, bold best, Key result | 2 | adds paired-verdict triangles and Holm stars |
-| Finding paragraphs with bold claims and numbers | 1 | quotes paired deltas with CIs rather than before/after pairs |
-| Ablation tables side by side, default shaded, appendix versions | 1 | Tables 3-4 |
-| Plots: palette, markers, value labels, shared legends, >= 6 pt | 1 | figure agent; not re-measured at print size here |
-| Qualitative grid, same prompt and seed, labeled rows | 1 | Fig. 5 |
-| Confounds named; limitations with concrete scope | 2 | eight-item main-text Limitations section |
-| Reproducibility statement mapping details to appendices | 2 | plus script-generated numbers and checklist (App. H) |
+| Boxed side-by-side algorithms with Input/Output, appendix pointers | 1 | Algorithms 1-2 |
+| Setup run-ins with counts, steps, compute hours | 2 | adds the registered confirmation protocol with its five Holm families |
+| Main table: booktabs, arrows, shading, bold best, Key result | 2 | paired triangles, Holm stars, decomposition block |
+| Finding paragraphs with bold claims and numbers | 1 | bold run-in claims; before and after values, then paired difference and CI |
+| Ablation tables side by side, default shaded, appendix versions | 1 | Tables 4-5 (sweep, allocation), expanded by Tables C.3 and B.3 |
+| Plots: palette, markers, value labels, shared legends, >= 6 pt | 1 | figure agent; not re-measured here |
+| Qualitative grid, same prompt and seed, labeled rows | 1 | grid now Figure A.2 (space); hero (b) carries native crops |
+| Confounds named; limitations with concrete scope | 2 | pooled-prompt and fresh PickScore caveats, Qwen not run |
+| Reproducibility statement mapping details to appendices | 2 | plus preregistration and independent recomputation |
 | Appendix: contents, zoom, banded config table, expansions, prompts | 1 | samples are the first rows, labeled as such, not random |
-| Floats within one page, >= 3 wraps, <= 60% float pages | 1 | four wraps; page 6 is near the 60% limit |
+| Floats within one page, >= 3 wraps, <= 60% float pages | 1 | three wraps (Tables 1, 6; Figure 3) |
 | Captions above tables, below figures, bold leads | 1 | |
 | Same colors across hero, plots, tables | 1 | |
 | No em dashes, no section symbol, no figure text under 6 pt | 1 | |
 
-Mean 25/22 = 1.14, below the 1.2 ship bar, with one 0 (no public URL until release). Below the bar or open:
-the URL; main-table finding paragraphs quote deltas rather than before/after values; page 6 float share
-(Table 2 plus the Figure 4 wrap) sits near 60%; Figure 4 prints before Figure 3 because the wrap is in-text.
+Mean 27/22 = 1.23, no item below 1. Open: the qualitative grid and the forest plot left the main text to fit ten
+pages; samples remain first-rows rather than random; plot font sizes were not re-measured by the text agent.
 
 ## Paper status (2026-10-18, camera-ready pass)
 

@@ -1,0 +1,425 @@
+\begin{thebibliography}{59}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Atick and Redlich(1990)]{atick1990towards}
+Joseph~J. Atick and A.~Norman Redlich.
+\newblock Towards a theory of early visual processing.
+\newblock \emph{Neural Computation}, 2\penalty0 (3):\penalty0 308--320, 1990.
+
+\bibitem[Atick and Redlich(1992)]{atick1992retina}
+Joseph~J. Atick and A.~Norman Redlich.
+\newblock What does the retina know about natural scenes?
+\newblock \emph{Neural Computation}, 4\penalty0 (2):\penalty0 196--210, 1992.
+
+\bibitem[Barbero et~al.(2025)Barbero, Vitvitskyi, Perivolaropoulos, Pascanu,
+  and Veli{\v{c}}kovi{\'c}]{barbero2025round}
+Federico Barbero, Alex Vitvitskyi, Christos Perivolaropoulos, Razvan Pascanu,
+  and Petar Veli{\v{c}}kovi{\'c}.
+\newblock Round and round we go! {W}hat makes rotary positional encodings
+  useful?
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2025.
+\newblock arXiv:2410.06205.
+
+\bibitem[Bi{\'n}kowski et~al.(2018)Bi{\'n}kowski, Sutherland, Arbel, and
+  Gretton]{binkowski2018kid}
+Miko{\l}aj Bi{\'n}kowski, Danica~J. Sutherland, Michael Arbel, and Arthur
+  Gretton.
+\newblock Demystifying {MMD} {GANs}.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2018.
+
+\bibitem[{Black Forest Labs}(2024)]{flux2024}
+{Black Forest Labs}.
+\newblock {FLUX.1}.
+\newblock \url{https://github.com/black-forest-labs/flux}, 2024.
+
+\bibitem[{Black Forest Labs} and {Krea AI}(2025)]{flux1kreadev2025}
+{Black Forest Labs} and {Krea AI}.
+\newblock {FLUX.1 Krea [dev]}.
+\newblock \url{https://huggingface.co/black-forest-labs/FLUX.1-Krea-dev}, 2025.
+
+\bibitem[{bloc97}(2023)]{bloc97ntk}
+{bloc97}.
+\newblock {NTK-Aware} scaled {RoPE} allows {LLaMA} models to have extended
+  (8k+) context size without any fine-tuning and minimal perplexity
+  degradation.
+\newblock Reddit, r/LocalLLaMA, 2023.
+
+\bibitem[Bu et~al.(2025)]{bu2025hiflow}
+Jiazi Bu et~al.
+\newblock {HiFlow}: Training-free high-resolution image generation with
+  flow-aligned guidance, 2025.
+\newblock arXiv:2504.06232.
+
+\bibitem[Carandini and Heeger(2012)]{carandini2012normalization}
+Matteo Carandini and David~J. Heeger.
+\newblock Normalization as a canonical neural computation.
+\newblock \emph{Nature Reviews Neuroscience}, 13\penalty0 (1):\penalty0 51--62,
+  2012.
+
+\bibitem[Chen et~al.(2023)Chen, Wong, Chen, and Tian]{chen2023pi}
+Shouyuan Chen, Sherman Wong, Liangjian Chen, and Yuandong Tian.
+\newblock Extending context window of large language models via positional
+  interpolation, 2023.
+\newblock arXiv:2306.15595.
+
+\bibitem[Dieleman(2024)]{dieleman2024spectral}
+Sander Dieleman.
+\newblock Diffusion is spectral autoregression.
+\newblock Blog post,
+  \url{https://sander.ai/2024/09/02/spectral-autoregression.html}, 2024.
+
+\bibitem[Ding et~al.(2024)Ding, Zhang, Zhang, Xu, Shang, Xu, Yang, and
+  Yang]{ding2024longrope}
+Yiran Ding, Li~Lyna Zhang, Chengruidong Zhang, Yuanyuan Xu, Ning Shang, Jiahang
+  Xu, Fan Yang, and Mao Yang.
+\newblock {LongRoPE}: Extending {LLM} context window beyond 2 million tokens.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2024.
+\newblock arXiv:2402.13753.
+
+\bibitem[Dong and Atick(1995)]{dong1995statistics}
+Dawei~W. Dong and Joseph~J. Atick.
+\newblock Statistics of natural time-varying images.
+\newblock \emph{Network: Computation in Neural Systems}, 6\penalty0
+  (3):\penalty0 345--358, 1995.
+
+\bibitem[Du et~al.(2024{\natexlab{a}})Du, Chang, Hospedales, Song, and
+  Ma]{du2024demofusion}
+Ruoyi Du, Dongliang Chang, Timothy Hospedales, Yi-Zhe Song, and Zhanyu Ma.
+\newblock {DemoFusion}: Democratising high-resolution image generation with no
+  \$\$\$.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, 2024{\natexlab{a}}.
+\newblock arXiv:2311.16973.
+
+\bibitem[Du et~al.(2024{\natexlab{b}})Du, Liu, Zhuo, Qi, Li, Ma, and
+  Gao]{du2024imax}
+Ruoyi Du, Dongyang Liu, Le~Zhuo, Qin Qi, Hongsheng Li, Zhanyu Ma, and Peng Gao.
+\newblock {I-Max}: Maximize the resolution potential of pre-trained rectified
+  flow transformers with projected flow, 2024{\natexlab{b}}.
+\newblock arXiv:2410.07536.
+
+\bibitem[Esser et~al.(2024)Esser, Kulal, Blattmann, Entezari, M{\"u}ller,
+  Saini, Levi, Lorenz, Sauer, Boesel, Podell, Dockhorn, English, and
+  Rombach]{esser2024sd3}
+Patrick Esser, Sumith Kulal, Andreas Blattmann, Rahim Entezari, Jonas
+  M{\"u}ller, Harry Saini, Yam Levi, Dominik Lorenz, Axel Sauer, Frederic
+  Boesel, Dustin Podell, Tim Dockhorn, Zion English, and Robin Rombach.
+\newblock Scaling rectified flow transformers for high-resolution image
+  synthesis.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2024.
+
+\bibitem[Falck et~al.(2025)]{falck2025fourier}
+Fabian Falck et~al.
+\newblock A {F}ourier space perspective on diffusion models, 2025.
+\newblock arXiv:2505.11278.
+
+\bibitem[Field(1987)]{field1987relations}
+David~J. Field.
+\newblock Relations between the statistics of natural images and the response
+  properties of cortical cells.
+\newblock \emph{Journal of the Optical Society of America A}, 4\penalty0
+  (12):\penalty0 2379--2394, 1987.
+
+\bibitem[Galinska et~al.(2026)Galinska, Pogodzinski, and Lenssen]{csflow2026}
+Malgorzata Galinska, Bart Pogodzinski, and Jan~Eric Lenssen.
+\newblock {CSFlow}: Aligning flow matching with human contrast sensitivity,
+  2026.
+\newblock arXiv:2606.08833.
+
+\bibitem[Georgeson and Sullivan(1975)]{georgeson1975contrast}
+M.~A. Georgeson and G.~D. Sullivan.
+\newblock Contrast constancy: Deblurring in human vision by spatial frequency
+  channels.
+\newblock \emph{The Journal of Physiology}, 252\penalty0 (3):\penalty0
+  627--656, 1975.
+
+\bibitem[Graikos et~al.(2026)Graikos, Jojic, and Samaras]{graikos2026jacobian}
+Alexandros Graikos, Nebojsa Jojic, and Dimitris Samaras.
+\newblock On the spectral properties of generative denoiser jacobians, 2026.
+\newblock arXiv:2609.36210.
+
+\bibitem[He et~al.(2024)He, Yang, Chen, Cun, Xia, Zhang, Wang, He, Chen, and
+  Shan]{he2024scalecrafter}
+Yingqing He, Shaoshu Yang, Haoxin Chen, Xiaodong Cun, Menghan Xia, Yong Zhang,
+  Xintao Wang, Ran He, Qifeng Chen, and Ying Shan.
+\newblock {ScaleCrafter}: Tuning-free higher-resolution visual generation with
+  diffusion models.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2024.
+\newblock arXiv:2310.07702.
+
+\bibitem[Heeger(1992)]{heeger1992normalization}
+David~J. Heeger.
+\newblock Normalization of cell responses in cat striate cortex.
+\newblock \emph{Visual Neuroscience}, 9\penalty0 (2):\penalty0 181--197, 1992.
+
+\bibitem[Hessel et~al.(2021)Hessel, Holtzman, Forbes, Le~Bras, and
+  Choi]{hessel2021clipscore}
+Jack Hessel, Ari Holtzman, Maxwell Forbes, Ronan Le~Bras, and Yejin Choi.
+\newblock {CLIPScore}: A reference-free evaluation metric for image captioning.
+\newblock In \emph{Conference on Empirical Methods in Natural Language
+  Processing (EMNLP)}, 2021.
+
+\bibitem[Heusel et~al.(2017)Heusel, Ramsauer, Unterthiner, Nessler, and
+  Hochreiter]{heusel2017fid}
+Martin Heusel, Hubert Ramsauer, Thomas Unterthiner, Bernhard Nessler, and Sepp
+  Hochreiter.
+\newblock {GANs} trained by a two time-scale update rule converge to a local
+  {Nash} equilibrium.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2017.
+
+\bibitem[Huang et~al.(2024)Huang, Fang, Zhang, Song, Liu, Liu, and
+  Li]{huang2024fouriscale}
+Linjiang Huang, Rongyao Fang, Aiping Zhang, Guanglu Song, Si~Liu, Yu~Liu, and
+  Hongsheng Li.
+\newblock {FouriScale}: A frequency perspective on training-free
+  high-resolution image synthesis.
+\newblock In \emph{European Conference on Computer Vision (ECCV)}, 2024.
+\newblock arXiv:2403.12963.
+
+\bibitem[Issachar et~al.(2025)Issachar, Yariv, Benaim, Adi, Lischinski, and
+  Fattal]{issachar2025dype}
+Noam Issachar, Guy Yariv, Sagie Benaim, Yossi Adi, Dani Lischinski, and Raanan
+  Fattal.
+\newblock {DyPE}: Dynamic position extrapolation for ultra high resolution
+  diffusion, 2025.
+\newblock arXiv:2510.20766.
+
+\bibitem[Jin et~al.(2023)Jin, Shen, Li, and Xue]{jin2023training}
+Zhiyu Jin, Xuli Shen, Bin Li, and Xiangyang Xue.
+\newblock Training-free diffusion model adaptation for variable-sized
+  text-to-image synthesis.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2023.
+\newblock arXiv:2306.08645.
+
+\bibitem[Kadkhodaie et~al.(2024)Kadkhodaie, Guth, Simoncelli, and
+  Mallat]{kadkhodaie2024generalization}
+Zahra Kadkhodaie, Florentin Guth, Eero~P. Simoncelli, and St{\'e}phane Mallat.
+\newblock Generalization in diffusion models arises from geometry-adaptive
+  harmonic representations.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2024.
+\newblock arXiv:2310.02557.
+
+\bibitem[Ke et~al.(2021)Ke, Wang, Wang, Milanfar, and Yang]{ke2021musiq}
+Junjie Ke, Qifei Wang, Yilin Wang, Peyman Milanfar, and Feng Yang.
+\newblock {MUSIQ}: Multi-scale image quality transformer.
+\newblock In \emph{IEEE/CVF International Conference on Computer Vision
+  (ICCV)}, 2021.
+
+\bibitem[Kim and Kim(2026)]{scg2026}
+Gihoon Kim and Taesup Kim.
+\newblock Correcting guided diffusion trajectories with spectral alignment,
+  2026.
+\newblock arXiv:2610.02753.
+
+\bibitem[Kirstain et~al.(2023)Kirstain, Polyak, Singer, Matiana, Penna, and
+  Levy]{kirstain2023pickapic}
+Yuval Kirstain, Adam Polyak, Uriel Singer, Shahbuland Matiana, Joe Penna, and
+  Omer Levy.
+\newblock Pick-a-pic: An open dataset of user preferences for text-to-image
+  generation.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2023.
+
+\bibitem[Knill et~al.(1990)Knill, Field, and Kersten]{knill1990human}
+David~C. Knill, David Field, and Daniel Kersten.
+\newblock Human discrimination of fractal images.
+\newblock \emph{Journal of the Optical Society of America A}, 7\penalty0
+  (6):\penalty0 1113--1123, 1990.
+
+\bibitem[Lipman et~al.(2023)Lipman, Chen, Ben-Hamu, Nickel, and
+  Le]{lipman2023flow}
+Yaron Lipman, Ricky T.~Q. Chen, Heli Ben-Hamu, Maximilian Nickel, and Matt Le.
+\newblock Flow matching for generative modeling.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2023.
+\newblock arXiv:2210.02747.
+
+\bibitem[Liu et~al.(2023)Liu, Gong, and Liu]{liu2023flow}
+Xingchao Liu, Chengyue Gong, and Qiang Liu.
+\newblock Flow straight and fast: Learning to generate and transfer data with
+  rectified flow.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2023.
+\newblock arXiv:2209.03003.
+
+\bibitem[Liu et~al.(2026)Liu, Ye, Lin, Fang, and Zhang]{tide2026}
+Yihua Liu, Fanjiang Ye, Bowen Lin, Rongyu Fang, and Chengming Zhang.
+\newblock {TIDE}: Text-informed dynamic extrapolation with step-aware
+  temperature control for diffusion transformers, 2026.
+\newblock arXiv:2603.08928.
+
+\bibitem[Nakanishi(2025)]{nakanishi2025ssmax}
+Ken~M. Nakanishi.
+\newblock Scalable-softmax is superior for attention, 2025.
+\newblock arXiv:2501.19399.
+
+\bibitem[Oh and Park(2026)]{oh2026afm}
+Seunghun Oh and Unsang Park.
+\newblock Attention frequency modulation: Training-free spectral modulation of
+  diffusion cross-attention, 2026.
+\newblock arXiv:2603.28114.
+
+\bibitem[P{\'a}rraga et~al.(2000)P{\'a}rraga, Troscianko, and
+  Tolhurst]{parraga2000human}
+C.~A. P{\'a}rraga, T.~Troscianko, and D.~J. Tolhurst.
+\newblock The human visual system is optimised for processing the spatial
+  information in natural visual images.
+\newblock \emph{Current Biology}, 10\penalty0 (1):\penalty0 35--38, 2000.
+
+\bibitem[Peebles and Xie(2023)]{peebles2023dit}
+William Peebles and Saining Xie.
+\newblock Scalable diffusion models with transformers.
+\newblock In \emph{IEEE/CVF International Conference on Computer Vision
+  (ICCV)}, 2023.
+
+\bibitem[Peng et~al.(2024)Peng, Quesnelle, Fan, and Shippole]{peng2024yarn}
+Bowen Peng, Jeffrey Quesnelle, Honglu Fan, and Enrico Shippole.
+\newblock {YaRN}: Efficient context window extension of large language models.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2024.
+\newblock arXiv:2309.00071.
+
+\bibitem[Qiu et~al.(2024)Qiu, Zhang, Wei, Chu, Yuan, Wang, Zhang, and
+  Liu]{qiu2024freescale}
+Haonan Qiu, Shiwei Zhang, Yujie Wei, Ruihang Chu, Hangjie Yuan, Xiang Wang,
+  Yingya Zhang, and Ziwei Liu.
+\newblock {FreeScale}: Unleashing the resolution of diffusion models via
+  tuning-free scale fusion, 2024.
+\newblock arXiv:2412.09626.
+
+\bibitem[Radford et~al.(2021)Radford, Kim, Hallacy, Ramesh, Goh, Agarwal,
+  Sastry, Askell, Mishkin, Clark, Krueger, and Sutskever]{radford2021clip}
+Alec Radford, Jong~Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh,
+  Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark,
+  Gretchen Krueger, and Ilya Sutskever.
+\newblock Learning transferable visual models from natural language
+  supervision.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2021.
+
+\bibitem[Rajabi et~al.(2026{\natexlab{a}})Rajabi, Roohi, Lindell, and
+  Taati]{area2026}
+Javad Rajabi, Koorosh Roohi, David~B. Lindell, and Babak Taati.
+\newblock {AReA}: Adaptive receptive-field attention for efficient
+  high-resolution diffusion transformers, 2026{\natexlab{a}}.
+\newblock arXiv:2610.17227.
+
+\bibitem[Rajabi et~al.(2026{\natexlab{b}})Rajabi, Shaban, Roohi, Lindell, and
+  Taati]{sega2026}
+Javad Rajabi, Kimia Shaban, Koorosh Roohi, David~B. Lindell, and Babak Taati.
+\newblock {SEGA}: Spectral-energy guided attention for resolution extrapolation
+  in diffusion transformers, 2026{\natexlab{b}}.
+\newblock arXiv:2605.22668.
+
+\bibitem[Schwartz and Simoncelli(2001)]{schwartz2001natural}
+Odelia Schwartz and Eero~P. Simoncelli.
+\newblock Natural signal statistics and sensory gain control.
+\newblock \emph{Nature Neuroscience}, 4\penalty0 (8):\penalty0 819--825, 2001.
+
+\bibitem[Su et~al.(2024)Su, Lu, Pan, Murtadha, Wen, and Liu]{su2024roformer}
+Jianlin Su, Yu~Lu, Shengfeng Pan, Ahmed Murtadha, Bo~Wen, and Yunfeng Liu.
+\newblock {RoFormer}: Enhanced transformer with rotary position embedding.
+\newblock \emph{Neurocomputing}, 568, 2024.
+\newblock arXiv:2104.09864.
+
+\bibitem[van Hateren(1992)]{vanhateren1992theory}
+J.~H. van Hateren.
+\newblock A theory of maximizing sensory information.
+\newblock \emph{Biological Cybernetics}, 68\penalty0 (1):\penalty0 23--29,
+  1992.
+
+\bibitem[von Platen et~al.(2022)von Platen, Patil, Lozhkov, Cuenca, Lambert,
+  Rasul, Davaadorj, Nair, Paul, Berman, Xu, Liu, and
+  Wolf]{vonplaten2022diffusers}
+Patrick von Platen, Suraj Patil, Anton Lozhkov, Pedro Cuenca, Nathan Lambert,
+  Kashif Rasul, Mishig Davaadorj, Dhruv Nair, Sayak Paul, William Berman, Yiyi
+  Xu, Steven Liu, and Thomas Wolf.
+\newblock Diffusers: State-of-the-art diffusion models.
+\newblock \url{https://github.com/huggingface/diffusers}, 2022.
+
+\bibitem[Wang et~al.(2023)Wang, Chan, and Loy]{wang2023clipiqa}
+Jianyi Wang, Kelvin C.~K. Chan, and Chen~Change Loy.
+\newblock Exploring {CLIP} for assessing the look and feel of images.
+\newblock In \emph{AAAI Conference on Artificial Intelligence}, 2023.
+
+\bibitem[Webster et~al.(2002)Webster, Georgeson, and
+  Webster]{webster2002neural}
+Michael~A. Webster, Mark~A. Georgeson, and Shernaaz~M. Webster.
+\newblock Neural adjustments to image blur.
+\newblock \emph{Nature Neuroscience}, 5\penalty0 (9):\penalty0 839--840, 2002.
+
+\bibitem[Xiong et~al.(2025)Xiong, Fan, Shen, Su, Yang, Kong, and
+  Wong]{xiong2025dope}
+Jing Xiong, Liyang Fan, Hui Shen, Zunhai Su, Min Yang, Lingpeng Kong, and Ngai
+  Wong.
+\newblock {DoPE}: Denoising rotary position embedding, 2025.
+\newblock arXiv:2511.09146. Version 1.
+
+\bibitem[Xu et~al.(2023)Xu, Liu, Wu, Tong, Li, Ding, Tang, and
+  Dong]{xu2023imagereward}
+Jiazheng Xu, Xiao Liu, Yuchen Wu, Yuxuan Tong, Qinkai Li, Ming Ding, Jie Tang,
+  and Yuxiao Dong.
+\newblock {ImageReward}: Learning and evaluating human preferences for
+  text-to-image generation.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2023.
+
+\bibitem[Xue et~al.(2026)Xue, Qu, Li, Xu, Yin, See, Rahmani, and
+  Liu]{hrdit2026}
+Yu~Xue, Haoxuan Qu, Zhuoling Li, Hongbin Xu, Jianxiong Yin, Simon See, Hossein
+  Rahmani, and Jun Liu.
+\newblock {HRDiT}: Training-free high-resolution image generation with
+  off-the-shelf diffusion transformer models, 2026.
+\newblock arXiv:2608.07003.
+
+\bibitem[Zhang et~al.(2025{\natexlab{a}})Zhang, Huang, Liu, Guo, and
+  Huang]{zhang2025diffusion4k}
+Jinjin Zhang, Qiuyu Huang, Junjie Liu, Xiefan Guo, and Di~Huang.
+\newblock {Diffusion-4K}: Ultra-high-resolution image synthesis with latent
+  diffusion models.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, 2025{\natexlab{a}}.
+
+\bibitem[Zhang et~al.(2024)Zhang, Chen, Zhao, Chen, Tang, and
+  Liang]{zhang2024hidiffusion}
+Shen Zhang, Zhaowei Chen, Zhenyu Zhao, Yuhao Chen, Yao Tang, and Jiajun Liang.
+\newblock {HiDiffusion}: Unlocking higher-resolution creativity and efficiency
+  in pretrained diffusion models.
+\newblock In \emph{European Conference on Computer Vision (ECCV)}, 2024.
+\newblock arXiv:2311.17528.
+
+\bibitem[Zhang et~al.(2025{\natexlab{b}})Zhang, Li, and Zhang]{zhang2025frecas}
+Zhengqiang Zhang, Ruihuang Li, and Lei Zhang.
+\newblock {FreCaS}: Efficient higher-resolution image generation via
+  frequency-aware cascaded sampling.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2025{\natexlab{b}}.
+\newblock arXiv:2410.18410.
+
+\bibitem[Zhao et~al.(2025{\natexlab{a}})Zhao, He, Chen, Zhu, Li, and
+  Zhu]{zhao2025riflex}
+Min Zhao, Guande He, Yixiao Chen, Hongzhou Zhu, Chongxuan Li, and Jun Zhu.
+\newblock {RIFLEx}: A free lunch for length extrapolation in video diffusion
+  transformers.
+\newblock In \emph{International Conference on Machine Learning (ICML)},
+  2025{\natexlab{a}}.
+\newblock arXiv:2502.15894.
+
+\bibitem[Zhao et~al.(2025{\natexlab{b}})Zhao, Yan, Yang, Zhu, Zhang, Liu, Li,
+  and Zhu]{ultraimage2025}
+Min Zhao, Bokai Yan, Xue Yang, Hongzhou Zhu, Jintao Zhang, Shilong Liu,
+  Chongxuan Li, and Jun Zhu.
+\newblock {UltraImage}: Rethinking resolution extrapolation in image diffusion
+  transformers, 2025{\natexlab{b}}.
+\newblock arXiv:2512.04504.
+
+\end{thebibliography}

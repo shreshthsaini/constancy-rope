@@ -8,8 +8,8 @@ All arms share the sampler and differ only in $\omega'$ and $g$ of \cref{eq:four
 \paragraph{\sega: paper equations and released code}
 \sega~\citep{sega2026} sets per-pair gains from its input spectrum around $m_{\mathrm{ref}}=s^{0.08}$, giving more weight to low-energy pairs; \cref{alg:sega} gives the released update as we ported it. We call this parity-tested released port \segaofficial{} and our implementation of the printed equations \segapaper; the two differ at each of six compared stages (\cref{sec:papercode}).
 
-\paragraph{\tempsb: the decomposition control}
-\tempsb{} keeps the frequency base of \segaofficial{} and applies its reference logit gain $s^{0.16}=\N{c@segatemp}$ uniformly to every dimension. It differs from \segaofficial{} in three ways: no per-band shape, no lift in mean gain from the clamp at 1, and a gain of $s^{0.16}$ rather than 1 on the index axis.
+\paragraph{\tempsb{} and the factorial}
+\tempsb{} keeps the frequency base of \segaofficial{} and applies its reference logit gain $s^{0.16}=\N{c@segatemp}$ uniformly to every dimension. It differs from \segaofficial{} in three ways: no per-band shape, no lift in mean gain from the clamp at 1, and a gain of $s^{0.16}$ rather than 1 on the index axis. Two more arms complete a two-by-two factorial of base and temperature: \ntktemp{} applies the same gain on the \ntk{} base, and \segabase{} keeps the released base without it.
 
 \begin{algorithm}[t]
 \begin{minipage}[t]{0.487\linewidth}
@@ -66,10 +66,4 @@ return exp(log_g / 2)          # q/k gains
 
 \subsection{Per-band laws from vision science}\label{sec:ours}
 
-Contrast constancy describes nearly stable perceived band contrast above threshold across viewing distances~\citep{georgeson1975contrast}. Efficient coding combines visibility against noise, $S/(S+N)$, with contrast normalization toward natural-image statistics~\citep{atick1990towards,atick1992retina,vanhateren1992theory,field1987relations,dong1995statistics,knill1990human,parraga2000human} and divisive gain control~\citep{webster2002neural,heeger1992normalization,schwartz2001natural,carandini2012normalization}. We test four controllers inspired by these ideas; \cref{app:laws} gives their equations and calibration.
-\begin{itemize}
-\item \textbf{\constancy.} A noise-visibility gate weights a bounded log-power correction toward a native-resolution target from the final clean steps, on the \ntk{} base with log-$N$ temperature.
-\item \textbf{\constancytm} (\cref{alg:ctm}). The same correction uses a target matched to the current noise level and the base and temperature of \segaofficial, with \tempsb{} as its control.
-\item \textbf{\aliastemp.} A pair's resolvable key count sets its log-$N$ temperature; \aliastemps{} matches \sega's reference geometric mean.
-\item \textbf{\segactm.} The time-matched correction multiplies \sega's released allocation, $\ln g=\ln g^{\textsc{sega}}+\Delta$. Development selection chose $\eta=1$ for the held-out run.
-\end{itemize}
+Contrast constancy keeps perceived band contrast nearly stable across viewing distances~\citep{georgeson1975contrast}. Efficient coding combines visibility against noise, $S/(S+N)$, with contrast normalization toward natural-image statistics~\citep{atick1990towards,atick1992retina,vanhateren1992theory,field1987relations,dong1995statistics,knill1990human,parraga2000human} and divisive gain control~\citep{webster2002neural,heeger1992normalization,schwartz2001natural,carandini2012normalization}. We test four controllers inspired by these ideas (\cref{app:laws}). \textbf{\constancy} weights a bounded log-power correction toward a native-resolution target by a noise-visibility gate, on the \ntk{} base with log-$N$ temperature. \textbf{\constancytm} (\cref{alg:ctm}) matches that target to the current noise level and uses the base and temperature of \segaofficial, so \tempsb{} is its control. \textbf{\aliastemp} sets the log-$N$ temperature of each pair from its resolvable key count, and \aliastemps{} matches \sega's reference geometric mean. \textbf{\segactm} adds the time-matched correction to \sega's released allocation, $\ln g=\ln g^{\textsc{sega}}+\Delta$, with $\eta=1$ chosen on the dev set.

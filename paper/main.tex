@@ -2,12 +2,23 @@
 \input{style}
 \input{macros}
 % Public code repository, quoted in the abstract and in the closing statement.
-\newcommand{\codeurl}{\url{https://github.com/shreshthsaini/constancy-rope}}
+\newcommand{\codeurl}{\mbox{\url{https://github.com/shreshthsaini/constancy-rope}}}
+% Layout fixes (text agent, 2026-10-24): one more point between a value and its interval in stacked table
+% cells, triangles raised clear of the interval line, float pages filled from the top, emergency stretch for
+% the narrow columns beside wrapped floats.
+\renewcommand{\cistack}[3]{\begin{tabular}[t]{@{}r@{}}#1\\[-1.8pt]{\fontsize{6.0}{6.6}\selectfont\color{#3}#2}\end{tabular}}
+\renewcommand{\upm}{\makebox[0.62em][r]{\raisebox{0.3ex}{\scalebox{0.62}{$\blacktriangle$}}}}
+\renewcommand{\dnm}{\makebox[0.62em][r]{\raisebox{0.3ex}{\scalebox{0.62}{$\blacktriangledown$}}}}
+\makeatletter
+\setlength{\@fptop}{0pt}\setlength{\@fpsep}{12pt plus 4pt}\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
+% \setlength{\emergencystretch}{1em}  % disabled: reflowed the body past page 10
 \input{tables/num_results}
+\InputIfFileExists{tables/num_strengthen}{}{}
 \InputIfFileExists{tables/num_compute}{}{}
 \InputIfFileExists{tables/num_mechanism}{}{}
 
-\title{Where Does the Gain Come From?\\A Controlled Study of Training-Free RoPE\\Extrapolation to 4K in Diffusion Transformers}
+\title{Where Does the Gain Come From?\\The Attention Temperature Does the Work in\\Training-Free RoPE Extrapolation to 4K}
 \author{\textbf{Shreshth Saini}\\The University of Texas at Austin}
 
 \begin{document}
@@ -19,6 +30,7 @@
 \input{sec/methods}
 \input{sec/protocol}
 \input{sec/results_decomp}
+\input{sec/results_confirmation}
 \input{sec/results_laws}
 \input{sec/results_more}
 \input{sec/related}

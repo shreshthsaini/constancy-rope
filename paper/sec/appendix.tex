@@ -55,9 +55,12 @@ In band 7, \ntk{} falls below the reference profile (log-power error \N{oct@ntk@
 \end{table}
 
 \FloatBarrier
+\input{tables/float_strengthen_appendix}
+
+\FloatBarrier
 \section{Seed-1 replication}\label{app:seed1}
 
-This appendix expands \cref{tab:seed1small} to all ten metrics with intervals. \Cref{tab:seed1} repeats the comparison for \tempsb{} and \constancytm{} on held-out rows 8--62 with a second seed, next to seed~0 on the same \N{so@n@tsb} prompts. One of the verdicts that changes, crop CLIP-IQA for \tempsb{} at seed 1, rests on an interval that excludes zero by less than $10^{-4}$, so the agreement count can move by one under another bootstrap seed. Every verdict that changes moves between a tie and a one-sided verdict. Spectral log-RMSE differences grow at seed 1 (\tempsb: \sod{tsb}{spec} against \hsd{tsb}{spec} at seed 0 on the same prompts; \constancytm: \sod{ctm}{spec} against \hsd{ctm}{spec}).
+This appendix reports the early seed-1 replication; \cref{tab:strengthen-seeds} in \cref{app:confirm} gives the later three-seed analysis of \cref{sec:confirm}. \Cref{tab:seed1} repeats the comparison for \tempsb{} and \constancytm{} on held-out rows 8--62 with a second seed, next to seed~0 on the same \N{so@n@tsb} prompts. One of the verdicts that changes, crop CLIP-IQA for \tempsb{} at seed 1, rests on an interval that excludes zero by less than $10^{-4}$, so the agreement count can move by one under another bootstrap seed. Every verdict that changes moves between a tie and a one-sided verdict. Spectral log-RMSE differences grow at seed 1 (\tempsb: \sod{tsb}{spec} against \hsd{tsb}{spec} at seed 0 on the same prompts; \constancytm: \sod{ctm}{spec} against \hsd{ctm}{spec}).
 
 \begin{table}[!htbp]
 \centering
@@ -78,7 +81,7 @@ The original \constancy{} was generated on \hon{cons} of the \N{ho@nprompts} hel
 
 The visibility gate of \cref{sec:laws} opens late on these prompts as on the dev prompts. On the \NmechConstN{} held-out prompts it opens only after the first $\NmechConstOnsetStepMed$ of $\NmechSteps$ steps (median; range $\NmechConstOnsetStepMin$ to $\NmechConstOnsetStepMax$), at $\sigma=\NmechConstOnsetSigmaMed$ (range $\NmechConstOnsetSigmaHi$ to $\NmechConstOnsetSigmaLo$), and the correction then acts in a median of $\NmechConstActiveStepsMed$ steps.
 
-This partial run offers suggestive evidence about temperature. \ntk{} and \tempsb{} differ in both base and temperature, while \constancy{} adds to the \ntk{} base the log-$N$ temperature ($\tau=\N{c@taulogn}$) and a per-band correction that stays at zero for the first $\NmechConstOnsetStepMed$ of $\NmechSteps$ steps (median). On its \hon{cons} prompts it improves on \ntk{} by \hodci{consntk}{ir} ImageReward and \hodci{consntk}{musiqc} crop MUSIQ; on the same prompts, the entire \segaofficial{} minus \ntk{} gap is \hod{total41}{ir} ImageReward and \hod{total41}{musiqc} crop MUSIQ. The rows are a nonrandom manifest prefix, the temperature differs from \sega's, and the correction eventually acts. These observations do not identify the separate base and temperature contributions.
+This partial run offers suggestive evidence about temperature. \ntk{} and \tempsb{} differ in both base and temperature, while \constancy{} adds to the \ntk{} base the log-$N$ temperature ($\tau=\N{c@taulogn}$) and a per-band correction that stays at zero for the first $\NmechConstOnsetStepMed$ of $\NmechSteps$ steps (median). On its \hon{cons} prompts it improves on \ntk{} by \hodci{consntk}{ir} ImageReward and \hodci{consntk}{musiqc} crop MUSIQ; on the same prompts, the entire \segaofficial{} minus \ntk{} gap is \hod{total41}{ir} ImageReward and \hod{total41}{musiqc} crop MUSIQ. The rows are a nonrandom manifest prefix, the temperature differs from \sega's, and the correction eventually acts. These observations alone do not separate base and temperature; the factorial of \cref{sec:decomp} does.
 
 \subsection{Dev selection}\label{app:dev}
 
@@ -113,10 +116,10 @@ In an eight-prompt pilot on the dev prompts, which is descriptive only, our impl
 
 This appendix expands the reproducibility statement of the main text.
 \begin{itemize}
-\item \textbf{Numbers.} \texttt{paper/tables/make\_tables.py} recomputes every held-out paired difference from the archived per-prompt scores, checks it against the registered analysis output (largest absolute difference below $10^{-15}$), and writes every table and every number cited in the text. \texttt{compute\_table.py} and \texttt{mechanism\_numbers.py} do the same for timings and mechanism statistics. Scratch inputs are snapshotted next to the scripts.
-\item \textbf{Protocol.} Dev rows 0--7 and held-out rows 8--194 of the \afk{} evaluation captions; seed 0; seed-1 replication on rows 8--62; selection gate and its outcomes in \cref{app:dev}.
+\item \textbf{Numbers.} \texttt{paper/tables/strengthen\_tables.py} writes every confirmation number from the registered analysis outputs, which an independent recomputation from the raw evaluator scores matches within $10^{-14}$. \texttt{paper/tables/make\_tables.py} recomputes every held-out paired difference from the archived per-prompt scores, checks it against the registered analysis output (largest absolute difference below $10^{-15}$), and writes every table and every number cited in the text. \texttt{compute\_table.py} and \texttt{mechanism\_numbers.py} do the same for timings and mechanism statistics. Scratch inputs are snapshotted next to the scripts.
+\item \textbf{Protocol.} Dev rows 0--7 and held-out rows 8--194 of the \afk{} evaluation captions; seed 0; seed-1 replication on rows 8--62; selection gate and its outcomes in \cref{app:dev}. The confirmation campaign follows a dated preregistration with amendments (factorial, sweep, \N{st@e@n} fresh training-split captions, seeds 1 and 2), whose complete tables are in \cref{app:confirm}.
 \item \textbf{Generation.} Every image has a JSON sidecar with the full configuration, code revision, implementation hash, executed noise levels, per-step gains, wall time and peak memory.
-\item \textbf{Statistics.} Paired percentile bootstrap, 2,000 resamples, generator seed 0, with nominal per-metric intervals. Stars in \cref{tab:main,tab:deltas_full} mark approximate centered-bootstrap tests adjusted by Holm within each table; the other descriptive tables retain nominal intervals.
+\item \textbf{Statistics.} Paired percentile bootstrap, 2,000 resamples, generator seed 0, with nominal per-metric intervals. Stars in \cref{tab:main,tab:deltas_full} mark approximate centered-bootstrap tests adjusted by Holm within each table, and stars in the confirmation tables use the registered families of 3, 80, 40, 50 and 10 tests; the other descriptive tables retain nominal intervals.
 \item \textbf{Third-party code.} \sega{} and \dype{} are re-implemented from their released code at pinned revisions with numerical parity tests; \dype{}'s official code was also run end to end for the checkpoint diagnosis.
-\item \textbf{Not done.} No human study; one model family; one resolution; one seed for most arms; FID and KID too noisy at these sample sizes to rank methods.
+\item \textbf{Not done.} No human study; one model family, since the registered \qwen{} test ran out of GPU memory; one resolution; one seed for most arms; FID and KID too noisy at these sample sizes to rank methods.
 \end{itemize}
