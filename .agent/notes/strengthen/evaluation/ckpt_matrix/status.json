@@ -1,0 +1,27 @@
+{
+  "complete": true,
+  "expected_images": 32,
+  "missing_image_pairs": [],
+  "unfinished_tasks": [],
+  "timestamp": "2026-10-24T05:45:31+00:00",
+  "block": "ckpt_matrix",
+  "manifest_sha256": "b230346671f517cfe76e370ad86ce2a227746a454ee0e6c8f18a5810dbb2ee9a",
+  "validation": "passed",
+  "validated_images": 32,
+  "tasks": [
+    {
+      "name": "90_eval_ckpt_matrix.sh",
+      "sha256": "e74888decda4b5bb1b9e2cace87d4bc911d13bc51bcd595a39053e233365ed76",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/ckpt_matrix/90_eval_ckpt_matrix.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_ir_ckpt_matrix.sh",
+      "sha256": "76b3655ae24e2fffed6cf8170729016e7f4b33589fe75b181de18e1520390077",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/ckpt_matrix/90_ir_ckpt_matrix.sh",
+      "status": "published"
+    }
+  ],
+  "published": true,
+  "dependencies_sha256": "9f7a4ed28673134360525f0a775e9248fc51673d1f6423c1be274bde7e7fc957"
+}

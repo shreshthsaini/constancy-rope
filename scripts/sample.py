@@ -29,6 +29,10 @@ def parser():
     p.add_argument("--gate", choices=("on", "off"), help="constancy_tm visibility gate; off selects constancy_tm_nogate")
     p.add_argument("--target", choices=("profile", "slope"), default="profile")
     p.add_argument("--temperature", choices=("logN", "sref", "none"))
+    p.add_argument("--temperature-multiplier", type=float,
+                   help="Absolute logit gain for temp_only; use with --temperature none")
+    p.add_argument("--output-method", help="Unique evaluator identity; controller is recorded separately")
+    p.add_argument("--schedule-mode", choices=("official", "diffusers_default"), default="official")
     p.add_argument("--device", default="cuda")
     p.add_argument("--cpu-offload", action="store_true", help="Use only if the ordinary GPU run exhausts VRAM")
     p.add_argument("--allow-download", action="store_true", help="Allow missing FLUX cache files to download")
@@ -39,11 +43,12 @@ def main(argv=None):
     args = parser().parse_args(argv)
     runtime_environment()
     if args.method in ("constancy_tm", "constancy_tm_nogate", "sega_ctm", "sega_ctm_lag", "alias_temp",
-                       "alias_temp_sref", "sega_rms_uniform", "sega_rms_normalized") or args.gate is not None:
+                       "alias_temp_sref", "sega_rms_uniform", "sega_rms_normalized") or args.gate is not None or args.temperature_multiplier is not None:
         # Reject missing or legacy profiles before loading the large model.
         from crope.gain import GainController
         GainController(args.method, grid=tuple(n // 16 for n in args.res), profile=args.profile,
-                       eta=args.eta, target=args.target, temperature=args.temperature, gate=args.gate)
+                       eta=args.eta, target=args.target, temperature=args.temperature, gate=args.gate,
+                       temperature_multiplier=args.temperature_multiplier)
     prompts = read_prompts(args.prompts)
     end = len(prompts) if args.end is None else args.end
     if not 0 <= args.start < end <= len(prompts) or args.steps <= 0:
@@ -51,7 +56,9 @@ def main(argv=None):
     from crope.runtime import FluxExperiment, load_pipeline
     pipe = load_pipeline(args.device, args.cpu_offload, args.allow_download)
     experiment = FluxExperiment(pipe, args.method, args.res, args.profile, args.sega_static_profile,
-                                args.eta, args.target, args.temperature, gate=args.gate)
+                                args.eta, args.target, args.temperature, gate=args.gate,
+                                temperature_multiplier=args.temperature_multiplier,
+                                output_method=args.output_method, schedule_mode=args.schedule_mode)
     try:
         for row in prompts[args.start:end]:
             experiment.sample(row, args.out, args.seed, args.steps, args.guidance)

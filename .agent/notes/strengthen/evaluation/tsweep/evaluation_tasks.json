@@ -1,0 +1,7 @@
+{
+  "plan_sha256": "2b401a9f9403cd21bd35f8595425eb6b98877402c3ed46b1abf2925971e8cfb5",
+  "tasks": {
+    "90_eval_tsweep.sh": "a037a7ad1be3894b378f1e45f29221ea2eebef6d1cc6d8d1cd47849854051aa6",
+    "90_ir_tsweep.sh": "de49d5492d8c7028efc0a0495ef48bcd85811b61b41314ee098b64a1fdfa91d1"
+  }
+}

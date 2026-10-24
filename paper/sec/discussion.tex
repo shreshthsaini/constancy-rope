@@ -1,7 +1,7 @@
 \section{Discussion}\label{sec:discussion}
 
 \paragraph{What to report}
-A method that changes the rotary base, the temperature and per-band gains at once should report a control that keeps its base and temperature and drops the rest. Here that control leaves a gap of \hoa{tsb}{musiq} full-frame MUSIQ points and no detected reward-model gain, and the allocation's lower excess fine-scale power does not establish a perceptual mechanism. Claims that credit spectral or content adaptivity should be tested against this control with full-resolution metrics (\cref{sec:pitfalls}).
+A method that changes the rotary base, the temperature and per-band gains at once should report a control that keeps its base and temperature and drops the rest. Here that control leaves a gap of \hoa{tsb}{musiq} full-frame MUSIQ points and no detected reward-model gain, and the allocation's lower excess fine-scale power does not establish a perceptual mechanism. Claims that credit spectral or content adaptivity should be tested against this control with full-resolution metrics (\cref{sec:pitfalls}); our code for it is at \codeurl.
 
 \paragraph{Small dev sets mislead}
 Eight dev prompts were enough to reject clearly worse variants and too few for anything else. \tempsb{} looked slightly better than \segaofficial{} on dev MUSIQ yet trails by \hoa{tsb}{musiq} points held out, and the variant that passed the second gate lost on PickScore and crop MUSIQ held out. Rerunning \segaofficial{} on the same dev prompts moved MUSIQ by more than the margin of the variant that passed the third gate (\cref{app:dev}). The inspected held-out set cannot serve as fresh confirmation for new variants.

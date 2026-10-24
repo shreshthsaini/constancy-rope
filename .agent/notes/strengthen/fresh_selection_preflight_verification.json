@@ -1,0 +1,33 @@
+{
+  "created_utc": "2026-10-19T04:10:36.119566+00:00",
+  "reviewer": "Codex fresh-selection continuation agent",
+  "candidate_count": 180,
+  "candidate_sha256": "49f678079f12b8448d2a8d786a14bf0f2150339c76a324d76ba2738dc6b130a7",
+  "audit_sha256": "a9d4c9fff8566080d6859bb9864c596ab4f2453b385b92209e61118bc5d66fa4",
+  "audit_decisions_unique": true,
+  "caption_only_second_review": "Read all180 candidate captions and verified rejection of explicit people and unsafe requests. No changes to original audit.",
+  "images_seen_for_selection": false,
+  "all_exclusion_source_hashes_verified": true,
+  "exclusion_source_count": 1767,
+  "excluded_normalized_captions": 300,
+  "source_parse_errors": [],
+  "reserved_fresh64_sources": [
+    {
+      "path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/continuation3/confirmation64_prompts.jsonl",
+      "sha256": "965992616563a274ea275d8ef0a7083415800adb5c88d494a37fb272a996e6f2",
+      "caption_entries": 64,
+      "unique_captions": 64
+    }
+  ],
+  "reserved_fresh64_all_excluded": true,
+  "selected_count": 150,
+  "selected_unique_normalized_count": 150,
+  "last_permutation_rank": 212,
+  "rejected_count": 63,
+  "manual_rejected_count": 8,
+  "sampling_or_audit_changes": false,
+  "limitations": [
+    "Caption-only conservative person filtering changes the sampled population; it does not prove every source reference has no incidental person.",
+    "Freshness is relative to project records, not pretraining data."
+  ]
+}

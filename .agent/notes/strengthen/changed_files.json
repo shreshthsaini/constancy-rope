@@ -1,0 +1,558 @@
+{
+  "timestamp": "2026-10-19T04:48:39+00:00",
+  "scope": "Current worktree changes, including implementation, paper and private campaign evidence",
+  "files": [
+    {
+      "status": " M",
+      "path": ".agent/STATE.md"
+    },
+    {
+      "status": " M",
+      "path": ".agent/notes/prereg_strengthen.md"
+    },
+    {
+      "status": " M",
+      "path": ".agent/notes/results.md"
+    },
+    {
+      "status": " M",
+      "path": ".agent/notes/strengthen/checkpoint.py"
+    },
+    {
+      "status": " M",
+      "path": ".agent/notes/strengthen/live.json"
+    },
+    {
+      "status": " M",
+      "path": "HANDOVER.md"
+    },
+    {
+      "status": " M",
+      "path": "crope/gain.py"
+    },
+    {
+      "status": " M",
+      "path": "crope/runtime.py"
+    },
+    {
+      "status": " M",
+      "path": "paper/PLAN.md"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/crope_style.py"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f1_hero.pdf"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f1_hero.py"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f2_method.pdf"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f2_method.svg"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f2_method.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f3_forest.pdf"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f3_forest.py"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f3_forest.svg"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f4_qualitative.py"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f6_sega_code.pdf"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f6_sega_code.py"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f7_mechanism.pdf"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f7_mechanism.py"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f7_mechanism.svg"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f8_spectrum.pdf"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f8_spectrum.py"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/f8_spectrum.svg"
+    },
+    {
+      "status": " M",
+      "path": "paper/figs/qual_helpers.py"
+    },
+    {
+      "status": " M",
+      "path": "paper/macros.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/render_pages.sh"
+    },
+    {
+      "status": " M",
+      "path": "paper/sec/abstract.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/sec/appendix.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/sec/appendix_figs.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/sec/appendix_impl.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/sec/background.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/sec/discussion.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/sec/hero.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/sec/intro.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/sec/methods.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/sec/protocol.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/sec/results_decomp.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/sec/results_laws.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/sec/results_more.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/tables/make_tables.py"
+    },
+    {
+      "status": " M",
+      "path": "paper/tables/tab_deltas_full.tex"
+    },
+    {
+      "status": " M",
+      "path": "paper/tables/tab_main.tex"
+    },
+    {
+      "status": " M",
+      "path": "scripts/sample.py"
+    },
+    {
+      "status": " M",
+      "path": "scripts/strengthen_analysis.py"
+    },
+    {
+      "status": " M",
+      "path": "scripts/strengthen_queue.py"
+    },
+    {
+      "status": " M",
+      "path": "tests/test_strengthen_queue.py"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/ANALYSIS_AND_EVALUATION.md"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/REPORT.md"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/amendment_receipt.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/analysis_E1.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/analysis_E2.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/analysis_E3.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/analysis_P1.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/analysis_P3.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/ckpt_matrix_generation.sha256"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/ckpt_matrix_published.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/ckpt_matrix_queue.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/default_shift_generation.sha256"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/default_shift_published.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/default_shift_queue.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/diagnostics_musiq_schedule_audit.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/diagnostics_postprocessing.md"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/diagnostics_protocol.md"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/diagnostics_validate_final.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/diagnostics_validate_krea_g4p5.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/evaluation/ckpt_matrix/status.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/evaluation/default_shift/status.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/evaluation/factorial/status.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/evaluation/fresh/status.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/evaluation/seeds/status.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/evaluation/tsweep/status.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/evaluation_sharding_checks.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/factorial_generation.sha256"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/factorial_published.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/factorial_queue.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/fresh_generation.sha256"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/fresh_published.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/fresh_queue.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/fresh_selection_final_verification.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/fresh_selection_preflight_verification.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/fresh_selection_receipt.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/fresh_selection_rejections.jsonl"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/hero_selection.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/historical_holm/historical_holm.csv"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/historical_holm/historical_holm_protocol.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/historical_holm/inputs/1832f7b52358ce45e178d075b4e5cf77173b511affd4252dcf64e45b5a196ac6_heldout_per_prompt.csv"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/historical_holm/inputs/50004777ac132453c9550d2bff5ece9694f0ceb8024416c68e35f2c2b1c6476c_strengthen_analysis.py"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/historical_holm/inputs/ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1_aesthetic4k_eval.jsonl"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/integration_test_receipt.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/paper_preview.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/queue_status.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/qwen_cpu_checks.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/qwen_cpu_checks_final.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/qwen_download_receipt.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/qwen_hub_manifest.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/qwen_protocol.md"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/qwen_smoke_generation.sha256"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/qwen_smoke_published.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/qwen_smoke_queue.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/seed1_reuse.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/seeds_generation.sha256"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/seeds_published.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/seeds_queue.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/tsweep_generation.sha256"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/tsweep_published.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/tsweep_queue.json"
+    },
+    {
+      "status": "??",
+      "path": ".agent/notes/strengthen/wandb_registration.json"
+    },
+    {
+      "status": "??",
+      "path": "paper/figs/f1_hero.svg"
+    },
+    {
+      "status": "??",
+      "path": "paper/figs/f2_method_export.py"
+    },
+    {
+      "status": "??",
+      "path": "paper/figs/f4_qualitative_main.pdf"
+    },
+    {
+      "status": "??",
+      "path": "paper/figs/f4_qualitative_main.svg"
+    },
+    {
+      "status": "??",
+      "path": "paper/figs/f4_qualitative_main_crops.json"
+    },
+    {
+      "status": "??",
+      "path": "paper/figs/f4_qualitative_main_pixel_audit.json"
+    },
+    {
+      "status": "??",
+      "path": "paper/figs/f5_checkpoint_matched.py"
+    },
+    {
+      "status": "??",
+      "path": "paper/figs/f6_sega_code.svg"
+    },
+    {
+      "status": "??",
+      "path": "paper/figs/f8_spectrum_main.pdf"
+    },
+    {
+      "status": "??",
+      "path": "paper/figs/f8_spectrum_main.svg"
+    },
+    {
+      "status": "??",
+      "path": "paper/package_source.py"
+    },
+    {
+      "status": "??",
+      "path": "paper/tables/data/historical_holm.csv"
+    },
+    {
+      "status": "??",
+      "path": "prompts/fresh150.jsonl"
+    },
+    {
+      "status": "??",
+      "path": "prompts/fresh150_refs.jsonl"
+    },
+    {
+      "status": "??",
+      "path": "scripts/strengthen_diag_queue.py"
+    },
+    {
+      "status": "??",
+      "path": "scripts/strengthen_diagnostic_report.py"
+    },
+    {
+      "status": "??",
+      "path": "scripts/strengthen_diagnostics.py"
+    },
+    {
+      "status": "??",
+      "path": "scripts/strengthen_evaluation.py"
+    },
+    {
+      "status": "??",
+      "path": "scripts/strengthen_qwen.py"
+    },
+    {
+      "status": "??",
+      "path": "scripts/strengthen_qwen_queue.py"
+    },
+    {
+      "status": "??",
+      "path": "scripts/strengthen_status.py"
+    },
+    {
+      "status": "??",
+      "path": "tests/test_strengthen_analysis.py"
+    },
+    {
+      "status": "??",
+      "path": "tests/test_strengthen_controls.py"
+    },
+    {
+      "status": "??",
+      "path": "tests/test_strengthen_diagnostic_report.py"
+    },
+    {
+      "status": "??",
+      "path": "tests/test_strengthen_diagnostics.py"
+    },
+    {
+      "status": "??",
+      "path": "tests/test_strengthen_evaluation.py"
+    },
+    {
+      "status": "??",
+      "path": "tests/test_strengthen_qwen.py"
+    }
+  ]
+}

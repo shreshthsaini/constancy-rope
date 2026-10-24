@@ -1,0 +1,225 @@
+{
+  "block": "E3",
+  "resolution": "4096x4096",
+  "protocol_version": "senior_review_20261019",
+  "prompts": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/prompts/fresh150.jsonl",
+  "preregistration": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/prereg_strengthen.md",
+  "sources": [
+    {
+      "name": "qwen",
+      "per_image": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/qwen/per_image.csv",
+      "imagereward": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/qwen/ir.csv",
+      "methods": [
+        "qwen_base",
+        "qwen_sega",
+        "qwen_temp_only"
+      ],
+      "aliases": {
+        "qwen_base": "base_default",
+        "qwen_sega": "sega_official",
+        "qwen_temp_only": "temp_only_sbase"
+      },
+      "artifacts": [
+        "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/qwen/metrics.json",
+        "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/qwen/summary.csv",
+        "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/strengthen/qwen_cpu_checks_final.json"
+      ],
+      "seeds": [
+        0
+      ]
+    }
+  ],
+  "implementation_status": "Frozen CPU-parity-checked worker; GPU smoke and all150x3 images still required",
+  "expected_by_method": {
+    "base_default": {
+      "schema": "qwen-strengthen-v1",
+      "method": "qwen_base",
+      "negative_prompt": "",
+      "res": "4096x4096",
+      "steps": 40,
+      "seed": 0,
+      "resolved_seed": 0,
+      "generator_device": "cuda",
+      "generator_policy": "reset CUDA generator to seed0 for each prompt and arm",
+      "true_cfg_scale": 4.0,
+      "guidance_scale": null,
+      "max_sequence_length": 512,
+      "dtype": "bfloat16",
+      "model": "Qwen/Qwen-Image",
+      "model_revision": "75e0b4be04f60ec59a75f475837eced720f823b6",
+      "model_path": "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6",
+      "target_resolution": null,
+      "training_resolution": 1024,
+      "rope_theta": 10000,
+      "scale_rope": true,
+      "spatial_rope_dim": 56,
+      "spatial_ntk_factor": 1.0,
+      "spatial_base_qk_amplitude": 1.0,
+      "spatial_uniform_logit_gain": 1.0,
+      "frame_qk_amplitude": 1.0,
+      "mscale_alpha": 0.0,
+      "mscale_beta": 1.5,
+      "mscale_min": 1.0,
+      "spread_range": [
+        0.0,
+        1.0
+      ],
+      "spread_alpha": 1.5,
+      "released_width_allocation_reused_on_height": false,
+      "schedule": "released pipeline upper sequence anchor=image_seq_len",
+      "mu": 0.9,
+      "shift_terminal": 0.02,
+      "use_dynamic_shifting": true,
+      "time_shift_type": "exponential",
+      "vae_tiling": true,
+      "cpu_offload": false,
+      "smoke": false,
+      "provenance": {
+        "official_commit": "ddaab08552c7b7ceba2ebd8f579a0f65dee90b5e",
+        "source_sha256": {
+          "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/run_qwen.py": "b11d74d712cba6e2f1473f3671cf94a9b9b2490e3e19bbac5f5ff5bacb75c7cf",
+          "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/pipeline_qwenimage.py": "c9fa5bee9ca1ada3785e959bdf64b682e6a3794d19aa13a6c1f9eb1f01ad20c4",
+          "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/transformer_qwenimage.py": "f0f28ab092c24a7db73692daaa1741e698007b546c2616a1fccd4ca2357ebab0",
+          "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/strengthen_qwen.py": "9f21019d69f52741e76dce617810f4290a4aea32ad6d339194f2e32c067c6fac",
+          "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/utils.py": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e",
+          "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/model_index.json": "9fb9557c1e5bafb3a582af8407b5a7ad8a8bcbdb20dde4d248bbb4718e1654bd",
+          "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/transformer/config.json": "1bd1ef23f159b4eb3c894eaecc2ac2b9ab5ad31ca1bf8ecc0b0f71081f0730b5",
+          "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/scheduler/scheduler_config.json": "069f27554bc5155c1d60672e606dc072bc8b65f9afdd17f3be3b38c38c07c25a"
+        },
+        "versions": {
+          "torch": "2.11.0+cu128",
+          "diffusers": "0.39.0",
+          "transformers": "5.19.0",
+          "accelerate": "1.15.0"
+        }
+      }
+    },
+    "sega_official": {
+      "schema": "qwen-strengthen-v1",
+      "method": "qwen_sega",
+      "negative_prompt": "",
+      "res": "4096x4096",
+      "steps": 40,
+      "seed": 0,
+      "resolved_seed": 0,
+      "generator_device": "cuda",
+      "generator_policy": "reset CUDA generator to seed0 for each prompt and arm",
+      "true_cfg_scale": 4.0,
+      "guidance_scale": null,
+      "max_sequence_length": 512,
+      "dtype": "bfloat16",
+      "model": "Qwen/Qwen-Image",
+      "model_revision": "75e0b4be04f60ec59a75f475837eced720f823b6",
+      "model_path": "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6",
+      "target_resolution": null,
+      "training_resolution": 1024,
+      "rope_theta": 10000,
+      "scale_rope": true,
+      "spatial_rope_dim": 56,
+      "spatial_ntk_factor": 15.571649222615434,
+      "spatial_base_qk_amplitude": 1.11728713807222,
+      "spatial_uniform_logit_gain": 1.2483305489016119,
+      "frame_qk_amplitude": 1.0,
+      "mscale_alpha": 0.15,
+      "mscale_beta": 1.5,
+      "mscale_min": 1.0,
+      "spread_range": [
+        0.0,
+        1.0
+      ],
+      "spread_alpha": 1.5,
+      "released_width_allocation_reused_on_height": true,
+      "schedule": "released pipeline upper sequence anchor=image_seq_len",
+      "mu": 0.9,
+      "shift_terminal": 0.02,
+      "use_dynamic_shifting": true,
+      "time_shift_type": "exponential",
+      "vae_tiling": true,
+      "cpu_offload": false,
+      "smoke": false,
+      "provenance": {
+        "official_commit": "ddaab08552c7b7ceba2ebd8f579a0f65dee90b5e",
+        "source_sha256": {
+          "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/run_qwen.py": "b11d74d712cba6e2f1473f3671cf94a9b9b2490e3e19bbac5f5ff5bacb75c7cf",
+          "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/pipeline_qwenimage.py": "c9fa5bee9ca1ada3785e959bdf64b682e6a3794d19aa13a6c1f9eb1f01ad20c4",
+          "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/transformer_qwenimage.py": "f0f28ab092c24a7db73692daaa1741e698007b546c2616a1fccd4ca2357ebab0",
+          "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/strengthen_qwen.py": "9f21019d69f52741e76dce617810f4290a4aea32ad6d339194f2e32c067c6fac",
+          "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/utils.py": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e",
+          "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/model_index.json": "9fb9557c1e5bafb3a582af8407b5a7ad8a8bcbdb20dde4d248bbb4718e1654bd",
+          "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/transformer/config.json": "1bd1ef23f159b4eb3c894eaecc2ac2b9ab5ad31ca1bf8ecc0b0f71081f0730b5",
+          "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/scheduler/scheduler_config.json": "069f27554bc5155c1d60672e606dc072bc8b65f9afdd17f3be3b38c38c07c25a"
+        },
+        "versions": {
+          "torch": "2.11.0+cu128",
+          "diffusers": "0.39.0",
+          "transformers": "5.19.0",
+          "accelerate": "1.15.0"
+        }
+      }
+    },
+    "temp_only_sbase": {
+      "schema": "qwen-strengthen-v1",
+      "method": "qwen_temp_only",
+      "negative_prompt": "",
+      "res": "4096x4096",
+      "steps": 40,
+      "seed": 0,
+      "resolved_seed": 0,
+      "generator_device": "cuda",
+      "generator_policy": "reset CUDA generator to seed0 for each prompt and arm",
+      "true_cfg_scale": 4.0,
+      "guidance_scale": null,
+      "max_sequence_length": 512,
+      "dtype": "bfloat16",
+      "model": "Qwen/Qwen-Image",
+      "model_revision": "75e0b4be04f60ec59a75f475837eced720f823b6",
+      "model_path": "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6",
+      "target_resolution": null,
+      "training_resolution": 1024,
+      "rope_theta": 10000,
+      "scale_rope": true,
+      "spatial_rope_dim": 56,
+      "spatial_ntk_factor": 15.571649222615434,
+      "spatial_base_qk_amplitude": 1.11728713807222,
+      "spatial_uniform_logit_gain": 1.2483305489016119,
+      "frame_qk_amplitude": 1.0,
+      "mscale_alpha": 0.0,
+      "mscale_beta": 1.5,
+      "mscale_min": 1.0,
+      "spread_range": [
+        0.0,
+        1.0
+      ],
+      "spread_alpha": 1.5,
+      "released_width_allocation_reused_on_height": false,
+      "schedule": "released pipeline upper sequence anchor=image_seq_len",
+      "mu": 0.9,
+      "shift_terminal": 0.02,
+      "use_dynamic_shifting": true,
+      "time_shift_type": "exponential",
+      "vae_tiling": true,
+      "cpu_offload": false,
+      "smoke": false,
+      "provenance": {
+        "official_commit": "ddaab08552c7b7ceba2ebd8f579a0f65dee90b5e",
+        "source_sha256": {
+          "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/run_qwen.py": "b11d74d712cba6e2f1473f3671cf94a9b9b2490e3e19bbac5f5ff5bacb75c7cf",
+          "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/pipeline_qwenimage.py": "c9fa5bee9ca1ada3785e959bdf64b682e6a3794d19aa13a6c1f9eb1f01ad20c4",
+          "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/transformer_qwenimage.py": "f0f28ab092c24a7db73692daaa1741e698007b546c2616a1fccd4ca2357ebab0",
+          "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/strengthen_qwen.py": "9f21019d69f52741e76dce617810f4290a4aea32ad6d339194f2e32c067c6fac",
+          "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/utils.py": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e",
+          "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/model_index.json": "9fb9557c1e5bafb3a582af8407b5a7ad8a8bcbdb20dde4d248bbb4718e1654bd",
+          "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/transformer/config.json": "1bd1ef23f159b4eb3c894eaecc2ac2b9ab5ad31ca1bf8ecc0b0f71081f0730b5",
+          "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/scheduler/scheduler_config.json": "069f27554bc5155c1d60672e606dc072bc8b65f9afdd17f3be3b38c38c07c25a"
+        },
+        "versions": {
+          "torch": "2.11.0+cu128",
+          "diffusers": "0.39.0",
+          "transformers": "5.19.0",
+          "accelerate": "1.15.0"
+        }
+      }
+    }
+  },
+  "baseline_label": "Qwen default extrapolation, theta10000 and centered coordinates, no NTK scaling"
+}

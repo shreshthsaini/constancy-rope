@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-10-19T04:40:52+00:00",
+  "pdf": "/scratch/09032/saini_2/constancy_rope/paper_preview/strengthen_review/main.pdf",
+  "page_count": 27,
+  "generation_results_included": false,
+  "new_hypothesis_decisions": false,
+  "dist_refreshed": false,
+  "rendered_pages": "/scratch/09032/saini_2/constancy_rope/paper_preview/strengthen_review/pages_v4",
+  "build_log": "/scratch/09032/saini_2/constancy_rope/logs/strengthen_paper_build.log",
+  "layout_errors": [],
+  "review": "Initial25pages inspected across root and3reviewers; revised Figure2, appendix plots, tables, seed caption and mechanism page rechecked byroot.",
+  "remaining_layout": "Body and references still have short trailing pages; settle pagination after complete new-result integration.",
+  "sha256": "767deff9ab4d4234b68801d0cbe8ba317b204e627e6ac8312f7a57547720cf94"
+}

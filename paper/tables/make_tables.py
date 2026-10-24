@@ -414,6 +414,9 @@ def seed1_tables(order, d0):
             register("so", names[m], k, *out[("s1", m, k)])
             register("hs", names[m], k, *out[("s0", m, k)])
             STORE[("so", names[m], k)], STORE[("hs", names[m], k)] = out[("s1", m, k)], out[("s0", m, k)]
+    for m, key in names.items():                     # seed-1 means, quoted beside the paired deltas
+        for k in METRICS:
+            mac(f"som@{key}@{KEY[k]}", m_(num(d1.loc[d1.method == m, k].mean(), PREC[k])))
     L = [r"\begin{tabular}{@{}l rr rr@{}}", r"\toprule",
          r" & \multicolumn{2}{c}{\tempsb{} $-$ \segaofficial} & \multicolumn{2}{c}{\constancytm{} $-$ \segaofficial} \\",
          r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}",

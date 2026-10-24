@@ -1,0 +1,63 @@
+{
+  "block": "P3",
+  "resolution": "4096x4096",
+  "protocol_version": "senior_review_20261019",
+  "prompts": "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl",
+  "preregistration": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/prereg_strengthen.md",
+  "sources": [
+    {
+      "name": "factorial",
+      "per_image": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/factorial/per_image.csv",
+      "imagereward": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/factorial/ir.csv",
+      "methods": [
+        "sega_base_none"
+      ],
+      "aliases": {
+        "sega_base_none": "tau1p0"
+      },
+      "artifacts": [
+        "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/factorial/metrics.json",
+        "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/factorial/summary.csv"
+      ],
+      "seeds": [
+        0
+      ]
+    },
+    {
+      "name": "mainsb",
+      "per_image": "/scratch/09032/saini_2/constancy_rope/eval_krea/mainsb/per_image.csv",
+      "imagereward": "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/mainsb.csv",
+      "methods": [
+        "temp_only"
+      ],
+      "aliases": {
+        "temp_only": "tau_sref"
+      },
+      "artifacts": [
+        "/scratch/09032/saini_2/constancy_rope/eval_krea/mainsb/metrics.json",
+        "/scratch/09032/saini_2/constancy_rope/eval_krea/mainsb/summary.csv"
+      ],
+      "seeds": [
+        0
+      ]
+    },
+    {
+      "name": "tsweep",
+      "per_image": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/tsweep/per_image.csv",
+      "imagereward": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/tsweep/ir.csv",
+      "methods": [
+        "tau1p1",
+        "tau_logn",
+        "tau1p45"
+      ],
+      "aliases": {},
+      "artifacts": [
+        "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/tsweep/metrics.json",
+        "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/tsweep/summary.csv"
+      ],
+      "seeds": [
+        0
+      ]
+    }
+  ]
+}

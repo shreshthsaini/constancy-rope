@@ -1,0 +1,34 @@
+{
+  "checks": {
+    "passed": true,
+    "native_rotary_max_abs_error": 0.0,
+    "tiny_native_transformer_max_abs_error": 0.0,
+    "uniform_energy_independent": true,
+    "frame_gain": 1.0,
+    "native_after_other_arms_exact": true,
+    "spatial_qk_amplitude": 1.11728713807222,
+    "spatial_logit_gain": 1.2483305489016119,
+    "released_allocation_changes_rotary_max_abs": 0.12692008912563324,
+    "pretrained_weights_loaded": false,
+    "gpu_used": false
+  },
+  "provenance": {
+    "official_commit": "ddaab08552c7b7ceba2ebd8f579a0f65dee90b5e",
+    "source_sha256": {
+      "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/run_qwen.py": "b11d74d712cba6e2f1473f3671cf94a9b9b2490e3e19bbac5f5ff5bacb75c7cf",
+      "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/pipeline_qwenimage.py": "c9fa5bee9ca1ada3785e959bdf64b682e6a3794d19aa13a6c1f9eb1f01ad20c4",
+      "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/transformer_qwenimage.py": "f0f28ab092c24a7db73692daaa1741e698007b546c2616a1fccd4ca2357ebab0",
+      "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/strengthen_qwen.py": "9f21019d69f52741e76dce617810f4290a4aea32ad6d339194f2e32c067c6fac",
+      "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/utils.py": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e",
+      "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/model_index.json": "9fb9557c1e5bafb3a582af8407b5a7ad8a8bcbdb20dde4d248bbb4718e1654bd",
+      "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/transformer/config.json": "1bd1ef23f159b4eb3c894eaecc2ac2b9ab5ad31ca1bf8ecc0b0f71081f0730b5",
+      "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/scheduler/scheduler_config.json": "069f27554bc5155c1d60672e606dc072bc8b65f9afdd17f3be3b38c38c07c25a"
+    },
+    "versions": {
+      "torch": "2.11.0+cu128",
+      "diffusers": "0.39.0",
+      "transformers": "5.19.0",
+      "accelerate": "1.15.0"
+    }
+  }
+}

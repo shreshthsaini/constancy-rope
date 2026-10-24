@@ -1,13 +1,31 @@
 {
-  "seed1_reuse_validated": 165,
-  "e2_new_images_planned": 1331,
+  "seed1_reuse_validated": 110,
+  "e2_new_images_planned": 638,
   "scheduler": {
     "job_id": "1080046",
     "state": "PENDING",
-    "observed": "2026-10-19T04:00:51Z",
-    "next_poll_not_before": "2026-10-19T04:10:51Z"
+    "observed": "2026-10-20T01:51:38+00:00",
+    "next_poll_not_before": "2026-10-20T02:01:38+00:00",
+    "scheduler_start_estimate": "2026-10-19T21:38:43",
+    "raw": "1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:38:43"
   },
-  "timestamp": "2026-10-19T04:06:24+00:00",
-  "status": "Preregistration frozen; E1 metadata/exclusions in progress. Generation queue code ready.\n165 existing seed1 outputs validated; no new generation queued yet.\nCR22 job1080046 last observed PENDING at04:00:51Z; next poll>=04:10:51Z.",
-  "next_action": "Finalize fresh150 caption audit and refs, publish E1 then E2; begin Qwen only afterwards."
+  "timestamp": "2026-10-20T01:51:38+00:00",
+  "status": "CR22 PENDING at 2026-10-20T01:51:38+00:00. 315 pending, 0 running, 0 done, 0 failed, 0 missing. Preparation and the 82-test integration checks are complete. See queue_status.json and live.json for the current observation; final results and paper release depend on complete verified outputs.",
+  "next_action": "Next scheduler query no earlier than 2026-10-20T02:01:38+00:00. Inspect new smoke/output/failure receipts. Release full Qwen only after a valid pass; evaluate complete blocks, merge shards and run the registered analyses. Sleep while the fleet is pending.",
+  "factorial_published": true,
+  "fresh_selection_ready": true,
+  "p1_p5_published": true,
+  "qwen_cpu_checks_passed": true,
+  "historical_holm": {
+    "full60_survive": 28,
+    "condensed30_survive": 16
+  },
+  "new_generation_observed": 0,
+  "qwen_download_complete": true,
+  "qwen_smoke_published": true,
+  "wandb_registration": {
+    "run_id": "zndwlu7k",
+    "mode": "offline",
+    "remote_sync": false
+  }
 }

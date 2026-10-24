@@ -1,0 +1,33 @@
+{
+  "complete": true,
+  "expected_images": 374,
+  "missing_image_pairs": [],
+  "unfinished_tasks": [],
+  "timestamp": "2026-10-24T05:42:11+00:00",
+  "block": "factorial",
+  "manifest_sha256": "98e7be3094df8547dac8ca15c34152b1ef33dc48071a45061ee594213524fffb",
+  "validation": "passed",
+  "validated_images": 374,
+  "tasks": [
+    {
+      "name": "90_eval_factorial_ntk2_sref.sh",
+      "sha256": "b65ad3f594e8c81cf96fac83d6b4d8449d46653e805e5424200a7d9689a4c528",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/factorial/90_eval_factorial_ntk2_sref.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_eval_factorial_sega_base_none.sh",
+      "sha256": "15cc1de2902475222bf79b36bf182699b759eb7c8d7b83246a63ff4fd7a6060a",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/factorial/90_eval_factorial_sega_base_none.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_ir_factorial.sh",
+      "sha256": "dcee231540f9cfb378871ca764e7d6aaf6bb329044190c10d48a4b32391317fb",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/factorial/90_ir_factorial.sh",
+      "status": "published"
+    }
+  ],
+  "published": true,
+  "dependencies_sha256": "7c7242b25ffbada92e63fe3b2afea1d8ef7d14b3b1f110b2215b1037eb4e8d03"
+}

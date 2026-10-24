@@ -1,0 +1,18 @@
+{
+  "verified_utc": "2026-10-19T04:10:52.237495+00:00",
+  "status": "ready",
+  "count": 150,
+  "ids_unique": true,
+  "prompt_reference_order_matches": true,
+  "source_caption_text_preserved": true,
+  "reference_files_verified": 150,
+  "reference_hashes_verified": true,
+  "reference_storage_scratch": true,
+  "work_scratch_manifests_identical": true,
+  "prompt_sha256": "4d997d6a9c375a1d333f17ccdb0adb869bb290a8eac83a7d4f404c07fb9e515a",
+  "reference_manifest_sha256": "e8005f3560dc4fbfa4516bae31138acb64d42458cd5c84cc0a8b771354a21146",
+  "reference_bytes": 646502806,
+  "generation_performed": false,
+  "source_script_changed": false,
+  "queue_published": false
+}

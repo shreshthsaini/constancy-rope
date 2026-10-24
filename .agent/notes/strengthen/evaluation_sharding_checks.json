@@ -1,0 +1,77 @@
+{
+  "timestamp": "2026-10-19T04:46:37.889437+00:00",
+  "test_result": "38 passed in 7.86s",
+  "command": "python -m pytest -q tests/test_strengthen_evaluation.py",
+  "sources": {
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/strengthen_evaluation.py": "6e7df5df68276ebbe2f7805ba7e9941655893387006ef2a12d81c008c17c782e",
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/tests/test_strengthen_evaluation.py": "64584688c88864392c9078c8d21b457069a390b9d5135f21d416ad3592391130"
+  },
+  "published_generation_manifest_preflight": {
+    "factorial": {
+      "factorial": {
+        "images": 374,
+        "evaluator_tasks": 2,
+        "ir_tasks": 1,
+        "method_shards": true
+      }
+    },
+    "ckpt_matrix": {
+      "ckpt_matrix": {
+        "images": 32,
+        "evaluator_tasks": 1,
+        "ir_tasks": 1,
+        "method_shards": false
+      }
+    },
+    "tsweep": {
+      "tsweep": {
+        "images": 165,
+        "evaluator_tasks": 1,
+        "ir_tasks": 1,
+        "method_shards": false
+      }
+    },
+    "default_shift": {
+      "default_shift": {
+        "images": 8,
+        "evaluator_tasks": 1,
+        "ir_tasks": 1,
+        "method_shards": false
+      }
+    },
+    "fresh": {
+      "fresh": {
+        "images": 900,
+        "evaluator_tasks": 6,
+        "ir_tasks": 1,
+        "method_shards": true
+      }
+    },
+    "seeds": {
+      "seeds_seed1": {
+        "images": 264,
+        "evaluator_tasks": 2,
+        "ir_tasks": 1,
+        "method_shards": true
+      },
+      "seeds_seed2": {
+        "images": 374,
+        "evaluator_tasks": 2,
+        "ir_tasks": 1,
+        "method_shards": true
+      }
+    }
+  },
+  "qwen_full_manifest": "not yet published; synthetic 450-image/3-method layout tested",
+  "evaluation_tasks_published_by_this_change": 0,
+  "checks": [
+    "generation publication moves",
+    "duplicate publication reservations",
+    "method subroot discovery equality",
+    "missing duplicate and corrupted shards",
+    "exact canonical rows and repeated merge bytes",
+    "unchanged full-root versus method-shard FID/KID values and bootstrap endpoints",
+    "no fabricated paired distribution aggregates",
+    "diagnostic guidance and schedule corruptions"
+  ]
+}

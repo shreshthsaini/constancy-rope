@@ -1,0 +1,11 @@
+{
+  "plan_sha256": "61d26e6da02d2cf65fb3edd0abd322f630969ffbfc463ee0a70adb405f2333ed",
+  "tasks": {
+    "90_eval_seeds_seed1_sega_official.sh": "67062ed007a4a27758ecb25f1e1fd0e34e9702af566a0d932173378a206c3f3f",
+    "90_eval_seeds_seed1_temp_only_sbase.sh": "2a93b1c9f42c166144986d52294f2ff93ebcf69468dcd5c7be627da3669ab0c5",
+    "90_ir_seeds_seed1.sh": "0296ef67e8fa1178805f0ba10f658fe061cc44bf3df03ed01f2a4328d76ff30f",
+    "90_eval_seeds_seed2_sega_official.sh": "8a2c4c4e75e603f3cdcc257be006f97f47e5362e9539774f154dd43c08d2abcf",
+    "90_eval_seeds_seed2_temp_only_sbase.sh": "7b05269752021bd11405a6a514b6042724b29a9d5b39ccdf1adea9685b399d03",
+    "90_ir_seeds_seed2.sh": "efc91527a9471a7c67d4d86b8ed0e8c3f5052592423b641f06e1421bbb8126c7"
+  }
+}

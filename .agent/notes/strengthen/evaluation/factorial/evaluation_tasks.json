@@ -1,0 +1,8 @@
+{
+  "plan_sha256": "71108fb2c65f3db5d3fd3556b0d2844d5161a00420b89fbdb0b4ed8c0c9cff7c",
+  "tasks": {
+    "90_eval_factorial_ntk2_sref.sh": "b65ad3f594e8c81cf96fac83d6b4d8449d46653e805e5424200a7d9689a4c528",
+    "90_eval_factorial_sega_base_none.sh": "15cc1de2902475222bf79b36bf182699b759eb7c8d7b83246a63ff4fd7a6060a",
+    "90_ir_factorial.sh": "dcee231540f9cfb378871ca764e7d6aaf6bb329044190c10d48a4b32391317fb"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "statistic": "whitened power (f^2 x radial mean power, Hann-windowed luminance) at one shared bin per prompt",
+  "bin_rule": "argmax over 1/64 < f < 1/8 of the mean log spectrum of the four cells",
+  "cells": [
+    "official_dype_dev_g3p5",
+    "official_dype_dev_g4p5",
+    "official_dype_krea_g3p5",
+    "official_dype_krea_g4p5"
+  ],
+  "prompts": [
+    "a4k_eval_4096_minus6873203881450547484",
+    "a4k_eval_4096_3614061571823823193",
+    "a4k_eval_4096_7354534197758042049",
+    "a4k_eval_4096_788875264758341041",
+    "a4k_eval_4096_minus5023570400257826529",
+    "a4k_eval_4096_minus8041742109062037958",
+    "a4k_eval_4096_5968998903196670637",
+    "a4k_eval_4096_minus8648158440845565467"
+  ],
+  "seed": 42,
+  "bootstrap": "2000 draws, default_rng(0) per quantity, percentile 2.5/97.5 of mean log, exponentiated",
+  "role": "descriptive development diagnostic; not a held-out test"
+}

@@ -1,0 +1,7 @@
+{
+  "plan_sha256": "cc58dcc7e0bc9da6051200766225d919f115f2d3949cd3f6d914e7261a9e72c4",
+  "tasks": {
+    "90_eval_default_shift.sh": "ae851cbb8f50b1e6a2c2bdde1071c0080c866c07778a46fff9007eb7ec5156c5",
+    "90_ir_default_shift.sh": "d6de54c9532f715d10e043b966a96f6e2389e100c047d9b8a1c557929a3c92a0"
+  }
+}

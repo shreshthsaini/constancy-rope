@@ -1,0 +1,131 @@
+{
+  "model": "Qwen/Qwen-Image",
+  "sha": "75e0b4be04f60ec59a75f475837eced720f823b6",
+  "files": [
+    {
+      "name": ".gitattributes",
+      "size": 1519
+    },
+    {
+      "name": "LICENSE",
+      "size": 11343
+    },
+    {
+      "name": "README.md",
+      "size": 6778
+    },
+    {
+      "name": "model_index.json",
+      "size": 443
+    },
+    {
+      "name": "scheduler/scheduler_config.json",
+      "size": 485
+    },
+    {
+      "name": "text_encoder/config.json",
+      "size": 3217
+    },
+    {
+      "name": "text_encoder/generation_config.json",
+      "size": 244
+    },
+    {
+      "name": "text_encoder/model-00001-of-00004.safetensors",
+      "size": 4968243304
+    },
+    {
+      "name": "text_encoder/model-00002-of-00004.safetensors",
+      "size": 4991495816
+    },
+    {
+      "name": "text_encoder/model-00003-of-00004.safetensors",
+      "size": 4932751040
+    },
+    {
+      "name": "text_encoder/model-00004-of-00004.safetensors",
+      "size": 1691924384
+    },
+    {
+      "name": "text_encoder/model.safetensors.index.json",
+      "size": 57655
+    },
+    {
+      "name": "tokenizer/added_tokens.json",
+      "size": 605
+    },
+    {
+      "name": "tokenizer/chat_template.jinja",
+      "size": 2427
+    },
+    {
+      "name": "tokenizer/merges.txt",
+      "size": 1671853
+    },
+    {
+      "name": "tokenizer/special_tokens_map.json",
+      "size": 613
+    },
+    {
+      "name": "tokenizer/tokenizer_config.json",
+      "size": 4686
+    },
+    {
+      "name": "tokenizer/vocab.json",
+      "size": 3383407
+    },
+    {
+      "name": "transformer/config.json",
+      "size": 371
+    },
+    {
+      "name": "transformer/diffusion_pytorch_model-00001-of-00009.safetensors",
+      "size": 4989364312
+    },
+    {
+      "name": "transformer/diffusion_pytorch_model-00002-of-00009.safetensors",
+      "size": 4984214160
+    },
+    {
+      "name": "transformer/diffusion_pytorch_model-00003-of-00009.safetensors",
+      "size": 4946470000
+    },
+    {
+      "name": "transformer/diffusion_pytorch_model-00004-of-00009.safetensors",
+      "size": 4984213736
+    },
+    {
+      "name": "transformer/diffusion_pytorch_model-00005-of-00009.safetensors",
+      "size": 4946471896
+    },
+    {
+      "name": "transformer/diffusion_pytorch_model-00006-of-00009.safetensors",
+      "size": 4946451560
+    },
+    {
+      "name": "transformer/diffusion_pytorch_model-00007-of-00009.safetensors",
+      "size": 4908690520
+    },
+    {
+      "name": "transformer/diffusion_pytorch_model-00008-of-00009.safetensors",
+      "size": 4984232856
+    },
+    {
+      "name": "transformer/diffusion_pytorch_model-00009-of-00009.safetensors",
+      "size": 1170918840
+    },
+    {
+      "name": "transformer/diffusion_pytorch_model.safetensors.index.json",
+      "size": 198887
+    },
+    {
+      "name": "vae/config.json",
+      "size": 730
+    },
+    {
+      "name": "vae/diffusion_pytorch_model.safetensors",
+      "size": 253806966
+    }
+  ],
+  "total_bytes": 57704594653
+}

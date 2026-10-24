@@ -239,3 +239,12 @@ Update `.agent/STATE.md` and this file after every meaningful step.
 - 2026-10-20 00:05: PUBLIC REPO https://github.com/shreshthsaini/constancy-rope (origin, branch main; user asked to upload
   everything). Push after every meaningful commit (`git push`). Build PDFs, paper/dist and superseded heldout_* figures are
   untracked (.gitignore). Results stay on scratch; paper crux lives in paper/tables and paper/figs scripts + data pointers.
+- 2026-10-24 07:00: scoring tasks (22 x 90_) published for factorial, tsweep, fresh, seeds, ckpt_matrix, default_shift; waiting
+  for fleet CR26 1096129 (gh 3n 12h, pending since 00:45). Checkpoint x guidance control DONE: FLUX.1-dev lattice power 12.0x
+  [7.8,18.6] Krea at guidance 3.5 and 7.4x [4.5,12.7] at 4.5; guidance change scales dev lattice 0.52x, Krea 0.89x: the
+  lattice is a checkpoint effect. Qwen NOT RUN (OOM from a co-tenant 45 GiB process per GPU; retry needs ~75 GPU-h, not
+  affordable at 2,803 SU). DO NOT EDIT scripts/strengthen_analysis.py, scripts/eval.py, crope/metrics before the 90_ tasks
+  run (checksum-gated). AFTER THE FLEET: `crope_py scripts/strengthen_confirm.py run`, then `crope_py
+  paper/tables/strengthen_tables.py`, then the fs_*.py scripts in paper/figs/strengthen/; the drop-in section
+  paper/sec/results_confirmation.tex prints each paragraph once its block is analysed; paper/INTEGRATION.md says where to
+  \input it. Text fix pass (before/after numbers, float order, rubric 1.2) was stopped on 10-20; relaunch when results land.

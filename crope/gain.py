@@ -68,7 +68,7 @@ class GainController:
 
     def __init__(self, mode="none", grid=(64, 64), axes_dims=(16, 56, 56), rope=None,
                  profile=None, static_profile=None, eta=None, target="profile", temperature=None,
-                 probe_band=None, probe_factor=1.5, gate=None):
+                 probe_band=None, probe_factor=1.5, gate=None, temperature_multiplier=None):
         if gate not in (None, "on", "off"):
             raise ValueError("Gate must be on or off")
         if gate is not None:
@@ -92,6 +92,12 @@ class GainController:
                                            "sref" if mode == "constancy_sref" else "logN")
         if self.temperature not in ("logN", "sref", "none"):
             raise ValueError("Temperature must be logN, sref, or none")
+        if temperature_multiplier is not None:
+            if mode != "temp_only" or temperature not in (None, "none"):
+                raise ValueError("A temperature multiplier requires temp_only and temperature none")
+            if not math.isfinite(temperature_multiplier) or temperature_multiplier <= 0:
+                raise ValueError("Temperature multiplier must be finite and positive")
+        self.temperature_multiplier = temperature_multiplier
         self.probe_band, self.probe_factor = probe_band, probe_factor
         if probe_factor <= 0:
             raise ValueError("Probe factor must be positive")
@@ -139,6 +145,8 @@ class GainController:
         return base ** (-torch.arange(0, dim, 2, device=device, dtype=torch.float32) / dim)
 
     def _temperature(self, axis=None):
+        if self.temperature_multiplier is not None:
+            return float(self.temperature_multiplier)
         if self.temperature == "none":
             return 1.0
         if self.temperature == "sref":

@@ -1,0 +1,51 @@
+{
+  "complete": true,
+  "expected_images": 638,
+  "missing_image_pairs": [],
+  "unfinished_tasks": [],
+  "timestamp": "2026-10-24T05:43:04+00:00",
+  "block": "seeds",
+  "manifest_sha256": "538dbd135a5d2c68d24ad66b98a26cf332fcbff6f08ceddebde279b64b1ca9af",
+  "validation": "passed",
+  "validated_images": 638,
+  "tasks": [
+    {
+      "name": "90_eval_seeds_seed1_sega_official.sh",
+      "sha256": "67062ed007a4a27758ecb25f1e1fd0e34e9702af566a0d932173378a206c3f3f",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/seeds/90_eval_seeds_seed1_sega_official.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_eval_seeds_seed1_temp_only_sbase.sh",
+      "sha256": "2a93b1c9f42c166144986d52294f2ff93ebcf69468dcd5c7be627da3669ab0c5",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/seeds/90_eval_seeds_seed1_temp_only_sbase.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_eval_seeds_seed2_sega_official.sh",
+      "sha256": "8a2c4c4e75e603f3cdcc257be006f97f47e5362e9539774f154dd43c08d2abcf",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/seeds/90_eval_seeds_seed2_sega_official.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_eval_seeds_seed2_temp_only_sbase.sh",
+      "sha256": "7b05269752021bd11405a6a514b6042724b29a9d5b39ccdf1adea9685b399d03",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/seeds/90_eval_seeds_seed2_temp_only_sbase.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_ir_seeds_seed1.sh",
+      "sha256": "0296ef67e8fa1178805f0ba10f658fe061cc44bf3df03ed01f2a4328d76ff30f",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/seeds/90_ir_seeds_seed1.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_ir_seeds_seed2.sh",
+      "sha256": "efc91527a9471a7c67d4d86b8ed0e8c3f5052592423b641f06e1421bbb8126c7",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/seeds/90_ir_seeds_seed2.sh",
+      "status": "published"
+    }
+  ],
+  "published": true,
+  "dependencies_sha256": "4c1214ed221eb07cbe91bdf51ffc4e4a8f8382f59bcc98cb6b17684e073d270e"
+}

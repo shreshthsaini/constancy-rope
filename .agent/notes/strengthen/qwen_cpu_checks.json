@@ -1,0 +1,30 @@
+{
+  "checks": {
+    "passed": true,
+    "native_rotary_max_abs_error": 0.0,
+    "tiny_native_transformer_max_abs_error": 0.0,
+    "uniform_energy_independent": true,
+    "frame_gain": 1.0,
+    "spatial_qk_amplitude": 1.11728713807222,
+    "spatial_logit_gain": 1.2483305489016119,
+    "released_allocation_changes_rotary_max_abs": 0.12692008912563324,
+    "pretrained_weights_loaded": false,
+    "gpu_used": false
+  },
+  "provenance": {
+    "official_commit": "ddaab08552c7b7ceba2ebd8f579a0f65dee90b5e",
+    "source_sha256": {
+      "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/run_qwen.py": "b11d74d712cba6e2f1473f3671cf94a9b9b2490e3e19bbac5f5ff5bacb75c7cf",
+      "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/pipeline_qwenimage.py": "c9fa5bee9ca1ada3785e959bdf64b682e6a3794d19aa13a6c1f9eb1f01ad20c4",
+      "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/transformer_qwenimage.py": "f0f28ab092c24a7db73692daaa1741e698007b546c2616a1fccd4ca2357ebab0",
+      "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/strengthen_qwen.py": "7914370949b9c1f4473984cc5d725d013250bd5d3b878ec80cc34d583b6bcb74",
+      "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/utils.py": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e"
+    },
+    "versions": {
+      "torch": "2.11.0+cu128",
+      "diffusers": "0.39.0",
+      "transformers": "5.19.0",
+      "accelerate": "1.15.0"
+    }
+  }
+}

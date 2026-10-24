@@ -1,5 +1,14 @@
 \section{Experimental setup}\label{sec:protocol}
 
+\begin{table}[t]
+\centering
+\caption{\textbf{Held-out results and decomposition.} Means over rows 8--194 (seed 0, $n=\N{ho@nprompts}$); bold marks the best mean and underline the second, which alone imply no significant difference. \better/\worse{} mark paired 95\% intervals against \segaofficial{} (shaded) that exclude zero, and a star marks a Holm-adjusted $p\le0.05$; \dype{} (gray) is context. The bottom block gives paired gains with nominal intervals (base\,+\,temp.: \tempsb{} $-$ \ntk; allocation: \segaofficial{} $-$ \tempsb) and the share of \sega's gain over \ntk{} carried by base and temperature. \Cref{tab:main,tab:share,tab:means_full,tab:deltas_full} expand this table. Key result: \tempsb{} ties \segaofficial{} on all three reward models and crop MUSIQ, and the allocation adds only full-frame MUSIQ and CLIP-IQA.}
+\label{tab:results}
+\footnotesize
+\setlength{\tabcolsep}{3.4pt}
+\input{tables/tab_results.tex}
+\end{table}
+
 \paragraph{Model and sampler}
 The held-out comparisons use the \krea{} transformer~\citep{flux1kreadev2025}, the checkpoint loaded by the official \dype{} and \sega{} scripts, with the \fluxdev{} text encoders and autoencoder~\citep{flux2024}. A $4096^2$ image has $\N{c@ntgt}$ tokens, \N{c@tokratio} times the \N{c@ntrain} of a native $1024^2$ image ($s=\N{c@s}$ per side). Every held-out arm uses \N{c@steps} Euler flow-matching steps, distilled guidance 4.5, bfloat16, batch size one, the same per-prompt seeds and the capped flow shift $\mu=\N{c@muofficial}$ (\cref{app:impl}).
 

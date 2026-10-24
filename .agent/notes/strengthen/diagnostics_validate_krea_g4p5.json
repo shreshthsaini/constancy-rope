@@ -1,0 +1,48 @@
+{
+  "validated": true,
+  "n": 8,
+  "example_config": {
+    "schema": "official-dype-checkpoint-matrix-v1",
+    "method": "official_dype_krea_g4p5",
+    "prompt_id": "a4k_eval_4096_minus6873203881450547484",
+    "prompt": "A row of weathered small boats in various colors rests at the water's edge, reflecting the overcast sky and surrounded by a calm harbor filled with larger boats and sailboats in the distance.",
+    "seed": 42,
+    "generator": "torch.Generator(device=cuda).manual_seed(seed), reset per prompt",
+    "resolved_seed": 42,
+    "res": [
+      4096,
+      4096
+    ],
+    "steps": 28,
+    "guidance": 4.5,
+    "checkpoint": "krea",
+    "base_model": "/scratch/09032/saini_2/tmp/hf/hub/models--black-forest-labs--FLUX.1-dev/snapshots/3de623fc3c33e44ffbe2bad470d0f45bccf2eb21",
+    "base_revision": "3de623fc3c33e44ffbe2bad470d0f45bccf2eb21",
+    "transformer_model": "/scratch/09032/saini_2/tmp/hf/hub/models--black-forest-labs--FLUX.1-Krea-dev/snapshots/8162a9c7b05a641be098422bf2fcf335615c2f28",
+    "transformer_revision": "8162a9c7b05a641be098422bf2fcf335615c2f28",
+    "dtype": "bfloat16",
+    "dype": true,
+    "rope_method": "yarn",
+    "max_sequence_length": 512,
+    "vae_tiling": true,
+    "schedule_policy": "unmodified official DyPE: max_seq_len=image_seq_len",
+    "expected_mu": 1.15,
+    "cpu_offload": false,
+    "attention_backend": "official implementation and current torch defaults",
+    "prompt_manifest_sha256": "ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1",
+    "provenance": {
+      "official_root": "/scratch/09032/saini_2/constancy_rope/third_party/DyPE",
+      "official_commit": "436fe612fb7695fa2d5dc32d63390c048ba6033c",
+      "official_python_sha256": {
+        "flux/pipeline_flux.py": "a50fa3484f3a3b88ad3a8b039791929fce54f0e9837eed2d786316481e319a6f",
+        "flux/transformer_flux.py": "ff8e394ca656291f20af7c1c5ceb3008ea2f637628a5d3b7feb8ae5b45daa7f5"
+      },
+      "wrapper_sha256": "0a5c82ddb7dd77fd138c920ae6aded2ca0a1c319375818c58dc6df2f9258dba0"
+    },
+    "versions": {
+      "torch": "2.11.0+cu128",
+      "diffusers": "0.39.0",
+      "transformers": "5.19.0"
+    }
+  }
+}

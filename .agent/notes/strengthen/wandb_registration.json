@@ -1,0 +1,52 @@
+{
+  "run_id": "zndwlu7k",
+  "mode": "offline",
+  "dir": "/scratch/09032/saini_2/constancy_rope/wandb/wandb/offline-run-20261018_232750-zndwlu7k/files",
+  "config": {
+    "job_id": "1080046",
+    "role": "campaign_registration",
+    "prereg_sha256": "0aeaeb4b06b01486f3a1d42476b2841f1a1c73665ed7ebad306e9ec674a3780e",
+    "primary_family_size": 3,
+    "generation_complete": false,
+    "blocks": {
+      "factorial": {
+        "tasks": 54,
+        "images": 374,
+        "reuse": 0
+      },
+      "qwen_smoke": {
+        "tasks": 1,
+        "images": 3,
+        "reuse": 0
+      },
+      "tsweep": {
+        "tasks": 24,
+        "images": 165,
+        "reuse": 0
+      },
+      "default_shift": {
+        "tasks": 2,
+        "images": 8,
+        "reuse": 0
+      },
+      "ckpt_matrix": {
+        "tasks": 8,
+        "images": 32,
+        "reuse": 0
+      },
+      "fresh": {
+        "tasks": 132,
+        "images": 900,
+        "reuse": 0
+      },
+      "seeds": {
+        "tasks": 94,
+        "images": 638,
+        "reuse": 110
+      }
+    }
+  },
+  "no_remote_sync_claimed": true,
+  "prior_failed_registration_run": "6siaa09c",
+  "prior_failure": "default artifact staging outside writable roots; retried with project-local scratch cache/data/config directories"
+}

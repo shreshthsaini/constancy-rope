@@ -85,14 +85,22 @@ def implementation_hash():
 
 class FluxExperiment:
     def __init__(self, pipe, method, resolution, profile=None, static_profile=None, eta=None,
-                 target="profile", temperature=None, probe_band=None, probe_factor=1.5, gate=None):
+                 target="profile", temperature=None, probe_band=None, probe_factor=1.5, gate=None,
+                 temperature_multiplier=None, output_method=None, schedule_mode="official"):
         from .rope import FluxRoPE
         if method not in METHODS:
             raise ValueError(f"Unknown method {method}")
         self.pipe, self.method, self.resolution = pipe, method, tuple(resolution)
+        if schedule_mode not in ("official", "diffusers_default"):
+            raise ValueError("Unknown schedule mode")
+        if output_method is not None and (not output_method or not all(
+                c.isalnum() or c == "_" for c in output_method)):
+            raise ValueError("Output method must be a nonempty alphanumeric/underscore identity")
+        self.output_method, self.schedule_mode = output_method, schedule_mode
+        self.original_max_image_seq_len = dict(pipe.scheduler.config).get("max_image_seq_len", 4096)
         self.grid = tuple(n // 16 for n in resolution)
         # mu = max_shift at every resolution (see sample()); set before any config is recorded.
-        if hasattr(self.pipe.scheduler, "register_to_config"):
+        if schedule_mode == "official" and hasattr(self.pipe.scheduler, "register_to_config"):
             self.pipe.scheduler.register_to_config(max_image_seq_len=max(4096, self.grid[0] * self.grid[1]))
         self.axes_dims = tuple(pipe.transformer.config.axes_dims_rope)
         rope_method = method if method in ("base", "pi", "ntk", "ntk2", "yarn", "dype", "sega_official") else "ntk2"
@@ -104,7 +112,8 @@ class FluxExperiment:
         mode = "yarn_temp" if method == "yarn" else (method if method in GainController.MODES else "none")
         self.rope = FluxRoPE(axes_dims=self.axes_dims, theta=10000, method=rope_method, grid=self.grid)
         self.controller = GainController(mode, self.grid, self.axes_dims, self.rope, profile, static_profile,
-                                         eta, target, temperature, probe_band, probe_factor, gate)
+                                         eta, target, temperature, probe_band, probe_factor, gate,
+                                         temperature_multiplier=temperature_multiplier)
         if self.controller.time_matched:
             self.method = self.controller.mode
         self.original_rope = pipe.transformer.pos_embed
@@ -187,7 +196,7 @@ class FluxExperiment:
 
     def config(self, row, seed, steps, guidance):
         import diffusers
-        return {"schema_version": 1, "method": self.method, "res": f"{self.resolution[0]}x{self.resolution[1]}",
+        config = {"schema_version": 1, "method": self.output_method or self.method, "res": f"{self.resolution[0]}x{self.resolution[1]}",
                 "prompt_id": str(row["id"]), "prompt": row["prompt"], "seed": int(seed),
                 "derived_seed": image_seed(row["id"], seed), "steps": steps, "guidance": guidance,
                 "model": "black-forest-labs/FLUX.1-dev", "model_revision": self.model_revision,
@@ -202,6 +211,15 @@ class FluxExperiment:
                 "side_scale": [n / 64 for n in self.grid], "area_scale": self.grid[0] * self.grid[1] / 4096,
                 "sega_sref_area_alternative": (self.grid[0] * self.grid[1] / 4096) ** 0.08,
                 "scheduler": dict(self.pipe.scheduler.config)}
+        # Keep the historical config unchanged unless a new explicit control is used.
+        if self.output_method is not None:
+            config["controller_method"] = self.method
+        if self.controller.temperature_multiplier is not None:
+            config["temperature_multiplier"] = self.controller.temperature_multiplier
+        if self.schedule_mode != "official":
+            config["schedule_mode"] = self.schedule_mode
+            config["original_max_image_seq_len"] = self.original_max_image_seq_len
+        return config
 
     @torch.inference_mode()
     def generate(self, row, seed=0, steps=28, guidance=3.5, output_type="pil", observer=None):
@@ -216,7 +234,9 @@ class FluxExperiment:
             torch.cuda.reset_peak_memory_stats()
         # Official DyPE and SEGA pipelines pass max_seq_len = image_seq_len, i.e. mu = max_shift (1.15) at any
         # resolution. The diffusers default extrapolates mu linearly (~11.5 at 4096^2), collapsing all sigmas to ~1.
-        self.pipe.scheduler.register_to_config(max_image_seq_len=max(4096, (h // 16) * (w // 16)))
+        self.pipe.scheduler.register_to_config(max_image_seq_len=(
+            max(4096, (h // 16) * (w // 16)) if self.schedule_mode == "official"
+            else self.original_max_image_seq_len))
         start = time.perf_counter()
         result = self.pipe(prompt=row["prompt"], height=h, width=w, num_inference_steps=steps,
                            guidance_scale=guidance, generator=generator, max_sequence_length=512,

@@ -1,0 +1,57 @@
+{
+  "complete": true,
+  "expected_images": 900,
+  "missing_image_pairs": [],
+  "unfinished_tasks": [],
+  "timestamp": "2026-10-24T05:44:03+00:00",
+  "block": "fresh",
+  "manifest_sha256": "7f9080295f663f52170f601339f6e45f8ed0b2ab746de86b18c4244be787ce2b",
+  "validation": "passed",
+  "validated_images": 900,
+  "tasks": [
+    {
+      "name": "90_eval_fresh_dype.sh",
+      "sha256": "c8a6b0fb11cf07af78beafa094500fceddf6fb428bd66c57ae48cec7eb30cf65",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/fresh/90_eval_fresh_dype.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_eval_fresh_ntk2.sh",
+      "sha256": "dfc80f9af6f5e182069e9cfe3e770e441012e70f8db1625167eadf3ed2624d19",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/fresh/90_eval_fresh_ntk2.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_eval_fresh_ntk2_sref.sh",
+      "sha256": "bb25a40de715e8a5ebc9b1a01e51a173dcfe64a9c3c57dd307172d8064ffa19d",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/fresh/90_eval_fresh_ntk2_sref.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_eval_fresh_sega_base_none.sh",
+      "sha256": "4cfb3bfadd2bc416eb6f5abc83317237c30894838386282860bd0ececc302012",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/fresh/90_eval_fresh_sega_base_none.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_eval_fresh_sega_official.sh",
+      "sha256": "19c3be2bbb042ee21b3d6434cae9d7619621398ad0a4b7539458398e1ccb03db",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/fresh/90_eval_fresh_sega_official.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_eval_fresh_temp_only_sbase.sh",
+      "sha256": "a2ec037ca986e029da3281ce835fce7fd2daeb2c5833b23b0cda65c3182e63a9",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/fresh/90_eval_fresh_temp_only_sbase.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_ir_fresh.sh",
+      "sha256": "8c0af31b2a8f719868650a9e569353f8f5cf34f39e3c2c1054eaf8513031cfcd",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/fresh/90_ir_fresh.sh",
+      "status": "published"
+    }
+  ],
+  "published": true,
+  "dependencies_sha256": "d60f688454252a9588718e42c27241c9044f9f63ca1ec146e8e55a5f6b437c97"
+}

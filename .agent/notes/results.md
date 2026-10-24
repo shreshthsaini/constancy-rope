@@ -149,3 +149,418 @@ Read requested files; CR22 job1080046 pending, queues empty, STOP absent. Wrote 
 
 ### 2026-10-19T04:06:24+00:00: Krea task preparation and seed1 reuse audit
 Implemented scripts/strengthen_queue.py from archived50/52/53 task commands, with frozen-source checks and interleaved seven-prompt chunks. Three CPU tests pass. Validated165 existing held-out seed1 images across sega_official,temp_only,constancy_tm (55 each): exact prompts/seeds/configs, actual sigmas, PNG dimensions and hashes. They will be reused, leaving1331 new E2 images. Fresh-caption preparation and exact analysis code are delegated; no generation published yet.
+
+### 2026-10-19T04:11:32+00:00: Step0 preregistration amended
+Appended senior-review amendment before any queue publication. Original bytes preserved; receipt 41b2545be5ba334a934cdd8bd78bc56b3eb3701b20b89e467e7763bbc7e817e5. H1 pooled337 with baseline-gap margin and precision estimates; Holm family3; revised P1-P7 frozen.
+
+### 2026-10-19T04:13:04+00:00: P1 factorial published and fresh set finalized
+Published54 prefix75 tasks for374 held-out images after Step0 amendment and115 passing control/runtime/queue/CLI tests. Verified none gives unit gain and distinct evaluator identities. Fresh150 selection/ref audit complete with150 reference images,646502806bytes; prompt SHA4d997d6a9c375a1d333f17ccdb0adb869bb290a8eac83a7d4f404c07fb9e515a. No generation yet; CR22 pending at04:08:28Z.
+
+### 2026-10-19T04:14:41+00:00: P2 matched-guidance diagnostic published
+Published8 prefix76 tasks/32images using unmodified pinned official DyPE yarn source. Appended pre-generation source-constant and Monte Carlo-tail clarifications. MUSIQ source/runtime preprocessing audit confirms16577 patches at4096square with no native cap; default schedule audit finds1 distinct BF16 timestep.
+
+### 2026-10-19T04:14:41+00:00: P3 fixed temperature sweep published
+Published24 prefix77 tasks/165newimages for1.1,4/3,1.45. Reuse55 P1 no-temperature images and55 archived exact-sref images to complete five fixed settings; no best-temperature selection.
+
+### 2026-10-19T04:14:42+00:00: P4 fresh150 published
+Published132 prefix80 tasks/900images for six revised arms. Fresh150 SHA4d997d6a9c375a1d333f17ccdb0adb869bb290a8eac83a7d4f404c07fb9e515a and150 reference hashes recorded.
+
+### 2026-10-19T04:15:08+00:00: P5 extra seeds published
+Published94 prefix81 tasks/638newimages for SEGA and temp_only_sbase, seeds1/2. Validated110 existing seed1 artifacts reused; dropped controllers not regenerated. P1-P5 all published before starting Qwen implementation.
+
+### 2026-10-19T04:15:08+00:00: P7 schedule images published
+Published2 prefix78 tasks/8devimages for default diffusers shift, after P1-P5 publication. MUSIQ and numerical schedule audits already complete.
+
+### 2026-10-19T04:16:45+00:00: Qwen official settings identified and cached-model download started
+Official SEGA Qwen settings identified at commitddaab085:4096square,40steps,trueCFG4,suffix and empty negative prompt,seed0 CUDA. HF metadata pinned Qwen/Qwen-Image revision75e0b4be04f60ec59a75f475837eced720f823b6,57.7GB; serial download in managed exec session, log scratch/logs/qwen_download.log. Scheduler was inadvertently polled at04:16:24Z after04:08:28Z (under10min); next poll now strictly not before04:26:24Z.
+
+### 2026-10-19T04:23:20+00:00: Qwen preregistration, analysis tooling and paper evidence corrections
+Appended exact releasedQwen settings and historical bootstrap-order clarification before any generation. Qwen CPUparity6tests pass;70smoke staged, awaiting serial57.7GB weight download. Analysis24tests and eval-gate9tests pass; manifests P1/P3/E1/E2/E3 prepared. Historical Holm audit matches published nominal intervals; independent make_tables implementation matches all90 adjusted p-values exactly. Condensed30 survives16/21nominal effects,full60 survives28/39. Figure1b now absolute paired gains with CIs;hero32 selection documented; spectrum panel promoted;A.2 distinct scales plusmean profiles, cleanfigureaudit. Prose known-evidence corrections written; new results not claimed.
+
+### 2026-10-19T04:24:00+00:00: P6 Qwen smoke published
+Serial57.7GB checkpoint download finished and verified all30 cachedfiles at pinnedrevision; managed download process reaped. Published70_qwen_smoke after P1-P5 and the Qwen amendment, passing6CPUparitytests and independent review. Full66tasks/450images remain gated on actual three-arm two-step4K GPU smoke.
+
+### 2026-10-19T04:27:09+00:00: Fleet pending at ten-minute checkpoint
+CR22 job1080046 remainsPENDING(Priority) at04:26:37Z. All315 publishedtask identities found exactlyonce inpending;0running,0done,0failed. Nextschedulerpoll>=04:36:37Z. Combined58 analysis/eval/Qwen/diagnostic/fresh tests pass, plus earlier115controls/runtime tests. No conclusions about newhypotheses are available.
+
+### 2026-10-19T04:31:21+00:00: Paper figures and diagnostic evaluation ready
+All revised figure sources and PDF/SVG exports are assembled, including the two-row main qualitative grid with documented output-dependent crop selection. F2 removes a duplicate temperature factor from its illustrative expression. Analysis has 25 passing tests; evaluation has 15, including exact checkpoint/guidance and default-shift checks. No evaluation task was published because generation is absent. Offline W&B registration zndwlu7k succeeded with scratch-local caches; no remote sync is claimed. Intermediate Tectonic build is running in scratch; published dist remains unchanged.
+
+### 2026-10-19T04:34:12+00:00: Intermediate paper visual review
+The first intermediate build compiled to25pages. All25pages were assigned for visual review; pages1-17 were checked, and final table pages remain under review. Fixed a clipped appendix caption by splitting the combined F6/F8 float, enlarged Figure2 to full linewidth, and shortened overflowing commit link labels while retaining full pinned URLs. Second build has26pages and no vertical overflow; one remaining source-version heading line was shortened. All seven generation checksum manifests still pass. Previous dist PDF/zip remain unchanged while the campaign is pending.
+
+### 2026-10-19T04:37:26+00:00: Fleet pending at scheduled poll
+CR22 job1080046 remains PENDING for Priority at04:36:46Z. Scheduler supplies no start estimate. All315 published tasks remain pending, with none running, done, failed or missing. Next scheduler poll is no earlier than04:46:46Z. All25 pages of the first preview were inspected. Source package extraction compiled successfully and reproduced identical archive bytes. Final table-spacing corrections and completion-gated diagnostic report sources are in progress; dist remains untouched.
+
+### 2026-10-19T04:39:47+00:00: Clean paper preview and evaluation balancing
+Current preview compiles to27pages with no overfull boxes, undefined references or out-of-page annotations. Table interval font increased from5.6 to6.0pt by removing unused cell padding and tightening column spacing; larger method diagram and repaired appendix pages were visually inspected. Historical seed table explicitly says nominal and unadjusted; omitted zero-gain pairs are disclosed. A method-wise evaluation split is being added before first publication to prevent fresh900 from becoming a long single-GPU tail; metric definitions and paired analyses stay fixed. Diagnostic summaries and matched-guidance figure source are being prepared with completeness gates, without generating placeholder results.
+
+### 2026-10-19T04:44:54+00:00: Diagnostic postprocessing ready
+Added completion-gated P2/P7 reporting, fixed per-prompt/mean/paired CSV exports, the historical whitened-lattice statistic, and a matched-guidance figure source using fixed dev row0 and identical native crops. All19 CPU tests pass; eight historical P7 comparator images and ten metrics validate. New images remain absent, so no diagnostic result tables or figures were generated. Commands are in diagnostics_postprocessing.md. REPORT.md summarizes campaign execution, amended hypotheses, historical results and resume steps.
+
+### 2026-10-19T04:48:12+00:00: Evaluation shards and merge verified; fleet still pending
+Large evaluation groups now split by method: factorial2, fresh6, seed1two, seed2two, Qwen3 evaluator tasks; checkpoint, sweep and default shift each stay one. Every score directory has one ImageReward task. Exact per-method FID/KID bootstrap and fixed reference/crop semantics match the unsplit evaluator in synthetic regression tests. The helper has38 passing tests and strict output receipts; --merge validates all completed shards before writing canonical CSVs. No evaluation task was published. CR22 remains PENDING for Priority at04:46:53Z, with all315 generation tasks pending and no start estimate. Next scheduler poll is04:56:53Z or later.
+
+### 2026-10-19T04:57:55+00:00: Scheduled fleet observation
+At2026-10-19 04:57:27UTC, CR22 job1080046 remains PENDING for Priority. All315 published tasks remain pending; none are running, done, failed or missing. No scheduler start estimate is available. The combined analysis, evaluation and diagnostic integration suite passed82tests in18seconds; receipt integration_test_receipt.json. Preparation is complete, and no further source changes are needed before GPU execution.
+
+### 2026-10-19T05:08:17+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T05:07:37+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T05:17:48+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T05:17:48+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T05:28:00+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T05:28:00+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T05:38:11+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T05:38:10+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T05:48:26+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T05:48:25+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T05:59:02+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T05:59:02+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T06:09:38+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T06:09:38+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T06:20:17+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T06:20:16+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T06:30:59+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T06:30:58+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T06:41:51+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T06:41:50+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T06:52:48+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T06:52:48+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T07:03:37+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T07:03:37+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T07:14:20+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T07:14:20+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T07:25:07+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T07:25:07+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T07:35:51+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T07:35:51+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T07:46:38+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T07:46:38+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T07:57:23+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T07:57:23+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T08:08:03+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T08:08:03+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T08:18:37+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T08:18:37+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T08:29:20+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T08:29:19+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T08:40:06+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T08:40:06+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T08:50:53+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T08:50:52+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T09:01:46+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T09:01:43+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T09:12:30+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T09:12:30+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T09:23:08+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T09:23:08+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T09:33:47+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T09:33:47+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T09:44:37+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T09:44:37+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T09:55:14+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T09:55:14+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T10:05:54+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T10:05:54+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T10:16:30+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T10:16:30+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T10:27:12+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T10:27:12+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T10:37:47+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T10:37:46+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T10:48:32+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T10:48:32+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T10:59:14+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T10:59:13+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T11:10:10+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T11:10:09+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T11:20:49+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T11:20:49+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T11:31:32+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T11:31:32+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T11:42:16+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T11:42:15+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T11:53:07+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T11:53:07+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T12:03:54+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T12:03:54+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T12:14:33+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T12:14:33+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T12:25:17+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T12:25:16+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T12:35:54+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T12:35:54+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T12:46:36+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T12:46:36+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T12:57:21+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T12:57:20+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T13:08:23+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T13:08:23+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T13:18:58+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T13:18:58+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T13:29:35+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T13:29:35+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T13:40:22+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T13:40:22+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T13:51:02+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T13:51:02+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T14:02:02+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T14:02:01+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T14:13:32+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T14:13:31+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T14:24:16+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T14:24:16+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T14:35:05+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T14:35:05+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T14:45:49+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T14:45:49+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T14:56:30+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T14:56:30+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T15:07:19+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T15:07:19+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T15:18:07+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T15:18:07+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T15:29:14+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T15:29:14+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T15:39:59+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T15:39:59+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T15:50:46+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T15:50:46+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T16:01:41+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T16:01:41+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T16:12:39+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T16:12:39+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T16:23:26+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T16:23:26+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T16:34:06+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T16:34:06+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T16:46:46+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T16:46:46+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T16:57:25+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T16:57:25+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T17:08:13+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T17:08:13+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T17:19:04+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T17:19:04+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|N/A. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T17:29:49+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T17:29:49+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:10:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T17:40:43+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T17:40:43+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T22:00:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T17:51:23+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T17:51:23+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:00:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T18:01:58+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T18:01:57+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T20:00:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T18:12:53+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T18:12:53+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T17:55:52. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T18:23:50+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T18:23:49+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T20:00:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T18:34:33+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T18:34:32+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T19:40:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T18:45:21+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T18:45:20+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T20:20:09. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T18:55:55+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T18:55:55+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:40:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T19:06:37+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T19:06:37+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T17:55:52. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T19:19:04+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T19:19:04+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T18:50:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T19:29:44+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T19:29:44+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T17:41:49. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T19:40:34+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T19:40:33+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T17:29:41. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T19:51:11+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T19:51:11+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T23:26:44. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T20:01:56+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T20:01:55+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T22:00:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T20:12:36+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T20:12:35+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T23:10:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T20:23:20+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T20:23:19+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:40:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T20:34:10+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T20:34:10+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:27:20. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T20:44:53+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T20:44:53+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:17:02. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T20:55:45+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T20:55:44+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:17:02. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T21:06:37+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T21:06:37+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:17:02. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T21:17:13+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T21:17:13+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T20:50:57. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T21:28:09+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T21:28:09+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T20:50:57. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T21:40:46+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T21:40:46+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T20:50:57. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T21:51:52+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T21:51:52+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:17:02. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T22:02:34+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T22:02:34+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T20:50:57. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T22:13:16+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T22:13:16+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T19:10:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T22:24:08+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T22:24:08+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T20:10:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T22:34:52+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T22:34:51+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Resources)|2026-10-19T19:10:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T22:45:47+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T22:45:45+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T19:30:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T22:56:46+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T22:56:46+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T23:35:19. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T23:07:44+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T23:07:44+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-20T00:30:00. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T23:18:35+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T23:18:35+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T23:35:19. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T23:29:31+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T23:29:30+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T23:16:28. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T23:40:16+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T23:40:16+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T23:16:28. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-19T23:51:02+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-19T23:51:02+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T23:16:22. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-20T00:01:49+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-20T00:01:49+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T23:16:28. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-20T00:12:40+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-20T00:12:40+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T23:16:22. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-20T00:23:34+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-20T00:23:34+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T23:16:22. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-20T00:34:24+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-20T00:34:24+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T23:16:22. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-20T00:45:24+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-20T00:45:24+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:56:08. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-20T00:56:29+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-20T00:56:28+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:56:08. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-20T01:07:33+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-20T01:07:32+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:56:08. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-20T01:18:38+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-20T01:18:38+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:56:08. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-20T01:29:44+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-20T01:29:43+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:38:43. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-20T01:40:40+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-20T01:40:40+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:27:20. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-20T01:51:38+00:00: Scheduled fleet observation
+CR22 state PENDING, observed 2026-10-20T01:51:38+00:00. Published generation task counts: 315 pending, 0 running, 0 done, 0 failed, 0 missing. Scheduler response: 1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:38:43. This observation does not establish image quality or a hypothesis outcome.
+
+### 2026-10-20T04:45:00+00:00: Analyst takeover; Qwen smoke verified; Qwen block published
+Claude analyst (Opus 5.5) took over scoring and write-up after the Codex process died. CR22 1080046 has run since
+2026-10-19 21:26 CDT on 8 GH200 workers; at 23:26 CDT 40/54 factorial tasks were done (median 22.8 min per
+7-image task) and nothing had failed. The 70_qwen_smoke task (21:28 CDT) passed: three 4096x4096 PNGs whose
+SHA256 match diag/qwen_smoke/passed.json, finite states at both steps, no CPU offload, revision 75e0b4be, mu 0.9,
+peak memory 63.9 GB, 14.3 s per 4K step. The full Qwen block was staged by scripts/strengthen_qwen_queue.py (its
+provenance gate re-ran) and published at 23:33 CDT: 66 tasks, 450 images (qwen_published.json). Smoke images are
+execution evidence only. Evaluation ordering: 90_ tasks sort after all generation; scripts/strengthen_prio_eval.py
+parks pending generation behind published evaluations and releases it through a 91_ task (tested on a mock queue).
+- 2026-10-24 00:45 CDT (second analyst, Opus 5.5): all Krea generation blocks complete and validated by scripts/strengthen_evaluation.py; 22 evaluation tasks (90_eval_*, 90_ir_*) published to taskq/pending for factorial, tsweep, fresh, seeds, ckpt_matrix and default_shift. Qwen E3 not run (CUDA OOM at 4K, 60 failed 82_ tasks preserved). Fleet CR26 1096129 PENDING.
+- 2026-10-24 01:10 CDT: P2 lattice (dev prompts, official DyPE, matched guidance): dev/Krea whitened peak power 12.0x [7.8, 18.6] at g3.5 and 7.4x [4.5, 12.7] at g4.5; shared-bin index shows guidance 4.5 halves the dev lattice (0.52x [0.41, 0.64]) and leaves Krea unchanged (0.89x [0.67, 1.11]). Qwen OOMs coincide with a co-resident ~45 GiB GPU process in all 60 logs (qwen_failure_diagnosis.json).
+- 2026-10-24 06:50 CDT: fleet CR26 1096129 still PENDING after 6 h; analyst stopped with everything staged (22 x 90_ tasks pending, frozen dependencies verified). Added scripts/strengthen_confirm.py, paper/sec/results_confirmation.tex, paper/figs/strengthen/fs_confirm.py, paper/INTEGRATION.md; extended paper/tables/strengthen_tables.py with the shared-bin lattice rows. No registered hypothesis has an outcome yet.

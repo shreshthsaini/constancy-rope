@@ -1,0 +1,780 @@
+{
+  "completed_utc": "2026-10-19T04:10:26.880229+00:00",
+  "count": 150,
+  "dataset": "zhang0jhon/Aesthetic-4K",
+  "dataset_revision": "8c5d5cb8b94230ff897d87bf060451257d1c7bf8",
+  "metadata_path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/metadata.jsonl",
+  "metadata_sha256": "8910fa65ac3b749579c394319f296cb758aa558ff51ac150827564800f97a453",
+  "metadata_rows": 12015,
+  "selection": "sorted source_file_name/source_row; default_rng(2026).permutation; first 150 eligible",
+  "numpy_version": "2.4.6",
+  "prompt_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/prompts/fresh150.jsonl",
+  "prompt_sha256": "4d997d6a9c375a1d333f17ccdb0adb869bb290a8eac83a7d4f404c07fb9e515a",
+  "reference_manifest_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/prompts/fresh150_refs.jsonl",
+  "reference_manifest_sha256": "e8005f3560dc4fbfa4516bae31138acb64d42458cd5c84cc0a8b771354a21146",
+  "reference_files": [
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/75xPHEQBmvA.jpg",
+      "bytes": 1682667,
+      "sha256": "4ada8c3166e892114ac6c3cf5de763ce428da9b830753191ffdd3f015679751a"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0004/OvSzUICVcvg.jpg",
+      "bytes": 3821393,
+      "sha256": "4bf3da967f7f3c706c1155f2fe45c20114dce9c8f40d85eb0ea95daf2a20612b"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/04P38oaPUsU.jpg",
+      "bytes": 3183609,
+      "sha256": "e4d5e6979855a28a6b11b4256eea674b3b2e0b4191c658b388dc04431ec88042"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/O2fNaqTXa_Q.jpg",
+      "bytes": 1794236,
+      "sha256": "51912125a198346f2fb1f68a1e40c4509173c03e000daa9ac060767c6befb272"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0003/-fQb3wlNlUM.jpg",
+      "bytes": 3759782,
+      "sha256": "af4d924aa750dfb6697958bb55054b966c5279c767bac407681d84245288dc8d"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/EMM7iHFt5oY.jpg",
+      "bytes": 12521587,
+      "sha256": "76fa6ae7e6524a3086af74f03a7a244627cb62add154fbb3d8b42942b66397f9"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0011/C02GqAYEY0w.jpg",
+      "bytes": 4556472,
+      "sha256": "78d828487240189be6cd02fce1adbe71b0121bf794c7650e069b08e821c9dab4"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0011/Jt16Nz5wRJY.jpg",
+      "bytes": 1784268,
+      "sha256": "c34789a044b1124e10970e7a5f501fe160f9158f6b62cf329e8d2f1bf6072394"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/g4LWKt6ureY.jpg",
+      "bytes": 5715187,
+      "sha256": "b46a7d3ca067e1dda9338403f7b6a2efb0789b9cf869609ffd6aa8d20919ad93"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0009/VrNlOdHhWgs.jpg",
+      "bytes": 3663168,
+      "sha256": "6c7eeaec1088e0cb99c3010a169fb863b5a08be2ef4a54f29d5258e367d40864"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0009/ys_lIc80gRg.jpg",
+      "bytes": 4752722,
+      "sha256": "c5c47eb83e893a60d1854b021ff72084895b51222b9fc85c243228b593868805"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0011/cIEpVluspZc.jpg",
+      "bytes": 7874567,
+      "sha256": "0727ec59386d3d4ea86b1dff44c0edfe2296454e621c80c86ba10726008345b3"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0006/CAv9fX_pJfc.jpg",
+      "bytes": 3505991,
+      "sha256": "269c1582ff20fa9fb847e2fe6202faa1828312f5b5fff5387d7e435c0c7752a9"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/3lxrM5yvkcI.jpg",
+      "bytes": 1513997,
+      "sha256": "3485695addb9d87906befffa2e3c79371e0d539d07d890d9c044dac88a4b944a"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0002/fkUhAQNNSZ0.jpg",
+      "bytes": 2834234,
+      "sha256": "54d717eeb934502d724862974508799d7a2c6aed3a9b4ba2089238995a05c9eb"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0011/mqQ0pLzaP88.jpg",
+      "bytes": 3096246,
+      "sha256": "f9b2ce9a93f0064ba0217a00baf24cb1f83d0d00517d1c0a0cf7fbf2109292c6"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/MMs8oU7WPkk.jpg",
+      "bytes": 2963135,
+      "sha256": "228d6d5656d2462b3f1dbdd099848b7e88b1a8a0058d10d440c68ee480156d02"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0007/w6BqiH2d7Cw.jpg",
+      "bytes": 3684023,
+      "sha256": "3a4c2d45171c3c475b949437377bc16e7dd427679b2ef3cf931259534fb2f06e"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/bHc5ccVSZGQ.jpg",
+      "bytes": 3920052,
+      "sha256": "d9a3ed930c6eba2c2cae6b5af74813d15f17272fe3ca2ac86fa3568425c6ddf2"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0003/FRcU0OROtzM.jpg",
+      "bytes": 1861915,
+      "sha256": "ec29d47579a96716df49f3eef3c344fff347bfe4945dced39c31bd3b95886dc6"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0002/Wkkm_sIFtaw.jpg",
+      "bytes": 3914657,
+      "sha256": "a76337c21a9cb1f377178fbb1d9fe674f906e458ad58d7cda24118cecc48240b"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/M0sNGRhw5Ow.jpg",
+      "bytes": 2992765,
+      "sha256": "0ae1c9df2ee77f90329434816e1ecaefdefeefa5cfb3910ccae9922f2a3e3067"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0007/UU6UKXmtrpw.jpg",
+      "bytes": 6201141,
+      "sha256": "3fd37419dedcac5549b51d41144249e08e349dc671c49af666fa7d2f90147241"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/1FHhMNosKCE.jpg",
+      "bytes": 2942627,
+      "sha256": "d8fa4578ee6bcb8624b80e0ac046e8c18f1224fe420893fbc906aedc201dc9ac"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/aSFZKeZiHPc.jpg",
+      "bytes": 2435730,
+      "sha256": "7f396ec9ddadaf5a563969be5725bfa786d6f3766586193a04b6a7d8e35165f6"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/C5FSm68s6zc.jpg",
+      "bytes": 2765640,
+      "sha256": "6c5459bc7629f313e25b1c1b4abeedfcfe177c57879b4f02e45c3ce3696054bb"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/vCikCpQOYaY.jpg",
+      "bytes": 8260384,
+      "sha256": "2147fee9c59bf6d54c5d30a7090ff10e89e0b45ab754ac71ffcf80726044fdc9"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0003/me-iNvR3jG8.jpg",
+      "bytes": 7483802,
+      "sha256": "20f159fdf96156de27685b59df6be8fbf7f0531a444b4b0438ba0dffb5a148e6"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0003/QYaLgN49SIc.jpg",
+      "bytes": 4297361,
+      "sha256": "e13fcd2f804156422415375cc0e621a2ffc0d23b7fc443f2e1f0de830b1c6869"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0006/kvMZ-xXFrA4.jpg",
+      "bytes": 5737439,
+      "sha256": "0fac404ac6a1d6847f27538c4436255c14b7e5749f903302cde242c89aa04102"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/KpiIqKU0LPM.jpg",
+      "bytes": 7720113,
+      "sha256": "de50d1c31dee65cefd84c653e1f6cd85406ece672e6bd36517c2cb7ed8f0f47d"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/YBdFPom4ylM.jpg",
+      "bytes": 3109792,
+      "sha256": "b793cb2dc6b353a67f815c36307e503e40d03ee15982864b827b44d0cd2a7062"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/Ww1S5WVQSIs.jpg",
+      "bytes": 3413205,
+      "sha256": "19925386fcced0d0236aa4d844d2946dbe40174526c23a71b47935b68ca3602a"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0002/0ZnXtl4UIT4.jpg",
+      "bytes": 3850867,
+      "sha256": "70f0dbad792b28f077ae27532947ceeaae9018761744fc2de3fe070bebb320d9"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/WKT3TE5AQu0.jpg",
+      "bytes": 6654218,
+      "sha256": "97b7b62f478e1afda8119eab43314c76b27b8aaadd783d4ecef570295af11784"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0004/kNSREmtaGOE.jpg",
+      "bytes": 2529455,
+      "sha256": "182cc6255067083c78cda02f892fdfdf9639ff69f5d2ea033c7fe0433c5e8ab6"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/ZdhAgfp4rog.jpg",
+      "bytes": 4408803,
+      "sha256": "39847b16a5c1cec7d47f058215e2b5eef7ce3813988a1b157f62c0c6358b2126"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0002/QrZQaMeq8ps.jpg",
+      "bytes": 1904767,
+      "sha256": "5a1f75d8a0a9c52e5e73780de49c5ccc3c2dbf78a1e643bdfb6b39ab5d291c52"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/_w8-mur2G24.jpg",
+      "bytes": 4709023,
+      "sha256": "5f3d26dde1b6503b54db914e10fa31e2b0cc041b1b94c7bc02b6add66f084569"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0000/34OTzkN-nuc.jpg",
+      "bytes": 3514798,
+      "sha256": "85c2167778641790d070e1f9952355824cd440e59a6f5a5be7cba25e7fceb7fc"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0007/mvRWwtLpJYk.jpg",
+      "bytes": 3280850,
+      "sha256": "052253b8ba97d82df40bc7f9695b1416659a2c7cd5972f1c6571d312f46680ca"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0004/KG-9TUrAFsg.jpg",
+      "bytes": 3391858,
+      "sha256": "73ec596a13c1b30e688f699182d30079a9afec52cef8c9547fcf3b2d637e4653"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0007/lnxKzJ9itvg.jpg",
+      "bytes": 4909805,
+      "sha256": "1114b1a724322e149d1705fdfd1a07f491740924dd858fa750bfc5bf72297797"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/Tw8jZZkS5I0.jpg",
+      "bytes": 3334109,
+      "sha256": "d880817fe886921f4b7ebf452ea012ba527f4d9926a52db0e6255daa2a640912"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/3yEludFBkNg.jpg",
+      "bytes": 3056592,
+      "sha256": "ea3d7b0d1e8fb8a05d41b8dd73a0d22c92bd462a0a13b0a26b80e5c7f283c51d"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0007/v3VC8fmPDfw.jpg",
+      "bytes": 2255632,
+      "sha256": "b57581c8f1c98ace2e2b17f8bd1b1146e5c8b26a7dae89f33312c863812a670c"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/zkVi57UYHIQ.jpg",
+      "bytes": 1660971,
+      "sha256": "799276104604d54e532ee5c3c6b27d31d5e16b2c5c90d28a7b87bf5bab889762"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/jgJPDQVdaL8.jpg",
+      "bytes": 9937937,
+      "sha256": "db189707d3c3c42ccf4f200f544bbddddea0e902ef6ed59758a03f6eef954029"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/tox-B3V70Hg.jpg",
+      "bytes": 2089384,
+      "sha256": "7813f4064c37136271c8389f76be98088119293173d21535269195a7150f5020"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0009/amUGMQt_RFk.jpg",
+      "bytes": 13482616,
+      "sha256": "ecf47026bbf62bd87eaba36be730605fa70c31145ee5e8513787d22b1b2d3ebe"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/0am-uUFC4fQ.jpg",
+      "bytes": 1829044,
+      "sha256": "942314628478d8c2429315cf15d086b50d38144e380568257d65755424e9eb6b"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/KwAhV_isg-A.jpg",
+      "bytes": 4446557,
+      "sha256": "57c1ad37a7eba6e7bc3efbfb1ff5f0c91daaeb6259224044a99729046f5d719a"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/5Xemku63C_U.jpg",
+      "bytes": 1997271,
+      "sha256": "63cb7efb9d49e7a6ef2cc77c502252915e24a470aca121dd3a508bbc54a1b624"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0009/Gd436JT_Gyg.jpg",
+      "bytes": 2461582,
+      "sha256": "c5deff2683f4222b53384414b114c947b880340a0d5358e3ca17a3762a4b66ba"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0009/AdxDM5uN7pg.jpg",
+      "bytes": 1957428,
+      "sha256": "3893ea971a83efd5a5f2b57be2600ceaed69d8177f83ee42f6abd2000e9e1b46"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/h4muAiMuevg.jpg",
+      "bytes": 726524,
+      "sha256": "2816b1d84096f43fe77e2a966eaf5e05e89a6e480e14fcddac8ce0c06e4c957f"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0006/S_5wLF6KFdQ.jpg",
+      "bytes": 9516430,
+      "sha256": "9ba96d4ce40e71d4755d443fd557f96fe9a12bafc94cc353a21a2de781da0e3f"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/9yvADFNcXOc.jpg",
+      "bytes": 832238,
+      "sha256": "e3b4f97f8df7f9a97d60da1f6d7981363f9ab8bc06a8edc62d5a0d46d8f4483a"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/aqKgV2jVKVM.jpg",
+      "bytes": 4914845,
+      "sha256": "bce4c28a54a5236a3a5460662c38ee265b3ea218ae343ae2e5dad1a7e7106f73"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0009/DW7yzawdLEU.jpg",
+      "bytes": 7844673,
+      "sha256": "df2d59fe9db9a79e45bcb0e84c59ea06a1be246755311e84f7c109324d5c1356"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/46mSYsT046Q.jpg",
+      "bytes": 1055748,
+      "sha256": "3d61997694d427f9d692b5b6fa8b5b5fa1abdcf9283cc10ee7bcb6c12630899d"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0011/zudO47PyDew.jpg",
+      "bytes": 6684529,
+      "sha256": "f72a11fbf97bafdb10681417e60648feabcd483300afbb0ffecaed370ec3f2b6"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/iIE7o__fhN4.jpg",
+      "bytes": 3687935,
+      "sha256": "e538c644e45eee0af6edcf9e2cf7cf374411aab94b82ce829994bee58bf8c6c7"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0009/d1gPZeB39uE.jpg",
+      "bytes": 2610994,
+      "sha256": "4243f8f18a0ab3ab9dba6656b332de45532e195a2b5cdb18b0a8ca96741786e3"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/I1G6CEb86k0.jpg",
+      "bytes": 3431529,
+      "sha256": "445a451ded1747e8809f3ac7398c38dda43e480ef5c321d0fa952866f2b300ce"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/XR3-QmUZ51Y.jpg",
+      "bytes": 11232240,
+      "sha256": "a9221d5788ebbef7e3e583b3251931ed27f869507c876c6fe8f6a741c5023833"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0009/poly_hmhwJs.jpg",
+      "bytes": 1241129,
+      "sha256": "b40a9e953be4eefe1985eb51a688169797490ad3efeffb13ad4ba9ffb7ebe028"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/M3r8nHAt2DQ.jpg",
+      "bytes": 1691580,
+      "sha256": "707114bb48d6d15768427d1523cd0228583ffd5a045d557f5797673c6e3c5ad0"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0006/lbuXprjhtc4.jpg",
+      "bytes": 6243169,
+      "sha256": "b6f563e471bcebfb9d130ee90275ac969d9e21dcbea0501f96886459dde0300a"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/s-RZan_zEgs.jpg",
+      "bytes": 4334073,
+      "sha256": "5f5638663d5b64ee90de9ee01511b09aae5f562dfa6498a9269847bf1713ccac"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0000/KkPKXHI0L1U.jpg",
+      "bytes": 2801929,
+      "sha256": "94540321c8faf98a7fa9c4451d0c909b69267b0f97458a84defa89af39be1af1"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0006/svpLl7ByHRI.jpg",
+      "bytes": 6769164,
+      "sha256": "f04046f48f3176c0f4e35a6964d78575e4f13febfbb24cdcebfb3e15ef178f7b"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0011/lms5LLItC2A.jpg",
+      "bytes": 4063146,
+      "sha256": "e1bfa0fe3e71c27411cc292d5a1b301301090a792a21f6b79b83af654030aacc"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/pZaZ95dBRIk.jpg",
+      "bytes": 2141002,
+      "sha256": "67a7346e12b2215e51ac002a72b9049cf3620c648183f97f77b69907c2bec27b"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0003/StLAXeyG8ZU.jpg",
+      "bytes": 3433811,
+      "sha256": "622489e47ecc647b447ffb18cd67546be379dcbeec55bfc15998423592037276"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/B9likKuXXuw.jpg",
+      "bytes": 3917489,
+      "sha256": "d6cbbc5112ad1ddfbe4d28df0c7f3afd7da1e9cd51281533983765ea374874ac"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0009/EB1mQFx94-c.jpg",
+      "bytes": 2414134,
+      "sha256": "1261a3f2173c46fb9675ae200e445960cbb95d0956147e9816a59f64eed467fb"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0006/Tpnu4wQ0puk.jpg",
+      "bytes": 5067435,
+      "sha256": "8c729ea2e8539d7f100a742a21e4b054b07541105811405b042577b1d7e66698"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/HXBDXA9Daxc.jpg",
+      "bytes": 2268696,
+      "sha256": "57cb186c0de8c4324931c3ce2b41e380ccd7b2b4e444e8ffbe5d170c5f58dd34"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/gULJzSnDuZU.jpg",
+      "bytes": 1516505,
+      "sha256": "6e3335878fb99c96e233e2557c97f5de425cd6fb61a6137733a29647f7d670bb"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/rMNof7GivtE.jpg",
+      "bytes": 26732704,
+      "sha256": "f5097c9e1d5f4d05bec20963e42619244f31ebab98d6c4ebbc9d96a136eed926"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0007/dnC5Djut6n4.jpg",
+      "bytes": 2788778,
+      "sha256": "4f1a9bf731be38bd92d31c7387fb2e38ca9a7115ca18b4f77760da50afdc54b9"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0004/58uZCE8zrdk.jpg",
+      "bytes": 3856565,
+      "sha256": "4fed82538373e1a9f89f9cfbe24ad5d8ad7a5bdfae2ab2cdd3d8cb31146d28b2"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0003/RHAvWlraCTg.jpg",
+      "bytes": 3893397,
+      "sha256": "faaca2d8727c9505e64a99bda899a0a93b2836db40c40a9df36e2e3ba112717f"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0002/TubA1mC050s.jpg",
+      "bytes": 1291731,
+      "sha256": "9b55340e51c947a93ac44787b800ef21826405b226b9151c5455877deba6f8ae"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/gE1phX0Lbos.jpg",
+      "bytes": 4114378,
+      "sha256": "df7a8de4aa7eb5c308227260c125f6e1ba92bab695293780cf4cad1368341a32"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0002/uUbEvoRfRdY.jpg",
+      "bytes": 7551718,
+      "sha256": "add3e29fc492632ef5c3675b13e96060185c566ea92e7c72a323c53f6df33266"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0003/rwMR81OlFBo.jpg",
+      "bytes": 3481679,
+      "sha256": "b564815288a0ea29406384c2619701d51fcae7e013bb9fa3fbc67c4adc94c6c2"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0006/R2OqwX73ojw.jpg",
+      "bytes": 5744027,
+      "sha256": "e693dd405865cf261a68565e3ad0ed435c5873714ff7b9b9d62925da8d26e1af"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/qmM6L-4f0eE.jpg",
+      "bytes": 3937474,
+      "sha256": "5a2d34f506dc8497031e487555c080c93083f5e71a0e65b615eb14ce92282e39"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0011/x-iM-wOy9Jg.jpg",
+      "bytes": 2435793,
+      "sha256": "1044c477e31d52d7e6859a6058a860ca04f9b35f9495f46cd67dc08c4228827c"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0003/Ro84po8u93o.jpg",
+      "bytes": 9129366,
+      "sha256": "87b71ecd0430872c13c98b55d7f1ba979408d6bdaa53bd853db8f5beffc255d8"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0000/9RGPG_ksS3Q.jpg",
+      "bytes": 2881990,
+      "sha256": "034c4e59baf4b92ef77d89f85c12edb0562c2a7de5e3f6bc1aa3c0b4569e43b2"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0004/ck651aCE6LY.jpg",
+      "bytes": 1180325,
+      "sha256": "9f3d6420d601b7dac605ffbf59d1d9e062d92b6a08298455aaee3f13f7156cd6"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/7iEoNsHBJQw.jpg",
+      "bytes": 3272229,
+      "sha256": "7241bfc6693d6f460aa5227a7292e4a8755898d61366a74bd478c6509ede38d5"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0002/st_tKGanoDQ.jpg",
+      "bytes": 3374714,
+      "sha256": "bb48b9c4b53abe3e05d95cdae7cf51236fc260cc3bc8ded9feb5af32b18f8464"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/ewSIo_Ke1VE.jpg",
+      "bytes": 3084591,
+      "sha256": "2ab330e196ee526c6a611b4944cb724b31bd52e8d446fdc90abc33433174bee0"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/9JJYm8f_Nes.jpg",
+      "bytes": 3358870,
+      "sha256": "1f48196c83cbe77ca335bec4e277edfe13ab158b9d12837f19b6f263405d9459"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0004/X109B5L9oZM.jpg",
+      "bytes": 2927396,
+      "sha256": "52b421adea3dd2a4f4d62507b2fa140aefcde262468210c4d1a7e83c95a200e0"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0003/DlsBFdeiEvI.jpg",
+      "bytes": 2921454,
+      "sha256": "81dc0eac08c33ccd249258931ac51811e4bad8773b5f00bb5cc3cd0c6ac4af14"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0004/GKtf5t8xn7w.jpg",
+      "bytes": 6048621,
+      "sha256": "c088ece748f01b9923c94003079f5e8e95e045e0a92cf09bc3760b4391b3e64b"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0004/797pFBFMI5s.jpg",
+      "bytes": 10005207,
+      "sha256": "22f84dec09392234935014ddfde7a38d9b518f44e0ee74a3bca01997b273d122"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0004/DEbUYV8I5dk.jpg",
+      "bytes": 2137028,
+      "sha256": "6bc52d67767d30aff079f192dbd925350a37606d027750ed6f5e4e04e5b11994"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0011/QQKuZglfbQk.jpg",
+      "bytes": 3155627,
+      "sha256": "3b4fb417a2385f1bf4ae312e9a3b620147c5457e58277603fbd1b75969ccd0b6"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0004/C9Ay328wHgA.jpg",
+      "bytes": 1709579,
+      "sha256": "98941b7da5d6d5034e0ec5aa74d7e7ff3350c0096fd9a1940a948c07ba0c798e"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/_-rlkKWljnI.jpg",
+      "bytes": 4913301,
+      "sha256": "ed4e77f155b6464016ed67d5afbf00505a31c1a8b7b245fdddc4e2d7ca2deaa5"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0007/cvv6GjD6rv0.jpg",
+      "bytes": 4658152,
+      "sha256": "ff8c2e1d0807beb6cfb71bebf2e4b11509ca2a1d1c042879f1739171410a7941"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0004/L2dMFs4fdJg.jpg",
+      "bytes": 5555224,
+      "sha256": "ffbbcf6932e2f9c6a1000b610f2e293b8893d158ab8647ad3772cc4e2fe0b031"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0006/YWRHrEuYDuU.jpg",
+      "bytes": 5916686,
+      "sha256": "07eca3d062ef23417a08f7ee9af054836ef51142b5c263f9f685c7ccd691a300"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/84hcF7wUKYU.jpg",
+      "bytes": 2451529,
+      "sha256": "5672f2835110a77811f67a68558783e15b34e82fee6cb6d31c2318b9e754c65c"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/sI6MbZDxUas.jpg",
+      "bytes": 3192257,
+      "sha256": "b8318356cdace51bd46fa27813600a4a4ab64a842e3bbf3d515b238b4653747c"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/HnbqHk755TE.jpg",
+      "bytes": 5468351,
+      "sha256": "3d63e43ad1ae2d2787daefbc5af45094c8365bfe20db59a15bf479ced2b388ab"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/1WMITsWH8o4.jpg",
+      "bytes": 2386194,
+      "sha256": "5536a3835668a09d29840513a7a95e7b7a5ce170137c79d1beab6cbec7556fa2"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0011/4UKIEqcvAUo.jpg",
+      "bytes": 3842688,
+      "sha256": "3477b0ecaf6702d0d7b28619462d5b4673ffb961c0132340454c29633fc35af0"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0009/kCABKZBt4Gk.jpg",
+      "bytes": 6229814,
+      "sha256": "709bda37a40600b419c24533777d88fc16852459da4179eb7065034196ec2587"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0003/D91aZylTkU4.jpg",
+      "bytes": 2313937,
+      "sha256": "d03752e4bf21161d7c658760f82330909717750adc79ddd511f3390475dee8ec"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0000/fTxee6q2gKw.jpg",
+      "bytes": 5280329,
+      "sha256": "0886d0dc06bda41e4a63b7a7a5dfd1151e55823f8bc2141276eedfc8a7c5c119"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/TIKRCxR_4lI.jpg",
+      "bytes": 5186390,
+      "sha256": "291ea86cc5dc04a135000f5686856e517daa3e435cdfdeadf0eb47897877e172"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/7ArCWaprmKU.jpg",
+      "bytes": 3936156,
+      "sha256": "0c0f8170d32cb2cc1c29518e66c03a2cb70c06b46728a28ef8b33ac7251828a2"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0007/HmzEQ3UZyoo.jpg",
+      "bytes": 6062146,
+      "sha256": "21a786ba609091d2d0d7d0dbc769639905b001d8c701429c34d005dcf3ad016c"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0010/verlb7KRbws.jpg",
+      "bytes": 13603530,
+      "sha256": "de7563f3efbca28d46f6ede52610ee6975138ae3955c6f0168ac894125a7619f"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0002/rTG8OXKFoGI.jpg",
+      "bytes": 2234039,
+      "sha256": "2f084effca3fa401f98a2002bc6a275370351cd224ea09852132b0a43009504c"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/gJH8AqpiSEU.jpg",
+      "bytes": 2720526,
+      "sha256": "e1e740163eda4b00b9bb0da302fb958ee76083d9a5a6afe2d62f26d247ce00e1"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0000/uA41B8qu4IY.jpg",
+      "bytes": 2995008,
+      "sha256": "753e21ba2da61f52523eb61a0f10c61450751d72473e33324ae55f7e9004ec79"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0011/MAfrgFrl6BE.jpg",
+      "bytes": 4508053,
+      "sha256": "c7f41e42cb49a2dfbab0808e02268da1d493d02977562f5d6615092fc53bfedf"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0002/UjktArUqzTo.jpg",
+      "bytes": 3537198,
+      "sha256": "30ccad4f1dba95714663aae0b9392c1c3023b2872d555daf6a661a470269807c"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/d6wA0ZWhv74.jpg",
+      "bytes": 6446885,
+      "sha256": "ebcde9bdb3603be5c527628cb269137e9839cde03118d2bc52c5fa0829d163b4"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/buFfxl8EKYE.jpg",
+      "bytes": 11560935,
+      "sha256": "23e0dd43f7a0875d764040290d31402d3d4a77434efbc4e57041494816f63238"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/Nr-26SB4G4U.jpg",
+      "bytes": 6470462,
+      "sha256": "b75a2a6584ae14699cf824b57537c3da2b7dfece6575bd08fae7f5b3a1590e7d"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0007/xgTMSz6kegE.jpg",
+      "bytes": 3539479,
+      "sha256": "369ed1432cae3518b7e0d0e72ff475d20c7ad3eef47925e662fb3682697d86db"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0011/ghmxetYsHBM.jpg",
+      "bytes": 3254012,
+      "sha256": "deeb4df061a799fe07ea9ecf801ebe404e5a2f709c7b6b6a03f86d64015efd18"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/C2KvOHHi2vU.jpg",
+      "bytes": 6050432,
+      "sha256": "18a197b471f7a70e132cb616bf422db365999366ab4039c0a712510263d64549"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0011/eeneWVHs8gA.jpg",
+      "bytes": 2134436,
+      "sha256": "71b10f00adee6b5740b943e12d339d6662fa338217c7bff7f2543f3d269ab333"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0005/MdOyV8YumcU.jpg",
+      "bytes": 5293181,
+      "sha256": "7442afff0a9d5f42b6cce1d8e496522b803e4add4285fed8dee4377e95c3b64f"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0006/h0Vxgz5tyXA.jpg",
+      "bytes": 3245698,
+      "sha256": "dea290094fa20455b859b596f02c87f60e44f0c353d07d99386deba557791916"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/Fj_39H4NeOo.jpg",
+      "bytes": 3446728,
+      "sha256": "898773192d6353e2af1a73b633b7f550c0283047e7796c9830be205e7da891ed"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0006/RWRTXsR5Isc.jpg",
+      "bytes": 6472313,
+      "sha256": "4be4fdb147182490dd8cfeb519fe80b724fcfa1116955e001833d699429b6773"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/3cDlJS4qqq8.jpg",
+      "bytes": 2952050,
+      "sha256": "194612f7fd25704fbcfbad25f1bde76089f19d46d03d07911062ee91f677fd03"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0009/ZxNKxnR32Ng.jpg",
+      "bytes": 3940247,
+      "sha256": "8dfe8fc79897f45e5d059684b41cbcba51256f4de7e25a32a01f6a827fd36a8f"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0000/bH_qwSE_qzA.jpg",
+      "bytes": 8831787,
+      "sha256": "d7255b1cfeb09e28cef17275988548e8098d549f4f99112a5da4bbdafe07ebca"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0004/010vLctpxnQ.jpg",
+      "bytes": 502391,
+      "sha256": "70929cbb563c641b5972e86ae628aed29f1da0b37ae899b120fd62d7d11d37f6"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0006/t9pUxPOEjno.jpg",
+      "bytes": 2309920,
+      "sha256": "56550e3233ed71b16b3eeddc9a53ec2cabb7849cb7bf2a1ff4619216245c99da"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/0Pyl44F7eDY.jpg",
+      "bytes": 1990373,
+      "sha256": "196efaa101b604e1a4cd7d48e842620e5c1c98a6fd2c2daa4906db658c97feb0"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0002/-u2-DdXRqIU.jpg",
+      "bytes": 3988971,
+      "sha256": "de7185e2347d044ed408cdbe6f2d586b45df259c3ca2fca386fcc47519de392a"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0001/dMnrPsGn7J4.jpg",
+      "bytes": 6869538,
+      "sha256": "f367e5a37426d1958d7909031eb72059c4f0dd16f14679b5dc23b51259d29a71"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/5uYxshfZzwc.jpg",
+      "bytes": 1032879,
+      "sha256": "2bcab617ad87ae3a7f3f118b5983c73caf9eb9f9da14922e449382e7ffab5a4a"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0008/1c33ba-uh_8.jpg",
+      "bytes": 2567153,
+      "sha256": "36a08929da3935a3e83027b6f32cb96cd1f4a349ee75203f2ad53d9e98990987"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0009/FBQcPsBL2Zo.jpg",
+      "bytes": 590079,
+      "sha256": "69fe712e7021cc94c15c53a7c036fe6f8291c187968a06b7e4a9fb6c3f1ef7ef"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0004/XvmlzrEsruA.jpg",
+      "bytes": 4257393,
+      "sha256": "112f94c6c3c2e93402860633624213d26b19980773cb5f4a5af207b822ce6b1d"
+    },
+    {
+      "path": "/scratch/09032/saini_2/tmp/hf/hub/datasets--zhang0jhon--Aesthetic-4K/snapshots/8c5d5cb8b94230ff897d87bf060451257d1c7bf8/train/images/0003/goTysha8g1s.jpg",
+      "bytes": 2880294,
+      "sha256": "affbaae345ec09c78c432d57a21810557e76bfe77c035bc154592911bfd8979f"
+    }
+  ],
+  "reference_bytes": 646502806,
+  "exclusion_receipt": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/strengthen/fresh_selection_exclusions.json",
+  "exclusion_receipt_sha256": "7e12c09d550e10161cb6b1f67aa3e041d6031b7d6c7c8174bbf75bed57a9261e",
+  "audit_path": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/strengthen/fresh_selection_caption_audit.json",
+  "audit_sha256": "a9d4c9fff8566080d6859bb9864c596ab4f2453b385b92209e61118bc5d66fa4",
+  "script_sha256": "e0e32a12fb866cac90dc768bba84095de1c5ef8d99d59f4bfa981751dfa10150",
+  "rejected_candidates": 63,
+  "final_permutation_rank": 212,
+  "image_generation_performed": false,
+  "limitations": [
+    "Caption-only filter conservatively excludes person scenes; this changes the sampled population.",
+    "Fresh means unused in project records; model pretraining overlap is not assessed."
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "timestamp": "2026-10-19T04:21:39.782641+00:00",
+  "block": "qwen_smoke",
+  "tasks": [
+    {
+      "name": "70_qwen_smoke.sh",
+      "method": "qwen_smoke_three_arms",
+      "seed": 0,
+      "start": 0,
+      "end": 1,
+      "n": 3,
+      "prompt_ids": [
+        "a4k_eval_4096_minus6873203881450547484"
+      ],
+      "out": "/scratch/09032/saini_2/constancy_rope/diag/qwen_smoke",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/qwen_smoke/70_qwen_smoke.sh",
+      "sha256": "19158ec76511d6a67a4ed42e1c4bd42cd12aec0efdefe2f845745a292bacf570",
+      "command": [
+        "/work/09032/saini_2/vista/library/uv-envs/crope/bin/python",
+        "scripts/strengthen_qwen.py",
+        "smoke",
+        "--prompts",
+        "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl",
+        "--start",
+        "0",
+        "--end",
+        "1",
+        "--out",
+        "/scratch/09032/saini_2/constancy_rope/diag/qwen_smoke"
+      ]
+    }
+  ],
+  "n_tasks": 1,
+  "n_generate": 3,
+  "n_reuse": 0,
+  "prompts": "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl",
+  "prompts_sha256": "ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1",
+  "checksum_file": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/strengthen/qwen_smoke_generation.sha256",
+  "sources": {
+    "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/run_qwen.py": "b11d74d712cba6e2f1473f3671cf94a9b9b2490e3e19bbac5f5ff5bacb75c7cf",
+    "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/pipeline_qwenimage.py": "c9fa5bee9ca1ada3785e959bdf64b682e6a3794d19aa13a6c1f9eb1f01ad20c4",
+    "/scratch/09032/saini_2/constancy_rope/third_party/sega/qwen_sega/transformer_qwenimage.py": "f0f28ab092c24a7db73692daaa1741e698007b546c2616a1fccd4ca2357ebab0",
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/strengthen_qwen.py": "9f21019d69f52741e76dce617810f4290a4aea32ad6d339194f2e32c067c6fac",
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/crope/utils.py": "68987778519de9ac21981a9e058dcc3252838f6cec8dfb6706b0f579f0f2e07e",
+    "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/model_index.json": "9fb9557c1e5bafb3a582af8407b5a7ad8a8bcbdb20dde4d248bbb4718e1654bd",
+    "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/transformer/config.json": "1bd1ef23f159b4eb3c894eaecc2ac2b9ab5ad31ca1bf8ecc0b0f71081f0730b5",
+    "/scratch/09032/saini_2/tmp/hf/hub/models--Qwen--Qwen-Image/snapshots/75e0b4be04f60ec59a75f475837eced720f823b6/scheduler/scheduler_config.json": "069f27554bc5155c1d60672e606dc072bc8b65f9afdd17f3be3b38c38c07c25a",
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/strengthen_qwen_queue.py": "f8a1bb7765dc91a3069be094d9a6ebd75539dadd80745e6e89e465f382c20e23",
+    "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl": "ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1",
+    "/scratch/09032/saini_2/constancy_rope/taskq/done/50_c00000_main_sega_official_4096x4096_00000-00007_57d8c8c8aac1.sh": "57d8c8c8aac187242fefc73efde10300a784245e4194425c12782caf792f5ffc",
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/strengthen/qwen_cpu_checks_final.json": "c518c06e5915e64a4ad91df2e7e6b06832722283ca8bb069dae9ef0cda98e077",
+    "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/strengthen/qwen_hub_manifest.json": "89997e7f5e02934d05662753e69f60a7a3502b472a8c005e41948a0d11b3af1e"
+  },
+  "prereg_sha256_at_queue": "0aeaeb4b06b01486f3a1d42476b2841f1a1c73665ed7ebad306e9ec674a3780e",
+  "model_revision": "75e0b4be04f60ec59a75f475837eced720f823b6",
+  "status": "staged only, publication is a separate action"
+}

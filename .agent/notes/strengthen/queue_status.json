@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-10-20T01:51:38+00:00",
+  "scheduler": {
+    "job_id": "1080046",
+    "state": "PENDING",
+    "observed": "2026-10-20T01:51:38+00:00",
+    "next_poll_not_before": "2026-10-20T02:01:38+00:00",
+    "scheduler_start_estimate": "2026-10-19T21:38:43",
+    "raw": "1080046|CR22|PENDING|0:00|8|(Priority)|2026-10-19T21:38:43"
+  },
+  "blocks": {
+    "ckpt_matrix": {
+      "pending": 8,
+      "running": 0,
+      "done": 0,
+      "failed": 0,
+      "missing": 0
+    },
+    "default_shift": {
+      "pending": 2,
+      "running": 0,
+      "done": 0,
+      "failed": 0,
+      "missing": 0
+    },
+    "factorial": {
+      "pending": 54,
+      "running": 0,
+      "done": 0,
+      "failed": 0,
+      "missing": 0
+    },
+    "fresh": {
+      "pending": 132,
+      "running": 0,
+      "done": 0,
+      "failed": 0,
+      "missing": 0
+    },
+    "qwen_smoke": {
+      "pending": 1,
+      "running": 0,
+      "done": 0,
+      "failed": 0,
+      "missing": 0
+    },
+    "seeds": {
+      "pending": 94,
+      "running": 0,
+      "done": 0,
+      "failed": 0,
+      "missing": 0
+    },
+    "tsweep": {
+      "pending": 24,
+      "running": 0,
+      "done": 0,
+      "failed": 0,
+      "missing": 0
+    }
+  }
+}

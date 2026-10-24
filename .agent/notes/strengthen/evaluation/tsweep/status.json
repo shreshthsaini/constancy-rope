@@ -1,0 +1,27 @@
+{
+  "complete": true,
+  "expected_images": 165,
+  "missing_image_pairs": [],
+  "unfinished_tasks": [],
+  "timestamp": "2026-10-24T05:42:46+00:00",
+  "block": "tsweep",
+  "manifest_sha256": "0ba4114bbccea6ab9939801a89750ffae3c840fbe1591285ea708c389420c8ba",
+  "validation": "passed",
+  "validated_images": 165,
+  "tasks": [
+    {
+      "name": "90_eval_tsweep.sh",
+      "sha256": "a037a7ad1be3894b378f1e45f29221ea2eebef6d1cc6d8d1cd47849854051aa6",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/tsweep/90_eval_tsweep.sh",
+      "status": "published"
+    },
+    {
+      "name": "90_ir_tsweep.sh",
+      "sha256": "de49d5492d8c7028efc0a0495ef48bcd85811b61b41314ee098b64a1fdfa91d1",
+      "staged": "/scratch/09032/saini_2/constancy_rope/taskq/staging/strengthen/evaluation/tsweep/90_ir_tsweep.sh",
+      "status": "published"
+    }
+  ],
+  "published": true,
+  "dependencies_sha256": "6898bc90cb0d17f331c9eeb1def3004f7a3f0a418bcca9120c26eb1c30c38b40"
+}

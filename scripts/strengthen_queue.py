@@ -24,8 +24,19 @@ from crope.utils import file_sha256, image_seed, image_stem, read_prompts
 SCR = Path('/scratch/09032/saini_2/constancy_rope')
 QUEUE = SCR / 'taskq'
 NOTES = ROOT / '.agent/notes/strengthen'
-METHODS = ('sega_official', 'temp_only', 'sega_ctm', 'constancy_tm', 'dype', 'ntk2')
-SEED_METHODS = ('sega_official', 'temp_only', 'constancy_tm', 'sega_ctm')
+METHODS = ('sega_official', 'temp_only_sbase', 'ntk2', 'dype', 'sega_base_none', 'ntk2_sref')
+SEED_METHODS = ('sega_official', 'temp_only_sbase')
+ARMS = {
+    'sega_official': ('sega_official', None, None, None),
+    'ntk2': ('ntk2', None, None, None),
+    'dype': ('dype', None, None, None),
+    'temp_only_sbase': ('temp_only', 'sega_official', 'sref', None),
+    'sega_base_none': ('temp_only', 'sega_official', 'none', None),
+    'ntk2_sref': ('temp_only', None, 'sref', None),
+    'tau1p1': ('temp_only', 'sega_official', 'none', 1.1),
+    'tau_logn': ('temp_only', 'sega_official', 'none', 4 / 3),
+    'tau1p45': ('temp_only', 'sega_official', 'none', 1.45),
+}
 TEMPLATES = {
     'sega_official': '50_c00000_main_sega_official_*.sh',
     'dype': '50_c00000_main_dype_*.sh',
@@ -96,13 +107,16 @@ def validate_sample(sidecar, row, method, seed, reference):
 
 def reusable_seed1(rows):
     records = []
-    for method in SEED_METHODS:
+    for arm in SEED_METHODS:
+        method = ARMS[arm][0]
         refpath = SCR / 'out_krea' / BASE_ROOT[method] / method / '4096x4096'
         reference = json.loads(next(refpath.glob('*.json')).read_text())
         for row in rows[8:195]:
             sidecar = SCR / 'out_krea/seed1' / method / '4096x4096' / (image_stem(row['id'], 1) + '.json')
             if sidecar.exists():
-                records.append(validate_sample(sidecar, row, method, 1, reference))
+                record = validate_sample(sidecar, row, method, 1, reference)
+                record['method'] = arm
+                records.append(record)
     return records
 
 
@@ -133,19 +147,30 @@ def template(method):
 
 
 def task_body(method, seed, lo, hi, prompts, out, checksum_file):
-    path, lines, command = template(method)
+    controller, rope, temperature, multiplier = ARMS[method]
+    path, lines, command = template(controller)
     for flag, value in {'--prompts': str(prompts), '--start': str(lo), '--end': str(hi),
                         '--seed': str(seed), '--out': str(out)}.items():
         command[command.index(flag) + 1] = value
-    if command[command.index('--method') + 1] != method:
+    if command[command.index('--method') + 1] != controller:
         raise ValueError('Archived template method differs')
+    if temperature is not None:
+        if '--temperature' in command:
+            command[command.index('--temperature') + 1] = temperature
+        else:
+            command += ['--temperature', temperature]
+    if multiplier is not None:
+        command += ['--temperature-multiplier', repr(multiplier)]
+    if method != controller:
+        command += ['--output-method', method]
     # Keep the archived environment and controller flags, replacing stale
     # prerequisite lines and fingerprints with the new frozen manifest.
     body = [line for line in lines if not line.startswith('[[') and
-            'scripts/sample.py' not in line and 'fingerprint:' not in line]
-    insert = next(i for i, line in enumerate(body) if line.startswith('export CROPE_ROPE=')) if any(
-        line.startswith('export CROPE_ROPE=') for line in body) else len(body)
-    body.insert(insert, 'unset CROPE_ROPE')
+            'scripts/sample.py' not in line and 'fingerprint:' not in line and
+            not line.startswith('export CROPE_ROPE=')]
+    body += ['unset CROPE_ROPE']
+    if rope:
+        body += [f'export CROPE_ROPE={rope}']
     body += [f'# Archived template: {path}; sha256 {file_sha256(path)}',
              f'sha256sum --status -c {shlex.quote(str(checksum_file))}', shlex.join(command)]
     return '\n'.join(body) + '\n', path, command
@@ -156,7 +181,13 @@ def prepare(block):
     manifest = NOTES / f'{block}_queue.json'
     if manifest.exists():
         raise FileExistsError(f'Frozen manifest exists: {manifest}; use publish')
-    if block == 'fresh':
+    if block in ('factorial', 'tsweep'):
+        prompts = SCR / 'prompts/aesthetic4k_eval.jsonl'
+        rows = read_prompts(prompts)
+        methods = ('sega_base_none', 'ntk2_sref') if block == 'factorial' else ('tau1p1', 'tau_logn', 'tau1p45')
+        seeds, start, end, prefix = (0,), 8, (195 if block == 'factorial' else 63), ('75' if block == 'factorial' else '77')
+        reuse = []
+    elif block == 'fresh':
         prompts = ROOT / 'prompts/fresh150.jsonl'
         rows = read_prompts(prompts)
         if len(rows) != 150:
@@ -193,7 +224,7 @@ def prepare(block):
                 for lo, hi in ranges(missing):
                     out = SCR / 'out_krea' / block / method
                     if block == 'seeds':
-                        out /= f'seed{seed}'
+                        out = SCR / 'out_krea' / block / f'seed{seed}' / method
                     out /= '4096x4096'
                     text, source, command = task_body(method, seed, lo, hi, prompts, out, checksum)
                     name = f'{prefix}_c{chunk_start:05d}_m{mi}_{method}_seed{seed}_{lo:05d}-{hi:05d}.sh'
@@ -209,13 +240,17 @@ def prepare(block):
         prompts_sha256=file_sha256(prompts), tasks=tasks, n_tasks=len(tasks),
         n_generate=sum(t['n'] for t in tasks), n_reuse=len(reuse), checksum_file=str(checksum),
         sources={str(p): file_sha256(p) for p in sources},
-        prereg_sha256_at_queue=file_sha256(ROOT / '.agent/notes/prereg_strengthen.md')))
+        prereg_sha256_at_queue=file_sha256(ROOT / '.agent/notes/prereg_strengthen.md'),
+        arms={m: dict(controller=ARMS[m][0], rope=ARMS[m][1], temperature=ARMS[m][2],
+                     temperature_multiplier=ARMS[m][3]) for m in methods}))
     print(json.dumps(dict(block=block, tasks=len(tasks), generate=sum(t['n'] for t in tasks), reuse=len(reuse))))
 
 
 def publish(block):
     manifest = NOTES / f'{block}_queue.json'
     plan = json.loads(manifest.read_text())
+    if not (NOTES / 'amendment_receipt.json').exists():
+        raise ValueError('Step0 senior-review amendment required before publication')
     if (NOTES / f'{block}_published.json').exists():
         raise FileExistsError('Already published; inspect queues rather than duplicate tasks')
     if (QUEUE / 'STOP').exists():
@@ -242,6 +277,6 @@ def publish(block):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=('prepare', 'publish'))
-    parser.add_argument('block', choices=('fresh', 'seeds'))
+    parser.add_argument('block', choices=('factorial', 'tsweep', 'fresh', 'seeds'))
     args = parser.parse_args()
     (prepare if args.action == 'prepare' else publish)(args.block)

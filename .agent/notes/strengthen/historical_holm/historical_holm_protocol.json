@@ -1,0 +1,31 @@
+{
+  "source_files": [
+    {
+      "role": "analysis_source",
+      "source": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/strengthen_analysis.py",
+      "sha256": "50004777ac132453c9550d2bff5ece9694f0ceb8024416c68e35f2c2b1c6476c",
+      "snapshot": "inputs/50004777ac132453c9550d2bff5ece9694f0ceb8024416c68e35f2c2b1c6476c_strengthen_analysis.py"
+    },
+    {
+      "role": "historical_per_prompt",
+      "source": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/main2/heldout_per_prompt.csv",
+      "sha256": "1832f7b52358ce45e178d075b4e5cf77173b511affd4252dcf64e45b5a196ac6",
+      "snapshot": "inputs/1832f7b52358ce45e178d075b4e5cf77173b511affd4252dcf64e45b5a196ac6_heldout_per_prompt.csv"
+    },
+    {
+      "role": "historical_prompts",
+      "source": "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl",
+      "sha256": "ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1",
+      "snapshot": "inputs/ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1_aesthetic4k_eval.jsonl"
+    }
+  ],
+  "analysis_source_sha256": "50004777ac132453c9550d2bff5ece9694f0ceb8024416c68e35f2c2b1c6476c",
+  "bootstrap_draws": 2000,
+  "bootstrap_seed": 0,
+  "p_method": "Approximate centered-bootstrap two-sided plus-one p, Holm separately over60 and30",
+  "unit": "prompt",
+  "role": "retrospective_multiplicity_audit",
+  "order": "Original archived candidate CSV row order, matching published nominal intervals",
+  "partial_constancy": "Original41 nonrandom available rows retained in full60 only",
+  "no_reclassification_as_preregistered_confirmation": true
+}

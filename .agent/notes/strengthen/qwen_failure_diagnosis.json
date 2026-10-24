@@ -1,0 +1,16 @@
+{
+  "written": "2026-10-24T06:05:00Z",
+  "author": "second strengthening analyst (Claude Opus 5.5), from logs only",
+  "block": "E3 Qwen-Image (prefix 82_)",
+  "outcome": "not run: 0 of 450 images; all 60 published 82_ tasks failed and are preserved in taskq/failed",
+  "error": "torch.OutOfMemoryError: CUDA out of memory (95.00 GiB GPU)",
+  "evidence": {
+    "logs": "/scratch/09032/saini_2/constancy_rope/logs/task_82_*.log",
+    "co_resident_process": "All 60 logs report a second process on the same GPU holding 44.8 to 46.1 GiB (PID 2405114 in most logs, PID 1080485 in 4) while the Qwen process held 48.8 to 54.8 GiB.",
+    "worker_hosts": "c621-081-g0 claimed 48 of the 60 failed tasks in quick succession; c637-072-g0 12; others single attempts (counts from start/end lines in logs/fleet_*.out).",
+    "smoke_reference": "70_qwen_smoke passed alone on a GPU with 63.9 GB peak (STATUS.md of the first analyst)."
+  },
+  "interpretation": "The OOM is consistent with GPU co-tenancy (another resident process of about 45 GiB), not with the released full-GPU Qwen policy exceeding 95 GiB on its own. This is an inference from the logged memory figures; the co-resident process was not identified.",
+  "why_not_retried": "The preregistration requires a memory-policy amendment before any retry. A clean retry needs about 450 x 10 GPU-minutes (about 75 GPU-hours), more than the 3-node 12 h fleet CR26 can supply after evaluation, so the block could not complete and would stay descriptive only. The operator set a low-SU rule: no retry without a cheap fix.",
+  "cheap_fix_if_resumed": "Same frozen settings; amendment adding a pre-load guard that requires at least 70 GiB free on the assigned GPU (exit and requeue otherwise). No CPU offload or resolution change, which would alter the registered protocol."
+}
