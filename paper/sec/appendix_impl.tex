@@ -51,7 +51,7 @@ Software & diffusers 0.39, PyTorch 2.11, pyiqa 0.1.16 \\
 \end{table}
 
 \paragraph{Pipeline}
-The \krea{} transformer, loaded through an environment override (\texttt{CROPE\_\allowbreak TRANSFORMER}), runs inside the \fluxdev{} pipeline (T5 and CLIP text encoders with 512 T5 tokens, autoencoder with tiled decoding at $4096^2$), diffusers 0.39~\citep{vonplaten2022diffusers}, PyTorch 2.11, bfloat16, batch size one, a per-prompt CPU seed, \N{c@steps} Euler steps and distilled guidance 4.5. The transformer has 19 double-stream and 38 single-stream blocks with 24 heads of dimension 128, and normalizes q and k before the rotation. Every arm multiplies q and k of every token in every block by one gain vector after the rotation; the vector is shared by blocks and heads and recomputed once per model call. The scheduler patch that holds $\mu=\N{c@muofficial}$ is applied before any configuration is recorded. The per-image JSON records hard-code the base model name and an attention label; the loaded transformer comes from the task scripts and the attention policy from the code revision (\cref{app:compute}).
+Loaded through the environment override \mbox{\texttt{CROPE\_TRANSFORMER}}, the \krea{} transformer runs inside the \fluxdev{} pipeline, which uses T5 and CLIP text encoders with 512 T5 tokens, an autoencoder with tiled decoding at $4096^2$, diffusers 0.39~\citep{vonplaten2022diffusers}, PyTorch 2.11, bfloat16, batch size one, a per-prompt CPU seed, \N{c@steps} Euler steps and distilled guidance 4.5. The transformer has 19 double-stream and 38 single-stream blocks with 24 heads of dimension 128, and normalizes q and k before the rotation. Every arm multiplies q and k of every token in every block by one gain vector after the rotation; the vector is shared by blocks and heads and recomputed once per model call. The scheduler patch that holds $\mu=\N{c@muofficial}$ is applied before any configuration is recorded. The per-image JSON records hard-code the base model name and an attention label; the loaded transformer comes from the task scripts and the attention policy from the code revision (\cref{app:compute}).
 
 \paragraph{MUSIQ input pipeline}
 We use pyiqa 0.1.16's KonIQ10k MUSIQ model. The project passes RGB float32 values in $[0,1]$ without resizing; MUSIQ normalizes to $[-1,1]$ and combines the native image with aspect-preserving 224- and 384-pixel views, resized by bicubic interpolation with \texttt{align\_corners=False} and \texttt{antialias=False}. Each scale is split into $32\times32$ patches at stride 32, with SAME padding where needed. The native setting \texttt{max\_seq\_len\_from\_original\_res=-1} retains all patches: a $4096^2$ frame contributes 16,384 native patches, plus 49 and 144 resized-view patches, for 16,577 before the class token. A $1024^2$ crop contributes 1,217. Neither native square grid needs padding. The spatial embedding's $10\times10$ hash grid does not downsample the image. We verified these counts by executing the installed preprocessor without loading model weights. Crop MUSIQ averages four separately scored, fixed random $1024^2$ crops shared across methods. Full-frame MUSIQ is thus a multiscale quality score that includes every native pixel, not a direct sharpness measurement.
@@ -72,12 +72,32 @@ u_{a,j}&=\tanh z_{a,j}-\operatorname{mean}_i\tanh z_{a,i},
 \end{equation}
 where $\mathrm{SF}$ is the flatness of the radial spectrum. Low-energy pairs, usually the fast ones, thus gain attention weight in proportion to how far the spectrum is from flat. Our reading of the printed formulation differs from the release at each of the six stages in \cref{tab:papercode}. We call its parity-tested port \segaofficial{} and our implementation of the printed equations \segapaper; static variants use the mean allocation over pilot prompts and steps.
 
+% Moved from Section 5.4 (body page budget, 2026-10-24); the body text cites it.
+\begin{table}[!htbp]
+\caption{\textbf{\sega{} paper versus code.} Our reading of the printed equations (\cref{eq:sega}) against released commit \texttt{ddaab08552c7}, stage by stage; the paragraphs of this appendix give the formulas, \cref{sec:papercode} the consequences and \cref{tab:pilot} the pilot scores. Key result: the release shrinks and bounds an allocation that the paper leaves unbounded.}
+\label{tab:papercode}
+\centering\footnotesize
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{@{}l l l@{}}
+\toprule
+Stage & Printed equations & Released code \\
+\midrule
+Sensor input & latent mean & projected-feature mean \\
+Pair-to-bin map & physical frequency & rank of log period \\
+Spread & $\varsigma u$, $u$ from $\tanh z$ & $0.15\,\varsigma c$, $c$ from $\tanh 1.5z$ \\
+Bounds & none & gains clamped at 1 \\
+Index axis & $m_{\mathrm{ref}}$ & 1 \\
+Frequency base & $\theta s^{2D/(D-2)}$, per axis & $\div(1{+}0.1\ln s)$, longest side \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \paragraph{\dype}
-For spatial axis $a$ with scale $s$ and $\kappa=\sigma^2$, let $b(r)=D\ln\bigl(64/(2\pi r)\bigr)/(2\ln\theta)$ be the pair index that completes $r$ rotations over 64 tokens and $\mu_{r_1,r_2}(j)=1-\operatorname{clip}\bigl((j-\ell)/(h-\ell),0,1\bigr)$ with $\ell=\max(\lfloor b(r_1)\rfloor,0)$ and $h=\min(\lceil b(r_2)\rceil,D/2)$. Then
+For spatial axis $a$ with scale $s$ and $\kappa=\sigma^2$, let $b(r)=D\ln\bigl(64/(2\pi r)\bigr)/(2\ln\theta)$ be the pair index that completes $r$ rotations over 64 tokens and $\mu(j;r_1,r_2)=1-\operatorname{clip}\bigl((j-\ell)/(h-\ell),0,1\bigr)$ with $\ell=\max(\lfloor b(r_1)\rfloor,0)$ and $h=\min(\lceil b(r_2)\rceil,D/2)$. Then
 \[
 \begin{aligned}
-\omega^{\mathrm{mix}}_j&=\tfrac{\omega_j}{s}\bigl(1-\mu_{1.25\kappa,0.75\kappa}(j)\bigr)+\omega^{\mathrm{ntk}}_j\,\mu_{1.25\kappa,0.75\kappa}(j),\\
-\omega'_j&=\omega^{\mathrm{mix}}_j\bigl(1-\mu_{16\kappa,2\kappa}(j)\bigr)+\omega_j\,\mu_{16\kappa,2\kappa}(j),
+\omega^{\mathrm{mix}}_j&=(\omega_j/s)\bigl(1-\mu(j;1.25\kappa,0.75\kappa)\bigr)+\omega^{\mathrm{ntk}}_j\,\mu(j;1.25\kappa,0.75\kappa),\\
+\omega'_j&=\omega^{\mathrm{mix}}_j\bigl(1-\mu(j;16\kappa,2\kappa)\bigr)+\omega_j\,\mu(j;16\kappa,2\kappa),
 \end{aligned}
 \]
 where $\omega^{\mathrm{ntk}}$ are the NTK-aware frequencies; the spatial cos/sin amplitude is $1+0.1\ln s$, as in the official code at the inspected revision.

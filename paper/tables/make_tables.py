@@ -263,7 +263,7 @@ def table_share(d):
     L = [r"\begin{tabular}{@{}l rrr rr r@{}}", r"\toprule",
          r" & \multicolumn{3}{c}{Mean ($n=%d$)} & \multicolumn{2}{c}{Paired gain} & \\" % n,
          r"\cmidrule(lr){2-4}\cmidrule(lr){5-6}",
-         r"Metric & \ntkH & \tempsbH & \segaofficialH & \hdr{base\\+\,temp.} & \hdr{alloc-\\ation} & \hdr{share of\\base\,+\,temp.} \\",
+         r"Metric & \ntkH & \tempsbH & \segaofficialH & \hdr{base\\+\,temp.} & \hdr{\phantom{x}\\allocation} & \hdr{share of\\base\,+\,temp.} \\",
          r"\midrule"]
     for k in cols:
         a = piv["ntk2"].loc[common, k].to_numpy(float)
@@ -556,7 +556,7 @@ def octave_table(d):
     freq = 2.0 ** (np.arange(-12, -1) + 0.5)
     L = [r"\begin{tabular}{@{}l" + "r" * len(BANDS) + r"@{}}", r"\toprule",
          r"Octave band & " + " & ".join(str(i) for i in range(len(BANDS))) + r" \\",
-         r"Centre (cyc/px) & " + " & ".join(r"\tiny $2^{%.1f}$" % (e + 0.5) for e in range(-12, -1)) + r" \\", r"\midrule"]
+         r"Centre (cyc/px) & " + " & ".join(r"$2^{%.1f}$" % (e + 0.5) for e in range(-12, -1)) + r" \\", r"\midrule"]
     for m in order:
         g = d[d.method == m]
         vals = [g[b].mean() for b in BANDS]
@@ -652,7 +652,8 @@ def table_results(res, means):
             star = key == "alloc" and HOLM[("historical_condensed30", "temp_only_sbase", c)]
             cells.append(dcell(c, *STORE[(key, c)], holm=star))
         L.append(lab + " & " + " & ".join(cells) + r" \\")
-    L.append(r"Share of base\,+\,temp.\ & " + " & ".join(STORE[("share", c)] for c in MAIN_COLS) + r" \\")
+    # The share of the gain carried by base + temperature stays in Table B.2 (tab_share.tex); the body table
+    # drops it so the factorial of Table 3 carries the attribution (senior review v3, 2026-10-24).
     L += [r"\bottomrule", r"\end{tabular}"]
     (OUT / "tab_results.tex").write_text("\n".join(L) + "\n")
 
@@ -664,7 +665,7 @@ def table_alloc(res):
     """Table 3: three per-band allocations added to the same released base and temperature.
     SEGA's allocation is the negated held-out contrast tsb - SEGA (same resamples, exact negation)."""
     L = [r"\begin{tabular}{@{}l >{\columncolor{papertint}}r rr@{}}", r"\toprule",
-         r"Metric & \hdr{\sega\\alloc.} & \hdr{TM\\corr.} & \hdr{\sega\\+\,TM} \\", r"\midrule"]
+         r" & \sega & Constancy- & \sega \\", r"Metric & alloc. & TM corr. & +\,TM \\", r"\midrule"]
     for k in ABL_ROWS:
         mu, lo, hi, _ = res[("temp_only_sbase", k)]
         cells = [dcell(k, -mu, -hi, -lo)] + [dcell(k, *STORE[(key, k)]) for key in ("ctmtsb", "sctmtsb")]

@@ -1,9 +1,9 @@
 \section{Background}\label{sec:background}
 
-\begin{figure}[t]
+\begin{figure}[b]
 \centering
 \figorplaceholder[\linewidth]{figs/f2_method.pdf}{2.37in}
-\caption{\textbf{Three knobs act on the logit.} (a)~Four of the \N{c@pairsperaxis} width-axis bands of \cref{eq:fourier}, drawn as unit-amplitude, zero-phase cosines under native base $\theta$ (dashed) and released base $\theta'$, are read at the key-query offset $\Delta$. Log gains at step 14 of the first held-out prompt, whose \segaofficial{} output is shown, are those of \tempsb{} (bars), \segaofficial{} (circles) and \constancytm{} (diamonds). (b)~Either controller reads $x_t$ and sets $g_{a,j}$; \cref{fig:method_zoom} draws both at component level.}
+\caption{\textbf{Three knobs act on the logit.} (a)~Four of the \N{c@pairsperaxis} width-axis bands of \cref{eq:fourier}, drawn as unit-amplitude, zero-phase cosines under native base $\theta$ (dashed) and released base $\theta'$, are read at the key-query offset $\Delta$. Log gains $\ln g_{a,j}$ at step 14 of the first held-out prompt (row 8, seed 0), whose \segaofficial{} output is shown, are marked as in the legend: \segaofficial{} circles, \constancytm{} diamonds and \tempsb{} bars, which end at $\ln\tau$ (dashed) on every band; the solid gray line is zero. (b)~Either controller reads $x_t$ and sets $g_{a,j}$; \cref{fig:method_zoom} draws both at component level.}
 \label{fig:method}
 \end{figure}
 

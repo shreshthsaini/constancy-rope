@@ -1,10 +1,4 @@
 \section{Discussion}\label{sec:discussion}
 
 \paragraph{What to report}
-A method that changes the rotary base, the temperature and per-band gains at once should report a control that keeps its base and temperature and drops the rest. It should also separate base from temperature. Here the temperature alone carries the reward-model gain, and the allocation adds \N{st@h@a@musiq} \N{st@h@ci@musiq} full-frame MUSIQ points on fresh prompts with no detected reward-model gain. Its lower excess fine-scale power does not establish a perceptual mechanism. Claims that credit spectral or content adaptivity should be tested against this control with full-resolution metrics (\cref{sec:pitfalls}); our code for it is at \codeurl.
-
-\paragraph{Why a temperature}
-One untested explanation is entropy: with \N{c@tokratio} times more keys, softmax attention spreads, and a multiplier above 1 sharpens it again~\citep{jin2023training}.
-
-\paragraph{Small dev sets mislead}
-Eight dev prompts rejected clearly worse variants and could do little else. \tempsb{} looked slightly better than \segaofficial{} on dev MUSIQ yet trails by \hoa{tsb}{musiq} points held out. Rerunning \segaofficial{} on the same dev prompts moved MUSIQ by more than the margin of the variant that passed the third gate (\cref{app:dev}). An inspected held-out set cannot serve as fresh confirmation, which is why the registered tests drew \N{st@e@n} new prompts.
+A method that changes the rotary base, the temperature and per-band gains at once should report a control that keeps its base and temperature and drops the rest, and it should separate base from temperature. Here the temperature alone carries the reward-model gain; one untested explanation is that softmax attention spreads over \N{c@tokratio} times more keys and a multiplier above 1 sharpens it again~\citep{jin2023training}. The allocation adds \N{st@h@a@musiq} \N{st@h@ci@musiq} full-frame MUSIQ points on fresh prompts with no Holm-surviving reward-model gain, and its lower excess fine-scale power does not establish a perceptual mechanism. Claims that credit spectral or content adaptivity should be tested against this control with full-resolution metrics (\cref{sec:pitfalls}), using the code released with this paper.

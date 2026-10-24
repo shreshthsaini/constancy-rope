@@ -7,12 +7,22 @@
 % cells, triangles raised clear of the interval line, float pages filled from the top, emergency stretch for
 % the narrow columns beside wrapped floats.
 \renewcommand{\cistack}[3]{\begin{tabular}[t]{@{}r@{}}#1\\[-1.8pt]{\fontsize{6.0}{6.6}\selectfont\color{#3}#2}\end{tabular}}
-\renewcommand{\upm}{\makebox[0.62em][r]{\raisebox{0.3ex}{\scalebox{0.62}{$\blacktriangle$}}}}
-\renewcommand{\dnm}{\makebox[0.62em][r]{\raisebox{0.3ex}{\scalebox{0.62}{$\blacktriangledown$}}}}
+% Direction triangles at a fixed 6.1 pt in every table (the old 0.62 scaling gave 4.5 to 5 pt glyphs), in a box
+% wide enough to keep a gap after the number; \nom keeps unmarked cells aligned.
+\renewcommand{\upm}{\makebox[0.7em][r]{\raisebox{0.3ex}{\fontsize{6.1}{6.1}\selectfont$\blacktriangle$}}}
+\renewcommand{\dnm}{\makebox[0.7em][r]{\raisebox{0.3ex}{\fontsize{6.1}{6.1}\selectfont$\blacktriangledown$}}}
+\renewcommand{\nom}{\makebox[0.7em][r]{}}
+% Superscripts and subscripts (Holm stars, s^{0.16}, tau_N) in 7 pt tables at 6 pt instead of 5.5 pt.
+\DeclareMathSizes{7}{7}{6}{5}
 \makeatletter
 \setlength{\@fptop}{0pt}\setlength{\@fpsep}{12pt plus 4pt}\setlength{\@fpbot}{0pt plus 1fil}
 \makeatother
 % \setlength{\emergencystretch}{1em}  % disabled: reflowed the body past page 10
+% Arm names that end in "temp." are not sentence ends: \@ keeps the following space at normal width.
+\renewcommand{\tempsb}{SEGA base\,+\,temp.\@}
+\newcommand{\ntktemp}{NTK\,+\,temp.\@}
+% Never split cross-reference names across lines.
+\hyphenation{Table Tables Figure Figures Appendix Appendices Algorithm Section LongRoPE ImageReward PickScore}
 \input{tables/num_results}
 \InputIfFileExists{tables/num_strengthen}{}{}
 \InputIfFileExists{tables/num_compute}{}{}

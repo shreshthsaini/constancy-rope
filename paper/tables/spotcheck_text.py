@@ -70,10 +70,43 @@ for arm in ('sega_official','temp_only_sbase'):
     v=fr[(arm,'pickscore')]; check(f'fresh mean PickScore {arm} n={len(v)}', round(sum(v)/len(v),2), f'{sum(v)/len(v):.2f}')
     v=fr[(arm,'musiq')]; check(f'fresh mean MUSIQ {arm} n={len(v)}', round(sum(v)/len(v),2), f'{sum(v)/len(v):.2f}')
 # lattice and default shift
-ls=rows(A+'ckpt_matrix/lattice_summary.csv')
-for r in ls:
-    if 'dev/Krea' in r['statistic']: check(f"lattice ratio g{r['guidance']}", round(float(r['mean']),1), f"{float(r['mean']):.1f} times [{float(r['ci_low']):.1f}, {float(r['ci_high']):.1f}]" if r['guidance']=='3.5' else f"{float(r['mean']):.1f}")
+# shared-bin lattice ratios (2026-10-24: the text quotes the shared bin, not the upward-biased historical peak bin)
+lb={r['quantity']: r for r in rows(A+'ckpt_matrix_lattice2x2/summary.csv')}
+g35=lb['checkpoint_dev_over_krea_at_g3p5']; g45=lb['checkpoint_dev_over_krea_at_g4p5']
+check('shared-bin lattice ratio g3.5 (n=%s)' % g35['n'], round(float(g35['geometric_mean']),1),
+      f"{float(g35['geometric_mean']):.1f} times [{float(g35['ci_low']):.1f}, {float(g35['ci_high']):.1f}]")
+check('shared-bin lattice ratio g4.5 (n=%s)' % g45['n'], round(float(g45['geometric_mean']),1),
+      f"{float(g45['geometric_mean']):.1f}\u00d7 [{float(g45['ci_low']):.1f}, {float(g45['ci_high']):.1f}]")
 ds=[r for r in rows(A+'default_shift/paired.csv') if r['metric']=='imagereward'][0]
 check('default shift IR', round(float(ds['mean']),3), f"{float(ds['mean']):+.3f} {ci(float(ds['ci_low']),float(ds['ci_high']),3)}")
+# --- additions 2026-10-24 (text agent, gate review v3 fixes) ---
+nospace = txt.replace(' ', '')
+def check_ns(name, computed, printed):
+    out.append((name, computed, printed, printed.replace(' ', '') in nospace))
+# allocation's fresh PickScore gain: released SEGA minus base + temp., recomputed per prompt from E1 per-image rows
+fp_ = collections.defaultdict(dict)
+for r in pe:
+    if r['seed'] in ('0','0.0'): fp_[r['method']][r['prompt_id']] = float(r['pickscore'])
+ps_ = sorted(set(fp_['sega_official']) & set(fp_['temp_only_sbase']))
+ga = sum(fp_['sega_official'][q] - fp_['temp_only_sbase'][q] for q in ps_) / len(ps_)
+ec = [x for x in rows(A+'E1/contrasts_holm.csv') if x['analysis']=='seed0' and x['contrast']=='temp_only_sbase' and x['metric']=='pickscore'][0]
+check(f'fresh allocation PickScore (n={len(ps_)}), CI from E1 bootstrap', round(ga,3), f"{ga:+.3f} {ci(-float(ec['hi']), -float(ec['lo']), 3)}")
+check('fresh allocation PickScore Holm p (family of 50)', round(float(ec['p_holm']),2), f"Holm \U0001d45d= {float(ec['p_holm']):.2f} over 50 tests")
+# Table 3 total row: paired SEGA minus NTK interval, from P1/paired.csv (sign reversed)
+pr_ = [x for x in rows(A+'P1/paired.csv') if x['analysis']=='seed0' and x['method']=='ntk2' and x['reference']=='sega_official' and x['metric']=='imagereward'][0]
+check_ns('Table 3 total IR interval', ci(-float(pr_['hi']), -float(pr_['lo']), 3), ci(-float(pr_['hi']), -float(pr_['lo']), 3))
+# sweep: 1.45 beats s^0.16 on crop MUSIQ, recomputed per prompt from P3 per-image rows
+sw = collections.defaultdict(dict)
+for r in rows(A+'P3/canonical_per_image.csv'):
+    if r['seed'] in ('0','0.0'): sw[r['method']][r['prompt_id']] = float(r['musiq_crop1024'])
+q3 = sorted(set(sw['tau1p45']) & set(sw['tau_sref']))
+d145 = sum(sw['tau1p45'][q] - sw['tau_sref'][q] for q in q3) / len(q3)
+check(f'sweep 1.45 minus s^0.16 crop MUSIQ (n={len(q3)})', round(d145,2), f'{d145:+.2f}')
+# amendment disclosure: fresh-only ImageReward interval against the original +/-0.05 rule
+fi = [r for r in hy['seed0']['family'] if r['hypothesis']=='H1_IR'][0]
+check(f"fresh-only ImageReward interval (lo {fi['lo']:.4f} < -0.05)", ci(fi['lo'], fi['hi'], 3), ci(fi['lo'], fi['hi'], 3))
+# shared-bin guidance scaling on FLUX.1-dev
+gd = lb['guidance_g4p5_over_g3p5_dev']
+check('guidance scaling of the FLUX.1-dev lattice', round(float(gd['geometric_mean']),2), f"{float(gd['geometric_mean']):.2f}\u00d7 [{float(gd['ci_low']):.2f}, {float(gd['ci_high']):.2f}]")
 for name,comp,pr,ok in out: print(('OK  ' if ok else 'MISS'), name, '|', comp, '|', pr)
 print(sum(o[3] for o in out), 'of', len(out), 'found in main text')

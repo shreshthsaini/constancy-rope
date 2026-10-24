@@ -154,7 +154,8 @@ def appendix_file():
                               r"metrics",
             "factorial_means": r"\cref{tab:strengthen-factorial-means} gives the factorial cell means",
             "sweep": r"\cref{tab:strengthen-sweep,fig:fs-sweep} give the temperature sweep",
-            "fresh_tests": r"\cref{tab:strengthen-fresh-tests} gives the registered tests plotted in \cref{fig:fs-confirm}",
+            "fresh_tests": r"\cref{fig:fs-confirm-full} and \cref{tab:strengthen-fresh-tests} give all three registered tests, "
+                           r"of which \cref{fig:fs-confirm} plots the two reward-model components",
             "fresh_arms": r"\cref{tab:strengthen-fresh-arms} compares every fresh-prompt arm with \segaofficial",
             "seeds": r"\cref{tab:strengthen-seeds} gives the seed replication",
             "ckpt": r"\cref{tab:strengthen-ckpt} the checkpoint-by-guidance lattice",
@@ -175,6 +176,20 @@ def appendix_file():
                       r"interaction, and the allocation (\segaofficial{} minus \tempsb). Whiskers are nominal 95\% "
                       r"intervals, and marks are pale where the interval covers zero. \Cref{tab:strengthen-factorial} "
                       r"gives the values.}", r"\label{fig:fs-factorial}", r"\end{figure}"]
+        if n == "fresh_tests" and (Path(__file__).resolve().parents[1] / "figs/fA_spectrum_full.pdf").exists():
+            # Three-panel registered confirmation (the body Figure 4 keeps the two reward panels). The file name
+            # follows the integration plan; the content is the confirmation figure, not a spectrum.
+            lines += [r"\begin{figure}[!htbp]", r"\centering",
+                      r"\includegraphics[width=\linewidth]{figs/fA_spectrum_full.pdf}",
+                      r"\caption{"
+                      r"\textbf{Registered confirmation, all three panels.} ImageReward and PickScore show \tempsb{} "
+                      r"minus \segaofficial{} with the amended equivalence margins (gray band, dotted edges); "
+                      r"full-frame MUSIQ shows the opposite difference, \segaofficial{} minus \tempsb, the effect of "
+                      r"the allocation. Filled marks are the registered tests (H1 on the \N{st@h@n@ir} pooled prompts, "
+                      r"H2 on the \N{st@e@n} fresh prompts); hollow marks are the fresh prompts alone, the \N{st@f@n} "
+                      r"held-out prompts at seed 0 and their means over seeds 0 to 2. Whiskers are nominal 95\% paired "
+                      r"prompt-bootstrap intervals (2{,}000 draws); \cref{tab:strengthen-fresh-tests} lists the values "
+                      r"and Holm-adjusted $p$.}", r"\label{fig:fs-confirm-full}", r"\end{figure}"]
         lines.append(r"\input{tables/float_strengthen_%s}" % n)
         if n == "sweep" and (Path(__file__).resolve().parents[1] / "figs/strengthen/fs_sweep.pdf").exists():
             lines += [r"\begin{figure}[!htbp]", r"\centering",
@@ -395,8 +410,22 @@ def factorial(data):
              "interaction": r"Base $\times$ temp.", "allocation": "Allocation"}
     rows_main, _ = contrast_rows(c, main_, short, SIX, bold=bold)
     rows_alloc, _ = contrast_rows(c, ["allocation"], short, SIX, bold=bold)
+    # Total row: the paired gain of released SEGA over NTK with its own interval, copied from paired.csv
+    # (ntk2 minus sega_official, sign reversed). Base + temperature + allocation equal it exactly; it is not one
+    # of the 80 registered tests, so it carries no Holm mark and no bold.
+    rows_total = []
+    paired = data.get("paired")
+    if paired is not None:
+        sel = paired[(paired.analysis == "seed0") & (paired.method == "ntk2") & (paired.reference == "sega_official")]
+        tot = {r["metric"]: r for r in sel.to_dict("records")}
+        if all(m in tot for m in SIX):
+            rows_total = [r"\midrule", "Total & " + " & ".join(
+                dcell(m, -tot[m]["delta"], -tot[m]["hi"], -tot[m]["lo"]) for m in SIX) + r" \\"]
+            for m in SIX:
+                mac(f"st@f@totci@{KEY[m]}", "[" + m_(num(-tot[m]["hi"], PREC[m], True)) + ", "
+                    + m_(num(-tot[m]["lo"], PREC[m], True)) + "]")
     body = tabular("Contrast", SIX, [group("Main effects, averaged over the other factor", len(SIX))] + rows_main
-                   + [r"\midrule", group("Per-band allocation", len(SIX))] + rows_alloc)
+                   + [r"\midrule", group("Per-band allocation", len(SIX))] + rows_alloc + rows_total)
     T = "temperature_main_effect"
     tb, _ = holm_split(found, T, SIX)
     temp_txt = ("improves all six displayed metrics under Holm" if len(tb) == len(SIX) else
@@ -404,19 +433,17 @@ def factorial(data):
     quiet = [w for g, w in [("base", "the RoPE base"), ("inter", "the interaction")] if hits[g] == 0]
     quiet_txt = ("neither the RoPE base nor the interaction survives Holm on any of the ten metrics"
                  if len(quiet) == 2 else f"{quiet[0]} survives Holm on none of the ten metrics" if quiet else "")
-    key = (f"the global temperature {temp_txt} (ImageReward {pt(found, T, 'imagereward')}, full-frame MUSIQ "
-           f"{pt(found, T, 'musiq')}), " + (quiet_txt + ", and " if quiet_txt else "")
+    key = (f"the global temperature {temp_txt}, " + (quiet_txt + ", and " if quiet_txt else "")
            + alloc_words(found, SIX, True) + ".")
-    cap = (r"\textbf{Factorial decomposition of \segaofficial.} Paired held-out contrasts on rows 8 to 194 "
-           f"($n={n}$ prompts, seed 0) from a 2$\\times$2 design: RoPE base (\\ntk{{}} or \\sega) by global "
-           r"logit temperature (none or $s^{0.16}$), plus the allocation contrast (\segaofficial{} minus \tempsb). "
-           r"Main effects average the two levels of the other factor; the interaction is the temperature effect "
-           r"on the \sega{} base minus that on the \ntk{} base. Base, temperature and allocation add up to the "
-           r"whole gain of \segaofficial{} over \ntk{}. Cells give the paired mean difference with its nominal "
-           r"95\% interval; triangles mark intervals that exclude zero, $^{*}$ marks Holm-adjusted $p\le0.05$ "
-           r"over the registered 80 tests (8 contrasts by 10 metrics), and bold marks the largest gain in each "
-           r"column. \Cref{tab:strengthen-factorial-full} expands this table to all eight contrasts and ten "
-           r"metrics. Key result: " + key[0].lower() + key[1:])
+    cap = (r"\textbf{Factorial decomposition of \segaofficial.} Paired held-out contrasts (rows 8 to 194, "
+           f"$n={n}$, seed 0) of a 2$\\times$2 design, RoPE base (\\ntk{{}} or \\sega) by logit temperature "
+           r"(none or $s^{0.16}$), plus the allocation (\segaofficial{} minus \tempsb). Main effects average over "
+           r"the other factor; the interaction is the temperature effect on the \sega{} base minus that on the "
+           r"\ntk{} base. Base, temperature and allocation sum exactly to the total, \segaofficial{} minus \ntk, "
+           r"whose interval is computed directly; it is not a registered test. Cells give paired mean differences "
+           r"and nominal 95\% intervals; triangles mark intervals that exclude zero, $^{*}$ a Holm-adjusted "
+           r"$p\le0.05$ over the 80 registered tests, and bold the largest effect per column. "
+           r"\Cref{tab:strengthen-factorial-full} expands the table. Key result: " + key[0].lower() + key[1:])
     write("factorial", cap, body, data)
     # Full appendix version: eight contrasts, ten metrics.
     bold_full = best_effect(found, list(FACT), TEN)
@@ -706,6 +733,14 @@ def fresh(data):
         arms = ["temp_only_sbase", "sega_base_none", "ntk2_sref", "dype", "ntk2"]
         lab = {a: ARMS[a][1] for a in arms}
         _, found = contrast_rows(c, arms, lab, TEN, prefix="e", keyer=lambda a: ARMS[a][0])
+        # The allocation on fresh prompts (released SEGA minus base + temp.) is the sign-reversed temp_only_sbase
+        # contrast of this family of 50: point, interval and Holm p copied, three decimals as in the H1 rows.
+        ra = c[(c.analysis == "seed0") & (c.contrast == "temp_only_sbase") & (c.metric == "pickscore")]
+        if not ra.empty:
+            ra = ra.iloc[0]
+            mac("st@e@d@alloc@pick", m_(num(-ra["delta"], 3, True)))
+            mac("st@e@ci@alloc@pick", "[" + m_(num(-ra["hi"], 3, True)) + ", " + m_(num(-ra["lo"], 3, True)) + "]")
+            mac("st@e@p@alloc@pick", f"{ra['p_holm']:.2f}")
         arms_b, ref_b = best_arm(found, arms, TEN)
         means = data["means"][data["means"].analysis == "seed0"]
         ref = [r"\refcell{%s}" % ((r"\mathbf{%s}" if m in ref_b else "%s") % num(

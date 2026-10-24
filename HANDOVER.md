@@ -16,54 +16,67 @@ All older entries below are historical and do not override the current task.
 
 ## Gold rubric self-score (text agent)
 
-2026-10-24, build `paper/main.pdf` (not `paper/dist/`, which was not refreshed): 34 pages. Sections 1 to 8 and the
-Reproducibility statement on pages 1 to 10, references pages 11 to 13, appendix contents and appendices A to I on
-pages 14 to 34. Clean tectonic build: no overfull boxes, no undefined references (the missing
-`tab:papercode_scores` is now Table A.1, the dev-pilot score table from `figs/f6_sega_code_table.tex`).
-Title: "Where Does the Gain Come From? The Attention Temperature Does the Work in Training-Free RoPE Extrapolation
-to 4K". Abstract 168 words, 9 sentences, headline factorial number and the public code URL. Introduction 696 words,
-37 sentences, median 20, mean 18.8, max 32. Sections 2 to 8: 194 sentences, median 19, mean 18.5; none over 35 words
-except the one that holds equation (1).
-Spot-check: 29 of 29 numbers recomputed from `.agent/notes/strengthen/analysis/` (per-image CSVs for factorial cell
-means, simple and main effects, the SEGA-over-NTK totals and fresh means; analysis outputs for intervals and Holm p)
-match the compiled main text (script: `paper/tables/spotcheck_text.py`, rerun before release).
-Structure: the factorial is the core of Section 5.1 (two-arm lead-in, then base x temperature), 5.2 holds the
-registered confirmation, 5.3 the per-band laws, 5.4 paper versus code, 5.5 pitfalls (224-pixel scorers, checkpoint
-control). Moved to the appendix for space: forest plot (Figure A.1), main qualitative grid (Figure A.2), factorial
-figure (Figure C.1), registered-test table (Table C.4), seed-1 small table, kernel-cost table (Table H.1).
-Visual QA (independent agent, all 34 page renders at 110 dpi in /scratch/09032/saini_2/tmp/text5, which predates the
-last fixes) found no ??, overlaps, margin hits or orphaned headings; its defects were fixed: stacked value/interval
-cells got 1 pt more leading and raised triangles (main.tex), sub-6 pt share intervals and n labels now 6.5 pt
-(make_tables.py), float pages fill from the top, appendix A figures reordered, typo and stale Section 5.5 pointers fixed,
-URL unbroken, US spelling, lower-case Key results. Left for the figure agent: crowded 1/4 and 1/256 ticks in Figure G.1.
+2026-10-24 (v3 gate fixes), build `paper/main.pdf` (`paper/dist/` not refreshed): 36 pages. Sections 1 to 8 and the
+Reproducibility statement on pages 1 to 10, references 11 to 13, appendix contents and appendices A to I on 14 to 36.
+Clean tectonic build: no overfull boxes, no undefined references. Renders: `/scratch/09032/saini_2/tmp/text6/` (110 dpi).
+Applied from `.agent/notes/fable_review_v3_2026-10-24.md` Sections 2 to 5 (text owner):
+- Abstract and intro: "no Holm-surviving reward-model gain"; abstract closing sentence added (180 words, 10 sentences);
+  sweep scoped to reward models and full-frame MUSIQ, with 1.45 winning crop MUSIQ under Holm (+6.19); lattice ratio
+  is the shared-bin 11.6x [7.5, 18.5] (Section 5.5 also uses shared-bin 11.6x and 6.7x); n = 8 stated for lattice
+  and flow shift. Section 5.2 states the allocation's fresh PickScore +0.073 [+0.011, +0.133], Holm p 0.60.
+- Preregistration amendment disclosed in Section 4 and Section 5.2 (2026-10-19, before any confirmation image;
+  +/-0.05 fresh-only to +/-0.082 pooled; fresh ImageReward [-0.055, +0.035] would have failed the original rule).
+- Tables via scripts: Table 2 share row dropped (Table B.2 keeps it); Table 3 total row with its own interval from
+  `P1/paired.csv` (not a registered test, no star); Table 5 header "Constancy-TM corr."; triangles fixed at 6.1 pt
+  and 7 pt-table scripts at 6 pt (main.tex); octave-table header no longer \tiny.
+- Layout: Figure 2 at the bottom of page 3 after the bullets; Figure 3 wrap [20], no orphan lines; Figure 4 is the
+  half-width two-panel wrap (`figs/f4_spectrum.pdf`) beside the H1 paragraph; three-panel version is Figure C.3;
+  body grid Figure 5 at the top of page 9 (captions verbatim from `figs/CAPTIONS.md`, hero caption shortened by
+  about 60 characters so the hero stays on page 1).
+- Space (about 0.7 page recovered): Table 6 (paper vs code) moved to Appendix F as Table F.3, cited from Section 5.4;
+  "Why a temperature" merged into "What to report"; "Small dev sets" folded into Section 4; DyPE paragraph folded
+  into the fresh-prompt paragraph; Limitations as one paragraph of six run-ins (gold-paper form); captions of
+  Tables 2 to 5 tightened. No caveat removed.
+- Visual QA fixes (independent agent, all pages): `\tempsb`/`\ntktemp` end in `temp.\@` (no sentence space),
+  Table 1 per-band column left-aligned, `\hyphenation` guard on Table/Figure/Appendix names, Figure 4 moved beside
+  H1 (no run-in hyphenation, no line past the caption), appendix identifier and Table B.2 header no longer split;
+  second pass: Table 5 header as two plain rows (the shaded \makecell header cell rendered half blank), and no
+  hyphenation of LongRoPE, ImageReward, PickScore. Final build 11:01, renders 11:01 in `/scratch/09032/saini_2/tmp/text6/`.
+Spot-check: 35 of 35 numbers recomputed from `.agent/notes/strengthen/analysis/` (per-image rows, bootstrap and
+Holm outputs, shared-bin lattice summary) appear in the compiled main text (`paper/tables/spotcheck_text.py`).
+Sentences (alphabetic words): introduction 34 sentences, median 19.5, max 31; Sections 2 to 8 median 19, mean 18.3,
+none over 35 except the sentence holding equation (1). Every body float sits on the page of its first mention or
+the next one. Open, figure-owned: 5.6 pt STIX axis-label subscripts inside figure PDFs (P_SEGA in Figure 3, page 7, and Figure A.3;
+P_ref in Figure A.3; P_out in Figure G.1); all TeX text and table glyphs are at least 6 pt.
 
 | Item | Score | Note |
 | :-- | :-: | :-- |
-| Abstract 130-200 words, headline number, URL | 1 | 168 words; +0.594 [+0.506, +0.686]; public GitHub URL |
-| Hero under abstract, full width, panel-walking caption | 2 | 0.98 width; factorial bars with CIs and Holm marks plus fixed native crops |
+| Abstract 130-200 words, headline number, URL | 1 | 180 words; +0.594 [+0.506, +0.686]; implication sentence; URL |
+| Hero under abstract, full width, panel-walking caption | 2 | 0.96 width; factorial bars with total line, CIs, Holm marks; fixed native crops |
 | Footnotes (at most two, administrative) | 1 | none |
 | Question by end of para 1; motivating float beside para 2 | 1 | Table 1 wraptable |
 | "We introduce" para, numbers in para 4, three "We" bullets | 1 | last bullet carries 0.594 [+0.506, +0.686] |
-| Median sentence under 22, none over 35 | 1 | median 20, max 32 |
-| Method diagram with lettered panels and appendix zoom | 1 | Fig. 2 and Fig. F.1 (figure agent) |
+| Median sentence under 22, none over 35 | 1 | intro median 19.5, body median 19 |
+| Method diagram with lettered panels and appendix zoom | 2 | real step-14 gains in the ln g panel with a glyph legend; F.1 zoom; no longer splits the bullets |
 | Equations introduced by a clause, "where" line | 1 | |
 | Boxed side-by-side algorithms with Input/Output, appendix pointers | 1 | Algorithms 1-2 |
-| Setup run-ins with counts, steps, compute hours | 2 | adds the registered confirmation protocol with its five Holm families |
+| Setup run-ins with counts, steps, compute hours | 2 | registered confirmation with five Holm families and the dated amendment |
 | Main table: booktabs, arrows, shading, bold best, Key result | 2 | paired triangles, Holm stars, decomposition block |
-| Finding paragraphs with bold claims and numbers | 1 | bold run-in claims; before and after values, then paired difference and CI |
-| Ablation tables side by side, default shaded, appendix versions | 1 | Tables 4-5 (sweep, allocation), expanded by Tables C.3 and B.3 |
-| Plots: palette, markers, value labels, shared legends, >= 6 pt | 1 | figure agent; not re-measured here |
-| Qualitative grid, same prompt and seed, labeled rows | 1 | grid now Figure A.2 (space); hero (b) carries native crops |
-| Confounds named; limitations with concrete scope | 2 | pooled-prompt and fresh PickScore caveats, Qwen not run |
+| Finding paragraphs with bold claims and numbers | 1 | bold run-ins; before and after values with intervals |
+| Ablation tables side by side, default shaded, appendix versions | 1 | Tables 4-5, expanded by Tables C.3 and B.3 |
+| Plots: palette, markers, value labels, shared legends, >= 6 pt | 1 | open: 5.6 pt subscript in Figure 3 axis label (figure-owned) |
+| Qualitative grid, same prompt and seed, labeled rows | 1 | Figure 5 in the body (rows 8-9, six arms, native crops); A.2 adds row 10 |
+| Confounds named; limitations with concrete scope | 2 | pooled-prompt reuse, amendment, fresh PickScore, Qwen not run |
 | Reproducibility statement mapping details to appendices | 2 | plus preregistration and independent recomputation |
 | Appendix: contents, zoom, banded config table, expansions, prompts | 1 | samples are the first rows, labeled as such, not random |
-| Floats within one page, >= 3 wraps, <= 60% float pages | 1 | three wraps (Tables 1, 6; Figure 3) |
+| Floats within one page, >= 3 wraps, <= 60% float pages | 1 | three wraps (Table 1, Figures 3 and 4) |
 | Captions above tables, below figures, bold leads | 1 | |
 | Same colors across hero, plots, tables | 1 | |
-| No em dashes, no section symbol, no figure text under 6 pt | 1 | |
+| No em dashes, no section symbol, no figure text under 6 pt | 1 | grep clean; table triangles now 6.1 pt; figure subscripts as in item 14 |
 
-Mean 27/22 = 1.23, no item below 1. Open: the qualitative grid and the forest plot left the main text to fit ten
-pages; samples remain first-rows rather than random; plot font sizes were not re-measured by the text agent.
+Mean 28/22 = 1.27, no item below 1 provided the figure agent lifts the 5.6 pt figure subscripts (items 14 and 22
+are below the 6 pt rule until then). Body is exactly ten pages with no slack: any added body line pushes the
+Reproducibility statement to page 11.
 
 ## Paper status (2026-10-18, camera-ready pass)
 
@@ -266,3 +279,8 @@ Update `.agent/STATE.md` and this file after every meaningful step.
   post-fleet chain (strengthen_confirm.py run -> strengthen_tables.py -> figs/strengthen/fs_*.py), finalizing
   sec/results_confirmation.tex, INTEGRATION.md and .agent/notes/strengthen/DIGEST.md. Next: text pass integrates the
   section + rubric fixes; Claude/Fable review; dist refresh; send; push.
+- 2026-10-24 evening: PAPER v3 SHIPPED. Title "Where Does the Gain Come From? The Attention Temperature Does the Work in
+  Training-Free RoPE Extrapolation to 4K". 36 pages, body 10. Fable gate review v3 applied (abstract honesty clause,
+  amendment disclosed in Sections 4 and 5.2, body qualitative grid p9, layout fixes); rubric 1.27, 35 numbers verified.
+  paper/dist/constancy_rope_paper.pdf + constancy_rope_paper_src.zip (standalone build verified, includes style.tex and
+  macros.tex). Remaining nit: 5.6 pt axis subscripts in Figures 3, A.3, G.1 (figure pass running).
