@@ -1,57 +1,56 @@
-% Drop-in section: registered confirmation and controls (strengthening campaign, prereg_strengthen.md).
-% Owner: strengthening analyst. Every number is a macro from tables/num_strengthen.tex, written by
-% paper/tables/strengthen_tables.py from .agent/notes/strengthen/analysis/<block>/. Each paragraph is
-% guarded by its block's st@done macro, so it prints nothing until that block's evaluation, merge and
-% analysis are complete. Verdict words (better, worse, tie; supported, not established, incompatible,
-% unresolved, reverse) are copied from the analysis, never typed here. Re-read the prose once the
-% numbers exist: sentences report signed values and do not presume a direction, except the checkpoint
-% paragraph, whose spectra were measured on 2026-10-24 (dev/Krea above 1 at both guidance values).
-% Requires \InputIfFileExists{tables/num_strengthen}{}{} in the preamble (see paper/INTEGRATION.md).
+% Confirmation and controls: the strengthening campaign (.agent/notes/prereg_strengthen.md and its amendments).
+% Owner: strengthening analyst. Final 2026-10-24: every block is complete and analysed. Every number is a macro
+% from tables/num_strengthen.tex, written by paper/tables/strengthen_tables.py from
+% .agent/notes/strengthen/analysis/<block>/ (scripts/strengthen_analysis.py and strengthen_diagnostic_report.py).
+% An independent recomputation from the raw evaluator CSVs matches every contrast within 1e-14
+% (.agent/notes/strengthen/verification/). Requires \InputIfFileExists{tables/num_strengthen}{}{} in
+% the preamble. Main-text floats are input below; tables/float_strengthen_appendix.tex holds the appendix
+% floats (see paper/INTEGRATION.md). Undefined numbers print a red ?? through \N.
 \section{Confirmation and controls}\label{sec:confirm}
 
-We registered four further experiments before generating any of their images (prereg\_strengthen.md, amended before generation): a base-by-temperature factorial, a fixed temperature sweep, 150 fresh prompts, and two extra seeds. A block reports a hypothesis only when all of its samples exist. Intervals are nominal 95\% paired prompt-bootstrap intervals (2{,}000 draws, seed 0); $^{*}$ marks a Holm-adjusted $p\le0.05$ inside the block's registered family.
+We registered four experiments and their tests before generating any of their images: a base-by-temperature factorial, a fixed temperature sweep, 150 fresh prompts and two more seeds per held-out prompt. Two development controls address the checkpoint and the flow shift. Intervals are nominal 95\% paired prompt-bootstrap intervals (2{,}000 draws); $^{*}$ marks a Holm-adjusted $p\le0.05$ within the registered family of each block. No setting was chosen from these results.
 
-\ifcsname N@st@done@P1\endcsname
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figs/strengthen/fs_factorial.pdf}
-\caption{\textbf{Factorial decomposition.} Paired contrasts on held-out rows 8 to 194 (seed 0, $n=\N{st@f@n}$): RoPE base and global temperature as main effects, their interaction, and the allocation (\segaofficial{} minus \tempsb). Marks are pale where the 95\% interval covers 0. \Cref{tab:strengthen-factorial-full} lists all ten metrics.}
+\caption{\textbf{The temperature carries the gain.} Paired contrasts on held-out rows 8 to 194 (seed 0, $n=\N{st@f@n}$): RoPE base and global temperature as main effects, their interaction, and the allocation (\segaofficial{} minus \tempsb). Whiskers are nominal 95\% intervals; marks are pale where the interval covers zero. \Cref{tab:strengthen-factorial-full} lists all ten metrics.}
 \label{fig:fs-factorial}
 \end{figure}
-\paragraph{Factorial decomposition}
-\Cref{tab:strengthen-factorial} completes the two-by-two design of RoPE base (\ntk{} or \sega) and global logit temperature (none or $s^{0.16}$) on the $\N{st@f@n}$ held-out prompts, and adds the allocation contrast. Averaged over temperature, the \sega{} base changes ImageReward by \N{st@f@d@base@ir} \N{st@f@ci@base@ir} and full-frame MUSIQ by \N{st@f@d@base@musiq} \N{st@f@ci@base@musiq}. Averaged over base, the temperature changes them by \N{st@f@d@temp@ir} \N{st@f@ci@temp@ir} and \N{st@f@d@temp@musiq} \N{st@f@ci@temp@musiq}. The interaction is \N{st@f@d@inter@ir} \N{st@f@ci@inter@ir} on ImageReward and \N{st@f@d@inter@musiq} \N{st@f@ci@inter@musiq} on full-frame MUSIQ. The allocation contrast is the earlier held-out comparison, now tested inside the factorial family: \N{st@f@d@alloc@musiq} \N{st@f@ci@alloc@musiq} on full-frame MUSIQ and \N{st@f@d@alloc@ir} \N{st@f@ci@alloc@ir} on ImageReward. \N{st@f@nholm} of the 80 registered contrast-metric tests survive Holm (\cref{fig:fs-factorial}).
-\fi
 
-\ifcsname N@st@done@P3\endcsname
-\paragraph{Temperature sweep}
-On the \sega{} base without allocation, we fixed five logit multipliers before generation and choose none of them afterwards (\cref{tab:strengthen-sweep}, rows 8 to 62, $n=\N{st@s@n}$). ImageReward is \N{st@sm@t100@ir} with no temperature, \N{st@sm@t110@ir} at 1.1, \N{st@sm@tsref@ir} at $s^{0.16}$, \N{st@sm@tlogn@ir} at $\tau_N$ and \N{st@sm@t145@ir} at 1.45. Full-frame MUSIQ is \N{st@sm@t100@musiq}, \N{st@sm@t110@musiq}, \N{st@sm@tsref@musiq}, \N{st@sm@tlogn@musiq} and \N{st@sm@t145@musiq} at the same settings. \N{st@s@nholm} of the 40 differences from $s^{0.16}$ survive Holm.
-\fi
+\input{tables/float_strengthen_factorial}
 
-\ifcsname N@st@done@E1\endcsname
+\paragraph{The temperature carries the gain, not the base}
+\Cref{tab:strengthen-factorial} and \cref{fig:fs-factorial} complete the two-by-two design of RoPE base (\ntk{} or \sega) and global logit temperature (none or $s^{0.16}$) on the \N{st@f@n} held-out prompts. By construction, the two main effects and the allocation add up to the gain of \segaofficial{} over \ntk. Averaged over base, the temperature raises ImageReward by \N{st@f@d@temp@ir} \N{st@f@ci@temp@ir}, the whole \N{st@f@tot@ir} gain of \segaofficial{} over \ntk. It also raises full-frame MUSIQ by \N{st@f@d@temp@musiq} \N{st@f@ci@temp@musiq} of the \N{st@f@tot@musiq} total. Averaged over temperature, the \sega{} base changes ImageReward by \N{st@f@d@base@ir} \N{st@f@ci@base@ir} and full-frame MUSIQ by \N{st@f@d@base@musiq} \N{st@f@ci@base@musiq}. Its one nominal gain, \N{st@f@d@base@musiqc} \N{st@f@ci@base@musiqc} crop MUSIQ, does not survive Holm. The interaction survives Holm on no metric: the temperature raises ImageReward by \N{st@f@d@tempntk@ir} on the \ntk{} base and by \N{st@f@d@tempsega@ir} on the \sega{} base. Of the 80 registered tests, \N{st@f@nholm} survive Holm, \N{st@f@nholm@temp} for the temperature, \N{st@f@nholm@alloc} for the allocation, \N{st@f@nholm@base} for the base and \N{st@f@nholm@inter} for the interaction. \Cref{sec:decomp} credited base and temperature jointly; the factorial assigns that credit to the temperature.
+
+\paragraph{The allocation moves image-quality scores, not rewards}
+Within the same family, the allocation raises full-frame MUSIQ by \N{st@f@d@alloc@musiq} \N{st@f@ci@alloc@musiq} and crop CLIP-IQA by \N{st@f@d@alloc@iqac}. It also lowers the spectral slope error by \N{st@f@a@alloc@slope} and raises the tiling score by \N{st@f@a@alloc@tile}, a small loss, both surviving Holm. It ties ImageReward (\N{st@f@d@alloc@ir} \N{st@f@ci@alloc@ir}) and PickScore (\N{st@f@d@alloc@pick} \N{st@f@ci@alloc@pick}).
+
+\paragraph{Reward and full-frame scores peak near $s^{0.16}$}
+On the \sega{} base without allocation, five logit multipliers fixed before generation trace one curve on held-out rows 8 to 62 ($n=\N{st@s@n}$; \cref{tab:strengthen-sweep,fig:fs-sweep}). ImageReward is \N{st@sm@t100@ir} without temperature, \N{st@sm@t110@ir} at 1.1, \N{st@sm@tsref@ir} at $s^{0.16}$, \N{st@sm@tlogn@ir} at $\tau_N=4/3$ and \N{st@sm@t145@ir} at 1.45. No multiplier beats $s^{0.16}$ under Holm on ImageReward, PickScore or full-frame MUSIQ. Full-frame MUSIQ falls from \N{st@sm@tsref@musiq} at $s^{0.16}$ to \N{st@sm@t145@musiq} at 1.45, while crop MUSIQ rises at every step, from \N{st@sm@t100@musiqc} to \N{st@sm@t145@musiqc}. A crop-based quality score would therefore favour hotter attention than the reward models and the full-frame score do. \N{st@s@nholm} of the 40 sweep tests survive Holm.
+
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figs/strengthen/fs_confirm.pdf}
-\caption{\textbf{Registered confirmation.} ImageReward and PickScore show \tempsb{} minus \segaofficial{} with the registered equivalence margins (gray); full-frame MUSIQ shows \segaofficial{} minus \tempsb. Filled marks are the registered tests (H1 on the pooled 337 prompts, H2 on the 150 fresh prompts); hollow marks are the held-out set at seed 0, the fresh set alone, and held-out prompt means over seeds 0 to 2.}
+\caption{\textbf{Registered confirmation.} ImageReward and PickScore show \tempsb{} minus \segaofficial{} with the registered equivalence margins (gray band, dotted edges); full-frame MUSIQ shows the allocation (\segaofficial{} minus \tempsb). Filled marks are the registered tests (H1 on the pooled 337 prompts, H2 on the 150 fresh prompts); hollow marks are the fresh prompts alone, the held-out prompts at seed 0 and held-out prompt means over seeds 0 to 2.}
 \label{fig:fs-confirm}
 \end{figure}
-\paragraph{Registered confirmation}
-H1 states that \tempsb{} is equivalent to \segaofficial{} on ImageReward (margin $\pm0.082$, half of \segaofficial's held-out gain over \dype) and on PickScore (margin $\pm0.10$). On the pooled 337 prompts the difference is \N{st@h@d@ir} \N{st@h@ci@ir} on ImageReward (Holm $p=\N{st@h@p@ir}$) and \N{st@h@d@pick} \N{st@h@ci@pick} on PickScore (Holm $p=\N{st@h@p@pick}$). H2 states that the allocation raises full-frame MUSIQ on the 150 fresh prompts; the difference is \N{st@h@d@musiq} \N{st@h@ci@musiq} (Holm $p=\N{st@h@p@musiq}$). The registered outcome is \emph{\N{st@h@H1}} for H1 and \emph{\N{st@h@H2}} for H2 (\cref{tab:strengthen-fresh-tests}, \cref{fig:fs-confirm}). The pooled set reuses 187 prompts we had already inspected, so H1 extends rather than independently confirms the earlier tie; the fresh-only estimates appear separately in \cref{fig:fs-confirm}. We withdrew H3 before generation, because its two controllers had already failed with tight intervals.
-\fi
 
-\ifcsname N@st@done@E1\endcsname
-\paragraph{Baselines on fresh prompts}
-\Cref{tab:strengthen-fresh-arms} repeats the main comparison on the fresh prompts. Against \segaofficial, ImageReward differs by \N{st@e@d@dype@ir} \N{st@e@ci@dype@ir} for \dype, \N{st@e@d@ntk@ir} \N{st@e@ci@ntk@ir} for \ntk, \N{st@e@d@segabase@ir} \N{st@e@ci@segabase@ir} for the \sega{} base alone and \N{st@e@d@ntktemp@ir} \N{st@e@ci@ntktemp@ir} for \ntk{} with the temperature. Holm marks refer to the 50 fresh secondary tests.
-\fi
+\input{tables/float_strengthen_fresh_tests}
 
-\ifcsname N@st@done@E2\endcsname
-\paragraph{Seeds}
-Averaging seeds 0, 1 and 2 within each held-out prompt ($n=187$ prompts, not 561 images), \tempsb{} minus \segaofficial{} is \N{st@rseeds012@d@tsb@ir} \N{st@rseeds012@ci@tsb@ir} on ImageReward, \N{st@rseeds012@d@tsb@pick} \N{st@rseeds012@ci@tsb@pick} on PickScore and \N{st@rseeds012@d@tsb@musiq} \N{st@rseeds012@ci@tsb@musiq} on full-frame MUSIQ (\cref{tab:strengthen-seeds}). Seeds 1 and 2 alone give \N{st@rseeds12@d@tsb@ir} \N{st@rseeds12@ci@tsb@ir} on ImageReward.
-\fi
+\paragraph{Registered tests: equivalence and the MUSIQ gain hold}
+H1 states that \tempsb{} is equivalent to \segaofficial{} on ImageReward (margin $\pm0.082$, half of \segaofficial's held-out gain over \dype) and on PickScore (margin $\pm0.10$). On the pooled 337 prompts the differences are \N{st@h@d@ir} \N{st@h@ci@ir} on ImageReward and \N{st@h@d@pick} \N{st@h@ci@pick} on PickScore, with Holm-adjusted equivalence $p=\N{st@h@p@ir}$ and $p=\N{st@h@p@pick}$. H2 states that the allocation raises full-frame MUSIQ on the 150 fresh prompts, where the difference is \N{st@h@d@musiq} \N{st@h@ci@musiq} (Holm $p=\N{st@h@p@musiq}$). The registered outcome is \emph{\N{st@h@H1}} for H1 and \emph{\N{st@h@H2}} for H2 (\cref{tab:strengthen-fresh-tests,fig:fs-confirm}). The pooled set reuses the 187 held-out prompts we had already inspected, so H1 extends the earlier tie rather than confirming it independently. On the fresh prompts alone, PickScore differs by \N{st@hf@d@pick} \N{st@hf@ci@pick}; this interval crosses the $-0.10$ margin, so fresh-only equivalence is \N{st@hf@status@pick}. ImageReward stays inside its margin there (\N{st@hf@d@ir} \N{st@hf@ci@ir}). We withdrew H3 before generation because its two controllers had already lost with tight intervals.
 
-\ifcsname N@st@done@ckptmatrix\endcsname
-\paragraph{Checkpoint at matched guidance}
-The dot lattice that led us to \krea{} could have come from guidance, since the earlier comparison ran \fluxdev{} at 3.5 and \krea{} at 4.5. With the official \dype{} code at matched guidance, \fluxdev{} carries \N{st@k@ratio@g3p5}$\times$ \N{st@k@ci@g3p5} the \krea{} lattice power at 3.5 and \N{st@k@ratio@g4p5}$\times$ \N{st@k@ci@g4p5} at 4.5 (8 development prompts, \cref{tab:strengthen-ckpt}). On a bin chosen jointly for all four cells, raising guidance from 3.5 to 4.5 scales the \fluxdev{} lattice by \N{st@k@two@gdev}$\times$ \N{st@k@twoci@gdev} and \krea's by \N{st@k@two@gkrea}$\times$ \N{st@k@twoci@gkrea}. Guidance modulates the lattice, but the checkpoint gap remains at both values. These are development prompts and a descriptive diagnostic.
-\fi
+\paragraph{Fresh prompts reproduce the held-out ranking}
+On the fresh prompts (\cref{tab:strengthen-fresh-arms}), ImageReward differs from \segaofficial{} by \N{st@e@d@ntk@ir} for \ntk, \N{st@e@d@segabase@ir} for the \sega{} base alone, \N{st@e@d@dype@ir} for \dype{} and \N{st@e@d@ntktemp@ir} \N{st@e@ci@ntktemp@ir} for \ntk{} with the temperature. As on the held-out set, \dype{} beats \segaofficial{} under Holm on crop MUSIQ (\N{st@e@d@dype@musiqc} \N{st@e@ci@dype@musiqc}) and CLIP-IQA (\N{st@e@d@dype@iqa}) while losing on ImageReward and PickScore (\N{st@e@d@dype@pick}). Both temperature arms trail \segaofficial{} on PickScore here, by \N{st@e@a@tsb@pick} on the \sega{} base and \N{st@e@a@ntktemp@pick} on the \ntk{} base. The held-out factorial showed no such gap, and the pooled H1 test averages over it. \N{st@e@nholm} of the 50 fresh secondary tests survive Holm.
+
+\paragraph{Three seeds per prompt agree}
+Averaging seeds 0, 1 and 2 within each held-out prompt ($n=187$ prompts, not 561 images), \tempsb{} minus \segaofficial{} is \N{st@rseeds012@d@tsb@ir} \N{st@rseeds012@ci@tsb@ir} on ImageReward, \N{st@hr@d@pick} \N{st@hr@ci@pick} on PickScore and \N{st@rseeds012@d@tsb@musiq} \N{st@rseeds012@ci@tsb@musiq} on full-frame MUSIQ (\cref{tab:strengthen-seeds}). Seeds 1 and 2 alone give \N{st@rseeds12@d@tsb@ir} \N{st@rseeds12@ci@tsb@ir} on ImageReward and \N{st@rseeds12@d@tsb@musiq} \N{st@rseeds12@ci@tsb@musiq} on full-frame MUSIQ. Each seed on its own also places the full-frame MUSIQ interval below zero.
+
+\paragraph{The lattice is a checkpoint effect}
+The dot lattice that led us to \krea{} could have come from guidance, since the earlier comparison ran \fluxdev{} at 3.5 and \krea{} at 4.5. With the official \dype{} code at matched guidance, \fluxdev{} carries \N{st@k@ratio@g3p5}$\times$ \N{st@k@ci@g3p5} the \krea{} lattice power at 3.5 and \N{st@k@ratio@g4p5}$\times$ \N{st@k@ci@g4p5} at 4.5 (8 development prompts, seed 42; \cref{tab:strengthen-ckpt}). On one bin chosen jointly for all four cells, raising guidance from 3.5 to 4.5 scales the \fluxdev{} lattice by \N{st@k@two@gdev}$\times$ \N{st@k@twoci@gdev} and the \krea{} lattice by \N{st@k@two@gkrea}$\times$ \N{st@k@twoci@gkrea}. Guidance modulates the lattice on \fluxdev, but the checkpoint gap remains at both values. \fluxdev{} also scores lower on ImageReward at both guidance values (\N{st@k@d@devminuskreag3p5@ir} at 3.5 and \N{st@k@d@devminuskreag4p5@ir} at 4.5). This is a descriptive development diagnostic.
+
+\paragraph{The default flow shift degrades 4K samples}
+The diffusers default extrapolates the flow shift to $\mu=11.55$ at $4096^2$, so the last model call sees $\sigma=\N{st@ds@sig@def}$; the official cap $\mu=1.15$ makes \N{st@ds@low@off} calls below $\sigma=0.3$ and ends at $\sigma=\N{st@ds@sig@off}$. On \N{st@ds@n} development prompts with \segaofficial{}, the default shift changes ImageReward by \N{st@ds@d@def@ir} \N{st@ds@ci@def@ir} and full-frame MUSIQ by \N{st@ds@d@def@musiq} \N{st@ds@ci@def@musiq}, and it worsens all ten metrics (\cref{tab:strengthen-default-shift}). Comparisons that mix the two schedules therefore confound the position embedding with sampling.
 
 \paragraph{Second model family}
-The registered Qwen-Image transfer test did not run. All 60 generation tasks failed with CUDA out-of-memory errors while a second process held about 45\,GiB of the same 95\,GiB GPU, and a clean rerun did not fit the remaining compute budget. We therefore make no claim about other model families.
+The registered Qwen-Image transfer test did not run. All 60 of its generation tasks failed with CUDA out-of-memory errors while a second process held about 45\,GiB of the same 95\,GiB GPU. A clean rerun did not fit the remaining compute budget. We therefore make no claim about other model families.

@@ -1,0 +1,15 @@
+{
+  "expected_samples": 900,
+  "observed_samples": 900,
+  "missing_samples": [],
+  "invalid_metrics": [],
+  "complete": true,
+  "source_issues": [],
+  "source_exclusions": [
+    {
+      "source": "fresh",
+      "counts": {}
+    }
+  ],
+  "descriptive_omissions": []
+}

@@ -1,0 +1,29 @@
+{
+  "expected_samples": 275,
+  "observed_samples": 275,
+  "missing_samples": [],
+  "invalid_metrics": [],
+  "complete": true,
+  "source_issues": [],
+  "source_exclusions": [
+    {
+      "source": "factorial",
+      "counts": {
+        "method_not_in_source_allowlist": 187,
+        "registered_dev_exclusion": 132
+      }
+    },
+    {
+      "source": "mainsb",
+      "counts": {
+        "method_not_in_source_allowlist": 188,
+        "registered_dev_exclusion": 133
+      }
+    },
+    {
+      "source": "tsweep",
+      "counts": {}
+    }
+  ],
+  "descriptive_omissions": []
+}

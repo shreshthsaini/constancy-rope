@@ -1,0 +1,11 @@
+contrast,metric,weights,higher_is_better,n,mean,ci_low,ci_high
+default_minus_official_shift,imagereward,"{""sega_default_shift"": 1, ""sega_official"": -1}",True,8,-3.7013992500000001,-3.9587148249999999,-3.4193496625000002
+default_minus_official_shift,pickscore,"{""sega_default_shift"": 1, ""sega_official"": -1}",True,8,-6.2206860780715942,-7.1082064330577861,-5.4215915918350222
+default_minus_official_shift,clip,"{""sega_default_shift"": 1, ""sega_official"": -1}",True,8,-15.701586008071899,-18.548681855201721,-12.646177172660828
+default_minus_official_shift,musiq,"{""sega_default_shift"": 1, ""sega_official"": -1}",True,8,-20.049346923828125,-24.683734655380249,-13.861391556262978
+default_minus_official_shift,musiq_crop1024,"{""sega_default_shift"": 1, ""sega_official"": -1}",True,8,-24.419428527355194,-29.714196859300138,-19.390951141715053
+default_minus_official_shift,clipiqa,"{""sega_default_shift"": 1, ""sega_official"": -1}",True,8,-0.18007763475179672,-0.26938003227114676,-0.079841841012239442
+default_minus_official_shift,clipiqa_crop1024,"{""sega_default_shift"": 1, ""sega_official"": -1}",True,8,-0.20804078923538327,-0.26646893769502639,-0.1460287839290686
+default_minus_official_shift,spectrum_log_rmse,"{""sega_default_shift"": 1, ""sega_official"": -1}",False,8,2.0493202365855607,1.4100071418714371,2.7057915697414958
+default_minus_official_shift,spectrum_slope_error,"{""sega_default_shift"": 1, ""sega_official"": -1}",False,8,0.3997813754329762,0.25594977436470717,0.54164836323148202
+default_minus_official_shift,tiling1024,"{""sega_default_shift"": 1, ""sega_official"": -1}",False,8,0.043504305972240628,0.025867261525294935,0.064584813047151038

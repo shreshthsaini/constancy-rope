@@ -1,0 +1,40 @@
+{
+  "expected_samples": 1122,
+  "observed_samples": 1122,
+  "missing_samples": [],
+  "invalid_metrics": [],
+  "complete": true,
+  "source_issues": [],
+  "source_exclusions": [
+    {
+      "source": "main",
+      "counts": {
+        "method_not_in_source_allowlist": 439,
+        "registered_dev_exclusion": 8
+      }
+    },
+    {
+      "source": "mainsb",
+      "counts": {
+        "method_not_in_source_allowlist": 188,
+        "registered_dev_exclusion": 1
+      }
+    },
+    {
+      "source": "seed1",
+      "counts": {
+        "method_not_in_source_allowlist": 56,
+        "registered_dev_exclusion": 2
+      }
+    },
+    {
+      "source": "seeds_seed1",
+      "counts": {}
+    },
+    {
+      "source": "seeds_seed2",
+      "counts": {}
+    }
+  ],
+  "descriptive_omissions": []
+}

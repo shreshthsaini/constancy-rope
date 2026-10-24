@@ -1,0 +1,13 @@
+{
+  "block": "ckpt_matrix",
+  "complete": true,
+  "expected_images": 32,
+  "groups": {
+    "ckpt_matrix": {
+      "complete": true,
+      "rows": 32,
+      "sharded": false,
+      "merge_receipt": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/ckpt_matrix/merge_receipt.json"
+    }
+  }
+}

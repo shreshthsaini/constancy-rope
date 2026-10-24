@@ -1,0 +1,13 @@
+{
+  "block": "tsweep",
+  "complete": true,
+  "expected_images": 165,
+  "groups": {
+    "tsweep": {
+      "complete": true,
+      "rows": 165,
+      "sharded": false,
+      "merge_receipt": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/tsweep/merge_receipt.json"
+    }
+  }
+}

@@ -31,10 +31,10 @@ import crope_style as cs
 ROOT = HERE.parents[2]
 ANALYSIS = ROOT / ".agent/notes/strengthen/analysis"
 # (label, source, hypotheses-json analysis key or None for the pooled family)
-ROWS = [("Held-out", "E2", "seed0"), ("Fresh", "E1", "seed0"),
-        ("Pooled", "E1", None), ("Held-out, 3 seeds", "E2", "seeds012")]
+ROWS = [("Pooled", "E1", None), ("Fresh", "E1", "seed0"),
+        ("Held-out", "E2", "seed0"), ("Held-out, 3 seeds", "E2", "seeds012")]
 PANELS = [("H1_IR", "imagereward", "Δ ImageReward"), ("H1_Pick", "pickscore", "Δ PickScore"),
-          ("H2_MUSIQ", "musiq", "Δ MUSIQ, SEGA − temp.")]
+          ("H2_MUSIQ", "musiq", "Δ MUSIQ, allocation")]
 
 
 def family(analysis, block, key):
@@ -75,7 +75,13 @@ def main():
             if r.get("margin") is not None and not pd.isna(r.get("margin")):
                 margin = float(r["margin"])
         if margin is not None:
+            # Margin band with visible edges; the x range always shows both edges and every interval.
             ax.axvspan(-margin, margin, color=cs.PANEL, zorder=0, lw=0)
+            for edge in (-margin, margin):
+                ax.axvline(edge, color=cs.GRAY, lw=0.6, ls=(0, (1.5, 1.5)), zorder=1)
+            reach = max([margin] + [abs(v) for _, fam in data for k in ("lo", "hi")
+                                    for v in [fam.get(hyp, {}).get(k)] if v is not None and not pd.isna(v)])
+            ax.set_xlim(-1.18 * reach, 1.18 * reach)
         ax.axvline(0, color=cs.INK2, lw=0.6, ls=(0, (3.0, 1.8)), zorder=1)
         cs.clean_axes(ax, grid="x")
         ax.set_xlabel(xlabel)

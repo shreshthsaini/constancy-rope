@@ -1,0 +1,62 @@
+{
+ "written": "2026-10-24",
+ "author": "strengthening analyst (Claude Opus 5.5 subagent)",
+ "independent_recomputation": {
+  "script": "independent_check.py (imports nothing from the project)",
+  "sources": "raw eval_krea per_image.csv and ImageReward CSVs on scratch; historical pooled H1 rows from eval_krea/main and mainsb, not heldout_per_prompt.csv",
+  "bootstrap": "numpy default_rng(0).integers, 2000 draws, percentile 2.5/97.5 linear",
+  "comparison_with_analysis_exports": {
+   "P1_factorial": {
+    "cells": 80,
+    "max_abs_diff": 3.552713678800501e-15
+   },
+   "P3_sweep": {
+    "cells": 40,
+    "max_abs_diff": 7.105427357601002e-15
+   },
+   "E1_fresh_arms": {
+    "cells": 50,
+    "max_abs_diff": 1.7763568394002505e-15
+   },
+   "E2_seeds012": {
+    "cells": 10,
+    "max_abs_diff": 2.220446049250313e-16
+   },
+   "E2_seeds12": {
+    "cells": 10,
+    "max_abs_diff": 2.220446049250313e-16
+   },
+   "E2_seed0": {
+    "cells": 10,
+    "max_abs_diff": 1.9081958235744878e-16
+   },
+   "E2_seed1": {
+    "cells": 10,
+    "max_abs_diff": 4.440892098500626e-16
+   },
+   "E2_seed2": {
+    "cells": 10,
+    "max_abs_diff": 1.8735013540549517e-16
+   },
+   "registered_family": {
+    "H1_IR": 1.3118846287074604e-16,
+    "H1_Pick": 1.3530843112619095e-16,
+    "H2_MUSIQ": 2.220446049250313e-16
+   }
+  }
+ },
+ "macro_crosscheck": {
+  "n_checks": 71,
+  "n_ok": 71,
+  "failures": [],
+  "pdf_text_found": 67,
+  "pdf_text_checked": 69,
+  "pdf_text_missing": [
+   "st@sm@t110@musiqc",
+   "st@sm@tlogn@musiqc"
+  ]
+ },
+ "pdf_text_missing_reason": "sweep crop-MUSIQ means at 1.1 and 4/3 are macros the paper does not print (the sweep table shows differences there)",
+ "evaluator_provenance": "versions, model_revisions and metric_schema identical in eval_krea/main, strengthen/factorial and strengthen/tsweep metrics.json",
+ "scratch_build": "paper copy with INTEGRATION.md steps applied compiles with tectonic: no overfull box, no undefined reference from the new files; one pre-existing ?? from \\Cref{tab:papercode_scores} in sec/appendix_figs.tex (label absent)"
+}

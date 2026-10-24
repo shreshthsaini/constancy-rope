@@ -1,0 +1,13 @@
+{
+  "block": "default_shift",
+  "complete": true,
+  "expected_images": 8,
+  "groups": {
+    "default_shift": {
+      "complete": true,
+      "rows": 8,
+      "sharded": false,
+      "merge_receipt": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/default_shift/merge_receipt.json"
+    }
+  }
+}

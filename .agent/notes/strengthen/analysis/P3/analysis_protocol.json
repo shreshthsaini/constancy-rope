@@ -1,0 +1,209 @@
+{
+  "created_utc": "2026-10-24T13:31:57.831696+00:00",
+  "design": {
+    "block": "P3",
+    "methods": [
+      "tau1p0",
+      "tau1p1",
+      "tau_sref",
+      "tau_logn",
+      "tau1p45"
+    ],
+    "seeds": [
+      0
+    ],
+    "prompt_ids": [
+      "a4k_eval_4096_880657115260655727",
+      "a4k_eval_4096_minus2014927182109364975",
+      "a4k_eval_4096_1516768667427572324",
+      "a4k_eval_4096_minus4012780704267384036",
+      "a4k_eval_4096_820801809737345747",
+      "a4k_eval_4096_1594791064055740275",
+      "a4k_eval_4096_minus702025498990232048",
+      "a4k_eval_4096_minus5805253890620089726",
+      "a4k_eval_4096_minus9196631274539277035",
+      "a4k_eval_4096_1046736963520652161",
+      "a4k_eval_4096_3943607367684487957",
+      "a4k_eval_4096_minus5673083787255800687",
+      "a4k_eval_4096_minus5685677173773420545",
+      "a4k_eval_4096_minus2712631331773394876",
+      "a4k_eval_4096_minus6493435680635123221",
+      "a4k_eval_4096_minus7393293802729135153",
+      "a4k_eval_4096_minus2729538226706404616",
+      "a4k_eval_4096_minus8032855769722351595",
+      "a4k_eval_4096_6066373865342273390",
+      "a4k_eval_4096_1041106339713796826",
+      "a4k_eval_4096_minus8737279395568207187",
+      "a4k_eval_4096_334788259750040356",
+      "a4k_eval_4096_7543519915112968451",
+      "a4k_eval_4096_7637161027288029693",
+      "a4k_eval_4096_5826245701465116957",
+      "a4k_eval_4096_minus1017950324987649681",
+      "a4k_eval_4096_7009273464006889449",
+      "a4k_eval_4096_minus2679953061215100202",
+      "a4k_eval_4096_minus4469448794852185540",
+      "a4k_eval_4096_minus263777997664289445",
+      "a4k_eval_4096_8020030205210970395",
+      "a4k_eval_4096_4525259556400020626",
+      "a4k_eval_4096_1139740195494332405",
+      "a4k_eval_4096_9082507599514684465",
+      "a4k_eval_4096_3826098298648979216",
+      "a4k_eval_4096_minus680414676224257344",
+      "a4k_eval_4096_8065862701789418887",
+      "a4k_eval_4096_minus3145908358244441177",
+      "a4k_eval_4096_1638867997226496674",
+      "a4k_eval_4096_3667310823951382336",
+      "a4k_eval_4096_minus2857555394095239941",
+      "a4k_eval_4096_minus2447481760626661988",
+      "a4k_eval_4096_3305730548209556640",
+      "a4k_eval_4096_924453187493270635",
+      "a4k_eval_4096_minus7320315357894569493.Jpg",
+      "a4k_eval_4096_minus3130703310573987496",
+      "a4k_eval_4096_minus6858649860006634381",
+      "a4k_eval_4096_11799097571596124",
+      "a4k_eval_4096_6978695891801939003",
+      "a4k_eval_4096_60170519444801447",
+      "a4k_eval_4096_minus493587068337986360",
+      "a4k_eval_4096_8899498425633254014",
+      "a4k_eval_4096_6068056094592774588",
+      "a4k_eval_4096_7961019668960160206",
+      "a4k_eval_4096_minus7918457735894026443"
+    ],
+    "metrics": [
+      "imagereward",
+      "pickscore",
+      "clip",
+      "musiq",
+      "musiq_crop1024",
+      "clipiqa",
+      "clipiqa_crop1024",
+      "spectrum_log_rmse",
+      "spectrum_slope_error",
+      "tiling1024"
+    ],
+    "resolution": "4096x4096"
+  },
+  "protocol_version": "senior_review_20261019",
+  "confirmatory_family_size": 3,
+  "complete": true,
+  "bootstrap_draws": 2000,
+  "bootstrap_seed": 0,
+  "fresh_rng_each_contrast": true,
+  "float_dtype": "float64",
+  "percentile_method": "linear",
+  "percentiles": [
+    2.5,
+    97.5
+  ],
+  "unit": "prompt",
+  "source_files": [
+    {
+      "role": "analysis_source",
+      "source": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/scripts/strengthen_analysis.py",
+      "sha256": "50004777ac132453c9550d2bff5ece9694f0ceb8024416c68e35f2c2b1c6476c",
+      "snapshot": "inputs/50004777ac132453c9550d2bff5ece9694f0ceb8024416c68e35f2c2b1c6476c_strengthen_analysis.py"
+    },
+    {
+      "role": "source_manifest",
+      "source": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/strengthen/analysis_P3.json",
+      "sha256": "c17f8754bda621b740f5e77737311d323032bafbad518c3a63d7e26cc83eafe1",
+      "snapshot": "inputs/c17f8754bda621b740f5e77737311d323032bafbad518c3a63d7e26cc83eafe1_analysis_P3.json"
+    },
+    {
+      "role": "prompts",
+      "source": "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl",
+      "sha256": "ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1",
+      "snapshot": "inputs/ce10315688d5cfd70824cd88fe9f2332a8bd1f3ccb056d3a1315227408a4f8f1_aesthetic4k_eval.jsonl"
+    },
+    {
+      "role": "preregistration",
+      "source": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/prereg_strengthen.md",
+      "sha256": "0aeaeb4b06b01486f3a1d42476b2841f1a1c73665ed7ebad306e9ec674a3780e",
+      "snapshot": "inputs/0aeaeb4b06b01486f3a1d42476b2841f1a1c73665ed7ebad306e9ec674a3780e_prereg_strengthen.md"
+    },
+    {
+      "role": "factorial:artifact",
+      "source": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/factorial/metrics.json",
+      "sha256": "c15499330745b37cca92be4578b56c65014b267263b80e4b33e859a2e95a229d",
+      "snapshot": "inputs/c15499330745b37cca92be4578b56c65014b267263b80e4b33e859a2e95a229d_metrics.json"
+    },
+    {
+      "role": "factorial:artifact",
+      "source": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/factorial/summary.csv",
+      "sha256": "5aa0377f3498c26d1a2d3277a4f73bb32fbe6981c007308a81b04c6ccad666ce",
+      "snapshot": "inputs/5aa0377f3498c26d1a2d3277a4f73bb32fbe6981c007308a81b04c6ccad666ce_summary.csv"
+    },
+    {
+      "role": "factorial:per_image",
+      "source": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/factorial/per_image.csv",
+      "sha256": "31cdb229479ec440a68f7bded414f4d989d7779721abc51e7366985695c846be",
+      "snapshot": "inputs/31cdb229479ec440a68f7bded414f4d989d7779721abc51e7366985695c846be_per_image.csv"
+    },
+    {
+      "role": "factorial:imagereward",
+      "source": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/factorial/ir.csv",
+      "sha256": "9d8868e98e31e30612b4827fcb506305d7df0a62c38e8cb84fb14f545737fb39",
+      "snapshot": "inputs/9d8868e98e31e30612b4827fcb506305d7df0a62c38e8cb84fb14f545737fb39_ir.csv"
+    },
+    {
+      "role": "mainsb:artifact",
+      "source": "/scratch/09032/saini_2/constancy_rope/eval_krea/mainsb/metrics.json",
+      "sha256": "ae1a4eeb856f6a757edce626db8ca9cb95a0aed9495ef4a8291dc799398c20f5",
+      "snapshot": "inputs/ae1a4eeb856f6a757edce626db8ca9cb95a0aed9495ef4a8291dc799398c20f5_metrics.json"
+    },
+    {
+      "role": "mainsb:artifact",
+      "source": "/scratch/09032/saini_2/constancy_rope/eval_krea/mainsb/summary.csv",
+      "sha256": "ba2d39cc204b93434224e26c82719699b36b50eb9492529f98d45016f18a797a",
+      "snapshot": "inputs/ba2d39cc204b93434224e26c82719699b36b50eb9492529f98d45016f18a797a_summary.csv"
+    },
+    {
+      "role": "mainsb:per_image",
+      "source": "/scratch/09032/saini_2/constancy_rope/eval_krea/mainsb/per_image.csv",
+      "sha256": "c6e8b315138fa81ddfefff315186c403c6236ee99f7a429523dee38fc4d46c7f",
+      "snapshot": "inputs/c6e8b315138fa81ddfefff315186c403c6236ee99f7a429523dee38fc4d46c7f_per_image.csv"
+    },
+    {
+      "role": "mainsb:imagereward",
+      "source": "/scratch/09032/saini_2/constancy_rope/eval_krea/ir/mainsb.csv",
+      "sha256": "6c36743b7f53195a83eea23dca5c425e92d6441405e28166274c0422ffc17b0a",
+      "snapshot": "inputs/6c36743b7f53195a83eea23dca5c425e92d6441405e28166274c0422ffc17b0a_mainsb.csv"
+    },
+    {
+      "role": "tsweep:artifact",
+      "source": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/tsweep/metrics.json",
+      "sha256": "97c4901bd1236a50c4ba1626634acf65ea5dbe36c891d6aa211c1d83402ebd8c",
+      "snapshot": "inputs/97c4901bd1236a50c4ba1626634acf65ea5dbe36c891d6aa211c1d83402ebd8c_metrics.json"
+    },
+    {
+      "role": "tsweep:artifact",
+      "source": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/tsweep/summary.csv",
+      "sha256": "d531f24c0bb13a533122765ccf34c4a4737fdc5f9439f66ed047c3228a8c8215",
+      "snapshot": "inputs/d531f24c0bb13a533122765ccf34c4a4737fdc5f9439f66ed047c3228a8c8215_summary.csv"
+    },
+    {
+      "role": "tsweep:per_image",
+      "source": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/tsweep/per_image.csv",
+      "sha256": "859a795019ca3dc6ed0a1c618ea61d2836d4a294d32e4ec24e8adf745732ce12",
+      "snapshot": "inputs/859a795019ca3dc6ed0a1c618ea61d2836d4a294d32e4ec24e8adf745732ce12_per_image.csv"
+    },
+    {
+      "role": "tsweep:imagereward",
+      "source": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/tsweep/ir.csv",
+      "sha256": "7a99061eeba96525251a934a6dd1ee79f0a6ae1fe5b991f50bd6129cbefa32cd",
+      "snapshot": "inputs/7a99061eeba96525251a934a6dd1ee79f0a6ae1fe5b991f50bd6129cbefa32cd_ir.csv"
+    }
+  ],
+  "analysis_source_sha256": "50004777ac132453c9550d2bff5ece9694f0ceb8024416c68e35f2c2b1c6476c",
+  "canonical_sha256": "b34843272591f532083b1de13f2b1109667bc89456ad9f20589d3bfca6a9a2a7",
+  "config_provenance_sha256": "da2a730f805b0d80c302865fbbcb2b42ec005ee5f44a21d4b410b06fa98b5ebc",
+  "p_values": "Approximate centered paired-bootstrap with plus-one tail correction; Holm within fixed families",
+  "limitations": [
+    "Intervals remain nominal95; Holm-adjusted p marks reported separately",
+    "Centered bootstrap tests are approximate, not exact finite-sample inference",
+    "All families outside pooled H1 and fresh H2 are exploratory",
+    "Incomplete blocks have descriptive complete-pair tables only",
+    "Recorded PNG hash retained; analysis checks header and config, not full PNG hash",
+    "FID/KID remain descriptive in archived evaluator artifacts"
+  ]
+}

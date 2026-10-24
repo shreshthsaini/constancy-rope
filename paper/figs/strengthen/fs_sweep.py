@@ -27,7 +27,7 @@ import crope_style as cs
 ROOT = HERE.parents[2]
 P3 = ROOT / ".agent/notes/strengthen/analysis/P3"
 TAU = {"tau1p0": 1.0, "tau1p1": 1.1, "tau_sref": 4 ** 0.16, "tau_logn": 4 / 3, "tau1p45": 1.45}
-PANELS = ["imagereward", "pickscore", "musiq"]
+PANELS = ["imagereward", "pickscore", "musiq", "musiq_crop1024"]
 FADE = 0.60
 
 
@@ -65,9 +65,9 @@ def main():
         cs.clean_axes(ax, grid="y")
         ax.set_xlabel("Logit multiplier")
         ax.set_ylabel("Δ " + cs.metric_label(metric))
-        ax.set_xticks([1.0, 1.1, 1.2, 1.3, 1.4])
+        ax.set_xticks([1.0, 1.2, 1.4])
         ax.locator_params(axis="y", nbins=4)
-    fig.subplots_adjust(left=0.09, right=0.99, bottom=0.26, top=0.96, wspace=0.42)
+    fig.subplots_adjust(left=0.09, right=0.99, bottom=0.26, top=0.96, wspace=0.6)
     cs.finish(fig, a.stem)
 
 

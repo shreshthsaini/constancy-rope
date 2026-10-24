@@ -1,0 +1,13 @@
+{
+  "block": "factorial",
+  "complete": true,
+  "expected_images": 374,
+  "groups": {
+    "factorial": {
+      "complete": true,
+      "rows": 374,
+      "sharded": true,
+      "merge_receipt": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/factorial/merge_receipt.json"
+    }
+  }
+}

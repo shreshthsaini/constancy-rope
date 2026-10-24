@@ -7,7 +7,7 @@ Input (work, read only): .agent/notes/strengthen/analysis/P1/contrasts_holm.csv 
 (held-out rows 8-194, seed 0, paired prompt bootstrap, 2,000 draws, seed 0, nominal 95% CI). Nothing is recomputed.
 Rows: base main effect (SEGA base minus NTK base, averaged over temperature), temperature main effect (s^0.16 minus
 none, averaged over base), base x temperature interaction, and the allocation contrast (SEGA released minus SEGA
-base + temp.). Panels: the three primary metrics. A mark is pale when its interval covers zero. Refuses to draw an
+base + temp.). Panels: the three primary metrics and crop MUSIQ. A mark is pale when its interval covers zero. Refuses to draw an
 incomplete block unless --allow-incomplete is given (layout tests write to the scratchpad only).
 """
 import argparse
@@ -29,7 +29,7 @@ ROOT = HERE.parents[2]
 P1 = ROOT / ".agent/notes/strengthen/analysis/P1"
 ROWS = [("base_main_effect", "Base", cs.INK), ("temperature_main_effect", "Temperature", cs.TEMP),
         ("interaction", "Base × temp.", cs.GRAY), ("allocation", "Allocation", cs.METHOD)]
-PANELS = ["imagereward", "pickscore", "musiq"]
+PANELS = ["imagereward", "pickscore", "musiq", "musiq_crop1024"]
 FADE = 0.60
 
 
@@ -63,11 +63,11 @@ def main():
         ax.locator_params(axis="x", nbins=4)
     axes[0].set_yticks(range(len(ROWS)))
     axes[0].set_yticklabels([r[1] for r in ROWS][::-1])
-    axes[0].set_ylabel("Contrast")
     axes[0].set_ylim(-0.6, len(ROWS) - 0.4)
+    axes[0].set_ylabel("Contrast")
     for ax in axes[1:]:
         ax.tick_params(axis="y", length=0)
-    fig.subplots_adjust(left=0.17, right=0.99, bottom=0.27, top=0.97, wspace=0.12)
+    fig.subplots_adjust(left=0.155, right=0.99, bottom=0.27, top=0.97, wspace=0.14)
     cs.finish(fig, a.stem)
 
 

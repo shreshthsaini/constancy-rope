@@ -1,0 +1,510 @@
+{
+ "n_checks": 71,
+ "n_ok": 71,
+ "failures": [],
+ "pdf_text_found": 67,
+ "pdf_text_checked": 69,
+ "pdf_text_missing": [
+  "st@sm@t110@musiqc",
+  "st@sm@tlogn@musiqc"
+ ],
+ "checks": [
+  {
+   "check": "factorial temperature_main_effect imagereward delta",
+   "macro": "st@f@d@temp@ir",
+   "macro_value": "+0.594",
+   "csv_value": "+0.594",
+   "ok": true
+  },
+  {
+   "check": "factorial temperature_main_effect imagereward CI",
+   "macro": "st@f@ci@temp@ir",
+   "macro_value": "[+0.506, +0.686]",
+   "csv_value": "[+0.506, +0.686]",
+   "ok": true
+  },
+  {
+   "check": "factorial temperature_main_effect musiq delta",
+   "macro": "st@f@d@temp@musiq",
+   "macro_value": "+13.45",
+   "csv_value": "+13.45",
+   "ok": true
+  },
+  {
+   "check": "factorial temperature_main_effect musiq CI",
+   "macro": "st@f@ci@temp@musiq",
+   "macro_value": "[+11.96, +15.11]",
+   "csv_value": "[+11.96, +15.11]",
+   "ok": true
+  },
+  {
+   "check": "factorial temperature_main_effect pickscore delta",
+   "macro": "st@f@d@temp@pick",
+   "macro_value": "+1.04",
+   "csv_value": "+1.04",
+   "ok": true
+  },
+  {
+   "check": "factorial temperature_main_effect pickscore CI",
+   "macro": "st@f@ci@temp@pick",
+   "macro_value": "[+0.92, +1.16]",
+   "csv_value": "[+0.92, +1.16]",
+   "ok": true
+  },
+  {
+   "check": "factorial base_main_effect imagereward delta",
+   "macro": "st@f@d@base@ir",
+   "macro_value": "+0.027",
+   "csv_value": "+0.027",
+   "ok": true
+  },
+  {
+   "check": "factorial base_main_effect imagereward CI",
+   "macro": "st@f@ci@base@ir",
+   "macro_value": "[-0.003, +0.056]",
+   "csv_value": "[-0.003, +0.056]",
+   "ok": true
+  },
+  {
+   "check": "factorial base_main_effect musiq delta",
+   "macro": "st@f@d@base@musiq",
+   "macro_value": "+0.20",
+   "csv_value": "+0.20",
+   "ok": true
+  },
+  {
+   "check": "factorial base_main_effect musiq CI",
+   "macro": "st@f@ci@base@musiq",
+   "macro_value": "[-0.29, +0.72]",
+   "csv_value": "[-0.29, +0.72]",
+   "ok": true
+  },
+  {
+   "check": "factorial base_main_effect pickscore delta",
+   "macro": "st@f@d@base@pick",
+   "macro_value": "+0.02",
+   "csv_value": "+0.02",
+   "ok": true
+  },
+  {
+   "check": "factorial base_main_effect pickscore CI",
+   "macro": "st@f@ci@base@pick",
+   "macro_value": "[-0.03, +0.06]",
+   "csv_value": "[-0.03, +0.06]",
+   "ok": true
+  },
+  {
+   "check": "factorial interaction imagereward delta",
+   "macro": "st@f@d@inter@ir",
+   "macro_value": "-0.018",
+   "csv_value": "-0.018",
+   "ok": true
+  },
+  {
+   "check": "factorial interaction imagereward CI",
+   "macro": "st@f@ci@inter@ir",
+   "macro_value": "[-0.087, +0.047]",
+   "csv_value": "[-0.087, +0.047]",
+   "ok": true
+  },
+  {
+   "check": "factorial interaction musiq delta",
+   "macro": "st@f@d@inter@musiq",
+   "macro_value": "-0.13",
+   "csv_value": "-0.13",
+   "ok": true
+  },
+  {
+   "check": "factorial interaction musiq CI",
+   "macro": "st@f@ci@inter@musiq",
+   "macro_value": "[-1.23, +0.94]",
+   "csv_value": "[-1.23, +0.94]",
+   "ok": true
+  },
+  {
+   "check": "factorial interaction pickscore delta",
+   "macro": "st@f@d@inter@pick",
+   "macro_value": "+0.00",
+   "csv_value": "+0.00",
+   "ok": true
+  },
+  {
+   "check": "factorial interaction pickscore CI",
+   "macro": "st@f@ci@inter@pick",
+   "macro_value": "[-0.07, +0.08]",
+   "csv_value": "[-0.07, +0.08]",
+   "ok": true
+  },
+  {
+   "check": "factorial allocation imagereward delta",
+   "macro": "st@f@d@alloc@ir",
+   "macro_value": "-0.026",
+   "csv_value": "-0.026",
+   "ok": true
+  },
+  {
+   "check": "factorial allocation imagereward CI",
+   "macro": "st@f@ci@alloc@ir",
+   "macro_value": "[-0.068, +0.014]",
+   "csv_value": "[-0.068, +0.014]",
+   "ok": true
+  },
+  {
+   "check": "factorial allocation musiq delta",
+   "macro": "st@f@d@alloc@musiq",
+   "macro_value": "+2.09",
+   "csv_value": "+2.09",
+   "ok": true
+  },
+  {
+   "check": "factorial allocation musiq CI",
+   "macro": "st@f@ci@alloc@musiq",
+   "macro_value": "[+0.97, +3.25]",
+   "csv_value": "[+0.97, +3.25]",
+   "ok": true
+  },
+  {
+   "check": "factorial allocation pickscore delta",
+   "macro": "st@f@d@alloc@pick",
+   "macro_value": "-0.03",
+   "csv_value": "-0.03",
+   "ok": true
+  },
+  {
+   "check": "factorial allocation pickscore CI",
+   "macro": "st@f@ci@alloc@pick",
+   "macro_value": "[-0.09, +0.03]",
+   "csv_value": "[-0.09, +0.03]",
+   "ok": true
+  },
+  {
+   "check": "factorial Holm rejections",
+   "macro": "st@f@nholm",
+   "macro_value": "31",
+   "csv_value": "31",
+   "ok": true
+  },
+  {
+   "check": "H1_IR delta",
+   "macro": "st@h@d@ir",
+   "macro_value": "+0.009",
+   "csv_value": "+0.009",
+   "ok": true
+  },
+  {
+   "check": "H1_IR CI",
+   "macro": "st@h@ci@ir",
+   "macro_value": "[-0.020, +0.041]",
+   "csv_value": "[-0.020, +0.041]",
+   "ok": true
+  },
+  {
+   "check": "H1_IR Holm p",
+   "macro": "st@h@p@ir",
+   "macro_value": "0.0015",
+   "csv_value": "0.0015",
+   "ok": true
+  },
+  {
+   "check": "H1_IR status",
+   "macro": "st@h@status@ir",
+   "macro_value": "supported",
+   "csv_value": "supported",
+   "ok": true
+  },
+  {
+   "check": "H1_Pick delta",
+   "macro": "st@h@d@pick",
+   "macro_value": "-0.017",
+   "csv_value": "-0.017",
+   "ok": true
+  },
+  {
+   "check": "H1_Pick CI",
+   "macro": "st@h@ci@pick",
+   "macro_value": "[-0.059, +0.026]",
+   "csv_value": "[-0.059, +0.026]",
+   "ok": true
+  },
+  {
+   "check": "H1_Pick Holm p",
+   "macro": "st@h@p@pick",
+   "macro_value": "0.0015",
+   "csv_value": "0.0015",
+   "ok": true
+  },
+  {
+   "check": "H1_Pick status",
+   "macro": "st@h@status@pick",
+   "macro_value": "supported",
+   "csv_value": "supported",
+   "ok": true
+  },
+  {
+   "check": "H2_MUSIQ delta",
+   "macro": "st@h@d@musiq",
+   "macro_value": "+1.56",
+   "csv_value": "+1.56",
+   "ok": true
+  },
+  {
+   "check": "H2_MUSIQ CI",
+   "macro": "st@h@ci@musiq",
+   "macro_value": "[+0.43, +2.72]",
+   "csv_value": "[+0.43, +2.72]",
+   "ok": true
+  },
+  {
+   "check": "H2_MUSIQ Holm p",
+   "macro": "st@h@p@musiq",
+   "macro_value": "0.0045",
+   "csv_value": "0.0045",
+   "ok": true
+  },
+  {
+   "check": "H2_MUSIQ status",
+   "macro": "st@h@status@musiq",
+   "macro_value": "supported",
+   "csv_value": "supported",
+   "ok": true
+  },
+  {
+   "check": "fresh dype imagereward",
+   "macro": "st@e@d@dype@ir",
+   "macro_value": "-0.166",
+   "csv_value": "-0.166",
+   "ok": true
+  },
+  {
+   "check": "fresh dype musiq_crop1024",
+   "macro": "st@e@d@dype@musiqc",
+   "macro_value": "+2.32",
+   "csv_value": "+2.32",
+   "ok": true
+  },
+  {
+   "check": "fresh ntk2_sref imagereward",
+   "macro": "st@e@d@ntktemp@ir",
+   "macro_value": "-0.042",
+   "csv_value": "-0.042",
+   "ok": true
+  },
+  {
+   "check": "fresh ntk2_sref musiq_crop1024",
+   "macro": "st@e@d@ntktemp@musiqc",
+   "macro_value": "-0.55",
+   "csv_value": "-0.55",
+   "ok": true
+  },
+  {
+   "check": "fresh temp_only_sbase imagereward",
+   "macro": "st@e@d@tsb@ir",
+   "macro_value": "-0.011",
+   "csv_value": "-0.011",
+   "ok": true
+  },
+  {
+   "check": "fresh temp_only_sbase musiq_crop1024",
+   "macro": "st@e@d@tsb@musiqc",
+   "macro_value": "-0.64",
+   "csv_value": "-0.64",
+   "ok": true
+  },
+  {
+   "check": "seeds seeds012 imagereward",
+   "macro": "st@rseeds012@d@tsb@ir",
+   "macro_value": "+0.021",
+   "csv_value": "+0.021",
+   "ok": true
+  },
+  {
+   "check": "seeds seeds012 imagereward CI",
+   "macro": "st@rseeds012@ci@tsb@ir",
+   "macro_value": "[-0.004, +0.044]",
+   "csv_value": "[-0.004, +0.044]",
+   "ok": true
+  },
+  {
+   "check": "seeds seeds012 musiq",
+   "macro": "st@rseeds012@d@tsb@musiq",
+   "macro_value": "-2.00",
+   "csv_value": "-2.00",
+   "ok": true
+  },
+  {
+   "check": "seeds seeds012 musiq CI",
+   "macro": "st@rseeds012@ci@tsb@musiq",
+   "macro_value": "[-2.74, -1.30]",
+   "csv_value": "[-2.74, -1.30]",
+   "ok": true
+  },
+  {
+   "check": "seeds seeds12 imagereward",
+   "macro": "st@rseeds12@d@tsb@ir",
+   "macro_value": "+0.018",
+   "csv_value": "+0.018",
+   "ok": true
+  },
+  {
+   "check": "seeds seeds12 imagereward CI",
+   "macro": "st@rseeds12@ci@tsb@ir",
+   "macro_value": "[-0.007, +0.042]",
+   "csv_value": "[-0.007, +0.042]",
+   "ok": true
+  },
+  {
+   "check": "seeds seeds12 musiq",
+   "macro": "st@rseeds12@d@tsb@musiq",
+   "macro_value": "-1.96",
+   "csv_value": "-1.96",
+   "ok": true
+  },
+  {
+   "check": "seeds seeds12 musiq CI",
+   "macro": "st@rseeds12@ci@tsb@musiq",
+   "macro_value": "[-2.81, -1.20]",
+   "csv_value": "[-2.81, -1.20]",
+   "ok": true
+  },
+  {
+   "check": "sweep mean 1.0 imagereward",
+   "macro": "st@sm@t100@ir",
+   "macro_value": "0.476",
+   "csv_value": "0.476",
+   "ok": true
+  },
+  {
+   "check": "sweep mean 1.0 musiq_crop1024",
+   "macro": "st@sm@t100@musiqc",
+   "macro_value": "40.12",
+   "csv_value": "40.12",
+   "ok": true
+  },
+  {
+   "check": "sweep mean 1.1 imagereward",
+   "macro": "st@sm@t110@ir",
+   "macro_value": "1.031",
+   "csv_value": "1.031",
+   "ok": true
+  },
+  {
+   "check": "sweep mean 1.1 musiq_crop1024",
+   "macro": "st@sm@t110@musiqc",
+   "macro_value": "49.22",
+   "csv_value": "49.22",
+   "ok": true
+  },
+  {
+   "check": "sweep mean 1.3333333333333333 imagereward",
+   "macro": "st@sm@tlogn@ir",
+   "macro_value": "1.179",
+   "csv_value": "1.179",
+   "ok": true
+  },
+  {
+   "check": "sweep mean 1.3333333333333333 musiq_crop1024",
+   "macro": "st@sm@tlogn@musiqc",
+   "macro_value": "63.09",
+   "csv_value": "63.09",
+   "ok": true
+  },
+  {
+   "check": "sweep mean 1.45 imagereward",
+   "macro": "st@sm@t145@ir",
+   "macro_value": "1.017",
+   "csv_value": "1.017",
+   "ok": true
+  },
+  {
+   "check": "sweep mean 1.45 musiq_crop1024",
+   "macro": "st@sm@t145@musiqc",
+   "macro_value": "65.87",
+   "csv_value": "65.87",
+   "ok": true
+  },
+  {
+   "check": "default shift imagereward",
+   "macro": "st@ds@d@def@ir",
+   "macro_value": "-3.701",
+   "csv_value": "-3.701",
+   "ok": true
+  },
+  {
+   "check": "default shift imagereward CI",
+   "macro": "st@ds@ci@def@ir",
+   "macro_value": "[-3.959, -3.419]",
+   "csv_value": "[-3.959, -3.419]",
+   "ok": true
+  },
+  {
+   "check": "default shift musiq",
+   "macro": "st@ds@d@def@musiq",
+   "macro_value": "-20.05",
+   "csv_value": "-20.05",
+   "ok": true
+  },
+  {
+   "check": "default shift musiq CI",
+   "macro": "st@ds@ci@def@musiq",
+   "macro_value": "[-24.68, -13.86]",
+   "csv_value": "[-24.68, -13.86]",
+   "ok": true
+  },
+  {
+   "check": "lattice ratio g3.5",
+   "macro": "st@k@ratio@g3p5",
+   "macro_value": "12.0",
+   "csv_value": "12.0",
+   "ok": true
+  },
+  {
+   "check": "lattice ratio g3.5 CI",
+   "macro": "st@k@ci@g3p5",
+   "macro_value": "[7.8, 18.6]",
+   "csv_value": "[7.8, 18.6]",
+   "ok": true
+  },
+  {
+   "check": "lattice ratio g4.5",
+   "macro": "st@k@ratio@g4p5",
+   "macro_value": "7.4",
+   "csv_value": "7.4",
+   "ok": true
+  },
+  {
+   "check": "lattice ratio g4.5 CI",
+   "macro": "st@k@ci@g4p5",
+   "macro_value": "[4.5, 12.7]",
+   "csv_value": "[4.5, 12.7]",
+   "ok": true
+  },
+  {
+   "check": "lattice guidance_g4p5_over_g3p5_dev",
+   "macro": "st@k@two@gdev",
+   "macro_value": "0.52",
+   "csv_value": "0.52",
+   "ok": true
+  },
+  {
+   "check": "lattice guidance_g4p5_over_g3p5_dev CI",
+   "macro": "st@k@twoci@gdev",
+   "macro_value": "[0.41, 0.64]",
+   "csv_value": "[0.41, 0.64]",
+   "ok": true
+  },
+  {
+   "check": "lattice guidance_g4p5_over_g3p5_krea",
+   "macro": "st@k@two@gkrea",
+   "macro_value": "0.89",
+   "csv_value": "0.89",
+   "ok": true
+  },
+  {
+   "check": "lattice guidance_g4p5_over_g3p5_krea CI",
+   "macro": "st@k@twoci@gkrea",
+   "macro_value": "[0.67, 1.11]",
+   "csv_value": "[0.67, 1.11]",
+   "ok": true
+  }
+ ]
+}

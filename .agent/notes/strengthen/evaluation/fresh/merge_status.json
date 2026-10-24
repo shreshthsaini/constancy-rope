@@ -1,0 +1,13 @@
+{
+  "block": "fresh",
+  "complete": true,
+  "expected_images": 900,
+  "groups": {
+    "fresh": {
+      "complete": true,
+      "rows": 900,
+      "sharded": true,
+      "merge_receipt": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/fresh/merge_receipt.json"
+    }
+  }
+}

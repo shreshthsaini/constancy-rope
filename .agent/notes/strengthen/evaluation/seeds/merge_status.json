@@ -1,0 +1,19 @@
+{
+  "block": "seeds",
+  "complete": true,
+  "expected_images": 638,
+  "groups": {
+    "seeds_seed1": {
+      "complete": true,
+      "rows": 264,
+      "sharded": true,
+      "merge_receipt": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/seeds_seed1/merge_receipt.json"
+    },
+    "seeds_seed2": {
+      "complete": true,
+      "rows": 374,
+      "sharded": true,
+      "merge_receipt": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/seeds_seed2/merge_receipt.json"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "role": "amended_confirmation",
+  "H1": "supported",
+  "H2": "supported",
+  "H3": "not_tested_historical_only",
+  "family": [
+    {
+      "hypothesis": "H1_IR",
+      "n": 337,
+      "margin": 0.08197713636363636,
+      "role": "amended_confirmation",
+      "family_size": 3,
+      "complete_block": true,
+      "delta": 0.009458513353115722,
+      "lo": -0.02006093048961425,
+      "hi": 0.04080602744807121,
+      "p": 0.0004997501249375312,
+      "p_holm": 0.0014992503748125937,
+      "status": "supported"
+    },
+    {
+      "hypothesis": "H1_Pick",
+      "n": 337,
+      "margin": 0.1,
+      "role": "amended_confirmation",
+      "family_size": 3,
+      "complete_block": true,
+      "delta": -0.01672787199388238,
+      "lo": -0.05946979338761961,
+      "hi": 0.025597941061863447,
+      "p": 0.0004997501249375312,
+      "p_holm": 0.0014992503748125937,
+      "status": "supported"
+    },
+    {
+      "hypothesis": "H2_MUSIQ",
+      "n": 150,
+      "margin": null,
+      "role": "amended_confirmation",
+      "family_size": 3,
+      "complete_block": true,
+      "delta": 1.5580304718017581,
+      "lo": 0.4263754580815637,
+      "hi": 2.718239090601603,
+      "p": 0.004497751124437781,
+      "p_holm": 0.004497751124437781,
+      "status": "supported"
+    }
+  ],
+  "p_method": "approximate centered paired-bootstrap, plus-one tails, Holm3",
+  "interval_method": "nominal paired percentile bootstrap95; additional support gate",
+  "historical_complete": true,
+  "fresh_complete": true,
+  "H1_pool_order": "historical187 manifest order then fresh150 manifest order",
+  "H2_population": "fresh150 only",
+  "H1_caveat": "337 includes previously inspected held-out data"
+}

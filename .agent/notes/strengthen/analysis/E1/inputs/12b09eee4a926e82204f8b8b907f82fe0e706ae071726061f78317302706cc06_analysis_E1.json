@@ -1,0 +1,34 @@
+{
+  "block": "E1",
+  "resolution": "4096x4096",
+  "protocol_version": "senior_review_20261019",
+  "prompts": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/prompts/fresh150.jsonl",
+  "preregistration": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/prereg_strengthen.md",
+  "sources": [
+    {
+      "name": "fresh",
+      "per_image": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/fresh/per_image.csv",
+      "imagereward": "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/fresh/ir.csv",
+      "methods": [
+        "sega_official",
+        "temp_only_sbase",
+        "dype",
+        "ntk2",
+        "sega_base_none",
+        "ntk2_sref"
+      ],
+      "aliases": {},
+      "artifacts": [
+        "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/fresh/metrics.json",
+        "/scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/fresh/summary.csv"
+      ],
+      "seeds": [
+        0
+      ]
+    }
+  ],
+  "heldout_confirmation": {
+    "per_prompt": "/work/09032/saini_2/vista/Projects/Exploration/constancy_rope/.agent/notes/main2/heldout_per_prompt.csv",
+    "prompts": "/scratch/09032/saini_2/constancy_rope/prompts/aesthetic4k_eval.jsonl"
+  }
+}

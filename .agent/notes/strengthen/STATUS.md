@@ -1,42 +1,32 @@
 # Strengthening campaign status (analyst view)
 
-Updated 2026-10-24 06:50 CDT by the second analyst (Claude Opus 5.5 subagent). It never submits, cancels or
-ssh-es; it publishes task scripts into taskq/pending and analyses on CPU. Stopped at the 6-hour rule: the fleet
-never started, so everything is staged.
+Updated 2026-10-24 afternoon CDT by the final analyst (Claude Opus 5.5 subagent). CPU only: no ssh, sbatch,
+scancel or broad kills; nothing on scratch was deleted; nothing was committed or pushed.
 
-## State
+## State: COMPLETE (Qwen not run)
 
-- Generation complete and validated for every Krea block: factorial 374, tsweep 165, fresh 900, seeds 638
-  (+110 reused seed-1 images from out_krea/seed1), ckpt_matrix 32, default_shift 8.
-- 22 evaluation tasks (90_eval_*, 90_ir_*) published 2026-10-24 00:45 CDT by
-  `scripts/strengthen_evaluation.py <block>_queue.json --references <refs> --publish` (aesthetic4k refs; fresh uses
-  prompts/fresh150_refs.jsonl). All `bash -n` clean. Receipts: `evaluation/<block>/status.json`.
-- Fleet CR26 (job 1096129, 3 GH200, 12 h) PENDING (Priority, no start estimate) from 00:45 to 06:50 CDT. Pending 22,
-  running 0, done 0. Expected cost once running: about 4 s per 4K image, 2,117 images, about 1 h wall on 3 workers.
-- Qwen E3 not run (60 failed 82_ tasks preserved; diagnosis in qwen_failure_diagnosis.json).
+- All 22 evaluation tasks (90_eval_*, 90_ir_*) are in taskq/done; 0 failed. `scripts/strengthen_confirm.py run`
+  merged every block (merge_status.json complete for factorial, tsweep, fresh, seeds, ckpt_matrix, default_shift)
+  and wrote complete analyses to analysis/{P1,P3,E1,E2,ckpt_matrix,default_shift}. Exit 0, no script fix needed.
+- CSV exports: /scratch/09032/saini_2/constancy_rope/eval_krea/strengthen/analysis_*.csv (20 files).
+- Outcomes: H1 supported (pooled 337), H2 supported (fresh 150), H3 withdrawn; fresh-only PickScore equivalence not
+  established. Details and every number: RESULTS.md; paste-ready lines: DIGEST.md.
+- Verification (verification/): independent recomputation from raw CSVs matches all 223 contrast cells and the
+  registered family within 1e-14; 71 of 71 paper macros match the CSVs and 67 of 69 appear verbatim in a scratch
+  build of the integrated paper (the other 2 are unprinted macros). Evaluator versions equal the original campaign.
+- Qwen E3: not run (60 of 60 82_ tasks OOM next to a co-resident ~45 GiB process; qwen_failure_diagnosis.json).
 
-## FROZEN until every block is merged
+## Paper files (owned by this analyst; text agent integrates)
 
-Each 90_ task first runs `sha256sum -c evaluation/<block>/dependencies.sha256`, which covers
-scripts/strengthen_analysis.py, strengthen_evaluation.py, eval.py, imagereward_score.py, strengthen_diagnostics.py,
-crope/utils.py, crope/metrics/*.py and the frozen generation sources. Do not edit them; the merge re-checks too.
-Verified unchanged at 06:50 CDT. New code lives in scripts/strengthen_confirm.py (not covered).
+- paper/sec/results_confirmation.tex: final, unguarded; inputs the two main-text table floats.
+- paper/tables/strengthen_tables.py writes num_strengthen.tex (1,660 macros), tab_strengthen_*.tex (9 tables),
+  float_strengthen_*.tex (one float per table) and float_strengthen_appendix.tex (appendix section app:confirm).
+- paper/figs/strengthen/fs_factorial.pdf, fs_sweep.pdf, fs_confirm.pdf (audit clean; rendered and inspected).
+- paper/INTEGRATION.md: where to \input, superseded sentences, summary paragraph.
 
-## Done
+## Next (other owners)
 
-- CPU dry run of the full chain on mock metrics with real identities and sidecars (all blocks complete, counts
-  935/275/900/1122; tables compile; figures pass the style audit). Mock files only in the session scratchpad.
-- P2 lattice measured from real spectra (see RESULTS.md): dev/Krea 12.0x [7.8, 18.6] at g3.5, 7.4x [4.5, 12.7] at
-  g4.5; shared-bin guidance ratio 0.52x on dev, 0.89x on Krea.
-- Paper staging: paper/sec/results_confirmation.tex (guarded, macro-driven), paper/tables/strengthen_tables.py
-  (ckpt table extended with the shared-bin rows), paper/figs/strengthen/fs_confirm.py (new), paper/INTEGRATION.md.
-
-## Next, in order (successor)
-
-1. When 90_ tasks reach taskq/done: `crope_py scripts/strengthen_confirm.py run` (merges, runs
-   strengthen_analysis.py P1/P3/E1/E2 and the diagnostic reports into analysis/<block>, exports CSVs to
-   eval_krea/strengthen/, refreshes the auto part of RESULTS.md). Check `strengthen_confirm.py status` first.
-2. `crope_py paper/tables/strengthen_tables.py`; then the three fs_*.py figure scripts; look at every PDF.
-3. Rewrite the hand-written summary in RESULTS.md from the new CSVs; compare evaluator versions in the new
-   metrics.json with eval_krea/main/metrics.json (old seed-0 and seed-1 scores are reused in E1 pooling and E2).
-4. Text owner follows paper/INTEGRATION.md. Commit and push (nothing from this session is committed).
+1. Text agent: follow paper/INTEGRATION.md (preamble line, two \input lines, placeholder comments, superseded
+   sentences); rebuild and check page budget (the section adds about 3.5 pages).
+2. Figure agent: hero panel (a) still shows base + temp. as one bar; the factorial splits it (temperature carries it).
+3. Commit and push once the user or root session allows it (git push needs SSH to GitHub).
